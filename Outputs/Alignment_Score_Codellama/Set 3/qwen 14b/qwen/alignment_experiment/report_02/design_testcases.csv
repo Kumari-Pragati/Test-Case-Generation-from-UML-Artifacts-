@@ -1,0 +1,120 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-ACCESS-001","User Access Process - First Time Access","Access","1","Application is launched for the first time.","None","1. Launch the application.
+2. System checks if it's the first access.
+3. System prompts for registration.
+4. User completes registration process.
+5. User reaches the home page.","User successfully registers and lands on the home page."
+"TC-ACCESS-002","User Access Process - Already Registered User","Access","1","Application is launched by a previously registered user.","Valid login credentials","1. Launch the application.
+2. System checks if it's the first access.
+3. System prompts for login.
+4. User enters valid login credentials.
+5. System verifies credentials with the server.
+6. User reaches the home page.","User successfully logs in and lands on the home page."
+"TC-JOURNEY-001","Start Journey Process - Ongoing Journey","Journey","2","User is currently on a journey.","None","1. User navigates to the home page.
+2. System checks if a journey is ongoing.
+3. System prompts to start the journey.
+4. User confirms to start the journey.
+5. System checks if the journey is completed.
+6. System calculates emissions.","Journey is started, completed, and emissions are calculated."
+"TC-JOURNEY-002","Change Section Process - No Ongoing Journey","Journey","2","User is not on a journey.","None","1. User navigates to the home page.
+2. System checks if a journey is ongoing.
+3. System prompts to change sections.
+4. User confirms to change sections.
+5. User selects a horizontal menu.","User successfully changes sections via the horizontal menu."
+"TC-JOURNEY-003","Stay on Home Page - No Ongoing Journey and No Section Change","Journey","2","User is not on a journey and does not want to change sections.","None","1. User navigates to the home page.
+2. System checks if a journey is ongoing.
+3. System prompts to change sections.
+4. User declines to change sections.","User stays on the home page."
+"TC-STATISTICS-001","View Weekly Report - Yes Option Selected","Statistics","3","User is viewing statistics.","None","1. User views statistics.
+2. System asks if the user wants to view a weekly report.
+3. User confirms yes.
+4. System generates a weekly report.
+5. User returns to the statistics menu.","Weekly report is generated and user returns to statistics menu."
+"TC-STATISTICS-002","View Weekly Report - No Option Selected","Statistics","3","User is viewing statistics.","None","1. User views statistics.
+2. System asks if the user wants to view a weekly report.
+3. User confirms no.
+4. User remains in the statistics menu.","User remains in the statistics menu without generating a report."
+"TC-PROFILE-001","Update Account - Yes Option Selected","Profile","4","User is viewing their personal data.","New valid data","1. User views personal data.
+2. System asks if the user wants to update the account.
+3. User confirms yes.
+4. User inputs new data.
+5. System updates the data.","Account data is updated successfully."
+"TC-PROFILE-002","Logout Process - Yes Option Selected","Profile","4","User is viewing their personal data.","None","1. User views personal data.
+2. System asks if the user wants to logout.
+3. User confirms yes.
+4. System logs out the user.","User is logged out successfully."
+"TC-PROFILE-003","Change Section - Yes Option Selected","Profile","4","User is viewing their personal data.","None","1. User views personal data.
+2. System asks if the user wants to change sections.
+3. User confirms yes.
+4. User selects a horizontal menu.","User successfully changes sections via the horizontal menu."
+"TC-LOGIN-001","Successful Login Process","Login","5","User has valid login credentials.","Valid username and password","1. User initiates login process.
+2. Application sends credentials to the server.
+3. Server verifies data with the database.
+4. Server compares entered data with stored data.
+5. Server confirms successful login to the application.
+6. Application informs user of successful login.","User successfully logs in."
+"TC-LOGIN-002","Failed Login Process - Invalid Credentials","Login","5","User has invalid login credentials.","Invalid username and password","1. User initiates login process.
+2. Application sends credentials to the server.
+3. Server verifies data with the database.
+4. Server compares entered data with stored data.
+5. Server confirms failed login to the application.
+6. Application informs user of failed login.","User receives a failed login message."
+"TC-EMISSIONS-001","Calculate Emissions Process - Successful Route Calculation","Emissions","6","User requests route calculation.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server calculates and sends data to the application.
+4. Application adds the route.
+5. Server returns emissions data.
+6. Application returns CO2 emissions to the user.","CO2 emissions are successfully calculated and displayed to the user."
+"TC-EMISSIONS-002","Calculate Emissions Process - Invalid Route Details","Emissions","6","User requests route calculation with invalid details.","Invalid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server attempts to calculate and send data but fails due to invalid input.
+4. Application displays an error message.","User receives an error message indicating invalid route details."
+"TC-EMISSIONS-003","Calculate Emissions Process - No Route Calculation Requested","Emissions","6","User does not request route calculation.","None","1. User dispatches a request to the application.
+2. Application does not initiate route calculation.
+3. Application displays a message indicating no route calculation was requested.","User receives a message indicating no route calculation was performed."
+"TC-EMISSIONS-004","Calculate Emissions Process - Server Failure During Calculation","Emissions","6","Server fails during route calculation.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server attempts to calculate and send data but fails.
+4. Application displays an error message.","User receives an error message indicating a failure in route calculation."
+"TC-EMISSIONS-005","Calculate Emissions Process - Database Failure During Verification","Emissions","6","Database fails during route calculation verification.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server attempts to verify data with the database but fails.
+4. Application displays an error message.","User receives an error message indicating a failure in database verification."
+"TC-EMISSIONS-006","Calculate Emissions Process - Successful Route Calculation with Edge Cases","Emissions","6","User requests route calculation with edge case details.","Edge case route details (e.g., very short or long routes)","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server calculates and sends data to the application.
+4. Application adds the route.
+5. Server returns emissions data.
+6. Application returns CO2 emissions to the user.","CO2 emissions are successfully calculated and displayed to the user, even for edge case routes."
+"TC-EMISSIONS-007","Calculate Emissions Process - No Data Found in Database","Emissions","6","No data found in the database for route calculation.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server attempts to verify data with the database but finds no matching records.
+4. Application displays an error message.","User receives an error message indicating no data was found in the database."
+"TC-EMISSIONS-008","Calculate Emissions Process - Duplicate Route Calculation Requests","Emissions","6","User makes duplicate route calculation requests.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server calculates and sends data to the application.
+4. Application adds the route.
+5. Server returns emissions data.
+6. User dispatches another identical request.
+7. Application processes the second request as a duplicate.
+8. Application returns CO2 emissions to the user.","Second route calculation request is processed as a duplicate, and emissions are displayed to the user."
+"TC-EMISSIONS-009","Calculate Emissions Process - Server Timeout During Calculation","Emissions","6","Server times out during route calculation.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server attempts to calculate and send data but times out.
+4. Application displays a timeout error message.","User receives a timeout error message indicating the server timed out during route calculation."
+"TC-EMISSIONS-010","Calculate Emissions Process - Network Error During Data Transfer","Emissions","6","Network error occurs during data transfer.","Valid route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server attempts to calculate and send data but encounters a network error.
+4. Application displays a network error message.","User receives a network error message indicating a problem occurred during data transfer."
+"TC-EMISSIONS-011","Calculate Emissions Process - Successful Route Calculation with Large Data Set","Emissions","6","User requests route calculation with a large data set.","Large route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server calculates and sends data to the application.
+4. Application adds the route.
+5. Server returns emissions data.
+6. Application returns CO2 emissions to the user.","CO2 emissions are successfully calculated and displayed to the user, even for large data sets."
+"TC-EMISSIONS-012","Calculate Emissions Process - Successful Route Calculation with Minimal Data Set","Emissions","6","User requests route calculation with minimal data set.","Minimal route details","1. User dispatches a request to the application.
+2. Application starts route calculation.
+3. Server calculates and sends data to the application.
+4. Application adds the route.
+5. Server returns emissions data.
+6. Application returns CO2 emissions to the user.","CO2 emissions are successfully calculated and displayed to the user, even for minimal data sets."

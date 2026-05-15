@@ -1,0 +1,140 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Registration Validation","Authentication","7 (Modelli dei Casi d’uso)","User has opened the registration form in the app.","Valid email (e.g., test@example.com), valid password (8+ characters), valid name (e.g., ""John Doe"")","1. User enters valid email address in the email field.
+2. User enters valid password in the password field.
+3. User enters valid name in the name field.
+4. User clicks the ""Register"" button.","System validates inputs and creates a new user account with the provided details. User receives a confirmation message."
+"TC-Authentication-002","User Login with Valid Credentials","Authentication","7 (Modelli dei Casi d’uso)","User has registered and confirmed an account.","Registered email (e.g., test@example.com), correct password","1. User enters registered email in the email field.
+2. User enters correct password in the password field.
+3. User clicks the ""Login"" button.","System authenticates the user and grants access to the app’s main dashboard."
+"TC-Authentication-003","User Login with Invalid Credentials","Authentication","7 (Modelli dei Casi d’uso)","User has opened the login screen.","Registered email (e.g., test@example.com), incorrect password","1. User enters registered email in the email field.
+2. User enters incorrect password in the password field.
+3. User clicks the ""Login"" button.","System displays an error message: ""Invalid email or password."""
+"TC-CarbonFootprintTrack-004","Display User Carbon Footprint Summary","Carbon Footprint Tracking","16 (Requisiti funzionali)","User is logged in and has recorded at least one activity.","User with recorded activities (e.g., travel, energy usage)","1. User navigates to the ""Carbon Footprint"" section.
+2. User selects the ""Summary"" option.","System displays a summary of the user’s total carbon footprint, broken down by activity type (e.g., travel, energy, food)."
+"TC-CarbonFootprintTrack-005","Record New Activity for Carbon Footprint","Carbon Footprint Tracking","16 (Requisiti funzionali)","User is logged in and in the ""Add Activity"" screen.","Activity type (e.g., ""Travel""), distance (e.g., 100 km), transport method (e.g., ""Car"")","1. User selects ""Travel"" as the activity type.
+2. User enters ""100"" in the distance field.
+3. User selects ""Car"" as the transport method.
+4. User clicks the ""Save"" button.","System calculates and records the carbon footprint for the activity. User sees a confirmation message: ""Activity saved successfully."""
+"TC-EventHandling-006","System Event Trigger for Carbon Footprint Update","Event Handling","6 (Glossario), 7 (Modelli dei Casi d’uso)","User has recorded activities and the system is connected to the server.","System event triggered by a scheduled update (e.g., daily carbon footprint recalculation)","1. System detects a scheduled event for carbon footprint recalculation.
+2. System fetches updated data from the server.","System recalculates the user’s carbon footprint and updates the database. User receives a notification: ""Your carbon footprint has been updated."""
+"TC-DatabaseIntegration-007","Store User Activity Data in Database","Database Integration","31 (Appendice: Requisiti del Database)","User has recorded an activity and the system is connected to the server.","Activity details (e.g., type: ""Travel"", distance: 100 km, transport: ""Car""), user ID","1. User records an activity (as per TC-CARBONFOOTPRINT-002).
+2. System sends activity data to the server.","Database stores the activity data under the user’s record with a unique ID. Data includes activity type, distance, transport method, and timestamp."
+"TC-DatabaseIntegration-008","Retrieve User Carbon Footprint Data from Database","Database Integration","31 (Appendice: Requisiti del Database)","User is logged in and has recorded activities.","User ID with existing carbon footprint data","1. User requests to view carbon footprint summary.
+2. System queries the database for user’s carbon footprint data.","System retrieves and displays the user’s carbon footprint data, including all recorded activities and their emissions."
+"TC-ServerCommunication-009","Server API Response for Carbon Footprint Calculation","Server Communication","6 (Glossario: API), 21 (Requisiti di Prodotto: Efficienza)","User has recorded an activity and the system is connected to the server.","Activity details (e.g., type: ""Travel"", distance: 100 km), API endpoint for carbon calculation","1. System sends activity data to the server via API.
+2. Server processes the request and returns a carbon footprint value.","System receives a valid JSON response with the calculated carbon footprint value (e.g., {""footprint"": 20.5}). System updates the user’s record accordingly."
+"TC-Usability-010","Accessibility for Screen Reader Users","Usability","22 (Requisiti di Prodotto: Usabilità e accessibilità)","Screen reader software (e.g., TalkBack) is enabled on the device.","User with screen reader enabled","1. User navigates to the ""Carbon Footprint"" section using screen reader.
+2. User requests screen reader to read the summary of carbon footprint data.","Screen reader accurately reads all displayed carbon footprint data, including activity types, values, and summary statistics."
+"TC-Security-011","Secure User Data Transmission","Security","22 (Requisiti di Prodotto: Sicurezza)","User is logged in and attempting to record an activity.","Activity details (e.g., type: ""Travel"", distance: 100 km), HTTPS connection enabled","1. User records an activity.
+2. System transmits data to the server over HTTPS.","Data is encrypted during transmission. Server validates the user’s session token before processing the request. No warnings or errors are displayed to the user."
+"TC-Maintainability-012","Update Application Without Data Loss","Maintainability","23 (Requisiti di Prodotto: Manutenibilità)","User has recorded activities and the app is installed on the device.","Updated app version (e.g., v2.0), user data stored locally and on the server","1. User installs the updated app version.
+2. User logs in to the app.","All previously recorded activities and carbon footprint data are preserved and accessible. No data loss occurs during the update process."
+"TC-UserAccount-013","Successful User Registration","User Account","8","App installed on the device","Valid username, password, email","1. Launch the app for the first time.
+2. Select the option to create a new account.
+3. Fill in the registration form with valid username, password, and email.
+4. Submit the form.","User is notified of successful registration and redirected to the Home page. User data and device info are saved in the database."
+"TC-UserAccount-014","Duplicate Username Registration Attempt","User Account","8","App installed on the device, an existing account with the same username","Username already registered, valid password, email","1. Launch the app for the first time.
+2. Select the option to create a new account.
+3. Fill in the registration form with an existing username, valid password, and email.
+4. Submit the form.","Error notification stating the username is already in use. System suggests trying to log in instead."
+"TC-UserAccount-015","Successful User Login","User Account","8","App installed, user has an existing account","Valid username and password","1. Launch the app.
+2. Enter valid username and password in the login form.
+3. Submit the form.","User is authenticated and redirected to the main application page. Device data is saved in the database."
+"TC-UserAccount-016","Failed Login with Invalid Credentials","User Account","8","App installed, user has an existing account","Invalid username or password","1. Launch the app.
+2. Enter incorrect username or password in the login form.
+3. Submit the form.","Error notification prompting to re-enter credentials. Option to create a new account is displayed."
+"TC-UserProfile-017","View User Profile","User Profile","9","User is logged in","None","1. Navigate to the Profile page.
+2. Click the button to view profile.","User’s account details (username, email) are displayed. Links to modify profile or password are visible."
+"TC-UserProfile-018","Modify User Profile","User Profile","9","User is on the Profile page","Updated email or password","1. Click the ""Modify Profile"" button.
+2. Update email or password fields.
+3. Submit changes.","Updated data is saved in the database. User is redirected to the Profile page with updated details."
+"TC-UserProfile-019","Discard Profile Modifications","User Profile","9","User is on the Profile page, modifications are made","None","1. Click the ""Modify Profile"" button.
+2. Update email or password fields.
+3. Click the ""Cancel"" button.","Changes are discarded. User remains on the Profile page with original data."
+"TC-UserProfile-020","Delete User Profile","User Profile","10","User is on the Profile page","None","1. Click the ""Delete Account"" button.
+2. Confirm deletion.","User data is removed from the database. User is redirected to the Login page."
+"TC-UserProfile-021","Cancel Profile Deletion","User Profile","10","User is on the Profile page","None","1. Click the ""Delete Account"" button.
+2. Click the ""Cancel"" button.","Deletion is canceled. User remains on the Profile page."
+"TC-UserAccount-022","Successful Logout","User Account","10","User is logged in and on the Profile page","None","1. Click the ""Logout"" button.","User is disconnected and redirected to the Login page."
+"TC-CarbonFootprint-023","View Carbon Footprint","Carbon Footprint","11","User is logged in","None","1. Click the ""Rilevamento del Footprint"" button.","The last calculated Carbon Footprint is displayed on the screen."
+"TC-DeviceHardware-024","Hardware Scan Execution","Device Hardware","11","User is on the Hardware Scan page","None","1. Click the ""Scansione"" button.","System retrieves hardware component data via API and displays it to the user."
+"TC-DeviceHardware-025","Update Device Components","Device Hardware","12","None","User confirms component replacement","1. Click the ""Cambio componenti del dispositivo"" button.
+2. Complete the questionnaire confirming component replacement.
+3. Submit the form.","Database is updated with the recalculated Carbon Footprint."
+"TC-DeviceHardware-026","Exit Component Update Without Confirmation","Device Hardware","12","None","None","1. Click the ""Cambio componenti del dispositivo"" button.
+2. Click the ""Exit"" button without confirming any changes.","User exits the page without updating the database."
+"TC-Authentication-027","Privacy Policy Acceptance on First Access","Authentication","15","User has not accessed the application before","None","1. User opens the application for the first time
+2. System displays privacy policy and usage terms
+3. User reads the terms
+4. User accepts the terms by clicking ""Accept""","User is granted access to the application and can proceed to registration/login"
+"TC-UserProfile-028","User Profile Registration","User Profile","15","User has accepted privacy policy","Valid email, password, name, optional fields (e.g., device model)","1. User navigates to registration screen
+2. User fills mandatory fields (email, password, name)
+3. User optionally fills additional fields (e.g., device model)
+4. User clicks ""Register"" button","User profile is created successfully, and user is redirected to login or dashboard"
+"TC-UserProfile-029","Update User Profile Information","User Profile","16","User is logged in with an existing profile","Updated email, name, or optional fields (e.g., device model)","1. User navigates to profile settings
+2. User modifies one or more fields (e.g., email, name)
+3. User clicks ""Save"" or ""Update"" button","Profile updates successfully, and changes are reflected in the system"
+"TC-UserProfile-030","Log Out from Application","User Profile","16","User is logged in","None","1. User navigates to logout option
+2. User confirms logout action","User session terminates, and user is redirected to login screen or home screen without access to profile data"
+"TC-CarbonFootprint-031","Display Carbon Footprint Calculation","Carbon Footprint","17","User is logged in and has registered a device","Device model, component type (e.g., battery, screen), or full device replacement","1. User selects option to calculate carbon footprint
+2. User inputs device model and selects component or full replacement
+3. User confirms calculation","System displays the calculated carbon footprint impact for the selected action"
+"TC-DataManagement-032","Data Deletion Upon Uninstallation","Data Management","17","User has installed the application and logged in","None","1. User uninstalls the application from the device","All local application data is permanently deleted from the device"
+"TC-DataManagement-033","Elimination of Personal Data Upon Account Deletion","Data Management","18","User has an active account with personal data stored","None","1. User deletes their account (as per TC-USERPROFILE-004)","All personal data and sensitive information associated with the user are permanently deleted from the database"
+"TC-DeviceInformation-034","Hardware Scanning and Data Retrieval","Device Information","18","User is logged in and has a compatible device","None","1. User navigates to hardware scan option
+2. User grants necessary permissions for data access
+3. System scans device for memory, battery status, and model information","System displays a summary screen with memory usage, battery health, and device model details"
+"TC-Performance-035","Verify Database Query Response Time","Performance","20","Application is connected to Firebase database with sample data loaded","A query retrieving user profile data (e.g., name, ID)","1. Execute a database query to fetch user profile data.
+2. Measure the time taken for the query to return results.
+3. Repeat the test 10 times under normal load conditions.","All query responses must complete within 100 milliseconds."
+"TC-UserInterface-036","Validate UI Element Spacing and Size","User Interface","20","Application UI is rendered on a standard desktop (1920x1080) and mobile (1080x720) resolution","Default UI layout with buttons, dropdowns, and icons","1. Inspect UI elements (buttons, dropdowns, checkboxes) for minimum spacing between interactive components.
+2. Verify that no two selectable elements overlap or are placed too close (e.g., <5px apart).
+3. Check that icons/visual cues (e.g., ""Add User"" button) clearly represent their function without ambiguity.","All interactive elements are spaced adequately (>5px) and visual cues are intuitive."
+"TC-DatabaseSecurity-037","Test SQL Injection Protection","Database Security","21","Application is deployed with a live Firebase database containing test user data","Valid SQL query: `SELECT  FROM users WHERE id = '1'`
+Malicious input: `SELECT  FROM users WHERE id = '1' OR '1'='1'`","1. Submit the valid SQL query via the application’s input field (e.g., search bar).
+2. Observe that the query executes and returns expected results.
+3. Submit the malicious input via the same field.
+4. Verify that the application does not execute the raw input as SQL.","Only the valid query returns data; malicious input is rejected or sanitized."
+"TC-CodeStructure-038","Verify MVC Design Pattern Adherence","Code Structure","21","Source code repository is accessible with at least one feature module (e.g., user authentication)","Codebase files (e.g., `UserController.java`, `UserModel.java`, `UserView.html`)","1. Locate the Model component (e.g., `UserModel.java`) and verify it contains only data and business logic (no UI code).
+2. Locate the View component (e.g., `UserView.html`) and verify it contains only presentation logic (no business logic).
+3. Locate the Controller component (e.g., `UserController.java`) and verify it handles input, updates the Model, and refreshes the View.","Codebase strictly separates Model, View, and Controller responsibilities."
+"TC-DatabaseConfiguratio-039","Validate Firebase Database Integration","Database Configuration","22","Application is configured to use Firebase as the primary database","Sample user data (e.g., `{""id"": ""1"", ""name"": ""Test User""}`)","1. Attempt to write the sample user data to the Firebase database via the application.
+2. Verify the data is successfully stored in the Firebase console.
+3. Retrieve the data back through the application and confirm it matches the original input.","Data is successfully written to and read from Firebase without errors."
+"TC-Connectivity-040","Test Offline Functionality for Critical Features","Connectivity","23","Application is running on a device with simulated offline mode (no internet)","User profile data (e.g., cached locally)","1. Disable internet connection on the test device.
+2. Attempt to perform a critical action requiring internet (e.g., update user profile).
+3. Verify the application displays an appropriate error message (e.g., ""No internet connection"").
+4. Re-enable internet and retry the action.","Action fails gracefully offline with a clear error; succeeds upon reconnection."
+"TC-LegalCompliance-041","Validate Data Usage Compliance","Legal Compliance","23,24","Application is deployed with user data collection enabled","Sample user data including name, email, and location (if applicable)","1. Collect user data via the application (e.g., during registration).
+2. Verify the application does not store or transmit data beyond what is necessary for its core functions.
+3. Check that user data is encrypted during transmission (if applicable).
+4. Confirm the application includes a privacy policy link explaining data usage.","Data is collected, stored, and processed in compliance with GDPR and Italian laws; no unnecessary data is retained."
+"TC-Onboarding-042","User Informed About Resource Usage and Privacy","Onboarding","25,26","Application is downloaded and launched","None","1. Launch the application for the first time.
+2. Observe any pop-up or screen informing the user about resource usage and privacy.","User is shown a notification or screen explaining resource usage and privacy policies."
+"TC-Registration-043","User Account Creation","Registration","26","Application is downloaded from the store","Valid user credentials (email, password, name)","1. Open the application.
+2. Navigate to the registration page.
+3. Enter valid user credentials (email, password, name).
+4. Submit the registration form.","User is redirected to the login page, and their data is saved in the database."
+"TC-AccountManagement-044","Modify User Account Data","Account Management","26","User has completed registration and logged in","Updated user details (e.g., new email, phone number)","1. Log in to the application.
+2. Navigate to the account settings or profile section.
+3. Select the option to modify account data.
+4. Enter updated user details.
+5. Save the changes.","User data is updated in the database."
+"TC-Authentication-045","User Logout","Authentication","26","User has logged in to the application","None","1. Log in to the application.
+2. Navigate to the logout option.
+3. Confirm logout.","User is no longer connected to the application."
+"TC-AccountManagement-046","User Account Deletion","Account Management","26","User has an active account","None","1. Log in to the application.
+2. Navigate to the account settings or profile section.
+3. Select the option to delete the account.
+4. Confirm the deletion.","User is redirected to the login page, their account data is deleted from the database, and they no longer have an account."
+"TC-EcologicalInformatio-047","Display Ecological Impact Information","Ecological Information","27","Application is installed","None","1. Open the application.
+2. Navigate to the section displaying ecological impact information.","User is shown their ecological footprint information on a dedicated page."
+"TC-DeviceInformation-048","Display Device Hardware Information","Device Information","28","User has logged in","None","1. Log in to the application.
+2. Navigate to the device information section.","User sees details about memory, device model, and battery."
+"TC-DataManagement-049","Delete User Data","Data Management","28","User has logged in","None","1. Log in to the application.
+2. Navigate to the data deletion option.
+3. Confirm the deletion of personal data.","User data is removed from the database, and the user is no longer part of the community."
+"TC-Installation-050","Application Disinstallation","Installation","27","Application is installed on the device","None","1. Navigate to the device’s application manager.
+2. Locate the application.
+3. Select the option to uninstall.
+4. Confirm the uninstallation.","Application is no longer present on the device."

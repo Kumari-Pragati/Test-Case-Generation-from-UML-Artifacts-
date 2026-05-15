@@ -1,0 +1,61 @@
+flow
+client -> api_manager: sendrequest(string string)
+api_manager -> server: getstatuscode(date)
+server -> report: getreport()
+server -> locator: getaddress()
+service -> need: getcategory()
+service -> need: getaddress()
+service
+main -> localuser — message=gettoken();
+main -> api_manager — message=[token != null] request(token);
+api_manager -> localuser — message=return status;
+localuser -> main — message=request(data utente);
+localuser -> api_manager — message=new localuser;
+main -> localuser — message=done;
+"api_manager -> main — message=la funzione request restituisce un stringa in formato json, con un campo status;"
+main calls gettoken() to get a token.
+"main sends a request to api_manager with the token, if the token is not null."
+api_manager returns a status.
+localuser requests data from the user.
+localuser creates a new localuser object.
+"main receives the ""done"" message."
+"the diagram models a login process involving a main component, a localuser component, and an api manager."
+the process starts with the main component retrieving a token.
+the token is used to request user data from the api manager.
+"the api manager returns a status, which is then handled by the main component."
+the diagram shows a simple sequence of messages and a conditional check on the token.
+main -> api_manager — message=listjson=request();
+api_manager -> service/need/report — message=[for each entry in listjson]; new; displaylist();
+main sends a listjson request to the api_manager.
+the api_manager iterates through the listjson and calls the displaylist() method on the service/need/report object for each entry.
+the diagram models the interaction between a main application and an api manager to display a list of service/need/report entries.
+the api manager iterates through a list of json data and calls a displaylist method on a service/need/report object for each item.
+main -> api_manager: new
+api_manager -> service/need/report: newentry
+api_manager -> service/need/report: request(newentry)
+service/need/report -> api_manager: done
+main sends a 'new' message to api_manager.
+"api_manager calls the 'newentry' method on service/need/report, passing 'request(newentry)' as an argument."
+service/need/report returns a 'done' message to api_manager.
+the diagram models the process of submitting a new entry to a system.
+the main actor initiates the process by sending a 'new' message to the api manager.
+the api manager then delegates the actual entry creation to the service/need/report component.
+the service/need/report component handles the creation and returns a confirmation ('done') to the api manager.
+main -> api_manager: stampa dai a schermo;
+api_manager -> service/need/report: request(updateentry);
+service/need/report -> api_manager: done;
+main -> api_manager: leggidatinseriti;
+api_manager -> main: [for each dato in datiaggiornati] set(dato);
+api_manager -> main: updateentry->tojson();
+main -> api_manager: done;
+main calls stampa dai a schermo.
+main calls leggidatinseriti.
+"for each dato in datiaggiornati, api_manager calls set(dato)."
+api_manager calls updateentry->tojson().
+api_manager sends request(updateentry) to service/need/report.
+service/need/report sends done to api_manager.
+api_manager sends done to main.
+"the diagram models a process where data is read, transformed (likely to json), and sent to a service or report generation component."
+the loop suggests that multiple data items need to be processed.
+"the ""done"" messages indicate successful completion of each step."
+======================================================================

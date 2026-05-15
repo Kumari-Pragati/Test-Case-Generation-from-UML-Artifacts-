@@ -1,0 +1,392 @@
+REPORT: Report_7_uml_pages.pdf
+======================================================================
+
+===== Report_7_uml_pages.pdf | Page 1 =====
+UML Type: other
+- Diagram illustrating a system architecture
+
+Components:
+- Authentication System — kind=system;
+- UserProfile — kind=class; attributes=[user_id: Integer, ...]; operations=[]; role=User Data
+- DataManager — kind=class; attributes=[]; operations=[]; role=Data Management
+- ReportHandler — kind=class; attributes=[]; operations=[]; role=Report Generation
+- NotifySystem — kind=system;
+- Achievements — kind=class; attributes=[achievement_id: Integer, ...]; operations=[]; role=Achievement Data
+- WebServer — kind=system;
+- Database — kind=system;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Authentication System -> UserProfile — association; label="manage"; explanation="Manages user data"
+- Authentication System -> DataManager — association; label="provide data"; explanation="Provides data to the DataManager"
+- DataManager -> ReportHandler — association; label="send reports"; explanation="Sends reports to the ReportHandler"
+- DataManager -> Database — association; label="access data"; explanation="Accesses data from the Database"
+- ReportHandler -> WebServer — association; label="display reports"; explanation="Displays reports via the WebServer"
+- NotifySystem -> Achievements — association; label="notify"; explanation="Notifies about achievements"
+- UserProfile -> Achievements — association; label="has"; explanation="User has achievements"
+
+Main Flows (step by step):
+- Authentication System -> UserProfile — association; label="manage"
+- DataManager -> ReportHandler — association; label="send reports"
+- DataManager -> Database — association; label="access data"
+- ReportHandler -> WebServer — association; label="display reports"
+- NotifySystem -> Achievements — association; label="notify"
+- UserProfile -> Achievements — association; label="has"
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- "Ingeneria del Software 2024/25 – docente: prof. Agostino Cortesi"
+
+Observations:
+- The diagram models a system architecture with components for authentication, user profile management, data management, report generation, notification, and achievement tracking.
+- The DataManager component is central, providing data to the ReportHandler and accessing the Database.
+- The ReportHandler displays reports via the WebServer.
+- The NotifySystem is responsible for notifying users about achievements.
+
+===== Report_7_uml_pages.pdf | Page 2 =====
+UML Type: class
+
+Components:
+- Report — id: String; period: String; username: String; consumoTotale: Double; consumo: Double; commento: String
+- Utenti — id: String; nome: String; cognome: String; dataNascita: Date; email: String; password: String; ruolo: String
+- Obiettivi — id: Integer; achievement: String; claim: Boolean
+- Consumo — id: String; tipo: String; quantita: Double; data: Date
+- Gioco — greenPoints: Integer
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Report -> Utenti — association, role="crea"
+- Report -> Consumo — association, role="registra"
+- Report -> Obiettivi — association, role="gestisce"
+- Utenti -> Consumo — association, role="gestisce"
+- Consumo -> Gioco — association, role="aggiorna"
+
+Main Flows (step by step):
+- Utenti -> Report: crea
+- Report: registra consumo
+- Report: genera commento
+- Report: calcola consumo totale
+- Report: suggerimento
+- Obiettivi: gestisce obiettivo
+- Gioco: incrementaGreenPoints
+- Gioco: decrementaGreenPoints
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a system for managing reports, user accounts, consumption data, and game scores.
+- Users create reports that record consumption data, which is then used to generate suggestions and manage objectives.
+- The system tracks green points earned through consumption and updates game scores.
+
+===== Report_7_uml_pages.pdf | Page 3 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=activity;
+- Local User — kind=activity;
+- Data Manager — kind=activity;
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User — message="GetDataFromUser";
+- Main -> Data Manager — message="CheckData(data_user)";
+- Main -> Data Manager — message="Richiesta di reinserire i dati";
+- Main -> Data Manager — message="AddUser(data_user)";
+- Main -> Local User — message="Done";
+- Data Manager -> Main — message="Success";
+
+Main Flows (step by step):
+- Main -> Local User: GetDataFromUser
+- Main -> Data Manager: CheckData(data_user)
+- Main -> Data Manager: Richiesta di reinserire i dati
+- Main -> Data Manager: AddUser(data_user)
+- Main -> Local User: Done
+- Data Manager -> Main: Success
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of creating a user.
+- The Main component initiates the process by requesting user data from the Local User.
+- The Data Manager checks the data and, if necessary, prompts the user to re-enter it.
+- Finally, the Data Manager adds the user and signals success back to the Main component.
+
+===== Report_7_uml_pages.pdf | Page 4 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=component;
+- CheckAuthenticated — kind=component; attributes=[]; operations=[]; role=Authentication;
+- DataManager — kind=component; attributes=[]; operations=[]; role=Data Access
+
+Actors / Lifelines:
+- Main
+- CheckAuthenticated
+- DataManager
+
+Relationships / Links:
+- Main -> CheckAuthenticated — type=message; label="CheckAuthenticated(currentuser)"; explanation="Main calls CheckAuthenticated with current user";
+- CheckAuthenticated -> DataManager — type=message; label="RequestDataUser(currentuser)"; explanation="CheckAuthenticated requests data from DataManager";
+- DataManager -> CheckAuthenticated — type=message; label="Success"; explanation="DataManager returns success to CheckAuthenticated";
+- CheckAuthenticated -> Main — type=message; label="Success"; explanation="CheckAuthenticated passes success to Main"
+
+Main Flows (step by step):
+- Main -> CheckAuthenticated — CheckAuthenticated(currentuser);
+- CheckAuthenticated -> DataManager — RequestDataUser(currentuser);
+- DataManager -> CheckAuthenticated — Success;
+- CheckAuthenticated -> Main — Success
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram shows the flow of a user authentication process. The Main component initiates the process by calling CheckAuthenticated, which then requests user data from the DataManager.
+
+Observations:
+- The diagram models a sequence of interactions between components to authenticate a user.
+- The flow starts with the Main component initiating the authentication process.
+- The authentication process involves checking the user's credentials and retrieving user data from the DataManager.
+- The success of the authentication is then passed back to the Main component.
+
+===== Report_7_uml_pages.pdf | Page 5 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=component;
+- Local User — kind=component;
+- Data Manager — kind=component;
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User: CheckAuthenticated(currentUser);
+- Local User -> Data Manager: RequestData();
+- Data Manager -> Local User: Done;
+- Data Manager -> Local User: UpdateData(dataModified);
+- Local User -> Data Manager: Success;
+
+Main Flows (step by step):
+1. Main initiates CheckAuthenticated(currentUser).
+2. Local User receives the message CheckAuthenticated(currentUser).
+3. Local User sends RequestData().
+4. Data Manager receives RequestData().
+5. Data Manager sends Done.
+6. Local User receives Done.
+7. Data Manager sends UpdateData(dataModified).
+8. Local User receives UpdateData(dataModified).
+9. Local User sends Success.
+10. Data Manager receives Success.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram shows a sequence of messages exchanged between the Main component, the Local User component, and the Data Manager component. The Local User first authenticates before requesting data modification.
+
+Observations:
+- The diagram models a user profile modification process.
+- The Local User component acts as an intermediary between the Main component and the Data Manager.
+- The process involves authentication, data request, data modification, and confirmation.
+- The diagram highlights the flow of messages and the order of operations.
+
+===== Report_7_uml_pages.pdf | Page 6 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=component;
+- Local User — kind=component;
+- Data Manager — kind=component;
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User — message="data = RequestData()";
+- Local User -> Data Manager — message="AddConsumo(data)";
+- Data Manager -> Local User — message="Done";
+- Data Manager -> Local User — message="Success";
+
+Main Flows (step by step):
+- Main sends a request to the Local User to create a calculation.
+- Local User sends the data to the Data Manager.
+- Data Manager processes the data and sends a "Done" message back to the Local User.
+- Data Manager sends a "Success" message back to the Local User.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a sequence of events involving the Main component, the Local User, and the Data Manager.
+- The Local User requests data from the Data Manager, which processes it and returns a "Done" and "Success" message.
+- This sequence represents a single, straightforward flow of data processing.
+
+===== Report_7_uml_pages.pdf | Page 7 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=sequence;
+- Local User — kind=sequence;
+- Data Manager — kind=sequence;
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User — message=checkConsumi(currentUser);
+- Main -> Data Manager — message=RequestReport(report);
+- Local User -> Data Manager — message=report = RequestData();
+- Data Manager -> Main — message=Success;
+- Data Manager -> Main — message=Done;
+
+Main Flows (step by step):
+- Main -> Local User: checkConsumi(currentUser);
+- Local User -> Data Manager: report = RequestData();
+- Data Manager -> Main: Success;
+- Data Manager -> Main: Done;
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The Local User must have a consumption before requesting the report.
+
+Observations:
+- The Main component initiates the process by checking the user's consumption.
+- The Local User requests a report using the RequestData() method.
+- The Data Manager responds with either a success or done message.
+- The diagram shows a simple sequence of events, with the Local User triggering the report request and the Data Manager providing the result.
+
+===== Report_7_uml_pages.pdf | Page 8 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=sequence;
+- Local User — kind=actor; role=User;
+- Data Manager — kind=actor; role=System
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User: checkConsumi(currentUser); label="checkConsumi"; explanation="Checks user consumption";
+- Local User -> Main: report = RequestData(); label="report"; explanation="Sends report data";
+- Main -> Data Manager: new_data = RequestData(); label="new_data"; explanation="Sends new data";
+- Data Manager -> Main: UpdateReport(report, new_data); label="UpdateReport"; explanation="Updates report";
+- Main -> Data Manager: Success; label="Success"; explanation="Indicates success";
+
+Main Flows (step by step):
+- Main receives the `checkConsumi` message from the Local User.
+- The Local User sends a `report` request to the Main.
+- The Main sends a `new_data` request to the Data Manager.
+- The Data Manager updates the report and sends a `Success` message back to the Main.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram shows a sequence of operations related to updating a report with new data.
+
+Observations:
+- The diagram models a sequence of interactions between a user, a main component, and a data manager.
+- The user initiates the process by sending a report.
+- The main component then interacts with the data manager to update the report.
+- The success of the update is indicated by a "Success" message.
+
+===== Report_7_uml_pages.pdf | Page 9 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=control;
+- Local User — kind=user;
+- Data Manager — kind=data;
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> checkConsumer(currentuser) — type=synchronous call; label="checkConsumer"; explanation="Calls the checkConsumer method with the current user.";
+- Local User -> Local User — type=self-call; label="Deve avere un consumo"; explanation="Local User must have a consumption.";
+- Local User -> Data Manager -> DeleteReport(report) — type=synchronous call; label="DeleteReport"; explanation="Local User calls the DeleteReport method on the Data Manager.";
+- Data Manager -> Main — type=synchronous call; label="Done"; explanation="Data Manager returns 'Done' to Main.";
+- Main -> Main — type=synchronous call; label="Success"; explanation="Main returns 'Success' to the Local User.";
+
+Main Flows (step by step):
+- Main calls checkConsumer(currentuser)
+- Local User checks if it has a consumption.
+- Local User calls DeleteReport(report) on the Data Manager.
+- Data Manager returns "Done" to Main.
+- Main returns "Success" to Local User.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of deleting a report.
+- The Local User initiates the deletion process.
+- The Data Manager handles the actual report deletion.
+- The Main component orchestrates the process and provides feedback to the Local User.
+
+
+======================================================================

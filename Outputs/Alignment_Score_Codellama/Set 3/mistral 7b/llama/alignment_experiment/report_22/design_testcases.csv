@@ -1,0 +1,49 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UTENTE-001,Create User,Utente,1,None,"- name: John Doe
+  - email: john.doe@example.com","1. Call the createUser operation with the provided name and email.
+  2. Verify that the operation returns true.
+  3. Call the checkUser operation with the provided name and email.
+  4. Verify that the operation returns true.",The user is created successfully and can be checked using the provided name and email.
+TC-UTENTE-002,Check User,Utente,1,User has been created.,"- name: John Doe
+  - email: john.doe@example.com","1. Call the checkUser operation with the provided name and email.
+  2. Verify that the operation returns true.",The user can be checked successfully using the provided name and email.
+TC-UTENTE-003,Reset Password,Utente,1,User has been created.,"- name: John Doe
+  - email: john.doe@example.com
+  - new_password: new_password123","1. Call the resetPassword operation with the provided name, email, and new password.
+  2. Verify that the operation returns true.",The user's password is reset successfully.
+TC-UTENTE-004,Add Devices,Utente,3,User has been created.,"- devices: [""Device 1"", ""Device 2""]","1. Call the addDevices operation with the provided devices.
+  2. Verify that the operation returns true.
+  3. Check the user's devices list to ensure the devices have been added.",The devices are added successfully to the user's account.
+TC-UTENTE-005,Get User Info,Utente,1,User has been created.,- None,"1. Call the getUserInfo operation.
+  2. Verify that the returned list contains the user's name and email.",The user's information is retrieved successfully.
+TC-DEVICE-001,Get Device Info,Devices,1,Device has been created.,- None,"1. Call the getDeviceInfo operation on a created device.
+  2. Verify that the returned list contains the device's ID and title.",The device's information is retrieved successfully.
+TC-ALERT-001,Get Message,Alert,1,Alert has been created.,- None,"1. Call the getMessage operation on an alert.
+  2. Verify that the returned message is the one initially set.",The alert's message is retrieved successfully.
+TC-ALERT-002,Update Message,Alert,1,Alert has been created.,"- new_message: ""New Alert Message""","1. Call the updateMessage operation with the new message.
+  2. Verify that the operation returns true.
+  3. Call the getMessage operation on the alert.
+  4. Verify that the returned message is the new one.",The alert's message is updated successfully.
+TC-HISTORY-001,Get History,History,1,History has been updated.,- None,"1. Call the getHistory operation.
+  2. Verify that the returned list contains the history data.",The history data is retrieved successfully.
+TC-HISTORY-002,Update History,History,1,History has not been updated.,"- date: ""2023-03-01""
+  - air_humidity: 50.0
+  - soil_humidity: 40.0
+  - air_temperature: 25.0
+  - luminosity: 1000.0","1. Call the updateHistory operation with the provided history data.
+  2. Verify that the operation returns true.
+  3. Call the getHistory operation.
+  4. Verify that the returned list contains the updated history data.",The history data is updated successfully.
+TC-FLOW-001,Main Flow,Main Flow,"1, 2","User has been created, and a device has been associated with the user.",- None,"1. Access the system.
+  2. Click ""Serre"" to view the list of associated devices.
+  3. Click ""Configuration"" for one of the devices.
+  4. Perform an operation on the device.
+  5. Verify that an alert and history are generated.","The main flow is executed successfully, and an alert and history are generated."
+TC-FLOW-002,Add Devices Flow,Main Flow,3,User has been created.,"- devices: [""Device 1"", ""Device 2""]","1. Access the system.
+  2. Click ""Add Devices"".
+  3. Enter the devices.
+  4. Verify that the devices are added to the user's account.",The devices are added successfully to the user's account.
+TC-FLOW-003,Connection Flow,Main Flow,4,"User has been created, and a device has been associated with the user.",- None,"1. Access the system.
+  2. Click ""Serre"" to view the list of associated devices.
+  3. Click ""Configuration"" for one of the devices.
+  4. Verify that the device is connected.",The device is connected successfully.

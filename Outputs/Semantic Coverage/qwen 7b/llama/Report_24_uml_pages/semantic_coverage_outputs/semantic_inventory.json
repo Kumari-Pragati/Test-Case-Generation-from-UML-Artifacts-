@@ -1,0 +1,168 @@
+{
+  "concepts": [
+    "start",
+    "kind",
+    "role",
+    "home",
+    "utente creato?",
+    "creazione utente",
+    "creazione corretta?",
+    "attributes",
+    "operations",
+    "creazione commissioni",
+    "creazione offerta",
+    "creazione corretta",
+    "creazione commissione",
+    "accesso ad'menu'",
+    "accesso a profilo?",
+    "accesso a guida?",
+    "informazioni profilo",
+    "guida"
+  ],
+  "flows": [
+    "start -> utente creato? — type: decision; label: \"start\"; explanation: the starting point of the process",
+    "utente creato? -> home — type: transition; label: \"yes\"; explanation: if the user has been created, proceed to the home",
+    "home -> creazione utente — type: transition; label: \"no\"; explanation: if the user has not been created, proceed to create a new user",
+    "creazione utente -> creazione corretta? — type: decision; label: \"create user\"; explanation: the process of creating a user",
+    "creazione corretta? -> home — type: transition; label: \"yes\"; explanation: if the user creation was correct, proceed to the home",
+    "flow 1: start -> utente creato? -> home -> creazione utente -> creazione corretta? -> home",
+    "the diagram models the process of accessing a system, starting with a decision to create a user or proceed to the home.",
+    "the process involves creating a user and checking if the creation was correct.",
+    "the system has a main flow that starts with the decision to create a user and ends with the home.",
+    "there are no loops or repetitions in the process.",
+    "home -> creazione commissioni — type: association; label: \"home\"; explanation: \"starts the commission creation process\"",
+    "creazione commissioni -> creazione corretta — type: association; label: \"commission creation\"; explanation: \"creates a commission\"",
+    "creazione corretta -> creazione offerta — type: association; label: \"correct creation\"; explanation: \"creates an offer\"",
+    "creazione offerta -> creazione commissione — type: association; label: \"offer creation\"; explanation: \"creates a commission\"",
+    "creazione offerta -> creazione corretta — type: association; label: \"offer creation\"; explanation: \"creates a correct offer\"",
+    "flow 1: home -> creazione commissioni -> creazione corretta -> creazione offerta -> creazione commissione -> creazione offerta -> creazione corretta",
+    "flow 2: none",
+    "the diagram models the process of creating a commission and an offer.",
+    "the main flows represent the sequence of steps involved in creating a commission and an offer.",
+    "the conditions/branches represent the decision points in the process.",
+    "the loops/repetitions are not present in this diagram.",
+    "home -> accesso ad'menu' — type: association; label: \"home\"; explanation: \"starts here\"",
+    "accesso ad'menu' -> accesso a profilo? — type: decision; label: \"si\"; explanation: \"yes\"",
+    "accesso a profilo? -> accesso a guida? — type: decision; label: \"si\"; explanation: \"yes\"",
+    "accesso a profilo? -> informazioni profilo — type: association; label: \"profile\"; explanation: \"profile information\"",
+    "accesso a guida? -> guida — type: association; label: \"guide\"; explanation: \"guide\"",
+    "informazioni profilo -> guida — type: association; label: \"profile\"; explanation: \"profile information\"",
+    "flow 1: home -> accesso ad'menu' -> accesso a profilo? -> accesso a guida? -> guida",
+    "flow 2: home -> accesso ad'menu' -> accesso a profilo? -> informazioni profilo",
+    "the diagram models a user's interaction with a system, starting from the home page and navigating through various options.",
+    "the user can access their profile or guide, and the system provides profile information and a guide.",
+    "the user can also access the menu from the home page.",
+    "======================================================================"
+  ],
+  "validations": [
+    "utente creato?:",
+    "yes: proceed to home",
+    "no: create a new user",
+    "\"accesso alla creazione\" -> si -> creazione commissioni",
+    "\"creazione commissioni\" -> si -> creazione corretta",
+    "\"creazione offerta\" -> si -> creazione commissione",
+    "\"creazione offerta\" -> si -> creazione corretta",
+    "accesso ad'menu' -> accesso a profilo? — no",
+    "accesso a profilo? -> accesso a guida? — no"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "Accesso",
+      "concepts": [
+        "start",
+        "kind",
+        "role",
+        "home",
+        "utente creato?",
+        "creazione utente",
+        "creazione corretta?"
+      ],
+      "flows": [
+        "start -> utente creato? — type: decision; label: \"start\"; explanation: the starting point of the process",
+        "utente creato? -> home — type: transition; label: \"yes\"; explanation: if the user has been created, proceed to the home",
+        "home -> creazione utente — type: transition; label: \"no\"; explanation: if the user has not been created, proceed to create a new user",
+        "creazione utente -> creazione corretta? — type: decision; label: \"create user\"; explanation: the process of creating a user",
+        "creazione corretta? -> home — type: transition; label: \"yes\"; explanation: if the user creation was correct, proceed to the home",
+        "flow 1: start -> utente creato? -> home -> creazione utente -> creazione corretta? -> home",
+        "the diagram models the process of accessing a system, starting with a decision to create a user or proceed to the home.",
+        "the process involves creating a user and checking if the creation was correct.",
+        "the system has a main flow that starts with the decision to create a user and ends with the home.",
+        "there are no loops or repetitions in the process."
+      ],
+      "validations": [
+        "utente creato?:",
+        "yes: proceed to home",
+        "no: create a new user"
+      ]
+    },
+    {
+      "page_no": 2,
+      "uml_type": "Sequence",
+      "concepts": [
+        "home",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "creazione commissioni",
+        "creazione offerta",
+        "creazione corretta",
+        "creazione commissione"
+      ],
+      "flows": [
+        "home -> creazione commissioni — type: association; label: \"home\"; explanation: \"starts the commission creation process\"",
+        "creazione commissioni -> creazione corretta — type: association; label: \"commission creation\"; explanation: \"creates a commission\"",
+        "creazione corretta -> creazione offerta — type: association; label: \"correct creation\"; explanation: \"creates an offer\"",
+        "creazione offerta -> creazione commissione — type: association; label: \"offer creation\"; explanation: \"creates a commission\"",
+        "creazione offerta -> creazione corretta — type: association; label: \"offer creation\"; explanation: \"creates a correct offer\"",
+        "flow 1: home -> creazione commissioni -> creazione corretta -> creazione offerta -> creazione commissione -> creazione offerta -> creazione corretta",
+        "flow 2: none",
+        "the diagram models the process of creating a commission and an offer.",
+        "the main flows represent the sequence of steps involved in creating a commission and an offer.",
+        "the conditions/branches represent the decision points in the process.",
+        "the loops/repetitions are not present in this diagram."
+      ],
+      "validations": [
+        "\"accesso alla creazione\" -> si -> creazione commissioni",
+        "\"creazione commissioni\" -> si -> creazione corretta",
+        "\"creazione offerta\" -> si -> creazione commissione",
+        "\"creazione offerta\" -> si -> creazione corretta"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "Sequence",
+      "concepts": [
+        "home",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "accesso ad'menu'",
+        "accesso a profilo?",
+        "accesso a guida?",
+        "informazioni profilo",
+        "guida"
+      ],
+      "flows": [
+        "home -> accesso ad'menu' — type: association; label: \"home\"; explanation: \"starts here\"",
+        "accesso ad'menu' -> accesso a profilo? — type: decision; label: \"si\"; explanation: \"yes\"",
+        "accesso a profilo? -> accesso a guida? — type: decision; label: \"si\"; explanation: \"yes\"",
+        "accesso a profilo? -> informazioni profilo — type: association; label: \"profile\"; explanation: \"profile information\"",
+        "accesso a guida? -> guida — type: association; label: \"guide\"; explanation: \"guide\"",
+        "informazioni profilo -> guida — type: association; label: \"profile\"; explanation: \"profile information\"",
+        "flow 1: home -> accesso ad'menu' -> accesso a profilo? -> accesso a guida? -> guida",
+        "flow 2: home -> accesso ad'menu' -> accesso a profilo? -> informazioni profilo",
+        "the diagram models a user's interaction with a system, starting from the home page and navigating through various options.",
+        "the user can access their profile or guide, and the system provides profile information and a guide.",
+        "the user can also access the menu from the home page.",
+        "======================================================================"
+      ],
+      "validations": [
+        "accesso ad'menu' -> accesso a profilo? — no",
+        "accesso a profilo? -> accesso a guida? — no"
+      ]
+    }
+  ]
+}

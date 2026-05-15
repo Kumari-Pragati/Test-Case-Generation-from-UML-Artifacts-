@@ -1,0 +1,269 @@
+{
+  "file_path": "/content/drive/MyDrive/All_Code_Files_1/Code_File2/Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+  "rel_file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+  "language": "java",
+  "stats": {
+    "classes": 1,
+    "methods": 12,
+    "ui": 6
+  },
+  "classes": [
+    {
+      "language": "java",
+      "kind": "class",
+      "name": "HomeFragment",
+      "signature": "HomeFragment",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 44,
+      "end_line": 44,
+      "modifiers": [],
+      "is_testable": false,
+      "evidence": "class HomeFragment"
+    }
+  ],
+  "methods": [
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "onCreateView",
+      "signature": "public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {         binding = FragmentHomeBinding.inflate(inflater, container, false);         View root = binding.getRoot();         SharedPreferences shared",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 52,
+      "end_line": 52,
+      "modifiers": [
+        "public"
+      ],
+      "is_testable": true,
+      "evidence": "public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {         binding = FragmentHomeBinding.inflate(infla"
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "handleButtonClick",
+      "signature": "private void handleButtonClick() {         if (isTripActive) {             endTrip(); // Termina il tragitto         } else {             startTrip(); // Avvia il tragitto         }     }      private void startTrip() {         isTripActive = true;",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 79,
+      "end_line": 79,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void handleButtonClick() {         if (isTripActive) {             endTrip(); // Termina il tragitto         } else {             startTrip(); // Avvia "
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "startTrip",
+      "signature": "private void startTrip() {         isTripActive = true;         speedometer.resetTotalDistance();         if(speedometer.getLoaded()==false){             speedTextView.setText(\"Loading...\");         }          // Cambia l'icona del pulsante per indicare",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 87,
+      "end_line": 87,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void startTrip() {         isTripActive = true;         speedometer.resetTotalDistance();         if(speedometer.getLoaded()==false){             speedT"
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "endTrip",
+      "signature": "private void endTrip() {         speedometer.setLoaded(false);         speedTextView.setText(\"Avvia il tragitto\");         isTripActive = false;          // Cambia l'icona del pulsante per indicare che il tragitto è terminato         binding.buttonStartT",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 99,
+      "end_line": 99,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void endTrip() {         speedometer.setLoaded(false);         speedTextView.setText(\"Avvia il tragitto\");         isTripActive = false;          // Cam"
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "loadDailyCO2",
+      "signature": "private void loadDailyCO2() {         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);         String userId = sharedPreferences.getString(\"user_id\", null);          if (userId == null",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 111,
+      "end_line": 111,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void loadDailyCO2() {         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);    "
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "updateCO2Display",
+      "signature": "private void updateCO2Display(double totalCO2) {         TextView tvCO2Display = binding.textTotalCo2; // Assicurati che l'ID sia corretto         tvCO2Display.setText(String.format(Locale.getDefault(), \"CO2 Totale Oggi: %.2f kg\", totalCO2));     }",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 156,
+      "end_line": 156,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void updateCO2Display(double totalCO2) {         TextView tvCO2Display = binding.textTotalCo2; // Assicurati che l'ID sia corretto         tvCO2Display."
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "loadCo2gKM",
+      "signature": "private void loadCo2gKM(){         //ottenere co2gKM dal database         co2gKM = 1;         //DEVE ESSERE SALVATA NEL DATABASE IN GRAMMI E OTTENUTA IN GRAMMI     }     private void saveTripToDatabase() {         double distance = speedometer.getTotalDi",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 161,
+      "end_line": 161,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void loadCo2gKM(){         //ottenere co2gKM dal database         co2gKM = 1;         //DEVE ESSERE SALVATA NEL DATABASE IN GRAMMI E OTTENUTA IN GRAMMI "
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "saveTripToDatabase",
+      "signature": "private void saveTripToDatabase() {         double distance = speedometer.getTotalDistance();         speedometer.resetTotalDistance();         double co2 = (distance*co2gKM/1000);         String userId = getUserIdFromPreferences();         if (userId ==",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 167,
+      "end_line": 167,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void saveTripToDatabase() {         double distance = speedometer.getTotalDistance();         speedometer.resetTotalDistance();         double co2 = (di"
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "getUserIdFromPreferences",
+      "signature": "private String getUserIdFromPreferences() {         SharedPreferences preferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);         return preferences.getString(\"user_id\", null);     }      private void loadDailyT",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 212,
+      "end_line": 212,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private String getUserIdFromPreferences() {         SharedPreferences preferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVA"
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "loadDailyTrips",
+      "signature": "private void loadDailyTrips() {         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);         String userId = sharedPreferences.getString(\"user_id\", null);          if (userId == nu",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 217,
+      "end_line": 217,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void loadDailyTrips() {         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);  "
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "populateTripCards",
+      "signature": "private void populateTripCards(JSONArray trips) {         binding.linearTripsContainer.removeAllViews();          try {             // Itera in ordine inverso             for (int i = trips.length() - 1; i >= 0; i--) {                 JSONObject trip = tr",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 268,
+      "end_line": 268,
+      "modifiers": [
+        "private"
+      ],
+      "is_testable": true,
+      "evidence": "private void populateTripCards(JSONArray trips) {         binding.linearTripsContainer.removeAllViews();          try {             // Itera in ordine inverso  "
+    },
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "onDestroyView",
+      "signature": "public void onDestroyView() {         super.onDestroyView();         binding = null;     } }",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 310,
+      "end_line": 310,
+      "modifiers": [
+        "public"
+      ],
+      "is_testable": true,
+      "evidence": "public void onDestroyView() {         super.onDestroyView();         binding = null;     } }"
+    }
+  ],
+  "ui_actions": [
+    {
+      "language": "java",
+      "kind": "ui_component",
+      "name": "speedTextView",
+      "signature": "findViewById",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 60,
+      "end_line": 60,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "speedTextView = root.findViewById(R.id.speedTextView); // Assicurati che l'ID sia corretto"
+    },
+    {
+      "language": "java",
+      "kind": "ui_component",
+      "name": "locationTextView",
+      "signature": "findViewById",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 61,
+      "end_line": 61,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "//locationTextView = root.findViewById(R.id.locationTextView); // Assicurati che l'ID sia corretto"
+    },
+    {
+      "language": "java",
+      "kind": "ui_action",
+      "name": "onClick",
+      "signature": "setOnClickListener",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 73,
+      "end_line": 73,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "binding.buttonStartTrip.setOnClickListener(v -> handleButtonClick());"
+    },
+    {
+      "language": "java",
+      "kind": "ui_component",
+      "name": "tvDistance",
+      "signature": "findViewById",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 279,
+      "end_line": 279,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "TextView tvDistance = tripCard.findViewById(R.id.tvDistance);"
+    },
+    {
+      "language": "java",
+      "kind": "ui_component",
+      "name": "tvCO2",
+      "signature": "findViewById",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 280,
+      "end_line": 280,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "TextView tvCO2 = tripCard.findViewById(R.id.tvCO2);"
+    },
+    {
+      "language": "java",
+      "kind": "ui_component",
+      "name": "tvDate",
+      "signature": "findViewById",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/ui/home/HomeFragment.java",
+      "start_line": 281,
+      "end_line": 281,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "TextView tvDate = tripCard.findViewById(R.id.tvDate);"
+    }
+  ],
+  "code_preview": "package com.example.ecodriving.ui.home;\n\nimport static com.example.ecodriving.MainActivity.ip;\n\nimport android.Manifest;\nimport android.animation.TimeInterpolator;\nimport android.content.Context;\nimport android.content.SharedPreferences;\nimport android.content.pm.PackageManager;\nimport android.location.Location;\nimport android.os.Bundle;\nimport android.os.Handler;\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.view.animation.OvershootInterpolator;\nimport android.widget.TextView;\nimport android.widget.Toast;\n\nimport androidx.annotation.NonNull;\nimport androidx.core.animation.DecelerateInterpolator;\nimport androidx.fragment.app.Fragment;\n\nimport com.example.ecodriving.R;\nimport com.example.ecodriving.Speedometer;\nimport com.example.ecodriving.databinding.FragmentHomeBinding;\n\nimport org.json.JSONArray;\nimport org.json.JSONException;\nimport org.json.JSONObject;\n\nimport java.io.IOException;\nimport java.text.SimpleDateFormat;\nimport java.util.Date;\nimport java.util.Locale;\n\nimport okhttp3.MediaType;\nimport okhttp3.OkHttpClient;\nimport okhttp3.Request;\nimport okhttp3.RequestBody;\nimport okhttp3.Response;\n\n\npublic class HomeFragment extends Fragment {\n    private FragmentHomeBinding binding;\n    private OkHttpClient client = new OkHttpClient();\n    public static boolean isTripActive = false; // Stato iniziale: nessun tragitto attivo\n    private Speedometer speedometer; // Dichiarazione dell'oggetto Speedometer\n    private TextView speedTextView; // Riferimento al TextView della velocità\n    private double co2gKM;\n\n    @Override\n    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {\n        binding = FragmentHomeBinding.inflate(inflater, container, false);\n        View root = binding.getRoot();\n        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);\n        co2gKM=sharedPreferences.getFloat(\"co2_emission\", 0.0f);  // 0.0f è il valore di default se non trovato\n\n        // Inizializza i TextView per la velocità e la posizione\n        speedTextView = root.findViewById(R.id.speedTextView); // Assicurati che l'ID sia corretto\n        //locationTextView = root.findViewById(R.id.locationTextView); // Assicurati che l'ID sia corretto\n\n        // Creazione dell'oggetto Speedometer passando contesto, attività e TextViews\n\n        speedometer = Speedometer.getInstance(requireContext(), requireActivity(), speedTextView);\n\n\n        // Carica i tragitti al caricamento del frammento\n        loadDailyTrips();\n        loadDailyCO2();\n        loadCo2gKM();\n        // Imposta il listener per il click del pulsante\n        binding.buttonStartTrip.setOnClickListener(v -> handleButtonClick());\n\n        // Avvia il calcolo della velocità\n        speedometer.start();\n\n        return root;\n    }\n\n    private void handleButtonClick() {\n        if (isTripActive) {\n            endTrip(); // Termina il tragitto\n        } else {\n            startTrip(); // Avvia il tragitto\n        }\n    }\n\n    private void startTrip() {\n        isTripActive = true;\n        speedometer.resetTotalDistance();\n        if(speedometer.getLoaded()==false){\n            speedTextView.setText(\"Loading...\");\n        }\n\n        // Cambia l'icona del pulsante per indicare che il tragitto è attivo\n        binding.buttonStartTrip.setImageResource(R.drawable.ic_stop_trip); // Modifica l'icona a \"stop\"\n        Toast.makeText(getActivity(), \"Tragitto avviato!\", Toast.LENGTH_SHORT).show(); // Messaggio di avvio\n    }\n\n    private void endTrip() {\n        speedometer.setLoaded(false);\n        speedTextView.setText(\"Avvia il tragitto\");\n        isTripActive = false;\n\n        // Cambia l'icona del pulsante per indicare che il tragitto è terminato\n        binding.buttonStartTrip.setImageResource(R.drawable.ic_start_trip);\n\n        saveTripToDatabase(); // This will handle the refresh after successful save\n        Toast.makeText(getActivity(), \"Tragitto terminato!\", Toast.LENGTH_SHORT).show();\n    }\n\n    private void loadDailyCO2() {\n        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);\n        String userId = sharedPreferences.getString(\"user_id\", null);\n\n        if (userId == null) {\n            Toast.makeText(getActivity(), \"Errore: utente non loggato\", Toast.LENGTH_SHORT).show();\n            return;\n        }\n\n        String currentDate = new SimpleDateFormat(\"yyyy-MM-dd\", Locale.getDefault()).format(new Date());\n\n        JSONObject postData = new JSONObject();\n        try {\n            postData.put(\"user_id\", userId);\n            postData.put(\"date\", currentDate);\n        } catch (JSONException e) {\n            e.printStackTrace();\n        }\n\n        new Thread(() -> {\n            MediaType JSON = MediaType.parse(\"application/json; charset=utf-8\");\n            RequestBody body = RequestBody.create(postData.toString(), JSON);\n            Request request = new Request.Builder()\n                    .url(\"http://\"+ip+\":8081/api/getDailyCO2\")\n                    .post(body)\n                    .build();\n\n            try (Response response = client.newCall(request).execute()) {\n                if (response.isSuccessful()) {\n                    String responseData = response.body().string();\n                    JSONObject jsonResponse = new JSONObject(responseData);\n                    double totalCO2 = jsonResponse.getDouble(\"total_co2\");\n                    getActivity().runOnUiThread(() -> updateCO2Display(totalCO2));\n                } else {\n                    getActivity().runOnUiThread(() ->\n                            Toast.makeText(getActivity(), \"Errore durante il caricamento delle emissioni\", Toast.LENGTH_SHORT).show());\n                }\n            } catch (IOException | JSONException e) {\n                e.printStackTrace();\n                getActivity().runOnUiThread(() ->\n                        Toast.makeText(getActivity(), \"Errore di connessione\", Toast.LENGTH_SHORT).show());\n            }\n        }).start();\n    }\n\n    private void updateCO2Display(double totalCO2) {\n        TextView tvCO2Display = binding.textTotalCo2; // Assicurati che l'ID sia corretto\n        tvCO2Display.setText(String.format(Locale.getDefault(), \"CO2 Totale Oggi: %.2f kg\", totalCO2));\n    }\n\n    private void loadCo2gKM(){\n        //ottenere co2gKM dal database\n        co2gKM = 1;\n        //DEVE ESSERE SALVATA NEL DATABASE IN GRAMMI E OTTENUTA IN GRAMMI\n    }\n    private void saveTripToDatabase() {\n        double distance = speedometer.getTotalDistance();\n        speedometer.resetTotalDistance();\n        double co2 = (distance*co2gKM/1000);\n        String userId = getUserIdFromPreferences();\n        if (userId == null) {\n            Toast.makeText(getActivity(), \"Errore: Utente non loggato!\", Toast.LENGTH_SHORT).show();\n            return;\n        }\n        JSONObject tripData = new JSONObject();\n        try {\n            tripData.put(\"user_id\", userId);\n            tripData.put(\"distance\", distance);\n            tripData.put(\"co2\", co2);\n        } catch (JSONException e) {\n            e.printStackTrace();\n            return;\n        }\n        new Thread(() -> {\n            MediaType JSON = MediaType.parse(\"application/json; charset=utf-8\");\n            RequestBody body = RequestBody.create(tripData.toString(), JSON);\n            Request request = new Request.Builder()\n                    .url(\"http://\" + ip + \":8081/api/addTrip\")\n                    .post(body)\n                    .build();\n\n            try (Response response = client.newCall(request).execute()) {\n                if (response.isSuccessful()) {\n                    requireActivity().runOnUiThread(() -> {\n                        Toast.makeText(getActivity(), \"Tragitto salvato con successo!\", Toast.LENGTH_SHORT).show();\n                        // Refresh the data after successful save\n                        loadDailyTrips();\n                        loadDailyCO2();\n                    });\n                } else {\n                    requireActivity().runOnUiThread(() ->\n                            Toast.makeText(getActivity(), \"Errore durante il salvataggio!\", Toast.LENGTH_SHORT).show());\n                }\n            } catch (IOException e) {\n                e.printStackTrace();\n                requireActivity().runOnUiThread(() ->\n                        Toast.makeText(getActivity(), \"Errore di connessione!\", Toast.LENGTH_SHORT).show());\n            }\n        }).start();\n    }\n\n    private String getUserIdFromPreferences() {\n        SharedPreferences preferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);\n        return preferences.getString(\"user_id\", null);\n    }\n\n    private void loadDailyTrips() {\n        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(\"EcoDrivingPrefs\", Context.MODE_PRIVATE);"
+}

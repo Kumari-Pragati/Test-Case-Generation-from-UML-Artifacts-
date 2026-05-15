@@ -1,0 +1,88 @@
+flow
+"database -> user — type=association; label=""user""; explanation=""user"""
+"user -> user — type=association; label=""user""; explanation=""user"""
+flow 1: database -> user -> user -> user -> user
+the diagram represents a simple user management system with a database and two types of users.
+"the system allows users to be created, modified, and retrieved."
+"the database is the central component, and users are associated with it."
+"the system has a simple flow where users are created, modified, and retrieved."
+"user -> applicazione — type=association; label=""log_in""; explanation=""user logs in"""
+"user -> sistema gestione utente — type=association; label=""checkiflogin""; explanation=""user checks if logged in"""
+"user -> sistema di gestione dei dati — type=association; label=""loggingin""; explanation=""user logs in"""
+"user -> sistema di gestione dei dati — type=association; label=""registerandlogin""; explanation=""user registers and logs in"""
+"user -> sistema di gestione dei dati — type=association; label=""mauth.getcurrentuser()""; explanation=""user gets current user"""
+"user -> sistema di gestione dei dati — type=association; label=""mauth.createuser()""; explanation=""user creates user"""
+"user -> sistema di gestione dei dati — type=association; label=""mauth.signinwithemailandpassword()""; explanation=""user signs in with email and password"""
+"user -> sistema di gestione dei dati — type=association; label=""mauth.createuserwithemailandpassword()""; explanation=""user creates user with email and password"""
+flow 1: user -> applicazione -> user -> sistema gestione utente -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user -> applicazione -> user -> sistema di gestione dei dati -> user -> api firebaseauth -> user ->
+"applicazione -> sistema di gestione segnalazioni — type=forward; label=""getsegnalazioni""; explanation=""get signalizations"""
+"sistema di gestione segnalazioni -> sistema di gestione dei dati — type=forward; label=""getsegnalazioni""; explanation=""get signalizations"""
+"sistema di gestione dei dati -> database — type=query; label=""select segnalazioni""; explanation=""select signalizations"""
+"sistema di gestione dei dati -> sistema di gestione dei dati — type=query; label=""select segnalazioni""; explanation=""select signalizations"""
+flow 1: applicazione -> sistema di gestione segnalazioni -> sistema di gestione dei dati -> database -> applicazione
+"the diagram models a sequence of events where the application sends a request to the signal management system, which forwards it to the data management system, which queries the database and returns the result to the application."
+the application receives a list of signalizations and processes it by displaying it or displaying a list of it.
+there are no loops or repetitions in the flow.
+"applicazione -> sistema gestione variazioni — type=association; label=""train_variations""; explanation=""getvariazioni"""
+"sistema gestione variazioni -> sistema gestione del dati — type=association; label=""list_pref_train""; explanation=""getpreftreni"""
+"sistema gestione del dati -> database — type=association; label=""list_pref_train""; explanation=""forward"""
+"database -> api trenitalia — type=association; label=""train_info""; explanation=""gettraininfo(train_code)"""
+"api trenitalia -> sistema gestione del dati — type=association; label=""train_info""; explanation=""forward"""
+flow 1: applicazione -> train_variations -> getvariazioni -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_var
+applicazione -> sistema gestione calendario — type=forward; label=setcalendario(cal); explanation=set calendar
+sistema gestione calendario -> database — type=query; label=new calendario(cal); explanation=query new calendar
+sistema gestione calendario -> applicazione — type=forward; label=forward(outcome); explanation=forward outcome
+sistema gestione calendario -> applicazione — type=query; label=query(new calendario(cal)); explanation=query new calendar
+flow 1: applicazione -> sistema gestione calendario -> database -> applicazione -> sistema gestione calendario -> applicazione
+"the diagram models a sequence of events where the application sets a calendar, queries the database for a new calendar, and then forwards the outcome."
+the system management system is responsible for setting and querying the calendar.
+the database is used to store and retrieve calendar data.
+the application displays the outcome of the calendar operation.
+"applicazione -> sistema gestione calendario — type=forward; label=""getcalendario()""; explanation=""get calendario from the calendar management system"""
+"sistema gestione calendario -> sistema di gestione dei dati — type=forward; label=""getcalendario()""; explanation=""forward calendario to the data management system"""
+"sistema di gestione dei dati -> database — type=query; label=""select calendario()""; explanation=""query the database for calendario"""
+"database -> sistema di gestione dei dati — type=payload; label=""payload""; explanation=""return payload from the database"""
+flow 1: applicazione -> sistema gestione calendario -> sistema di gestione dei dati -> database -> sistema di gestione dei dati -> applicazione
+the diagram models the flow of calendario from the application to the database through the calendar management system and data management system.
+"the application gets calendario from the calendar management system, which then forwards it to the data management system."
+the data management system queries the database for calendario and returns a payload.
+the application receives the payload from the data management system.
+the diagram does not show any loops or repeated behavior.
+list_trains -> list_trains = gettrains(calendario)
+forward(gettrains(calendario) -> forward(payload)
+forward(payload) -> requesttrains(calendario)
+list_trains = payload -> list_trains = payload
+displaynull -> displaynull
+"setpreftrain(id, info) -> setpreftrain(id, info)"
+"forward(getpreftrain(id, info)) -> forward(getpreftrain(id, info))"
+"query(new treno(id, info)) -> query(new treno(id, info))"
+display(outcome) -> display(outcome)
+forward(outcome) -> forward(outcome)
+status code -> status code
+"list_trains -> list_trains = gettrains(calendario) -> forward(gettrains(calendario) -> forward(payload) -> requesttrains(calendario) -> payload -> list_trains = payload -> displaynull -> setpreftrain(id, info) -> forward(getpreftrain(id, info)) -> query(new treno(id, info)) -> display(outcome) -> forward(outcome) -> status code"
+"list_trains = payload -> list_trains = payload -> displaynull -> setpreftrain(id, info) -> forward(getpreftrain(id, info)) -> query(new treno(id, info)) -> display(outcome) -> forward(outcome) -> status code"
+list_trains -> sistema gestione calendario — type=forward; label=forward(gettrains(calendario)); explanation=get trains from calendar
+sistema gestione calendario -> list_trains — type=forward; label=forward(payload); explanation=forward payload
+list_trains -> sistema di gestione dei dati — type=forward; label=forward(gettrains(calendario)); explanation=get trains from data management system
+sistema di gestione dei dati -> list_trains — type=forward; label=forward(payload); explanation=forward payload
+api trenitalia -> database — type=request; label=requesttrains(calendario); explanation=request trains from database
+database -> api trenitalia — type=forward; label=forward(deletetreno(id)); explanation=forward delete treno(id)
+api trenitalia -> list_trains — type=forward; label=forward(deletetreno(id)); explanation=forward delete treno(id)
+list_trains -> database — type=query; label=query(delete treno(id)); explanation=query delete treno(id)
+database -> list_trains — type=forward; label=forward(outcome); explanation=forward outcome
+flow 1: list_trains -> sistema gestione calendario -> list_trains -> sistema di gestione dei dati -> api trenitalia -> database -> list_trains
+flow 2: api trenitalia -> database -> list_trains
+the diagram models a sequence of events involving the interaction between different components.
+the main flows involve the exchange of data between the components.
+the system appears to be handling train-related data and performing operations on it.
+"the database is involved in the process, suggesting that it may be storing or retrieving data."
+"applicazione -> sistema gestione variazioni — type=association; label=""train_variations = getvariazioni()"""
+"sistema gestione variazioni -> sistema di notifica — type=association; label=""train_variations = res"""
+"sistema di notifica -> applicazione — type=association; label=""shownotifica(train_variations)"""
+flow 1: applicazione -> train_variations = getvariazioni() -> train_variations = res -> shownotifica(train_variations)
+"the diagram models a sequence of events where the application requests train variations, the system processes these variations, and then shows notifications based on these variations."
+the system's role is to process train variations and provide a response.
+the application's role is to request and receive train variations.
+the system's response is to show notifications based on the received train variations.
+there are no loops or repeated behavior in this sequence.
+======================================================================

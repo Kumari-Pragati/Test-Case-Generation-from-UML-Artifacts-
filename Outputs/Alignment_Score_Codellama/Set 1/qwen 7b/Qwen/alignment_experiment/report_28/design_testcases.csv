@@ -1,0 +1,64 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Configuration-001","Verify Configuration Settings","Configuration","1","None","MIN_AGE = 18, MIN_LENGTH_PASSWORD = 8, API_link = ""http://example.com/api""","1. Set MIN_AGE to 18
+2. Set MIN_LENGTH_PASSWORD to 8
+3. Set API_link to ""http://example.com/api""","Configuration settings should be successfully updated."
+"TC-NotificationSystem-001","Verify Notification System Operations","NotificationSystem","1","Configuration settings are valid","Report with id = 1, postDate = ""2023-10-01"", title = ""Test Report"", priority = 1, category = ""General"", address = ""123 Main St"", creator = ""John Doe""","1. Create a new Report object
+2. Call start() method
+3. Call downloadReports() method
+4. Call elaborateData([Report]) method
+5. Call sendNotificationReport(Report) method
+6. Call showNotificationWithDefaultSound(""Test Report"", ""Report received"", true) method","Notification System should handle the report correctly and send notifications as expected."
+"TC-LocalUser-001","Verify Local User Operations","LocalUser","1","Configuration settings are valid","LocalUser with email = ""john.doe@example.com"", username = ""johndoe"", name = ""John"", lastname = ""Doe"", birthdate = ""1990-01-01"", address = ""123 Main St"", family = 4, houseType = ""Apartment"", neighborhood = ""Downtown""","1. Create a new LocalUser object
+2. Set email to ""john.doe@example.com""
+3. Set username to ""johndoe""
+4. Set name to ""John""
+5. Set lastname to ""Doe""
+6. Set birthdate to ""1990-01-01""
+7. Set address to ""123 Main St""
+8. Set family to 4
+9. Set houseType to ""Apartment""
+10. Set neighborhood to ""Downtown""
+11. Call toJSON() method","LocalUser object should be created and serialized correctly."
+"TC-Service-001","Verify Service Operations","Service","1","Configuration settings are valid","Service with id = 1, postDate = ""2023-10-01"", title = ""Test Service"", link = ""http://example.com/service"", description = ""This is a test service"", creator = ""Jane Doe""","1. Create a new Service object
+2. Set id to 1
+3. Set postDate to ""2023-10-01""
+4. Set title to ""Test Service""
+5. Set link to ""http://example.com/service""
+6. Set description to ""This is a test service""
+7. Set creator to ""Jane Doe""
+8. Call toJSON() method","Service object should be created and serialized correctly."
+"TC-Need-001","Verify Need Operations","Need","1","Configuration settings are valid","Need with id = 1, postDate = ""2023-10-01"", title = ""Test Need"", address = ""123 Main St"", description = ""I need help"", assistant = ""John Doe"", idAssistant = 1, creator = ""Jane Doe""","1. Create a new Need object
+2. Set id to 1
+3. Set postDate to ""2023-10-01""
+4. Set title to ""Test Need""
+5. Set address to ""123 Main St""
+6. Set description to ""I need help""
+7. Set assistant to ""John Doe""
+8. Set idAssistant to 1
+9. Set creator to ""Jane Doe""
+10. Call toJSON() method","Need object should be created and serialized correctly."
+"TC-API_Manager-001","Verify API Manager Operations","API_Manager","1,2,3,4,5","Configuration settings are valid","Token = ""abc123""","1. Retrieve token from LocalUser
+2. Request data using token
+3. Check if status is OK
+4. If status is not OK, request user data
+5. Create new LocalUser instance
+6. Complete action","API Manager should handle token validation and data requests correctly."
+"TC-Login-001","Verify Login Process","Authentication","2","Configuration settings are valid","Token = ""abc123""","1. Retrieve token from LocalUser
+2. Check if token is not null
+3. If token is not null, request data using token
+4. If token is null or status is not OK, request user data
+5. Create new LocalUser instance
+6. Complete action","Login process should validate token and request data accordingly."
+"TC-ReadList-001","Verify Reading and Displaying List of Services/Needs/Reports","Data Retrieval","3","Configuration settings are valid","JSON list of services/needs/reports","1. Send request to API_Manager for JSON list
+2. Create new Service/Need/Report for each entry in the JSON list
+3. Display list of services/needs/reports","List of services/needs/reports should be displayed correctly."
+"TC-Insertion-001","Verify Insertion Process","Data Management","4","Configuration settings are valid","New entry in JSON format","1. Initiate request to API_Manager
+2. Convert data to JSON format
+3. Send JSON data for processing
+4. Receive completion status","Insertion process should complete successfully."
+"TC-Update-001","Verify Update Process","Data Management","5","Configuration settings are valid","Updated data items","1. Print data to screen
+2. Retrieve updated data
+3. Process each updated data item
+4. Convert entry to JSON format
+5. Request update entry
+6. Receive completion status","Update process should complete successfully."

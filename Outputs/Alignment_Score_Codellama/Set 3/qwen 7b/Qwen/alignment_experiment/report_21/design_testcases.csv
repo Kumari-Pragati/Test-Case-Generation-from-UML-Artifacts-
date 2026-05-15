@@ -1,0 +1,122 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Authentication-001,User logs in successfully,Authentication,2,User has registered an account.,"- Email: test@example.com
+- Password: testpassword","1. User initiates login request to the application.
+2. Application forwards the request to the user management system.
+3. User management system checks if the user is logged in.
+4. User management system requests Firebase Authentication API to get the current user.
+5. Firebase Authentication API returns the current user.
+6. User management system confirms the user is logged in and forwards the user object to the application.
+7. Application displays the user's profile.",User is successfully logged in and redirected to their profile.
+TC-Authentication-002,User logs in unsuccessfully due to incorrect password,Authentication,2,User has registered an account.,"- Email: test@example.com
+- Password: wrongpassword","1. User initiates login request to the application.
+2. Application forwards the request to the user management system.
+3. User management system checks if the user is logged in.
+4. User management system requests Firebase Authentication API to get the current user.
+5. Firebase Authentication API returns null as the user does not exist.
+6. User management system confirms the user is not logged in and prompts the user to try again.
+7. Application displays an error message.",User is prompted to try logging in again due to incorrect password.
+TC-Authentication-003,User registers and logs in successfully,Authentication,2,User has not registered an account.,"- Email: newuser@example.com
+- Password: newpassword","1. User initiates registration and login request to the application.
+2. Application forwards the request to the user management system.
+3. User management system requests Firebase Authentication API to create a new user.
+4. Firebase Authentication API creates a new user.
+5. User management system confirms the user is logged in and forwards the user object to the application.
+6. Application displays the user's profile.",User is successfully registered and logged in.
+TC-SignalManagement-001,Retrieve and display signals,Signal Management,3,Signals are stored in the database.,- No specific input required.,"1. Application requests signals from the signal management system.
+2. Signal management system forwards the request to the data management system.
+3. Data management system queries the database for signals.
+4. Database returns the payload containing the signals.
+5. Data management system forwards the payload to the signal management system.
+6. Signal management system forwards the payload to the application.
+7. Application displays the list of signals.",Application displays the list of signals retrieved from the database.
+TC-SignalManagement-002,Retrieve and display null signals,Signal Management,3,No signals are stored in the database.,- No specific input required.,"1. Application requests signals from the signal management system.
+2. Signal management system forwards the request to the data management system.
+3. Data management system queries the database for signals.
+4. Database returns null as there are no signals.
+5. Data management system forwards null to the signal management system.
+6. Signal management system forwards null to the application.
+7. Application displays null.",Application displays null as there are no signals.
+TC-VariationManagement-001,Retrieve train variations,Variation Management,"6, 7",Train variations are stored in the database.,- No specific input required.,"1. Application requests train variations from the variation management system.
+2. Variation management system forwards the request to the data management system.
+3. Data management system queries the Trenitalia API for train variations.
+4. Trenitalia API returns the payload containing the train variations.
+5. Data management system forwards the payload to the variation management system.
+6. Variation management system forwards the payload to the application.
+7. Application displays the list of train variations.",Application displays the list of train variations retrieved from the Trenitalia API.
+TC-VariationManagement-002,Retrieve and display null train variations,Variation Management,"6, 7",No train variations are stored in the database.,- No specific input required.,"1. Application requests train variations from the variation management system.
+2. Variation management system forwards the request to the data management system.
+3. Data management system queries the Trenitalia API for train variations.
+4. Trenitalia API returns null as there are no train variations.
+5. Data management system forwards null to the variation management system.
+6. Variation management system forwards null to the application.
+7. Application displays null.",Application displays null as there are no train variations.
+TC-CalendarManagement-001,Set and display calendar,Calendar Management,"5, 6",Calendar data is available.,"- Calendar data: {id: 1, date: ""2023-10-01"", events: [""Event1"", ""Event2""]}","1. Application sends calendar data to the calendar management system.
+2. Calendar management system forwards the calendar data to the data management system.
+3. Data management system queries the database for the new calendar data.
+4. Database returns the status code indicating success.
+5. Data management system forwards the outcome to the calendar management system.
+6. Calendar management system forwards the outcome to the application.
+7. Application displays the calendar data.",Application displays the calendar data sent by the user.
+TC-CalendarManagement-002,Display null calendar,Calendar Management,"5, 6",No calendar data is available.,- No specific input required.,"1. Application requests calendar data from the calendar management system.
+2. Calendar management system forwards the request to the data management system.
+3. Data management system queries the database for the calendar data.
+4. Database returns null as there is no calendar data.
+5. Data management system forwards null to the calendar management system.
+6. Calendar management system forwards null to the application.
+7. Application displays null.",Application displays null as there is no calendar data.
+TC-TrainListManagement-001,Get and display train list,Train List Management,8,Train list is available.,- No specific input required.,"1. Application requests train list from the calendar management system.
+2. Calendar management system forwards the request to the data management system.
+3. Data management system queries the Trenitalia API for the train list.
+4. Trenitalia API returns the payload containing the train list.
+5. Data management system forwards the payload to the calendar management system.
+6. Calendar management system forwards the payload to the application.
+7. Application displays the train list.",Application displays the train list retrieved from the Trenitalia API.
+TC-TrainListManagement-002,Display null train list,Train List Management,8,No train list is available.,- No specific input required.,"1. Application requests train list from the calendar management system.
+2. Calendar management system forwards the request to the data management system.
+3. Data management system queries the Trenitalia API for the train list.
+4. Trenitalia API returns null as there is no train list.
+5. Data management system forwards null to the calendar management system.
+6. Calendar management system forwards null to the application.
+7. Application displays null.",Application displays null as there is no train list.
+TC-TrainListManagement-003,Delete preferred train,Train List Management,8,A preferred train is set.,- Train ID: 123,"1. Application requests to delete a preferred train.
+2. Calendar management system forwards the request to the data management system.
+3. Data management system queries the database to delete the train.
+4. Database returns the status code indicating success.
+5. Data management system forwards the outcome to the calendar management system.
+6. Calendar management system forwards the outcome to the application.
+7. Application displays the outcome.",Application displays the outcome of the train deletion.
+TC-Notification-001,Start notification process,Notification,9,Train variations are available.,- No specific input required.,"1. Application requests train variations from the variation management system.
+2. Variation management system forwards the request to the data management system.
+3. Data management system queries the Trenitalia API for train variations.
+4. Trenitalia API returns the payload containing the train variations.
+5. Variation management system starts the notification process.
+6. Notification system shows notifications to the application.
+7. Application displays the notifications.",Application displays the notifications related to train variations.
+TC-Notification-002,Show notifications,Notification,9,Train variations are available.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays the notifications.",Application displays the notifications related to train variations.
+TC-Notification-003,Show null notifications,Notification,9,No train variations are available.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there are no notifications.
+TC-Notification-004,Show notifications with null variations,Notification,9,Train variations are null.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there are no train variations.
+TC-Notification-005,Show notifications with empty variations,Notification,9,Train variations are empty.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there are no train variations.
+TC-Notification-006,Show notifications with invalid variations,Notification,9,Train variations are invalid.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there are no valid train variations.
+TC-Notification-007,Show notifications with null payload,Notification,9,Train variations are null.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there is no payload.
+TC-Notification-008,Show notifications with empty payload,Notification,9,Train variations are empty.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there is no payload.
+TC-Notification-009,Show notifications with invalid payload,Notification,9,Train variations are invalid.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there is no valid payload.
+TC-Notification-010,Show notifications with null train variations,Notification,9,Train variations are null.,- No specific input required.,"1. Variation management system starts the notification process.
+2. Notification system shows notifications to the application.
+3. Application displays null.",Application displays null as there are no train variations.
+TC-Notification-011,Show notifications with empty train variations,Notification,,,,,

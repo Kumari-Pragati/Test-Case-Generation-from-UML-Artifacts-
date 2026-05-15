@@ -1,0 +1,84 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-HOMEPAGE-001,Verify navigation to Settings page from Homepage,Homepage Navigation,1,"- App is launched and Homepage is displayed.
+- User has network connectivity.",- None,"1. User is on the Homepage.
+2. User clicks **""Impostazioni"" (Settings)**.
+3. System transitions to **""Apertura pagina impostazioni""**.","- Settings page loads successfully without errors.
+- No crashes or unexpected redirects occur."
+TC-HOMEPAGE-002,Verify display of new location on Homepage,Homepage Navigation,1,"- App is launched and Homepage is displayed.
+- User has location services enabled.",- None,"1. User is on the Homepage.
+2. System automatically or manually triggers **""Visualizzazione nuovo luogo""**.","- New location is displayed on the Homepage.
+- Location details (name, distance, etc.) are visible and accurate."
+TC-HOMEPAGE-003,Verify navigation to Location Details page from Homepage,Homepage Navigation,1,"- App is launched and Homepage is displayed.
+- At least one location is visible on the Homepage.","- A listed location (e.g., ""Caffè Roma"").","1. User is on the Homepage.
+2. User clicks on a listed location (e.g., ""Caffè Roma"").
+3. System transitions to **""Apertura pagina luogo dettagliata""**.","- Location Details page loads with correct information (name, address, rating).
+- No errors or missing data."
+TC-HOMEPAGE-004,Verify navigation to Pathfinder page from Homepage,Homepage Navigation,1,- App is launched and Homepage is displayed.,- None,"1. User is on the Homepage.
+2. User clicks **""Pathfinder""**.
+3. System transitions to **""Apertura pagina Pathfinder""**.","- Pathfinder page loads with the first question displayed.
+- No crashes or delays."
+TC-HOMEPAGE-005,Verify swipe-up returns to Homepage,Homepage Navigation,1,"- User is on any page (e.g., Location Details or Pathfinder).",- None,"1. User is on a non-Homepage (e.g., Location Details).
+2. User performs a **swipe-up gesture**.","- System returns to the Homepage.
+- No errors or unexpected behavior."
+TC-LOCATIONDETAILS-001,Verify navigation to system map from Location Details,Location Details Navigation,2,- User is on the Location Details page.,"- A location with valid map coordinates (e.g., ""Piazza Duomo"").","1. User is on the Location Details page.
+2. User clicks **""Navigate""**.
+3. System opens **""Apertura mappa di sistema""** (e.g., Google Maps).","- Map opens with the correct location pinned.
+- No errors or crashes."
+TC-LOCATIONDETAILS-002,Verify opening Yelp in browser from Location Details,Location Details Navigation,2,"- User is on the Location Details page.
+- Device has internet connectivity.","- A location with a Yelp listing (e.g., ""Ristorante Bella Vista"").","1. User is on the Location Details page.
+2. User clicks **""Navigate""** → **""Open in Browser""**.
+3. System opens **""Apertura sito Yelp sul browser""**.","- Yelp page loads with the correct business profile.
+- Browser opens without errors."
+TC-LOCATIONDETAILS-003,Verify calling a business from Location Details,Location Details Navigation,2,"- User is on the Location Details page.
+- Device has call permissions enabled.","- A location with a valid phone number (e.g., ""Pizzeria Napoli"").","1. User is on the Location Details page.
+2. User clicks **""Navigate""** → **""Call Business""**.
+3. System initiates **""Avvio chiamata al business""**.","- Call screen appears with the correct number.
+- Call is placed successfully (simulate hang-up to avoid actual call)."
+TC-LOCATIONDETAILS-004,Verify returning to Homepage from Location Details,Location Details Navigation,2,- User is on the Location Details page.,- None,"1. User is on the Location Details page.
+2. User clicks **""Indietro""**.
+3. System transitions to **""Ritorno ad Homepage""**.","- Homepage loads without errors.
+- No data loss or crashes."
+TC-LOCATIONDETAILS-005,Verify modifying preferences via Like/Dislike,Location Details Preferences,2,- User is on the Location Details page.,"- A location (e.g., ""Gelateria Artigianale"").","1. User is on the Location Details page.
+2. User clicks **""Like/Dislike""** (e.g., dislike).
+3. System triggers **""Modifica preferenze""**.
+4. User confirms the change.","- Preference is updated (e.g., location is excluded from recommendations).
+- Confirmation message appears (if applicable)."
+TC-PATHFINDER-001,Verify returning to Homepage from Pathfinder,Pathfinder Navigation,3,- User is on the Pathfinder page.,- None,"1. User is on the Pathfinder page.
+2. User clicks **""Indietro""** (yes branch).
+3. System transitions to **""Ritorno ad Homepage""**.","- Homepage loads without errors.
+- No data loss."
+TC-PATHFINDER-002,Verify Pathfinder question flow and suggestion display,Pathfinder Logic,3,- User is on the Pathfinder page.,"- A question (e.g., ""Do you prefer quiet or lively places?"").
+- A valid response (e.g., ""lively"").","1. User is on the Pathfinder page.
+2. System displays **""Visualizzazione domanda""** (e.g., ""What type of food?"").
+3. User selects a response (e.g., ""Italian"").
+4. System displays **""Visualizzazione luogo suggestito""** (e.g., ""Trattoria Roma"").","- Correct question is displayed.
+- Response is registered.
+- Suggested location matches the response (e.g., Italian restaurant)."
+TC-PATHFINDER-003,Verify no suggestion handling in Pathfinder,Pathfinder Edge Cases,3,"- User is on the Pathfinder page.
+- System has no suggestions for the given response.","- A rare response (e.g., ""Vegan"" in a small database).","1. User is on the Pathfinder page.
+2. System displays a question.
+3. User selects a response with **no suggestions available**.","- System does not crash.
+- Message appears: ""No suggestions available"" or similar.
+- User can return to Homepage or retry."
+TC-EDGE-001,Verify rapid swipe-up from Location Details,Homepage Navigation (Edge Case),"1, 2",- User is on the Location Details page.,- None,"1. User is on the Location Details page.
+2. User performs **multiple rapid swipe-up gestures**.","- System handles input gracefully (e.g., ignores duplicates).
+- Returns to Homepage on the first valid swipe.
+- No crashes or freezes."
+TC-EDGE-002,Verify Pathfinder navigation after Like/Dislike,Location Details + Pathfinder Integration,"2, 3",- User is on the Location Details page.,"- A location (e.g., ""Bar Star"").","1. User is on the Location Details page.
+2. User clicks **""Like/Dislike""** → **""Modifica preferenze""**.
+3. User navigates to Pathfinder via Homepage.
+4. User answers a question.","- Pathfinder ignores disliked locations in suggestions.
+- No conflicts in preference updates."
+TC-NEGATIVE-001,Verify blocked navigation without internet (Yelp/Browser),Location Details Offline,2,"- User is on the Location Details page.
+- Device is in **airplane mode** (no internet).","- A location with Yelp integration (e.g., ""Café Paris"").","1. User is on the Location Details page.
+2. User clicks **""Navigate""** → **""Open in Browser""**.","- Error message appears: ""No internet connection. Try again later.""
+- System does not crash or attempt to open browser."
+TC-NEGATIVE-002,Verify blocked call without permissions,Location Details Permissions,2,"- User is on the Location Details page.
+- Device has **call permissions disabled**.","- A location with a phone number (e.g., ""Hotel Milano"").","1. User is on the Location Details page.
+2. User clicks **""Navigate""** → **""Call Business""**.","- Permission dialog appears: ""Allow [App Name] to make calls?""
+- If denied, error message: ""Call blocked. Enable permissions.""
+- No crashes."
+TC-NEGATIVE-003,Verify Pathfinder with empty response,Pathfinder Input Validation,3,- User is on the Pathfinder page.,- None (user skips selecting an answer).,"1. User is on the Pathfinder page.
+2. System displays a question.
+3. User **does not select a response** and clicks **""Indietro""**.","- Error message: ""Please select an answer.""
+- User cannot proceed without a response."

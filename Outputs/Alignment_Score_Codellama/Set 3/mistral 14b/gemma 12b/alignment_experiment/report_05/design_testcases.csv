@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration with valid data,User Registration,2,"- System is running; no duplicate username/email in database.
+- Network connectivity is active.","- Username: `johndoe123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `john.doe@example.com`","1. User initiates `registerUser()` via the application.
+2. System calls `getData()` to retrieve user input (username, password, name, email).
+3. User provides valid data (as above).
+4. System calls `verifyValidData()` on `UsersDatabase` with the input.
+5. Database validates:
+   - Username/email uniqueness.
+   - Password meets complexity (e.g., 8+ chars, special char).
+   - Email format is valid.
+6. Database returns `y = true`.
+7. System calls `saveUserData()` to persist the user.","- User receives confirmation: `registerUser: ""ok""`.
+- User data is stored in `UsersDatabase` with hashed password.
+- No duplicate entries exist for username/email."
+TC-USER-REGISTRATION-002,Failed user registration with invalid email format,User Registration,2,Same as TC-USER-REGISTRATION-001.,"- Username: `johndoe123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `john.doe@example` (missing `.com`)","1.–3. Same as TC-USER-REGISTRATION-001.
+4. System calls `verifyValidData()` with invalid email.
+5. Database detects invalid format and returns `y = false`.
+6. System skips `saveUserData()`.","- User receives: `registerUser: ""error""`.
+- No data is saved to `UsersDatabase`.
+- Error message specifies: *""Invalid email format.""*"
+TC-USER-REGISTRATION-003,Failed user registration with duplicate username,User Registration,2,- User `johndoe123` already exists in `UsersDatabase`.,"- Username: `johndoe123` (duplicate)
+- Password: `NewPass456!`
+- Name: `John Doe Jr.`
+- Email: `john.doe.jr@example.com`","1.–3. Same as TC-USER-REGISTRATION-001.
+4. System calls `verifyValidData()`; database detects duplicate username.
+5. Database returns `y = false`.","- User receives: `registerUser: ""error""`.
+- Error message: *""Username already exists.""*
+- No data is saved."
+TC-USER-LOGIN-001,Successful login with valid credentials,User Authentication,3,- User `johndoe123` exists in `UsersDatabase` with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User calls `userLogin(email, password)` with valid credentials.
+2. System forwards request to `UsersDatabase` via `validUser(email, password)`.
+3. Database verifies credentials (email + hashed password).
+4. Database returns `x = true`.","- User receives: `userLogin: ""ok""`.
+- System grants access to trip management features."
+TC-USER-LOGIN-002,Failed login with incorrect password,User Authentication,3,Same as TC-USER-LOGIN-001.,"- Email: `john.doe@example.com`
+- Password: `WrongPass123!`","1. User calls `userLogin()` with incorrect password.
+2. Database returns `x = false`.","- User receives: `userLogin: ""error""`.
+- No access granted; system logs attempt (optional)."
+TC-USER-LOGIN-003,Failed login with non-existent email,User Authentication,3,None.,"- Email: `nonexistent@example.com`
+- Password: `AnyPass123!`","1. User calls `userLogin()` with non-existent email.
+2. Database returns `x = false`.","- User receives: `userLogin: ""error""`.
+- Error message: *""User not found.""*"
+TC-PROFILE-UPDATE-001,Successful profile update with valid data,User Profile Management,5,"- User `johndoe123` is logged in.
+- Current email: `john.doe@example.com`.","- New Email: `john.new@example.com`
+- New Name: `Johnathan Doe`","1. User calls `changeProfile()`.
+2. System requests new data via `getNewData()`.
+3. User provides valid email/name.
+4. System calls `verifyValidData(x)` on `UsersDatabase`.
+5. Database validates:
+   - Email format.
+   - No duplicate email.
+6. Database returns `y = true`.
+7. System calls `updateUserData(x)`.
+8. Database updates user record.","- User receives: `changeProfile() ""ok""`.
+- User’s email/name in `UsersDatabase` is updated.
+- Old email is no longer active for login."
+TC-PROFILE-UPDATE-002,Failed profile update with duplicate email,User Profile Management,5,"- User `johndoe123` is logged in.
+- Email `john.new@example.com` is already in use by another user.","- New Email: `john.new@example.com` (duplicate)
+- New Name: `Johnathan Doe`","1.–3. Same as TC-PROFILE-UPDATE-001.
+4. System calls `verifyValidData(x)`; database detects duplicate email.
+5. Database returns `y = false`.","- User receives: `changeProfile() ""error""`.
+- Error message: *""Email already in use.""*
+- No changes are saved."
+TC-TRIP-CREATION-001,Create a trip with valid plan and places,Trip Management,"1, 4","- User `johndoe123` is logged in.
+- A `Plan` with `id=101` exists.
+- `PlaceToVisit` entities exist for categories (e.g., `id=1` for ""Museum"").","- Trip:
+  - City: `Paris`
+  - Country: `France`
+  - FinalDate: `2024-12-31`
+  - PlanId: `101`
+- DailyPlan (for `2024-12-15`):
+  - Weather: High=20°C, Low=10°C, Icon=""sunny""
+- Places to Visit:
+  - `Eiffel Tower` (CategoryId=1)
+  - `Louvre Museum` (CategoryId=1)","1. User creates a `Trip` with the above data via `updateTrip()`.
+2. System associates `Trip` with `Plan` (id=101).
+3. System creates `DailyPlan` entries for each day in the trip range.
+4. System links `PlaceToVisit` entities to the `Trip`.
+5. System calls `updateTripData(x)` on `TripsDatabase`.
+6. System calls `listTrip()` to return updated trip data.","- Trip is saved with:
+  - Correct `id`, `City`, `Country`, `FinalDate`, and `PlanId`.
+  - Associated `DailyPlan` entries with weather data.
+  - Linked `PlaceToVisit` entities.
+- User receives the full trip list via `listTrip()`."
+TC-TRIP-CREATION-002,Failed trip creation with invalid plan ID,Trip Management,"1, 4",User is logged in.,"- Trip:
+  - City: `Paris`
+  - Country: `France`
+  - FinalDate: `2024-12-31`
+  - PlanId: `9999` (non-existent)","1. User attempts to create a trip with invalid `PlanId`.
+2. System detects `Plan` does not exist during `updateTripData(x)`.","- System rejects the trip creation.
+- User receives: `updateTrip(): ""error""`.
+- Error message: *""Invalid Plan ID.""*"
+TC-DAILY-PLAN-WEATHER-001,Verify weather data association in daily plan,Daily Plan Validation,1,"- A `DailyPlan` with `id=201`, `PlanId=101`, and `Day=2024-12-15` exists.
+- A `Weather` entity with `id=501`, `High=20.0`, `Low=10.0`, `Icon=""sunny""` exists.",,"1. System associates `Weather` (id=501) with `DailyPlan` (id=201).
+2. System retrieves `DailyPlan` and checks `GetWeather()` (inferred operation).
+3. System validates:
+   - `Weather` entity exists.
+   - `High` and `Low` are within realistic ranges (e.g., -50°C to 50°C).","- Weather data is correctly linked to the `DailyPlan`.
+- No validation errors occur."
+TC-DAILY-PLAN-WEATHER-002,Reject daily plan with invalid weather data,Daily Plan Validation,1,Same as TC-DAILY-PLAN-WEATHER-001.,"- `Weather` entity with `High=150.0` (invalid), `Low=-100.0` (invalid).","1. System attempts to associate invalid `Weather` data with `DailyPlan`.
+2. System validates temperature ranges.","- System rejects the association.
+- Error message: *""Invalid weather temperature range.""*"
+TC-PLACE-CATEGORY-001,Add a place to visit with valid category,Place Management,1,"- A `Category` with `id=2`, `Name=""Restaurant""`, `Icon=""🍽️""` exists.
+- User is logged in.","- `PlaceToVisit`:
+  - Name: `Café de Flore`
+  - CategoryId: `2`","1. User adds `PlaceToVisit` to a `Trip`.
+2. System validates:
+   - `CategoryId=2` exists.
+   - `Name` is not empty.
+3. System links `PlaceToVisit` to the `Trip`.","- Place is added to the trip with correct `Category` association.
+- `GetCategory()` returns `id=2` and `Name=""Restaurant""`."
+TC-PLACE-CATEGORY-002,Reject place with non-existent category,Place Management,1,User is logged in.,"- `PlaceToVisit`:
+  - Name: `Café de Flore`
+  - CategoryId: `9999` (non-existent)","1. User attempts to add the place.
+2. System detects invalid `CategoryId`.","- System rejects the place.
+- Error message: *""Invalid category ID.""*"
+TC-TRIP-UPDATE-001,"Update trip details successfully
+**",,,,,,

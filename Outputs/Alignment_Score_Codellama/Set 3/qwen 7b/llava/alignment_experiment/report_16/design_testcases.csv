@@ -1,0 +1,131 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User successfully logs into the Admin system,Login,1,User has a valid username and password.,"- Username: user123
+- Password: pass123","1. User enters ""user123"" as the username.
+2. User enters ""pass123"" as the password.
+3. User clicks on the login button.
+4. System verifies the credentials.
+5. System displays a success message.",User is logged into the Admin system.
+TC-Login-002,User fails to log into the Admin system due to invalid credentials,Login,1,User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpass","1. User enters ""wronguser"" as the username.
+2. User enters ""wrongpass"" as the password.
+3. User clicks on the login button.
+4. System verifies the credentials.
+5. System displays an error message.",User is not logged into the Admin system and receives an error message.
+TC-AddProduct-001,Admin successfully adds a product to the system,Add Product,1,Admin is logged in.,"- Product name: ""Laptop""
+- Product description: ""High-performance laptop with 16GB RAM""","1. Admin logs in.
+2. Admin clicks on the ""Add Product"" button.
+3. Admin enters ""Laptop"" as the product name.
+4. Admin enters ""High-performance laptop with 16GB RAM"" as the product description.
+5. Admin clicks on the ""Save"" button.
+6. System saves the product.
+7. System displays a success message.",Product is added to the system.
+TC-AddProduct-002,Admin fails to add a product due to missing required fields,Add Product,1,Admin is logged in.,"- Product name: """"
+- Product description: ""High-performance laptop with 16GB RAM""","1. Admin logs in.
+2. Admin clicks on the ""Add Product"" button.
+3. Admin leaves the product name field empty.
+4. Admin enters ""High-performance laptop with 16GB RAM"" as the product description.
+5. Admin clicks on the ""Save"" button.
+6. System checks the input fields.
+7. System displays an error message.",Product is not added to the system and an error message is displayed.
+TC-AddItemToCart-001,User successfully adds an item to their cart,Add Item to Cart,1,User is logged in.,"- Item name: ""Mouse""
+- Item price: 29.99","1. User logs in.
+2. User clicks on the ""Add Item"" button.
+3. User selects ""Mouse"" as the item name.
+4. User enters ""29.99"" as the item price.
+5. User clicks on the ""Add"" button.
+6. System adds the item to the cart.
+7. System displays a success message.",Item is added to the user's cart.
+TC-AddItemToCart-002,User fails to add an item to their cart due to invalid price,Add Item to Cart,1,User is logged in.,"- Item name: ""Keyboard""
+- Item price: -10.00","1. User logs in.
+2. User clicks on the ""Add Item"" button.
+3. User selects ""Keyboard"" as the item name.
+4. User enters ""-10.00"" as the item price.
+5. User clicks on the ""Add"" button.
+6. System checks the item price.
+7. System displays an error message.",Item is not added to the user's cart and an error message is displayed.
+TC-RemoveItemFromCart-001,User successfully removes an item from their cart,Remove Item from Cart,1,User is logged in and has an item in their cart.,"- Item name: ""Mouse""","1. User logs in.
+2. User clicks on the ""Remove Item"" button.
+3. User selects ""Mouse"" as the item name.
+4. User clicks on the ""Remove"" button.
+5. System removes the item from the cart.
+6. System displays a success message.",Item is removed from the user's cart.
+TC-RemoveItemFromCart-002,User fails to remove an item from their cart due to non-existent item,Remove Item from Cart,1,User is logged in and does not have the specified item in their cart.,"- Item name: ""Mouse""","1. User logs in.
+2. User clicks on the ""Remove Item"" button.
+3. User selects ""Mouse"" as the item name.
+4. User clicks on the ""Remove"" button.
+5. System checks if the item exists in the cart.
+6. System displays an error message.",Item is not removed from the user's cart and an error message is displayed.
+TC-Logout-001,User successfully logs out of the Admin system,Logout,1,User is logged in.,,"1. User logs in.
+2. User clicks on the ""Logout"" button.
+3. System logs the user out.
+4. System displays a success message.",User is logged out of the Admin system.
+TC-Logout-002,User fails to log out due to unexpected system failure,Logout,1,User is logged in.,,"1. User logs in.
+2. User clicks on the ""Logout"" button.
+3. System attempts to log the user out but encounters an error.
+4. System displays an error message.",User remains logged in and an error message is displayed.
+TC-CartOperations-001,Admin successfully adds an item to their cart,Admin Cart Operations,1,Admin is logged in.,"- Item name: ""Headphones""
+- Item price: 49.99","1. Admin logs in.
+2. Admin clicks on the ""Add Item"" button.
+3. Admin selects ""Headphones"" as the item name.
+4. Admin enters ""49.99"" as the item price.
+5. Admin clicks on the ""Add"" button.
+6. System adds the item to the admin's cart.
+7. System displays a success message.",Item is added to the admin's cart.
+TC-CartOperations-002,Admin fails to add an item to their cart due to invalid price,Admin Cart Operations,1,Admin is logged in.,"- Item name: ""Speaker""
+- Item price: -20.00","1. Admin logs in.
+2. Admin clicks on the ""Add Item"" button.
+3. Admin selects ""Speaker"" as the item name.
+4. Admin enters ""-20.00"" as the item price.
+5. Admin clicks on the ""Add"" button.
+6. System checks the item price.
+7. System displays an error message.",Item is not added to the admin's cart and an error message is displayed.
+TC-CartOperations-003,Admin successfully removes an item from their cart,Admin Cart Operations,1,Admin is logged in and has an item in their cart.,"- Item name: ""Headphones""","1. Admin logs in.
+2. Admin clicks on the ""Remove Item"" button.
+3. Admin selects ""Headphones"" as the item name.
+4. Admin clicks on the ""Remove"" button.
+5. System removes the item from the admin's cart.
+6. System displays a success message.",Item is removed from the admin's cart.
+TC-CartOperations-004,Admin fails to remove an item from their cart due to non-existent item,Admin Cart Operations,1,Admin is logged in and does not have the specified item in their cart.,"- Item name: ""Headphones""","1. Admin logs in.
+2. Admin clicks on the ""Remove Item"" button.
+3. Admin selects ""Headphones"" as the item name.
+4. Admin clicks on the ""Remove"" button.
+5. System checks if the item exists in the cart.
+6. System displays an error message.",Item is not removed from the admin's cart and an error message is displayed.
+TC-EdgeCase-001,User attempts to add a product with a very long name,Add Product,1,Admin is logged in.,"- Product name: ""a"" * 256
+- Product description: ""High-performance laptop with 16GB RAM""","1. Admin logs in.
+2. Admin clicks on the ""Add Product"" button.
+3. Admin enters ""a"" * 256 as the product name.
+4. Admin enters ""High-performance laptop with 16GB RAM"" as the product description.
+5. Admin clicks on the ""Save"" button.
+6. System checks the product name length.
+7. System displays an error message.",Product is not added to the system and an error message is displayed.
+TC-EdgeCase-002,User attempts to add a product with a very long description,Add Product,1,Admin is logged in.,"- Product name: ""Laptop""
+- Product description: ""b"" * 256","1. Admin logs in.
+2. Admin clicks on the ""Add Product"" button.
+3. Admin enters ""Laptop"" as the product name.
+4. Admin enters ""b"" * 256 as the product description.
+5. Admin clicks on the ""Save"" button.
+6. System checks the product description length.
+7. System displays an error message.",Product is not added to the system and an error message is displayed.
+TC-EdgeCase-003,User attempts to add an item with a very long name,Add Item to Cart,1,User is logged in.,"- Item name: ""c"" * 256
+- Item price: 29.99","1. User logs in.
+2. User clicks on the ""Add Item"" button.
+3. User selects ""c"" * 256 as the item name.
+4. User enters ""29.99"" as the item price.
+5. User clicks on the ""Add"" button.
+6. System checks the item name length.
+7. System displays an error message.",Item is not added to the user's cart and an error message is displayed.
+TC-EdgeCase-004,User attempts to add an item with a very long price,Add Item to Cart,1,User is logged in.,"- Item name: ""Keyboard""
+- Item price: 12345678901234567890.00","1. User logs in.
+2. User clicks on the ""Add Item"" button.
+3. User selects ""Keyboard"" as the item name.
+4. User enters ""12345678901234567890.00"" as the item price.
+5. User clicks on the ""Add"" button.
+6. System checks the item price value.
+7. System displays an error message.",Item is not added to the user's cart and an error message is displayed.
+TC-EdgeCase-005,User attempts to remove an item with a very long name,Remove Item from Cart,1,User is logged in and has an item in their cart.,"- Item name: ""d"" * 256","1. User logs in.
+2. User clicks on the ""Remove Item"" button.
+3. User selects ""d"" * 256 as the item name.
+4. User clicks on the ""Remove"" button.
+5. System checks if the item exists in the cart.
+6. System displays an error message.",Item is not removed from the user's cart and an error

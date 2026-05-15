@@ -1,0 +1,41 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-USER-001","Verify user registration","User Authentication","1, 2","User opens the application","Valid username, password, email, and admin status","1. User enters valid credentials and clicks ""Login""
+2. Application sends a request to the database to check user registration
+3. Database responds with registration status
+4. Application displays the homepage","User is successfully logged in and redirected to the homepage."
+"TC-USER-002","Verify user registration failure","User Authentication","1, 2","User opens the application","Invalid username, password, email, or admin status","1. User enters invalid credentials and clicks ""Login""
+2. Application sends a request to the database to check user registration
+3. Database responds with registration failure
+4. Application displays an error message","User is not logged in, and an error message is displayed."
+"TC-DATA-001","Modify user data","Data Modification","3","User is logged in","Valid new username, password, email, and admin status","1. User navigates to the settings page
+2. User enters new credentials and clicks ""Save""
+3. Application sends a request to the database to update user data
+4. Database updates user data and confirms the update
+5. Application displays a success message","User data is successfully updated, and a success message is displayed."
+"TC-DATA-002","Modify user data failure","Data Modification","3","User is logged in","Invalid new username, password, email, or admin status","1. User navigates to the settings page
+2. User enters invalid credentials and clicks ""Save""
+3. Application sends a request to the database to update user data
+4. Database fails to update user data
+5. Application displays an error message","User data is not updated, and an error message is displayed."
+"TC-PRODUCTION-001","Add new production data","Production Tracking","1, 4","User is logged in","Valid ID, user, model, production footprint, total footprint, material formula, deposition, percentage presence, carbon footprint","1. User navigates to the production tracking page
+2. User enters valid production data and clicks ""Save""
+3. Application sends a request to the database to add new production data
+4. Database adds new production data and confirms the addition
+5. Application displays a success message","New production data is successfully added, and a success message is displayed."
+"TC-PRODUCTION-002","Add new production data failure","Production Tracking","1, 4","User is logged in","Invalid ID, user, model, production footprint, total footprint, material formula, deposition, percentage presence, carbon footprint","1. User navigates to the production tracking page
+2. User enters invalid production data and clicks ""Save""
+3. Application sends a request to the database to add new production data
+4. Database fails to add new production data
+5. Application displays an error message","New production data is not added, and an error message is displayed."
+"TC-DEVICE-001","Device scanning","Device Scanning","4, 5","User is logged in","Valid device","1. User initiates a device scan
+2. Application performs a hardware scan
+3. Application calculates component health and speed
+4. Application calculates life expectancy
+5. Application returns the result","Device scan is successful, and the result is returned."
+"TC-DEVICE-002","Device scanning failure","Device Scanning","4, 5","User is logged in","Invalid device","1. User initiates a device scan
+2. Application performs a hardware scan
+3. Application calculates component health and speed
+4. Application calculates life expectancy
+5. Application returns the result","Device scan is unsuccessful, and the result is returned."
+"TC-REPLACEMENT-001","Calculate replacement cost","Device Scanning","4","Device scan is successful, and some components are defective","Valid device","1. Application calculates the cost of replacement if components are defective","The cost of replacement is calculated correctly."
+"TC-REPLACEMENT-002","Calculate replacement cost failure","Device Scanning","4","Device scan is successful, but no components are defective","Valid device","1. Application calculates the cost of replacement if components are defective","The cost of replacement is 0, as no components are defective."

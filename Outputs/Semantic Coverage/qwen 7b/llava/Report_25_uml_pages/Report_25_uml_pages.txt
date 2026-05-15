@@ -1,0 +1,623 @@
+REPORT: Report_25_uml_pages.pdf
+======================================================================
+
+===== Report_25_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[a: String, ...]; operations=[op(args): Ret, ...]; role=Client
+- Server — kind=class; attributes=[a: String, ...]; operations=[op(args): Ret, ...]; role=Server
+- Database — kind=class; attributes=[a: String, ...]; operations=[op(args): Ret, ...]; role=Database
+- Application — kind=class; attributes=[a: String, ...]; operations=[op(args): Ret, ...]; role=Application
+
+Actors / Lifelines:
+- User
+- Server
+- Database
+- Application
+
+Relationships / Links:
+- User -> Server: association; type=message; label="Send request"; explanation="User sends a request to the server."
+- User -> Application: association; type=message; label="Receive response"; explanation="Server sends a response to the user."
+- Server -> Database: association; type=message; label="Query database"; explanation="Server queries the database."
+- Server -> Application: association; type=message; label="Send data"; explanation="Server sends data to the application."
+
+Main Flows (step by step):
+- Flow 1: User -> Server -> Application -> Database -> Server -> User
+  - User sends a request to the server.
+  - Server receives the request and queries the database.
+  - Database returns the requested data.
+  - Server sends the data to the application.
+  - Application receives the data and sends a response back to the server.
+  - Server sends the response back to the user.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a simple client-server interaction where a user sends a request to a server, which queries a database and sends a response back to the user.
+- The main flow is a request-response cycle.
+- The server is the central component that handles both the request and the response.
+- The database is a separate component that the server interacts with to retrieve data.
+- The application is a component that processes the data received from the server and sends a response back.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvv" -> "Utente registrato" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+  * None
+
+===== Report_25_uml_pages.pdf | Page 2 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Admin — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Product — kind=class; attributes=[name: String, description: String]; operations=[view(username: String): Ret, add(name: String, description: String): Ret]
+- Cart — kind=class; attributes=[items: List<Product>]; operations=[add(product: Product): Ret, remove(product: Product): Ret]
+- Checkout — kind=class; attributes=[user: User, cart: Cart]; operations=[checkout(): Ret]
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=association; label="login"; explanation="User logs in as Admin"
+- User -> Product — type=association; label="view"; explanation="User views a Product"
+- User -> Cart — type=association; label="add"; explanation="User adds a Product to Cart"
+- User -> Checkout — type=association; label="checkout"; explanation="User checks out from Cart"
+- Admin -> Product — type=association; label="add"; explanation="Admin adds a Product"
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> Checkout
+- Flow 2: User -> Product -> Cart -> Checkout
+
+Conditions / Branches:
+- User -> Admin — type=message; label="login"; explanation="User sends login message to Admin"
+- User -> Product — type=message; label="view"; explanation="User sends view message to Product"
+- User -> Cart — type=message; label="add"; explanation="User sends add message to Cart"
+- User -> Checkout — type=message; label="checkout"; explanation="User sends checkout message to Checkout"
+- Admin -> Product — type=message; label="add"; explanation="Admin sends add message to Product"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple e-commerce system where a User can log in as an Admin, view Products, add Products to a Cart, and checkout.
+- The User and Admin can interact with Products and Carts, but only the Admin can add Products.
+- The User can only view Products and add them to their Cart, while the Admin can view and add Products.
+- The Checkout is the final step where the User checks out from their Cart.
+- The User and Admin can interact with each other through the login process.
+- The User can only view Products, while the Admin can view and add Products.
+- The User can only add Products to their Cart, while the Admin can add Products.
+- The User can only checkout from their Cart, while the Admin can checkout from their Cart.
+
+Guidelines by diagram type:
+- For CLASS diagrams:
+  * Each class box as a component.
+  * In the component bullet, list all attributes and operations exactly as written.
+  * In the relationships / links, list all associations, aggregations, compositions, etc.
+
+- For ACTIVITY
+  * For ACTIVITY
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBJECT
+  * For OBB. For OBB. For OB. for OB. for OB. for OB. for OB. for OB. for OB. for O
+
+===== Report_25_uml_pages.pdf | Page 3 =====
+UML Type: Sequence Diagram
+
+Components:
+- Utente — kind=Actor; attributes=[a: String]; operations=[op(args): send(msg)]
+- App — kind=Object; attributes=[a: String]; operations=[op(args): send(msg)]
+- Server — kind=Object; attributes=[a: String]; operations=[op(args): receive(msg)]
+- Database — kind=Object; attributes=[a: String]; operations=[op(args): receive(msg)]
+
+Actors / Lifelines:
+- Utente
+- App
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> App — type=message; label="send(msg)"; explanation="Utente sends a message to App"
+- App -> Server — type=message; label="send(msg)"; explanation="App sends a message to Server"
+- Server -> Database — type=message; label="receive(msg)"; explanation="Server receives a message from Database"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database
+- Flow 2: None
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The sequence diagram shows the interaction between an Utente (User), an App (Application), a Server, and a Database.
+- The Utente sends a message to the App, which then sends a message to the Server.
+- The Server receives a message from the Database.
+- The Utente, App, Server, and Database are all actors or lifelines in this diagram.
+- The Utente, App, Server, and Database are all objects in this diagram.
+- The Utente sends a message to the App, which is a String.
+- The App sends a message to the Server, which is a String.
+- The Server receives a message from the Database, which is a String.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, App, Server, and Database are all involved in this sequence diagram.
+- The Utente, and Database are all involved in this sequence diagram.
+- The Utente, and Database are all.
+
+===== Report_25_uml_pages.pdf | Page 4 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=User
+- App — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Application
+- Server — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Server
+- Database — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> App — type=association; label=""; explanation="User interacts with Application"
+- Utente -> Server — type=association; label=""; explanation="User interacts with Server"
+- Utente -> Database — type=association; label=""; explanation="User interacts with Database"
+- App -> Server — type=association; label=""; explanation="Application interacts with Server"
+- App -> Database — type=association; label=""; explanation="Application interacts with Database"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database
+- Flow 2: None
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple class diagram with four classes: Utente, App, Server, and Database.
+- Utente is a user, App is an application, Server is a server, and Database is a database.
+- Utente interacts with App, Server, and Database.
+- App interacts with Server and Database.
+- Server interacts with Database.
+- The diagram does not show any specific operations or attributes for the classes.
+- The diagram does not show any specific interactions between the classes.
+- The diagram does not show any specific conditions or branches.
+- The diagram does not show any specific loops or repetitions.
+- The diagram does not show any specific notes or annotations.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, etc.).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should describe likely sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+
+- For STATEMENT:
+  * None
+
+- For STATEMENT:
+  * None
+
+- For STATEMENT:
+  * None
+
+===== Report_25_uml_pages.pdf | Page 5 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- App — kind=class; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=Application
+- Server — kind=class; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=Server
+- Database — kind=class; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> App — type=association; label=""; explanation="User interacts with Application"
+- Utente -> Server — type=association; label=""; explanation="User interacts with Server"
+- Utente -> Database — type=association; label=""; explanation="User interacts with Database"
+- App -> Server — type=association; label=""; explanation="Application interacts with Server"
+- App -> Database — type=association; label=""; explanation="Application interacts with Database"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database
+- Flow 2: None
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a class diagram with four classes: Utente, App, Server, and Database.
+- Utente is a user, App is an application, Server is a server, and Database is a database.
+- Utente interacts with App, Server, and Database.
+- App interacts with Server and Database.
+- Server interacts with Database.
+- The diagram does not show any decision points or loops.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, etc.).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should describe the interaction from top to bottom.
+
+- For STATEMENT diagrams:
+  * None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+- None
+- None
+-None
+-None
+-None
+-None
+-None
+-None
+-None
+-None
+-None
+-None
+-None
+-
+
+===== Report_25_uml_pages.pdf | Page 6 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=User
+- App — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Application
+- Server — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Server
+- Database — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> App — type=association; label=""; explanation="User interacts with Application"
+- App -> Server — type=association; label=""; explanation="Application interacts with Server"
+- Server -> Database — type=association; label=""; explanation="Server interacts with Database"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database
+- Flow 2: None
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple system with a user (Utente), an application (App), a server (Server), and a database (Database).
+- The user interacts with the application, which in turn interacts with the server and the database.
+- The system is designed to handle user input, process it through the application, and store or retrieve data from the database.
+- The system is likely to have error handling and exception processing, but these are not explicitly shown in the diagram.
+- The diagram does not show any specific error paths or error handling mechanisms.
+- The system may have additional components or relationships not visible in the diagram, but these are not part of the visible system.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links must capture each message with its order and arrow direction.
+  * Main Flows should describe the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Conditions / Branches:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATEMENT diagrams:
+  * None
+
+- For STATE
+
+===== Report_25_uml_pages.pdf | Page 7 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[nome: string, email: string, password: string]; operations=[login(): boolean, logout(): boolean]; role=Utente
+- Server — kind=class; attributes=[port: int, connessioni: int]; operations=[acquista(): boolean, vendi(): boolean]; role=Server
+- Database — kind=class; attributes=[connessioni: int]; operations=[aggiungi(): boolean, elimina(): boolean]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> Server — type=association; label="acquista"; explanation="Utente acquista un prodotto dal server"
+- Utente -> Database — type=association; label="aggiungi"; explanation="Utente aggiunge un prodotto al database"
+- Server -> Database — type=association; label="elimina"; explanation="Server elimina un prodotto dal database"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Server -> Database
+  - Utente acquista un prodotto dal server
+  - Server aggiunge il prodotto al database
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a simple e-commerce system where an Utente (User) interacts with a Server to purchase products.
+  - The Server is responsible for managing the inventory and transactions with the Database.
+  - The main flow of the system is the acquisition of a product by the User, which involves the Server and the Database.
+  - There are no decision points or loops in this system.
+  - The system is designed to be straightforward, with no complex error paths or repetitive behaviors.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should describe the interaction from top to bottom in a step-by-step manner.
+
+- For USE-CASE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should describe the interaction from top to bottom in a step-by-step manner.
+
+- For STATEMENT
+  * None
+
+This is a sample diagram.
+
+- None
+
+===== Report_25_uml_pages.pdf | Page 8 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[nome: String, email: String, password: String]; operations=[registraConSuccesso(): void, effettuaPagina(): void]; role=Client
+- Server — kind=class; attributes=[nome: String, email: String, password: String]; operations=[registraConSuccesso(): void, effettuaPagina(): void]; role=Server
+- Database — kind=class; attributes=[nome: String, email: String, password: String]; operations=[registraConSuccesso(): void, effettuaPagina(): void]; role=Database
+- App — kind=class; attributes=[nome: String, email: String, password: String]; operations=[registraConSuccesso(): void, effettuaPagina(): void]; role=App
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Server — type=association; label="registraConSuccesso()"; explanation="Utente effettua il registro con successo al server";
+- Utente -> Database — type=association; label="registraConSuccesso()"; explanation="Utente effettua il registro con successo al database";
+- Utente -> App — type=association; label="effettuaPagina()"; explanation="Utente effettua la pagina tramite l'applicazione";
+- Server -> Database — type=association; label="registraConSuccesso()"; explanation="Server effettua il registro con successo al database";
+- Server -> App — type=association; label="effettuaPagina()"; explanation="Server effettua la pagina tramite l'applicazione";
+
+Main Flows (step by step):
+- Flow 1: Utente -> Server -> Database -> App -> Utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This UML class diagram models the interactions between a user (Utente), a server, a database, and an application (App).
+- The main flow of the system is that a user registers with success at the server and the database, and then the user interacts with the application.
+- There are no decision points or loops visible in this diagram.
+- The diagram does not provide any specific error paths or error handling mechanisms.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * In the component bullet, list all activities exactly as written, including type and return type if visible.
+  * In Relationships / Links, list control-flows, data flows, etc.
+  * Main Flows can describe the main flow from start to end based only on visible methods and relationships (no guessing).
+
+- For SEQUENCE diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+  * Include diagrams:
+
+
+======================================================================

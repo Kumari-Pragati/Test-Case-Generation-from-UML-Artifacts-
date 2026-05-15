@@ -1,0 +1,88 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in successfully,Login,1,User exists in the system,"- username: ""testuser""
+- password: ""password123""","1. User enters username and password.
+2. User clicks on the login button.",User is logged in successfully and redirected to the main menu.
+TC-Login-002,Admin logs in successfully,Login,1,Admin exists in the system,"- username: ""adminuser""
+- password: ""adminpassword""","1. Admin enters username and password.
+2. Admin clicks on the login button.",Admin is logged in successfully and redirected to the main menu.
+TC-Login-003,User logs in with invalid credentials,Login,1,User exists in the system,"- username: ""testuser""
+- password: ""wrongpassword""","1. User enters incorrect username and password.
+2. User clicks on the login button.",Error message is displayed indicating incorrect credentials.
+TC-Login-004,Admin logs in with invalid credentials,Login,1,Admin exists in the system,"- username: ""adminuser""
+- password: ""wrongpassword""","1. Admin enters incorrect username and password.
+2. Admin clicks on the login button.",Error message is displayed indicating incorrect credentials.
+TC-Logout-001,User logs out successfully,Logout,"1, 3",User is logged in,"- username: ""testuser""","1. User navigates to the logout option.
+2. User clicks on the logout button.",User is logged out successfully and redirected to the login page.
+TC-Logout-002,Admin logs out successfully,Logout,"1, 3",Admin is logged in,"- username: ""adminuser""","1. Admin navigates to the logout option.
+2. Admin clicks on the logout button.",Admin is logged out successfully and redirected to the login page.
+TC-UserRegistration-001,User registers successfully,Registration,10,None,"- username: ""newuser""
+- password: ""password123""
+- email: ""newuser@example.com""","1. Main actor initiates user creation.
+2. User provides registration details.
+3. User submits the registration form.
+4. User data is saved in the database.",User is registered successfully and a confirmation message is displayed.
+TC-UserRegistration-002,User registration fails due to existing username,Registration,10,"User with username ""existinguser"" already exists","- username: ""existinguser""
+- password: ""password123""
+- email: ""newuser@example.com""","1. Main actor initiates user creation.
+2. User provides registration details.
+3. User submits the registration form.",Error message is displayed indicating that the username is already taken.
+TC-UserNavigation-001,User navigates through menu options,Navigation,3,User is logged in,"- username: ""testuser""","1. User clicks on the menu option.
+2. User navigates to the profile page.
+3. User navigates to the activities page.
+4. User navigates back to the menu.",User successfully navigates through the menu options and views the respective pages.
+TC-UserNavigation-002,User navigates to logout from profile page,Navigation,3,User is logged in,"- username: ""testuser""","1. User clicks on the menu option.
+2. User navigates to the profile page.
+3. User clicks on the logout option.",User is logged out successfully and redirected to the login page.
+TC-AnnouncementManagement-001,User creates an announcement,Announcement Management,9,User is logged in,"- username: ""testuser""","1. User clicks on the create announcement option.
+2. User fills in the announcement details.
+3. User submits the announcement.",Announcement is created successfully and displayed on the noticeboard.
+TC-AnnouncementManagement-002,User modifies an announcement,Announcement Management,9,User has created an announcement,"- username: ""testuser""","1. User clicks on the modify announcement option.
+2. User updates the announcement details.
+3. User submits the modified announcement.",Announcement is updated successfully and the changes are reflected on the noticeboard.
+TC-AnnouncementManagement-003,User accepts an announcement,Announcement Management,9,User has created an announcement,"- username: ""testuser""","1. User clicks on the accept announcement option.
+2. User confirms the acceptance.",Announcement status is changed to accepted and marked as in progress.
+TC-AnnouncementManagement-004,User removes an announcement,Announcement Management,9,User has created an announcement,"- username: ""testuser""","1. User clicks on the remove announcement option.
+2. User confirms the removal.",Announcement is removed successfully and no longer appears on the noticeboard.
+TC-AnnouncementManagement-005,User assigns points to an announcement,Announcement Management,9,User has created an announcement,"- username: ""testuser""","1. User clicks on the assign points option.
+2. User specifies the point value.
+3. User submits the point assignment.",Points are assigned successfully to the announcement.
+TC-ProfileModification-001,User modifies account details,Profile Modification,8,User is logged in,"- username: ""testuser""","1. User clicks on the menu option.
+2. User navigates to the profile page.
+3. User clicks on the modify account option.
+4. User updates the account details.
+5. User submits the modifications.",Account details are updated successfully and the changes are reflected on the profile page.
+TC-ProfileModification-002,User donates points,Profile Modification,8,User is logged in,"- username: ""testuser""","1. User clicks on the menu option.
+2. User navigates to the profile page.
+3. User clicks on the points donation option.
+4. User specifies the point value.
+5. User submits the donation.",Points are donated successfully and the balance is updated on the profile page.
+TC-NoticeboardManagement-001,User views noticeboard,Noticeboard Management,5,User is logged in,"- username: ""testuser""","1. User clicks on the view noticeboard option.
+2. User views the noticeboard content.",Noticeboard content is displayed successfully.
+TC-NoticeboardManagement-002,User lists noticeboard items with filter,Noticeboard Management,5,User is logged in,"- username: ""testuser""","1. User clicks on the list with filter option.
+2. User applies a filter to the noticeboard items.
+3. User views the filtered noticeboard items.",Filtered noticeboard items are displayed successfully.
+TC-NoticeboardManagement-003,User lists noticeboard items without filter,Noticeboard Management,5,User is logged in,"- username: ""testuser""","1. User clicks on the list no filter option.
+2. User views the unfiltered noticeboard items.",Unfiltered noticeboard items are displayed successfully.
+TC-NoticeboardManagement-004,User views detailed noticeboard items with filter,Noticeboard Management,5,User is logged in,"- username: ""testuser""","1. User clicks on the list with filter option.
+2. User applies a filter to the noticeboard items.
+3. User clicks on a detailed view of a filtered noticeboard item.
+4. User views the detailed noticeboard item.",Detailed view of the filtered noticeboard item is displayed successfully.
+TC-NoticeboardManagement-005,User views detailed noticeboard items without filter,Noticeboard Management,5,User is logged in,"- username: ""testuser""","1. User clicks on the list no filter option.
+2. User views the unfiltered noticeboard items.
+3. User clicks on a detailed view of an unfiltered noticeboard item.
+4. User views the detailed noticeboard item.",Detailed view of the unfiltered noticeboard item is displayed successfully.
+TC-DataPersistence-001,User data is saved in the database,Data Persistence,"10, 14",User is logged in,"- username: ""testuser""","1. User performs an action that requires data to be saved in the database.
+2. User data is sent to the database for storage.",User data is successfully saved in the database.
+TC-DataPersistence-002,Announcement data is saved in the database,Data Persistence,"9, 14",User has created an announcement,"- username: ""testuser""","1. User creates an announcement.
+2. Announcement data is sent to the database for storage.",Announcement data is successfully saved in the database.
+TC-DataPersistence-003,Noticeboard data is saved in the database,Data Persistence,"5, 14",User has viewed a noticeboard,"- username: ""testuser""","1. User views a noticeboard.
+2. Noticeboard data is sent to the database for storage.",Noticeboard data is successfully saved in the database.
+TC-DataPersistence-004,User data is retrieved from the database,Data Persistence,"10, 14",User data exists in the database,"- username: ""testuser""","1. User requests data retrieval from the database.
+2. User data is fetched from the database.",User data is successfully retrieved from the database.
+TC-DataPersistence-005,Announcement data is retrieved from the database,Data Persistence,"9, 14",Announcement data exists in the database,"- username: ""testuser""","1. User requests data retrieval from the database.
+2. Announcement data is fetched from the database.",Announcement data is successfully retrieved from the database.
+TC-DataPersistence-006,Noticeboard data is retrieved from the database,Data Persistence,"5, 14",Noticeboard data exists in the database,"- username: ""testuser""","1. User requests data retrieval from the database.
+2. Noticeboard data is fetched from the database.",Noticeboard data is successfully retrieved from the database.
+TC-UserInteraction-001,User interacts with main system,User Interaction,"12, 13, 15",User is logged in,"- username: ""testuser""","1. User interacts with the main system.
+2. User's actions are processed by the main system.
+3. Main system communicates with the database as required.",

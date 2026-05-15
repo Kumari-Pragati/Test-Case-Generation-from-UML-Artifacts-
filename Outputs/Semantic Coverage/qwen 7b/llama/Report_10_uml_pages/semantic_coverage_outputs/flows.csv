@@ -1,0 +1,44 @@
+flow
+"utente -> eventi — type=association; label=""""; explanation="" """
+"eventi -> cita — type=association; label=""""; explanation="" """
+"cita -> poi — type=association; label=""""; explanation="" """
+"poi -> utente — type=association; label=""""; explanation="" """
+flow 1: utente -> eventi -> cita -> poi -> utente
+this diagram models a system for managing events and points of interest.
+the system allows users to create events and associate them with cities and points of interest.
+the system also allows users to get and set various attributes of events and points of interest.
+the system has a user interface for creating and managing events and points of interest.
+"avvio app -> utente registrato con successo al servizio? — type=association; label=""si""; explanation=""user registration success"""
+"utente registrato con successo al servizio? -> utente loggato correttamente? — type=association; label=""si""; explanation=""correct login"""
+"utente loggato correttamente? -> homepage — type=association; label=""si""; explanation=""homepage"""
+"homepage -> avvio app — type=association; label=""no""; explanation=""no"""
+flow 1: avvio app -> utente registrato con successo al servizio? -> utente loggato correttamente? -> homepage
+flow 2: none
+the diagram models the activity of user registration and login.
+the main flows represent the sequence of events from app launch to successful registration and correct login.
+the decision points are based on user registration success and correct login.
+the system creates a new user account upon successful registration.
+"avvio app -> l'utente è loggato? — type=question; label=""no""; explanation=""login status"""
+"l'utente è loggato? -> fase di login/registrazione — type=login/registration; label=""no""; explanation=""login/registration phase"""
+"fase di login/registrazione -> svolgi i passaggi per ricercare una città — type=city search; label=""no""; explanation=""city search"""
+"svolgi i passaggi per ricercare una città -> e nella schermata di visualizzazione di una città — type=city view; label=""no""; explanation=""city view"""
+"e nella schermata di visualizzazione di una città -> scordi in basso e premi ""x"" per aggiungere un evento — type=event creation; label=""no""; explanation=""event creation"""
+"scordi in basso e premi ""x"" per aggiungere un evento -> compila i campi corretti? — type=question; label=""no""; explanation=""correct form"""
+"compila i campi corretti? -> i campi sono corretti? — type=question; label=""no""; explanation=""correct fields"""
+"i campi sono corretti? -> evento creato — type=event creation; label=""no""; explanation=""event creation"""
+"avvio app -> l'utente è loggato? -> fase di login/registrazione -> svolgi i passaggi per ricercare una città -> e nella schermata di visualizzazione di una città -> scordi in basso e premi ""x"" per aggiungere un evento -> compila i campi corretti? -> i campi sono corretti? -> evento creato"
+the diagram models a sequence of events that occur when an app is launched.
+the user is
+"avvio app -> fase di login /registrazione — type=association; label=""no""; explanation=""no"""
+"fase di login /registrazione -> svolgi i passaggi per riscare una città — type=association; label=""no""; explanation=""no"""
+"svolgi i passaggi per riscare una città -> e nella schemata di visualizzazione di una città — type=association; label=""no""; explanation=""no"""
+"e nella schemata di visualizzazione di una città -> scorri in basso e premi “” per rimuovere un evento o la penna” per modificare — type=association; label=""no""; explanation=""no"""
+"scorri in basso e premi “” per rimuovere un evento o la penna” per modificare -> hai premuto “”? — type=association; label=""no""; explanation=""no"""
+"hai premuto “”? -> evento cancellato — type=association; label=""no""; explanation=""no"""
+"evento cancellato -> evento modificato — type=association; label=""no""; explanation=""no"""
+"l'utente è loggato? -> l'utente è loggato? — type=association; label=""no""; explanation=""no"""
+"l'utente è loggato? -> i campi sono corretti? — type=association; label=""no""; explanation=""no"""
+"i campi sono corretti? -> compila i form per modificare l'evento — type=association; label=""no""; explanation=""no"""
+"compila i form per modificare l'evento -> evento modificato — type=association; label=""no""; explanation=""no"""
+avvio app -> fase di login /registrazione -> svolgi i passaggi per r
+======================================================================

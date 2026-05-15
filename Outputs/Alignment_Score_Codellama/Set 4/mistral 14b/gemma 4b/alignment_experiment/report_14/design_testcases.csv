@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration with valid credentials,User Registration,"2, 6","- User does not exist in the system.
+- Network connection is stable.
+- Valid credentials (username, password, localization data) are provided.","- Username: `john_doe_123`
+- Password: `SecurePass123!`
+- Localization: `Rome, Italy`
+- Company Name (if BusinessUser): `Doe’s Bakery` (optional)","1. User initiates registration flow (e.g., clicks ""Sign Up"").
+2. System checks if user exists (`Utente?` decision node).
+3. System proceeds to `UserCreateProcedure` (user does not exist).
+4. User fills in registration form with valid data.
+5. System validates credentials and creates new entry in `StoredDataDB`.
+6. System verifies localization (`VerifyLocalizationProcedure`).
+7. System confirms successful completion (`Procedura completata con successo? = SI`).","- User account is created successfully.
+- User is redirected to `HOME` screen.
+- Confirmation message: *""Registration successful. Welcome, john_doe_123!""* appears.
+- User data is persisted in `StoredDataDB` with `id`, `username`, and localization."
+TC-USER-REGISTRATION-002,Failed user registration due to invalid localization,User Registration,2,"- User does not exist in the system.
+- Network connection is stable.
+- Invalid localization data is provided.","- Username: `jane_smith_456`
+- Password: `ValidPass789!`
+- Localization: `Invalid_City, Nowhere` (non-existent location)","1. User initiates registration flow.
+2. System checks if user exists (`Utente? = NO`).
+3. User fills in form with invalid localization.
+4. System proceeds to `UserCreateProcedure` → `Utente creato con successo? = SI`.
+5. System attempts `VerifyLocalizationProcedure` → fails validation.
+6. System evaluates `Procedura completata con successo? = NO`.","- User account is **not** created.
+- Error message: *""Localization verification failed. Please enter a valid address.""* appears.
+- User is redirected to `HOME` screen.
+- No entry is created in `StoredDataDB`."
+TC-USER-REGISTRATION-003,Duplicate username registration attempt,User Registration,"1, 6","- User `john_doe_123` already exists in the system.
+- Network connection is stable.","- Username: `john_doe_123` (duplicate)
+- Password: `NewPass456!`
+- Localization: `Milan, Italy`","1. User initiates registration flow.
+2. System checks if user exists (`Utente? = SI`).
+3. User attempts to register with existing username.
+4. System detects duplicate and **skips** `UserCreateProcedure`.
+5. System proceeds directly to `VerifyLocalizationProcedure` (if applicable) or `HOME`.","- Error message: *""Username already exists. Please choose another.""* appears.
+- User is redirected to `HOME` screen.
+- No new entry is created in `StoredDataDB`."
+TC-USER-REGISTRATION-004,User registration with missing required field,User Registration,2,"- User does not exist.
+- Network connection is stable.","- Username: (left blank)
+- Password: `ValidPass123!`
+- Localization: `Paris, France`","1. User initiates registration flow.
+2. User submits form with missing `username` field.
+3. System validates input and detects missing data.","- Error message: *""Username is required.""* appears near the field.
+- User remains on registration screen.
+- No attempt to create user in `StoredDataDB`."
+TC-POST-COMMENT-001,Successful post comment creation,Post Comment,"1, 4","- User `john_doe_123` is logged in.
+- A `Post` with `id=101` exists in the system.
+- User has permission to comment.","- Post ID: `101`
+- Comment Content: `""Great post! Thanks for sharing.""`
+- Author: `john_doe_123`","1. User navigates to `GeneralDashboard` → scrolls to `Post` with `id=101`.
+2. User clicks on the post → enters `FullScreenPost` view.
+3. User clicks ""LeaveComment"" → enters comment text.
+4. User submits comment.
+5. System creates `PostComment` object with:
+   - `id` (auto-generated),
+   - `author = john_doe_123`,
+   - `creationDate = current timestamp`,
+   - `post = Post(id=101)`,
+   - `hashCode` (auto-generated).
+6. System calls `postCommentCopyWithNil(Map<String, Object>)` to persist data.
+7. System waits for `AttendIsvataggio` (save confirmation).","- Comment is displayed under the post.
+- `PostComment` is linked to `Post(id=101)` via `contains`/`has` association.
+- `Post.lastUpdateDate` is updated to current timestamp.
+- Confirmation toast: *""Comment added successfully!""* appears."
+TC-POST-COMMENT-002,Comment creation with empty content,Post Comment,"1, 4","- User `jane_smith_456` is logged in.
+- A `Post` with `id=102` exists.","- Post ID: `102`
+- Comment Content: (empty string)
+- Author: `jane_smith_456`","1. User navigates to `Post(id=102)` → clicks ""LeaveComment"".
+2. User submits empty comment.","- Error message: *""Comment cannot be empty.""* appears.
+- Comment is **not** saved.
+- User remains on `FullScreenPost` view."
+TC-POST-COMMENT-003,Comment creation by unauthorized user (edge case),Post Comment,1,"- `Post(id=103)` is marked as ""private"" (only `author=admin` can comment).
+- User `john_doe_123` (not admin) is logged in.","- Post ID: `103`
+- Comment Content: `""Hello!""`
+- Author: `john_doe_123`","1. User attempts to comment on `Post(id=103)`.
+2. System checks `author` permission.","- Error message: *""You are not authorized to comment on this post.""* appears.
+- Comment is **not** saved.
+- User remains on `FullScreenPost` view."
+TC-NAVIGATION-001,Navigation from Home to Profile screen,UI Navigation,3,- User is logged in and on `Home` screen.,,"1. User clicks on profile picture (top-left corner).
+2. System transitions from `Home` to `Profile`.","- `Profile` screen loads with user’s data (name, surname, companyName if BusinessUser).
+- Back button (home icon) is visible.
+- URL reflects `/profile` (or equivalent)."
+TC-NAVIGATION-002,Navigation from Profile to ChatSection,UI Navigation,3,- User is on `Profile` screen.,,"1. User clicks on chat icon (bottom-right).
+2. System transitions from `Profile` to `ChatSection`.","- `ChatSection` screen loads with user’s `ChatList`.
+- List of chats (if any) is displayed.
+- Back button (profile icon) is visible."
+TC-CHAT-001,Viewing chat list from ResultItem,Chat Functionality,5,"- User performs a search → `ItemResultSearch` returns `ResultItem` for a business.
+- User has active chats in `ChatList`.",,"1. User clicks on `ResultItem` (e.g., a business profile).
+2. User clicks ""Chat"" option in the dropdown.
+3. System transitions to `Chat` screen with relevant `ChatList`.","- Chat interface loads with existing conversations.
+- New message input field is enabled.
+- `ChatList` is populated with chats where user is a participant."
+TC-BUSINESS-PROFILE-001,Accessing business profile calendar,Business Profile,5,"- User searches for a business → `ResultItem` for `Doe’s Bakery` appears.
+- Business profile has a `Calendar` with events.",,"1. User clicks on `ResultItem` → navigates to `BusinessProfile`.
+2. User clicks on ""Calendar"" tab.
+3. System loads `Calendar` with events.","- Calendar view displays events (e.g., ""Opening Hours: 8AM-8PM"").
+- Option to add/edit events is available (if permitted).
+- `AttendOperationDiScritturaSulDb` is triggered on save."
+TC-BUSINESS-PROFILE-002,Failed database write operation during profile update,Business Profile,5,"- User is editing `BusinessProfile` for `Doe’s Bakery`.
+- Network connection is unstable.",,"1. User updates `companyName` to `""Doe’s Café""` → clicks ""Save"".
+2. System initiates `AttendOperationDiScritturaSulDb`.
+3. Database operation fails (e.g., timeout).","- Error message: *""Failed to save changes. Please try again.""* appears.
+- Changes are **not** persisted.
+- User remains on `BusinessProfile` edit screen."
+TC-SEARCH-001,Search for non-existent business,Search Functionality,5,- User is on `GeneralDashboard`.,"- Search Query: `""Pizza Place XYZ""` (non-existent)","1. User enters search query → clicks ""Search"".
+2. System processes `ItemResultSearch`.","- Empty `ResultItem` list is displayed.
+- Message: *""No results found for 'Pizza Place XYZ'.""* appears.
+- Option to refine search is provided."
+TC-LOCALIZATION-001,Localization verification for new user,User Registration,"2, 6","- User does not exist.
+- Valid localization data is provided.","- Localization: `New York, USA` (valid coordinates)","1. User registers with valid localization.
+2. System verifies `VerifyLocalizationProcedure`.
+3. System confirms `Procedura completata con successo? = SI`.","- Localization is stored in `User`/`BusinessUser` object.
+- User is redirected to `HOME`.
+- No errors occur."
+TC-LOCALIZATION-002,Localization verification with invalid coordinates,User Registration,2,- User does not exist.,"- Localization: `Mars, Space` (invalid)","1. User registers with invalid localization.
+2. System fails `VerifyLocalizationProcedure`.","- Error message: *""Invalid location. Please enter a valid address.""* appears.
+- User is redirected to `HOME`.
+- No user record is created."

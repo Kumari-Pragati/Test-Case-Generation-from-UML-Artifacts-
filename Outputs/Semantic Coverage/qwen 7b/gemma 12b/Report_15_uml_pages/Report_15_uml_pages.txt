@@ -1,0 +1,232 @@
+REPORT: Report_15_uml_pages.pdf
+======================================================================
+
+===== Report_15_uml_pages.pdf | Page 1 =====
+UML Type:
+- Use-Case
+
+Components:
+- Inserimento/Modifica Piante — kind=use_case; attributes=[]; operations=[]; role=Plant management
+- Informazioni Utente — kind=use_case; attributes=[]; operations=[]; role=User information
+- DataManager — kind=component; attributes=[]; operations=[]; role=Central data management
+- Operazioni di Accesso — kind=use_case; attributes=[]; operations=[]; role=Access operations
+- Lettura Piante — kind=use_case; attributes=[]; operations=[]; role=Plant reading
+- Inserimento/Modifica Diario — kind=use_case; attributes=[]; operations=[]; role=Diary management
+- Lettura Diario — kind=use_case; attributes=[]; operations=[]; role=Diary reading
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Inserimento/Modifica Piante -> DataManager — type=association; label=""; explanation="Uses DataManager"
+- Informazioni Utente -> DataManager — type=association; label=""; explanation="Uses DataManager"
+- Operazioni di Accesso -> DataManager — type=association; label=""; explanation="Uses DataManager"
+- Lettura Piante -> DataManager — type=association; label=""; explanation="Uses DataManager"
+- Inserimento/Modifica Diario -> DataManager — type=association; label=""; explanation="Uses DataManager"
+- Lettura Diario -> DataManager — type=association; label=""; explanation="Uses DataManager"
+
+Main Flows:
+- Flow 1: Inserimento/Modifica Piante -> DataManager
+- Flow 2: Informazioni Utente -> DataManager
+- Flow 3: Operazioni di Accesso -> DataManager
+- Flow 4: Lettura Piante -> DataManager
+- Flow 5: Inserimento/Modifica Diario -> DataManager
+- Flow 6: Lettura Diario -> DataManager
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts several use cases related to plant and diary management, all interacting with a central DataManager component.
+- Each use case (Plant insertion/modification, User information, Access operations, Plant reading, Diary insertion/modification, and Diary reading) relies on the DataManager for its functionality.
+- The diagram shows a clear separation of concerns, with the DataManager acting as a central hub for data management operations.
+- There are no conditional flows or loops depicted in the diagram.
+
+===== Report_15_uml_pages.pdf | Page 2 =====
+UML Type:
+- Class
+
+Components:
+- Home — kind=class; attributes=[]; operations=[Navigate(pagina: Pagina)]; role=Main screen
+- CuriositaDelGiorno — kind=class; attributes=[]; operations=[]; role=Daily curiosity
+- PaginaFunzione — kind=class; attributes=[Titolo: String, Contenuto: String]; operations=[CreateState()]; role=Page with title and content
+- LeMiePiante — kind=class; attributes=[]; operations=[]; role=User's plants
+- Fotocamera — kind=class; attributes=[]; operations=[scattaFoto()]; role=Camera functionality
+- Diario — kind=class; attributes=[]; operations=[]; role=Diary
+- VereSpecieDellePianteFotografate — kind=class; attributes=[]; operations=[]; role=Identified plant species
+- AnalisiPianta — kind=class; attributes=[]; operations=[]; role=Plant analysis
+- RilevatoreMalattia — kind=class; attributes=[]; operations=[]; role=Disease detector
+- Authentication — kind=class; attributes=[]; operations=[currentuser(), signOut(), updatePassword(), signInWithEmailAndPassword(), createUserWithEmailAndPassword(), changePassword()]; role=User authentication
+- FirebaseAuthentication — kind=class; attributes=[]; operations=[]; role=Firebase authentication
+- FirebaseStorageManager — kind=class; attributes=[]; operations=[storageRef(), personalStorage(), uploadImage(), getPersonalFolders(), getImagesOfFolder(), downloadImageFromPath()]; role=Firebase storage management
+- GeneraAi — kind=class; attributes=[testo]; operations=[generaText(), askTextWithImages()]; role=AI text generation
+- SharedPreference — kind=class; attributes=[preferences]; operations=[]; role=Shared preferences storage
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Home -> PaginaFunzione — type=association; label=""; explanation="Home navigates to PaginaFunzione"
+- Home -> CuriositaDelGiorno — type=association; label=""; explanation="Home displays CuriositaDelGiorno"
+- Home -> LeMiePiante — type=association; label=""; explanation="Home accesses LeMiePiante"
+- Home -> Diario — type=association; label=""; explanation="Home accesses Diario"
+- Home -> AnalisiPianta — type=association; label=""; explanation="Home accesses AnalisiPianta"
+- Home -> RilevatoreMalattia — type=association; label=""; explanation="Home accesses RilevatoreMalattia"
+- Fotocamera -> LeMiePiante — type=association; label=""; explanation="Fotocamera interacts with LeMiePiante"
+- Fotocamera -> VereSpecieDellePianteFotografate — type=association; label=""; explanation="Fotocamera interacts with VereSpecieDellePianteFotografate"
+- Authentication -> FirebaseAuthentication — type=association; label=""; explanation="Authentication uses FirebaseAuthentication"
+- GeneraAi -> SharedPreference — type=association; label=""; explanation="GeneraAi uses SharedPreference"
+
+Main Flows:
+- Flow 1: Home -> PaginaFunzione -> CreateState()
+- Flow 2: Home -> CuriositaDelGiorno
+- Flow 3: Home -> LeMiePiante
+- Flow 4: Home -> Diario
+- Flow 5: Home -> AnalisiPianta
+- Flow 6: Home -> RilevatoreMalattia
+- Flow 7: Fotocamera -> scattaFoto() -> LeMiePiante
+- Flow 8: Fotocamera -> scattaFoto() -> VereSpecieDellePianteFotografate
+- Flow 9: Authentication -> currentuser()
+- Flow 10: GeneraAi -> generaText() -> SharedPreference
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a plant-related application with modules for home screen, daily curiosities, user plants, diary, plant analysis, and disease detection.
+- The Home screen acts as a central hub, providing access to various functionalities.
+- The Fotocamera module allows users to capture photos and associate them with their plants or identified species.
+- Authentication is handled through FirebaseAuthentication,
+
+===== Report_15_uml_pages.pdf | Page 3 =====
+UML Type:
+- Activity
+
+Components:
+- Main — kind=initial node;
+- LocalUser — kind=activity;
+- Authentication — kind=activity;
+- done — kind=final node;
+- requestToken() — kind=activity;
+- getToken() — kind=activity;
+- request dati utente — kind=activity;
+- new LocalUser — kind=activity;
+- done status — kind=activity;
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> LocalUser — type=control flow; label=""; explanation="Start"
+- LocalUser -> Authentication — type=control flow; label="token = getToken()"
+- Authentication -> LocalUser — type=control flow; label="[token != null]: requestToken()"
+- LocalUser -> Authentication — type=control flow; label="[token != null or status to OK]: request dati utente"
+- Authentication -> new LocalUser — type=control flow; label="new LocalUser"
+- new LocalUser -> done — type=control flow; label="done"
+- LocalUser -> done status — type=control flow; label="done status"
+
+Main Flows:
+- Flow 1: Main -> LocalUser -> Authentication -> LocalUser -> Authentication -> new LocalUser -> done
+
+Conditions / Branches:
+- Authentication: [token != null]: requestToken()
+- Authentication: [token != null or status to OK]: request dati utente
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a login process.
+- The process starts at the Main node and proceeds through LocalUser and Authentication activities.
+- A conditional branch exists in the Authentication activity, where the flow depends on the value of "token".
+- If the token is not null, the requestToken() activity is executed. Otherwise, if the status is OK, the request dati utente activity is executed.
+- The process ends at the done node.
+
+===== Report_15_uml_pages.pdf | Page 4 =====
+UML Type:
+- Activity
+
+Components:
+- Main — kind=initial node; attributes=[]; operations=[]; role=Starting point
+- Gemini AI API — kind=action; attributes=[]; operations=[]; role=AI API
+- Firebase Storage — kind=action; attributes=[]; operations=[]; role=Storage service
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Main -> Gemini AI API — type=control flow; label="newFoto -> richiesta specie pianta nella foto risposta con la specie"; explanation="Request species identification"
+- Gemini AI API -> Firebase Storage — type=control flow; label="Inserimento della specie nello storage Conferma di inserimento"; explanation="Store species information"
+- Firebase Storage -> Main — type=control flow; label="Caricamento nuova foto nella cartella corretta Download URL della foto caricata"; explanation="Upload new photo and retrieve URL"
+
+Main Flows:
+- Flow 1: Main -> Gemini AI API -> Firebase Storage -> Main
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram depicts a process for adding a plant, likely to a database or application.
+- The process begins with a request to a Gemini AI API to identify the plant species from a photo.
+- The identified species information is then stored in Firebase Storage.
+- Finally, the new photo is uploaded to the correct folder, and the URL of the uploaded photo is retrieved.
+- The diagram shows a linear flow without any branching or looping.
+
+===== Report_15_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=activity; attributes=[]; operations=[]; role=Starting point of the process
+- Firebase Storage — kind=activity; attributes=[]; operations=[]; role=Storage service
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Firebase Storage — type=message; label="request personal storage"; explanation="Request for personal storage"
+- Firebase Storage -> Main — type=message; label="personal storage path"; explanation="Returns the personal storage path"
+- Main -> Firebase Storage — type=message; label="request foto per ogni specie presente"; explanation="Request for photos of each species"
+- Firebase Storage -> Main — type=message; label="download Uri di ogni foto richiesta"; explanation="Returns the URIs of the requested photos"
+
+Main Flows:
+- Flow 1: Main -> Firebase Storage (request personal storage) -> Main (personal storage path) -> Firebase Storage (request foto per ogni specie presente) -> Main (download Uri di ogni foto richiesta)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a process that starts with a request for personal storage from Firebase Storage.
+- The process then retrieves the personal storage path and uses it to request photos for each species.
+- Finally, the diagram shows the download of URIs for each requested photo.
+- The process appears to be a sequential flow with no branching or looping.
+
+
+======================================================================

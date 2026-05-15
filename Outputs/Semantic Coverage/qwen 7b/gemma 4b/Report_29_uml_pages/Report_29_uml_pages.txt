@@ -1,0 +1,207 @@
+REPORT: Report_29_uml_pages.pdf
+======================================================================
+
+===== Report_29_uml_pages.pdf | Page 1 =====
+UML Type: Activity
+- Activity Diagram
+
+Components:
+- Start — kind=initial node;
+- Utente registrato? — kind=decision node;
+- Homepage — kind=action node;
+- Creazione di un nuovo utente — kind=action node;
+- Utente registrato con successo — kind=action node;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Start -> Utente registrato? — type=transition; label="Utente registrato?"; explanation="Checks if the user is registered."
+- Utente registrato? -> Homepage — type=transition; label="Sì"; explanation="If the user is registered, goes to the homepage."
+- Utente registrato? -> Creazione di un nuovo utente — type=transition; label="No"; explanation="If the user is not registered, initiates user creation."
+- Creazione di un nuovo utente -> Homepage — type=transition; explanation="After user creation, goes to the homepage."
+- Homepage -> Utente registrato con successo — type=transition; explanation="Continues to the main flow."
+
+Conditions / Branches:
+- Utente registrato? — Branch: "Sì" (User is registered), "No" (User is not registered)
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the initial flow of an application.
+- The application starts by checking if the user is registered.
+- If the user is registered, it goes to the homepage.
+- If the user is not registered, it initiates the user creation process and then goes to the homepage.
+
+===== Report_29_uml_pages.pdf | Page 2 =====
+UML Type: state_machine
+
+Components:
+- HOME — kind=state;
+- Menu Laterale — kind=state;
+- Click nel menu laterale — kind=event;
+- Click "Homepage" — kind=event;
+- Click "Impostazioni" — kind=event;
+- Chiusura menu e apertura nuova schermata — kind=state;
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Menu Laterale — transition="Click nel menu laterale"; explanation="Initiates transition to Menu Laterale state";
+- Menu Laterale -> HOME — transition="Click 'Homepage'"; explanation="Returns to Homepage state";
+- Menu Laterale -> Chiusura menu e apertura nuova schermata — transition="Click 'Impostazioni'"; explanation="Transitions to closing menu and opening new screen state";
+- Menu Laterale -> Menu Laterale — transition="None"; explanation="No transition";
+
+Main Flows (step by step):
+- HOME -> Menu Laterale — Click nel menu laterale
+
+Conditions / Branches:
+- Menu Laterale -> HOME — Click "Homepage"
+- Menu Laterale -> Chiusura menu e apertura nuova schermata — Click "Impostazioni"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a simple navigation flow within an application.
+- The user starts at the HOME screen.
+- The user can either click on the "Menu Laterale" to navigate to the menu, or click on "Homepage" to return to the homepage.
+- Clicking "Impostazioni" leads to the closing of the menu and opening of a new screen.
+
+===== Report_29_uml_pages.pdf | Page 3 =====
+UML Type: Activity
+- Aggiungi Segnalazione — kind=activity;
+
+Components:
+- Click 'Add Alert' nel menu laterale — kind=action;
+- Add Alert — kind=action;
+- I primi 4 campi sono stati compilati correttamente — kind=condition;
+- Compilare i primi 4 campi correttamente — kind=action;
+- Click 'Add Category' — kind=action;
+- Apertura elenco categorie — kind=action;
+- Premere il tasto verde per inserire la segnalazione — kind=action;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Click 'Add Alert' nel menu laterale -> Add Alert — type=transition; label="Click 'Add Alert' nel menu laterale"; explanation="User clicks the 'Add Alert' button in the sidebar.";
+- Add Alert -> I primi 4 campi sono stati compilati correttamente — type=transition; label="I primi 4 campi sono stati compilati correttamente?"; explanation="System checks if the first 4 fields are filled correctly.";
+- I primi 4 campi sono stati compilati correttamente -> Compilare i primi 4 campi correttamente — type=transition; label="Compilare i primi 4 campi correttamente"; explanation="User fills in the first 4 fields.";
+- Compilare i primi 4 campi correttamente -> Apertura elenco categorie — type=transition; label="Apertura elenco categorie"; explanation="System opens the category list.";
+- Apertura elenco categorie -> Premere il tasto verde per inserire la segnalazione — type=transition; label="Premere il tasto verde per inserire la segnalazione"; explanation="User presses the green button to enter the report.";
+
+Conditions / Branches:
+- I primi 4 campi sono stati compilati correttamente — condition=decision; label="I primi 4 campi sono stati compilati correttamente?";
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- Aggiungi Segnalazione — stereotype=note; explanation="Process for adding a report.";
+
+Observations:
+- The diagram models the process of adding a report.
+- The user first clicks the 'Add Alert' button.
+- The system checks if the first four fields are filled correctly.
+- If the fields are filled correctly, the system opens the category list.
+- The user then presses the green button to enter the report.
+- If the fields are not filled correctly, the process branches to a condition to check if the fields are filled correctly.
+
+===== Report_29_uml_pages.pdf | Page 4 =====
+UML Type: Activity
+- Alert Management
+
+Components:
+- Click 'View Alerts' nel menù laterale — kind=action;
+- Visualizzazione di tutte le segnalazioni — kind=action;
+- Click su una segnalazione — kind=action;
+- Visualizzazione dettagliata della segnalazione — kind=action;
+
+Actors / Lifelines:
+- User — role=User
+
+Relationships / Links:
+- Click 'View Alerts' nel menù laterale -> Visualizzazione di tutte le segnalazioni — type=transition; label="Click 'View Alerts' nel menù laterale"; explanation="User clicks on the 'View Alerts' menu item.";
+- Visualizzazione di tutte le segnalazioni -> Click su una segnalazione — type=transition; label="Click su una segnalazione"; explanation="User clicks on a specific alert.";
+- Click su una segnalazione -> Visualizzazione dettagliata della segnalazione — type=transition; label="Click su una segnalazione"; explanation="User views the detailed information of the selected alert.";
+
+Main Flows (step by step):
+- Click 'View Alerts' nel menù laterale
+- Visualizzazione di tutte le segnalazioni
+- Click su una segnalazione
+- Visualizzazione dettagliata della segnalazione
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of viewing alerts.
+- The user first navigates to the alerts view, then selects a specific alert to view its details.
+- This is a straightforward, linear process with no branching or looping.
+
+===== Report_29_uml_pages.pdf | Page 5 =====
+UML Type: Activity
+- Profile
+
+Components:
+- Click "Profile" nel menu laterale — kind=action;
+- Profile — kind=action;
+- I campi sono correttamente compilati? — kind=decision;
+- Correggere i dati — kind=action;
+- Salva le modifiche oppure scartale — kind=action;
+- Passa alla schermata delle abitazioni — kind=action;
+- Click su icona blu della casa — kind=action;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Click "Profile" nel menu laterale -> Profile
+- Profile -> I campi sono correttamente compilati?
+- I campi sono correttamente compilati? -> Correggere i dati
+- I campi sono correttamente compilati? -> Salva le modifiche oppure scartale
+- Profile -> Passa alla schermata delle abitazioni
+- Profile -> Click su icona blu della casa
+- Passa alla schermata delle abitazioni -> Salva le modifiche oppure scartale
+
+Main Flows (step by step):
+- Click "Profile" nel menu laterale
+- Profile
+- I campi sono correttamente compilati?
+- If "No", Correggere i dati
+- If "Si", Salva le modifiche oppure scartale
+- Passa alla schermata delle abitazioni
+
+Conditions / Branches:
+- I campi sono correttamente compilati? — type=decision; SI -> Salva le modifiche oppure scartale; NO -> Correggere i dati
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of updating a user profile.
+- The process starts by clicking on the "Profile" link.
+- If the fields are not correctly filled, the user must correct the data.
+- If the fields are correctly filled, the user can save the changes or discard them.
+- Finally, the user is directed to the "Abitazioni" (apartments) screen.
+
+
+======================================================================

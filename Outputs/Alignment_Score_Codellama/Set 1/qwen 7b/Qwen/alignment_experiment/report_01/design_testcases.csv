@@ -1,0 +1,92 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Register a new user with valid credentials,Utente,3,None,"- email: example@example.com
+- password: TestPassword123","1. Enter email and password in the registration form.
+2. Click on the register button.
+3. Verify that the Firebase Authentication service is called with the provided email and password.
+4. Check that the response is not an error.
+5. Verify that the FirebaseUser and UserID are returned.
+6. Confirm that the user is logged in.
+7. Check that the user's data is stored in the database.","User registration should succeed, and the user should be logged in with the correct FirebaseUser and UserID."
+TC-Utente-002,Register a new user with invalid email,Utente,3,None,"- email: example
+- password: TestPassword123","1. Enter email and password in the registration form.
+2. Click on the register button.
+3. Verify that the Firebase Authentication service is called with the provided email and password.
+4. Check that the response is an error due to invalid email format.","User registration should fail, and an error message should be displayed."
+TC-Utente-003,Register a new user with short password,Utente,3,None,"- email: example@example.com
+- password: Test12","1. Enter email and password in the registration form.
+2. Click on the register button.
+3. Verify that the Firebase Authentication service is called with the provided email and password.
+4. Check that the response is an error due to password length less than 8 characters.","User registration should fail, and an error message should be displayed."
+TC-Utente-004,Login a registered user with valid credentials,Utente,2,User has been successfully registered.,"- email: example@example.com
+- password: TestPassword123","1. Enter email and password in the login form.
+2. Click on the login button.
+3. Verify that the Firebase Authentication service is called with the provided email and password.
+4. Check that the response is not an error.
+5. Verify that the FirebaseUser is returned.","User login should succeed, and the FirebaseUser should be returned."
+TC-Utente-005,Login a registered user with invalid email,Utente,2,User has been successfully registered.,"- email: example
+- password: TestPassword123","1. Enter email and password in the login form.
+2. Click on the login button.
+3. Verify that the Firebase Authentication service is called with the provided email and password.
+4. Check that the response is an error due to invalid email format.","User login should fail, and an error message should be displayed."
+TC-Utente-006,Login a registered user with short password,Utente,2,User has been successfully registered.,"- email: example@example.com
+- password: Test12","1. Enter email and password in the login form.
+2. Click on the login button.
+3. Verify that the Firebase Authentication service is called with the provided email and password.
+4. Check that the response is an error due to password length less than 8 characters.","User login should fail, and an error message should be displayed."
+TC-Ranking-001,Complete a ranking task,Ranking,"1, 5",User is logged in and has a ranking task to complete.,"- rankingId: 1
+- missionId: 1","1. Navigate to the ranking task page.
+2. Click on the complete button for the ranking task.
+3. Verify that the association between the user and the ranking task is updated.
+4. Check that the ranking task status is marked as completed.","The ranking task should be marked as completed, and the user's progress should be updated in the database."
+TC-Tip-001,Complete a tip task,Tip,"1, 5",User is logged in and has a tip task to complete.,"- tipId: 1
+- missionId: 1","1. Navigate to the tip task page.
+2. Click on the complete button for the tip task.
+3. Verify that the association between the user and the tip task is updated.
+4. Check that the tip task status is marked as completed.","The tip task should be marked as completed, and the user's progress should be updated in the database."
+TC-Mission-001,Complete a mission task,Mission,"1, 5",User is logged in and has a mission task to complete.,- missionId: 1,"1. Navigate to the mission task page.
+2. Click on the complete button for the mission task.
+3. Verify that the association between the user and the mission task is updated.
+4. Check that the mission task status is marked as completed.","The mission task should be marked as completed, and the user's progress should be updated in the database."
+TC-Database-001,Update user data in the real-time database,Database,"4, 5",User has completed a task.,"- HashMap: {""punti"": 100}","1. Call the method to convert the HashMap to JSON.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the data is successfully updated in the database.
+4. Check that the asynchronous response is received.","The user's data should be updated in the real-time database, and the response should indicate success."
+TC-Database-002,Handle asynchronous response from the real-time database,Database,"4, 5",Data has been sent to the real-time database.,"- HashMap: {""punti"": 100}","1. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+2. Verify that the asynchronous response is received.
+3. Check that the response contains the updated data.","The response should contain the updated data, and the application should handle it accordingly."
+TC-Listener-001,Listen for data changes in the real-time database,Listener,5,User has completed a task.,"- HashMap: {""punti"": 100}","1. Add a listener for the ""Mission"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is triggered.
+4. Check that the data change notification is received.
+5. Verify that the token is controlled and the requested data is collected.","The onDataChange() method should be triggered, and the application should handle the data change notification correctly. Expected data should be collected and processed."
+TC-Listener-002,Handle token control in the real-time database listener,Listener,5,User has completed a task.,"- HashMap: {""punti"": 100}","1. Add a listener for the ""Mission"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is triggered.
+4. Check that the token is controlled and the requested data is collected.","The token should be controlled, and the requested data should be collected and processed correctly. Expected data should be handled as per the application logic."
+TC-Listener-003,Handle data collection in the real-time database listener,Listener,5,User has completed a task.,"- HashMap: {""punti"": 100}","1. Add a listener for the ""Mission"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is triggered.
+4. Check that the data change notification is received.
+5. Verify that the requested data is collected and processed.","The requested data should be collected and processed correctly, and the application should handle the data change notification as expected."
+TC-Listener-004,Handle data collection for multiple tasks in the real-time database listener,Listener,5,User has completed multiple tasks.,"- HashMap: {""punti"": 100, ""missionId"": 1, ""tipId"": 1}","1. Add a listener for the ""Mission"" and ""Tip"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is triggered for both ""Mission"" and ""Tip"".
+4. Check that the data change notifications are received.
+5. Verify that the requested data is collected and processed for both tasks.","The requested data for both ""Mission"" and ""Tip"" should be collected and processed correctly, and the application should handle the data change notifications as expected."
+TC-Listener-005,Handle data collection for different task types in the real-time database listener,Listener,5,User has completed different types of tasks.,"- HashMap: {""punti"": 100, ""missionId"": 1, ""trofeoId"": 1}","1. Add a listener for the ""Mission"" and ""Trofeo"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is triggered for both ""Mission"" and ""Trofeo"".
+4. Check that the data change notifications are received.
+5. Verify that the requested data is collected and processed for both task types.","The requested data for both ""Mission"" and ""Trofeo"" should be collected and processed correctly, and the application should handle the data change notifications as expected."
+TC-Listener-006,Handle data collection for all task types in the real-time database listener,Listener,5,User has completed all types of tasks.,"- HashMap: {""punti"": 100, ""missionId"": 1, ""tipId"": 1, ""trofeoId"": 1}","1. Add a listener for the ""Mission"", ""Tip"", and ""Trofeo"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is triggered for all three task types.
+4. Check that the data change notifications are received.
+5. Verify that the requested data is collected and processed for all task types.","The requested data for all task types should be collected and processed correctly, and the application should handle the data change notifications as expected."
+TC-Listener-007,Handle data collection for no tasks in the real-time database listener,Listener,5,No tasks have been completed.,- HashMap: {},"1. Add a listener for the ""Mission"", ""Tip"", and ""Trofeo"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP/2 request to the real-time database.
+3. Verify that the onDataChange() method is not triggered.
+4. Check that no data change notifications are received.
+5. Verify that no data is collected or processed.","No data change notifications should be received, and no data should be collected or processed."
+TC-Listener-008,Handle data collection for invalid data in the real-time database listener,Listener,5,Invalid data has been sent to the real-time database.,"- HashMap: {""punti"": ""abc"", ""missionId"": 1, ""tipId"": 1, ""trofeoId"": 1}","1. Add a listener for the ""Mission"", ""Tip"", and ""Trofeo"" in the Firebase SDK.
+2. Send the JSON data as a REST/HTTP",

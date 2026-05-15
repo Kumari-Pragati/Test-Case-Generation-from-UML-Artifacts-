@@ -1,0 +1,368 @@
+REPORT: Report_7_uml_pages.pdf
+======================================================================
+
+===== Report_7_uml_pages.pdf | Page 1 =====
+UML Type:
+- Component
+
+Components:
+- AuthenticationSystem — kind=component; attributes=[]; operations=[]; role=authentication
+- UserProfile — kind=component; attributes=[]; operations=[]; role=user profile
+- NotifySystem — kind=component; attributes=[]; operations=[]; role=notification system
+- Achievements — kind=component; attributes=[]; operations=[]; role=achievement tracking
+- ReportHandler — kind=component; attributes=[]; operations=[]; role=report generation
+- DataManager — kind=component; attributes=[]; operations=[]; role=data management
+- WebServer — kind=component; attributes=[]; operations=[]; role=web server
+- Database — kind=component; attributes=[]; operations=[]; role=data storage
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- AuthenticationSystem -> DataManager — type=association; label=""; explanation="Authentication System communicates with DataManager"
+- UserProfile -> DataManager — type=association; label=""; explanation="User Profile communicates with DataManager"
+- NotifySystem -> DataManager — type=association; label=""; explanation="Notify System communicates with DataManager"
+- Achievements -> DataManager — type=association; label=""; explanation="Achievements communicates with DataManager"
+- ReportHandler -> DataManager — type=association; label=""; explanation="Report Handler communicates with DataManager"
+- DataManager -> WebServer — type=association; label=""; explanation="Data Manager communicates with WebServer"
+- WebServer -> Database — type=association; label=""; explanation="Web Server communicates with Database"
+- DataManager -> ReportHandler — type=association; label=""; explanation="Data Manager communicates with Report Handler"
+
+Main Flows:
+- Flow 1: AuthenticationSystem -> DataManager -> WebServer -> Database -> DataManager -> ReportHandler
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a system architecture with several components interacting with each other.
+- The DataManager appears to be a central hub, connecting most of the other components.
+- The WebServer acts as an intermediary between the DataManager and the Database.
+- The ReportHandler receives data directly from the DataManager.
+- The AuthenticationSystem, UserProfile, NotifySystem, and Achievements all interact with the DataManager, suggesting they rely on it for data management.
+
+===== Report_7_uml_pages.pdf | Page 2 =====
+UML Type:
+- class
+
+Components:
+- Report — kind=class; attributes=[id: int, utenteId: int, periodo: String, commento: String]; operations=[getReport(): void, getConsumi(): List<Consumo>, getSuggerimenti(): List<String>]
+- Utenti — kind=class; attributes=[id: int, Nome: String, Cognome: String, DataDiNascita: Date, Email: String, Password: String, Sesso: char, greenPoints: int, consumi: List<Consumo>]; operations=[getUtenti(): void, setUsername(username: String): void, setBirthDate(date: Date): void, setEmail(Email: String): void, setSex(sex: char): void, getTotaleConsumo(): List<Consumo>]
+- Consumo — kind=class; attributes=[id: int, utenteId: int, quantita: double, data: Date]; operations=[getConsumoGiornaliera(data: Date): double, getConsumoMensile(mese: String): double]
+- Obiettivi — kind=class; attributes=[id: int, claim: bool]; operations=[set_achievement(): int]
+- Gioco — kind=class; attributes=[id: int, utenteId: int, greenPoints: int]; operations=[incrementaGreenPoints(punti: int): void, decrementaGreenPoints(punti: int): void]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Report -> Utenti — type=association; label=""; explanation="Report belongs to Utente"
+- Report -> Consumo — type=association; label=""; explanation="Report contains Consumo"
+- Utenti -> Consumo — type=association; label=""; explanation="Utenti generates Consumo"
+- Utenti -> Obiettivi — type=association; label=""; explanation="Utenti has Obiettivi"
+- Utenti -> Gioco — type=association; label=""; explanation="Utenti plays Gioco"
+- Gioco -> Utenti — type=association; label=""; explanation="Gioco belongs to Utente"
+
+Main Flows:
+- Flow 1: Report uses Utenti, Report uses Consumo, Utenti uses Consumo, Utenti uses Obiettivi, Utenti uses Gioco, Gioco uses Utenti.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system for tracking user consumption and goals.
+- Reports are associated with users and contain consumption data.
+- Users can have multiple consumption records and objectives.
+- A game component allows users to earn or lose green points.
+- The relationships primarily show ownership and association between the different entities.
+
+===== Report_7_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=component; attributes=[]; operations=[]; role=Initiator
+- Local User — kind=component; attributes=[]; operations=[]; role=User Interface
+- Data Manager — kind=component; attributes=[]; operations=[]; role=Data Storage
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User — type=message; label="data_user = GetUserDataFromUser()"; explanation="Main requests user data from Local User"
+- Local User -> Main — type=message; label="Done"; explanation="Local User confirms data retrieval"
+- Local User -> Data Manager — type=message; label="CheckData(data_user)"; explanation="Local User sends data to Data Manager for validation"
+- Data Manager -> Local User — type=message; label="Richiesta di reinserire i dati"; explanation="Data Manager requests data re-entry"
+- Local User -> Data Manager — type=message; label="AddUser(data_user)"; explanation="Local User sends data to Data Manager for addition"
+- Data Manager -> Local User — type=message; label="Success"; explanation="Data Manager confirms user addition"
+
+Main Flows:
+- Flow 1: Main -> Local User (data_user = GetUserDataFromUser()) -> Local User -> Main (Done) -> Local User -> Data Manager (CheckData(data_user)) -> Local User -> Data Manager (AddUser(data_user)) -> Local User -> Main (Success)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of creating a user, involving the Main component, Local User interface, and Data Manager.
+- The Local User retrieves user data, validates it with the Data Manager, and potentially requests re-entry if the data is invalid.
+- The Data Manager adds the user data after validation and confirms success to the Local User.
+- The flow is linear, with no explicit error handling or alternative paths shown.
+- The diagram uses Italian labels for messages and components.
+
+===== Report_7_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=activity; attributes=[]; operations=[CheckAuthenticated(currentUser): ; RequestDataUser(currentUser): ; ]; role=initiator
+- Data Manager — kind=activity; attributes=[]; operations=[]; role=data provider
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Data Manager — type=message; label="CheckAuthenticated(currentUser)"; explanation="Request authentication"
+- Data Manager -> Main — type=message; label="L'utente deve prima autenticarsi"; explanation="Authentication required"
+- Main -> Data Manager — type=message; label="RequestDataUser(currentUser)"; explanation="Request data"
+- Data Manager -> Main — type=message; label="Success"; explanation="Data provided"
+
+Main Flows:
+- Flow 1: Main -> Data Manager (CheckAuthenticated(currentUser)) -> Data Manager -> Main (L'utente deve prima autenticarsi) -> Main -> Data Manager (RequestDataUser(currentUser)) -> Data Manager -> Main (Success)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a process for retrieving user data.
+- The process begins with a request for authentication.
+- If authentication is required, the process pauses until the user authenticates.
+- Upon successful authentication, the data manager provides the requested data.
+- The diagram focuses on the flow of messages between the Main and Data Manager components.
+
+===== Report_7_uml_pages.pdf | Page 5 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=object; attributes=[]; operations=[]; role=Main component
+- Local User — kind=object; attributes=[]; operations=[]; role=Local User
+- Data Manager — kind=object; attributes=[]; operations=[]; role=Data Manager
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User — type=message; label="CheckAuthenticated(currentUser)"; explanation="Main requests authentication check"
+- Local User -> Local User — type=message; label="L'Utente deve prima autenticarsi"; explanation="Local User indicates authentication required"
+- Local User -> Main — type=message; label="dataModified = RequestData()"; explanation="Local User requests data"
+- Main -> Local User — type=message; label="Done"; explanation="Main acknowledges data request"
+- Main -> Data Manager — type=message; label="UpdateData(dataModified)"; explanation="Main updates data with Data Manager"
+- Data Manager -> Main — type=message; label="Success"; explanation="Data Manager confirms update success"
+
+Main Flows:
+- Flow 1: Main -> Local User (CheckAuthenticated(currentUser)) -> Local User (L'Utente deve prima autenticarsi) -> Main (dataModified = RequestData()) -> Local User (Done) -> Main -> Data Manager (UpdateData(dataModified)) -> Main (Success)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a sequence of interactions for profile modification.
+- The process begins with an authentication check initiated by the Main component.
+- If authentication is required, the Local User is notified, and the process pauses.
+- Once data is requested, the Data Manager updates the data and confirms success.
+- The diagram focuses on a successful data update path, without showing error handling or alternative flows.
+
+===== Report_7_uml_pages.pdf | Page 6 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=component; attributes=[]; operations=[RequestData(): data, AddConsumo(data): Success]; role=initiator
+- Local User — kind=component; attributes=[]; operations=[]; role=user
+- Data Manager — kind=component; attributes=[]; operations=[]; role=data storage
+
+Actors / Lifelines:
+- Main
+- Local User
+- Data Manager
+
+Relationships / Links:
+- Main -> Local User — type=message; label="data = RequestData()"; explanation="Main requests data from Local User"
+- Local User -> Main — type=message; label="Done"; explanation="Local User acknowledges data request"
+- Main -> Data Manager — type=message; label="AddConsumo(data)"; explanation="Main sends data to Data Manager"
+- Data Manager -> Main — type=message; label="Success"; explanation="Data Manager confirms data addition"
+
+Main Flows:
+- Flow 1: Main -> Local User (data = RequestData()) -> Local User -> Main (Done) -> Main -> Data Manager (AddConsumo(data)) -> Data Manager -> Main (Success)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a sequence of interactions between three components: Main, Local User, and Data Manager.
+- The Main component initiates a request for data from the Local User.
+- After receiving the data, Main sends it to the Data Manager for processing.
+- The Data Manager confirms the successful addition of the data back to Main.
+- The diagram represents a single, straightforward flow without any branching or looping.
+
+===== Report_7_uml_pages.pdf | Page 7 =====
+UML Type:
+- Activity
+
+Components:
+- Main — kind=activity; attributes=[]; operations=[checkConsumi(currentUser): ; RequestReport(report): ; ]; role=Main activity
+- Local User — kind=activity; attributes=[]; operations=[]; role=User interaction
+- Data Manager — kind=activity; attributes=[]; operations=[]; role=Data storage and retrieval
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Local User — type=control_flow; label="checkConsumi(currentUser)"; explanation="Calls checkConsumi"
+- Local User -> Main — type=control_flow; label="report = RequestData()"; explanation="Returns report data"
+- Main -> Data Manager — type=control_flow; label="RequestReport(report)"; explanation="Requests report from Data Manager"
+- Data Manager -> Main — type=control_flow; label="Success"; explanation="Returns success status"
+
+Main Flows:
+- Flow 1: Main -> Local User -> Main -> Data Manager -> Main
+
+Conditions / Branches:
+- Local User: "L'Utente deve avere un consumo" — No explicit branches.
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of retrieving a historical report.
+- The Main activity initiates the process by checking user consumption.
+- The Local User is involved in requesting data.
+- The Data Manager provides the requested report data.
+- The process concludes with a "Success" message indicating successful report retrieval.
+
+===== Report_7_uml_pages.pdf | Page 8 =====
+UML Type:
+- Activity
+
+Components:
+- Main — kind=activity; attributes=[]; operations=[checkConsumi(currentUser): ]; role=Starting point
+- Local User — kind=activity; attributes=[]; operations=[RequestData(): ]; role=User interaction
+- Data Manager — kind=activity; attributes=[]; operations=[UpdateReport(report, new_data): ]; role=Data storage and update
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Local User — type=control flow; label="report = RequestData()"; explanation="Calls RequestData"
+- Local User -> Data Manager — type=control flow; label="new_data= RequestData()"; explanation="Calls RequestData"
+- Data Manager -> Main — type=control flow; label="UpdateReport(report,new_data)"; explanation="Calls UpdateReport"
+- Main -> Main — type=control flow; label="Success"; explanation="Returns success"
+
+Main Flows:
+- Flow 1: Main -> Local User (report = RequestData()) -> Data Manager (new_data= RequestData()) -> Main (UpdateReport(report,new_data)) -> Main (Success)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a workflow for modifying historical data.
+- It starts with the Main component initiating a request for data from the Local User.
+- The Local User then requests data from the Data Manager.
+- The Data Manager updates the report with the new data and returns it to the Main component.
+- The Main component indicates success upon completion of the process.
+- The "L'Utente deve avere almeno un consumo" note suggests a prerequisite for the workflow, but it's not explicitly modeled in the flow itself.
+
+===== Report_7_uml_pages.pdf | Page 9 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=activity; attributes=[]; operations=[]; role=Main activity
+- Local User — kind=activity; attributes=[]; operations=[]; role=Local User activity
+- Data Manager — kind=activity; attributes=[]; operations=[]; role=Data Manager activity
+- checkConsumi — kind=activity; attributes=[]; operations=[]; role=Check consumption
+- report — kind=activity; attributes=[]; operations=[]; role=Report creation
+- RequestData — kind=activity; attributes=[]; operations=[]; role=Request data
+- DeleteReport — kind=activity; attributes=[]; operations=[]; role=Delete report
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Local User — type=control_flow; label="checkConsumi(currentUser)"; explanation="Calls checkConsumi"
+- Local User -> Data Manager — type=control_flow; label="checkConsumi(currentUser)"; explanation="Calls Data Manager to check consumption"
+- Data Manager -> Local User — type=control_flow; label="Done"; explanation="Returns from checkConsumi"
+- Local User -> report — type=control_flow; label="report + RequestData()"; explanation="Creates report and requests data"
+- report -> Data Manager — type=control_flow; label="RequestData()"; explanation="Requests data from Data Manager"
+- Data Manager -> report — type=control_flow; label="Success"; explanation="Returns success to report"
+- report -> Local User — type=control_flow; label="DeleteReport(report)"; explanation="Calls Local User to delete report"
+- Local User -> Main — type=control_flow; label="Done"; explanation="Returns from delete report"
+
+Main Flows:
+- Flow 1: Main -> Local User (checkConsumi(currentUser)) -> Data Manager -> Local User (Done) -> report (report + RequestData()) -> Data Manager -> report (Success) -> Local User (DeleteReport(report)) -> Main (Done)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of deleting a report.
+- The process starts in the Main activity, checks user consumption via the Data Manager, creates a report, requests data, and then deletes the report.
+- The Data Manager confirms the success of the data request before the report is deleted.
+- The Local User acts as an intermediary between the Main activity and the Data Manager.
+
+
+======================================================================

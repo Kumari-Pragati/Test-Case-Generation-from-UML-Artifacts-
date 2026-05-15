@@ -1,0 +1,58 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login","Authentication","3","User has a valid username and password.","Username: testuser, Password: testpassword","1. User enters the username and password in the login form.
+2. User clicks on the login button.
+3. Main interface sends a request to the Authentication service with the provided credentials.
+4. Authentication service verifies the credentials and returns a token.
+5. Main interface receives the token and proceeds.","User is logged in successfully and the main interface displays the ""done"" message."
+"TC-Login-002","Invalid Credentials","Authentication","3","User enters invalid username or password.","Username: wronguser, Password: wrongpassword","1. User enters the invalid username and password in the login form.
+2. User clicks on the login button.
+3. Main interface sends a request to the Authentication service with the provided credentials.
+4. Authentication service returns an error indicating invalid credentials.
+5. Main interface displays an error message.","User is not logged in and an error message is displayed."
+"TC-Login-003","Empty Credentials","Authentication","3","User leaves the username and password fields empty.","Username: , Password:","1. User leaves the username and password fields empty.
+2. User clicks on the login button.
+3. Main interface sends a request to the Authentication service with empty credentials.
+4. Authentication service returns an error indicating empty credentials.
+5. Main interface displays an error message.","User is not logged in and an error message is displayed."
+"TC-PlantData-001","Successful Plant Data Insertion","Plant Data Management","1","User is logged in.","Plant name: Rose, Description: A beautiful red rose.","1. User navigates to the plant insertion page.
+2. User enters the plant name and description.
+3. User clicks on the save button.
+4. DataManager processes the insertion request.
+5. DataManager stores the plant data.","Plant data is successfully inserted into the system."
+"TC-PlantData-002","Empty Plant Name","Plant Data Management","1","User is logged in.","Plant name: , Description: A beautiful red rose.","1. User navigates to the plant insertion page.
+2. User enters an empty plant name and a valid description.
+3. User clicks on the save button.
+4. DataManager processes the insertion request.
+5. DataManager returns an error indicating an empty plant name.","Plant data insertion fails and an error message is displayed."
+"TC-PlantData-003","Duplicate Plant Name","Plant Data Management","1","User is logged in.","Plant name: Rose, Description: A beautiful red rose.","1. User navigates to the plant insertion page.
+2. User enters the same plant name and a different description.
+3. User clicks on the save button.
+4. DataManager processes the insertion request.
+5. DataManager returns an error indicating duplicate plant name.","Plant data insertion fails and an error message is displayed."
+"TC-DiaryData-001","Successful Diary Data Insertion","Diary Data Management","1","User is logged in.","Diary entry: Today I watered the plants.","1. User navigates to the diary insertion page.
+2. User enters the diary entry.
+3. User clicks on the save button.
+4. DataManager processes the insertion request.
+5. DataManager stores the diary data.","Diary data is successfully inserted into the system."
+"TC-DiaryData-002","Empty Diary Entry","Diary Data Management","1","User is logged in.","Diary entry:","1. User navigates to the diary insertion page.
+2. User enters an empty diary entry.
+3. User clicks on the save button.
+4. DataManager processes the insertion request.
+5. DataManager returns an error indicating an empty diary entry.","Diary data insertion fails and an error message is displayed."
+"TC-PlantPhoto-001","Successful Plant Photo Upload","Plant Photo Management","4","User is logged in and has a valid plant photo.","Plant photo: rose.jpg","1. User navigates to the plant photo upload page.
+2. User selects the plant photo.
+3. User clicks on the upload button.
+4. Gemini AI API identifies the plant species.
+5. Firebase Storage stores the identified species.
+6. Firebase Storage returns the download URL of the uploaded photo.
+7. Main interface displays the photo with the identified species.","Plant photo is successfully uploaded and the species is correctly identified."
+"TC-PlantPhoto-002","Invalid Plant Photo","Plant Photo Management","4","User is logged in and has an invalid plant photo (e.g., no plant visible).","Plant photo: invalid.jpg","1. User navigates to the plant photo upload page.
+2. User selects the invalid plant photo.
+3. User clicks on the upload button.
+4. Gemini AI API returns an error indicating no plant visible.
+5. Main interface displays an error message.","Plant photo upload fails and an error message is displayed."
+"TC-PlantPhoto-003","Empty Plant Photo","Plant Photo Management","4","User is logged in.","Plant photo:","1. User navigates to the plant photo upload page.
+2. User selects an empty photo.
+3. User clicks on the upload button.
+4. Gemini AI API returns an error indicating no photo selected.
+5. Main interface displays an error message.","Plant photo upload fails and an error message is displayed."

@@ -1,0 +1,78 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Test user creation,Utente,1,None,"- Valid name: John Doe
+- Valid email: john.doe@example.com
+- Valid password: password123
+- Invalid email: john.doe
+- Invalid password: password","1. Navigate to the user registration page
+2. Enter the valid name, email, and password
+3. Click the ""Register"" button
+4. Verify that the user is successfully created
+5. Repeat steps 2-4 with invalid email and password
+6. Verify that the user is not created with invalid inputs","- The system creates a new user with valid inputs
+- The system does not create a new user with invalid inputs"
+TC-Client-001,Test client creation,Cliente,1,A user is logged in,"- Valid title: ""Test Title""
+- Valid description: ""Test Description""","1. Log in as a user
+2. Navigate to the client creation page
+3. Enter the valid title and description
+4. Click the ""Create Client"" button
+5. Verify that the client is successfully created",- The system creates a new client with valid inputs
+TC-Seller-001,Test seller creation,Venditore,1,A user is logged in as a seller,"- Valid title: ""Test Title""
+- Valid description: ""Test Description""","1. Log in as a seller
+2. Navigate to the seller creation page
+3. Enter the valid title and description
+4. Click the ""Create Seller"" button
+5. Verify that the seller is successfully created",- The system creates a new seller with valid inputs
+TC-PreferredSeller-001,Test preferred seller creation,VenditorePreferito,1,A user is logged in,"- Valid seller: John Doe (Venditore with id 1)
+- Valid vote: 5","1. Log in as a user
+2. Navigate to the preferred seller creation page
+3. Select the valid seller
+4. Enter the valid vote
+5. Click the ""Create Preferred Seller"" button
+6. Verify that the preferred seller is successfully created",- The system creates a new preferred seller with valid inputs
+TC-Login-001,Test user login,Server,2,A user is registered,"- Valid email: john.doe@example.com
+- Valid password: password123","1. Navigate to the login page
+2. Enter the valid email and password
+3. Click the ""Login"" button
+4. Verify that the user is successfully logged in",- The system logs in the user with valid inputs
+TC-Login-002,Test user login with invalid email,Server,2,A user is registered,"- Invalid email: john.doe
+- Valid password: password123","1. Navigate to the login page
+2. Enter the invalid email and valid password
+3. Click the ""Login"" button
+4. Verify that the user is not logged in (error message displayed)",- The system does not log in the user with invalid email
+TC-Login-003,Test user login with invalid password,Server,2,A user is registered,"- Valid email: john.doe@example.com
+- Invalid password: password","1. Navigate to the login page
+2. Enter the valid email and invalid password
+3. Click the ""Login"" button
+4. Verify that the user is not logged in (error message displayed)",- The system does not log in the user with invalid password
+TC-ProductModification-001,Test product modification,Modifica prodotto,3,A user is logged in as a seller,"- Product name: Test Product
+- New product name: New Test Product","1. Log in as a seller
+2. Navigate to the product modification page
+3. Select the product to modify
+4. Enter the new product name
+5. Click the ""Modify"" button
+6. Verify that the product is successfully modified",- The system modifies the product with valid inputs
+TC-ProductModification-002,Test product modification with invalid inputs,Modifica prodotto,3,A user is logged in as a seller,"- Product name: Test Product
+- Empty new product name","1. Log in as a seller
+2. Navigate to the product modification page
+3. Select the product to modify
+4. Enter an empty new product name
+5. Click the ""Modify"" button
+6. Verify that an error message is displayed",- The system does not modify the product with invalid inputs
+TC-ProductAddition-001,Test product addition,Aggiungi prodotto,4,A user is logged in as a seller,"- Product name: Test Product
+- Product price: 10.00","1. Log in as a seller
+2. Navigate to the product addition page
+3. Enter the product name and price
+4. Click the ""Add"" button
+5. Verify that the product is successfully added",- The system adds the product with valid inputs
+TC-ProductAddition-002,Test product addition with invalid inputs,Aggiungi prodotto,4,A user is logged in as a seller,"- Empty product name
+- Product price: 10.00","1. Log in as a seller
+2. Navigate to the product addition page
+3. Enter an empty product name and valid price
+4. Click the ""Add"" button
+5. Verify that an error message is displayed",- The system does not add the product with invalid inputs
+TC-Notification-001,Test push notification,Gestione notifiche,"5, 6",A new product is created,- New product: Test Product,"1. Create a new product
+2. Verify that the user receives a push notification",- The user receives a push notification for the new product
+TC-Notification-002,Test in-app notification,Gestione notifiche,"5, 6",A new product is created,- New product: Test Product,"1. Create a new product
+2. Verify that the user receives an in-app notification",- The user receives an in-app notification for the new product
+TC-Notification-003,Test no notification for non-preferred seller,Gestione notifiche,"5, 6",A user has a preferred seller,- New product: Test Product (not from the preferred seller),"1. Create a new product (not from the preferred seller)
+2. Verify that the user does not receive a push or in-app notification",- The user does not receive a push or in-app notification for the new product (not from the preferred seller)

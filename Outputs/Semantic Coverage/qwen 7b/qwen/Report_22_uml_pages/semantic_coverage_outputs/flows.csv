@@ -1,0 +1,42 @@
+flow
+"utente -> devices — type=association; label=""associazione""; explanation=""association between user and device"""
+"devices -> config — type=association; label=""configurato""; explanation=""configuration association"""
+"devices -> history — type=association; label=""raccoglie informazioni""; explanation=""information collection association"""
+"devices -> alert — type=association; label=""segnala""; explanation=""signal association"""
+flow 1: utente -> devices (associazione) -> devices -> config (configurato) -> devices -> history (raccoglie informazioni) -> devices -> alert (segnala)
+"the diagram represents a system's entities as classes, typical of object-oriented languages."
+"the reason for constructing this diagram is intrinsic to the next graphic, dedicated to the actions performed by the entities (represented here through method terminology)."
+"the main flow involves interactions between the user, device, configuration, history, and alert classes."
+"there are associations between the user and device, device and configuration, device and history, and device and alert classes."
+"accesso eseguito -> click ""serre"" — type=control-flow; label=""->""; explanation=""click action initiated"""
+"click ""serre"" -> visualizzazione messaggio default — type=control-flow; label=""->""; explanation=""default message display"""
+"visualizzazione messaggio default -> almeno 1 serra associata — type=control-flow; label=""->""; explanation=""check for associated greenhouses"""
+"almeno 1 serra associata -> visualizzazione elenco serre — type=control-flow; label=""->""; explanation=""display list of greenhouses"""
+"almeno 1 serra associata -> no — type=control-flow; label=""no""; explanation=""no associated greenhouses"""
+"flow 1: accesso eseguito -> click ""serre"" -> visualizzazione messaggio default -> almeno 1 serra associata -> visualizzazione elenco serre"
+this activity diagram models the process of accessing a greenhouse list.
+"the user initiates access, clicks on ""serre"" (greenhouses), and checks for associated greenhouses."
+"if at least one greenhouse is associated, the list of greenhouses is displayed."
+"if no greenhouses are associated, a default message is displayed."
+the process ends if no greenhouses are associated.
+"accesso eseguito -> click ""add devices"" — type=control-flow; label=""->""; explanation=""click action"""
+"click ""add devices"" -> campo inserito correttamente — type=control-flow; label=""->""; explanation=""field check"""
+"campo inserito correttamente -> valore errato — type=control-flow; label=""no""; explanation=""incorrect value detected"""
+"campo inserito correttamente -> operazione eseguita — type=control-flow; label=""si""; explanation=""correct value detected"""
+"flow 1: accesso eseguito -> click ""add devices"" -> campo inserito correttamente -> operazione eseguita"
+"this diagram models the process of adding devices, starting with accessing the system. the user clicks the ""add devices"" button, which triggers a check for correct field insertion. if the field is inserted correctly, the operation proceeds; otherwise, an invalid value is detected, leading back to the field check."
+"accesso eseguito -> serra connessa — type=transition; label=""""; explanation=""access initiated"""
+"serra connessa -> click ""configuration"" — type=transition; label=""""; explanation=""greenhouse connected"""
+"click ""configuration"" -> valore errato — type=transition; label=""""; explanation=""click configuration button"""
+"valore errato -> campi inseriti correttamente — type=transition; label=""no""; explanation=""value error detected"""
+"campi inseriti correttamente -> campi inseriti correttamente — type=transition; label=""si""; explanation=""fields entered correctly"""
+"campi inseriti correttamente -> operazione eseguita — type=transition; label=""""; explanation=""operation executed"""
+"flow 1: accesso eseguito -> serra connessa -> click ""configuration"" -> valore errato -> campi inseriti correttamente -> campi inseriti correttamente -> operazione eseguita"
+this activity diagram models the process of modifying greenhouse settings.
+"the main flow starts with accessing the system, then connecting the greenhouse."
+"the user clicks the ""configuration"" button."
+a decision checks for value errors.
+"if fields are entered correctly, the operation is executed."
+"if fields are not entered correctly, the process loops back to the fields entry check."
+"an error path exists if a value error is detected, leading back to the fields entry check."
+======================================================================

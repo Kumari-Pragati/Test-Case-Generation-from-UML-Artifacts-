@@ -1,0 +1,80 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTHENTICATION-001,Successful user registration with valid credentials,User Authentication,1,- System is online; no existing user with provided email.,"- Name: ""Mario Rossi""
+- Email: ""mario.rossi@example.com""
+- Password: ""SecurePass123!""
+- Confirmation: true","1. User navigates to registration page.
+2. Enters name, email, password, and confirms.
+3. Clicks ""Register"" button.","- User account is created with `id`, `nomeCognome`, and `email` stored.
+- `creaUtente()` returns success (no error).
+- User can log in with provided credentials."
+TC-USER-AUTHENTICATION-002,User registration with invalid email format,User Authentication,1,- System is online.,"- Name: ""Luigi Bianchi""
+- Email: ""invalid-email"" (missing @ and domain)
+- Password: ""Pass123""
+- Confirmation: true","1. User enters invalid email and clicks ""Register.""
+2. System validates input.","- Registration fails; error message displayed (e.g., ""Invalid email format"").
+- No user record is created."
+TC-USER-AUTHENTICATION-003,Password reset with valid token,User Authentication,1,"- User ""ana.martinez@example.com"" exists with password ""OldPass456.""
+- Reset token was sent via email.","- New Password: ""NewSecurePass789!""
+- Confirmation: true
+- Token: ""valid-reset-token-123""","1. User clicks ""Reset Password"" link in email.
+2. Enters new password and confirms.
+3. Submits form.","- `resetPassword()` updates user’s password.
+- User can log in with new password.
+- Old password no longer works."
+TC-USER-AUTHENTICATION-004,Password check with correct credentials,User Authentication,1,"- User ""carlo.verdi@example.com"" exists with password ""CorrectPass99.""","- Entered Email: ""carlo.verdi@example.com""
+- Entered Password: ""CorrectPass99""","1. User attempts to log in.
+2. System calls `checkPassword()`.","- Authentication succeeds.
+- User is redirected to dashboard."
+TC-USER-AUTHENTICATION-005,Password check with incorrect password,User Authentication,1,"- User ""sara.neri@example.com"" exists with password ""RightPass88.""","- Entered Email: ""sara.neri@example.com""
+- Entered Password: ""WrongPass11""","1. User enters incorrect password.
+2. System calls `checkPassword()`.","- Authentication fails; error message: ""Invalid credentials.""
+- User remains on login page."
+TC-DEVICE-MANAGEMENT-001,Retrieve device information for an associated device,Device Management,1,"- User ""giovanni.leone@example.com"" has 1 associated device with `id=""serra-001""` and `titolo=""Serra Principale.""`",,1. User calls `getDeviceInfo()` for `serra-001`.,"- Returns `List<String>` with `[id, titolo]`: `[""serra-001"", ""Serra Principale""]`."
+TC-DEVICE-MANAGEMENT-002,Configure device with valid parameters,Device Configuration,"1, 4","- User is logged in; device `serra-002` exists.
+- Current config: `max_temp=30.0`, `min_temp=15.0`.","- New Config: `[max_temp=28.0, min_temp=18.0, light=true, water=false]`
+- Confirmation: true","1. User navigates to device configuration (Page 4: ""Click Configuration"").
+2. Enters new values and confirms.
+3. System calls `setConfig()`.","- Config updates successfully.
+- `getConfig()` returns updated values.
+- No error messages."
+TC-DEVICE-MANAGEMENT-003,Configure device with invalid temperature range,Device Configuration,"1, 4",- User is logged in; device `serra-003` exists.,"- New Config: `[max_temp=10.0, min_temp=20.0]` (min > max)
+- Confirmation: true","1. User attempts to save invalid config.
+2. System validates input.","- `setConfig()` fails; error: ""Invalid temperature range.""
+- Config remains unchanged."
+TC-DEVICE-MANAGEMENT-004,Device signals alert for high temperature,Alert System,1,- Device `serra-004` has `max_temp=25.0`; current temp = 28.0.,,"1. Device detects temperature > `max_temp`.
+2. Calls `segnala(Alert)` with message: ""Temperature exceeds threshold!""","- Alert is created with `message=""Temperature exceeds threshold!""`.
+- `getMessage()` returns the alert text."
+TC-DEVICE-MANAGEMENT-005,Alert triggers history record,History Logging,1,"- Alert exists with message: ""Soil humidity too low!""
+- Current humidity = 20% (below `min_soil_hum=30%`).",,"1. Alert is generated.
+2. `registra(History)` is called with `data=""2023-10-15""`, `humidity=20.0`, `temp=22.0`.","- History record is added with `[data, humidity, temp]`.
+- `getHistory()` includes the new entry."
+TC-UI-SERRE-LIST-001,Display list of associated serre after login,UI Navigation,2,"- User has 2 associated serre: `serra-001`, `serra-002`.",,"1. User logs in (""Accesso eseguito"").
+2. Clicks ""Serre"" button.","- System transitions to ""Visualizzazione elenco serre.""
+- List shows `serra-001` and `serra-002`."
+TC-UI-SERRE-LIST-002,Show default message when no serre are associated,UI Navigation,2,- User has no associated serre.,,"1. User logs in (""Accesso eseguito"").
+2. Clicks ""Serre"" button.","- System transitions to ""Visualizzazione messaggio default.""
+- Message: ""No serre associated. Add one to begin."""
+TC-DEVICE-ADDITION-001,Successfully add a new device with correct input,Device Addition,3,"- User is logged in; no device with `id=""serra-005""` exists.","- Device ID: ""serra-005""
+- Title: ""Serra Esterna""","1. User enters device details (""Accesso eseguito"").
+2. Input is validated as correct (""Campo inserito correttamente"").
+3. System processes addition.","- Device is created with `id=""serra-005""` and `titolo=""Serra Esterna""`.
+- Transition to ""Operazione eseguita"" state."
+TC-DEVICE-ADDITION-002,Handle incorrect device ID format during addition,Device Addition,3,- User is logged in.,"- Device ID: ""invalid-serra"" (contains hyphen but no numbers)
+- Title: ""Test Serra""","1. User enters invalid ID.
+2. System detects error (""Valore errato"").","- Error message: ""Invalid device ID format. Use format: serra-XXX.""
+- User prompted to re-enter (""Valore errato"" → ""Campo inserito correttamente"")."
+TC-CONFIGURATION-001,Connect to device and configure successfully,Device Configuration Flow,4,- Device `serra-006` is online.,,"1. User initiates connection (""Accesso eseguito"").
+2. Device connects successfully (""Serra connessa"").
+3. User clicks ""Configuration"" (""Click Configuration"").
+4. Enters valid config values (""Campi inseriti correttamente"").","- Config is saved (""Operazione eseguita"").
+- No transitions to ""Valore errato."""
+TC-CONFIGURATION-002,Handle incorrect config values during setup,Device Configuration Flow,4,- User is in configuration mode for `serra-007`.,- Invalid max_air_humidity: 120% (valid range: 0–100%),"1. User clicks ""Configuration.""
+2. Enters invalid value.
+3. Submits config.","- Transition to ""Valore errato.""
+- Error message: ""Humidity must be between 0% and 100%.""
+- User returns to input screen (""Valore errato"" → ""Accesso eseguito"")."
+TC-EDGE-CASE-001,Empty history after alert deletion,History Management,1,"- History has 1 entry: `[data=""2023-10-10"", message=""Test alert""]`.",,1. User deletes the only history entry (via external API not shown in UML; assume `updateHistory()` with empty data).,"- `getHistory()` returns empty list.
+- No errors."
+TC-EDGE-CASE-002,Device config with boundary values,Device Configuration,1,- Device `serra-008` exists.,"- Config: `[max_temp=999.9, min_temp=0.0, max_soil_hum=100.0, min_soil_hum=0.0]`","1. User sets extreme boundary values.
+2. Saves config.","- Config is accepted (no overflow errors).
+- Values persist in `getConfig()`."

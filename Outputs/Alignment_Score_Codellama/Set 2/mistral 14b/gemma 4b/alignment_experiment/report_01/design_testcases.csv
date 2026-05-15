@@ -1,0 +1,61 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- Firebase Authentication service is active.
+- User account exists with valid email/password.","- Email: `user@example.com`
+- Password: `password123`","1. Call `signInWithEmailAndPassword(""user@example.com"", ""password123"")` via MAIN.
+2. Firebase Authentication processes the request.
+3. MAIN receives a non-error response.",- MAIN returns a valid `FirebaseAuthUser` object.
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,2,"- Firebase Authentication service is active.
+- User account exists with valid email but incorrect password.","- Email: `user@example.com`
+- Password: `wrongpassword`","1. Call `signInWithEmailAndPassword(""user@example.com"", ""wrongpassword"")` via MAIN.
+2. Firebase Authentication processes the request.
+3. MAIN receives an error response.",- MAIN does not return a `FirebaseAuthUser` (implicit error handling).
+TC-AUTHENTICATION-003,Failed login with non-existent email,Authentication,2,- Firebase Authentication service is active.,"- Email: `nonexistent@example.com`
+- Password: `password123`","1. Call `signInWithEmailAndPassword(""nonexistent@example.com"", ""password123"")` via MAIN.
+2. Firebase Authentication processes the request.
+3. MAIN receives an error response.",- MAIN does not return a `FirebaseAuthUser` (implicit error handling).
+TC-REGISTRATION-001,Successful user registration with valid inputs,Registration,3,- Firebase Authentication and Realtime Database are active.,"- Email: `newuser@example.com`
+- Password: `securePassword123`","1. MAIN validates `email` (not empty) and `password` (length ≥ 8).
+2. Call `CreateUserWithEmailAndPassword(""newuser@example.com"", ""securePassword123"")`.
+3. Firebase creates the user and assigns a `UserID`.
+4. MAIN sends a `HashMap<String, Object>` (user data) to `db.child(UserID)`.
+5. Database stores the data and returns a response.
+6. MAIN calls `login` and receives a `FirebaseUser` + `UserID`.","- User is registered, `FirebaseUser` and `UserID` are returned."
+TC-REGISTRATION-002,Registration fails with empty email,Registration,3,- Firebase services are active.,"- Email: `` (empty)
+- Password: `securePassword123`","1. MAIN detects `email.isEmpty()`.
+2. Registration process is aborted.","- No user is created; error message (e.g., ""Email required"") is displayed."
+TC-REGISTRATION-003,Registration fails with short password,Registration,3,- Firebase services are active.,"- Email: `user@example.com`
+- Password: `short` (length < 8)","1. MAIN detects `password.length() < 8`.
+2. Registration process is aborted.","- No user is created; error message (e.g., ""Password must be at least 8 characters"") is displayed."
+TC-REGISTRATION-004,Database response handling after registration,Database Integration,"3, 4",- User is successfully registered.,"- `HashMap<String, Object>` containing user data (e.g., `Username: ""testUser""`).","1. MAIN sends `HashMap` to Realtime Database.
+2. Database converts `HashMap` to JSON.
+3. Database returns a success response.
+4. MAIN handles the response asynchronously.",- User data is stored in the database; MAIN processes the response without errors.
+TC-DATABASE-001,Asynchronous mission data retrieval,Mission Data Fetching,5,"- Realtime Database contains mission data.
+- User is authenticated (valid token).",,"1. MAIN calls `addValueEventListener(""Mission"")` via Firebase SDK.
+2. Firebase SDK forwards the request to Realtime Database.
+3. Database checks the token and collects mission data.
+4. Database sends the data back via Firebase SDK.
+5. MAIN receives the mission data.","- MAIN displays the mission list (e.g., `Titolo`, `Descrizione`) without errors."
+TC-DATABASE-002,Mission data retrieval with invalid token,Mission Data Fetching,5,"- Realtime Database contains mission data.
+- User is unauthenticated (invalid/expired token).",,"1. MAIN calls `addValueEventListener(""Mission"")` via Firebase SDK.
+2. Firebase SDK forwards the request to Realtime Database.
+3. Database detects an invalid token and rejects the request.","- MAIN receives no data; error message (e.g., ""Unauthorized"") is displayed."
+TC-RANKING-001,User completes a mission and updates ranking,Ranking System,1,"- User is logged in with `Punti = 0`.
+- A mission with `id = 1` exists and is not yet completed (`Superato = false`).",- User completes mission `id = 1` (via a tip).,"1. User completes mission `id = 1` (e.g., via a tip interaction).
+2. System updates `Mission.Superato = true`.
+3. System increments `User.Punti` (e.g., by 10).
+4. System updates the `Ranking` for the user (e.g., `Superato = true` for the relevant ranking).",- User’s `Punti` increases; `Ranking.Superato` reflects the completed mission.
+TC-RANKING-002,User attempts to complete a mission twice,Ranking System,1,"- User is logged in.
+- Mission `id = 1` is already completed (`Superato = true`).",,"1. User attempts to complete mission `id = 1` again.
+2. System checks `Mission.Superato`.",- Mission completion is ignored; no change to `Punti` or `Ranking`.
+TC-MISSION-001,Mission completion via tip interaction,Mission Completion,1,"- Mission `id = 1` exists with `Superato = false`.
+- Tip `id = 1` is linked to mission `id = 1` (`ha completata` relationship).",,"1. User interacts with tip `id = 1` (e.g., clicks ""Complete"").
+2. System updates `Mission.Superato = true` for mission `id = 1`.",- Mission `id = 1` is marked as completed; user earns points.
+TC-MISSION-002,Invalid mission-tip relationship,Mission Completion,1,"- Mission `id = 1` exists.
+- Tip `id = 2` is not linked to any mission.",,1. User attempts to complete mission `id = 1` via tip `id = 2`.,"- System rejects the action; error message (e.g., ""Invalid tip for this mission"") is displayed."
+TC-USEROBJECT-001,Update user username,User Management,1,"- User is logged in with `Username = ""oldName""`.",,"1. Call `SetUsername(""newName"")`.
+2. Call `GetUsername()`.","- `GetUsername()` returns `""newName""`."
+TC-USEROBJECT-002,Update user points,User Management,1,- User has `Punti = 0`.,,"1. Call `SetPunti(50)`.
+2. Call `GetPunti()`.",- `GetPunti()` returns `50`.
+TC-USEROBJECT-003,Invalid username update (empty string),User Management,1,- User is logged in.,,"1. Call `SetUsername("""")`.","- Update is rejected; error message (e.g., ""Username cannot be empty"") is displayed."
+TC-USEROBJECT-004,Negative points update,User Management,1,- User has `Punti = 100`.,,1. Call `SetPunti(-50)`.,"- Update is rejected; `Punti` remains `100`; error message (e.g., ""Points cannot be negative"") is displayed."

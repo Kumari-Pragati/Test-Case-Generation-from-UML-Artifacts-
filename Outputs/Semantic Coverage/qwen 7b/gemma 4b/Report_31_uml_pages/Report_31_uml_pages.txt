@@ -1,0 +1,135 @@
+REPORT: Report_31_uml_pages.pdf
+======================================================================
+
+===== Report_31_uml_pages.pdf | Page 1 =====
+UML Type: other
+
+Components:
+- Data organizer — kind=component;
+- Data display — kind=component;
+- Local user — kind=component;
+- Firebase — kind=component;
+- Realtime database — kind=component;
+- Authentication — kind=component;
+- Firebase database — kind=component;
+
+Actors / Lifelines:
+- Data display
+- Local user
+- - None
+
+Relationships / Links:
+- Data display -> Data organizer — type=uses; label="access"; explanation="Data display uses the Data organizer";
+- Local user -> Data organizer — type=uses; label="access"; explanation="Local user uses the Data organizer";
+- Data organizer -> Firebase — type=uses; label="access"; explanation="Data organizer uses Firebase";
+- Data organizer -> Realtime database — type=uses; label="access"; explanation="Data organizer uses Realtime database";
+- Data organizer -> Authentication — type=uses; label="access"; explanation="Data organizer uses Authentication";
+- Data organizer -> Firebase database — type=uses; label="access"; explanation="Data organizer uses Firebase database";
+- Firebase -> Realtime database — type=contains; label="contains"; explanation="Firebase contains Realtime database";
+- Firebase -> Authentication — type=contains; label="contains"; explanation="Firebase contains Authentication";
+- Firebase -> Firebase database — type=contains; label="contains"; explanation="Firebase contains Firebase database";
+
+Main Flows (step by step):
+- Data display -> Data organizer — type=uses; label="access";
+- Local user -> Data organizer — type=uses; label="access";
+- Data organizer -> Firebase — type=uses; label="access";
+- Data organizer -> Realtime database — type=uses; label="access";
+- Data organizer -> Authentication — type=uses; label="access";
+- Data organizer -> Firebase database — type=uses; label="access";
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- "Organizer. Questo componente funge da intermediario tra le funzionalità del sistema e i servizi cloud offerti da Firebase, che rappresenta il back end della piattaforma."
+- "Tutti i dati degli utenti e quelli dell'applicazione sono salvati in un database che viene offerto da Firebase."
+
+Observations:
+- The diagram models a system architecture where a Data Organizer component acts as an intermediary between user interfaces (Data display, Local user) and Firebase services.
+- The Data Organizer manages access to various Firebase components: Realtime database, Authentication, and Firebase database.
+- The Realtime database utilizes a JSON structure for data storage and synchronization.
+
+===== Report_31_uml_pages.pdf | Page 2 =====
+UML Type: class
+
+Components:
+- Chat — kind=class; attributes=[id: int, tid: int, usr1: int, usr2: int]; operations=[]; role=Chat
+- Message — kind=class; attributes=[id: int, chat_id: int, receiver: int, timestamp: string, text: string]; operations=[]; role=Message
+- User — kind=class; attributes=[nickname: string, password: string, score: float, pos_int: int, tokens: int, rate: float]; operations=[]; role=User
+- Post — kind=class; attributes=[id: int, nickname: string, fridge_id: int, fridge: int, cost: int]; operations=[]; role=Post
+- Fridge — kind=class; attributes=[id: int, name: string, qty_int: int, rate: int, bbe: int, nickname: string]; operations=[]; role=Fridge
+- Relation — kind=class; attributes=[chat: int, chat: int]; operations=[]; role=Relation
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Chat -> Relation — type=association; label="chat"; explanation="Chat is associated with Relation"
+- User -> Relation — type=association; label="user"; explanation="User is associated with Relation"
+- Post -> Relation — type=association; label="chat"; explanation="Post is associated with Relation"
+- Fridge -> Relation — type=association; label="user"; explanation="Fridge is associated with Relation"
+- Relation -> Chat — type=association; label="chat"; explanation="Relation is associated with Chat"
+- Relation -> User — type=association; label="user"; explanation="Relation is associated with User"
+- Relation -> Post — type=association; label="chat"; explanation="Relation is associated with Post"
+- Relation -> Fridge — type=association; label="user"; explanation="Relation is associated with Fridge"
+
+Main Flows (step by step):
+- Chat -> Relation — type=association; label="chat"
+- User -> Relation — type=association; label="user"
+- Post -> Relation — type=association; label="chat"
+- Fridge -> Relation — type=association; label="user"
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+-   This diagram models a social media application with chat functionality, user profiles, posts, and fridges.
+-   Users can create relations with chats, posts, and fridges.
+-   The diagram shows the relationships between these entities, likely representing a database schema.
+-   The diagram does not show any specific interactions or business logic.
+
+===== Report_31_uml_pages.pdf | Page 3 =====
+UML Type: sequence
+
+Components:
+- schema Principale — kind=class; attributes=[]; operations=[]; role=Main Schema
+- fragment Rigofrito — kind=fragment; attributes=[]; operations=[]; role=Refrigerator Fragment
+- Firebase Database — kind=class; attributes=[]; operations=[]; role=Firebase Database
+
+Actors / Lifelines:
+- schema Principale
+- fragment Rigofrito
+- Firebase Database
+- - None
+
+Relationships / Links:
+- schema Principale -> ChangeFragment(0) -> Rigofrito -> RimuoviProdotto() -> Firebase Database — type=message; label="ChangeFragment(0)"; explanation="Schema triggers ChangeFragment(0) which calls Rigofrito to remove product and then Firebase Database"
+
+Main Flows:
+- Flow 1: schema Principale -> ChangeFragment(0) -> Rigofrito -> RimuoviProdotto() -> Firebase Database
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of removing a product from the system.
+- The schema Principale initiates the process by calling ChangeFragment(0) on the Rigofrito fragment.
+- Rigofrito then removes the product and communicates with the Firebase Database to update the product information.
+
+
+======================================================================

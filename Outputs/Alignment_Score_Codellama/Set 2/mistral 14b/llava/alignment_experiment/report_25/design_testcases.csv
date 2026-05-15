@@ -1,0 +1,136 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"2, 8","- User account exists in the database with valid credentials (e.g., `username: john_doe`, `password: Pass123!`).
+- Server and database are operational.","- Valid username: `john_doe`
+- Valid password: `Pass123!`","1. User enters `john_doe` and `Pass123!` in the login form.
+2. User clicks the ""Login"" button.
+3. System validates credentials with the Server.
+4. Server queries the Database to verify credentials.
+5. Database returns a success response.
+6. Server sends a success message to the Application.
+7. Application updates the UI to reflect a logged-in state.","- User is successfully logged in.
+- System displays a welcome message with the username.
+- User session is active (e.g., logout button appears)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,"2, 8","- User account exists in the database with valid username but incorrect password.
+- Server and database are operational.","- Valid username: `john_doe`
+- Invalid password: `wrongpass`","1. User enters `john_doe` and `wrongpass` in the login form.
+2. User clicks the ""Login"" button.
+3. System validates credentials with the Server.
+4. Server queries the Database to verify credentials.
+5. Database returns a failure response.
+6. Server sends an error message to the Application.
+7. Application displays an error message: ""Invalid username or password.""","- User login fails.
+- System displays an error message without revealing whether username or password was incorrect.
+- User remains logged out."
+TC-AUTHENTICATION-003,Admin Login and Product Addition,Admin Functionality,"2, 7","- Admin account exists in the database with valid credentials.
+- Server and database are operational.","- Admin username: `admin_user`
+- Admin password: `AdminPass456!`
+- New product: `name: Wireless Headphones`, `description: Noise-cancelling Bluetooth headphones`","1. Admin logs in with `admin_user` and `AdminPass456!`.
+2. Admin navigates to the ""Add Product"" section.
+3. Admin enters `Wireless Headphones` and `Noise-cancelling Bluetooth headphones`.
+4. Admin clicks ""Add Product.""
+5. Server processes the request and sends it to the Database.
+6. Database adds the product and returns a success response.
+7. Server confirms the addition to the Application.
+8. Application displays a success message: ""Product added successfully.""","- Product is added to the database.
+- Product appears in the product catalog.
+- Admin sees a confirmation message."
+TC-PRODUCT-CATALOG-001,User Views Product Details,Product Catalog,"2, 3","- At least one product exists in the database (e.g., `Wireless Headphones`).
+- User is logged in.",- Product name: `Wireless Headphones`,"1. User logs in (using TC-AUTHENTICATION-001).
+2. User navigates to the product catalog.
+3. User clicks on `Wireless Headphones`.
+4. Application sends a request to the Server to fetch product details.
+5. Server queries the Database for the product.
+6. Database returns the product details (`name`, `description`).
+7. Server sends the data to the Application.
+8. Application displays the product details on the screen.","- Product details (`name`, `description`) are displayed correctly.
+- User can see the product description without errors."
+TC-CART-001,User Adds Product to Cart,Shopping Cart,"2, 3","- User is logged in.
+- At least one product exists in the catalog (e.g., `Wireless Headphones`).",- Product: `Wireless Headphones`,"1. User logs in (using TC-AUTHENTICATION-001).
+2. User views the product catalog and selects `Wireless Headphones`.
+3. User clicks the ""Add to Cart"" button.
+4. Application sends an `add(product)` message to the Cart.
+5. Cart updates its `items` list with the product.
+6. Application displays a confirmation: ""Product added to cart.""
+7. User navigates to the cart page.","- Product appears in the cart.
+- Cart count updates (e.g., ""1 item in cart"").
+- User sees the confirmation message."
+TC-CART-002,User Removes Product from Cart,Shopping Cart,2,"- User is logged in.
+- Cart contains at least one product (e.g., `Wireless Headphones`).",- Product in cart: `Wireless Headphones`,"1. User logs in (using TC-AUTHENTICATION-001).
+2. User navigates to the cart page and sees `Wireless Headphones`.
+3. User clicks the ""Remove"" button next to the product.
+4. Application sends a `remove(product)` message to the Cart.
+5. Cart removes the product from its `items` list.
+6. Application updates the UI to reflect an empty cart.
+7. Application displays a message: ""Cart is empty.""","- Product is removed from the cart.
+- Cart count updates to ""0 items.""
+- User sees the ""Cart is empty"" message."
+TC-CHECKOUT-001,Successful Checkout,Checkout,"2, 7","- User is logged in.
+- Cart contains at least one product (e.g., `Wireless Headphones`).
+- User has sufficient funds (assume no payment validation for this test).","- Product in cart: `Wireless Headphones`
+- User: `john_doe`","1. User logs in (using TC-AUTHENTICATION-001).
+2. User adds `Wireless Headphones` to the cart (using TC-CART-001).
+3. User clicks ""Proceed to Checkout.""
+4. Application sends a `checkout()` message to the Checkout component.
+5. Checkout component validates the cart (non-empty) and user (logged in).
+6. Server processes the checkout request and updates the Database (e.g., removes product from inventory, records sale).
+7. Database confirms the transaction.
+8. Server sends a success response to the Application.
+9. Application displays a confirmation: ""Order placed successfully!""","- Order is recorded in the database.
+- Cart is cleared.
+- User sees a success message and order details."
+TC-CHECKOUT-002,Checkout with Empty Cart,Checkout,2,"- User is logged in.
+- Cart is empty.",- User: `john_doe`,"1. User logs in (using TC-AUTHENTICATION-001).
+2. User clicks ""Proceed to Checkout"" with an empty cart.
+3. Application sends a `checkout()` message to the Checkout component.
+4. Checkout component detects an empty cart.
+5. Application displays an error: ""Your cart is empty. Add items to checkout.""","- Checkout is blocked.
+- User sees an error message and is redirected to the product catalog."
+TC-SERVER-DATABASE-001,Server Queries Database for Product Data,Server-Database Interaction,"1, 3, 6","- Database contains product data (e.g., `Wireless Headphones`).
+- Server is operational.",- Product name: `Wireless Headphones`,"1. Application sends a request to the Server to fetch `Wireless Headphones`.
+2. Server sends a query to the Database for the product.
+3. Database processes the query and returns the product data (`name`, `description`).
+4. Server receives the data and forwards it to the Application.
+5. Application displays the product details.","- Product data is retrieved successfully.
+- No errors or timeouts occur during the query.
+- Application receives and displays the data correctly."
+TC-SERVER-DATABASE-002,Database Connection Failure,Server-Database Interaction,"1, 6","- Database is down or unreachable.
+- Server is operational.",- Product name: `Wireless Headphones`,"1. Application sends a request to the Server to fetch `Wireless Headphones`.
+2. Server attempts to query the Database but fails to connect.
+3. Server retries the connection (e.g., 3 times) and then times out.
+4. Server sends an error message to the Application.
+5. Application displays: ""Service unavailable. Please try again later.""","- Server handles the connection failure gracefully.
+- Application shows a user-friendly error message.
+- No data is displayed until the database is restored."
+TC-LOGIN-LOGOUT-001,User Logout,Authentication,"2, 8","- User is logged in (e.g., `john_doe`).",,"1. User clicks the ""Logout"" button.
+2. Application sends a `logout()` message to the Server.
+3. Server invalidates the user session.
+4. Application redirects the user to the login page.
+5. Application displays: ""You have been logged out.""","- User session is terminated.
+- User is redirected to the login page.
+- Logout confirmation is displayed."
+TC-EDGE-CASE-001,Add Product with Empty Name,Admin Functionality,2,- Admin is logged in.,"- Product name: (empty)
+- Description: `Noise-cancelling Bluetooth headphones`","1. Admin logs in (using TC-AUTHENTICATION-003).
+2. Admin navigates to ""Add Product"" and leaves the name field empty.
+3. Admin enters a description and clicks ""Add Product.""
+4. Application validates the input and detects an empty name.
+5. Application displays an error: ""Product name is required.""","- Product is not added to the database.
+- Error message is shown to the admin.
+- Form fields remain populated (except name)."
+TC-EDGE-CASE-002,Add Product with Special Characters in Name,Admin Functionality,2,- Admin is logged in.,"- Product name: `Wireless Headphones!@#`
+- Description: `Noise-cancelling Bluetooth headphones`","1. Admin logs in (using TC-AUTHENTICATION-003).
+2. Admin navigates to ""Add Product"" and enters `Wireless Headphones!@#` as the name.
+3. Admin enters a description and clicks ""Add Product.""
+4. Server sanitizes the input and allows the product to be added (assuming special characters are permitted).
+5. Database stores the product with the exact name.
+6. Application displays a success message.","- Product is added to the database with the exact name (including special characters).
+- No validation errors occur.
+- Product appears in the catalog with the special characters."
+TC-SEQUENCE-001,End-to-End User Request Flow,System Integration,"1, 3, 6","- User is logged in.
+- Database contains products.",,"1. User sends a request to the Application (e.g., ""Fetch product list"").
+2. Application forwards the request to the Server.
+3. Server queries the Database for product data.
+4. Database returns the product list.
+5. Server sends the product list to the Application.
+6. Application displays the product list to the User.","- User receives the product list without delays or errors.
+- All components (Application, Server, Database) respond within expected timeframes.
+- Data integrity is maintained (no missing or corrupted data)."

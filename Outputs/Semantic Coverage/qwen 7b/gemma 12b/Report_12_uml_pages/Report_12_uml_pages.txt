@@ -1,0 +1,714 @@
+REPORT: Report_12_uml_pages.pdf
+======================================================================
+
+===== Report_12_uml_pages.pdf | Page 1 =====
+UML Type:
+- use_case
+
+Components:
+- SIGN UP — kind=use_case; attributes=[]; operations=[]; role=User registration
+- LOGIN — kind=use_case; attributes=[]; operations=[]; role=User login
+- GEOLOCALIZZAZIONE — kind=use_case; attributes=[]; operations=[]; role=Geolocation
+- CREAZIONE ANNUNCIO — kind=use_case; attributes=[]; operations=[]; role=Create advertisement
+- PRENOTAZIONE ANNUNCIO — kind=use_case; attributes=[]; operations=[]; role=Book advertisement
+- FILTRAGGIO ANNUNCI — kind=use_case; attributes=[]; operations=[]; role=Filter advertisements
+- ACCETTAZIONE ANNUNCIO — kind=use_case; attributes=[]; operations=[]; role=Accept advertisement
+- VISUALIZZAZIONE PROFILO ALTRUI — kind=use_case; attributes=[]; operations=[]; role=View other user's profile
+- MODIFICA ACCOUNT — kind=use_case; attributes=[]; operations=[]; role=Modify account
+- MODIFICA ANNUNCIO — kind=use_case; attributes=[]; operations=[]; role=Modify advertisement
+- ELIMINAZIONE ANNUNCIO — kind=use_case; attributes=[]; operations=[]; role=Delete advertisement
+- VISUALIZZAZIONE ANNUNCIO — kind=use_case; attributes=[]; operations=[]; role=View advertisement
+- LOGOUT — kind=use_case; attributes=[]; operations=[]; role=User logout
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- SIGN UP -> LOGIN — type=association; label=""; explanation="User registration leads to login"
+- LOGIN -> GEOLOCALIZZAZIONE — type=association; label=""; explanation="Login enables geolocation"
+- LOGIN -> CREAZIONE ANNUNCIO — type=association; label=""; explanation="Login enables advertisement creation"
+- LOGIN -> PRENOTAZIONE ANNUNCIO — type=association; label=""; explanation="Login enables advertisement booking"
+- LOGIN -> FILTRAGGIO ANNUNCI — type=association; label=""; explanation="Login enables advertisement filtering"
+- LOGIN -> ACCETTAZIONE ANNUNCIO — type=association; label=""; explanation="Login enables advertisement acceptance"
+- LOGIN -> VISUALIZZAZIONE PROFILO ALTRUI — type=association; label=""; explanation="Login enables viewing other profiles"
+- LOGIN -> MODIFICA ACCOUNT — type=association; label=""; explanation="Login enables account modification"
+- LOGIN -> MODIFICA ANNUNCIO — type=association; label=""; explanation="Login enables advertisement modification"
+- LOGIN -> ELIMINAZIONE ANNUNCIO — type=association; label=""; explanation="Login enables advertisement deletion"
+- LOGIN -> VISUALIZZAZIONE ANNUNCIO — type=association; label=""; explanation="Login enables advertisement viewing"
+- LOGIN -> LOGOUT — type=association; label=""; explanation="Login enables logout"
+
+Main Flows:
+- Flow 1: SIGN UP -> LOGIN -> GEOLOCALIZZAZIONE -> CREAZIONE ANNUNCIO -> PRENOTAZIONE ANNUNCIO -> FILTRAGGIO ANNUNCI -> ACCETTAZIONE ANNUNCIO -> VISUALIZZAZIONE PROFILO ALTRUI -> MODIFICA ACCOUNT -> MODIFICA ANNUNCIO -> ELIMINAZIONE ANNUNCIO -> VISUALIZZAZIONE ANNUNCIO -> LOGOUT
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a use case diagram for a system, likely an advertisement platform.
+- The main flow shows a user registering, logging in, and then having access to various functionalities like creating, booking, filtering, accepting, viewing, modifying, and deleting advertisements, as well as viewing other profiles and modifying their account.
+- Geolocation is available after login.
+- Logout is a final action available after login.
+
+===== Report_12_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- START — kind=initial_node; attributes=[]; operations=[]; role=start of process
+- Utente creato? — kind=decision; attributes=[]; operations=[]; role=check if user exists
+- CreateUser — kind=action; attributes=[]; operations=[]; role=create a new user
+- Login — kind=action; attributes=[]; operations=[]; role=user login
+- Utente creato con successo? — kind=decision; attributes=[]; operations=[]; role=check if user creation was successful
+- Bacheca — kind=action; attributes=[]; operations=[]; role=access the board
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- START -> Utente creato? — type=transition; label=""; explanation="start"
+- Utente creato? -> CreateUser — type=transition; label="No"; explanation="if user not created"
+- Utente creato? -> Login — type=transition; label="Si"; explanation="if user created"
+- CreateUser -> Utente creato con successo? — type=transition; label=""; explanation="after user creation"
+- Utente creato con successo? -> Login — type=transition; label="Si"; explanation="if user creation successful"
+- Utente creato con successo? -> START — type=transition; label="No"; explanation="if user creation failed, restart"
+- Login -> Bacheca — type=transition; label="Si"; explanation="successful login"
+
+Main Flows:
+- Flow 1: START -> Utente creato? (No) -> CreateUser -> Utente creato con successo? (Si) -> Login -> Bacheca
+- Flow 2: START -> Utente creato? (Si) -> Login -> Bacheca
+- Flow 3: CreateUser -> Utente creato con successo? (No) -> START
+
+Conditions / Branches:
+- Utente creato?:
+  - No -> CreateUser
+  - Si -> Login
+- Utente creato con successo?:
+  - Si -> Login
+  - No -> START
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user authentication and authorization flow.
+- The process begins by checking if a user exists. If not, a new user is created.
+- If a user exists, or a new user is successfully created, the user attempts to log in.
+- Upon successful login, the user is granted access to the "Bacheca" (board).
+- If user creation fails, the process restarts.
+
+===== Report_12_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Bacheca — kind=action; attributes=[]; operations=[]; role=Initial display
+- Accesso a menu laterale — kind=decision; attributes=[]; operations=[]; role=Check for menu access
+- Menu — kind=action; attributes=[]; operations=[]; role=Display menu
+- MyProfile — kind=action; attributes=[]; operations=[]; role=Display profile
+- Visualizzare profilo? — kind=decision; attributes=[]; operations=[]; role=Check for profile view
+- MyActivities — kind=action; attributes=[]; operations=[]; role=Display activities
+- Visualizzare i miei annunci? — kind=decision; attributes=[]; operations=[]; role=Check for ad view
+- Logout — kind=action; attributes=[]; operations=[]; role=Log out
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Bacheca -> Accesso a menu laterale — type=control_flow; label="No"; explanation="Flow from initial display to access check"
+- Accesso a menu laterale -> Menu — type=control_flow; label="Si"; explanation="Access granted, display menu"
+- Accesso a menu laterale -> Bacheca — type=control_flow; label="No"; explanation="Access denied, return to display"
+- Menu -> MyProfile — type=control_flow; label="Si"; explanation="Menu selection, display profile"
+- Menu -> Visualizzare profilo? — type=control_flow; label="Si"; explanation="Flow to profile view check"
+- MyProfile -> MyActivities — type=control_flow; label="No"; explanation="Flow to activities display"
+- Visualizzare profilo? -> MyActivities — type=control_flow; label="No"; explanation="Profile view denied, flow to activities"
+- MyActivities -> Visualizzare i miei annunci? — type=control_flow; label="Si"; explanation="Flow to ad view check"
+- MyActivities -> Logout — type=control_flow; label="No"; explanation="Ad view denied, flow to logout"
+- Visualizzare i miei annunci? -> Logout — type=control_flow; label="Si"; explanation="Ad view granted, flow to logout"
+
+Main Flows:
+- Flow 1: Bacheca -> Accesso a menu laterale (No) -> Bacheca
+- Flow 2: Bacheca -> Accesso a menu laterale (Si) -> Menu -> MyProfile -> MyActivities -> Visualizzare i miei annunci? (No) -> Logout
+- Flow 3: Bacheca -> Accesso a menu laterale (Si) -> Menu -> MyProfile -> Visualizzare profilo? (No) -> MyActivities -> Logout
+- Flow 4: Bacheca -> Accesso a menu laterale (Si) -> Menu -> Visualizzare profilo? (Si) -> MyActivities -> Visualizzare i miei annunci? (Si) -> Logout
+
+Conditions / Branches:
+- Accesso a menu laterale: "No" -> Bacheca; "Si" -> Menu
+- Visualizzare profilo?: "No" -> MyActivities; "Si" -> MyActivities
+- Visualizzare i miei annunci?: "No" -> Logout; "Si" -> Logout
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a lateral menu navigation flow within an application.
+- The flow starts at the "Bacheca" and branches based on whether access to the lateral menu is granted.
+- The menu provides access to "MyProfile", "MyActivities", and "Logout".
+- Decisions are made regarding profile and ad views, directing the flow to the "Logout" action.
+- The diagram represents a linear flow with branching decisions.
+
+===== Report_12_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Bacheca — kind=action; attributes=[]; operations=[]; role=Initial board state
+- Creazione annuncio — kind=action; attributes=[]; operations=[]; role=Create announcement
+- CreateNoticeboard — kind=action; attributes=[]; operations=[]; role=Create a notice board
+- NoticboardCreated — kind=action; attributes=[]; operations=[]; role=Notice board created
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Bacheca -> Creazione annuncio — type=control_flow; label="No"; explanation="Flow to check if announcement creation is needed"
+- Creazione annuncio -> CreateNoticeboard — type=control_flow; label="Si"; explanation="Flow to create the notice board"
+- CreateNoticeboard -> Creazione avvenuta — type=control_flow; label="No"; explanation="Flow if creation fails"
+- CreateNoticeboard -> NoticboardCreated — type=control_flow; label="Si"; explanation="Flow if creation succeeds"
+- Creazione avvenuta -> CreateNoticeboard — type=control_flow; explanation="Loop back to create noticeboard"
+
+Main Flows:
+- Flow 1: Bacheca -> Creazione annuncio (No) -> Bacheca; Creazione annuncio -> CreateNoticeboard (Si) -> Creazione avvenuta (No) -> CreateNoticeboard; CreateNoticeboard -> NoticboardCreated (Si)
+
+Conditions / Branches:
+- Creazione annuncio:
+  - No -> Bacheca
+  - Si -> CreateNoticeboard
+- Creazione avvenuta:
+  - No -> CreateNoticeboard
+  - Si -> NoticboardCreated
+
+Loops / Repetitions:
+- Creazione avvenuta -> CreateNoticeboard: This represents a loop where the system attempts to create the noticeboard until it succeeds.
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of creating a noticeboard, potentially with retries if the creation fails.
+- The initial state is "Bacheca" (board).
+- The process checks if announcement creation is needed. If not, it loops back to the board.
+- If announcement creation is needed, the system attempts to create a noticeboard.
+- If the creation fails, the system loops back to the "CreateNoticeboard" action.
+- If the creation succeeds, the process ends at "NoticboardCreated".
+
+===== Report_12_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Bacheca — kind=action; attributes=[]; operations=[]; role=Initial board view
+- ListNoFilter — kind=action; attributes=[]; operations=[]; role=List without filter
+- Filter — kind=action; attributes=[]; operations=[]; role=Filter selection
+- ListWithFilter — kind=action; attributes=[]; operations=[]; role=List with filter
+- ViewNoticeboard — kind=action; attributes=[]; operations=[]; role=View noticeboard
+- NoticeboardDetails — kind=action; attributes=[]; operations=[]; role=Noticeboard details
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Bacheca -> Selezionare filtri? — type=control_flow; label=""; explanation="Flow to filter selection"
+- Selezionare filtri? (No) -> ListNoFilter — type=control_flow; label="No"; explanation="Go to list without filter"
+- Selezionare filtri? (Si) -> Filter — type=control_flow; label="Si"; explanation="Go to filter"
+- Filter -> Filtro corretto? — type=control_flow; label=""; explanation="Flow to filter validation"
+- Filtro corretto? (No) -> ListWithFilter — type=control_flow; label="No"; explanation="Go to list with filter"
+- Filtro corretto? (Si) -> ListWithFilter — type=control_flow; label="Si"; explanation="Go to list with filter"
+- ListNoFilter -> ViewNoticeboard — type=control_flow; label=""; explanation="Flow to view noticeboard"
+- ViewNoticeboard -> Visualizzare dettagli? — type=control_flow; label=""; explanation="Flow to detail view"
+- Visualizzare dettagli? (No) -> ViewNoticeboard — type=control_flow; label="No"; explanation="Return to view noticeboard"
+- Visualizzare dettagli? (Si) -> NoticeboardDetails — type=control_flow; label="Si"; explanation="Go to noticeboard details"
+
+Main Flows:
+- Flow 1: Bacheca -> Selezionare filtri? (No) -> ListNoFilter -> ViewNoticeboard -> Visualizzare dettagli? (Si) -> NoticeboardDetails
+- Flow 2: Bacheca -> Selezionare filtri? (Si) -> Filter -> Filtro corretto? (Si) -> ListWithFilter -> ViewNoticeboard -> Visualizzare dettagli? (Si) -> NoticeboardDetails
+- Flow 3: Bacheca -> Selezionare filtri? (Si) -> Filter -> Filtro corretto? (No) -> ListWithFilter -> ViewNoticeboard -> Visualizzare dettagli? (Si) -> NoticeboardDetails
+- Flow 4: ViewNoticeboard -> Visualizzare dettagli? (No) -> ViewNoticeboard
+
+Conditions / Branches:
+- Selezionare filtri?:
+  - No -> ListNoFilter
+  - Si -> Filter
+- Filtro corretto?:
+  - No -> ListWithFilter
+  - Si -> ListWithFilter
+- Visualizzare dettagli?:
+  - No -> ViewNoticeboard
+  - Si -> NoticeboardDetails
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the flow of a user interacting with a noticeboard, potentially using filters.
+- The main flow involves navigating from the board to a list, potentially filtered, and then to details.
+- The "Selezionare filtri?" decision point determines whether filters are applied.
+- The "Filtro corretto?" decision point determines whether the filter is valid.
+- The "Visualizzare dettagli?" decision point determines whether to view the details of a noticeboard entry.
+- The diagram shows a loop back to the ViewNoticeboard state if the user chooses not to view details.
+
+===== Report_12_uml_pages.pdf | Page 6 =====
+UML Type:
+- activity
+
+Components:
+- NoticeboardDetails — kind=action; attributes=[]; operations=[]; role=Displays noticeboard details
+- Vuoi prenotarti? — kind=decision; attributes=[]; operations=[]; role=Asks if the user wants to book
+- Si — kind=transition; attributes=[]; operations=[]; role=Yes branch
+- No — kind=transition; attributes=[]; operations=[]; role=No branch
+- Era presente un filtro? — kind=decision; attributes=[]; operations=[]; role=Checks if a filter was present
+- ListWithFilter — kind=action; attributes=[]; operations=[]; role=Displays list with filter
+- ListNoFilter — kind=action; attributes=[]; operations=[]; role=Displays list without filter
+- Booking — kind=action; attributes=[]; operations=[]; role=Initiates booking
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- NoticeboardDetails -> Vuoi prenotarti? — type=control_flow; label=""; explanation="Flow of control"
+- Vuoi prenotarti? -> Si — type=control_flow; label="Si"; explanation="Yes branch"
+- Vuoi prenotarti? -> No — type=control_flow; label="No"; explanation="No branch"
+- Si -> Era presente un filtro? — type=control_flow; label=""; explanation="Flow of control"
+- Era presente un filtro? -> ListWithFilter — type=control_flow; label="Si"; explanation="Yes branch"
+- Era presente un filtro? -> ListNoFilter — type=control_flow; label="No"; explanation="No branch"
+- ListWithFilter -> Booking — type=control_flow; label=""; explanation="Flow of control"
+- ListNoFilter -> Booking — type=control_flow; label=""; explanation="Flow of control"
+
+Main Flows:
+- Flow 1: NoticeboardDetails -> Vuoi prenotarti? (Si) -> Era presente un filtro? (Si) -> ListWithFilter -> Booking
+- Flow 2: NoticeboardDetails -> Vuoi prenotarti? (Si) -> Era presente un filtro? (No) -> ListNoFilter -> Booking
+- Flow 3: NoticeboardDetails -> Vuoi prenotarti? (No) -> [Flow ends]
+
+Conditions / Branches:
+- Vuoi prenotarti?:
+  - Si
+  - No
+- Era presente un filtro?:
+  - Si
+  - No
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a booking process starting from a noticeboard details view.
+- The user is first asked if they want to book.
+- If yes, the system checks if a filter was present and displays a filtered or unfiltered list accordingly before initiating the booking.
+- If the user does not want to book, the process ends.
+
+===== Report_12_uml_pages.pdf | Page 7 =====
+UML Type:
+- activity
+
+Components:
+- Menu — kind=action; attributes=[]; operations=[]; role=Initial point of the activity
+- MyActivities — kind=action; attributes=[]; operations=[]; role=Activity selection
+- Gestione propri annunci? — kind=decision; attributes=[]; operations=[]; role=Decision point regarding own announcements
+- MyNoticeboard — kind=action; attributes=[]; operations=[]; role=Access to noticeboard
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Menu -> MyActivities — type=control_flow; label=""; explanation="Flow from Menu to MyActivities"
+- MyActivities -> Gestione propri annunci? — type=control_flow; label=""; explanation="Flow from MyActivities to decision point"
+- Gestione propri annunci? -> MyNoticeboard — type=control_flow; label="Si"; explanation="Flow from decision point to MyNoticeboard if condition is true"
+
+Main Flows:
+- Flow 1: Menu -> MyActivities -> Gestione propri annunci? (Si) -> MyNoticeboard
+
+Conditions / Branches:
+- Gestione propri annunci?: The decision node "Gestione propri annunci?" has one visible branch labeled "Si".
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a workflow for managing activities, specifically related to announcements.
+- The flow starts at the "Menu" and leads to "MyActivities".
+- A decision point determines whether to proceed to "MyNoticeboard" based on the condition "Gestione propri annunci?".
+- The diagram only shows the "Si" (Yes) branch of the decision, implying that there might be an alternative path not depicted.
+
+===== Report_12_uml_pages.pdf | Page 8 =====
+UML Type:
+- activity
+
+Components:
+- Menu — kind=action; attributes=[]; operations=[]; role=Initial menu screen
+- MyProfile — kind=action; attributes=[]; operations=[]; role=Profile view
+- ModifyAccount — kind=action; attributes=[]; operations=[]; role=Account modification
+- PointsDonation — kind=action; attributes=[]; operations=[]; role=Points donation
+- Vuoi aggiornare dati? — kind=decision; attributes=[]; operations=[]; role=Decision point: Update data?
+- Vuoi donare punti? — kind=decision; attributes=[]; operations=[]; role=Decision point: Donate points?
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Menu -> MyProfile — type=transition; label=""; explanation="Navigation to profile view"
+- MyProfile -> Vuoi aggiornare dati? — type=transition; label=""; explanation="Decision point after viewing profile"
+- Vuoi aggiornare dati? -> ModifyAccount — type=transition; label="Si"; explanation="If user wants to update data"
+- Vuoi aggiornare dati? -> Vuoi donare punti? — type=transition; label="No"; explanation="If user does not want to update data"
+- Vuoi donare punti? -> PointsDonation — type=transition; label="Si"; explanation="If user wants to donate points"
+
+Main Flows:
+- Flow 1: Menu -> MyProfile -> Vuoi aggiornare dati? (Si) -> ModifyAccount
+- Flow 2: Menu -> MyProfile -> Vuoi aggiornare dati? (No) -> Vuoi donare punti? (Si) -> PointsDonation
+
+Conditions / Branches:
+- Vuoi aggiornare dati?:
+  - Si -> ModifyAccount
+  - No -> Vuoi donare punti?
+- Vuoi donare punti?:
+  - Si -> PointsDonation
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user flow for profile modification and points donation.
+- The flow starts at the Menu, navigates to the MyProfile view, and then presents two options: updating account data or donating points.
+- If the user chooses to update data, they proceed to the ModifyAccount action.
+- If the user chooses not to update data, they are then asked if they want to donate points, leading to the PointsDonation action if they choose "Si".
+
+===== Report_12_uml_pages.pdf | Page 9 =====
+UML Type:
+- state_machine
+
+Components:
+- ANNUNCIO — kind=state_machine; attributes=[]; operations=[]; role=The state machine for an announcement.
+- Created — kind=state; attributes=[]; operations=[]; role=Initial state of the announcement.
+- Modify — kind=state; attributes=[]; operations=[]; role=State where the announcement can be modified.
+- Booking — kind=state; attributes=[]; operations=[]; role=State related to booking the announcement.
+- Accept — kind=state; attributes=[]; operations=[]; role=State after a booking request.
+- Accepted — kind=state; attributes=[]; operations=[]; role=State when the booking is accepted.
+- InProgress — kind=state; attributes=[]; operations=[]; role=State when the announcement is in progress.
+- PointsAssignment — kind=state; attributes=[]; operations=[]; role=State where points are assigned.
+- FinishTime — kind=state; attributes=[]; operations=[]; role=State representing the end of the announcement.
+- removed — kind=state; attributes=[]; operations=[]; role=Final state of the announcement.
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- ANNUNCIO -> Created — type=transition; label=create; explanation="Initial transition to the Created state."
+- Created -> Modify — type=transition; label=Modify; explanation="Transition to the Modify state."
+- Created -> Booking — type=transition; label=Booking; explanation="Transition to the Booking state."
+- Modify -> FinishTime — type=transition; label=FinishTime; explanation="Transition to the FinishTime state."
+- Booking -> Accept — type=transition; label=Accept; explanation="Transition to the Accept state."
+- Accept -> Accepted — type=transition; explanation="Transition to the Accepted state."
+- Accept -> InProgress — type=transition; explanation="Transition to the InProgress state."
+- Accepted -> InProgress — type=transition; explanation="Transition to the InProgress state."
+- InProgress -> PointsAssignment — type=transition; explanation="Transition to the PointsAssignment state."
+- PointsAssignment -> removed — type=transition; label=removed; explanation="Transition to the removed state."
+- FinishTime -> removed — type=transition; explanation="Transition to the removed state."
+
+Main Flows:
+- Flow 1: ANNUNCIO -> Created -> Modify -> FinishTime -> removed
+- Flow 2: ANNUNCIO -> Created -> Booking -> Accept -> Accepted -> InProgress -> PointsAssignment -> removed
+- Flow 3: ANNUNCIO -> Created -> Booking -> Accept -> InProgress -> PointsAssignment -> removed
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a state machine for an announcement, outlining its lifecycle from creation to removal.
+- The announcement can either be modified and then finished, or it can go through a booking process, acceptance, and then progress to points assignment before removal.
+- There are multiple paths to reach the 'removed' state, indicating different ways an announcement can conclude.
+
+===== Report_12_uml_pages.pdf | Page 10 =====
+UML Type:
+- sequence
+
+Components:
+- MAIN — kind=lifeline; attributes=[]; operations=[]; role=Initiator
+- USERS — kind=lifeline; attributes=[]; operations=[]; role=User Management
+- DB — kind=lifeline; attributes=[]; operations=[Save data: void]; role=Database
+
+Actors / Lifelines:
+- MAIN
+- USERS
+- DB
+
+Relationships / Links:
+- MAIN -> USERS — type=message; label="Create User"; explanation="Request to create a user"
+- USERS -> DB — type=message; label="Map in database"; explanation="Mapping user data to the database"
+- DB -> DB — type=message; label="Save data"; explanation="Saving data to the database"
+- USERS -> MAIN — type=message; label="Notify user exists"; explanation="Notification of user existence"
+- MAIN -> USERS — type=message; label="Map data in Users"; explanation="Mapping data in Users"
+
+Main Flows:
+- Flow 1: MAIN -> USERS (Create User) -> DB (Map in database) -> DB (Save data) -> USERS (Notify user exists) -> MAIN (Map data in Users)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the creation of a user.
+- The MAIN component initiates the process by requesting user creation from the USERS component.
+- The USERS component then interacts with the DB component to map and save the user data.
+- Finally, the USERS component notifies the MAIN component about the user's existence.
+- The diagram shows a single, linear flow without any branching or looping.
+
+===== Report_12_uml_pages.pdf | Page 11 =====
+UML Type:
+- Activity
+
+Components:
+- MAIN — kind=component; attributes=[]; operations=[]; role=Initiator
+- NOTICEBOARD — kind=component; attributes=[]; operations=[]; role=Noticeboard Manager
+- DB — kind=component; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- MAIN -> NOTICEBOARD — type=message; label="Create Noticeboard"; explanation="Request to create a noticeboard"
+- NOTICEBOARD -> DB — type=message; label="Map in database"; explanation="Mapping data to the database"
+- DB -> NOTICEBOARD — type=message; label="Notify Noticeboard exists"; explanation="Notification that the noticeboard exists"
+- NOTICEBOARD -> DB — type=message; label="Map data in Noticeboard"; explanation="Mapping data into the noticeboard"
+- DB -> NOTICEBOARD — type=message; label="Save data"; explanation="Saving the data"
+
+Main Flows:
+- Flow 1: MAIN -> NOTICEBOARD (Create Noticeboard) -> DB (Map in database) -> NOTICEBOARD (Notify Noticeboard exists) -> NOTICEBOARD (Map data in Noticeboard) -> DB (Save data)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the creation of a noticeboard.
+- The process starts with the MAIN component requesting the creation of a noticeboard.
+- The NOTICEBOARD component then interacts with the DB component to map data and save it.
+- The DB component notifies the NOTICEBOARD component upon successful creation and data saving.
+- The diagram shows a linear flow without any branching or looping.
+
+===== Report_12_uml_pages.pdf | Page 12 =====
+UML Type:
+- Communication
+
+Components:
+- MAIN — kind=component; attributes=[]; operations=[]; role=Main application
+- DB — kind=component; attributes=[]; operations=[]; role=Database
+- USERS — kind=component; attributes=[]; operations=[]; role=User interface
+
+Actors / Lifelines:
+- MAIN
+- DB
+- USERS
+
+Relationships / Links:
+- MAIN -> DB — type=message; label="Check if noticeboard exist"; explanation="Request to check if noticeboard exists"
+- DB -> MAIN — type=message; label="Return list"; explanation="Return the list of noticeboards"
+- MAIN -> USERS — type=message; label="Show noticeboard"; explanation="Display the noticeboard to the user"
+- USERS -> DB — type=message; label="Apply filter"; explanation="Apply filter to the noticeboard"
+- USERS -> MAIN — type=message; label="Booking"; explanation="User makes a booking"
+- MAIN -> USERS — type=message; label="Booking"; explanation="Confirmation of booking"
+
+Main Flows:
+- Flow 1: MAIN -> DB (Check if noticeboard exist) -> DB -> MAIN (Return list) -> MAIN -> USERS (Show noticeboard) -> USERS -> DB (Apply filter) -> USERS -> MAIN (Booking) -> MAIN -> USERS (Booking)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a communication flow between a Main application, a Database, and a User interface.
+- The Main application initially requests a list of noticeboards from the Database.
+- The User interface displays the noticeboards and allows the user to apply filters.
+- The user can then make a booking, which is communicated back to the Main application and confirmed to the User interface.
+- The diagram focuses on the core interaction flow for displaying and booking noticeboards.
+
+===== Report_12_uml_pages.pdf | Page 13 =====
+UML Type:
+- use_case
+
+Components:
+- MAIN — kind=actor; attributes=[]; operations=[]; role=Main Actor
+- DB — kind=component; attributes=[]; operations=[]; role=Database
+- USERS — kind=actor; attributes=[]; operations=[]; role=Users
+
+Actors / Lifelines:
+- MAIN
+- USERS
+- DB
+- None
+
+Relationships / Links:
+- MAIN -> DB — type=message; label="Check candidate list"; explanation="Main requests candidate list from DB"
+- DB -> MAIN — type=message; label="Return list"; explanation="DB returns candidate list to Main"
+- MAIN -> USERS — type=message; label="Show candidate list"; explanation="Main shows candidate list to Users"
+- USERS -> MAIN — type=message; label="Accept candidate"; explanation="Users accepts a candidate and sends the message to Main"
+
+Main Flows:
+- Flow 1: MAIN -> DB — "Check candidate list" -> DB -> MAIN — "Return list" -> MAIN -> USERS — "Show candidate list" -> USERS -> MAIN — "Accept candidate"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a use case for candidate acceptance.
+- The Main actor initiates the process by requesting a candidate list from the DB.
+- The DB returns the list, which is then displayed to the Users.
+- Users can then accept a candidate, sending a message back to the Main actor.
+- The diagram does not show any error handling or alternative flows.
+
+===== Report_12_uml_pages.pdf | Page 14 =====
+UML Type:
+- activity
+
+Components:
+- MAIN — kind=activity; attributes=[]; operations=[]; role=Main process
+- DB — kind=activity; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- MAIN -> DB — type=message; label="Check if noticeboard exist"; explanation="Main checks if the noticeboard exists in the DB"
+- DB -> MAIN — type=message; label="Return new version"; explanation="DB returns a new version to Main"
+- MAIN -> DB — type=message; label="Modify data"; explanation="Main modifies data in the DB"
+
+Main Flows:
+- Flow 1: MAIN -> DB (Check if noticeboard exist) -> DB -> MAIN (Return new version) -> MAIN -> DB (Modify data)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a process for modifying a noticeboard.
+- The process begins with the MAIN component checking for the existence of a noticeboard in the DB.
+- If the noticeboard exists, the DB returns a new version, and the MAIN component modifies the data.
+- The diagram shows a linear flow without any branching or looping.
+
+===== Report_12_uml_pages.pdf | Page 15 =====
+UML Type:
+- sequence
+
+Components:
+- MAIN — kind=lifeline; attributes=[]; operations=[]; role=Main application
+- DB — kind=lifeline; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- MAIN
+- DB
+
+Relationships / Links:
+- MAIN -> DB — type=message; label="Check if user exist"; explanation="Request to check user existence"
+- DB -> MAIN — type=message; label="Return new version"; explanation="Response with updated data"
+
+Main Flows:
+- Flow 1: MAIN sends "Check if user exist" to DB. DB responds with "Return new version" to MAIN.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a sequence of interactions between a "MAIN" application and a "DB" (database).
+- The MAIN application initiates a request to the DB to check if a user exists.
+- The DB responds by returning a "new version" of the data, presumably after modification.
+- The diagram focuses on a single successful flow, without showing any error handling or alternative paths.
+
+===== Report_12_uml_pages.pdf | Page 16 =====
+UML Type:
+- Activity
+
+Components:
+- MAIN — kind=component; attributes=[]; operations=[]; role=Main application
+- DB — kind=component; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- MAIN -> "If Noticeboard's period finished" — type=control_flow; explanation=Control flow from Main to decision node
+- "If Noticeboard's period finished" -> DB — type=control_flow; label=Delete Noticeboard; explanation=Control flow to DB if period finished
+- DB -> "Noticeboard does not exist anymore" — type=control_flow; label=Delete Noticeboard; explanation=Control flow from DB to state
+- "Noticeboard does not exist anymore" -> MAIN — type=control_flow; explanation=Control flow back to Main
+
+Main Flows:
+- Flow 1: MAIN -> "If Noticeboard's period finished" -> DB -> "Noticeboard does not exist anymore" -> MAIN
+
+Conditions / Branches:
+- "If Noticeboard's period finished":
+    - Yes: Delete Noticeboard
+    - No: - None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of deleting a noticeboard from a database when its period has finished.
+- The MAIN component checks if the noticeboard's period is finished.
+- If the period is finished, the MAIN component instructs the DB component to delete the noticeboard.
+- After deletion, the DB component indicates that the noticeboard no longer exists, and control returns to the MAIN component.
+- The diagram does not show what happens if the noticeboard's period is not finished.
+
+
+======================================================================

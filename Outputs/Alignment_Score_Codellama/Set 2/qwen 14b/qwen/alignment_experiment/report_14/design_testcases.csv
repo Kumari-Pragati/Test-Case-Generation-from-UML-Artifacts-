@@ -1,0 +1,179 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Creation Process,User,"1, 2",None,"- Valid user details (email, name, surname)
+- Invalid user details (empty fields, invalid email format)","1. Navigate to the user creation page.
+2. Enter valid user details and submit.
+3. Check if the user is created successfully.
+4. Enter invalid user details and submit.
+5. Check if the user creation fails.","1. User creation form is displayed.
+2. User is created successfully with valid details.
+3. Error messages are shown for invalid user details."
+TC-User-002,User Authentication Process,User,"1, 2",User exists in the database,"- Valid credentials (email, password)
+- Invalid credentials (wrong email, wrong password)","1. Navigate to the login page.
+2. Enter valid credentials and submit.
+3. Check if the user is authenticated successfully.
+4. Enter invalid credentials and submit.
+5. Check if the user authentication fails.","1. Login form is displayed.
+2. User is authenticated successfully with valid credentials.
+3. Error messages are shown for invalid credentials."
+TC-Post-001,Create a Post,Post,1,User is logged in,"- Valid post content
+- Invalid post content (empty field)","1. Navigate to the post creation page.
+2. Enter valid post content and submit.
+3. Check if the post is created successfully.
+4. Enter invalid post content and submit.
+5. Check if the post creation fails.","1. Post creation form is displayed.
+2. Post is created successfully with valid content.
+3. Error messages are shown for invalid post content."
+TC-Post-002,Associate Post with Neighborhood,Post,1,"User is logged in, valid neighborhood exists","- Valid neighborhood code
+- Invalid neighborhood code (nonexistent code)","1. Navigate to the post creation page.
+2. Select a valid neighborhood and submit.
+3. Check if the post is associated with the neighborhood.
+4. Select an invalid neighborhood and submit.
+5. Check if the post creation fails due to invalid neighborhood.","1. Post creation form is displayed with neighborhood selection.
+2. Post is associated with the selected neighborhood.
+3. Error messages are shown for invalid neighborhood."
+TC-Comment-001,Create a Comment,Comment,1,"User is logged in, valid post exists","- Valid comment content
+- Invalid comment content (empty field)","1. Navigate to the post detail page.
+2. Enter valid comment content and submit.
+3. Check if the comment is created successfully.
+4. Enter invalid comment content and submit.
+5. Check if the comment creation fails.","1. Comment creation form is displayed.
+2. Comment is created successfully with valid content.
+3. Error messages are shown for invalid comment content."
+TC-Comment-002,Associate Comment with Post,Comment,1,"User is logged in, valid post exists","- Valid post reference
+- Invalid post reference (nonexistent post)","1. Navigate to the post detail page.
+2. Enter valid post reference and submit.
+3. Check if the comment is associated with the post.
+4. Enter invalid post reference and submit.
+5. Check if the comment creation fails due to invalid post reference.","1. Comment creation form is displayed with post reference selection.
+2. Comment is associated with the selected post.
+3. Error messages are shown for invalid post reference."
+TC-ChatList-001,Create a Chat List,ChatList,1,User is logged in,"- Valid user details for 'me' and 'chattedWith'
+- Invalid user details (nonexistent user)","1. Navigate to the chat list creation page.
+2. Enter valid user details for 'me' and 'chattedWith' and submit.
+3. Check if the chat list is created successfully.
+4. Enter invalid user details and submit.
+5. Check if the chat list creation fails.","1. Chat list creation form is displayed.
+2. Chat list is created successfully with valid user details.
+3. Error messages are shown for invalid user details."
+TC-Home-001,Navigate from Home Screen,Home,3,User is logged in,"- Click on profile photo
+- Click on notifications icon
+- Interaction with map
+- Click on home access icon
+- Click on personal profile access icon
+- Click on chat access icon
+- Click on general archive access icon","1. Navigate to the home screen.
+2. Click on profile photo.
+3. Check if the profile section is displayed.
+4. Click on notifications icon.
+5. Check if the notification section is displayed.
+6. Interact with the map.
+7. Check if the map full-screen API is invoked.
+8. Click on home access icon.
+9. Check if the home screen is displayed.
+10. Click on personal profile access icon.
+11. Check if the profile section is displayed.
+12. Click on chat access icon.
+13. Check if the chat section is displayed.
+14. Click on general archive access icon.
+15. Check if the general dashboard is displayed.","1. Home screen is displayed.
+2. Profile section is displayed after clicking on profile photo.
+3. Notification section is displayed after clicking on notifications icon.
+4. Map full-screen API is invoked after interacting with the map.
+5. Home screen is displayed after clicking on home access icon.
+6. Profile section is displayed after clicking on personal profile access icon.
+7. Chat section is displayed after clicking on chat access icon.
+8. General dashboard is displayed after clicking on general archive access icon."
+TC-GeneralDashboard-001,Browse Shared Posts,GeneralDashboard,4,User is logged in,"- Valid post content
+- Invalid post content (empty field)","1. Navigate to the general dashboard.
+2. Scroll through shared posts.
+3. Click on a specific post.
+4. Check if the post is loaded successfully.
+5. Add a comment to the post.
+6. Submit the comment.
+7. Check if the comment is saved successfully.","1. General dashboard is displayed.
+2. Shared posts are loaded successfully.
+3. Specific post is loaded successfully after clicking.
+4. Comment is added successfully with valid content.
+5. Comment is saved successfully after submission.
+6. Error messages are shown for invalid comment content."
+TC-ItemResultSearch-001,Search and View Profiles,ItemResultSearch,5,User is logged in,"- Valid resident profile
+- Valid business profile
+- Valid professional profile
+- Invalid profile (nonexistent profile)","1. Perform a search for a resident profile.
+2. Check if the resident profile is displayed.
+3. Add the resident profile to contacts.
+4. Check if the chat interaction is initiated.
+5. Perform a search for a business profile.
+6. Check if the business profile is displayed.
+7. View unsold items.
+8. Check if the unsold items are displayed.
+9. View promotions.
+10. Check if the promotions are displayed.
+11. Make an appointment.
+12. Check if the calendar is displayed.
+13. Confirm the successful operation.
+14. Check if the confirmation is displayed.
+15. Perform a search for an invalid profile.
+16. Check if an error message is displayed.","1. Resident profile is displayed after searching.
+2. Chat interaction is initiated after adding to contacts.
+3. Business profile is displayed after searching.
+4. Unsold items are displayed after viewing.
+5. Promotions are displayed after viewing.
+6. Calendar is displayed after making an appointment.
+7. Confirmation is displayed after confirming the operation.
+8. Error message is displayed for an invalid profile."
+TC-Sequence-001,User Existence and Creation,Sequence,6,None,"- Valid credentials
+- Invalid credentials (nonexistent user)","1. Send valid credentials to StoredDataDB for authorization.
+2. Check if the user is authorized.
+3. Send nonexistent user credentials to UserCreateProcedure for authentication.
+4. Check if the user is authenticated.
+5. Create a new entry in StoredDataDB.
+6. Check if the new entry is created successfully.","1. User is authorized with valid credentials.
+2. User is authenticated with nonexistent user credentials.
+3. New entry is created successfully in StoredDataDB."
+TC-Sequence-002,User Nonexistence and Creation,Sequence,6,User does not exist in the database,- Nonexistent user credentials,"1. Send nonexistent user credentials to StoredDataDB for authorization.
+2. Check if the user is not authorized.
+3. Send nonexistent user credentials to UserCreateProcedure for authentication.
+4. Check if the user is authenticated.
+5. Create a new entry in StoredDataDB.
+6. Check if the new entry is created successfully.","1. User is not authorized with nonexistent user credentials.
+2. User is authenticated with nonexistent user credentials.
+3. New entry is created successfully in StoredDataDB."
+TC-Sequence-003,User Existence and Authorization,Sequence,6,User exists in the database,- Valid user credentials,"1. Send valid user credentials to StoredDataDB for authorization.
+2. Check if the user is authorized.
+3. Send valid user credentials to UserCreateProcedure for authentication.
+4. Check if the user is not authenticated.
+5. No new entry is created in StoredDataDB.","1. User is authorized with valid user credentials.
+2. User is not authenticated with valid user credentials.
+3. No new entry is created in StoredDataDB."
+TC-Sequence-004,User Nonexistence and Authentication Failure,Sequence,6,User does not exist in the database,- Nonexistent user credentials,"1. Send nonexistent user credentials to StoredDataDB for authorization.
+2. Check if the user is not authorized.
+3. Send nonexistent user credentials to UserCreateProcedure for authentication.
+4. Check if the user is not authenticated.
+5. No new entry is created in StoredDataDB.","1. User is not authorized with nonexistent user credentials.
+2. User is not authenticated with nonexistent user credentials.
+3. No new entry is created in StoredDataDB."
+TC-Sequence-005,User Existence and Authorization Failure,Sequence,6,User exists in the database,- Invalid user credentials,"1. Send invalid user credentials to StoredDataDB for authorization.
+2. Check if the user is not authorized.
+3. Send invalid user credentials to UserCreateProcedure for authentication.
+4. Check if the user is not authenticated.
+5. No new entry is created in StoredDataDB.","1. User is not authorized with invalid user credentials.
+2. User is not authenticated with invalid user credentials.
+3. No new entry is created in StoredDataDB."
+TC-Sequence-006,User Existence and Creation with Valid Credentials,Sequence,6,User does not exist in the database,- Valid user credentials,"1. Send valid user credentials to StoredDataDB for authorization.
+2. Check if the user is not authorized.
+3. Send valid user credentials to UserCreateProcedure for authentication.
+4. Check if the user is authenticated.
+5. Create a new entry in StoredDataDB.
+6. Check if the new entry is created successfully.","1. User is not authorized with valid user credentials.
+2. User is authenticated with valid user credentials.
+3. New entry is created successfully in StoredDataDB."
+TC-Sequence-007,User Existence and Creation with Invalid Credentials,Sequence,6,User does not exist in the database,- Invalid user credentials,"1. Send invalid user credentials to StoredDataDB for authorization.
+2. Check if the user is not authorized.
+3. Send invalid user credentials to UserCreateProcedure for authentication.
+4. Check if the user is not authenticated.
+5. No new entry is created in StoredDataDB.","1. User is not authorized with invalid user credentials.
+2. User is not authenticated with invalid user credentials.
+3. No new entry is created in StoredDataDB. 
+
+Test"

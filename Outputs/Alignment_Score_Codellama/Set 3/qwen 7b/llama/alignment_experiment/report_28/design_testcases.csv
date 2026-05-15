@@ -1,0 +1,102 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User successfully logs in,Login,1,User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User calls the login operation on the Server with the provided credentials.
+2. Server verifies the credentials.
+3. Server returns a token to the User.
+4. User sends the token to the API_Manager.
+5. API_Manager processes the request and returns a status.
+6. User receives the status from the API_Manager.",User receives a valid token and status indicating successful login.
+TC-Login-002,User fails to log in due to invalid credentials,Login,1,User provides incorrect username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User calls the login operation on the Server with the provided credentials.
+2. Server verifies the credentials.
+3. Server returns an error message to the User.
+4. User receives the error message from the Server.",User receives an error message indicating failed login attempt.
+TC-Login-003,User fails to log in due to missing credentials,Login,1,User omits one or both of the required fields.,"- Username: 
+- Password: testpassword","1. User calls the login operation on the Server with the provided credentials.
+2. Server verifies the credentials.
+3. Server returns an error message to the User.
+4. User receives the error message from the Server.",User receives an error message indicating missing credentials.
+TC-Service-001,User successfully posts a service,Service Management,"2, 4",User is logged in and has a valid token.,"- Title: New Service
+- Description: This is a new service.
+- Creator: testuser","1. User calls the post operation on the Service with the provided details.
+2. Service validates the input.
+3. Service stores the new service.
+4. Service returns a confirmation message to the User.
+5. User receives the confirmation message from the Service.",User receives a confirmation message indicating successful service posting.
+TC-Service-002,User fails to post a service due to missing required fields,Service Management,"2, 4",User is logged in and has a valid token.,"- Title: 
+- Description: This is a new service.
+- Creator: testuser","1. User calls the post operation on the Service with the provided details.
+2. Service validates the input.
+3. Service returns an error message to the User.
+4. User receives the error message from the Service.",User receives an error message indicating missing required fields.
+TC-Service-003,User fails to post a service due to invalid input,Service Management,"2, 4",User is logged in and has a valid token.,"- Title: !@#
+- Description: This is a new service.
+- Creator: testuser","1. User calls the post operation on the Service with the provided details.
+2. Service validates the input.
+3. Service returns an error message to the User.
+4. User receives the error message from the Service.",User receives an error message indicating invalid input.
+TC-API-Manager-001,Main component successfully requests data,API Management,2,Main component has a valid token.,- Token: valid_token,"1. Main calls the getToken operation on the LocalUser.
+2. LocalUser returns the token to Main.
+3. Main sends the token to the API_Manager.
+4. API_Manager processes the request and returns a status.
+5. Main receives the status from the API_Manager.",Main receives a valid status indicating successful data request.
+TC-API-Manager-002,Main component fails to request data due to invalid token,API Management,2,Main component has an invalid token.,- Token: invalid_token,"1. Main calls the getToken operation on the LocalUser.
+2. LocalUser returns the token to Main.
+3. Main sends the invalid token to the API_Manager.
+4. API_Manager returns an error status to Main.
+5. Main receives the error status from the API_Manager.",Main receives an error status indicating failed data request.
+TC-API-Manager-003,Main component fails to request data due to missing token,API Management,2,Main component does not have a token.,- Token: null,"1. Main calls the getToken operation on the LocalUser.
+2. LocalUser returns null to Main.
+3. Main attempts to send the null token to the API_Manager.
+4. API_Manager returns an error status to Main.
+5. Main receives the error status from the API_Manager.",Main receives an error status indicating missing token.
+TC-Data-Processing-001,Main component successfully processes data,Data Processing,"3, 5",Main component has a valid token and data to process.,"- Data: [entry1, entry2, entry3]","1. Main calls the request operation on the API_Manager with the provided data.
+2. API_Manager processes the data and returns a status.
+3. Main receives the status from the API_Manager.",Main receives a valid status indicating successful data processing.
+TC-Data-Processing-002,Main component fails to process data due to invalid token,Data Processing,"3, 5",Main component has an invalid token and data to process.,"- Data: [entry1, entry2, entry3]
+- Token: invalid_token","1. Main calls the request operation on the API_Manager with the provided data and invalid token.
+2. API_Manager returns an error status to Main.
+3. Main receives the error status from the API_Manager.",Main receives an error status indicating failed data processing due to invalid token.
+TC-Data-Processing-003,Main component fails to process data due to missing token,Data Processing,"3, 5",Main component does not have a token and data to process.,"- Data: [entry1, entry2, entry3]
+- Token: null","1. Main calls the request operation on the API_Manager with the provided data and null token.
+2. API_Manager returns an error status to Main.
+3. Main receives the error status from the API_Manager.",Main receives an error status indicating missing token.
+TC-Data-Update-001,Main component successfully updates data,Data Update,5,Main component has a valid token and data to update.,"- Data: [entry1, entry2, entry3]","1. Main calls the request operation on the API_Manager with the provided data.
+2. API_Manager processes the data and returns a status.
+3. Main receives the status from the API_Manager.",Main receives a valid status indicating successful data update.
+TC-Data-Update-002,Main component fails to update data due to invalid token,Data Update,5,Main component has an invalid token and data to update.,"- Data: [entry1, entry2, entry3]
+- Token: invalid_token","1. Main calls the request operation on the API_Manager with the provided data and invalid token.
+2. API_Manager returns an error status to Main.
+3. Main receives the error status from the API_Manager.",Main receives an error status indicating failed data update due to invalid token.
+TC-Data-Update-003,Main component fails to update data due to missing token,Data Update,5,Main component does not have a token and data to update.,"- Data: [entry1, entry2, entry3]
+- Token: null","1. Main calls the request operation on the API_Manager with the provided data and null token.
+2. API_Manager returns an error status to Main.
+3. Main receives the error status from the API_Manager.",Main receives an error status indicating missing token.
+TC-Report-001,Main component successfully generates a report,Report Generation,5,Main component has a valid token and data to generate a report.,"- Data: [entry1, entry2, entry3]","1. Main calls the request operation on the API_Manager with the provided data.
+2. API_Manager processes the data and returns a report.
+3. Main receives the report from the API_Manager.",Main receives a valid report indicating successful report generation.
+TC-Report-002,Main component fails to generate a report due to invalid token,Report Generation,5,Main component has an invalid token and data to generate a report.,"- Data: [entry1, entry2, entry3]
+- Token: invalid_token","1. Main calls the request operation on the API_Manager with the provided data and invalid token.
+2. API_Manager returns an error status to Main.
+3. Main receives the error status from the API_Manager.",Main receives an error status indicating failed report generation due to invalid token.
+TC-Report-003,Main component fails to generate a report due to missing token,Report Generation,5,Main component does not have a token and data to generate a report.,"- Data: [entry1, entry2, entry3]
+- Token: null","1. Main calls the request operation on the API_Manager with the provided data and null token.
+2. API_Manager returns an error status to Main.
+3. Main receives the error status from the API_Manager.",Main receives an error status indicating missing token.
+TC-Service-Get-001,User successfully retrieves a service,Service Retrieval,2,User is logged in and has a valid token.,- Service ID: 123,"1. User calls the getPost operation on the Service with the provided ID.
+2. Service retrieves the service with the given ID.
+3. Service returns the service details to the User.
+4. User receives the service details from the Service.",User receives the service details indicating successful retrieval.
+TC-Service-Get-002,User fails to retrieve a service due to invalid ID,Service Retrieval,2,User is logged in and has a valid token.,- Service ID: 999,"1. User calls the getPost operation on the Service with the provided ID.
+2. Service attempts to retrieve the service with the given ID.
+3. Service returns an error message to the User.
+4. User receives the error message from the Service.",User receives an error message indicating failed retrieval due to invalid ID.
+TC-Service-Get-003,User fails to retrieve a service due to missing ID,Service Retrieval,2,User is logged in and has a valid token.,- Service ID:,"1. User calls the getPost operation on the Service with the provided ID.
+2. Service attempts to retrieve the service with the given ID.
+3. Service returns an error message to the User.
+4. User receives the error message from the Service.",User receives an error message indicating missing ID.
+TC-Comment-Get-001,User successfully retrieves comments for a service,Comment Retrieval,2,User is logged in and has a valid token.,- Service ID: 123,"1. User calls the getComments operation on the Service with the provided ID.
+2. Service retrieves the comments for the given service ID.
+3. Service returns the comments to the User.
+4. User receives the comments from the Service.",User receives the comments indicating successful retrieval.
+TC-Comment-Get-002,User fails to retrieve comments due to invalid ID,Comment Retrie,,,,,

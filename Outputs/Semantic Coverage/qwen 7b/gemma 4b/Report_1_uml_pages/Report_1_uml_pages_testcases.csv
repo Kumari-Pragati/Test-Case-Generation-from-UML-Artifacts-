@@ -1,0 +1,52 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration with Valid Inputs,User,3,None,"- email: example@example.com
+- password: StrongPassword123","1. Enter email and password in the registration form.
+2. Click on the registration button.
+3. Wait for the CreateUserWithEmailAndPassword activity to complete.
+4. Check if the user is created successfully.","The user should be registered successfully, and the system should return the FirebaseUser and UserID."
+TC-User-002,User Registration with Empty Email,User,3,None,"- email: 
+- password: StrongPassword123","1. Enter an empty email and password in the registration form.
+2. Click on the registration button.
+3. Observe the error message.",An error message should be displayed indicating that the email cannot be empty.
+TC-User-003,User Registration with Password Less Than 8 Characters,User,3,None,"- email: example@example.com
+- password: Pass123","1. Enter the email and a password with less than 8 characters in the registration form.
+2. Click on the registration button.
+3. Observe the error message.",An error message should be displayed indicating that the password must be at least 8 characters long.
+TC-User-004,User Login with Valid Credentials,User,2,A user has been registered.,"- email: example@example.com
+- password: StrongPassword123","1. Enter the email and password in the login form.
+2. Click on the login button.
+3. Wait for the Firebase Authentication response.
+4. Check if the user is logged in successfully.","The user should be logged in successfully, and the system should return the FirebaseUser."
+TC-User-005,User Login with Invalid Credentials,User,2,A user has been registered.,"- email: example@example.com
+- password: IncorrectPassword","1. Enter the email and an incorrect password in the login form.
+2. Click on the login button.
+3. Observe the error message.",An error message should be displayed indicating that the password is incorrect.
+TC-Ranking-001,User Completes a Ranking,Ranking,1,A user is logged in and a ranking exists.,"- User: example@example.com
+- Ranking: id=1, Titolo=""First Ranking"", Superato=False","1. Log in as the user.
+2. Complete the ranking.
+3. Check if the ranking is marked as superato.",The ranking should be marked as superato for the user.
+TC-Mission-001,User Completes a Mission with a Tip,Mission,1,A user is logged in and a mission exists.,"- User: example@example.com
+- Mission: id=1, Titolo=""First Mission"", Superato=False, Descrizione=""Complete the task""
+- Tip: id=1, Titolo=""Tip for Mission""","1. Log in as the user.
+2. Complete the mission using the tip.
+3. Check if the mission is marked as superato.",The mission should be marked as superato for the user.
+TC-RealtimeDatabase-001,Asynchronous Data Handling - Successful Response,Realtime Database,4,A HashMap is sent to the Realtime Database.,"- HashMap: {""key"": ""value""}","1. Send the HashMap to the Realtime Database.
+2. Wait for the Realtime Database to convert it to JSON.
+3. Receive the response from the Realtime Database.
+4. Check if the response is successful.",The response should indicate a successful conversion and handling of the HashMap.
+TC-RealtimeDatabase-002,Asynchronous Data Handling - Failed Response,Realtime Database,4,A HashMap is sent to the Realtime Database.,"- HashMap: {""key"": ""value""}","1. Send the HashMap to the Realtime Database.
+2. Wait for the Realtime Database to convert it to JSON.
+3. Simulate a failure in the Realtime Database processing.
+4. Receive the response from the Realtime Database.
+5. Check if the response indicates an error.",The response should indicate an error in the processing of the HashMap.
+TC-FirebaseSDK-001,Event Listener for Missions - Successful Response,Firebase SDK,5,A listener is added for Mission events.,"- Mission: id=1, Titolo=""First Mission"", Superato=False","1. Add a value event listener for Mission events.
+2. Wait for the Realtime Database to trigger the event.
+3. Receive the response from the Realtime Database.
+4. Check if the response is successful.",The response should indicate a successful handling of the Mission event.
+TC-FirebaseSDK-002,Event Listener for Missions - Failed Response,Firebase SDK,5,A listener is added for Mission events.,"- Mission: id=1, Titolo=""First Mission"", Superato=False","1. Add a value event listener for Mission events.
+2. Simulate a failure in the Realtime Database processing.
+3. Wait for the Realtime Database to trigger the event.
+4. Receive the response from the Realtime Database.
+5. Check if the response indicates an error.","The response should indicate an error in the processing of the Mission event. 
+
+Note: These test cases cover all the described elements and flows across the provided UML diagrams. Edge cases and negative scenarios have been included where applicable. <|assistant|>"

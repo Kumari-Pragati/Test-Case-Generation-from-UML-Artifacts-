@@ -1,0 +1,180 @@
+REPORT: Report_10_uml_pages.pdf
+======================================================================
+===== Report_10_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[email: String, password: String, username: String]; operations=[getEmail (): return String, getUsername (): return String, setEmail (String): void, setPassword (String): void, setUsername (String): void]
+- Eventi — kind=class; attributes=[titolo: String, data: Date, tipologia: String, creatore: String, città: String, descrizione: String]; operations=[getTitolo (): return String, getData (): return String, getTipologia (): return String, getCreatore (): return String, getCittà (): return String, getDescrizione (): return String, setTitolo (String): void, setData (String): void, setTipologia (String): void, setCreatore (String): void, setCittà (String): void, setDescrizione (String): void]
+- Città — kind=class; attributes=[nome: String, provincia: String]; operations=[getNome (): return String, getProvincia (): return String, setNome (String): void, setProvincia (String): void]
+- POI — kind=class; attributes=[nome: String, città: String, provincia: String, tipologia: String, descrizione: String]; operations=[getNome (): return String, getCittà (): return String, getProvincia (): return String, getTipologia (): return String, getDescrizione (): return String, setNome (String): void, setCittà (String): void, setProvincia (String): void, setTipologia (String): void, setDescrizione (String): void]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Eventi — type=association; label=""; explanation="association between User and Event"
+- Utente -> Città — type=association; label=""; explanation="association between User and City"
+- Utente -> POI — type=association; label=""; explanation="association between User and POI"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Eventi (association)
+- Flow 2: Utente -> Città (association)
+- Flow 3: Utente -> POI (association)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram represents a class model for a system involving Users, Events, Cities, and Points of Interest (POIs). Each class has attributes and operations defined. Users have associations with Events, Cities, and POIs, indicating relationships such as creating events, being associated with cities, and interacting with POIs. The diagram does not show any specific flows or conditions but highlights the basic structure and relationships between the classes.
+
+===== Report_10_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Avvio app — kind=action; role=initial action
+- Utente registrato con successo al servizio? — kind=decision; attributes=[none]; operations=[none]; role=check registration status
+- Utente loggato correttamente? — kind=decision; attributes=[none]; operations=[none]; role=check login status
+- Creazione di un nuovo utente — kind=action; role=create new user
+- HOMEPAGE — kind=action; role=final destination
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Avvio app -> Utente registrato con successo al servizio? — type=control-flow; label="SI"; explanation="success"
+- Utente registrato con successo al servizio? -> Utente loggato correttamente? — type=control-flow; label="SI"; explanation="success"
+- Utente registrato con successo al servizio? -> Creazione di un nuovo utente — type=control-flow; label="NO"; explanation="not registered"
+- Utente loggato correttamente? -> HOMEPAGE — type=control-flow; label="SI"; explanation="success"
+- Utente loggato correttamente? -> Creazione di un nuovo utente — type=control-flow; label="NO"; explanation="not logged in"
+
+Main Flows (step by step):
+- Flow 1: Avvio app -> Utente registrato con successo al servizio? (SI) -> Utente loggato correttamente? (SI) -> HOMEPAGE
+- Flow 2: Avvio app -> Utente registrato con successo al servizio? (NO) -> Creazione di un nuovo utente
+
+Conditions / Branches:
+- Utente registrato con successo al servizio? — branches: SI (success), NO (not registered)
+- Utente loggato correttamente? — branches: SI (success), NO (not logged in)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the login and registration process for an application.
+- The main flow starts with the app being launched ("Avvio app").
+- It checks if the user is successfully registered ("Utente registrato con successo al servizio?").
+- If registered, it further checks if the user is logged in correctly ("Utente loggato correttamente?").
+- If the user is both registered and logged in, it leads to the homepage.
+- If the user is not registered, it proceeds to create a new user.
+- If the user is not logged in, it also proceeds to create a new user.
+- Key edge cases include scenarios where the user is neither registered nor logged in, leading to user creation.
+
+===== Report_10_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Avvio app — kind=initial_node; role=start point
+- Fase di Login /Registrazione — kind=activity_node; role=login/registration phase
+- Svolgi i passaggi per ricercare una città — kind=activity_node; role=search city steps
+- L'utente è loggato? — kind=decision_node; role=user logged check
+- È nella schermata di visualizzazione di una città — kind=decision_node; role=city view check
+- scorri in basso e premi "+" per aggiungere un evento. — kind=activity_node; role=scroll down and add event
+- compila i form — kind=activity_node; role=fill forms
+- i campi sono corretti? — kind=decision_node; role=validate fields
+- Evento creato — kind=final_node; role=event created
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Avvio app -> L'utente è loggato? — type=control_flow; label="SI"; explanation="check user login"
+- L'utente è loggato? -> Fase di Login /Registrazione — type=control_flow; label="NO"; explanation="go to login/registration phase"
+- L'utente è loggato? -> È nella schermata di visualizzazione di una città — type=control_flow; label="SI"; explanation="check city view"
+- È nella schermata di visualizzazione di una città -> scorri in basso e premi "+" per aggiungere un evento. — type=control_flow; label="SI"; explanation="scroll down and add event"
+- È nella schermata di visualizzazione di una città -> Svolgi i passaggi per ricercare una città — type=control_flow; label="NO"; explanation="search city steps"
+- scorri in basso e premi "+" per aggiungere un evento. -> compila i form — type=control_flow; label="SI"; explanation="fill forms"
+- compila i form -> i campi sono corretti? — type=control_flow; label="SI"; explanation="validate fields"
+- i campi sono corretti? -> Evento creato — type=control_flow; label="SI"; explanation="event created"
+- i campi sono corretti? -> compila i form — type=control_flow; label="NO"; explanation="fields not correct"
+
+Main Flows (step by step):
+- Flow 1: Avvio app -> L'utente è loggato? (SI) -> È nella schermata di visualizzazione di una città (SI) -> scorri in basso e premi "+" per aggiungere un evento. -> compila i form -> i campi sono corretti? (SI) -> Evento creato
+- Flow 2: Avvio app -> L'utente è loggato? (NO) -> Fase di Login /Registrazione
+- Flow 3: Avvio app -> L'utente è loggato? (NO) -> È nella schermata di visualizzazione di una città (NO) -> Svolgi i passaggi per ricercare una città
+
+Conditions / Branches:
+- L'utente è loggato? — branches: SI, NO
+- È nella schermata di visualizzazione di una città — branches: SI, NO
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of inserting an event in an application.
+- The main flow starts with the app being launched and checks if the user is logged in.
+- If the user is logged in, it proceeds to check if the user is viewing a city's details.
+- If the user is viewing a city's details, it allows the user to scroll down and add an event.
+- The user then fills out the form and validates the fields before creating the event.
+- If the user is not logged in, it prompts them to go through the login or registration process.
+- If the user is not viewing a city's details, it guides the user to search for a city.
+- Key edge
+
+===== Report_10_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Avvio app — kind=initial_node; role=start point
+- Fase di Login /Registrazione — kind=activity_node; role=login/registration phase
+- Svolgi i passaggi per ricercare una città — kind=activity_node; role=search city steps
+- L'utente è loggato? — kind=decision_node; role=user logged check
+- É nella schermata di visualizzazione di una città — kind=activity_node; role=city view screen
+- scorri in basso e premi "-" per rimuovere un evento o 'la penna' per modificare. — kind=activity_node; role=scroll and delete/edit event
+- Hai premuto '-'? — kind=decision_node; role=confirm delete action
+- Evento cancellato — kind=final_node; role=event canceled
+- i campi sono corretti? — kind=decision_node; role=validate form fields
+- compila i form per modificare l'evento. — kind=activity_node; role=fill form to modify event
+- Evento modificato — kind=final_node; role=event modified
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Avvio app -> L'utente è loggato? — type=control_flow; label="SI"; explanation="check user login"
+- L'utente è loggato? -> Fase di Login /Registrazione — type=control_flow; label="No"; explanation="user not logged in"
+- L'utente è loggato? -> É nella schermata di visualizzazione di una città — type=control_flow; label="SI"; explanation="user logged in"
+- É nella schermata di visualizzazione di una città -> scorri in basso e premi "-" per rimuovere un evento o 'la penna' per modificare. — type=control_flow; label="SI"; explanation="user in city view screen"
+- É nella schermata di visualizzazione di una città -> Svolgi i passaggi per ricercare una città — type=control_flow; label="No"; explanation="user not in city view screen"
+- scorri in basso e premi "-" per rimuovere un evento o 'la penna' per modificare. -> Hai premuto '-'? — type=control_flow; label="SI"; explanation="scroll and delete/edit event"
+- scorri in basso e premi "-" per rimuovere un evento o 'la penna' per modificare. -> i campi sono corretti? — type=control_flow; label="No"; explanation="scroll and delete/edit event"
+- Hai premuto '-'? -> Evento cancellato — type=control_flow; label="SI"; explanation="confirmed delete action"
+- Hai premuto '-'? -> compila i form per modificare l'evento. — type=control_flow; label="No"; explanation="confirmed delete action"
+- i campi sono corretti? -> compila i form per modificare l'evento. — type=control_flow; label="SI"; explanation="form validation passed"
+- i campi sono corretti? -> Evento modificato — type=control_flow; label="No"; explanation="form validation failed"
+
+Main Flows (step by step):
+- Flow 1: Avvio app -> L'utente è loggato? -> É nella schermata di visualizzazione di una città -> scorri in basso e premi "-" per rimuovere un evento o 'la penna' per modificare. -> Hai premuto '-'? -> Evento cancellato
+- Flow 2: Avvio app -> L'utente è loggato? -> É nella schermata di visualizzazione di una città -> scorri in basso e premi "-" per rimuovere un evento o 'la penna' per modificare. -> Hai premuto '-'? -> compila i form per modificare l'evento. -> Evento modificato
+
+Conditions / Branches:
+- L'utente è loggato? — branches=["SI", "No"]
+- É nella schermata di visualizzazione di una città — branches=["SI", "No"]
+- Hai prem
+
+
+======================================================================

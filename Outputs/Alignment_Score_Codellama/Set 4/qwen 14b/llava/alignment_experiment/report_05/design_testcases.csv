@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,"1, 2",None,"- Valid email: test@example.com
+- Valid password: Password123!","1. User initiates the registration process.
+2. User provides a valid email and password.
+3. User Registration service receives the registration request.
+4. User Registration service validates the provided credentials.
+5. User Registration service saves the user data to the Users Database.","- User registration is successful.
+- User data is saved in the Users Database."
+TC-User-002,Invalid Email Registration,User,"1, 2",None,"- Invalid email: testexample.com
+- Valid password: Password123!","1. User initiates the registration process.
+2. User provides an invalid email and a valid password.
+3. User Registration service receives the registration request.
+4. User Registration service detects the invalid email format.
+5. User Registration service rejects the registration request.","- User registration fails due to invalid email format.
+- No user data is saved in the Users Database."
+TC-User-003,User Login,User,"1, 3",User is registered and logged out.,"- Valid username: testuser
+- Valid password: Password123!","1. User initiates the login process.
+2. User provides a valid username and password.
+3. System verifies the provided credentials against stored data.
+4. System confirms the login credentials are correct.
+5. System logs the user in.","- User login is successful.
+- User is logged into the system."
+TC-User-004,Incorrect Password Login,User,"1, 3",User is registered and logged out.,"- Valid username: testuser
+- Invalid password: wrongpassword","1. User initiates the login process.
+2. User provides a valid username and an incorrect password.
+3. System verifies the provided credentials against stored data.
+4. System detects the incorrect password.
+5. System denies the login attempt.","- User login fails due to incorrect password.
+- User remains logged out."
+TC-Trip-001,Create Trip,Trip,1,User is logged in.,"- Name: Summer Vacation
+- Date: 2023-07-01
+- Category: Leisure","1. Logged-in user creates a new trip.
+2. User provides trip details including name, date, and category.
+3. System validates the provided trip details.
+4. System creates a new trip entry.","- Trip creation is successful.
+- New trip is added to the user's list of trips."
+TC-Trip-002,Delete Trip,Trip,1,User has created a trip.,- Trip ID: 1,"1. Logged-in user selects a trip to delete.
+2. User confirms the deletion of the selected trip.
+3. System deletes the specified trip entry.","- Trip deletion is successful.
+- Selected trip is removed from the user's list of trips."
+TC-Plan-001,Create Plan,Plan,1,User is logged in.,"- Name: Beach Day
+- Date: 2023-07-05
+- Category: Leisure","1. Logged-in user creates a new plan.
+2. User provides plan details including name, date, and category.
+3. System validates the provided plan details.
+4. System creates a new plan entry.","- Plan creation is successful.
+- New plan is added to the user's list of plans."
+TC-Plan-002,Delete Plan,Plan,1,User has created a plan.,- Plan ID: 1,"1. Logged-in user selects a plan to delete.
+2. User confirms the deletion of the selected plan.
+3. System deletes the specified plan entry.","- Plan deletion is successful.
+- Selected plan is removed from the user's list of plans."
+TC-DailyPlan-001,Create Daily Plan,DailyPlan,1,"User is logged in, has a trip and plan.","- User ID: 1
+- Plan ID: 1
+- Date: 2023-07-06","1. Logged-in user associates a daily plan with a specific plan.
+2. User provides daily plan details including user ID, plan ID, and date.
+3. System validates the provided daily plan details.
+4. System creates a new daily plan entry.","- Daily plan creation is successful.
+- New daily plan is associated with the specified plan."
+TC-DailyPlan-002,Delete Daily Plan,DailyPlan,1,User has created a daily plan.,- Daily Plan ID: 1,"1. Logged-in user selects a daily plan to delete.
+2. User confirms the deletion of the selected daily plan.
+3. System deletes the specified daily plan entry.","- Daily plan deletion is successful.
+- Selected daily plan is removed from the user's list of daily plans."
+TC-UserProfile-001,Get Profile,UserProfile,5,User is logged in.,- User ID: 1,"1. Logged-in user requests their profile information.
+2. System retrieves the user's profile from the Users Database.
+3. System returns the user's profile information.","- Profile retrieval is successful.
+- User receives their profile information."
+TC-UserProfile-002,Update Profile,UserProfile,5,User is logged in.,"- User ID: 1
+- New Name: John Doe
+- New Email: john.doe@example.com","1. Logged-in user updates their profile information.
+2. User provides updated name and email.
+3. System validates the updated profile information.
+4. System updates the user's profile in the Users Database.","- Profile update is successful.
+- User's profile information is updated in the Users Database."
+TC-UserProfile-003,Add User,UsersDatabase,5,None,"- Username: newuser
+- Password: NewPassword123!","1. System receives a request to add a new user.
+2. System validates the provided username and password.
+3. System adds the new user to the Users Database.","- User addition is successful.
+- New user is added to the Users Database."
+TC-UserProfile-004,Delete User,UsersDatabase,5,User exists in the Users Database.,- User ID: 1,"1. System receives a request to delete a user.
+2. System validates the user ID.
+3. System deletes the specified user from the Users Database.","- User deletion is successful.
+- Specified user is removed from the Users Database."
+TC-UserProfile-005,Invalid User Deletion,UsersDatabase,5,User exists in the Users Database.,- Invalid User ID: 99999,"1. System receives a request to delete a user.
+2. System validates the user ID.
+3. System detects the invalid user ID.
+4. System rejects the deletion request.","- User deletion fails due to invalid user ID.
+- No changes are made to the Users Database."
+TC-UserProfile-006,User Logout,User,"1, 3",User is logged in.,None,"1. Logged-in user initiates the logout process.
+2. System logs the user out.","- User logout is successful.
+- User is logged out of the system."
+TC-UserProfile-007,Invalid User Login Attempt,User,"1, 3",User is registered and logged out.,"- Valid username: testuser
+- Invalid password: wrongpassword","1. User initiates the login process.
+2. User provides a valid username and an incorrect password.
+3. System verifies the provided credentials against stored data.
+4. System detects the incorrect password.
+5. System denies the login attempt.","- User login fails due to incorrect password.
+- User remains logged out."
+TC-UserProfile-008,User Registration with Existing Email,User,"1, 2",User with the same email already exists.,"- Existing email: test@example.com
+- Valid password: Password123!","1. User initiates the registration process.
+2. User provides an existing email and a valid password.
+3. User Registration service receives the registration request.
+4. User Registration service detects the existing email.
+5. User Registration service rejects the registration request.","- User registration fails due to existing email.
+- No duplicate user data is saved in the Users Database."
+TC-UserProfile-009,User Registration with Empty Fields,User,"1, 2",None,"- Empty email: """"
+- Valid password: Password123!","1. User initiates the registration process.
+2. User provides empty email and a valid password.
+3. User Registration service receives the registration request.
+4. User Registration service detects the empty email field.
+5. User Registration service rejects the registration request.","- User registration fails due to empty email field.
+- No user data is saved in the Users Database."
+TC-UserProfile-010,User Registration with Weak Password,User,"1, 2",None,"- Valid email: test@example.com
+- Weak password: 123","1. User initiates the registration process.
+2. User provides a valid email and a weak password.
+3. User Registration service receives the registration request.
+4. User Registration service detects the weak password.
+5. User Registration service rejects the registration request.","- User registration fails due to weak password.
+- No user data is saved in the Users Database."
+TC-UserProfile-011,User Registration with Special Characters Only,User,"1, 2",None,"- Valid email: test@example.com
+- Invalid password: !@#","1. User initiates the registration process.
+2. User provides a valid email and a password containing only special characters.
+3. User Registration service receives the registration request.
+4. User Registration service detects the invalid password format.
+5. User Registration service rejects the registration request.","- User registration fails due to invalid password format.
+- No user data is saved in the Users Database."
+TC-UserProfile-012,User Registration with Short Password,User,"1, 2",None,"- Valid email: test@example.com
+- Short password: abcd","1. User initiates the registration process.
+2. User provides a valid email and a short password.
+3. User Registration service receives the registration request.
+4. User Registration service detects the short password.
+5. User Registration service rejects the registration request.","- User registration fails due to short password.
+- No user data is saved in the Users Database."
+TC-UserProfile-013,User Registration with Long Password,User,"1, 2",None,"- Valid email: test@example.com
+- Long password: a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r4s5t6u7v8w9x0y1z2a3b4c5",,

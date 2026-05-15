@@ -1,0 +1,199 @@
+{
+  "concepts": [
+    "utente",
+    "devices",
+    "config",
+    "alert",
+    "history",
+    "accesso eseguito",
+    "click \"serre\"",
+    "visualizzazione messaggio default",
+    "almeno 1 serra associata",
+    "visualizzazione elenco serre",
+    "- none",
+    "click \"add devices\"",
+    "operazione eseguita",
+    "campo inserito correttamente",
+    "valore errato",
+    "serra connessa",
+    "click \"configuration\"",
+    "campi inseriti correttamente"
+  ],
+  "flows": [
+    "utente -> devices — type=association; label=\"associa\"; explanation=\"a user is associated with devices\"",
+    "utente -> alert — type=association; label=\"segnala\"; explanation=\"a user can signal an alert\"",
+    "utente -> history — type=association; label=\"raccolge informazioni\"; explanation=\"a user collects information for history\"",
+    "devices -> config — type=association; label=\"configurato\"; explanation=\"devices are configured\"",
+    "flow 1: utente -> devices (associa) -> devices -> config (configurato)",
+    "the diagram models a system with users, devices, configurations, alerts, and historical data.",
+    "users are associated with devices and can configure them.",
+    "users can signal alerts and collect historical data.",
+    "the system appears to track device configurations, including water, temperature, soil humidity, and luminosity.",
+    "accesso eseguito -> visualizzazione messaggio default — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+    "visualizzazione messaggio default -> almeno 1 serra associata — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+    "visualizzazione messaggio default -> almeno 1 serra associata — type=control_flow; label=\"no\"; explanation=\"flow of control when no greenhouses are associated\"",
+    "almeno 1 serra associata -> click \"serre\" — type=control_flow; label=\"si\"; explanation=\"flow of control when at least one greenhouse is associated\"",
+    "click \"serre\" -> visualizzazione elenco serre — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+    "visualizzazione elenco serre -> accesso eseguito — type=control_flow; label=\"\"; explanation=\"loop back to the start\"",
+    "flow 1: accesso eseguito -> visualizzazione messaggio default -> almeno 1 serra associata (si) -> click \"serre\" -> visualizzazione elenco serre -> accesso eseguito",
+    "the diagram models a process for displaying a list of greenhouses after a user accesses the system.",
+    "the process first checks if at least one greenhouse is associated.",
+    "if no greenhouses are associated, the flow goes to click \"serre\".",
+    "if at least one greenhouse is associated, the user clicks \"serre\" and the list of greenhouses is displayed.",
+    "the flow then loops back to the beginning.",
+    "accesso eseguito -> click \"add devices\" — type=control_flow; label=\"\"; explanation=\"flow of execution\"",
+    "click \"add devices\" -> campo inserito correttamente — type=control_flow; label=\"\"; explanation=\"flow of execution\"",
+    "campo inserito correttamente -> operazione eseguita — type=control_flow; label=\"si\"; explanation=\"positive outcome of validation\"",
+    "campo inserito correttamente -> valore errato — type=control_flow; label=\"no\"; explanation=\"negative outcome of validation\"",
+    "valore errato -> click \"add devices\" — type=control_flow; label=\"\"; explanation=\"loop back to re-enter data\"",
+    "flow 1: accesso eseguito -> click \"add devices\" -> campo inserito correttamente (si) -> operazione eseguita",
+    "the diagram models the process of adding devices, likely within a system.",
+    "the flow starts with accessing the system and clicking \"add devices\".",
+    "a validation check (\"campo inserito correttamente\") determines whether the input is valid.",
+    "if the input is valid (\"si\"), the operation is executed.",
+    "if the input is invalid (\"no\"), the process loops back to the \"click 'add devices'\" step, prompting the user to re-enter the data.",
+    "accesso eseguito -> serra connessa — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+    "serra connessa -> click \"configuration\" — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+    "click \"configuration\" -> campi inseriti correttamente — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+    "campi inseriti correttamente -> operazione eseguita — type=control_flow; label=\"si\"; explanation=\"if fields are correctly entered\"",
+    "campi inseriti correttamente -> valore errato — type=control_flow; label=\"no\"; explanation=\"if fields are not correctly entered\"",
+    "valore errato -> click \"configuration\" — type=control_flow; label=\"\"; explanation=\"return to configuration\"",
+    "flow 1: accesso eseguito -> serra connessa -> click \"configuration\" -> campi inseriti correttamente (si) -> operazione eseguita",
+    "the diagram depicts a workflow for modifying greenhouse settings.",
+    "the process starts with accessing and connecting to the greenhouse.",
+    "the user then clicks the \"configuration\" button, which triggers a check for correct field input.",
+    "if the fields are entered correctly, the operation is executed. otherwise, the process returns to the \"click configuration\" step, allowing the user to re-enter the data.",
+    "the diagram focuses on the core logic of the configuration process and error handling.",
+    "======================================================================"
+  ],
+  "validations": [
+    "almeno 1 serra associata:",
+    "si: proceeds to click \"serre\"",
+    "no: proceeds to click \"serre\"",
+    "campo inserito correttamente:",
+    "si: proceeds to operazione eseguita",
+    "no: proceeds to valore errato",
+    "campi inseriti correttamente:",
+    "si -> operazione eseguita",
+    "no -> click \"configuration\""
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "- class",
+      "concepts": [
+        "utente",
+        "devices",
+        "config",
+        "alert",
+        "history"
+      ],
+      "flows": [
+        "utente -> devices — type=association; label=\"associa\"; explanation=\"a user is associated with devices\"",
+        "utente -> alert — type=association; label=\"segnala\"; explanation=\"a user can signal an alert\"",
+        "utente -> history — type=association; label=\"raccolge informazioni\"; explanation=\"a user collects information for history\"",
+        "devices -> config — type=association; label=\"configurato\"; explanation=\"devices are configured\"",
+        "flow 1: utente -> devices (associa) -> devices -> config (configurato)",
+        "the diagram models a system with users, devices, configurations, alerts, and historical data.",
+        "users are associated with devices and can configure them.",
+        "users can signal alerts and collect historical data.",
+        "the system appears to track device configurations, including water, temperature, soil humidity, and luminosity."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 2,
+      "uml_type": "- activity",
+      "concepts": [
+        "accesso eseguito",
+        "click \"serre\"",
+        "visualizzazione messaggio default",
+        "almeno 1 serra associata",
+        "visualizzazione elenco serre",
+        "- none"
+      ],
+      "flows": [
+        "accesso eseguito -> visualizzazione messaggio default — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+        "visualizzazione messaggio default -> almeno 1 serra associata — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+        "visualizzazione messaggio default -> almeno 1 serra associata — type=control_flow; label=\"no\"; explanation=\"flow of control when no greenhouses are associated\"",
+        "almeno 1 serra associata -> click \"serre\" — type=control_flow; label=\"si\"; explanation=\"flow of control when at least one greenhouse is associated\"",
+        "click \"serre\" -> visualizzazione elenco serre — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+        "visualizzazione elenco serre -> accesso eseguito — type=control_flow; label=\"\"; explanation=\"loop back to the start\"",
+        "flow 1: accesso eseguito -> visualizzazione messaggio default -> almeno 1 serra associata (si) -> click \"serre\" -> visualizzazione elenco serre -> accesso eseguito",
+        "the diagram models a process for displaying a list of greenhouses after a user accesses the system.",
+        "the process first checks if at least one greenhouse is associated.",
+        "if no greenhouses are associated, the flow goes to click \"serre\".",
+        "if at least one greenhouse is associated, the user clicks \"serre\" and the list of greenhouses is displayed.",
+        "the flow then loops back to the beginning."
+      ],
+      "validations": [
+        "almeno 1 serra associata:",
+        "si: proceeds to click \"serre\"",
+        "no: proceeds to click \"serre\""
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "- activity",
+      "concepts": [
+        "accesso eseguito",
+        "click \"add devices\"",
+        "operazione eseguita",
+        "campo inserito correttamente",
+        "valore errato",
+        "- none"
+      ],
+      "flows": [
+        "accesso eseguito -> click \"add devices\" — type=control_flow; label=\"\"; explanation=\"flow of execution\"",
+        "click \"add devices\" -> campo inserito correttamente — type=control_flow; label=\"\"; explanation=\"flow of execution\"",
+        "campo inserito correttamente -> operazione eseguita — type=control_flow; label=\"si\"; explanation=\"positive outcome of validation\"",
+        "campo inserito correttamente -> valore errato — type=control_flow; label=\"no\"; explanation=\"negative outcome of validation\"",
+        "valore errato -> click \"add devices\" — type=control_flow; label=\"\"; explanation=\"loop back to re-enter data\"",
+        "flow 1: accesso eseguito -> click \"add devices\" -> campo inserito correttamente (si) -> operazione eseguita",
+        "the diagram models the process of adding devices, likely within a system.",
+        "the flow starts with accessing the system and clicking \"add devices\".",
+        "a validation check (\"campo inserito correttamente\") determines whether the input is valid.",
+        "if the input is valid (\"si\"), the operation is executed.",
+        "if the input is invalid (\"no\"), the process loops back to the \"click 'add devices'\" step, prompting the user to re-enter the data."
+      ],
+      "validations": [
+        "campo inserito correttamente:",
+        "si: proceeds to operazione eseguita",
+        "no: proceeds to valore errato"
+      ]
+    },
+    {
+      "page_no": 4,
+      "uml_type": "- activity",
+      "concepts": [
+        "accesso eseguito",
+        "serra connessa",
+        "click \"configuration\"",
+        "campi inseriti correttamente",
+        "operazione eseguita",
+        "valore errato",
+        "- none"
+      ],
+      "flows": [
+        "accesso eseguito -> serra connessa — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+        "serra connessa -> click \"configuration\" — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+        "click \"configuration\" -> campi inseriti correttamente — type=control_flow; label=\"\"; explanation=\"flow of control\"",
+        "campi inseriti correttamente -> operazione eseguita — type=control_flow; label=\"si\"; explanation=\"if fields are correctly entered\"",
+        "campi inseriti correttamente -> valore errato — type=control_flow; label=\"no\"; explanation=\"if fields are not correctly entered\"",
+        "valore errato -> click \"configuration\" — type=control_flow; label=\"\"; explanation=\"return to configuration\"",
+        "flow 1: accesso eseguito -> serra connessa -> click \"configuration\" -> campi inseriti correttamente (si) -> operazione eseguita",
+        "the diagram depicts a workflow for modifying greenhouse settings.",
+        "the process starts with accessing and connecting to the greenhouse.",
+        "the user then clicks the \"configuration\" button, which triggers a check for correct field input.",
+        "if the fields are entered correctly, the operation is executed. otherwise, the process returns to the \"click configuration\" step, allowing the user to re-enter the data.",
+        "the diagram focuses on the core logic of the configuration process and error handling.",
+        "======================================================================"
+      ],
+      "validations": [
+        "campi inseriti correttamente:",
+        "si -> operazione eseguita",
+        "no -> click \"configuration\""
+      ]
+    }
+  ]
+}

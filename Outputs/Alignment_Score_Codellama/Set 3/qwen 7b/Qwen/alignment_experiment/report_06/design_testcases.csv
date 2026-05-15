@@ -1,0 +1,147 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration with Valid Credentials,User Registration,"2,3",None,"- Email: test@example.com
+- Password: Test123
+- Name: John Doe
+- Nationality: United States
+- Role: User","1. User enters registration data into the UI.
+2. UI sends the registration data to FirebaseAuthentication.
+3. FirebaseAuthentication validates the data.
+4. FirebaseAuthentication returns a valid token and confirms the user's save.
+5. UI saves the user data.
+6. UI confirms the successful registration.",User is registered successfully and receives a confirmation message.
+TC-User-002,User Registration with Invalid Credentials,User Registration,"2,3",None,"- Email: invalidemail
+- Password: short
+- Name: Jane Doe
+- Nationality: United Kingdom
+- Role: User","1. User enters registration data into the UI.
+2. UI sends the registration data to FirebaseAuthentication.
+3. FirebaseAuthentication returns an error message.
+4. UI displays the error message to the user.",User receives an error message indicating invalid credentials.
+TC-User-003,User Login with Valid Credentials,User Login,2,User is registered.,"- Email: test@example.com
+- Password: Test123","1. User enters login credentials into the UI.
+2. UI sends the credentials to FirebaseAuthentication.
+3. FirebaseAuthentication validates the credentials.
+4. FirebaseAuthentication returns valid credentials and a token.
+5. UI receives the valid credentials and token.",User is logged in successfully and receives a confirmation message.
+TC-User-004,User Login with Invalid Credentials,User Login,2,User is registered.,"- Email: test@example.com
+- Password: WrongPassword","1. User enters login credentials into the UI.
+2. UI sends the credentials to FirebaseAuthentication.
+3. FirebaseAuthentication returns an error message.
+4. UI displays the error message to the user.",User receives an error message indicating invalid credentials.
+TC-Report-001,User Creates a Report with Valid Data,Report Creation,4,User is logged in.,"- Description: ""Tree fallen on sidewalk""
+- Image: (image file)
+- Coordinates: (latitude, longitude)
+- Urgency: High
+- Category: Tree Maintenance
+- Area: Central Park","1. User selects ""Create Report"" from the UI.
+2. User enters report details including description, image, coordinates, urgency, category, and area.
+3. UI uploads the image to FirebaseStorage.
+4. UI sends the report data to FirebaseFirestore.
+5. FirebaseFirestore searches for the nearest competent entity based on coordinates and urgency.
+6. FirebaseFirestore returns the nearest entity data.
+7. UI saves the report with the image URL and entity data.
+8. UI confirms the report saving.","Report is created successfully and assigned to a competent entity, with a confirmation message displayed to the user."
+TC-Report-002,User Creates a Report with Invalid Data,Report Creation,4,User is logged in.,"- Description: """"
+- Image: (invalid image file)
+- Coordinates: (invalid latitude, longitude)
+- Urgency: Low
+- Category: Invalid Category
+- Area: Invalid Area","1. User selects ""Create Report"" from the UI.
+2. User enters report details including description, image, coordinates, urgency, category, and area.
+3. UI attempts to upload the image to FirebaseStorage.
+4. UI sends the report data to FirebaseFirestore.
+5. FirebaseFirestore returns an error message.
+6. UI displays the error message to the user.",User receives an error message indicating invalid report data.
+TC-Notification-001,User Receives a Notification,Notification Handling,1,User is logged in and has pending reports.,- No specific data required.,"1. User logs in.
+2. FirebaseFirestore checks for pending reports for the user.
+3. FirebaseFirestore generates a notification for each pending report.
+4. FirebaseFirestore sends the notification to the user.
+5. UI displays the notification to the user.",User receives a notification for each pending report.
+TC-Notification-002,User Does Not Receive a Notification,Notification Handling,1,User is logged in but has no pending reports.,- No specific data required.,"1. User logs in.
+2. FirebaseFirestore checks for pending reports for the user.
+3. FirebaseFirestore finds no pending reports.
+4. FirebaseFirestore does not generate any notifications.
+5. UI does not display any notifications to the user.",User does not receive any notifications.
+TC-Area-001,Area Belongs to Category,Area Management,1,Category and Area are defined.,"- Category ID: 1
+- Area ID: 1","1. FirebaseFirestore checks if the area belongs to the specified category.
+2. FirebaseFirestore confirms the relationship.",Relationship between the area and category is confirmed.
+TC-Area-002,Area Does Not Belong to Category,Area Management,1,Category and Area are defined.,"- Category ID: 1
+- Area ID: 2","1. FirebaseFirestore checks if the area belongs to the specified category.
+2. FirebaseFirestore confirms the absence of the relationship.",Relationship between the area and category is not found.
+TC-Category-001,Category Has Reports,Category Management,1,Category and Report are defined.,"- Category ID: 1
+- Report ID: 1","1. FirebaseFirestore checks if the report belongs to the specified category.
+2. FirebaseFirestore confirms the relationship.",Relationship between the report and category is confirmed.
+TC-Category-002,Category Does Not Have Reports,Category Management,1,Category and Report are defined.,"- Category ID: 1
+- Report ID: 2","1. FirebaseFirestore checks if the report belongs to the specified category.
+2. FirebaseFirestore confirms the absence of the relationship.",Relationship between the report and category is not found.
+TC-User-005,User Updates Profile Information,User Profile Management,1,User is logged in.,"- New Name: John Smith
+- New Email: john.smith@example.com
+- New Nationality: Canada
+- New Role: Admin","1. User logs in.
+2. User navigates to the profile update section.
+3. User enters updated profile information.
+4. UI sends the updated information to FirebaseFirestore.
+5. FirebaseFirestore updates the user's profile.
+6. UI confirms the profile update.",User's profile information is updated successfully and confirmed.
+TC-User-006,User Updates Profile with Invalid Data,User Profile Management,1,User is logged in.,"- New Name: John
+- New Email: john.smith
+- New Nationality: 
+- New Role:","1. User logs in.
+2. User navigates to the profile update section.
+3. User enters updated profile information.
+4. UI sends the updated information to FirebaseFirestore.
+5. FirebaseFirestore returns an error message.
+6. UI displays the error message to the user.",User receives an error message indicating invalid profile data.
+TC-User-007,User Deletes Account,User Account Management,1,User is logged in.,- No specific data required.,"1. User logs in.
+2. User navigates to the account deletion section.
+3. User confirms the deletion.
+4. FirebaseFirestore deletes the user's account.
+5. UI confirms the account deletion.",User's account is deleted successfully and confirmed.
+TC-User-008,User Attempts to Delete Account with Invalid Confirmation,User Account Management,1,User is logged in.,- No specific data required.,"1. User logs in.
+2. User navigates to the account deletion section.
+3. User enters an invalid confirmation code.
+4. FirebaseFirestore returns an error message.
+5. UI displays the error message to the user.",User receives an error message indicating invalid confirmation.
+TC-User-009,User Reviews a Report,Report Review,1,User is logged in and has pending reports to review.,- No specific data required.,"1. User logs in.
+2. User navigates to the report review section.
+3. User reviews the pending reports.
+4. User confirms the review.
+5. FirebaseFirestore updates the report status.
+6. UI confirms the report review.",Report is reviewed successfully and confirmed.
+TC-User-010,User Reviews a Report with Invalid Data,Report Review,1,User is logged in and has pending reports to review.,- No specific data required.,"1. User logs in.
+2. User navigates to the report review section.
+3. User attempts to review a report with invalid data.
+4. FirebaseFirestore returns an error message.
+5. UI displays the error message to the user.",User receives an error message indicating invalid report data.
+TC-User-011,User Sends a Notification,Notification Sending,1,User is logged in.,"- Notification Text: ""Please check the report.""","1. User logs in.
+2. User navigates to the notification sending section.
+3. User enters the notification text.
+4. UI sends the notification to FirebaseFirestore.
+5. FirebaseFirestore sends the notification to the user.
+6. UI confirms the notification sending.",Notification is sent successfully and confirmed.
+TC-User-012,User Sends a Notification with Invalid Data,Notification Sending,1,User is logged in.,"- Notification Text: """"","1. User logs in.
+2. User navigates to the notification sending section.
+3. User enters the notification text.
+4. UI sends the notification to FirebaseFirestore.
+5. FirebaseFirestore returns an error message.
+6. UI displays the error message to the user.",User receives an error message indicating invalid notification data.
+TC-User-013,User Logs Out,User Logout,2,User is logged in.,- No specific data required.,"1. User logs in.
+2. User navigates to the logout section.
+3. User confirms the logout.
+4. FirebaseAuthentication logs out the user.
+5. UI confirms the logout.",User is logged out successfully and confirmed.
+TC-User-014,User Attempts to Log Out with Invalid Confirmation,User Logout,2,User is logged in.,- No specific data required.,"1. User logs in.
+2. User navigates to the logout section.
+3. User enters an invalid confirmation code.
+4. FirebaseAuthentication returns an error message.
+5. UI displays the error message to the user.",User receives an error message indicating invalid confirmation.
+TC-User-015,User Changes Password,Password Management,1,User is logged in.,"- Current Password: Test123
+- New Password: NewTest123","1. User logs in.
+2. User navigates to the password change section.
+3. User enters the current password and new password.
+4. UI sends the password change request to FirebaseAuthentication.
+5. FirebaseAuthentication verifies the current password.
+6. FirebaseAuthentication changes the password.
+7. UI confirms the password change.",User's password is changed successfully and confirmed.
+"TC-User-016
+Title",,,,,,,

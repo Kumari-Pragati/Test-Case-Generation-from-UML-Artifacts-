@@ -1,0 +1,162 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UserManagement-001,User Registration with Valid Data,User Management,3,User interface is accessible.,"- Email: testuser@example.com
+- Password: P@ssw0rd
+- Name: John Doe","1. User clicks on the registration button.
+2. User fills in the registration form with valid data.
+3. User submits the form.
+4. UI validates the input data.
+5. UI sends the registration request to FirebaseAuthentication.
+6. FirebaseAuthentication validates the data.
+7. FirebaseAuthentication saves the user data to FirebaseStore.
+8. FirebaseStore confirms the save operation.
+9. FirebaseAuthentication returns the authentication token to the UI.
+10. UI confirms the successful registration and displays the token.","Registration is successful, and the user receives an authentication token."
+TC-UserManagement-002,User Registration with Invalid Data,User Management,3,User interface is accessible.,"- Email: invalid-email
+- Password: short
+- Name:","1. User clicks on the registration button.
+2. User fills in the registration form with invalid data.
+3. User submits the form.
+4. UI validates the input data.
+5. UI sends the registration request to FirebaseAuthentication.
+6. FirebaseAuthentication validates the data.
+7. FirebaseAuthentication reports an error.
+8. FirebaseAuthentication returns an error message to the UI.
+9. UI displays an error message to the user.","Registration fails, and the user sees an error message."
+TC-UserManagement-003,User Login with Valid Credentials,User Management,2,User account exists.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. User clicks on the login button.
+2. User enters valid credentials.
+3. User submits the login form.
+4. UI validates the input data.
+5. UI sends the credentials to FirebaseAuthentication.
+6. FirebaseAuthentication validates the credentials.
+7. FirebaseAuthentication retrieves user data from FirebaseStore.
+8. FirebaseAuthentication returns the token to the UI.
+9. UI confirms the successful login.
+10. UI displays a success message.","Login is successful, and the user sees a success message."
+TC-UserManagement-004,User Login with Invalid Credentials,User Management,2,User interface is accessible.,"- Email: invalid-email@example.com
+- Password: wrongpassword","1. User clicks on the login button.
+2. User enters invalid credentials.
+3. User submits the login form.
+4. UI validates the input data.
+5. UI sends the credentials to FirebaseAuthentication.
+6. FirebaseAuthentication validates the credentials.
+7. FirebaseAuthentication returns an error.
+8. UI displays an error message.","Login fails, and the user sees an error message."
+TC-ReportSubmission-001,Submitting a Report with Valid Data,Report Submission,4,User is logged in.,"- Description: This is a valid report.
+- Image: valid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User clicks on the report submission button.
+2. User fills in the report form with valid data.
+3. User submits the form.
+4. UI validates the input data.
+5. UI uploads the image to FirebaseStorage.
+6. FirebaseStorage returns the URL of the saved image.
+7. UI searches for the appropriate authority based on coordinates and urgency.
+8. UI saves the report data.
+9. UI confirms the report submission with the assigned authority.","Report submission is successful, and the user sees a confirmation message."
+TC-ReportSubmission-002,Submitting a Report with Missing Data,Report Submission,4,User is logged in.,"- Description: 
+- Image: 
+- Coordinates: 
+- Urgency:","1. User clicks on the report submission button.
+2. User leaves some fields empty.
+3. User submits the form.
+4. UI validates the input data.
+5. UI informs the user of invalid data.
+6. User corrects and resubmits the data.
+7. UI validates the corrected data.
+8. UI uploads the image to FirebaseStorage.
+9. FirebaseStorage returns the URL of the saved image.
+10. UI searches for the appropriate authority based on coordinates and urgency.
+11. UI saves the report data.
+12. UI confirms the report submission with the assigned authority.","Report submission is successful after correcting the missing data, and the user sees a confirmation message."
+TC-ReportSubmission-003,Submitting a Report with Invalid Image,Report Submission,4,User is logged in.,"- Description: This is a valid report.
+- Image: invalid_image.txt
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User clicks on the report submission button.
+2. User fills in the report form with valid data but an invalid image.
+3. User submits the form.
+4. UI validates the input data.
+5. UI attempts to upload the invalid image to FirebaseStorage.
+6. FirebaseStorage returns an error.
+7. UI informs the user of the invalid image.
+8. User corrects and resubmits the data.
+9. UI validates the corrected data.
+10. UI uploads the valid image to FirebaseStorage.
+11. FirebaseStorage returns the URL of the saved image.
+12. UI searches for the appropriate authority based on coordinates and urgency.
+13. UI saves the report data.
+14. UI confirms the report submission with the assigned authority.","Report submission is successful after correcting the invalid image, and the user sees a confirmation message."
+TC-ReportSubmission-004,Submitting a Report with Invalid Coordinates,Report Submission,4,User is logged in.,"- Description: This is a valid report.
+- Image: valid_image.jpg
+- Coordinates: invalid_coordinates
+- Urgency: High","1. User clicks on the report submission button.
+2. User fills in the report form with valid data but invalid coordinates.
+3. User submits the form.
+4. UI validates the input data.
+5. UI informs the user of invalid coordinates.
+6. User corrects and resubmits the data.
+7. UI validates the corrected data.
+8. UI uploads the image to FirebaseStorage.
+9. FirebaseStorage returns the URL of the saved image.
+10. UI searches for the appropriate authority based on coordinates and urgency.
+11. UI saves the report data.
+12. UI confirms the report submission with the assigned authority.","Report submission is successful after correcting the invalid coordinates, and the user sees a confirmation message."
+TC-ReportSubmission-005,Submitting a Report with Low Urgency,Report Submission,4,User is logged in.,"- Description: This is a valid report.
+- Image: valid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: Low","1. User clicks on the report submission button.
+2. User fills in the report form with valid data and low urgency.
+3. User submits the form.
+4. UI validates the input data.
+5. UI uploads the image to FirebaseStorage.
+6. FirebaseStorage returns the URL of the saved image.
+7. UI searches for the appropriate authority based on coordinates and urgency.
+8. UI saves the report data.
+9. UI confirms the report submission with the assigned authority.","Report submission is successful, and the user sees a confirmation message with the assigned authority."
+TC-NotificationHandling-001,Receiving a Notification,Notification Handling,1,User has received a notification.,- Notification: New report submitted by another user.,"1. User logs into the system.
+2. User receives a notification.
+3. User checks the notification.
+4. User marks the notification as read.","Notification is marked as read, and the user can view the content of the notification."
+TC-NotificationHandling-002,Receiving Multiple Notifications,Notification Handling,1,User has received multiple notifications.,- Notifications: Multiple notifications from different users.,"1. User logs into the system.
+2. User receives multiple notifications.
+3. User checks each notification.
+4. User marks all notifications as read.","All notifications are marked as read, and the user can view the content of each notification."
+TC-EntityAssociation-001,Associating an Entity with a User,Entity Association,1,User and entity exist.,"- Entity: Sample entity.
+- User: Existing user.","1. User logs into the system.
+2. User associates an entity with their account.
+3. System verifies the association.",Entity is successfully associated with the user's account.
+TC-EntityAssociation-002,Associating an Entity with Multiple Users,Entity Association,1,Multiple users and entities exist.,"- Entities: Multiple entities.
+- Users: Multiple users.","1. User A logs into the system.
+2. User A associates an entity with their account.
+3. User B logs into the system.
+4. User B associates the same entity with their account.
+5. System verifies the associations.",Entity is successfully associated with both users' accounts.
+TC-CategoryAssociation-001,Associating a Report with a Category,Category Association,1,Report and category exist.,"- Report: Sample report.
+- Category: Sample category.","1. User logs into the system.
+2. User creates a report.
+3. User associates the report with a category.
+4. System verifies the association.",Report is successfully associated with the specified category.
+TC-CategoryAssociation-002,Associating Multiple Reports with a Category,Category Association,1,Multiple reports and categories exist.,"- Reports: Multiple reports.
+- Category: Sample category.","1. User logs into the system.
+2. User creates multiple reports.
+3. User associates each report with the same category.
+4. System verifies the associations.",Each report is successfully associated with the specified category.
+TC-AreaAssociation-001,Associating a Report with an Area,Area Association,1,Report and area exist.,"- Report: Sample report.
+- Area: Sample area.","1. User logs into the system.
+2. User creates a report.
+3. User associates the report with an area.
+4. System verifies the association.",Report is successfully associated with the specified area.
+TC-AreaAssociation-002,Associating Multiple Reports with an Area,Area Association,1,Multiple reports and areas exist.,"- Reports: Multiple reports.
+- Area: Sample area.","1. User logs into the system.
+2. User creates multiple reports.
+3. User associates each report with the same area.
+4. System verifies the associations.",Each report is successfully associated with the specified area.
+TC-UserDeactivation-001,Deactivating a User Account,User Management,1,User account exists.,- User: Existing user.,"1. User logs into the system.
+2. User deactivates their account.
+3. System verifies the deactivation.",User account is successfully deactivated.
+TC-UserDeactivation-002,Attempting to Log In with a Deactivated User Account,User Management,2,User account is deactivated.,- User: Deactivated user.,"1. User attempts to log in.
+2. System verifies the user's account status.
+3. System denies access.","Login attempt fails, and the user sees an error message indicating the account is deactivated."
+TC-UserReactivation-001,Reactivating a User Account,User Management,1,User account is deactivated.,- User: Deactivated user.,"1. Admin logs into the system.
+2. Admin reactivates the user's account.
+3.",

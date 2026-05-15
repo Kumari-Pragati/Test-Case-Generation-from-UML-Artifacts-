@@ -1,0 +1,87 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration and navigation to homepage,User Registration,1,"- User is on the registration page.
+- System is accessible and not under maintenance.","- Valid username: `testuser123`
+- Valid email: `testuser@example.com`
+- Valid password: `SecurePass123!`","1. User enters valid username, email, and password.
+2. User submits the registration form.
+3. System validates inputs and confirms registration success.
+4. User is redirected to the homepage.","- User sees ""Utente registrato con successo"" confirmation.
+- User is navigated to the homepage without errors."
+TC-USER-REGISTRATION-002,User registration failure due to missing fields,User Registration,1,- User is on the registration page.,"- Empty username field.
+- Valid email: `testuser@example.com`
+- Valid password: `SecurePass123!`","1. User leaves the username field empty.
+2. User submits the registration form.
+3. System detects missing field.","- User sees an error message: ""Username is required.""
+- User is not redirected to the homepage."
+TC-USER-REGISTRATION-003,User registration failure due to invalid email format,User Registration,1,- User is on the registration page.,"- Valid username: `testuser123`
+- Invalid email: `invalid-email`
+- Valid password: `SecurePass123!`","1. User enters an invalid email format.
+2. User submits the registration form.
+3. System validates email format.","- User sees an error message: ""Invalid email format.""
+- User is not redirected to the homepage."
+TC-NAVIGATION-001,Successful navigation from Home to Impostazioni via Le mie segnalazioni,Menu Navigation,2,- User is logged in and on the homepage.,,"1. User clicks on the lateral menu.
+2. User selects ""Homepage.""
+3. User clicks on ""Le mie segnalazioni.""
+4. User clicks on ""Impostazioni.""
+5. System closes the menu and opens the schema.","- User successfully navigates to the Impostazioni page.
+- Menu closes, and the schema opens without errors."
+TC-NAVIGATION-002,Navigation failure due to missing menu item,Menu Navigation,2,- User is logged in and on the homepage.,,"1. User clicks on the lateral menu.
+2. User attempts to click on a non-existent menu item (e.g., ""FakeOption"").","- System displays an error: ""Menu item not found.""
+- User remains on the homepage."
+TC-ALERT-MANAGEMENT-001,Successful addition of an alert with category selection,Alert Creation,3,"- User is on the ""Add Alert"" page.
+- First 4 fields are mandatory (e.g., Title, Description, Location, Severity).","- Valid title: `Broken Streetlight`
+- Valid description: `Streetlight not working on Maple Ave.`
+- Valid location: `123 Maple Ave.`
+- Valid severity: `High`","1. User clicks ""Add Alert"" in the lateral menu.
+2. User clicks ""Add Category.""
+3. System opens the category list.
+4. User selects a category (e.g., ""Infrastructure"").
+5. User fills in the first 4 fields correctly.
+6. User submits the alert.","- Alert is created successfully.
+- User sees confirmation: ""Alert added successfully."""
+TC-ALERT-MANAGEMENT-002,Alert creation failure due to incomplete fields,Alert Creation,3,"- User is on the ""Add Alert"" page.","- Empty title field.
+- Valid description: `Streetlight not working.`
+- Valid location: `123 Maple Ave.`
+- Valid severity: `High`","1. User clicks ""Add Alert.""
+2. User leaves the title field empty.
+3. User attempts to submit the alert.","- System displays an error: ""Title is required.""
+- Alert is not created."
+TC-ALERT-VIEWING-001,Successful viewing of all alerts and selection of one alert,Alert Viewing,4,"- User is on the ""View Alerts"" page.
+- System has at least 3 alerts in the database.",,"1. User clicks ""View Alerts.""
+2. System displays all alerts.
+3. User selects one alert from the list.
+4. System retrieves and displays the selected alert.","- All alerts are displayed correctly.
+- Selected alert details are shown without errors."
+TC-ALERT-VIEWING-002,Viewing alerts when no alerts exist,Alert Viewing,4,"- User is on the ""View Alerts"" page.
+- System has no alerts in the database.",,"1. User clicks ""View Alerts.""
+2. System checks for alerts.","- System displays: ""No alerts found.""
+- User is not allowed to select an alert."
+TC-ALERT-VIEWING-003,Repeated viewing of all alerts,Alert Viewing,4,"- User is on the ""View Alerts"" page.
+- System has 5 alerts.",,"1. User clicks ""View Alerts"" 3 times in succession.","- System refreshes the alert list each time without errors.
+- No duplicate alerts or crashes occur."
+TC-PROFILE-EDITING-001,Successful profile editing and saving changes,Profile Management,5,- User is logged in and on the profile page.,"- Valid name: `John Doe`
+- Valid address: `456 Oak St.`
+- Valid phone: `+1234567890`","1. User clicks ""Profile"" in the lateral menu.
+2. User clicks the blue house icon.
+3. User navigates to the ""abitazioni"" (housing) screen.
+4. User fills in all fields correctly.
+5. User clicks ""Save Changes.""","- System validates fields and saves changes.
+- User sees confirmation: ""Profile updated successfully."""
+TC-PROFILE-EDITING-002,Profile editing failure due to invalid phone format,Profile Management,5,- User is logged in and on the profile page.,"- Valid name: `John Doe`
+- Valid address: `456 Oak St.`
+- Invalid phone: `123`","1. User enters an invalid phone number.
+2. User clicks ""Save Changes.""","- System displays an error: ""Invalid phone format.""
+- Changes are not saved."
+TC-PROFILE-EDITING-003,Profile editing with partial corrections,Profile Management,5,"- User is logged in and on the profile page.
+- User initially submits incomplete data.","- Empty address field.
+- Valid phone: `+1234567890`","1. User leaves the address field empty.
+2. User clicks ""Save Changes.""
+3. System detects incomplete data.
+4. User corrects the address field.
+5. User clicks ""Save Changes"" again.","- System prompts: ""Please correct the following fields: Address.""
+- After correction, changes are saved successfully."
+TC-PROFILE-EDITING-004,Discarding profile changes,Profile Management,5,"- User is logged in and on the profile page.
+- User has made changes to the profile.",,"1. User edits the profile (e.g., changes name).
+2. User clicks ""Discard Changes.""","- All changes are reverted.
+- User sees confirmation: ""Changes discarded successfully.""
+- Original profile data is restored."

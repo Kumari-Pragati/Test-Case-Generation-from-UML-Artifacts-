@@ -1,0 +1,115 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a new user successfully,User Registration,2,None,"- Username: john_doe
+- Password: password123
+- Name: John Doe
+- Email: johndoe@example.com","1. User calls `registerUser()` on the main system.
+2. Main system sends a request to the Users Database to verify the user data.
+3. Users Database verifies the data and returns a success message.
+4. Main system confirms successful registration to the user.",User receives a confirmation message indicating successful registration.
+TC-User-002,Register a new user with invalid email,User Registration,2,None,"- Username: jane_doe
+- Password: password123
+- Name: Jane Doe
+- Email: invalidemail","1. User calls `registerUser()` on the main system.
+2. Main system sends a request to the Users Database to verify the user data.
+3. Users Database returns an error due to invalid email format.
+4. Main system confirms registration failure to the user.",User receives a confirmation message indicating registration failure due to invalid email.
+TC-Trip-001,Create a new trip,Trip Management,"1, 4",User is registered and logged in.,"- City: New York
+- Country: USA
+- BegginigDate: 2023-10-01
+- FinishDate: 2023-10-07
+- Author: John Doe
+- IdPlan: 1","1. User calls `createTrip()` on the main system.
+2. Main system sets the trip details including city, country, dates, author, and plan.
+3. Main system saves the trip data to the Trips Database.",Trip is created successfully and saved in the database.
+TC-Trip-002,Attempt to create a trip with invalid dates,Trip Management,"1, 4",User is registered and logged in.,"- City: New York
+- Country: USA
+- BegginigDate: 2023-10-08
+- FinishDate: 2023-10-07
+- Author: John Doe
+- IdPlan: 1","1. User calls `createTrip()` on the main system.
+2. Main system attempts to set the trip details including city, country, dates, author, and plan.
+3. Main system detects invalid date range and returns an error.",User receives an error message indicating invalid date range.
+TC-PlaceToVisit-001,Add a place to visit to a trip,Trip Management,1,Trip exists and user is logged in.,"- Name: Statue of Liberty
+- IdCategory: 1
+- IdTrip: 1","1. User calls `addPlaceToVisit()` on the main system.
+2. Main system sets the place to visit details including name, category, and trip.
+3. Main system saves the place to visit data to the Trips Database.",Place to visit is added successfully to the trip and saved in the database.
+TC-PlaceToVisit-002,Attempt to add a place to visit without specifying a category,Trip Management,1,Trip exists and user is logged in.,"- Name: Central Park
+- IdCategory: null
+- IdTrip: 1","1. User calls `addPlaceToVisit()` on the main system.
+2. Main system attempts to set the place to visit details including name, category, and trip.
+3. Main system detects missing category and returns an error.",User receives an error message indicating missing category.
+TC-Category-001,Create a new category,Category Management,1,None,"- Name: Historical Sites
+- Icon: 🏺","1. User calls `createCategory()` on the main system.
+2. Main system sets the category details including name and icon.
+3. Main system saves the category data to the database.",Category is created successfully and saved in the database.
+TC-Category-002,Attempt to create a category with an empty name,Category Management,1,None,"- Name: 
+- Icon: 🏺","1. User calls `createCategory()` on the main system.
+2. Main system attempts to set the category details including name and icon.
+3. Main system detects empty name and returns an error.",User receives an error message indicating empty name.
+TC-DailyPlan-001,Create a daily plan for a trip,Daily Plan Management,"1, 4",Trip exists and user is logged in.,"- Day: 2023-10-01
+- IdWeather: 1","1. User calls `createDailyPlan()` on the main system.
+2. Main system sets the daily plan details including day and weather.
+3. Main system saves the daily plan data to the Trips Database.",Daily plan is created successfully and saved in the database.
+TC-DailyPlan-002,Attempt to create a daily plan with an invalid date,Daily Plan Management,"1, 4",Trip exists and user is logged in.,"- Day: 2023-10-08
+- IdWeather: 1","1. User calls `createDailyPlan()` on the main system.
+2. Main system attempts to set the daily plan details including day and weather.
+3. Main system detects invalid date and returns an error.",User receives an error message indicating invalid date.
+TC-Weather-001,Retrieve weather data for a daily plan,Weather Management,1,Daily plan exists and user is logged in.,- Id: 1,"1. User calls `getWeatherData()` on the main system.
+2. Main system retrieves the weather data for the specified daily plan.
+3. Main system returns the weather data to the user.",Weather data is retrieved successfully and returned to the user.
+TC-Weather-002,Attempt to retrieve weather data for a non-existent daily plan,Weather Management,1,Daily plan does not exist and user is logged in.,- Id: 999,"1. User calls `getWeatherData()` on the main system.
+2. Main system attempts to retrieve the weather data for the specified daily plan.
+3. Main system detects non-existent daily plan and returns an error.",User receives an error message indicating non-existent daily plan.
+TC-Profile-001,Change user profile successfully,Profile Management,5,User is registered and logged in.,"- New Username: johndoe_new
+- New Password: newpassword123
+- New Name: John Doe New
+- New Email: johndoe_new@example.com","1. User calls `changeProfile()` on the main system.
+2. Main system sends a request to the Users Database to verify the new data.
+3. Users Database verifies the new data and returns a success message.
+4. Main system confirms successful profile change to the user.",User profile is changed successfully and confirmed to the user.
+TC-Profile-002,Attempt to change user profile with invalid email,Profile Management,5,User is registered and logged in.,"- New Username: johndoe_new
+- New Password: newpassword123
+- New Name: John Doe New
+- New Email: invalidemail","1. User calls `changeProfile()` on the main system.
+2. Main system sends a request to the Users Database to verify the new data.
+3. Users Database returns an error due to invalid email format.
+4. Main system confirms profile change failure to the user.",User receives a confirmation message indicating profile change failure due to invalid email.
+TC-Trip-003,List all trips,Trip Management,4,User is registered and logged in.,None,"1. User calls `listTrips()` on the main system.
+2. Main system retrieves all trips associated with the user.
+3. Main system displays the list of trips to the user.",User receives a list of all trips associated with the user.
+TC-Trip-004,Attempt to list trips without being logged in,Trip Management,4,User is not logged in.,None,"1. User tries to call `listTrips()` on the main system.
+2. Main system checks if the user is logged in.
+3. Main system denies access and prompts the user to log in.",User is prompted to log in before listing trips.
+TC-UpdateTrip-001,Update trip details successfully,Trip Management,4,User is registered and logged in.,"- Updated City: Los Angeles
+- Updated Country: USA
+- Updated BegginigDate: 2023-10-01
+- Updated FinishDate: 2023-10-07
+- Updated Author: John Doe
+- Updated IdPlan: 1","1. User calls `updateTrip()` on the main system.
+2. Main system sets the updated trip details including city, country, dates, author, and plan.
+3. Main system saves the updated trip data to the Trips Database.",Trip details are updated successfully and saved in the database.
+TC-UpdateTrip-002,Attempt to update trip details with invalid dates,Trip Management,4,User is registered and logged in.,"- Updated City: Los Angeles
+- Updated Country: USA
+- Updated BegginigDate: 2023-10-08
+- Updated FinishDate: 2023-10-07
+- Updated Author: John Doe
+- Updated IdPlan: 1","1. User calls `updateTrip()` on the main system.
+2. Main system attempts to set the updated trip details including city, country, dates, author, and plan.
+3. Main system detects invalid date range and returns an error.",User receives an error message indicating invalid date range.
+TC-Login-001,Login with correct credentials,User Authentication,3,User is registered.,"- Email: johndoe@example.com
+- Password: password123","1. User calls `userLogin(email, password)` on the main system.
+2. Main system sends a request to the Users Database to validate the credentials.
+3. Users Database verifies the credentials and returns a success message.
+4. Main system confirms successful login to the user.",User receives a confirmation message indicating successful login.
+TC-Login-002,Login with incorrect credentials,User Authentication,3,User is registered.,"- Email: johndoe@example.com
+- Password: wrongpassword","1. User calls `userLogin(email, password)` on the main system.
+2. Main system sends a request to the Users Database to validate the credentials.
+3. Users Database returns an error due to incorrect password.
+4. Main system confirms login failure to the user.",User receives a confirmation message indicating login failure.
+TC-Login-003,Attempt to login with invalid email,User Authentication,3,User is registered.,"- Email: invalidemail
+- Password: password123","1. User calls `userLogin(email, password)` on the main system.
+2. Main system sends a request to the Users Database to validate the credentials.
+3. Users Database returns an error due to invalid email format.
+4. Main system confirms login failure to the user.",User receives a confirmation message indicating login failure due to invalid email.
+TC-Login-004,,,,,,,

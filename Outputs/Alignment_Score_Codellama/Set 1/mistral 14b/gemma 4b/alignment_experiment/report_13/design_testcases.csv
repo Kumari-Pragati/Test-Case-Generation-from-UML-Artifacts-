@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-REGISTRATION-001,Successful user registration with valid credentials,Registration,1,"- User is on the U-environment (homepage).
+- No existing account with the provided email.","- First Name: ""John""
+- Last Name: ""Doe""
+- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""
+- Confirm Password: ""SecurePass123!""","1. Navigate to **Register activity** from U-environment.
+2. Enter first name, last name, email, password, and confirm password.
+3. Click ""Register"" button.","- System validates inputs and accepts registration.
+- User receives a confirmation message (e.g., ""Registration successful!"").
+- User is redirected to **Login activity** or **Profile** activity.
+- Notification Center logs the registration event (if applicable)."
+TC-REGISTRATION-002,Registration failure with invalid email format,Registration,1,- User is on the U-environment.,"- First Name: ""John""
+- Last Name: ""Doe""
+- Email: ""john.doe@example"" (missing @domain)
+- Password: ""SecurePass123!""
+- Confirm Password: ""SecurePass123!""","1. Navigate to **Register activity**.
+2. Enter invalid email and other valid fields.
+3. Click ""Register"" button.","- System rejects registration with an error message: ""Invalid email format.""
+- User remains on the registration page with highlighted invalid field."
+TC-REGISTRATION-003,Registration failure with mismatched passwords,Registration,1,- User is on the U-environment.,"- First Name: ""John""
+- Last Name: ""Doe""
+- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""
+- Confirm Password: ""SecurePass123"" (missing '!')","1. Navigate to **Register activity**.
+2. Enter mismatched passwords and other valid fields.
+3. Click ""Register"" button.","- System rejects registration with an error: ""Passwords do not match.""
+- User remains on the registration page with highlighted password fields."
+TC-REGISTRATION-004,Registration failure with existing email,Registration,1,"- A user with email ""john.doe@example.com"" already exists in the system.","- First Name: ""John""
+- Last Name: ""Doe""
+- Email: ""john.doe@example.com"" (duplicate)
+- Password: ""NewPass123!""
+- Confirm Password: ""NewPass123!""","1. Navigate to **Register activity**.
+2. Enter existing email and new password.
+3. Click ""Register"" button.","- System rejects registration with an error: ""Email already registered.""
+- User remains on the registration page."
+TC-LOGIN-001,Successful login with valid credentials,Login,1,"- User ""john.doe@example.com"" exists with password ""SecurePass123!"".","- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""","1. Navigate to **Login activity** from U-environment.
+2. Enter valid email and password.
+3. Click ""Login"" button.","- System authenticates user successfully.
+- User is redirected to **Profile** or **U-environment** (homepage).
+- Notification Center logs the login event (if applicable)."
+TC-LOGIN-002,Login failure with incorrect password,Login,1,"- User ""john.doe@example.com"" exists with password ""SecurePass123!"".","- Email: ""john.doe@example.com""
+- Password: ""WrongPass123!""","1. Navigate to **Login activity**.
+2. Enter valid email and incorrect password.
+3. Click ""Login"" button.","- System rejects login with an error: ""Invalid email or password.""
+- User remains on the login page."
+TC-LOGIN-003,Login failure with non-existent email,Login,1,"- No user exists with email ""nonexistent@example.com"".","- Email: ""nonexistent@example.com""
+- Password: ""AnyPassword123!""","1. Navigate to **Login activity**.
+2. Enter non-existent email and any password.
+3. Click ""Login"" button.","- System rejects login with an error: ""Invalid email or password.""
+- User remains on the login page."
+TC-NEWSLETTER-001,Subscribe to newsletter with valid email,Newsletter,1,- User is logged in or on the U-environment.,"- Email: ""newsletter@example.com""","1. Navigate to **Newsletter activity**.
+2. Enter valid email in the subscription field.
+3. Click ""Subscribe"" button.","- System confirms subscription: ""You have subscribed to our newsletter!""
+- Email is added to the newsletter database (verified via **Newsletter management**).
+- Notification Center sends a confirmation email (if applicable)."
+TC-NEWSLETTER-002,Newsletter subscription failure with invalid email,Newsletter,1,- User is on the U-environment.,"- Email: ""invalid.email"" (missing @domain)","1. Navigate to **Newsletter activity**.
+2. Enter invalid email.
+3. Click ""Subscribe"" button.","- System rejects subscription with an error: ""Invalid email format.""
+- User remains on the newsletter page."
+TC-EVENT-CREATION-001,Create a new event with valid details,Event Creation,1,- User is logged in.,"- Event Name: ""Tech Conference 2023""
+- Date: ""2023-12-15""
+- Time: ""09:00 AM""
+- Location: ""Online""
+- Description: ""Annual tech conference with keynote speakers.""","1. Navigate to **Create event** from U-environment.
+2. Fill in all event details.
+3. Click ""Create Event"" button.","- System creates the event successfully.
+- User sees a confirmation: ""Event created successfully!""
+- Event appears in **Join/View event** list.
+- Notification Center notifies subscribed users (if applicable)."
+TC-EVENT-CREATION-002,Event creation failure with missing required field,Event Creation,1,- User is logged in.,"- Event Name: """" (empty)
+- Date: ""2023-12-15""
+- Time: ""09:00 AM""
+- Location: ""Online""
+- Description: ""Annual tech conference.""","1. Navigate to **Create event**.
+2. Leave ""Event Name"" field empty and fill others.
+3. Click ""Create Event"" button.","- System rejects creation with an error: ""Event name is required.""
+- User remains on the event creation page with highlighted missing field."
+TC-EVENT-JOIN-001,Successfully join an existing event,Event Joining,1,"- User is logged in.
+- Event ""Tech Conference 2023"" exists and is public.","- Event: ""Tech Conference 2023""","1. Navigate to **Join/View event**.
+2. Select the event from the list.
+3. Click ""Join Event"" button.","- System confirms joining: ""You have joined Tech Conference 2023!""
+- Event appears in user’s joined events list in **Profile**.
+- Notification Center sends a confirmation to the user (if applicable)."
+TC-EVENT-JOIN-002,Attempt to join a non-existent event,Event Joining,1,- User is logged in.,"- Event: ""NonExistentEvent2023"" (does not exist)","1. Navigate to **Join/View event**.
+2. Search for the non-existent event.
+3. Click ""Join Event"" button.","- System displays an error: ""Event not found.""
+- User remains on the event list page."
+TC-PROFILE-001,Update user profile with valid data,Profile Management,1,"- User ""john.doe@example.com"" is logged in.","- Current Password: ""SecurePass123!"" (for verification)
+- New First Name: ""Jonathan""
+- New Last Name: ""Smith""
+- New Email: ""john.smith@example.com""","1. Navigate to **Profile** activity.
+2. Enter current password for verification.
+3. Update first name, last name, and email.
+4. Click ""Save Changes"" button.","- System updates profile successfully.
+- User sees a confirmation: ""Profile updated successfully!""
+- Changes reflect in **Profile** activity and **Login activity** (email).
+- Notification Center logs the profile update (if applicable)."
+TC-PROFILE-002,Profile update failure with incorrect current password,Profile Management,1,"- User ""john.doe@example.com"" is logged in with password ""SecurePass123!"".","- Current Password: ""WrongPass123!"" (incorrect)
+- New First Name: ""Jonathan""
+- New Last Name: ""Smith""","1. Navigate to **Profile**.
+2. Enter incorrect current password and new details.
+3. Click ""Save Changes"" button.","- System rejects update with an error: ""Current password is incorrect.""
+- User remains on the profile page with unchanged data."
+TC-NEWSLETTER-MANAGEMENT-001,Admin adds a new newsletter content,Newsletter Management,1,- Admin user is logged in.,"- Title: ""Summer Sale 2023""
+- Content: ""Enjoy 50% off on all products this summer!""
+- Publish Date: ""2023-06-01""","1. Navigate to **Newsletter management**.
+2. Enter title, content, and publish date.
+3. Click ""Publish"" button.","- System publishes the newsletter.
+- Admin sees a confirmation: ""Newsletter published successfully!""
+- Newsletter appears in **Newsletter activity** for subscribers.
+- Notification Center sends the newsletter to all subscribed users."
+TC-NEWSLETTER-MANAGEMENT-002,Admin fails to publish newsletter with empty content,Newsletter Management,1,- Admin user is logged in.,"- Title: ""Summer Sale 2023""
+- Content: """" (empty)
+- Publish Date: ""2023-06-01""","1. Navigate to **Newsletter management**.
+2. Enter title and publish date but leave content empty.
+3. Click ""Publish"" button.","- System rejects publication with an error: ""Content cannot be empty.""
+- Admin remains on the newsletter management page."
+TC-FLASH-001,View flash activity content,Flash Activity,1,"- A flash activity (e.g., ""Announcement: New Features"") is available.",,1. Navigate to **Flash activity**,

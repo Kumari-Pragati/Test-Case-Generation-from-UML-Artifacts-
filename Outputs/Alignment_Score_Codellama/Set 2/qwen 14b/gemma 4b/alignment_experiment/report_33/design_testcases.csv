@@ -1,0 +1,74 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-PuntinaMappa-001,Create a PuntinaMappa object with valid parameters,PuntinaMappa,1,None,"longitudine = 12.345, latitudine = 67.890, qualitaAria = 50, temperatura = 25, statoMeteo = ""Soleggiato"", umidita = 0.6, vento = 10.5, pressione = 1013, categoria = ""Moderata""","1. Instantiate a PuntinaMappa object with the provided parameters.
+2. Verify that the object's attributes match the input values.",The PuntinaMappa object is created successfully with the specified attributes.
+TC-PuntinaMappa-002,Set and get attributes of a PuntinaMappa object,PuntinaMappa,1,A PuntinaMappa object exists,"longitudine = 12.345, latitudine = 67.890, qualitaAria = 50, temperatura = 25, statoMeteo = ""Soleggiato"", umidita = 0.6, vento = 10.5, pressione = 1013, categoria = ""Moderata""","1. Set the longitudine attribute to 12.345.
+2. Set the latitudine attribute to 67.890.
+3. Set the qualitaAria attribute to 50.
+4. Set the temperatura attribute to 25.
+5. Set the statoMeteo attribute to ""Soleggiato"".
+6. Set the umidita attribute to 0.6.
+7. Set the vento attribute to 10.5.
+8. Set the pressione attribute to 1013.
+9. Set the categoria attribute to ""Moderata"".
+10. Retrieve and verify each attribute value.",All attribute values are set and retrieved correctly.
+TC-PuntinaMappa-003,Add a Suggerimento to a PuntinaMappa object,PuntinaMappa,1,A PuntinaMappa object exists,"titolo = ""Respira profondamente"", testo = ""Evita esercizi intensi"", immagine = ""respira.png"", categoria = ""Moderata""","1. Create a Suggerimento object with the provided parameters.
+2. Add the Suggerimento object to the PuntinaMappa object.
+3. Retrieve and verify the added Suggerimento object.",The Suggerimento object is added to the PuntinaMappa object successfully.
+TC-Suggerimento-001,Create a Suggerimento object with valid parameters,Suggerimento,1,None,"titolo = ""Respira profondamente"", testo = ""Evita esercizi intensi"", immagine = ""respira.png"", categoria = ""Moderata""","1. Instantiate a Suggerimento object with the provided parameters.
+2. Verify that the object's attributes match the input values.",The Suggerimento object is created successfully with the specified attributes.
+TC-Suggerimento-002,Set and get attributes of a Suggerimento object,Suggerimento,1,A Suggerimento object exists,"titolo = ""Respira profondamente"", testo = ""Evita esercizi intensi"", immagine = ""respira.png"", categoria = ""Moderata""","1. Set the titolo attribute to ""Respira profondamente"".
+2. Set the testo attribute to ""Evita esercizi intensi"".
+3. Set the immagine attribute to ""respira.png"".
+4. Set the categoria attribute to ""Moderata"".
+5. Retrieve and verify each attribute value.",All attribute values are set and retrieved correctly.
+TC-InitialScreen-001,"Select state, region, and city from initial screen",Initial Screen,2,Initial screen is displayed,"State = ""Italy"", Region = ""Lombardy"", City = ""Milan""","1. Select the state ""Italy"".
+2. Select the region ""Lombardy"".
+3. Select the city ""Milan"".
+4. Initiate the request to the server.","The selection process completes successfully, and the request to the server is initiated."
+TC-InitialScreen-002,Display data returned from server,Initial Screen,2,Request to server has been made,N/A,"1. Receive data from the server.
+2. Display the received data.",The data is displayed correctly on the screen.
+TC-MapRefresh-001,Refresh map data on scroll down,Map Refresh,3,Initial map is displayed,N/A,"1. Scroll down on the map.
+2. Initiate the process of refreshing the map.
+3. Send a request to the server for updated map data.
+4. Update the map display with the new data.",The map is refreshed with the latest data upon scrolling down.
+TC-SuggestionsScreen-001,Navigate to suggestions screen from initial map,Suggestions Screen,4,Initial map is displayed,N/A,"1. Press the button to navigate to the suggestions screen.
+2. Display the suggestions screen.",The user is navigated to the suggestions screen successfully.
+TC-AirQualityActivity-001,Start application and load countries from AirVisual API,AirQualityActivity,5,Application is installed,N/A,"1. Start the application.
+2. Call the AirVisual API to load countries.","The application starts successfully, and the list of countries is loaded from the API."
+TC-AirQualityActivity-002,Handle data received from AirVisual API,AirQualityActivity,5,Data has been received from the AirVisual API,N/A,"1. Process the data received from the AirVisual API.
+2. Present the data to the user.",The data is processed and presented correctly to the user.
+TC-WidgetProvider-001,Update widget data from AirVisual API,Widget Provider,7,Widget is enabled,N/A,"1. Enable the widget.
+2. Request data from the AirVisual API.
+3. Present the retrieved data to the user.",The widget updates successfully with the latest data from the API.
+TC-MapView-001,Refresh map data via WebView,MapView,8,User wants to view the map,N/A,"1. User requests to view the map.
+2. WebView refreshes the data from the AirVisual API.
+3. Present the updated data to the user.",The map data is refreshed and displayed correctly.
+TC-Tips-001,Retrieve and display tips based on AQI,Tips,9,User has selected a location,AQI = 50,"1. User selects a nation, region, and city of interest.
+2. Retrieve tips based on the AQI of the selected location.
+3. Present the retrieved tips to the user.",The tips are retrieved and displayed correctly based on the AQI.
+TC-PuntinaMappa-004,Set invalid category for PuntinaMappa,PuntinaMappa,1,A PuntinaMappa object exists,"categoria = ""InvalidCategory""","1. Attempt to set the categoria attribute to ""InvalidCategory"".",An error occurs due to the invalid category value.
+TC-Suggerimento-003,Set invalid category for Suggerimento,Suggerimento,1,A Suggerimento object exists,"categoria = ""InvalidCategory""","1. Attempt to set the categoria attribute to ""InvalidCategory"".",An error occurs due to the invalid category value.
+TC-InitialScreen-003,"Handle invalid state, region, and city selections",Initial Screen,2,Initial screen is displayed,"Invalid State = ""InvalidState"", Invalid Region = ""InvalidRegion"", Invalid City = ""InvalidCity""","1. Select an invalid state ""InvalidState"".
+2. Select an invalid region ""InvalidRegion"".
+3. Select an invalid city ""InvalidCity"".
+4. Attempt to initiate the request to the server.",An error occurs due to the invalid selections.
+TC-MapRefresh-002,Handle failure in refreshing map data,Map Refresh,3,Initial map is displayed,N/A,"1. Scroll down on the map.
+2. Initiate the process of refreshing the map.
+3. Simulate a failure in sending the request to the server.",An error message is displayed indicating the failure in refreshing the map data.
+TC-SuggestionsScreen-002,Handle failure in navigating to suggestions screen,Suggestions Screen,4,Initial map is displayed,N/A,"1. Press the button to navigate to the suggestions screen.
+2. Simulate a failure in transitioning to the suggestions screen.",An error message is displayed indicating the failure in navigating to the suggestions screen.
+TC-AirQualityActivity-003,Handle failure in loading countries from AirVisual API,AirQualityActivity,5,Application is started,N/A,"1. Start the application.
+2. Call the AirVisual API to load countries.
+3. Simulate a failure in loading countries.",An error message is displayed indicating the failure in loading countries.
+TC-AirQualityActivity-004,Handle failure in handling data from AirVisual API,AirQualityActivity,5,Data has been received from the AirVisual API,N/A,"1. Process the data received from the AirVisual API.
+2. Simulate a failure in processing the data.",An error message is displayed indicating the failure in handling the data.
+TC-WidgetProvider-002,Handle failure in updating widget data,Widget Provider,7,Widget is enabled,N/A,"1. Enable the widget.
+2. Request data from the AirVisual API.
+3. Simulate a failure in retrieving data.",An error message is displayed indicating the failure in updating the widget data.
+TC-MapView-002,Handle failure in refreshing map data via WebView,MapView,8,User wants to view the map,N/A,"1. User requests to view the map.
+2. WebView attempts to refresh the data from the AirVisual API.
+3. Simulate a failure in refreshing the data.",An error message is displayed indicating the failure in refreshing the map data.
+TC-Tips-002,Handle failure in retrieving tips based on AQI,Tips,9,User has selected a location,AQI = 50,"1. User selects a nation, region, and city of interest.
+2. Attempt to retrieve tips based on the AQI of the selected location.
+3. Simulate a failure in retrieving the tips.",An error message is displayed indicating the failure in retrieving the tips.
+TC-PuntinaMappa-005,Set out-of-range values for numeric attributes,PuntinaMappa,1,A PuntinaMappa object exists,"qualitaAria = -1, temperatura = -50, umidita =",,

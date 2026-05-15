@@ -1,0 +1,270 @@
+REPORT: Report_28_uml_pages.pdf
+======================================================================
+
+===== Report_28_uml_pages.pdf | Page 1 =====
+UML Type: Sequence
+
+Components:
+- Configuration — kind=configuration; attributes=[]; operations=[]; role=Configuration settings
+- Server — kind=server; attributes=[]; operations=[]; role=Server
+- Service — kind=service; attributes=[]; operations=[]; role=Service
+- API_Manager — kind=api_manager; attributes=[]; operations=[sendRequest(String String), getStatusCode(Date)]; role=API Manager
+- Report — kind=report; attributes=[]; operations=[]; role=Report
+- Locator — kind=locator; attributes=[]; operations=[]; role=Locator
+- Need — kind=need; attributes=[]; operations=[]; role=Need
+
+Actors / Lifelines:
+- Client
+- API_Manager
+- Server
+- Service
+
+Relationships / Links:
+- Client -> API_Manager: sendRequest(String String)
+- API_Manager -> Server: getStatusCode(Date)
+- Server -> Report: getReport()
+- Server -> Locator: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service -> Need: getCategory()
+- Service -> Need: getAddress()
+- Service
+
+===== Report_28_uml_pages.pdf | Page 2 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=other;
+- LocalUser — kind=other;
+- API_Manager — kind=other;
+
+Actors / Lifelines:
+- Main
+- LocalUser
+- API_Manager
+
+Relationships / Links:
+- Main -> LocalUser — message=getToken();
+- Main -> API_Manager — message=[token != null] request(token);
+- API_Manager -> LocalUser — message=return status;
+- LocalUser -> Main — message=request(data utente);
+- LocalUser -> API_Manager — message=new LocalUser;
+- Main -> LocalUser — message=done;
+- API_Manager -> Main — message=La funzione request restituisce un stringa in formato JSON, con un campo status;
+
+Main Flows (step by step):
+1. Main calls getToken() to get a token.
+2. Main sends a request to API_Manager with the token, if the token is not null.
+3. API_Manager returns a status.
+4. LocalUser requests data from the user.
+5. LocalUser creates a new LocalUser object.
+6. Main receives the "done" message.
+
+Conditions / Branches:
+- token != null — branch=OK / status
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- La funzione request restituisce un stringa in formato JSON, con un campo status.
+
+Observations:
+- The diagram models a login process involving a Main component, a LocalUser component, and an API Manager.
+- The process starts with the Main component retrieving a token.
+- The token is used to request user data from the API Manager.
+- The API Manager returns a status, which is then handled by the Main component.
+- The diagram shows a simple sequence of messages and a conditional check on the token.
+
+===== Report_28_uml_pages.pdf | Page 3 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=object;
+- API_Manager — kind=object; role=API Manager
+- Service/Need/Report — kind=object; role=Service/Need/Report
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager — message=listJSON=request();
+- API_Manager -> Service/Need/Report — message=[for each entry in listJSON]; new; displayList();
+
+Main Flows (step by step):
+- Main sends a listJSON request to the API_Manager.
+- The API_Manager iterates through the listJSON and calls the displayList() method on the Service/Need/Report object for each entry.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- The `[for each entry in listJSON]` loop repeats for each entry in the listJSON.
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the interaction between a main application and an API manager to display a list of service/need/report entries.
+- The API manager iterates through a list of JSON data and calls a displayList method on a service/need/report object for each item.
+
+===== Report_28_uml_pages.pdf | Page 4 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=actor;
+- API_Manager — kind=component;
+- Service/Need/Report — kind=component;
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager: new
+- API_Manager -> Service/Need/Report: newEntry
+- API_Manager -> Service/Need/Report: request(newEntry)
+- Service/Need/Report -> API_Manager: done
+
+Main Flows (step by step):
+- Main sends a 'new' message to API_Manager.
+- API_Manager calls the 'newEntry' method on Service/Need/Report, passing 'request(newEntry)' as an argument.
+- Service/Need/Report returns a 'done' message to API_Manager.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of submitting a new entry to a system.
+- The Main actor initiates the process by sending a 'new' message to the API Manager.
+- The API Manager then delegates the actual entry creation to the Service/Need/Report component.
+- The Service/Need/Report component handles the creation and returns a confirmation ('done') to the API Manager.
+
+===== Report_28_uml_pages.pdf | Page 5 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=other;
+- API_Manager — kind=other;
+- Service/Need/Report — kind=other;
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager: stampa dai a schermo;
+- API_Manager -> Service/Need/Report: request(updateEntry);
+- Service/Need/Report -> API_Manager: done;
+- Main -> API_Manager: leggiDatInseriti;
+- API_Manager -> Main: [for each dato in datiAggiornati] set(dato);
+- API_Manager -> Main: updateEntry->toJSON();
+- Main -> API_Manager: done;
+
+Main Flows (step by step):
+- Main calls stampa dai a schermo.
+- Main calls leggiDatInseriti.
+- For each dato in datiAggiornati, API_Manager calls set(dato).
+- API_Manager calls updateEntry->toJSON().
+- API_Manager sends request(updateEntry) to Service/Need/Report.
+- Service/Need/Report sends done to API_Manager.
+- API_Manager sends done to Main.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- The loop "for each dato in datiAggiornati" repeats the set(dato) operation.
+
+Notes / Annotations:
+- The diagram shows a sequence of operations involving data processing and API calls.
+
+Observations:
+- The diagram models a process where data is read, transformed (likely to JSON), and sent to a service or report generation component.
+- The loop suggests that multiple data items need to be processed.
+- The "done" messages indicate successful completion of each step.
+
+
+======================================================================

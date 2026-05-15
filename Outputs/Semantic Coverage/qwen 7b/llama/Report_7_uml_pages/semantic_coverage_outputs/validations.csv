@@ -1,0 +1,30 @@
+validation
+"if user profile is updated, then report handler is notified."
+"if report handler receives a report, then data manager is updated."
+"if data manager receives data, then web server is updated."
+"if web server receives a request, then database is updated."
+"if database is updated, then data manager is updated."
+"if data manager is updated, then notification system is notified."
+"if notification system is notified, then achievements are updated."
+"if achievements are updated, then user profile is updated."
+"if user profile is updated, then authentication system is updated."
+loops /
+check data (data_user) -> done
+richiesta di reinserire i dati -> add user (data_user)
+"checkauthenticated: if the user is authenticated, proceed to the next step"
+"l'utente deve prima autenticarsi: if the user is not authenticated, request authentication"
+"requestdatauser: if the user is authenticated, request data from the user"
+checkauthenticated: l'utente deve prima autenticarsi
+l'utente deve prima autenticarsi: datamodified = requestdata()
+data = requestdata() -> done
+addconsumo(data) -> success
+checkconsumi: l'utente deve avere almeno un consumo
+report: report = requestdata()
+l'utente deve avere almeno un consumo - done
+new_data = requestdata() - done
+updatereport(report:new_data) - success
+checkconsumi -> l'utente deve avere almeno un consumo
+l'utente deve avere almeno un consumo -> report = requestdata()
+report = requestdata() -> done
+done -> deletereport/report
+deletereport/report -> success

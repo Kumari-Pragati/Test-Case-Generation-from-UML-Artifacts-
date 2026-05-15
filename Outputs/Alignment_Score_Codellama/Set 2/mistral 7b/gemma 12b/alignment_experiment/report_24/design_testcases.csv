@@ -1,0 +1,36 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UserAccess-001,Verify user creation process,User Creation,1,System is idle,"- Valid user data (e.g., name, email, password)
+  - Invalid user data (e.g., empty fields, invalid email format)","1. Start the user creation process
+  2. Enter valid user data
+  3. Submit the user creation form
+  4. Verify that the user is created and redirected to the home page
+  5. Repeat steps 2-4 with invalid user data
+  6. Verify that the user creation fails and an error message is displayed",- The user creation process works correctly with valid data and fails with invalid data
+TC-UserAccess-002,Verify user access to creation features,User Creation,"1, 2",System is idle,"- User with access to creation features
+  - User without access to creation features","1. Start the user creation process
+  2. Verify that the user can access the creation features if they have the necessary permissions
+  3. Verify that the user cannot access the creation features if they do not have the necessary permissions","- Users with access to creation features can access them, and users without access cannot"
+TC-UserAccess-003,"Verify user access to menu, profile, and guide",User Navigation,3,System is idle,"- User with access to menu, profile, and guide
+  - User with access to menu and profile but not guide
+  - User with access to menu and guide but not profile
+  - User without access to any feature","1. Start the application
+  2. Verify that the user can access the menu, profile, and guide if they have the necessary permissions
+  3. Verify that the user cannot access the menu, profile, or guide if they do not have the necessary permissions","- Users with access to all features can access them, and users without access cannot"
+TC-UserAccess-004,Verify user access to commission and offer creation,Commission and Offer Creation,2,System is idle,"- User with access to commission and offer creation
+  - User with access to commission creation but not offer creation
+  - User with access to offer creation but not commission creation
+  - User without access to any creation feature","1. Start the application
+  2. Verify that the user can access commission and offer creation if they have the necessary permissions
+  3. Verify that the user cannot access commission or offer creation if they do not have the necessary permissions","- Users with access to all creation features can access them, and users without access cannot"
+TC-UserAccess-005,Verify user creation process correctness,User Creation,1,System is idle,- Valid user data,"1. Start the user creation process
+  2. Enter valid user data
+  3. Submit the user creation form
+  4. Verify that the user is created correctly
+  5. Repeat steps 2-4 with the same valid user data
+  6. Verify that the user is created correctly again",- The user creation process works correctly and consistently with valid data
+TC-UserAccess-006,Verify user creation process loops back to creation if incorrect,User Creation,1,System is idle,- Invalid user data,"1. Start the user creation process
+  2. Enter invalid user data
+  3. Submit the user creation form
+  4. Verify that the user creation process loops back to the creation step
+  5. Repeat steps 2-4 with different invalid user data
+  6. Verify that the user creation process loops back to the creation step for each invalid attempt","- The user creation process loops back to the creation step if the data is invalid, and the user can try again."

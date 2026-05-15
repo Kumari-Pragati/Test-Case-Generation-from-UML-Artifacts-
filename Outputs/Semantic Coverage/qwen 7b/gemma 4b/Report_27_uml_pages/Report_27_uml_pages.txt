@@ -1,0 +1,143 @@
+REPORT: Report_27_uml_pages.pdf
+======================================================================
+
+===== Report_27_uml_pages.pdf | Page 1 =====
+UML Type: other
+
+Components:
+- User — kind=user; attributes=[]; operations=[]; role=User
+- Avvia Documento — kind=action; attributes=[]; operations=[]; role=Action
+- Avvia Raccolta — kind=action; attributes=[]; operations=[]; role=Action
+- Aggiungi Documento — kind=action; attributes=[]; operations=[]; role=Action
+- Aggiungi Campo — kind=action; attributes=[]; operations=[]; role=Action
+- Avvia Raccolta — kind=action; attributes=[]; operations=[]; role=Action
+
+Actors / Lifelines:
+- User - None
+
+Relationships / Links:
+- User -> 1467522076 — type=association; label="1467522076"; explanation="User ID"
+- User -> "https://img.googleusercontent.com/a/6dF-T4jQOGJ4tbe46i" — type=association; label="immagine url"; explanation="Image URL"
+- User -> "Sebastiano Cavalli" — type=association; label="Nome"; explanation="Name"
+- User -> "Zampieri" — type=association; label="Cognome"; explanation="Surname"
+- User -> "15/01/2023" — type=association; label="Data"; explanation="Date"
+- User -> "Sinistra" — type=association; label="Lato"; explanation="Side"
+
+Main Flows (step by step):
+- User -> Avvia Documento — type=association; label="Avvia Documento"
+- Avvia Documento -> Aggiungi Documento — type=association; label="Aggiungi Documento"
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- Ingegneria della Software 2022/23 - docente: prof. Agostino Cortesi
+
+Observations:
+- The diagram depicts a user interacting with a document management system.
+- The user initiates the process by "Avvia Documento" and then "Aggiungi Documento".
+- The diagram shows the user's ID, name, surname, date, and side.
+- The image URL is also associated with the user.
+
+===== Report_27_uml_pages.pdf | Page 2 =====
+UML Type: state_machine
+- Menu' a fondo pagina — kind=state_machine; attributes=[]; operations=[]; role=Menu Navigation
+
+Actors / Lifelines:
+- HOME
+- Accesso al menu a fondo
+- Sezione di monitoraggio
+- Note
+- Ritorno alla home
+- None
+
+Relationships / Links:
+- HOME -> Accesso al menu a fondo — transition=“SI”; explanation="Starts the process"
+- Accesso al menu a fondo -> Sezione di monitoraggio — transition=“SI”; explanation="Navigates to monitoring section"
+- Accesso al menu a fondo -> Note — transition=“NO”; explanation="Goes to note section"
+- Note -> Ritorno alla home — transition=“NO”; explanation="Returns to home"
+- Sezione di monitoraggio -> Accesso al menu a fondo — transition=“NO”; explanation="Returns to menu"
+- Note -> Ritorno alla home — transition=“NO”; explanation="Returns to home"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Accesso al menu a fondo (SI) -> Sezione di monitoraggio (SI) -> Accesso al menu a fondo (NO) -> Note (NO) -> Ritorno alla home (NO)
+
+Conditions / Branches:
+- SI/NO — decision node.  If "SI" is selected, the flow continues to the next state. If "NO" is selected, the flow goes to the next alternative.
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Menu' a fondo pagina" — This diagram models the navigation flow of a menu within a page. The user starts at the HOME page and can access the menu. If they access the menu, they can either go to the monitoring section or to a note section. From the monitoring section or note section, they can return to the menu.
+
+Observations:
+*   The diagram represents a simple navigation flow within a webpage.
+*   The user can navigate between the home page, the menu, the monitoring section, and the notes section.
+*   The "NO" transitions indicate that the user can return to the menu from any of the other sections.
+
+===== Report_27_uml_pages.pdf | Page 3 =====
+UML Type: Activity
+
+Components:
+- LoginActivity — kind=activity;
+- FamilyActivity — kind=activity;
+- HomeActivity — kind=activity;
+- ProfileActivity — kind=activity;
+- GraphConnectFragment — kind=activity;
+- GraphAttamentoFragment — kind=activity;
+- GraphCrescitaFragment — kind=activity;
+- MenuFragment — kind=activity;
+- EditNoteFragment — kind=activity;
+- NoteFragment — kind=activity;
+- SonnoFragment — kind=activity;
+
+Actors / Lifelines:
+- User — None
+- GoogleSignInClient — None
+
+Relationships / Links:
+- LoginActivity -> handleSignInTask — type=call; label="task"; explanation="Handles Google Sign-In task";
+- LoginActivity -> joinFamilyActivity — type=call; label="task"; explanation="Calls joinFamilyActivity";
+- HomeActivity -> replaceFragment — type=call; label="fragment"; explanation="Calls replaceFragment";
+- ProfileActivity -> abbandona — type=call; label="GoogleSignInClient"; explanation="Calls GoogleSignInClient";
+- GraphConnectFragment -> graphConnectView — type=call; label="view"; explanation="Calls graphConnectView";
+- GraphAttamentoFragment -> graphAttamentoView — type=call; label="view"; explanation="Calls graphAttamentoView";
+- GraphCrescitaFragment -> graphCrescitaView — type=call; label="view"; explanation="Calls graphCrescitaView";
+- MenuFragment -> MenuFragment — type=call; label="Fragment"; explanation="Calls MenuFragment";
+- EditNoteFragment -> EditNoteFragment — type=call; label="Fragment"; explanation="Calls EditNoteFragment";
+- NoteFragment -> NoteFragment — type=call; label="Fragment"; explanation="Calls NoteFragment";
+- SonnoFragment -> SonnoFragment — type=call; label="Fragment"; explanation="Calls SonnoFragment";
+
+Main Flows (step by step):
+- LoginActivity -> handleSignInTask — call="task";
+- LoginActivity -> joinFamilyActivity — call="task";
+- HomeActivity -> replaceFragment — call="fragment";
+- ProfileActivity -> abbandona — call="GoogleSignInClient";
+- GraphConnectFragment -> graphConnectView — call="view";
+- GraphAttamentoFragment -> graphAttamentoView — call="view";
+- GraphCrescitaFragment -> graphCrescitaView — call="view";
+- MenuFragment -> MenuFragment — call="Fragment";
+- EditNoteFragment -> EditNoteFragment — call="Fragment";
+- NoteFragment -> NoteFragment — call="Fragment";
+- SonnoFragment -> SonnoFragment — call="Fragment";
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user login and subsequent navigation through different activity fragments (Home, Profile, Graph, Menu, Note, Sonno).
+- The flow starts with handling a Google Sign-In task, then transitions to a family activity, and finally navigates through various views.
+- The diagram appears to represent a user interface with different sections or screens.
+
+
+======================================================================

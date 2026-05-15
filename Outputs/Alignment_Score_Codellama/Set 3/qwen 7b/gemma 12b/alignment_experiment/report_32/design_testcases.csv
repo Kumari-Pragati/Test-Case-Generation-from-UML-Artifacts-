@@ -1,0 +1,77 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login","Login","3","User has valid credentials.","Username: testuser, Password: testpassword","1. Enter username: testuser
+2. Enter password: testpassword
+3. Click login button","User is granted access."
+"TC-Login-002","Invalid Username","Login","3","User enters invalid username.","Username: wronguser, Password: testpassword","1. Enter username: wronguser
+2. Enter password: testpassword
+3. Click login button","Error message displayed."
+"TC-Login-003","Invalid Password","Login","3","User enters valid username but invalid password.","Username: testuser, Password: wrongpassword","1. Enter username: testuser
+2. Enter password: wrongpassword
+3. Click login button","Error message displayed."
+"TC-Login-004","Retry After Failure","Login","3","User enters invalid credentials.","Username: wronguser, Password: wrongpassword","1. Enter username: wronguser
+2. Enter password: wrongpassword
+3. Click login button
+4. Click retry button
+5. Enter username: testuser
+6. Enter password: testpassword
+7. Click login button","User is granted access."
+"TC-Query-001","Successful Database Insertion","Query","4, 5, 6, 7, 8, 9","Valid input data.","Object name: testobject, Description: [""test description""]","1. Enter object name: testobject
+2. Enter description: test description
+3. Compose query
+4. Execute query","Query executed successfully."
+"TC-Query-002","Failed Database Insertion","Query","4, 5, 6, 7, 8, 9","Invalid input data.","Object name: """", Description: []","1. Enter object name:
+2. Enter description:
+3. Compose query
+4. Execute query","Error message displayed."
+"TC-Query-003","Retry After Failure","Query","4, 5, 6, 7, 8, 9","Invalid input data.","Object name: """", Description: []","1. Enter object name:
+2. Enter description:
+3. Compose query
+4. Execute query
+5. Retry
+6. Enter valid object name: testobject
+7. Enter valid description: test description
+8. Compose query
+9. Execute query","Query executed successfully."
+"TC-Announcement-001","Successful Announcement Creation","Announcement","7","Valid input data.","Title: testtitle, Description: [""test description""], Service ID: 1","1. Enter title: testtitle
+2. Enter description: test description
+3. Compose query
+4. Execute query","Announcement created successfully."
+"TC-Announcement-002","Failed Announcement Creation","Announcement","7","Invalid input data.","Title: , Description: [], Service ID:","1. Enter title:
+2. Enter description:
+3. Compose query
+4. Execute query","Error message displayed."
+"TC-Announcement-003","Retry After Failure","Announcement","7","Invalid input data.","Title: , Description: [], Service ID:","1. Enter title:
+2. Enter description:
+3. Compose query
+4. Execute query
+5. Retry
+6. Enter valid title: testtitle
+7. Enter valid description: test description
+8. Compose query
+9. Execute query","Announcement created successfully."
+"TC-Remove-001","Successful Removal of Announcement","Remove","8","Announcement exists.","Announcement ID: 1","1. Select announcement ID: 1
+2. Compose query
+3. Execute query","Announcement removed successfully."
+"TC-Remove-002","Failed Removal of Announcement","Remove","8","Announcement does not exist.","Announcement ID: 999","1. Select announcement ID: 999
+2. Compose query
+3. Execute query","Error message displayed."
+"TC-Remove-003","Retry After Failure","Remove","8","Announcement does not exist.","Announcement ID: 999","1. Select announcement ID: 999
+2. Compose query
+3. Execute query
+4. Retry
+5. Select announcement ID: 1
+6. Compose query
+7. Execute query","Announcement removed successfully."
+"TC-Remove-004","Removal of Object/Servizio","Remove","9","Object/Servizio exists.","Object/Servizio ID: 1","1. Select object/servizio ID: 1
+2. Compose query
+3. Execute query","Object/Servizio removed successfully."
+"TC-Remove-005","Failed Removal of Object/Servizio","Remove","9","Object/Servizio does not exist.","Object/Servizio ID: 999","1. Select object/servizio ID: 999
+2. Compose query
+3. Execute query","Error message displayed."
+"TC-Remove-006","Retry After Failure","Remove","9","Object/Servizio does not exist.","Object/Servizio ID: 999","1. Select object/servizio ID: 999
+2. Compose query
+3. Execute query
+4. Retry
+5. Select object/servizio ID: 1
+6. Compose query
+7. Execute query","Object/Servizio removed successfully."

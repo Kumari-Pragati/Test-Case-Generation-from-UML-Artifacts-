@@ -1,0 +1,92 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Verify user creation flow when no user exists,User Onboarding,1,"- System is initialized with no existing user.
+- User attempts to access the system for the first time.","- Valid user credentials: `username=testuser123`, `password=SecurePass123!`, `email=user@example.com`","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""No"" (no existing user).
+3. System transitions to ""creazione utente"" action.
+4. User provides valid credentials (username, password, email).
+5. System processes user creation.
+6. Decision ""creazione corretta?"" evaluates to ""Yes"" (creation successful).","- User is successfully created.
+- System transitions to ""Home"" without errors.
+- User can now access the system."
+TC-AUTHENTICATION-002,Verify system behavior when user already exists,User Onboarding,1,"- System has an existing user (e.g., `username=existinguser`).","- Valid credentials for existing user: `username=existinguser`, `password=ExistingPass456!`","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""Yes"" (user exists).
+3. System transitions directly to ""Home"".","- User is authenticated and redirected to ""Home"" without triggering user creation.
+- No error messages or duplicate user creation attempts."
+TC-AUTHENTICATION-003,Verify error handling for invalid user creation,User Onboarding,1,"- System is initialized with no existing user.
+- User attempts to create an account with invalid data.","- Invalid credentials:
+  - Case 1: Empty username (`username=`, `password=Pass123!`, `email=user@example.com`)
+  - Case 2: Weak password (`username=weakuser`, `password=123`, `email=user@example.com`)
+  - Case 3: Invalid email format (`username=invaliduser`, `password=SecurePass123!`, `email=invalid-email`)","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""No"".
+3. System transitions to ""creazione utente"".
+4. User provides invalid credentials (one of the cases above).
+5. System processes user creation and evaluates ""creazione corretta?"" as ""No"".","- User creation fails.
+- System displays appropriate error messages (e.g., ""Username cannot be empty,"" ""Password must be at least 8 characters,"" ""Invalid email format"").
+- System remains at ""creazione utente"" or redirects to a retry step (if applicable).
+- No user is created in the database."
+TC-AUTHENTICATION-004,Verify system behavior for duplicate username during creation,User Onboarding,1,- System already has a user with `username=duplicateuser`.,"- Duplicate username: `username=duplicateuser`, `password=NewPass789!`, `email=newuser@example.com`","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""No"" (new attempt).
+3. System transitions to ""creazione utente"".
+4. User provides credentials with an existing username.
+5. System processes creation and evaluates ""creazione corretta?"" as ""No"" (duplicate detected).","- User creation fails with a clear error: ""Username already exists.""
+- System does not create a duplicate user.
+- User is prompted to choose a different username."
+TC-COMMISSION-OFFER-001,Verify successful commission and offer creation flow,Commission/Offer Management,2,"- User is authenticated and on the ""Home"" page.
+- User has permission to create commissions and offers.","- Valid commission details: `commission_id=COM-2024-001`, `description=""Test Commission""`, `amount=1000.00`
+- Valid offer details: `offer_id=OFF-2024-001`, `description=""Test Offer""`, `commission_id=COM-2024-001`","1. User navigates from ""Home"" to ""creazione commissioni"".
+2. System creates commission with valid details and transitions to ""creazione corretta"".
+3. Decision confirms commission creation as successful (""Yes"").
+4. System transitions to ""creazione offerta"".
+5. User provides valid offer details linked to the commission.
+6. System creates offer and transitions to ""creazione corretta"".
+7. Decision confirms offer creation as successful (""Yes"").
+8. System loops back to ""creazione commissione"" (if applicable) or ends flow.","- Commission and offer are created successfully in the system.
+- No error messages are displayed.
+- User is notified of successful creation (e.g., ""Commission and offer created successfully"").
+- Created entities are retrievable with correct details."
+TC-COMMISSION-OFFER-002,Verify error handling for invalid commission creation,Commission/Offer Management,2,"- User is on the ""Home"" page.","- Invalid commission details:
+  - Case 1: Empty description (`commission_id=COM-2024-002`, `description="" ""`, `amount=500.00`)
+  - Case 2: Negative amount (`commission_id=COM-2024-003`, `description=""Test Commission""`, `amount=-200.00`)
+  - Case 3: Missing commission ID (`description=""Test Commission""`, `amount=750.00`)","1. User navigates from ""Home"" to ""creazione commissioni"".
+2. User provides invalid commission details (one of the cases above).
+3. System processes creation and evaluates ""creazione corretta?"" as ""No"".","- Commission creation fails.
+- System displays specific error messages (e.g., ""Description cannot be empty,"" ""Amount must be positive"").
+- User is prompted to correct the input and retry.
+- No commission is created in the system."
+TC-COMMISSION-OFFER-003,Verify error handling for invalid offer creation,Commission/Offer Management,2,"- User is on the ""Home"" page.
+- A valid commission (e.g., `COM-2024-001`) exists in the system.","- Invalid offer details:
+  - Case 1: Non-existent commission ID (`offer_id=OFF-2024-002`, `description=""Test Offer""`, `commission_id=COM-9999-999`)
+  - Case 2: Empty description (`offer_id=OFF-2024-003`, `description="" ""`, `commission_id=COM-2024-001`)","1. User navigates from ""Home"" to ""creazione commissioni"" and creates a valid commission.
+2. System transitions to ""creazione offerta"".
+3. User provides invalid offer details (one of the cases above).
+4. System processes creation and evaluates ""creazione corretta?"" as ""No"".","- Offer creation fails.
+- System displays specific error messages (e.g., ""Commission ID does not exist,"" ""Description cannot be empty"").
+- User is prompted to correct the input and retry.
+- No offer is created in the system."
+TC-NAVIGATION-001,Verify access to profile information from menu,User Navigation,3,"- User is authenticated and on the ""Home"" page.",,"1. User navigates from ""Home"" to ""accesso ad'menu'"".
+2. User selects ""accesso a profilo?"" (Yes).
+3. User does not select ""accesso a guida?"" (No).
+4. System transitions to ""informazioni profilo"".","- User is presented with their profile information (e.g., name, email, registration date).
+- No errors or unexpected redirects occur.
+- Profile data is accurate and up-to-date."
+TC-NAVIGATION-002,Verify access to guide from menu,User Navigation,3,"- User is authenticated and on the ""Home"" page.",,"1. User navigates from ""Home"" to ""accesso ad'menu'"".
+2. User selects ""accesso a profilo?"" (Yes).
+3. User selects ""accesso a guida?"" (Yes).
+4. System transitions to ""Guida"".","- User is presented with the guide content (e.g., help documentation, tutorials).
+- No errors or unexpected redirects occur.
+- Guide content is accessible and correctly formatted."
+TC-NAVIGATION-003,Verify direct access to guide without profile step,User Navigation,3,"- User is authenticated and on the ""Home"" page.
+- System allows direct access to guide (assumed from implicit ""No"" path in UML).",,"1. User navigates from ""Home"" to ""accesso ad'menu'"".
+2. User selects ""accesso a profilo?"" (No).
+3. User selects ""accesso a guida?"" (Yes).
+4. System transitions to ""Guida"".","- User is presented with the guide content without viewing profile information.
+- No errors or permission denied messages appear.
+- Guide content is fully accessible."
+TC-NAVIGATION-004,Verify error handling for invalid menu access,User Navigation,3,"- User is authenticated but lacks permissions for certain menu options (e.g., profile or guide).",,"1. User navigates from ""Home"" to ""accesso ad'menu'"".
+2. User attempts to access ""accesso a profilo?"" but is unauthorized.
+   - System evaluates access as ""No"" due to permissions.
+3. User attempts to access ""accesso a guida?"" but is unauthorized.
+   - System evaluates access as ""No"" due to permissions.","- User is denied access to restricted options.
+- System displays a permission denied message or redirects to a default page (e.g., ""Home"").
+- No sensitive data or unauthorized content is exposed.
+- User receives clear instructions on required permissions (if applicable)."

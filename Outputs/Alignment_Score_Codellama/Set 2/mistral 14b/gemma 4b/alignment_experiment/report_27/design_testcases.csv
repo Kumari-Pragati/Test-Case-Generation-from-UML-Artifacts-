@@ -1,0 +1,83 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful Google Sign-In and Family Activity Transition,Authentication,3,"- User has Google account linked to the app.
+- Internet connection is active.","- Valid Google credentials (e.g., `sebastiano.cavalli@gmail.com`, `Password123!`).","1. User taps **""Sign In with Google""** in `LoginActivity`.
+2. User enters valid credentials and grants permissions.
+3. System calls `handleSignInTask` in `LoginActivity`.
+4. System transitions to `joinFamilyActivity`.","- User is authenticated successfully.
+- `joinFamilyActivity` loads without errors.
+- No error messages or crashes occur."
+TC-AUTHENTICATION-002,Failed Google Sign-In with Invalid Credentials,Authentication,3,- User attempts to sign in with invalid credentials.,"- Invalid Google credentials (e.g., `wrong.email@test.com`, `invalidpass`).","1. User taps **""Sign In with Google""** in `LoginActivity`.
+2. User enters invalid credentials and submits.
+3. System calls `handleSignInTask` and fails.","- Error message appears: *""Invalid email or password.""*
+- User remains on `LoginActivity`.
+- No transition to `joinFamilyActivity`."
+TC-AUTHENTICATION-003,Sign Out from Profile Activity,Authentication,3,- User is authenticated and on `ProfileActivity`.,,"1. User navigates to `ProfileActivity`.
+2. User taps **""Sign Out""** (assumed to call `abbandona` on `GoogleSignInClient`).
+3. System triggers `abbandona` method.","- User is signed out of Google.
+- System returns to `LoginActivity`.
+- All session data is cleared."
+TC-DOCUMENT-MANAGEMENT-001,Start and Add Document Workflow,Document Management,1,"- User is authenticated and on a screen with **""Avvia Documento""** action.",,"1. User taps **""Avvia Documento""** (triggering `Avvia Documento` action).
+2. System transitions to **""Aggiungi Documento""** action.
+3. User uploads a document (e.g., PDF file named `report_2023.pdf`).
+4. System associates document with user attributes:
+   - User ID: `1467522076`
+   - Name: `Sebastiano`
+   - Surname: `Cavalli`
+   - Date: `15/01/2023`
+   - Side: `Sinistra`
+   - Image URL: `https://img.googleusercontent.com/a/6dF-T4jQOGJ4tbe46i`","- Document is uploaded successfully.
+- Metadata (user attributes) is saved with the document.
+- Confirmation message: *""Document added successfully.""*"
+TC-DOCUMENT-MANAGEMENT-002,Add Document with Missing Metadata,Document Management,1,"- User is on **""Aggiungi Documento""** screen.",,"1. User taps **""Avvia Documento""**.
+2. User skips filling in **Side** field (leaves it blank).
+3. User uploads a document.","- Error message: *""Side field is required.""*
+- Document is **not** saved.
+- User remains on **""Aggiungi Documento""** screen."
+TC-DOCUMENT-MANAGEMENT-003,Add Document with Invalid Image URL,Document Management,1,"- User is on **""Aggiungi Documento""** screen.",,"1. User enters all metadata correctly except **Image URL** (uses invalid URL: `htp://invalid.url`).
+2. User uploads a document.","- Error message: *""Invalid image URL format.""*
+- Document is **not** saved.
+- User remains on the screen with the invalid URL highlighted."
+TC-NAVIGATION-001,Home → Menu → Monitoring Section → Return to Menu,Navigation,2,- User is on `HOME` screen.,,"1. User taps **""Accesso al menu a fondo""** (transition=""SI"").
+2. System navigates to `Sezione di monitoraggio` (transition=""SI"").
+3. User taps **""Ritorno alla home""** (transition=""NO"" from monitoring).
+4. System returns to `Accesso al menu a fondo`.","- Navigation flows smoothly between states.
+- No crashes or broken UI elements.
+- Menu options are visible and clickable."
+TC-NAVIGATION-002,Home → Menu → Notes Section → Return to Home,Navigation,2,- User is on `HOME` screen.,,"1. User taps **""Accesso al menu a fondo""** (transition=""SI"").
+2. User selects **""Note""** section (transition=""NO"").
+3. User taps **""Ritorno alla home""** (transition=""NO"").","- User lands in `Note` section.
+- Tapping **""Ritorno alla home""** returns user to `HOME`.
+- No data loss or UI corruption."
+TC-NAVIGATION-003,Direct Return to Home from Monitoring Section,Navigation,2,- User is on `Sezione di monitoraggio`.,,"1. User taps **""Ritorno alla home""** (transition=""NO"").","- User is redirected to `HOME` screen.
+- No intermediate steps or errors."
+TC-FRAGMENTS-001,Navigate from Home to GraphConnectFragment,Fragment Navigation,3,- User is on `HomeActivity`.,,"1. User taps a menu item to open `GraphConnectFragment`.
+2. `HomeActivity` calls `replaceFragment` to load `GraphConnectFragment`.
+3. `GraphConnectFragment` calls `graphConnectView`.","- `GraphConnectFragment` loads successfully.
+- Graph visualization renders without errors.
+- No memory leaks or crashes."
+TC-FRAGMENTS-002,Edit and Save Note,Fragment Navigation,3,- User is on `NoteFragment` and taps to edit a note.,,"1. User taps a note to open `EditNoteFragment`.
+2. User edits note text (e.g., adds *""Follow-up: 20/01/2023""*).
+3. User taps **""Save""** (assumed to call `EditNoteFragment` save logic).
+4. System returns to `NoteFragment`.","- Note is updated in `NoteFragment`.
+- Confirmation toast: *""Note saved successfully.""*
+- No data corruption."
+TC-FRAGMENTS-003,Load SonnoFragment Without Data,Fragment Navigation,3,- User has no sleep data recorded.,,"1. User navigates to `SonnoFragment`.
+2. `SonnoFragment` calls `SonnoFragment` (self-reference).","- Empty state UI is displayed (e.g., *""No sleep data available""*).
+- Option to add manual entry is visible.
+- No crashes."
+TC-EDGE-CASES-001,Rapid Menu Navigation (SI/NO Transitions),Navigation,"2,3",- User is on `HOME`.,,"1. User rapidly toggles between:
+   - `HOME` → `Accesso al menu a fondo` (SI) → `Sezione di monitoraggio` (SI) → `Accesso al menu a fondo` (NO) → `Note` (NO) → `Ritorno alla home` (NO).
+   - Repeat 5 times.","- System handles rapid transitions without crashes.
+- UI remains responsive.
+- No duplicate state entries or errors."
+TC-EDGE-CASES-002,Document Upload with Special Characters in Metadata,Document Management,1,"- User is on **""Aggiungi Documento""** screen.",,"1. User enters metadata with special characters:
+   - Name: `Sebastiano O'Reilly`
+   - Surname: `Cavalli-Vanini`
+   - Side: `Destra/Sinistra` (hyphenated).
+2. User uploads a document.","- System accepts special characters without errors.
+- Document is saved with metadata intact.
+- No encoding issues."
+TC-EDGE-CASES-003,Offline Mode – Document Upload Failure,Document Management,"1,3",- Device is in **airplane mode** (no internet).,,"1. User taps **""Avvia Documento""**.
+2. User attempts to upload a document.","- Error message: *""No internet connection. Please check your connection.""*
+- User can retry after reconnecting.
+- No data is lost on reconnection."

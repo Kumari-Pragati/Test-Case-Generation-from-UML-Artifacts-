@@ -1,0 +1,37 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Verify User Registration with Valid Credentials,Utente,"2,3",None,"- Email: example@example.com
+- Password: Test1234","1. Call `email.isEmpty()` and `password.length() < 8`
+2. Call `CreateUserWithEmailAndPassword(email, password)`
+3. Check if `Response != Error`
+4. Store user data in the database
+5. Log in the user",User should be registered successfully and logged in.
+TC-Utente-002,Verify User Registration with Invalid Email,Utente,"2,3",None,"- Email: example@com
+- Password: Test1234","1. Call `email.isEmpty()` and `password.length() < 8`
+2. Call `CreateUserWithEmailAndPassword(email, password)`
+3. Check if `Response != Error`",Registration should fail due to invalid email format.
+TC-Utente-003,Verify User Registration with Short Password,Utente,"2,3",None,"- Email: example@example.com
+- Password: Test12","1. Call `email.isEmpty()` and `password.length() < 8`
+2. Call `CreateUserWithEmailAndPassword(email, password)`
+3. Check if `Response != Error`",Registration should fail due to short password.
+TC-Utente-004,Verify User Login with Valid Credentials,Utente,2,User is registered,"- Email: example@example.com
+- Password: Test1234","1. Call `signInWithEmailAndPassword(email, password)`
+2. Check if `Response != Error`
+3. Create a token to identify the device",User should be logged in successfully and a token should be created.
+TC-Utente-005,Verify User Login with Invalid Email,Utente,2,User is registered,"- Email: example@com
+- Password: Test1234","1. Call `signInWithEmailAndPassword(email, password)`
+2. Check if `Response != Error`",Login should fail due to invalid email format.
+TC-Utente-006,Verify User Login with Incorrect Password,Utente,2,User is registered,"- Email: example@example.com
+- Password: Test123","1. Call `signInWithEmailAndPassword(email, password)`
+2. Check if `Response != Error`",Login should fail due to incorrect password.
+TC-Ranking-001,Verify User Completes a Ranking,Ranking,"1,4,5",User is logged in and has a ranking,- New Superato: true,"1. Call `SetSuperato(newSuperato)`
+2. Send a request to the database to update the ranking status
+3. Check if the ranking is marked as superato",The ranking should be marked as superato and the database should reflect the change.
+TC-Mission-001,Verify User Completes a Mission,Mission,"1,4,5",User is logged in and has a mission,- New Superato: true,"1. Call `SetSuperato(newSuperato)`
+2. Send a request to the database to update the mission status
+3. Check if the mission is marked as superato",The mission should be marked as superato and the database should reflect the change.
+TC-RealtimeDatabase-001,Verify Data Update in Realtime Database,Realtime Database,"4,5",User is logged in and has a mission or ranking,- Data to be updated: HashMap containing mission/ranking details,"1. Convert the HashMap to JSON
+2. Send a request to the database
+3. Check if the data is updated in the database",The data in the database should be updated according to the provided HashMap.
+TC-FirebaseSDK-001,Verify Data Retrieval Using Firebase SDK,Firebase SDK,5,User is logged in and has a mission or ranking,- No specific data required,"1. Add a value event listener for 'Mission'
+2. Wait for the data change notification
+3. Check if the data is retrieved correctly",The data should be retrieved and the `onDataChange()` callback should be triggered. <|end|>

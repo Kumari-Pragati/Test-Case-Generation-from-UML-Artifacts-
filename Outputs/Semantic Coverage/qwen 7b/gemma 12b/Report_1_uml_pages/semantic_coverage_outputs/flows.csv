@@ -1,0 +1,51 @@
+flow
+"utente -> ranking — type=association; label=""ha superato""; explanation=""a user has a ranking."""
+"utente -> mission — type=association; label=""ha completata""; explanation=""a user has completed a mission."""
+flow 1: utente ha superato ranking
+flow 2: utente ha completata mission
+"the diagram models a system with classes representing users, rankings, tips, and missions."
+users can have rankings and complete missions.
+the relationships between user and ranking/mission are one-to-many.
+"the diagram focuses on the data structure and relationships between these entities, without detailing any specific processes or interactions."
+"main -> firebase authentication — type=message; label=""signinwithemailandpassword(string, string)""; explanation=""main calls firebase authentication to sign in with email and password"""
+"firebase authentication -> main — type=message; label=""create response""; explanation=""firebase authentication returns a response to main"""
+"main -> main — type=control flow; label=""if(response != error) { return firebaseuser }""; explanation=""conditional return of firebaseuser based on response"""
+"main -> main — type=control flow; label=""crea token che identifica il dispositivo""; explanation=""main creates a token to identify the device"""
+"flow 1: main calls signinwithemailandpassword(string, string) to firebase authentication. firebase authentication returns create response to main. main checks if response != error and returns firebaseuser. main creates token che identifica il dispositivo."
+the diagram models a login sequence where the main component interacts with the firebase authentication service.
+the `signinwithemailandpassword` method is called with email and password as arguments.
+the flow proceeds only if the response from firebase authentication is not an error.
+"upon successful authentication, a token is created to identify the device."
+the diagram focuses on the core authentication flow and doesn't show error handling beyond the initial response check.
+"main -> email.isempty(), password.length() < 8 — type=control_flow; label=""""; explanation=""starts the process"""
+"email.isempty(), password.length() < 8 -> createuserwithemailandpassword(string, string) — type=control_flow; label=""if(response != error)""; explanation=""if validation passes, create user"""
+"createuserwithemailandpassword(string, string) -> response != error — type=control_flow; label=""""; explanation=""check response"""
+"response != error -> db.child(userid).setvalue(hashmap<string, object>) — type=control_flow; label=""""; explanation=""store user data"""
+"db.child(userid).setvalue(hashmap<string, object>) -> response != error — type=control_flow; label=""""; explanation=""check storage response"""
+"response != error -> lugin firebaseuser — type=control_flow; label=""""; explanation=""login user"""
+"createuserwithemailandpassword(string, string) -> crea response — type=control_flow; label=""""; explanation=""create response"""
+"flow 1: main -> email.isempty(), password.length() < 8 -> createuserwithemailandpassword(string, string) -> response != error -> db.child(userid).setvalue(hashmap<string, object>) -> response != error -> lugin firebaseuser"
+the diagram models a user registration process.
+the process begins with validation of email and password.
+"if validation passes, a user is created via firebase authentication."
+the user data is then stored in a database.
+a successful registration results in a firebaseuser being logged in.
+error handling is present through the response != error checks.
+"main -> realtime database — type=message; label=""conversione da hashmap a json, viene mandata una rest/http/2 request""; explanation=""sends a request to the database"""
+"realtime database -> main — type=message; label=""risposta asincrona""; explanation=""sends an asynchronous response back to the main application"""
+"flow 1: main -> realtime database (conversione da hashmap a json, viene mandata una rest/http/2 request) -> realtime database -> main (risposta asincrona)"
+the diagram depicts an asynchronous communication flow between a main component and a realtime database component.
+the main component sends a request to the realtime database after converting a hashmap to json.
+the realtime database processes the request and sends an asynchronous response back to the main component.
+"the diagram focuses on the data update process, specifically the interaction for completing a rank or mission."
+"main -> firebase sdk — type=message; label=""addvalueeventlistener(mission*)""; explanation=""sends a request to add a value event listener for 'mission'"""
+"firebase sdk -> realtime database — type=message; label=""addvalueeventlistener(mission*)""; explanation=""sends a request to add a value event listener for 'mission'"""
+"realtime database -> firebase sdk — type=message; label=""manda la risposta con i dati richiesti""; explanation=""sends the requested data response"""
+"firebase sdk -> main — type=message; label=""ondatachange()""; explanation=""sends the data change notification to the main application"""
+flow 1: main -> firebase sdk (addvalueeventlistener(mission*)) -> realtime database (addvalueeventlistener(mission*)) -> firebase sdk (manda la risposta con i dati richiesti) -> main (ondatachange())
+the diagram illustrates the data retrieval process from a realtime database using the firebase sdk.
+the main component initiates the data request by sending a message to the firebase sdk.
+the firebase sdk then forwards the request to the realtime database.
+"the realtime database responds with the requested data, which is then relayed back to the main component via the firebase sdk."
+the `ondatachange()` message indicates a callback mechanism for handling data updates.
+======================================================================

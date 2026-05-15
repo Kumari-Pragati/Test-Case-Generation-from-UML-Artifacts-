@@ -1,0 +1,136 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","Successful Google Login","Authentication","6","The application is installed on the device","Valid Google account credentials","1. User opens the application
+2. User clicks on ""Accedi con Google"" (Login with Google)
+3. User inserts valid Google credentials","User is redirected to the main page of the application and can access all functionalities"
+"TC-Authentication-002","Automatic Login for Returning User","Authentication","6","User has previously logged in and the device has saved the session","None","1. User opens the application","User is automatically logged in and redirected to the main page of the application"
+"TC-Authentication-003","Failed Login with Invalid Credentials","Authentication","6","The application is installed on the device","Invalid Google account credentials","1. User opens the application
+2. User clicks on ""Accedi con Google"" (Login with Google)
+3. User inserts invalid Google credentials","System displays an error message and prompts the user to re-enter credentials"
+"TC-Payment-004","Successful Credit Card Registration","Payment","6","User has logged in to the application","Valid credit/debit/prepaid card details","1. User clicks on the ""Metodi di pagamento"" (Payment Methods) icon in the navigation bar
+2. User inserts valid card details","Card details are successfully registered and saved for future payments"
+"TC-Payment-005","Failed Credit Card Registration with Invalid Data","Payment","6","User has logged in to the application","Invalid credit/debit/prepaid card details","1. User clicks on the ""Metodi di pagamento"" (Payment Methods) icon in the navigation bar
+2. User inserts invalid card details","System displays an error message and prompts the user to re-enter the card details"
+"TC-Payment-006","Successful Saldo Recharge","Payment","7","User is logged in and has added a payment method","Valid card with sufficient balance, recharge amount (e.g., 20 EUR)","1. User clicks on the payment methods icon in the navigation bar
+2. User enters the recharge amount (e.g., 20 EUR)
+3. User confirms the recharge","Saldo is updated with the added amount"
+"TC-Payment-007","Insufficient Card Balance for Saldo Recharge","Payment","7","User is logged in and has added a payment method with insufficient balance","Valid card with balance lower than recharge amount (e.g., card balance: 10 EUR, recharge amount: 20 EUR)","1. User clicks on the payment methods icon in the navigation bar
+2. User enters the recharge amount (e.g., 20 EUR)
+3. User confirms the recharge","System displays an error message stating ""Insufficient funds. Please change payment method"" and prompts user to change payment method"
+"TC-StrollerSearch-008","Locate Nearest Stroller Rack","Stroller Search","7,8","User is logged in and has enabled location sharing","User’s current location with at least one stroller rack nearby","1. User clicks on the map icon in the navigation bar
+2. User moves on the map to locate stroller racks marked with dots","System displays available stroller racks on the map with their locations"
+"TC-StrollerSelection-009","View Stroller Details","Stroller Selection","8","User has selected a stroller rack","Available stroller with details (model, price per hour, features, availability)","1. User is on the homepage or clicks on the strollers icon in the navigation bar
+2. User views the list of strollers from the selected rack
+3. User selects a stroller to view its details","System displays stroller model, price per hour, features, and availability status"
+"TC-StrollerUnlock-010","Successful QR Code Scan to Unlock Stroller","Stroller Unlock","9","User has selected a stroller and granted camera permission","Valid QR code on the stroller","1. User clicks on the ""Scan to Unlock"" button
+2. Application opens camera
+3. User scans the QR code on the stroller for a few seconds","Application recognizes the QR code, unlocks the stroller, and starts the timer"
+"TC-StrollerUnlock-011","Camera Permission Denied","Stroller Unlock","9","User has selected a stroller but has not granted camera permission","None","1. User clicks on the ""Scan to Unlock"" button","System requests camera permission from the user"
+"TC-StrollerUnlock-012","Invalid QR Code Scan","Stroller Unlock","9","User has selected a stroller and granted camera permission","Invalid or unreadable QR code","1. User clicks on the ""Scan to Unlock"" button
+2. Application opens camera
+3. User scans an invalid/unreadable QR code","System displays an error message ""Invalid QR code. Please try again"""
+"TC-StrollerUnlock-013","Poor QR Code Scan","Stroller Unlock","9","User has selected a stroller and granted camera permission","Valid QR code but not fully scanned","1. User clicks on the ""Scan to Unlock"" button
+2. Application opens camera
+3. User partially scans the QR code","System displays an error message ""Please scan the QR code completely"""
+"TC-FinalPayment-014","Successful Payment Upon Stroller Return","Final Payment","9,10","User has used the stroller and returns it to a rack","Sufficient saldo balance, valid stroller return","1. User returns the stroller to a rack
+2. Timer stops automatically
+3. System displays the cost of the ride and deducts it from saldo","System locks the stroller and confirms payment deduction from saldo"
+"TC-FinalPayment-015","Insufficient Saldo for Payment","Final Payment","10","User has used the stroller and returns it to a rack with insufficient saldo","Saldo balance lower than ride cost","1. User returns the stroller to a rack
+2. Timer stops automatically
+3. System displays the cost of the ride","System displays an error message ""Insufficient saldo. Please recharge"" and does not lock the stroller"
+"TC-FinalPayment-016","Illegal Parking Detection","Final Payment","10","User has used the stroller but does not return it to a rack","Stroller not returned to a rack","1. Timer stops after a predefined time (e.g., 30 minutes of inactivity)","System displays an error message ""Illegal parking detected. Additional cost applied. Please return the stroller to the nearest rack"""
+"TC-Help-017","Submit Problem Report via Email","Help","10","User has encountered a problem","Valid email address, problem description","1. User clicks on ""Segnalaci un problema"" in the personal area
+2. User fills in the email form with problem description
+3. User submits the form","System sends the email to support and confirms submission to the user"
+"TC-History-018","View Personal Usage History","History","10,11","User is logged in","User has previous stroller usage records","1. User clicks on the history icon in the personal area","System displays a list of past usages with duration, cost, and stroller model for each entry"
+"TC-Map-019","View Stroller Status on Map","Map","11","User is logged in","Strollers with different statuses (available, unavailable, broken)","1. User clicks on the map icon in the navigation bar
+2. User clicks on a stroller marker on the map","System displays the stroller’s status (available/unavailable/broken) and allows user to view details if available"
+"TC-Payment-020","Payment via Card for Saldo Recharge","Payment","13,14,17","User has logged in and initiated a saldo recharge request","Valid card number, expiration date, CVV code, and sufficient funds","1. User navigates to the saldo recharge section.
+2. User enters card number, expiration date, and CVV code.
+3. User confirms payment.","Payment is processed successfully, saldo is recharged, and a confirmation message is displayed."
+"TC-Payment-021","Payment Failure with Invalid Card Details","Payment","13,14,17","User has logged in and initiated a saldo recharge request","Invalid card number, expired date, or incorrect CVV code","1. User navigates to the saldo recharge section.
+2. User enters invalid card details.
+3. User confirms payment.","Payment fails, an error message is displayed, and saldo remains unchanged."
+"TC-StrollerSearch-022","Search for Nearby Strollers on Map","Stroller Search","13,14,16,17","User has logged in and opened the map view","None","1. User opens the map view.
+2. User waits for stroller positions to load.","Strollers within proximity are displayed on the map within 2 seconds (RNF-01, RNF-05)."
+"TC-StrollerSelection-023","Select Stroller from Rack and View Details","Stroller Selection","13,14","User has opened the map and clicked on a stroller rack","None","1. User clicks on a stroller rack on the map.
+2. User views stroller details (e.g., availability, type).","Stroller details are displayed correctly."
+"TC-QRScanning-024","Scan QR Code to Unlock Stroller","QR Scanning","13,14,16,17","User has navigated to the QR scanning section","Valid QR code linked to an available stroller","1. User opens the QR scanning section.
+2. User scans the stroller’s QR code.","QR code is scanned within 1 second (RNF-02), stroller unlocks, and user is prompted to confirm rental."
+"TC-QRScanning-025","Failed QR Scan with Invalid Code","QR Scanning","13,14,16,17","User has navigated to the QR scanning section","Invalid or expired QR code","1. User opens the QR scanning section.
+2. User scans an invalid QR code.","Scan fails, error message is displayed, and stroller remains locked."
+"TC-HelpReporting-026","Report Damaged Stroller via Help Feature","Help/Reporting","13,15","User has logged in and encountered a damaged stroller","Photo of damaged stroller, valid QR code of the stroller","1. User navigates to the Help section.
+2. User selects ""Report Damaged Stroller.""
+3. User uploads a photo and enters the stroller’s QR code.
+4. User submits the report.","Report is submitted successfully, confirmation message is displayed, and the stroller is marked as unavailable for rental."
+"TC-UserHistory-027","View Personal Rental History","User History","13,15","User has logged in and rented at least one stroller","None","1. User navigates to the ""Storico Personale"" (Personal History) section.
+2. User views past rentals and associated payments.","List of past rentals and payments is displayed correctly."
+"TC-Authentication-028","Account Accessibility at Any Time","Authentication","19","User has a valid account with registered credentials","Valid username/password, invalid username/password, no internet connection","1. Launch the app on a device with active internet.
+2. Attempt to log in with valid credentials.
+3. Attempt to log in with invalid credentials.
+4. Attempt to log in with no internet connection.","1. User is successfully logged in within 2–4 seconds.
+2. System rejects invalid credentials and displays an error message.
+3. System displays an error message indicating no internet connection."
+"TC-QRScanner-029","QR Code Scanning Speed and Usability","QR Scanner","19, 23","Device has a working camera and internet connection","Valid QR code, invalid/blurred QR code, no camera permission","1. Open the QR scanning feature from the main menu.
+2. Point the camera at a valid QR code and scan it.
+3. Point the camera at an invalid/blurred QR code and attempt to scan.
+4. Disable camera permission and attempt to scan.","1. QR code is scanned within 2 seconds, and the system processes the data.
+2. System displays an error message for invalid/blurred QR code.
+3. System displays an error message indicating camera permission is required."
+"TC-UIUX-030","QR Scanner Visibility and Accessibility","UI/UX","19, 24","App is launched on a device","None","1. Navigate to the main menu of the app.
+2. Locate the QR scanning option.
+3. Attempt to find the QR scanning option within 30 seconds of first use.","1. QR scanning option is clearly visible and easily identifiable.
+2. User can locate and access the QR scanning feature without assistance."
+"TC-Onboarding-031","First-Time User Guidance","Onboarding","19","User has never used the app before","None","1. Launch the app for the first time.
+2. Follow the onboarding steps or prompts provided.","1. System provides a guided tour or explanations for key features during the first use."
+"TC-UIUX-032","UI Simplicity and Intuitiveness","UI/UX","20","App is launched on a device","None","1. Perform a basic task (e.g., logging in, searching for strollers) within 30 minutes of first use.","1. User completes the task without external assistance, demonstrating intuitive design."
+"TC-Portability-033","Cross-Platform Compatibility","Portability","20","None","Android device, iOS device","1. Install the app on an Android device and verify core functionalities (e.g., login, QR scan).
+2. Install the app on an iOS device and verify the same core functionalities.","1. App functions identically on both Android and iOS devices without crashes or errors."
+"TC-LocationServices-034","Google Maps Integration for Stroller Location","Location Services","22","Device has GPS enabled and internet connection","Valid location permissions, invalid location permissions","1. Grant location permissions and search for strollers on the map.
+2. Deny location permissions and attempt to search for strollers.","1. System displays nearby strollers on the map within 2–4 seconds.
+2. System displays an error message indicating location permission is required."
+"TC-Connectivity-035","Internet Dependency for Core Functions","Connectivity","23","App is launched on a device","Active internet, no internet","1. Perform a core function (e.g., login, QR scan, map search) with active internet.
+2. Disable internet and attempt the same core functions.","1. All functions execute successfully with active internet.
+2. System displays error messages for functions requiring internet when offline."
+"TC-Security-036","Data Encryption in Firebase","Security","23","App is connected to Firebase database","None (assume backend is configured)","1. Log in and perform an action that saves data (e.g., book a stroller).
+2. Verify data integrity by checking if the saved data is encrypted using SHA-256.","1. Data is saved securely in Firebase and encrypted with SHA-256."
+"TC-QRScanner-037","Camera Activation Speed","QR Scanner","24","Device has a working camera","None","1. Open the QR scanning feature and measure the time taken to activate the camera.","1. Camera activates within 2 seconds."
+"TC-Authentication-038","Automatic Google Login After Registration","Authentication","26","User has previously registered via Google","Registered user account with Google credentials","1. Launch the application.
+2. Observe login behavior.","The application automatically logs in the user without requiring manual credentials."
+"TC-Authentication-039","Manual Google Login for New User","Authentication","26","None","New user with Google account","1. Launch the application.
+2. Tap the Google login button.
+3. Grant necessary permissions.","The user is successfully logged in and redirected to the main application screen."
+"TC-Payment-040","Add Payment Method","Payment","26","User is logged in","Valid payment card details (e.g., credit/debit card)","1. Navigate to the payment section.
+2. Enter valid card details.
+3. Confirm submission.","The payment method is successfully added and stored securely."
+"TC-Payment-041","Saldo Recharge Using Saved Payment Method","Payment","26,27","User has logged in and added a valid payment method","Valid payment method, recharge amount (e.g., 10 EUR)","1. Navigate to the recharge saldo section.
+2. Select the saved payment method.
+3. Enter recharge amount.
+4. Confirm transaction.","The saldo is successfully recharged, and the user can now use strollers."
+"TC-Map-042","Display Nearby Stroller Racks","Map","27","User is logged in","User location with active GPS/Wi-Fi","1. Launch the application.
+2. Navigate to the map view.","The application displays a map with nearby stroller racks marked."
+"TC-Map-043","Select Stroller Rack and View Strollers","Map","27","User is logged in and map is displayed","At least one stroller rack with available strollers","1. Tap on a stroller rack on the map.","The application shows details of strollers available in the selected rack."
+"TC-StrollerActivation-044","Scan QR Code to Activate Stroller","Stroller Activation","27","User has selected a stroller from a rack","Valid QR code associated with the stroller","1. Tap the ""Use Stroller"" button.
+2. Allow camera access.
+3. Scan the stroller’s QR code.","The stroller is unlocked, and the user can start using it."
+"TC-Payment-045","Automatic Saldo Deduction After Stroller Return","Payment","28","User has finished using the stroller and is ready to return it","Sufficient saldo balance, stroller usage duration (e.g., 30 minutes)","1. Return the stroller to the rack.
+2. Confirm return in the app.","The cost of stroller usage is deducted from the user’s saldo, and the app closes."
+"TC-Support-046","Contact Support Operator","Support","28","User is logged in","Active internet connection","1. Navigate to the support section.
+2. Tap ""Contact Operator.""
+3. Enter a description of the issue.
+4. Submit the request.","The user receives a response from the first available operator."
+"TC-UsageHistory-047","View Past Stroller Usage","Usage History","29","User is logged in and has used strollers before","At least one past stroller usage record","1. Navigate to the usage history section.","The application displays a list of all past stroller usages with details (date, time, cost, etc.)."
+"TC-Database-048","Verify Firebase Database Stroller Registration","Database","31","Firebase database is initialized and accessible","Unique stroller ID (e.g., ""STRL-001""), availability status (""available""/""in use"")","1. Insert a new stroller record into Firebase with a unique ID and initial availability status (""available"").
+2. Verify the record is stored with the correct ID and status.
+3. Update the availability status to ""in use"" and verify the change is reflected in real-time.","Stroller record is created, updated, and real-time status changes are visible."
+"TC-LocationSearch-049","Verify Google Maps API Integration for Stroller Search","Location Search","31","Device has internet connectivity, Google Maps API key is valid","Valid search query (e.g., ""near Central Park"")","1. Enter a search query in the app to locate available strollers.
+2. Verify the app displays a map with stroller locations using Google Maps API.
+3. Select a stroller from the map and verify its details (ID, availability) are shown.","Map loads with stroller locations, and stroller details are accurate."
+"TC-DeviceCompatibility-050","Verify Android Minimum Version Compatibility","Device Compatibility","31","None","Android device with version 6.0 (Marshmallow)","1. Install the app on an Android device running version 6.0.
+2. Attempt to access core functionalities (e.g., stroller search, database sync).
+3. Verify the app launches and functions without errors.","App installs and operates correctly on Android 6.0."
+"TC-DeviceCompatibility-051","Verify iOS Minimum Version Compatibility","Device Compatibility","31","None","iOS device with version 11.0","1. Install the app on an iOS device running version 11.0.
+2. Attempt to access core functionalities (e.g., stroller search, database sync).
+3. Verify the app launches and functions without errors.","App installs and operates correctly on iOS 11.0."
+"TC-NetworkDependency-052","Verify Internet Connectivity Requirement","Network Dependency","31","Device has no internet connection","None","1. Launch the app on a device with no internet connection.
+2. Attempt to perform any functionality requiring database access (e.g., search strollers).
+3. Verify the app either blocks access or shows an error message.","App restricts functionality or displays an error due to lack of connectivity."

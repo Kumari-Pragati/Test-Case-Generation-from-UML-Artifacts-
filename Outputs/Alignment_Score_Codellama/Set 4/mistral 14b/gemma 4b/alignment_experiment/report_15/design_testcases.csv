@@ -1,0 +1,111 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user authentication and token retrieval,Authentication,"2, 3","- User has a valid Firebase account.
+- Network connectivity is available.","- Valid user credentials (email: `user@example.com`, password: `SecurePass123`).","1. User enters credentials in the login UI.
+2. `Main` calls `LocalUser.getToken()`.
+3. Since no token exists, `Main` sends `request(token)` to `Authentication`.
+4. `Authentication` validates credentials and returns a new `LocalUser` object.
+5. `Main` receives confirmation (""done"").","- User is authenticated.
+- Token is stored locally.
+- `LocalUser` object is created successfully.
+- UI shows logged-in state."
+TC-AUTHENTICATION-002,Authentication failure with invalid credentials,Authentication,"2, 3",- Network connectivity is available.,"- Invalid credentials (email: `wrong@example.com`, password: `InvalidPass`).","1. User enters invalid credentials.
+2. `Main` calls `LocalUser.getToken()` → returns `null`.
+3. `Main` sends `request(token)` to `Authentication`.
+4. `Authentication` rejects the request due to invalid credentials.","- Error message: ""Invalid email or password"" is displayed.
+- No token is generated.
+- User remains unauthenticated."
+TC-AUTHENTICATION-003,Authentication failure due to network issues,Authentication,"2, 3","- User has valid credentials.
+- Network is temporarily unavailable.",,"1. User enters valid credentials.
+2. `Main` calls `LocalUser.getToken()` → returns `null`.
+3. `Main` sends `request(token)` to `Authentication`.
+4. Network request times out or fails.","- Error message: ""Network error. Please check your connection.""
+- User remains unauthenticated.
+- No token is generated."
+TC-PLANT-IDENTIFICATION-001,Successful plant species identification and storage,Plant Recognition,4,"- User is authenticated.
+- Network connectivity is available.
+- Gemini AI API and Firebase Storage are operational.","- A clear photo of a ""Rose"" plant (file: `rose.jpg`).","1. User uploads `rose.jpg` via `Main`.
+2. `Main` sends the image to **Gemini AI API** with request: ""Identify plant species.""
+3. **Gemini AI API** processes the image and returns: ""Species: Rose.""
+4. **Gemini AI API** stores ""Rose"" in **Firebase Storage** under the user’s species folder.
+5. **Firebase Storage** returns the download URL of the uploaded photo.
+6. `Main` displays: ""Plant identified: Rose. Photo saved.""","- Photo is stored in Firebase under `/users/{userId}/species/Rose/rose.jpg`.
+- Download URL is displayed or used for further actions.
+- UI confirms successful identification and storage."
+TC-PLANT-IDENTIFICATION-002,Failed plant identification due to unclear image,Plant Recognition,4,"- User is authenticated.
+- Network connectivity is available.",- A blurry or unrecognizable photo (file: `blurry_plant.jpg`).,"1. User uploads `blurry_plant.jpg`.
+2. `Main` sends the image to **Gemini AI API**.
+3. **Gemini AI API** returns: ""Error: Could not identify species. Image too blurry.""","- Error message: ""Could not identify plant. Please upload a clearer photo.""
+- No data is stored in Firebase.
+- Photo is not saved."
+TC-PLANT-IDENTIFICATION-003,Failed plant identification due to API unavailability,Plant Recognition,4,"- User is authenticated.
+- Gemini AI API is down.",,"1. User uploads a clear photo (`sunflower.jpg`).
+2. `Main` sends the image to **Gemini AI API**.
+3. API request times out or returns 503 (Service Unavailable).","- Error message: ""Service unavailable. Please try again later.""
+- No data is stored in Firebase.
+- Photo is not saved."
+TC-DATA-MANAGEMENT-001,Successful insertion of a new plant record,Plant CRUD,1,"- User is authenticated.
+- `DataManager` is operational.","- Plant details: `Name: ""Sunflower""`, `Scientific Name: ""Helianthus annuus""`, `Location: ""Garden""`.","1. User navigates to ""Add Plant"" screen.
+2. User enters plant details and clicks ""Save.""
+3. `DataManager` processes `Inserimento/Modifica Piante` operation.
+4. Plant record is saved to the database.","- Success message: ""Plant 'Sunflower' added successfully.""
+- Plant appears in the ""My Plants"" list.
+- Record is retrievable via `Lettura Piante`."
+TC-DATA-MANAGEMENT-002,Failed insertion of a plant with missing required fields,Plant CRUD,1,- User is authenticated.,"- Plant details: `Name: """"`, `Scientific Name: ""Helianthus""`, `Location: """"`.","1. User enters incomplete details and clicks ""Save.""
+2. `DataManager` validates the input.","- Error message: ""Name and Location are required.""
+- Plant record is not saved.
+- UI remains in edit mode."
+TC-DATA-MANAGEMENT-003,Successful reading of plant records,Plant CRUD,"1, 5","- User has at least 2 plant records (e.g., ""Rose"" and ""Sunflower"").
+- User is authenticated.",,"1. User selects ""My Plants"" from the menu.
+2. `DataManager` calls `Lettura Piante`.
+3. `Main` requests plant photos for each species from **Firebase Storage**.
+4. **Firebase Storage** returns URIs for `rose.jpg` and `sunflower.jpg`.
+5. UI displays:
+   - List of plants: ""Rose"", ""Sunflower.""
+   - Thumbnails of associated photos.","- All plant records are displayed with correct names and images.
+- No errors or missing data."
+TC-DATA-MANAGEMENT-004,Failed reading of plant records due to storage issues,Plant CRUD,"1, 5","- User has plant records.
+- Firebase Storage is temporarily unavailable.",,"1. User selects ""My Plants.""
+2. `DataManager` calls `Lettura Piante` → succeeds.
+3. `Main` requests photo URIs from **Firebase Storage**.
+4. Storage request fails (e.g., 404 for one or all photos).","- Plant names are displayed, but thumbnails show a placeholder (e.g., ""Image not available"").
+- No crash or error message for missing images.
+- Data remains functional."
+TC-DIARY-001,Successful insertion of a diary entry,Diary CRUD,1,- User is authenticated.,"- Diary entry: `Date: ""2023-10-15""`, `Notes: ""Watered the plants today.""`, `Plant: ""Sunflower""`.","1. User navigates to ""Add Diary Entry.""
+2. User fills in details and clicks ""Save.""
+3. `DataManager` processes `Inserimento/Modifica Diario`.
+4. Entry is saved to the database.","- Success message: ""Diary entry saved.""
+- Entry appears in the ""Diary"" list.
+- Entry is retrievable via `Lettura Diario`."
+TC-DIARY-002,Failed insertion of a diary entry with invalid date,Diary CRUD,1,- User is authenticated.,"- Diary entry: `Date: ""2023-13-99""`, `Notes: ""Invalid date test.""`.","1. User enters invalid date and clicks ""Save.""
+2. `DataManager` validates the input.","- Error message: ""Invalid date. Please use YYYY-MM-DD format.""
+- Entry is not saved."
+TC-STORAGE-001,Successful retrieval of personal storage path,Firebase Storage,5,"- User is authenticated.
+- Firebase Storage is operational.",,"1. `Main` sends `request personal storage` to **Firebase Storage**.
+2. **Firebase Storage** returns: `/users/{userId}`.
+3. `Main` uses the path to request species-specific photos.","- Path is correctly stored in `Main`.
+- No errors."
+TC-STORAGE-002,Failed retrieval of personal storage path due to permissions,Firebase Storage,5,- User is authenticated but lacks storage read permissions.,,"1. `Main` sends `request personal storage`.
+2. **Firebase Storage** returns 403 (Forbidden).","- Error message: ""Access denied. Contact support.""
+- No further storage operations proceed."
+TC-INTEGRATION-001,End-to-end flow: Upload photo → Identify plant → Save to diary,Full Workflow,"2, 4, 1","- User is authenticated.
+- All services (Firebase, Gemini AI) are operational.","- Photo: `lavender.jpg` (species: ""Lavender"").
+- Diary note: ""Planted lavender in the garden.""","1. User uploads `lavender.jpg`.
+2. **Gemini AI API** identifies species as ""Lavender"" and stores it in Firebase.
+3. User adds a diary entry linking to ""Lavender.""
+4. `DataManager` saves the diary entry with plant reference.
+5. User views the diary entry.","- Photo is stored under `/users/{userId}/species/Lavender/`.
+- Diary entry shows: ""Planted lavender in the garden"" with a clickable ""Lavender"" link.
+- Link navigates to the plant’s details page."
+TC-EDGE-001,Handling of duplicate plant entries,Plant CRUD,1,"- User already has a plant record: ""Rose.""","- Attempt to add another ""Rose"" with identical details.","1. User tries to add a duplicate ""Rose.""
+2. `DataManager` checks for existing records.","- Warning: ""A plant with this name already exists. Would you like to merge notes?""
+- Option to:
+  - Cancel (stay on current screen).
+  - Merge (append notes to existing entry).
+  - Overwrite (replace existing entry)."
+TC-EDGE-002,Offline mode: Caching plant/diary data,Data Persistence,"1, 5","- User has existing plant/diary data.
+- Device goes offline.",,"1. User adds a new plant while offline.
+2. `DataManager` caches the entry locally.
+3. User goes online and syncs data.
+4. `DataManager` pushes cached data to the server.","- Offline entry is saved locally with a sync status icon.
+- After reconnecting, data syncs successfully.
+- Server and local data are consistent."

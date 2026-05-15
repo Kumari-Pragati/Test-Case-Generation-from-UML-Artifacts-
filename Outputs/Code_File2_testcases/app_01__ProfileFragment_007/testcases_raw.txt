@@ -1,0 +1,397 @@
+system
+You are a senior SDET and software test designer. Generate concrete, code-faithful test cases ONLY from the given code context. Do NOT invent features, methods, screens, APIs, or validations not shown. You MUST cover every method in MUST_COVER at least once (1 test per method minimum). If there are UI/CTA signals, include interaction tests relevant to those signals. Output ONLY a valid JSON array. No markdown. No extra text.
+user
+TARGET FILE: Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java
+
+MUST_COVER (ensure each appears in covered_methods at least once):
+- loadUserData
+- logoutUser
+- onCreateView
+- onDestroyView
+- updateUserData
+
+UI/CTA SIGNALS (use if present):
+- ui_action line 46: binding.btnUpdateProfile.setOnClickListener(v -> updateUserData());
+- ui_action line 49: binding.btnLogout.setOnClickListener(v -> logoutUser());
+
+OUTPUT FORMAT (JSON array ONLY; EXACT keys):
+[
+  {
+    "test_case_id": "TC-<Module>-###",
+    "title": "...",
+    "module": "...",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["methodName1","methodName2"],
+    "preconditions": ["..."],
+    "test_data": ["..."],
+    "test_steps": ["..."],
+    "expected_result": ["..."]
+  }
+]
+
+RULES:
+- Keep total test cases <= 60 (merge coverage when needed).
+- Every MUST_COVER method must be in covered_methods somewhere.
+- Steps & expected_result must match code branches, UI actions, and backend outcomes visible.
+- Output ONLY the JSON array.
+
+FEW-SHOT EXAMPLE (how to cover UI + backend from code context):
+
+If code has:
+- Button confirmBt with setOnClickListener
+- Reads EditText newMail + confirmNewMail
+- Branch: empty/mismatch -> Toast error
+- Calls updateUserEmail(email)
+- Backend: getCurrentUser() null -> Toast unauthenticated
+- Backend: verifyBeforeUpdateEmail success -> save SharedPreferences + navigate
+- Backend: verifyBeforeUpdateEmail failure -> Toast failure
+
+Then tests must include covered_methods like:
+["onCreateView","updateUserEmail"] and steps for each branch.
+
+MISSING METHODS FROM PREVIOUS OUTPUT (ADD TESTS FOR THESE NOW):
+- loadUserData
+- logoutUser
+- onCreateView
+- onDestroyView
+- updateUserData
+
+CONTEXT:
+FILE: Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java
+LANG: java
+
+CLASSES:
+- ProfileFragment (Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:31-31)
+
+METHODS (must be covered):
+- onCreateView | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:36-36
+  sig: public View onCreateView(@NonNull LayoutInflater inflater,                              ViewGroup container, Bundle savedInstanceState) {         binding = FragmentProfileBinding.inflate(inflater, container, false);     
+- loadUserData | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:52-52
+  sig: private void loadUserData() {         // Recupera l'user_id dalle SharedPreferences         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);         S
+- updateUserData | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:101-101
+  sig: private void updateUserData() {         String fullName = binding.etProfileName.getText().toString().trim();         String email = binding.etProfileEmail.getText().toString().trim();         String password = binding.et
+- logoutUser | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:163-163
+  sig: private void logoutUser() {         // Rimuovi l'user_id dalle SharedPreferences         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);         Shar
+- onDestroyView | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:178-178
+  sig: public void onDestroyView() {         super.onDestroyView();         binding = null;     } }
+
+UI / CTA / INPUT SIGNALS:
+- ui_action onClick | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:46 | binding.btnUpdateProfile.setOnClickListener(v -> updateUserData());
+- ui_action onClick | Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java:49 | binding.btnLogout.setOnClickListener(v -> logoutUser());
+
+CODE (snippet):
+package com.example.ecodriving.ui.Profile;
+
+import static com.example.ecodriving.MainActivity.ip;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.example.ecodriving.LoginActivity;
+import com.example.ecodriving.databinding.FragmentProfileBinding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class ProfileFragment extends Fragment {
+
+    private FragmentProfileBinding binding;
+    private OkHttpClient client = new OkHttpClient();
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        // Carica i dati utente quando la pagina viene creata
+        loadUserData();
+
+        // Bottone per aggiornare i dati del profilo
+        binding.btnUpdateProfile.setOnClickListener(v -> updateUserData());
+
+        // Bottone per disconnettersi
+        binding.btnLogout.setOnClickListener(v -> logoutUser());
+
+        return root;
+    }
+
+    private void loadUserData() {
+        // Recupera l'user_id dalle SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("user_id", null);
+
+        if (userId == null) {
+            Toast.makeText(getActivity(), "Errore: utente non loggato", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Invia una richiesta GET per recuperare i dati dell'utente
+        new Thread(() -> {
+            Request request = new Request.Builder()
+                    .url("http://"+ip+":8081/api/getUserData?user_id=" + userId)
+                    .get()
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject userData = new JSONObject(responseData);
+
+                    // Popola i campi di input nel thread principale
+                    getActivity().runOnUiThread(() -> {
+                        try {
+                            binding.etProfileName.setText(userData.getString("full_name"));
+                            binding.etProfileEmail.setText(userData.getString("email"));
+                            binding.etProfilePassword.setText(userData.getString("password"));
+                            binding.etCarBrand.setText(userData.getString("car_brand"));
+                            binding.etCO2Emission.setText(userData.getString("co2_emission"));
+                            binding.etFuelType.setText(userData.getString("fuel_type"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } else {
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getActivity(), "Errore durante il recupero dei dati", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                getActivity().runOnUiThread(() -> {
+                    Toast.makeText(getActivity(), "Errore di connessione", Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
+    }
+
+    private void updateUserData() {
+        String fullName = binding.etProfileName.getText().toString().trim();
+        String email = binding.etProfileEmail.getText().toString().trim();
+        String password = binding.etProfilePassword.getText().toString().trim();
+        String carBrand = binding.etCarBrand.getText().toString().trim();
+        String co2Emission = binding.etCO2Emission.getText().toString().trim();
+        String fuelType = binding.etFuelType.getText().toString().trim();
+
+        // Controllo validità email
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(getActivity(), "Inserisci un'email valida", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("user_id", null);
+
+        if (userId == null) {
+            Toast.makeText(getActivity(), "Errore: utente non loggato", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("user_id", userId);
+            postData.put("full_name", fullName);
+            postData.put("newEmail", email);
+            postData.put("newPassword", password);
+            postData.put("car_brand", carBrand);
+            postData.put("co2_emission", co2Emission);
+            postData.put("fuel_type", fuelType);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new Thread(() -> {
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody body = RequestBody.create(postData.toString(), JSON);
+            Request request = new Request.Builder()
+                    .url("http://" + ip + ":8081/api/updateUser")
+                    .post(body)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getActivity(), "Profilo aggiornato con successo", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    getActivity().runOnUiThread(() -> {
+                        Toast.makeText(getActivity(), "Errore durante l'aggiornamento", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                getActivity().runOnUiThread(() -> {
+                    Toast.makeText(getActivity(), "Errore di connessione", Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
+    }
+
+
+    private void logoutUser() {
+        // Rimuovi l'user_id dalle SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("user_id");
+        editor.apply();
+
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+}
+assistant
+```json
+[
+  {
+    "test_case_id": "TC-Profile-001",
+    "title": "Load user data successfully",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["loadUserData"],
+    "preconditions": ["User is logged in and user_id exists in SharedPreferences"],
+    "test_data": [],
+    "test_steps": [
+      "Simulate loading user data by setting up mock SharedPreferences with a valid user_id.",
+      "Call loadUserData() method."
+    ],
+    "expected_result": [
+      "Toast message 'Errore: utente non loggato' should not appear.",
+      "All profile fields should be populated with mock user data."
+    ]
+  },
+  {
+    "test_case_id": "TC-Profile-002",
+    "title": "Load user data fails due to missing user_id",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["loadUserData"],
+    "preconditions": ["User is not logged in and no user_id exists in SharedPreferences"],
+    "test_data": [],
+    "test_steps": [
+      "Simulate loading user data by setting up mock SharedPreferences without a user_id.",
+      "Call loadUserData() method."
+    ],
+    "expected_result": [
+      "Toast message 'Errore: utente non loggato' should appear.",
+      "No profile fields should be populated."
+    ]
+  },
+  {
+    "test_case_id": "TC-Profile-003",
+    "title": "Update user data successfully",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["updateUserData"],
+    "preconditions": ["User is logged in and all required fields are filled correctly"],
+    "test_data": [
+      {"fullName": "John Doe"},
+      {"email": "john.doe@example.com"},
+      {"password": "password123"},
+      {"carBrand": "Toyota"},
+      {"co2Emission": "120"},
+      {"fuelType": "Petrol"}
+    ],
+    "test_steps": [
+      "Fill all required fields in the profile form with valid data.",
+      "Click on the 'Aggiorna Profilo' button."
+    ],
+    "expected_result": [
+      "Toast message 'Profilo aggiornato con successo' should appear.",
+      "No errors or exceptions should occur."
+    ]
+  },
+  {
+    "test_case_id": "TC-Profile-004",
+    "title": "Update user data fails due to invalid email format",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["updateUserData"],
+    "preconditions": ["User is logged in and an invalid email is entered"],
+    "test_data": [
+      {"email": "invalid-email"}
+    ],
+    "test_steps": [
+      "Enter an invalid email address in the email field.",
+      "Click on the 'Aggiorna Profilo' button."
+    ],
+    "expected_result": [
+      "Toast message 'Inserisci un'email valida' should appear.",
+      "No other errors or exceptions should occur."
+    ]
+  },
+  {
+    "test_case_id": "TC-Profile-005",
+    "title": "Update user data fails due to missing user_id",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["updateUserData"],
+    "preconditions": ["User is not logged in and no user_id exists in SharedPreferences"],
+    "test_data": [],
+    "test_steps": [
+      "Simulate updating user data by setting up mock SharedPreferences without a user_id.",
+      "Call updateUserData() method."
+    ],
+    "expected_result": [
+      "Toast message 'Errore: utente non loggato' should appear.",
+      "No other errors or exceptions should occur."
+    ]
+  },
+  {
+    "test_case_id": "TC-Profile-006",
+    "title": "Logout user successfully",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["logoutUser"],
+    "preconditions": ["User is logged in"],
+    "test_data": [],
+    "test_steps": [
+      "Click on the 'Disconnettiti' button."
+    ],
+    "expected_result": [
+      "Intent to LoginActivity should start.",
+      "Current activity should finish.",
+      "SharedPreferences should have 'user_id' removed."
+    ]
+  },
+  {
+    "test_case_id": "TC-Profile-007",
+    "title": "OnDestroyView cleans up properly",
+    "module": "ProfileFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/Profile/ProfileFragment.java"],
+    "covered_methods": ["onDestroyView"],
+    "preconditions": ["Fragment is created and attached to an activity"],
+    "test_data": [],
+    "test_steps": [
+      "Attach the fragment to an activity.",
+      "Call onDestroyView() method."
+    ],
+    "expected_result": [
+      "binding should be set to null."
+    ]
+  }
+]
+```

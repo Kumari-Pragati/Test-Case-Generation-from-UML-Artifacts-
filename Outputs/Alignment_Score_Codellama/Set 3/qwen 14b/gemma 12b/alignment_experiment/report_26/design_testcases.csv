@@ -1,0 +1,106 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User logs in successfully","Login","1, 8","User account exists and is active","Valid username: ""testuser"", valid password: ""password123""","1. Navigate to the login page.
+2. Enter the username ""testuser"".
+3. Enter the password ""password123"".
+4. Click the login button.","User is redirected to the home page."
+"TC-Login-002","User logs in with invalid credentials","Login","1, 8","User account exists but is inactive","Invalid username: ""testuser"", invalid password: ""wrongpassword""","1. Navigate to the login page.
+2. Enter the username ""testuser"".
+3. Enter the password ""wrongpassword"".
+4. Click the login button.","Error message is displayed indicating incorrect credentials."
+"TC-Login-003","User logs out","Login","1","User is logged in","N/A","1. Navigate to the home page.
+2. Click the logout button.","User is redirected to the login page."
+"TC-Registration-001","User registers successfully","Registration","1, 7","User does not have an existing account","New username: ""newuser"", valid password: ""password123"", valid email: ""newuser@example.com""","1. Navigate to the registration page.
+2. Enter the username ""newuser"".
+3. Enter the password ""password123"".
+4. Enter the email ""newuser@example.com"".
+5. Accept the privacy document.
+6. Click the register button.","User is redirected to the home page."
+"TC-Registration-002","User tries to register with an existing username","Registration","1, 7","User account with username ""existinguser"" exists","Username: ""existinguser"", valid password: ""password123"", valid email: ""newuser@example.com""","1. Navigate to the registration page.
+2. Enter the username ""existinguser"".
+3. Enter the password ""password123"".
+4. Enter the email ""newuser@example.com"".
+5. Accept the privacy document.
+6. Click the register button.","Error message is displayed indicating the username is already taken."
+"TC-Home-001","User views exchange proposals","Home","2","User is logged in","N/A","1. Navigate to the home page.
+2. Click on the ""Exchange Proposals"" option.
+3. Check if there are any proposals listed.","List of exchange proposals is displayed."
+"TC-Home-002","User views detailed proposal","Home","2","User is logged in and there are proposals listed","Proposal ID: 123","1. Navigate to the home page.
+2. Click on the ""Exchange Proposals"" option.
+3. Click on the proposal with ID 123.
+4. Accept the proposal.","User is redirected to the home page with the updated proposal list."
+"TC-Berries-001","User reports berries and inserts a new entry","Berries","3","User is logged in","Berry name: ""Blueberry"", quantity: 10","1. Navigate to the home page.
+2. Click on the ""Berries"" option.
+3. Click on the ""Report Berries"" button.
+4. Enter the berry name ""Blueberry"".
+5. Enter the quantity ""10"".
+6. Click the ""Insert"" button.","User is redirected to the home page with a success message."
+"TC-Berries-002","User reports berries and deletes an entry","Berries","3","User is logged in and has previously reported berries","Berry name: ""Blueberry"", quantity: 10","1. Navigate to the home page.
+2. Click on the ""Berries"" option.
+3. Click on the ""Report Berries"" button.
+4. Click on the ""Delete"" button for the entry with berry name ""Blueberry"".
+5. Confirm the deletion.","User is redirected to the home page with a success message."
+"TC-SavedElements-001","User views saved elements","Saved Elements","6","User is logged in and has saved elements","Element ID: 123","1. Navigate to the home page.
+2. Click on the ""Saved Elements"" option.
+3. Check if there are any elements listed.","List of saved elements is displayed."
+"TC-SavedElements-002","User removes a saved element","Saved Elements","6","User is logged in and has saved elements","Element ID: 123","1. Navigate to the home page.
+2. Click on the ""Saved Elements"" option.
+3. Click on the element with ID 123.
+4. Click the ""Remove"" button.
+5. Confirm the removal.","User is redirected to the home page with a success message."
+"TC-Offers-001","User views offers","Offers","4","User is logged in","Offer ID: 123","1. Navigate to the home page.
+2. Click on the ""Offers"" option.
+3. Check if there are any offers listed.","List of offers is displayed."
+"TC-Offers-002","User applies filters to view offers","Offers","4","User is logged in and there are offers listed","Filter criteria: Category: ""Electronics""","1. Navigate to the home page.
+2. Click on the ""Offers"" option.
+3. Apply the filter for category ""Electronics"".
+4. Check if the filtered offers are displayed.","List of offers matching the filter criteria is displayed."
+"TC-UserProfile-001","User views and modifies personal information","UserProfile","5, 17","User is logged in","New email: ""newemail@example.com""","1. Navigate to the home page.
+2. Click on the ""View Profile"" option.
+3. Click on the ""Modify Personal Info"" button.
+4. Enter the new email ""newemail@example.com"".
+5. Click the ""Save"" button.","User is redirected to the home page with a success message."
+"TC-UserProfile-002","User modifies personal information with invalid data","UserProfile","5, 17","User is logged in","Invalid email: ""invalidemail""","1. Navigate to the home page.
+2. Click on the ""View Profile"" option.
+3. Click on the ""Modify Personal Info"" button.
+4. Enter the invalid email ""invalidemail"".
+5. Click the ""Save"" button.","Error message is displayed indicating invalid email format."
+"TC-InsertNewItem-001","User inserts a new item successfully","InsertNewItem","10","User is logged in","Item name: ""New Item"", description: ""This is a new item.""","1. Navigate to the home page.
+2. Click on the ""Insert New Item"" button.
+3. Provide an image (optional).
+4. Enter the item name ""New Item"".
+5. Enter the description ""This is a new item.""
+6. Click the ""Insert"" button.","User is redirected to the home page with the new item added to the list."
+"TC-InsertNewItem-002","User inserts a new item without providing an image","InsertNewItem","10","User is logged in","Item name: ""New Item"", description: ""This is a new item.""","1. Navigate to the home page.
+2. Click on the ""Insert New Item"" button.
+3. Skip providing an image.
+4. Enter the item name ""New Item"".
+5. Enter the description ""This is a new item.""
+6. Click the ""Insert"" button.","User is redirected to the home page with the new item added to the list."
+"TC-DeleteItem-001","User deletes an item successfully","DeleteItem","11","User is logged in and has items listed","Item ID: 123","1. Navigate to the home page.
+2. Click on the ""Delete Item"" button for the item with ID 123.
+3. Confirm the deletion.","User is redirected to the home page with the item removed from the list."
+"TC-DeleteItem-002","User cancels the deletion of an item","DeleteItem","11","User is logged in and has items listed","Item ID: 123","1. Navigate to the home page.
+2. Click on the ""Delete Item"" button for the item with ID 123.
+3. Cancel the deletion.","User remains on the current page with the item still listed."
+"TC-ExploreOffers-001","User explores offers","ExploreOffers","12","User is logged in","N/A","1. Navigate to the home page.
+2. Click on the ""Explore Offers"" option.
+3. Check if there are any offers listed.","List of offers is displayed."
+"TC-ProposeExchange-001","User proposes a new exchange","ProposeExchange","13","User is logged in","Exchange item: ""Old Phone"", description: ""This is an old phone.""","1. Navigate to the home page.
+2. Click on the ""Propose New Exchange"" button.
+3. Enter the exchange item ""Old Phone"".
+4. Enter the description ""This is an old phone.""
+5. Click the ""Propose"" button.","User is redirected to the home page with the proposed exchange added to the list."
+"TC-ProposeExchange-002","User accepts an exchange proposal","ProposeExchange","15","User is logged in and has exchange proposals listed","Proposal ID: 123","1. Navigate to the home page.
+2. Click on the ""Exchanges"" option.
+3. Click on the proposal with ID 123.
+4. Click the ""Accept"" button.
+5. Confirm the acceptance.","User is redirected to the home page with the updated exchange list."
+"TC-ProposeExchange-003","User rejects an exchange proposal","ProposeExchange","15","User is logged in and has exchange proposals listed","Proposal ID: 123","1. Navigate to the home page.
+2. Click on the ""Exchanges"" option.
+3. Click on the proposal with ID 123.
+4. Click the ""Reject"" button.
+5. Confirm the rejection.","User is redirected to the home page with the updated exchange list."
+"TC-FilterOffers-001","User filters offers successfully","FilterOffers","16","User is logged in and has offers listed","Filter criteria: Category: ""Electronics""","1. Navigate to the home page.
+2. Click on the ""Offers"" option.
+3. Apply the filter for category ""Electronics"".
+4. Check if the filtered offers are displayed.","List of offers matching the filter criteria is displayed."

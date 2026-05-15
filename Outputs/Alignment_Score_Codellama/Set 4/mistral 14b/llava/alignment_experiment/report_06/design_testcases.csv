@@ -1,0 +1,94 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTH-001,Successful User Login with Valid Credentials,User Authentication,"1, 3, 4","- Database contains a user record with `username=""testuser""` and `password=""secure123""`.
+- Server is running and connected to the database.","- `username=""testuser""`, `password=""secure123""`","1. User calls `login(username, password)` with valid credentials.
+2. Server receives the request and calls `handleLogin(username, password)`.
+3. Server queries the database with `query(""SELECT * FROM users WHERE username='testuser'"")`.
+4. Database returns a matching record.
+5. Server validates the password and returns `true` to the user.
+6. User receives `true` and proceeds.","- User is authenticated (`login()` returns `true`).
+- No errors in server/database logs.
+- User session is active (implicitly tracked by the system)."
+TC-USER-AUTH-002,Failed User Login with Invalid Password,User Authentication,"3, 4","- Database contains a user record with `username=""testuser""` and `password=""secure123""`.","- `username=""testuser""`, `password=""wrongpass""`","1. User calls `login(username, password)` with invalid password.
+2. Server queries the database and retrieves the user record.
+3. Server compares passwords and returns `false`.
+4. User receives `false`.","- `login()` returns `false`.
+- No session is created.
+- No database errors or warnings."
+TC-USER-AUTH-003,Failed User Login with Non-Existent Username,User Authentication,"3, 4","- Database contains no user with `username=""nonexistent""`.","- `username=""nonexistent""`, `password=""anything""`","1. User calls `login(username, password)` with non-existent username.
+2. Server queries the database with `query(""SELECT * FROM users WHERE username='nonexistent'"")`.
+3. Database returns an empty result set.
+4. Server returns `false` to the user.","- `login()` returns `false`.
+- No session is created.
+- No database errors."
+TC-USER-AUTH-004,User Logout After Successful Login,User Authentication,"1, 3",- User is logged in (from TC-USER-AUTH-001).,,"1. User calls `logout()`.
+2. Server acknowledges the logout request (implicitly via `handleLogout()`).
+3. User session is terminated.","- `logout()` executes without errors.
+- User is no longer authenticated (session invalidated).
+- No further requests from this user are processed until re-login."
+TC-ADMIN-MGMT-001,Admin Adds a New User (Valid Input),User Management,1,"- Admin is logged in (assumed via prior auth).
+- Database is empty or contains no user with `email=""newuser@example.com""`.","- `name=""New User""`, `email=""newuser@example.com""`, `age=25`","1. Admin calls `addUser()` with valid user details.
+2. System validates input (e.g., non-empty fields, valid email format).
+3. Database inserts the new user record.
+4. Admin receives confirmation (e.g., success message or `true`).","- New user record exists in the database.
+- `addUser()` returns success (no exception).
+- Admin can now see the new user in their list (if applicable)."
+TC-ADMIN-MGMT-002,Admin Adds a User with Invalid Email Format,User Management,1,- Admin is logged in.,"- `name=""Invalid User""`, `email=""not-an-email""`, `age=30`","1. Admin calls `addUser()` with invalid email.
+2. System validates the email format and rejects the input.
+3. Database receives no insert request.
+4. Admin receives an error (e.g., `false` or exception).","- No new user record is created.
+- `addUser()` returns failure (e.g., `false` or throws `InvalidInputException`).
+- Error message indicates invalid email format."
+TC-ADMIN-MGMT-003,Admin Removes an Existing User,User Management,1,"- Database contains a user with `email=""user_to_remove@example.com""`.
+- Admin is logged in.","- `email=""user_to_remove@example.com""`","1. Admin calls `removeUser(email)` with the target user’s email.
+2. System queries the database to confirm the user exists.
+3. Database deletes the user record.
+4. Admin receives confirmation.","- User record is deleted from the database.
+- `removeUser()` returns success.
+- No orphaned references or errors in the database."
+TC-ADMIN-MGMT-004,Admin Attempts to Remove Non-Existent User,User Management,1,"- Database contains no user with `email=""nonexistent@example.com""`.
+- Admin is logged in.","- `email=""nonexistent@example.com""`","1. Admin calls `removeUser(email)` with a non-existent email.
+2. System queries the database and finds no match.
+3. Database receives no delete request.
+4. Admin receives an error (e.g., `false` or ""User not found"").","- No user record is deleted.
+- `removeUser()` returns failure with a clear message.
+- No database errors."
+TC-DATABASE-QUERY-001,Server Handles Successful Database Query,Database Interaction,"3, 4","- Database contains a table `users` with at least one record.
+- Server is connected to the database.","- `query=""SELECT * FROM users WHERE age > 18""`","1. User sends a query to the database via the server.
+2. Server calls `Database.query(query)`.
+3. Database executes the query and returns a `ResultSet` with 1+ rows.
+4. Server processes the result and returns it to the user.","- Query executes without errors.
+- Server returns the full `ResultSet` to the user.
+- No timeouts or connection issues."
+TC-DATABASE-QUERY-002,Server Handles Malformed SQL Query,Database Interaction,"3, 4",- Server is connected to the database.,"- `query=""SELECT * FROM users WHERE age >""` (incomplete)","1. User sends a malformed query to the server.
+2. Server attempts to call `Database.query(query)`.
+3. Database rejects the query due to syntax error.
+4. Server catches the exception and returns an error to the user.","- Query fails with a database error (e.g., `SQLException`).
+- Server returns a user-friendly error (e.g., ""Invalid query syntax"").
+- No partial execution or data corruption."
+TC-DATABASE-QUERY-003,Server Handles Database Connection Failure,Database Interaction,"3, 4",- Database server is down or unreachable.,"- Any valid query (e.g., `query=""SELECT 1""`).","1. User sends a query to the server.
+2. Server attempts to call `Database.query(query)`.
+3. Database connection times out or fails.
+4. Server catches the exception and notifies the user.","- Query fails with a connection error.
+- Server returns a clear message (e.g., ""Database unavailable. Retry later."").
+- No infinite retries or crashes."
+TC-INTEGRATION-001,End-to-End User Login Flow with Admin Interaction,System Integration,"1, 3, 4","- Database is empty.
+- Admin is logged in (assumed).",,"1. Admin adds a new user via `addUser()` with `email=""testuser@example.com""`.
+2. New user attempts to `login()` with `email=""testuser@example.com""` and `password=""pass123""`.
+3. Server validates credentials and authenticates the user.
+4. User logs out via `logout()`.
+5. Admin removes the user via `removeUser(email)`.","- User is added, logged in, logged out, and removed successfully.
+- All operations return success at each step.
+- No conflicts or data leaks (e.g., removed user cannot log in afterward)."
+TC-EDGE-001,Concurrent User Login Attempts (Race Condition),Edge Cases,"3, 4","- Database contains a user with `username=""shareduser""` and `password=""pass""`.
+- Two users attempt to log in simultaneously.",,"1. User A calls `login(""shareduser"", ""pass"")`.
+2. User B calls `login(""shareduser"", ""pass"")` at the same time.
+3. Server processes both requests (assume no built-in concurrency control).
+4. Database handles duplicate queries (e.g., returns the same record twice).
+5. Server validates both requests and returns results.","- Only one user is authenticated (assuming single-session-per-user).
+- The other user receives `false` (e.g., ""User already logged in"").
+- No deadlocks or database errors."
+TC-EDGE-002,Empty or Null Inputs in User Operations,Edge Cases,"1, 3",- Admin is logged in.,"- `name=null`, `email=""""`, `age=0` (for `addUser()`).
+- `username=null`, `password=null` (for `login()`).","1. Admin calls `addUser()` with all null/empty fields.
+2. User calls `login()` with null credentials.","- `addUser()` rejects input with an error (e.g., ""Name and email required"").
+- `login()` rejects input with an error (e.g., ""Credentials cannot be empty"").
+- No null pointer exceptions or crashes."

@@ -1,0 +1,81 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-DataManager-001","Create Plant Record","DataManager","1","None","id=1, plantName=""Rose"", plantType=""Flower""","1. Invoke create() method on DataManager with provided data.
+2. Verify that the record is created successfully.","Plant record with id=1, plantName=""Rose"", plantType=""Flower"" is created in the database."
+"TC-DataManager-002","Read Plant Record","DataManager","1","Plant record exists with id=1","id=1","1. Invoke read() method on DataManager with id=1.
+2. Verify that the correct plant record is returned.","Plant record with id=1, plantName=""Rose"", plantType=""Flower"" is returned."
+"TC-DataManager-003","Update Plant Record","DataManager","1","Plant record exists with id=1","id=1, plantName=""Tulip"", plantType=""Flower""","1. Invoke update() method on DataManager with updated data.
+2. Verify that the record is updated successfully.","Plant record with id=1, plantName=""Tulip"", plantType=""Flower"" is updated in the database."
+"TC-DataManager-004","Delete Plant Record","DataManager","1","Plant record exists with id=1","id=1","1. Invoke delete() method on DataManager with id=1.
+2. Verify that the record is deleted successfully.","Plant record with id=1 is deleted from the database."
+"TC-DataManager-005","Insert Diary Entry","DataManager","1","None","id=1, diaryName=""Garden Journal"", diaryType=""Daily""","1. Invoke insert() method on Inserimento/Modifica Diario with provided data.
+2. Verify that the entry is inserted successfully.","Diary entry with id=1, diaryName=""Garden Journal"", diaryType=""Daily"" is created in the database."
+"TC-DataManager-006","Read Diary Entry","DataManager","1","Diary entry exists with id=1","id=1","1. Invoke read() method on Lettura Diario with id=1.
+2. Verify that the correct diary entry is returned.","Diary entry with id=1, diaryName=""Garden Journal"", diaryType=""Daily"" is returned."
+"TC-DataManager-007","Modify Diary Entry","DataManager","1","Diary entry exists with id=1","id=1, diaryName=""Garden Notes"", diaryType=""Weekly""","1. Invoke modify() method on Inserimento/Modifica Diario with updated data.
+2. Verify that the entry is modified successfully.","Diary entry with id=1, diaryName=""Garden Notes"", diaryType=""Weekly"" is updated in the database."
+"TC-DataManager-008","Delete Diary Entry","DataManager","1","Diary entry exists with id=1","id=1","1. Invoke delete() method on DataManager with id=1.
+2. Verify that the entry is deleted successfully.","Diary entry with id=1 is deleted from the database."
+"TC-DataManager-009","User Information Insertion","DataManager","1","None","id=1, username=""john_doe"", email=""john@example.com""","1. Invoke insert() method on Informazioni Utente with provided data.
+2. Verify that the user information is inserted successfully.","User information with id=1, username=""john_doe"", email=""john@example.com"" is created in the database."
+"TC-DataManager-010","User Information Modification","DataManager","1","User information exists with id=1","id=1, username=""johndoe"", email=""johndoe@example.com""","1. Invoke modify() method on Informazioni Utente with updated data.
+2. Verify that the user information is modified successfully.","User information with id=1, username=""johndoe"", email=""johndoe@example.com"" is updated in the database."
+"TC-DataManager-011","Access Operation Execution","DataManager","1","None","id=1, operationType=""Login""","1. Invoke execute() method on Operazioni di Accesso with provided data.
+2. Verify that the operation is executed successfully.","Access operation with id=1, operationType=""Login"" is recorded in the database."
+"TC-Home-001","Access Home Page","Home","2","User is authenticated","None","1. Navigate to the Home page.
+2. Verify that the page loads correctly.","Home page is displayed with options to view my plants and photos."
+"TC-Diario-001","Access Diary Page","Diario","2","User is authenticated","None","1. Navigate to the Diario page.
+2. Verify that the page loads correctly.","Diary page is displayed with options to view my plants and photos."
+"TC-AnabliPianta-001","Access Anabli Pianta Page","Anabli Pianta","2","User is authenticated","None","1. Navigate to the Anabli Pianta page.
+2. Verify that the page loads correctly.","Anabli Pianta page is displayed with options to view my plants and photos."
+"TC-LeMiePiantle-001","Access My Plants Page","Le mie piantle","2","User is authenticated","None","1. Navigate to the Le mie piantle page.
+2. Verify that the page loads correctly.","My Plants page is displayed with options to view my plants and photos."
+"TC-Fotocamera-001","Take Photo","Fotocamera","2","User is authenticated","None","1. Navigate to the Fotocamera page.
+2. Click on the take photo button.
+3. Verify that the photo is taken and saved.","A photo is taken and saved successfully."
+"TC-Authentication-001","Sign Out","Authentication","2","User is authenticated","None","1. Navigate to the Authentication page.
+2. Click on the sign out button.
+3. Verify that the user is signed out.","User is signed out successfully."
+"TC-GeminiAI-001","Ask Text Query","Gemini AI","2","User is authenticated","query=""What is the weather today?""","1. Navigate to the Gemini AI page.
+2. Enter the query ""What is the weather today?"".
+3. Submit the query.
+4. Verify that the response is received.","Response to the query is received and displayed."
+"TC-GeminiAI-002","Ask Text Query with Image","Gemini AI","2","User is authenticated","query=""Identify this plant"", image=uploaded_image","1. Navigate to the Gemini AI page.
+2. Upload an image.
+3. Enter the query ""Identify this plant"".
+4. Submit the query.
+5. Verify that the response is received.","Response to the query is received and displayed along with the uploaded image."
+"TC-SharedPreference-001","Set Preference","Shared Preference","2","User is authenticated","preference=""dark_mode=true""","1. Navigate to the Shared Preference page.
+2. Set the preference ""dark_mode=true"".
+3. Verify that the preference is set successfully.","Preference ""dark_mode=true"" is set successfully."
+"TC-FirebaseStorageManager-001","Upload Image","Firebase/Storage/Manager","2","User is authenticated","image=uploaded_image","1. Navigate to the Firebase/Storage/Manager page.
+2. Upload an image.
+3. Verify that the image is uploaded successfully.","Image is uploaded successfully and the URL is returned."
+"TC-TokenRequest-001","Request Token","Main","3","None","None","1. Main component requests token.
+2. LocalUser component receives token request.
+3. LocalUser component sends token request to Authentication component.
+4. Authentication component processes token request and sends token back to LocalUser component.
+5. LocalUser component sends token back to Main component.
+6. Main component confirms completion of authentication process.","Token is successfully requested and authentication process is completed."
+"TC-NewPhotoUpload-001","Upload New Species Photo","Main","4","User is authenticated","newFoto=uploaded_photo","1. Main component initiates new photo upload.
+2. Main component sends new photo to Gemini AI API for species identification.
+3. Gemini AI API identifies the species and returns the result.
+4. Main component inserts the identified species into Firebase Storage.
+5. Main component confirms the insertion.
+6. Main component uploads the new photo to the correct folder in Firebase Storage.
+7. Main component downloads the URL of the uploaded photo.","New species photo is uploaded successfully, species is identified, and URL is downloaded."
+"TC-PersonalStorageRequest-001","Request Personal Storage","Main","5","User is authenticated","None","1. Main component requests personal storage from Firebase Storage.
+2. Firebase Storage provides personal storage details.
+3. Main component requests photos for each species present.
+4. Firebase Storage provides URLs for each requested photo.","Personal storage details and photo URLs are retrieved successfully."
+"TC-PersonalStorageRequest-002","Request Photos for Each Species","Main","5","User is authenticated, personal storage details are available","None","1. Main component requests photos for each species present from Firebase Storage.
+2. Firebase Storage provides URLs for each requested photo.","URLs for each requested photo are retrieved successfully."
+"TC-PersonalStorageRequest-003","Download Photo URLs","Main","5","User is authenticated, personal storage details and photo URLs are available","None","1. Main component downloads the URLs of each requested photo from Firebase Storage.","Photo URLs are downloaded successfully."
+"TC-TokenRequest-002","Invalid Token Request","Main","3","None","None","1. Main component requests token.
+2. LocalUser component receives token request.
+3. LocalUser component sends invalid token request to Authentication component.
+4. Authentication component rejects the invalid token request.
+5. LocalUser component reports failure to Main component.","Token request fails due to invalid token."
+"TC-NewPhotoUpload-002","Failed Species Identification","Main","4","User is authenticated","newFoto=uploaded_photo","1. Main component initiates new photo upload.
+2. Main component sends new photo to Gemini AI API for species identification.
+3. Gemini AI API fails to identify the species.
+4. Main component handles the failure and reports it.","Species identification fails and error is reported."

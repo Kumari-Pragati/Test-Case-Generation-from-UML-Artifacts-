@@ -1,0 +1,126 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration via Firebase Authentication,Authentication,1,"- Firebase Authentication service is active.
+- User is not already registered.","- Valid nickname: `""user123""`
+- Valid password: `""SecurePass123!""`
+- Valid email (if required): `""user123@example.com""`","1. Local user attempts to register with provided credentials.
+2. Data Organizer forwards registration request to Firebase Authentication.
+3. Firebase Authentication validates credentials and creates a new user.
+4. User object is stored in Firebase Database with default values (`score=0`, `tokens=0`).","- User account is created successfully.
+- User receives confirmation (e.g., toast message: ""Registration successful"").
+- User object is persisted in Firebase Database with correct attributes."
+TC-AUTHENTICATION-002,Failed user registration with invalid password,Authentication,1,- Firebase Authentication service is active.,"- Valid nickname: `""user123""`
+- Invalid password: `""weak""` (does not meet complexity rules)","1. Local user attempts to register with weak password.
+2. Data Organizer forwards request to Firebase Authentication.
+3. Firebase Authentication rejects request due to weak password.","- Error message displayed: ""Password must be at least 8 characters with uppercase, lowercase, and special character.""
+- User account is **not** created."
+TC-AUTHENTICATION-003,User login with valid credentials,Authentication,1,"- User `""user123""` is pre-registered in Firebase Authentication.","- Nickname: `""user123""`
+- Password: `""SecurePass123!""`","1. Local user enters credentials and clicks ""Login.""
+2. Data Organizer validates credentials via Firebase Authentication.
+3. Authentication service returns a valid session token.
+4. User object is fetched from Firebase Database and cached locally.","- User is logged in successfully.
+- Local user session is established (e.g., UI shows logged-in state).
+- User data (e.g., `nickname`, `score`) is displayed in Data Display."
+TC-AUTHENTICATION-004,Failed login with incorrect password,Authentication,1,"- User `""user123""` exists with password `""SecurePass123!""`.","- Nickname: `""user123""`
+- Incorrect password: `""WrongPass123""`","1. Local user enters incorrect password and clicks ""Login.""
+2. Data Organizer forwards request to Firebase Authentication.
+3. Authentication service rejects request.","- Error message displayed: ""Invalid nickname or password.""
+- User remains logged out."
+TC-DATA-ORGANIZER-001,Data Organizer fetches user data from Firebase Database,Data Organizer,"1, 2","- User `""user123""` exists in Firebase Database with `score=42.5` and `tokens=10`.
+- User is logged in.",,"1. Local user requests profile data (e.g., clicks ""View Profile"").
+2. Data Organizer queries Firebase Database for user data.
+3. Firebase Database returns user object.
+4. Data Organizer parses and caches user data locally.","- User profile displays correct data:
+  - Nickname: `""user123""`
+  - Score: `42.5`
+  - Tokens: `10`
+- No errors or loading timeouts."
+TC-DATA-ORGANIZER-002,Data Organizer fails to fetch user data (network error),Data Organizer,1,"- User is logged in.
+- Device is in offline mode (no internet connection).",,"1. Local user requests profile data.
+2. Data Organizer attempts to query Firebase Database.
+3. Network request times out after 10 seconds.","- Error message displayed: ""Failed to load data. Please check your connection.""
+- Local user can retry or see cached data (if available)."
+TC-CHAT-001,Create a new chat between two users,Chat,2,"- Users `""user1""` and `""user2""` exist in the system.
+- Both users are logged in.","- `usr1 = 1` (user1’s ID)
+- `usr2 = 2` (user2’s ID)","1. User1 initiates a chat with User2 via Data Display.
+2. Data Organizer creates a new `Chat` object with:
+   - `id` (auto-incremented, e.g., `1001`)
+   - `usr1 = 1`
+   - `usr2 = 2`
+3. Data Organizer creates a `Relation` object linking the chat to both users.
+4. Chat object is saved to Firebase Realtime Database.","- Chat is created successfully.
+- Both users see the new chat in their chat list.
+- Chat `id=1001` exists in Firebase with correct `usr1` and `usr2`."
+TC-CHAT-002,Send a message in an existing chat,Chat,"2, 3","- Chat with `id=1001` exists between `usr1=1` and `usr2=2`.
+- User1 is logged in.","- `chat_id = 1001`
+- `receiver = 2`
+- `text = ""Hello!""`
+- `timestamp = ""2023-10-01T12:00:00Z""`","1. User1 sends a message `""Hello!""` in chat `1001`.
+2. Data Organizer creates a new `Message` object with:
+   - Auto-generated `id` (e.g., `5001`)
+   - `chat_id = 1001`
+   - `receiver = 2`
+   - `text = ""Hello!""`
+   - `timestamp = current UTC time`
+3. Message is saved to Firebase Realtime Database under `/chats/1001/messages/5001`.","- Message appears in both users' chat threads.
+- Firebase Realtime Database contains the message with correct metadata.
+- No duplicates or missing fields."
+TC-CHAT-003,Send a message with empty text (edge case),Chat,2,"- Chat with `id=1001` exists.
+- User1 is logged in.","- `chat_id = 1001`
+- `receiver = 2`
+- `text = """"` (empty string)","1. User1 attempts to send an empty message.
+2. Data Organizer validates input.
+3. Message is rejected due to empty text.","- Error message displayed: ""Message cannot be empty.""
+- No message is saved to Firebase."
+TC-FRIDGE-001,Create a new fridge post,Post/Fridge,2,"- User `""user1""` exists with `nickname = ""user1""`.
+- User is logged in.","- `nickname = ""user1""`
+- `fridge_id = 101`
+- `fridge = 101` (same as fridge_id for simplicity)
+- `cost = 5`","1. User1 creates a new post offering a fridge.
+2. Data Organizer creates a new `Post` object with:
+   - Auto-generated `id` (e.g., `2001`)
+   - `nickname = ""user1""`
+   - `fridge_id = 101`
+   - `fridge = 101`
+   - `cost = 5`
+3. Data Organizer creates a `Fridge` object with:
+   - `id = 101`
+   - `name = ""User1's Fridge""` (default)
+   - `qty_int = 0` (default)
+   - `rate = 5` (from post)
+   - `bbe = 0` (default)
+   - `nickname = ""user1""`
+4. Both objects are saved to Firebase Database.","- Post appears in the ""Fridge Offers"" section.
+- Fridge object is created with correct attributes.
+- Firebase Database contains both records."
+TC-FRIDGE-002,Remove a product from fridge (via Rigofrito fragment),Fridge/Database,3,"- Fridge with `id=101` exists with `qty_int=5` (e.g., 5 items).
+- User is logged in and owns the fridge.",,"1. User navigates to fridge `101` and selects ""Remove Product.""
+2. `schema Principale` triggers `ChangeFragment(0)`.
+3. `Rigofrito` fragment calls `RimuoviProdotto()`.
+4. Data Organizer updates `qty_int` in Firebase Database from `5` to `4`.","- Fridge `qty_int` is updated to `4` in Firebase.
+- UI reflects the updated quantity (e.g., ""Items left: 4"").
+- No data corruption or race conditions."
+TC-FRIDGE-003,Remove last product from fridge (edge case),Fridge/Database,3,- Fridge with `id=101` exists with `qty_int=1`.,,"1. User removes the last product.
+2. `Rigofrito` updates `qty_int` to `0`.
+3. Data Organizer checks if `qty_int <= 0`.","- Fridge `qty_int` is set to `0`.
+- Optional: System prompts user to confirm deletion of the fridge post.
+- No negative quantities in Firebase."
+TC-INTEGRATION-001,"End-to-end flow: User posts fridge, another user chats about it",Integration (Post/Chat),"1, 2, 3","- Users `""user1""` and `""user2""` exist.
+- Both are logged in.",,"1. **Post Creation:**
+   - User1 creates a fridge post with `cost=10`.
+   - Post is saved to Firebase with `id=2001`.
+2. **Chat Initiation:**
+   - User2 views the post and clicks ""Message Seller.""
+   - Data Organizer creates a chat between `user1` and `user2` with `id=1002`.
+3. **Message Exchange:**
+   - User2 sends a message: `""Can I buy it for $8?""`
+   - Message is saved to `/chats/1002/messages/5002`.
+4. **Product Removal:**
+   - User1 accepts offer and removes 1 item from fridge.
+   - `qty_int` updates from `5` to `4`.","- All entities (Post, Chat, Message, Fridge) are created/updated in Firebase.
+- UI reflects changes in real-time for both users.
+- No conflicts or missing data."
+TC-NEGATIVE-001,Access Firebase Database without authentication,Security,1,- Firebase Database rules require authentication.,,"1. Local user attempts to directly access Firebase Database URL (e.g., via browser).
+2. No authentication token is provided.","- Firebase Database returns `403 Forbidden` or blocks access.
+- No data is exposed to unauthorized users."
+TC-EDGE-001,Concurrent product removal by multiple users,Fridge/Database,3,"- Fridge with `id=101` has `qty_int=2`.
+- Two users (`user1`, `user2`) are logged in and attempt to remove 1 item each simultaneously.",,"1. User1 and User2 both click ""Remove Product"" at the same time.",

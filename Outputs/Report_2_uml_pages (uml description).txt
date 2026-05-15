@@ -1,0 +1,278 @@
+REPORT: Report_2_uml_pages.pdf
+======================================================================
+
+===== Report_2_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- Accesso all'app — kind=initial node; role=Start point of the access flow
+- 1° Accesso — kind=decision node; role=Check if it's the first access
+- Start — kind=action; role=Start the application
+- Utente gia' registrato? — kind=decision node; role=Check if the user is already registered
+- Registrazione — kind=action; role=User registration process
+- Login — kind=action; role=User login process
+- Home — kind=action; role=Return to the home screen
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Accesso all'app -> 1° Accesso — type=control flow; label="SI"; explanation="Accessing the app leads to the first access check"
+- Accesso all'app -> 1° Accesso — type=control flow; label="NO"; explanation="Accessing the app leads to the first access check"
+- 1° Accesso -> Start — type=control flow; label="SI"; explanation="If it's the first access, start the application"
+- 1° Accesso -> Registrazione — type=control flow; label="NO"; explanation="If it's not the first access, proceed to registration"
+- Registrazione -> Home — type=control flow; explanation="After registration, go to the home screen"
+- Start -> Utente gia' registrato? — type=control flow; explanation="After starting, check if the user is already registered"
+- Utente gia' registrato? -> Login — type=control flow; label="SI"; explanation="If the user is already registered, proceed to login"
+- Utente gia' registrato? -> Registrazione — type=control flow; label="NO"; explanation="If the user is not already registered, proceed to registration"
+- Login -> Home — type=control flow; explanation="After login, go to the home screen"
+
+Main Flows:
+- Flow 1: Accesso all'app -> 1° Accesso (SI) -> Start -> Utente gia' registrato? (SI) -> Login -> Home
+- Flow 2: Accesso all'app -> 1° Accesso (NO) -> Registrazione -> Home
+- Flow 3: Start -> Utente gia' registrato? (NO) -> Registrazione -> Home
+
+Conditions / Branches:
+- 1° Accesso: SI -> Start; NO -> Registrazione
+- Utente gia' registrato?: SI -> Login; NO -> Registrazione
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the access flow of an application.
+- The flow starts with checking if it's the first access.
+- If it's the first access, the application starts, and the user is then checked for existing registration.
+- If the user is already registered, they proceed to login. Otherwise, they are directed to registration.
+- After registration or successful login, the user is directed to the home screen.
+
+===== Report_2_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial node; role=Starting point
+- TRAGITTO IN CORSO? — kind=decision node; role=Check if a route is in progress
+- AVVIA TRAGITTO — kind=action; role=Start a route
+- TRAGITTO TERMINATO? — kind=decision node; role=Check if a route is finished
+- CALCOLO EMISSIONI — kind=action; role=Calculate emissions
+- VUOI CAMBIARE SEZIONE? — kind=decision node; role=Ask if the user wants to change section
+- MENU ORIZZONTALE — kind=action; role=Display horizontal menu
+- HOME — kind=final node; role=End point
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- HOME -> TRAGITTO IN CORSO? — type=control flow; label=""; explanation="Flow to check if a route is in progress"
+- TRAGITTO IN CORSO? -> AVVIA TRAGITTO — type=control flow; label="SI"; explanation="If a route is in progress, start the route"
+- AVVIA TRAGITTO -> TRAGITTO TERMINATO? — type=control flow; label=""; explanation="Flow to check if the route is finished"
+- TRAGITTO TERMINATO? -> CALCOLO EMISSIONI — type=control flow; label="SI"; explanation="If the route is finished, calculate emissions"
+- HOME -> VUOI CAMBIARE SEZIONE? — type=control flow; label=""; explanation="Flow to ask if the user wants to change section"
+- VUOI CAMBIARE SEZIONE? -> MENU ORIZZONTALE — type=control flow; label="SI"; explanation="If the user wants to change section, display the horizontal menu"
+- MENU ORIZZONTALE -> HOME — type=control flow; label=""; explanation="Return to the home screen"
+- TRAGITTO TERMINATO? -> HOME — type=control flow; label="NO"; explanation="If the route is not finished, return to the home screen"
+- VUOI CAMBIARE SEZIONE? -> HOME — type=control flow; label="NO"; explanation="If the user does not want to change section, return to the home screen"
+
+Main Flows:
+- Flow 1: HOME -> TRAGITTO IN CORSO? (SI) -> AVVIA TRAGITTO -> TRAGITTO TERMINATO? (SI) -> CALCOLO EMISSIONI -> HOME
+- Flow 2: HOME -> TRAGITTO IN CORSO? (NO) -> HOME
+- Flow 3: HOME -> VUOI CAMBIARE SEZIONE? (SI) -> MENU ORIZZONTALE -> HOME
+- Flow 4: HOME -> VUOI CAMBIARE SEZIONE? (NO) -> HOME
+
+Conditions / Branches:
+- TRAGITTO IN CORSO?: SI/NO
+- TRAGITTO TERMINATO?: SI/NO
+- VUOI CAMBIARE SEZIONE?: SI/NO
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a workflow for managing routes and calculating emissions.
+- The main flow involves checking if a route is in progress, starting it, checking if it's finished, and then calculating emissions.
+- The user can also choose to change sections, which leads to a horizontal menu and returns to the home screen.
+- The diagram shows two possible paths from the HOME node: one for route management and one for section changes.
+
+===== Report_2_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- STATISTICHE — kind=action; attributes=[]; operations=[]; role=Initial state
+- VISUALIZZA REPORT SETTIMANALE? — kind=decision; attributes=[]; operations=[]; role=Decision node
+- REPORT SETTIMANALE — kind=action; attributes=[]; operations=[]; role=Action
+- MENU ORIZZONTALE — kind=action; attributes=[]; operations=[]; role=Action
+- VUOI CAMBIARE SEZIONE? — kind=decision; attributes=[]; operations=[]; role=Decision node
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- STATISTICHE -> VISUALIZZA REPORT SETTIMANALE? — type=transition; label=""; explanation="Flow to decision node"
+- VISUALIZZA REPORT SETTIMANALE? -> REPORT SETTIMANALE — type=transition; label="SI"; explanation="Transition on 'SI'"
+- VISUALIZZA REPORT SETTIMANALE? -> MENU ORIZZONTALE — type=transition; label="NO"; explanation="Transition on 'NO'"
+- REPORT SETTIMANALE -> VUOI CAMBIARE SEZIONE? — type=transition; label=""; explanation="Flow to decision node"
+- MENU ORIZZONTALE -> VUOI CAMBIARE SEZIONE? — type=transition; label=""; explanation="Flow to decision node"
+- VUOI CAMBIARE SEZIONE? -> STATISTICHE — type=transition; label="NO"; explanation="Transition on 'NO'"
+- VUOI CAMBIARE SEZIONE? -> MENU ORIZZONTALE — type=transition; label="SI"; explanation="Transition on 'SI'"
+
+Main Flows:
+- Flow 1: STATISTICHE -> VISUALIZZA REPORT SETTIMANALE? (SI) -> REPORT SETTIMANALE -> VUOI CAMBIARE SEZIONE? -> STATISTICHE
+- Flow 2: STATISTICHE -> VISUALIZZA REPORT SETTIMANALE? (NO) -> MENU ORIZZONTALE -> VUOI CAMBIARE SEZIONE? -> MENU ORIZZONTALE
+
+Conditions / Branches:
+- VISUALIZZA REPORT SETTIMANALE?: SI -> REPORT SETTIMANALE
+- VISUALIZZA REPORT SETTIMANALE?: NO -> MENU ORIZZONTALE
+- VUOI CAMBIARE SEZIONE?: SI -> MENU ORIZZONTALE
+- VUOI CAMBIARE SEZIONE?: NO -> STATISTICHE
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a workflow related to statistics, likely within a software application.
+- The user starts at the "STATISTICHE" state and is prompted to visualize a weekly report.
+- Based on the user's response ("SI" or "NO"), the flow branches to either the "REPORT SETTIMANALE" action or the "MENU ORIZZONTALE" action.
+- After either action, the user is asked if they want to change sections, leading back to "STATISTICHE" if "NO" or to "MENU ORIZZONTALE" if "SI".
+
+===== Report_2_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- 4.2.5 PROFILO — kind=action; attributes=[]; operations=[]; role=Profile view
+- VISUALIZZA DATI PERSONALI — kind=action; attributes=[]; operations=[]; role=Display personal data
+- VUOI AGGIORNARE L'ACCOUNT? — kind=decision; attributes=[]; operations=[]; role=Account update decision
+- INSERISCI NUOVI DATI — kind=action; attributes=[]; operations=[]; role=Enter new data
+- AGGIORNA DATI — kind=action; attributes=[]; operations=[]; role=Update data
+- VUOI USCITE DALL'ACCOUNT? — kind=decision; attributes=[]; operations=[]; role=Logout decision
+- LOGOUT — kind=action; attributes=[]; operations=[]; role=Logout action
+- VUOI CAMBIARE SEZIONE? — kind=decision; attributes=[]; operations=[]; role=Section change decision
+- MENU ORIZZONTALE — kind=action; attributes=[]; operations=[]; role=Horizontal menu
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Avvio app -> 4.2.5 PROFILO — type=control_flow; label=""; explanation="Start of the process"
+- 4.2.5 PROFILO -> VISUALIZZA DATI PERSONALI — type=control_flow; label=""; explanation="Go to visualize personal data"
+- VISUALIZZA DATI PERSONALI -> VUOI AGGIORNARE L'ACCOUNT? — type=control_flow; label=""; explanation="Check if user wants to update account"
+- VUOI AGGIORNARE L'ACCOUNT? -> INSERISCI NUOVI DATI — type=control_flow; label="SI"; explanation="If yes, enter new data"
+- INSERISCI NUOVI DATI -> AGGIORNA DATI — type=control_flow; label=""; explanation="Update data"
+- VUOI AGGIORNARE L'ACCOUNT? -> 4.2.5 PROFILO — type=control_flow; label="NO"; explanation="If no, return to profile"
+- 4.2.5 PROFILO -> VUOI USCITE DALL'ACCOUNT? — type=control_flow; label=""; explanation="Check if user wants to logout"
+- VUOI USCITE DALL'ACCOUNT? -> LOGOUT — type=control_flow; label="SI"; explanation="If yes, logout"
+- LOGOUT -> 4.2.5 PROFILO — type=control_flow; label=""; explanation="Return to profile after logout"
+- 4.2.5 PROFILO -> VUOI CAMBIARE SEZIONE? — type=control_flow; label=""; explanation="Check if user wants to change section"
+- VUOI CAMBIARE SEZIONE? -> MENU ORIZZONTALE — type=control_flow; label="SI"; explanation="If yes, go to horizontal menu"
+- MENU ORIZZONTALE -> 4.2.5 PROFILO — type=control_flow; label=""; explanation="Return to profile after changing section"
+- VUOI CAMBIARE SEZIONE? -> 4.2.5 PROFILO — type=control_flow; label="NO"; explanation="If no, return to profile"
+
+Main Flows:
+- Flow 1: Avvio app -> 4.2.5 PROFILO -> VISUALIZZA DATI PERSONALI -> VUOI AGGIORNARE L'ACCOUNT? (SI) -> INSERISCI NUOVI DATI -> AGGIORNA DATI -> 4.2.5 PROFILO
+- Flow 2: Avvio app -> 4.2.5 PROFILO -> VUOI USCITE DALL'ACCOUNT? (SI) -> LOGOUT -> 4.2.5 PROFILO
+- Flow 3: Avvio app -> 4.2.5 PROFILO -> VUOI CAMBIARE SEZIONE? (SI) -> MENU ORIZZONTALE -> 4.2.5 PROFILO
+- Flow 4: Avvio app -> 4.2.5 PROFILO -> VISUALIZ
+
+===== Report_2_uml_pages.pdf | Page 5 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; attributes=[]; operations=[]; role=User
+- Applicazione — kind=component; attributes=[]; operations=[]; role=Application
+- Server — kind=component; attributes=[]; operations=[]; role=Server
+- Database — kind=component; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Applicazione
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> Applicazione — type=message; label="dispatch"; explanation="User sends dispatch"
+- Applicazione -> Applicazione — type=message; label="Inserire credenziali"; explanation="Application requests credentials"
+- Applicazione -> Server — type=message; label="invio credenziali"; explanation="Application sends credentials to server"
+- Server -> Database — type=message; label="verifica dati"; explanation="Server requests data verification"
+- Database -> Server — type=message; label="dati trovati"; explanation="Database returns data found"
+- Server -> Applicazione — type=message; label="confronto con quelli inseriti"; explanation="Server compares data"
+- Applicazione -> Utente — type=message; label="login avvenuto"; explanation="Application informs user login is successful"
+
+Main Flows:
+- Flow 1: Utente -> Applicazione (dispatch) -> Applicazione (Inserire credenziali) -> Applicazione -> Server (invio credenziali) -> Server -> Database (verifica dati) -> Database -> Server (dati trovati) -> Server -> Applicazione (confronto con quelli inseriti) -> Applicazione -> Utente (login avvenuto)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a login sequence.
+- The user initiates the process by dispatching a request.
+- The application collects credentials and sends them to the server.
+- The server verifies the credentials with the database.
+- Upon successful verification, the server informs the application, which then notifies the user that the login is successful.
+- The diagram does not show any error handling or alternative flows.
+
+===== Report_2_uml_pages.pdf | Page 6 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; attributes=[]; operations=[]; role=User
+- Applicazione — kind=component; attributes=[]; operations=[]; role=Application
+- Server — kind=component; attributes=[]; operations=[]; role=Server
+- Database — kind=component; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Applicazione
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> Applicazione — type=message; label="avvio percorso"; explanation="User initiates a route"
+- Applicazione -> Server — type=message; label="calcolo e invio dati"; explanation="Application sends data for calculation"
+- Server -> Database — type=message; label="aggiunta percorso"; explanation="Server adds the route to the database"
+- Database -> Server — type=message; label="nuovo percorso"; explanation="Database returns the new route"
+- Server -> Applicazione — type=message; label="ritorna emissioni"; explanation="Server returns emissions data"
+- Applicazione -> Utente — type=message; label="emissioni CO2"; explanation="Application returns CO2 emissions to the user"
+
+Main Flows:
+- Flow 1: Utente -> Applicazione (avvio percorso) -> Server (calcolo e invio dati) -> Database (aggiunta percorso) -> Server (nuovo percorso) -> Applicazione (ritorna emissioni) -> Utente (emissioni CO2)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram illustrates a sequence of interactions between a User, an Application, a Server, and a Database to calculate and display CO2 emissions for a route.
+- The User initiates the process by starting a route through the Application.
+- The Application then requests the Server to calculate and send data.
+- The Server adds the route to the Database and retrieves the new route information.
+- Finally, the Server returns the emissions data to the Application, which displays it to the User.
+- The flow is linear and does not include any branching or looping.
+
+
+======================================================================

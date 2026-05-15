@@ -1,0 +1,101 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User logs in successfully,User,"1,2,3,4,5,6,7,8",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters the username and password in the login form.
+2. User clicks the login button.
+3. Server validates the credentials.
+4. Server sends a response to the user.",User is logged in successfully and redirected to the home page.
+TC-User-002,User logs in with invalid credentials,User,"1,2,3,4,5,6,7,8",User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters the username and password in the login form.
+2. User clicks the login button.
+3. Server validates the credentials.
+4. Server sends a response to the user.",Login fails and an error message is displayed.
+TC-User-003,User views a product,User,"1,2,3,4,5,6,7,8",User is logged in and there is a product available.,- Product name: T-shirt,"1. User navigates to the product page.
+2. User clicks on the ""View"" button for the T-shirt.
+3. Server queries the database for the product details.
+4. Server sends the product details to the user.",User receives the product details and can view them.
+TC-User-004,User adds a product to the cart,User,"1,2,3,4,5,6,7,8",User is logged in and there is a product available.,- Product name: T-shirt,"1. User navigates to the product page.
+2. User clicks on the ""Add to Cart"" button for the T-shirt.
+3. Server adds the product to the user's cart.
+4. Server sends a confirmation message to the user.",Product is added to the user's cart and a confirmation message is displayed.
+TC-User-005,User attempts to add a non-existent product to the cart,User,"1,2,3,4,5,6,7,8",User is logged in and there is no product available.,- Product name: Non-existent Product,"1. User navigates to the product page.
+2. User clicks on the ""Add to Cart"" button for the non-existent product.
+3. Server checks if the product exists.
+4. Server sends a response to the user.",An error message is displayed indicating that the product does not exist.
+TC-User-006,User checks out from the cart,User,"1,2,3,4,5,6,7,8",User is logged in and there are items in the cart.,- Cart contains one T-shirt,"1. User navigates to the checkout page.
+2. User clicks the ""Checkout"" button.
+3. Server processes the checkout request.
+4. Server sends a confirmation message to the user.",User is redirected to the payment page and a confirmation message is displayed.
+TC-User-007,User attempts to checkout with an empty cart,User,"1,2,3,4,5,6,7,8",User is logged in and the cart is empty.,- Cart is empty,"1. User navigates to the checkout page.
+2. User clicks the ""Checkout"" button.
+3. Server checks the cart contents.
+4. Server sends a response to the user.",An error message is displayed indicating that the cart is empty.
+TC-Admin-001,Admin logs in successfully,Admin,"1,2,3,4,5,6,7,8",Admin has a valid username and password.,"- Username: admin
+- Password: adminpassword","1. Admin enters the username and password in the login form.
+2. Admin clicks the login button.
+3. Server validates the credentials.
+4. Server sends a response to the admin.",Admin is logged in successfully and redirected to the admin dashboard.
+TC-Admin-002,Admin logs in with invalid credentials,Admin,"1,2,3,4,5,6,7,8",Admin has an invalid username or password.,"- Username: wrongadmin
+- Password: wrongpassword","1. Admin enters the username and password in the login form.
+2. Admin clicks the login button.
+3. Server validates the credentials.
+4. Server sends a response to the admin.",Login fails and an error message is displayed.
+TC-Admin-003,Admin adds a product to the database,Admin,"1,2,3,4,5,6,7,8",Admin is logged in.,"- Product name: New Product
+- Product description: This is a new product","1. Admin navigates to the product management page.
+2. Admin clicks the ""Add Product"" button.
+3. Admin enters the product name and description.
+4. Admin clicks the ""Submit"" button.
+5. Server adds the product to the database.
+6. Server sends a confirmation message to the admin.",Product is added to the database and a confirmation message is displayed.
+TC-Admin-004,Admin attempts to add a product with missing information,Admin,"1,2,3,4,5,6,7,8",Admin is logged in.,"- Product name: Missing Name
+- Product description: Missing Description","1. Admin navigates to the product management page.
+2. Admin clicks the ""Add Product"" button.
+3. Admin enters the product name and description.
+4. Admin clicks the ""Submit"" button.
+5. Server checks the product information.
+6. Server sends a response to the admin.",An error message is displayed indicating that the product information is incomplete.
+TC-Admin-005,Admin views a product,Admin,"1,2,3,4,5,6,7,8",Admin is logged in and there is a product available.,- Product name: T-shirt,"1. Admin navigates to the product page.
+2. Admin clicks on the ""View"" button for the T-shirt.
+3. Server queries the database for the product details.
+4. Server sends the product details to the admin.",Admin receives the product details and can view them.
+TC-Admin-006,Admin attempts to view a non-existent product,Admin,"1,2,3,4,5,6,7,8",Admin is logged in and there is no product available.,- Product name: Non-existent Product,"1. Admin navigates to the product page.
+2. Admin clicks on the ""View"" button for the non-existent product.
+3. Server checks if the product exists.
+4. Server sends a response to the admin.",An error message is displayed indicating that the product does not exist.
+TC-Server-001,Server queries the database successfully,Server,"1,2,3,4,5,6,7,8",Server is connected to the database.,- Query: SELECT * FROM products,"1. Server sends a query to the database.
+2. Database processes the query.
+3. Database sends the results to the server.
+4. Server processes the results.",Server receives the correct results from the database.
+TC-Server-002,Server queries the database with an invalid query,Server,"1,2,3,4,5,6,7,8",Server is connected to the database.,- Query: SELECT * FROM non_existent_table,"1. Server sends a query to the database.
+2. Database processes the query.
+3. Database sends an error message to the server.
+4. Server processes the error message.",Server receives an error message from the database.
+TC-Server-003,Server processes a successful checkout request,Server,"1,2,3,4,5,6,7,8",Server is connected to the database and the cart is not empty.,- Cart contains one T-shirt,"1. Server receives a checkout request.
+2. Server processes the checkout request.
+3. Server updates the database.
+4. Server sends a confirmation message to the user.",Server updates the database and sends a confirmation message to the user.
+TC-Server-004,Server processes a failed checkout request due to an empty cart,Server,"1,2,3,4,5,6,7,8",Server is connected to the database and the cart is empty.,- Cart is empty,"1. Server receives a checkout request.
+2. Server checks the cart contents.
+3. Server sends a response to the user.",Server sends an error message to the user indicating that the cart is empty.
+TC-Database-001,Database adds a product successfully,Database,"1,2,3,4,5,6,7,8",Database is connected to the server.,"- Product name: New Product
+- Product description: This is a new product","1. Database receives a request to add a product.
+2. Database processes the request.
+3. Database adds the product to the database.
+4. Database sends a confirmation message to the server.",Database adds the product to the database and sends a confirmation message to the server.
+TC-Database-002,Database adds a product with missing information,Database,"1,2,3,4,5,6,7,8",Database is connected to the server.,"- Product name: Missing Name
+- Product description: Missing Description","1. Database receives a request to add a product.
+2. Database processes the request.
+3. Database checks the product information.
+4. Database sends a response to the server.",Database sends an error message to the server indicating that the product information is incomplete.
+TC-Database-003,Database removes a product successfully,Database,"1,2,3,4,5,6,7,8",Database is connected to the server and the product exists.,- Product name: T-shirt,"1. Database receives a request to remove a product.
+2. Database processes the request.
+3. Database removes the product from the database.
+4. Database sends a confirmation message to the server.",Database removes the product from the database and sends a confirmation message to the server.
+TC-Database-004,Database attempts to remove a non-existent product,Database,"1,2,3,4,5,6,7,8",Database is connected to the server and the product does not exist.,- Product name: Non-existent Product,"1. Database receives a request to remove a product.
+2. Database processes the request.
+3. Database checks if the product exists.
+4. Database sends a response to the server.",Database sends an error message to the server indicating that the product does not exist.
+TC-App-001,App processes a successful login request,App,"1,2,3,4,5,6,7,8",App is connected to the server.,"- Username: testuser
+- Password: testpassword","1. App receives a login request.
+2. App processes the request.
+3. App sends a response to the server.",App sends a confirmation message to the server indicating that the login was successful.
+TC-App-002,App processes,,,,,,

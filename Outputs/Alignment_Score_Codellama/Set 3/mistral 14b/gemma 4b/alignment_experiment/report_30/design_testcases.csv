@@ -1,0 +1,68 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-HOMEPAGE-001,"Verify ""Impostazioni"" button redirects to settings page",Homepage Navigation,1,"- User is on the Homepage.
+- Network connection is stable.",- None,"1. Launch the app and ensure the Homepage is displayed.
+2. Locate and click the **""Impostazioni""** button.",- The app transitions to the **Apertura pagina impostazioni** (Settings page) without errors.
+TC-HOMEPAGE-002,"Verify ""Visualizzazione nuovo luogo"" leads to Pathfinder quiz",Homepage Navigation,1,- User is on the Homepage.,- None,"1. Launch the app and ensure the Homepage is displayed.
+2. Select **""Visualizzazione nuovo luogo""** (e.g., via button or swipe gesture).
+3. On the new location screen, click **""Pathfinder""** button.",- The app opens the **Apertura pagina Pathfinder** (Pathfinder quiz) without errors.
+TC-HOMEPAGE-003,"Verify swipe gesture on ""Visualizzazione nuovo luogo"" handles gracefully",Homepage Navigation,1,- User is on the Homepage.,- None,"1. Launch the app and ensure the Homepage is displayed.
+2. Select **""Visualizzazione nuovo luogo""**.
+3. Perform a **swipe to the right** (as per UML).","- The app either:
+  - Displays a new location card (if implemented), **or**
+  - Shows an error message (e.g., ""Gesture not supported"") **or**
+  - Ignores the gesture and remains on the current screen."
+TC-HOMEPAGE-004,Verify Pathfinder button click without action (negative),Homepage Navigation,1,"- User is on the ""Visualizzazione nuovo luogo"" screen.",- None,"1. Navigate to **""Visualizzazione nuovo luogo""**.
+2. Hover over or tap the **""Pathfinder""** button **without fully clicking** (simulate failed click).",- The app **does not** open the Pathfinder page and remains on the current screen.
+TC-LOCATIONDETAILS-001,"Verify ""Navigate"" button opens system map",Location Details,2,- User is on a **Pagina dettagliata** (location details page).,"- A specific location (e.g., ""Pizza Hut, Via Roma 123"").","1. Open the location details page for ""Pizza Hut, Via Roma 123"".
+2. Click the **""Navigate""** button.","- The app launches the **system map** (e.g., Google Maps) with directions to the location."
+TC-LOCATIONDETAILS-002,"Verify ""Open in Browser"" launches Yelp review page",Location Details,2,- User is on a **Pagina dettagliata** with Yelp integration enabled.,"- A location with a Yelp listing (e.g., ""Starbucks, Corso Italia 456"").","1. Open the location details page for ""Starbucks, Corso Italia 456"".
+2. Click the **""Open in Browser""** button.",- The app opens the **Yelp website** in the browser with the location’s review page.
+TC-LOCATIONDETAILS-003,"Verify ""Call Business"" initiates phone call",Location Details,2,"- User is on a **Pagina dettagliata** with a valid phone number.
+- Device has call permissions enabled.","- A location with a phone number (e.g., ""Gelateria Roma, +39 06 1234567"").","1. Open the location details page for ""Gelateria Roma"".
+2. Click the **""Call Business""** button.",- The app **initiates a call** to +39 06 1234567 using the device’s dialer.
+TC-LOCATIONDETAILS-004,"Verify ""Indietro"" returns to Homepage",Location Details,2,"- User is on any sub-page (e.g., map, Yelp, or call screen).",- None,"1. Navigate to a location details page and trigger a transition (e.g., open Yelp).
+2. Click the **""Indietro""** (Back) button.",- The app returns to the **Homepage** without data loss.
+TC-LOCATIONDETAILS-005,Verify preference modification persists across actions,Location Details,2,"- User is on a sub-page (e.g., map view).","- Preference to disable Yelp redirects (e.g., toggle ""Use Yelp"" to OFF).","1. Open a location details page and navigate to the map.
+2. Click **""Modifica preferenze""** and disable Yelp integration.
+3. Return to the map and attempt to open Yelp via the button.","- The app **does not** open Yelp and shows a message: ""Yelp integration is disabled in settings."""
+TC-PATHFINDER-001,"Verify ""Indietro"" exits Pathfinder quiz",Pathfinder Quiz,3,- User is on the **Apertura pagina Pathfinder**.,- None,"1. Navigate to the Pathfinder page.
+2. Click the **""Indietro""** button.",- The app returns to the **Homepage** without displaying a question.
+TC-PATHFINDER-002,Verify question display and answer selection,Pathfinder Quiz,3,- User is on the **Apertura pagina Pathfinder**.,"- A sample question: ""What’s the nearest café?"" with options:
+  - A) Starbucks
+  - B) Lavazza
+  - C) Skip","1. Open the Pathfinder page and confirm no ""Indietro"" click.
+2. The app displays the question: **""What’s the nearest café?""**.
+3. Select option **B) Lavazza**.","- The app processes the answer and either:
+  - Shows a **suggestion** (e.g., ""Lavazza at Via Venezia 78""), **or**
+  - Returns to the Homepage if no suggestion is available."
+TC-PATHFINDER-003,Verify suggestion display when available,Pathfinder Quiz,3,"- User is on the **Visualizzazione domanda** screen.
+- Backend returns a suggestion for the selected answer.","- Question: ""Best pizza place?""
+  - Answer: ""Margherita’s""
+  - Suggestion: ""Margherita’s, Via Napoli 321 (4.5★)""","1. Answer the question with **""Margherita’s""**.
+2. The app displays: **""Visualizzazione luogo suggerito""**.","- The app shows:
+  - Location name: **Margherita’s**
+  - Address: **Via Napoli 321**
+  - Rating: **4.5★**
+  - Option to **""Return to Homepage""**."
+TC-PATHFINDER-004,Verify no suggestion handling,Pathfinder Quiz,3,"- User is on the **Visualizzazione domanda** screen.
+- Backend returns **no suggestion** for the answer.","- Question: ""Cheapest grocery store?""
+  - Answer: ""Supermarket X""
+  - Backend response: **No suggestion available**","1. Answer the question with **""Supermarket X""**.
+2. The app does **not** show a suggestion.","- The app displays a message: **""No suggestions found. Returning to Homepage.""**
+- User is redirected to the Homepage."
+TC-PATHFINDER-005,Verify quiz flow with invalid input (negative),Pathfinder Quiz,3,- User is on the **Visualizzazione domanda** screen.,"- Question: ""Favorite color?""
+  - Options: A) Red, B) Blue, C) Green
+  - User selects **none** (simulate invalid input).","1. Display the question.
+2. Attempt to submit **without selecting an option** (e.g., rapid back button press).","- The app shows an error: **""Please select an answer.""**
+- The question remains displayed."
+TC-EDGE-001,Verify rapid back-button presses in Pathfinder,Pathfinder Quiz,"1, 3",- User is on the **Visualizzazione domanda** screen.,- None,"1. Open Pathfinder and answer a question.
+2. Rapidly press the **Back button** 3 times in succession.","- The app handles the input gracefully and either:
+  - Returns to Homepage after the first valid press, **or**
+  - Shows a toast: **""Please complete the quiz or exit manually.""**"
+TC-EDGE-002,Verify location details page transitions after preference change,Location Details,2,- User is on the **Modifica preferenze** screen.,"- Change ""Default Map"" from Google Maps to Apple Maps.","1. Modify a preference (e.g., set Apple Maps as default).
+2. Navigate back to the map via **""Apertura mappa di sistema""**.",- The app opens **Apple Maps** (not Google Maps) for navigation.
+TC-EDGE-003,Verify app behavior with no network (offline),All Modules,"1, 2, 3",- Device is in **Airplane Mode** (no network).,,"1. Attempt to open Yelp or Pathfinder suggestions.
+2. Click **""Navigate""** or **""Call Business""**.","- The app shows appropriate offline messages:
+  - Yelp: **""No internet. Open later.""**
+  - Navigation: **""Enable data to navigate.""**
+  - Calls: **""No connection. Try again.""**"

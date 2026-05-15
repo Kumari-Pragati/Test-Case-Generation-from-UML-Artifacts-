@@ -1,0 +1,192 @@
+{
+  "concepts": [
+    "server",
+    "kind=server",
+    "user",
+    "kind=user",
+    "service",
+    "kind=service",
+    "main",
+    "kind",
+    "attributes",
+    "operations",
+    "role",
+    "localuser",
+    "api_manager",
+    "service/need/report"
+  ],
+  "flows": [
+    "main -> localuser — type=token; label=\"token = gettoken()\"; explanation=\"get token from main\"",
+    "localuser -> api_manager — type=request; label=\"token = null; request: token\"; explanation=\"send request with token\"",
+    "api_manager -> localuser — type=return status; label=\"return status\"; explanation=\"return status from api_manager\"",
+    "flow 1: main -> localuser -> api_manager -> localuser -> main",
+    "main gets token from localuser",
+    "localuser sends request with token to api_manager",
+    "api_manager returns status to localuser",
+    "localuser returns to main",
+    "the diagram models a login process where the main component gets a token from the localuser, which then sends a request with the token to the api_manager.",
+    "the api_manager returns a status, which is then used to request user data.",
+    "the process is repeated if the token is null or the status is ok.",
+    "the function request returns a json string with a status field.",
+    "main -> api_manager — type=request; label=\"listjson=request()\"; explanation=\"for each entry in listjson: new displaylist()\"",
+    "api_manager -> service/need/report — type=service/need/report; label=\"service/need/report\"; explanation=\"service/need/report\"",
+    "flow 1: main -> api_manager -> service/need/report",
+    "the diagram models a sequence of events where the main component sends a request to the api_manager, which then processes it and sends a service/need/report to the service/need/report component.",
+    "the main component is the starting point of the sequence.",
+    "the api_manager component is responsible for processing the request and sending the service/need/report.",
+    "the service/need/report component is the final destination of the sequence.",
+    "there are no loops or repetitions in the sequence.",
+    "main -> api_manager — type= new; label=\"new\"; explanation=\"new entry creation\"",
+    "api_manager -> main — type= service/need/report; label=\"service/need/report\"; explanation=\"service/need/report request\"",
+    "flow 1: new -> newentry=tojson() -> request(newentry) -> done",
+    "the diagram models a sequence of events starting with a new entry creation, followed by a json entry creation, and then a request with the new entry.",
+    "the api manager is involved in the service/need/report request.",
+    "the main flow is a straightforward sequence of events without any conditions or branches.",
+    "main -> api_manager -> service/need/report — type=association; label=\"done\"; explanation=\"done\"",
+    "api_manager -> main — type=association; label=\"done\"; explanation=\"done\"",
+    "service/need/report -> api_manager — type=association; label=\"done\"; explanation=\"done\"",
+    "flow 1: main -> api_manager -> service/need/report -> main -> api_manager -> service/need/report -> main",
+    "the diagram models a sequence of events where the main component interacts with the api_manager and service/need/report components.",
+    "the api_manager is responsible for processing data and updating entries.",
+    "the service/need/report component is involved in the process, but its exact role is not clear from the diagram.",
+    "the main flow involves a sequence of actions that include data processing, updates, and requests.",
+    "======================================================================"
+  ],
+  "validations": [
+    "[token = null; request: token] -> [token = null or status = ok; richiedi dati utente]",
+    "if token is null, request token",
+    "if token is null or status is ok, request user data",
+    "new -> newentry=tojson() -> request(newentry) -> done: no conditions or branches",
+    "stampa dati a schema done",
+    "datiaggiornati = leggi/datiinseriti",
+    "[for each dato in datiaggiornati] set(dato)",
+    "updateentry= tojson()",
+    "request(updateentry)"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "Sequence",
+      "concepts": [
+        "server",
+        "kind=server",
+        "user",
+        "kind=user",
+        "service",
+        "kind=service"
+      ],
+      "flows": [],
+      "validations": []
+    },
+    {
+      "page_no": 2,
+      "uml_type": "Sequence",
+      "concepts": [
+        "main",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "localuser",
+        "api_manager"
+      ],
+      "flows": [
+        "main -> localuser — type=token; label=\"token = gettoken()\"; explanation=\"get token from main\"",
+        "localuser -> api_manager — type=request; label=\"token = null; request: token\"; explanation=\"send request with token\"",
+        "api_manager -> localuser — type=return status; label=\"return status\"; explanation=\"return status from api_manager\"",
+        "flow 1: main -> localuser -> api_manager -> localuser -> main",
+        "main gets token from localuser",
+        "localuser sends request with token to api_manager",
+        "api_manager returns status to localuser",
+        "localuser returns to main",
+        "the diagram models a login process where the main component gets a token from the localuser, which then sends a request with the token to the api_manager.",
+        "the api_manager returns a status, which is then used to request user data.",
+        "the process is repeated if the token is null or the status is ok.",
+        "the function request returns a json string with a status field."
+      ],
+      "validations": [
+        "[token = null; request: token] -> [token = null or status = ok; richiedi dati utente]",
+        "if token is null, request token",
+        "if token is null or status is ok, request user data"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "Sequence",
+      "concepts": [
+        "main",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "api_manager",
+        "service/need/report"
+      ],
+      "flows": [
+        "main -> api_manager — type=request; label=\"listjson=request()\"; explanation=\"for each entry in listjson: new displaylist()\"",
+        "api_manager -> service/need/report — type=service/need/report; label=\"service/need/report\"; explanation=\"service/need/report\"",
+        "flow 1: main -> api_manager -> service/need/report",
+        "the diagram models a sequence of events where the main component sends a request to the api_manager, which then processes it and sends a service/need/report to the service/need/report component.",
+        "the main component is the starting point of the sequence.",
+        "the api_manager component is responsible for processing the request and sending the service/need/report.",
+        "the service/need/report component is the final destination of the sequence.",
+        "there are no loops or repetitions in the sequence."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 4,
+      "uml_type": "Sequence",
+      "concepts": [
+        "main",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "api_manager"
+      ],
+      "flows": [
+        "main -> api_manager — type= new; label=\"new\"; explanation=\"new entry creation\"",
+        "api_manager -> main — type= service/need/report; label=\"service/need/report\"; explanation=\"service/need/report request\"",
+        "flow 1: new -> newentry=tojson() -> request(newentry) -> done",
+        "the diagram models a sequence of events starting with a new entry creation, followed by a json entry creation, and then a request with the new entry.",
+        "the api manager is involved in the service/need/report request.",
+        "the main flow is a straightforward sequence of events without any conditions or branches."
+      ],
+      "validations": [
+        "new -> newentry=tojson() -> request(newentry) -> done: no conditions or branches"
+      ]
+    },
+    {
+      "page_no": 5,
+      "uml_type": "Sequence",
+      "concepts": [
+        "main",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "api_manager",
+        "service/need/report"
+      ],
+      "flows": [
+        "main -> api_manager -> service/need/report — type=association; label=\"done\"; explanation=\"done\"",
+        "api_manager -> main — type=association; label=\"done\"; explanation=\"done\"",
+        "service/need/report -> api_manager — type=association; label=\"done\"; explanation=\"done\"",
+        "flow 1: main -> api_manager -> service/need/report -> main -> api_manager -> service/need/report -> main",
+        "the diagram models a sequence of events where the main component interacts with the api_manager and service/need/report components.",
+        "the api_manager is responsible for processing data and updating entries.",
+        "the service/need/report component is involved in the process, but its exact role is not clear from the diagram.",
+        "the main flow involves a sequence of actions that include data processing, updates, and requests.",
+        "======================================================================"
+      ],
+      "validations": [
+        "stampa dati a schema done",
+        "datiaggiornati = leggi/datiinseriti",
+        "[for each dato in datiaggiornati] set(dato)",
+        "updateentry= tojson()",
+        "request(updateentry)"
+      ]
+    }
+  ]
+}

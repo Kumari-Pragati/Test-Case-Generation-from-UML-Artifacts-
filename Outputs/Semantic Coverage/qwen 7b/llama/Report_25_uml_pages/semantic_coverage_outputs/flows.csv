@@ -1,0 +1,52 @@
+flow
+mysql -> models — type=communication; label=communication; explanation=communication
+models -> controllers — type=communication; label=communication; explanation=communication
+controllers -> apis — type=communication; label=communication; explanation=communication
+apis -> jobs — type=communication; label=communication; explanation=communication
+jobs -> push notifications system — type=communication; label=communication; explanation=communication
+flow 1: mysql -> models -> controllers -> apis -> jobs -> push notifications system
+"the diagram models a system that handles user communication, object chat, and job management through a push notifications system."
+the main flow starts with real-time communication service and ends with push notifications.
+the system has a loop for job management.
+"user -> order — type=association; label=""has""; explanation=""a user can have multiple orders"""
+"product -> order — type=association; label=""is in""; explanation=""a product can be in multiple orders"""
+"category -> productcategory — type=association; label=""has""; explanation=""a category can have multiple product categories"""
+"product -> productcategory — type=association; label=""is in""; explanation=""a product can be in multiple product categories"""
+"flow 1: a user logs in, creates an order, adds products to the order, and pays for the order"
+"flow 2: a user logs in, creates a product, adds it to a category, and updates the product"
+the system allows users to log in and create orders
+users can add products to their cart and then add them to their order
+users can create products and add them to a category
+"the system has a user interface for logging in, creating orders, and managing products and categories"
+"the system has a database for storing user information, orders, products, and categories"
+the system has a payment gateway for processing payments
+the system has a security feature for encrypting user passwords
+"utente -> app — type=message; label=""doregistration()""; explanation=""compilazione campi"""
+"app -> server — type=message; label=""doregistration()""; explanation=""doregistration()"""
+"server -> database — type=message; label=""salvataggio dati""; explanation=""salvataggio dati"""
+"server -> utente — type=message; label=""salvataggio otp""; explanation=""salvataggio otp"""
+"server -> app — type=message; label=""salvataggio otp""; explanation=""salvataggio otp"""
+"app -> utente — type=message; label=""sendotp()""; explanation=""sendotp()"""
+"database -> server — type=message; label=""conferma inserimento""; explanation=""conferma inserimento"""
+"server -> utente — type=message; label=""chiede otp salvato""; explanation=""chiede otp salvato"""
+"utente -> server — type=message; label=""riceve otp salvato""; explanation=""riceve otp salvato"""
+"server -> database — type=message; label=""riceve otp salvato""; explanation=""riceve otp salvato"""
+flow 1: utente -> app -> server -> database -> utente -> app -> utente
+flow 2: none
+"the diagram models a user registration process involving an app, a server, and a database."
+"the process starts with user registration, followed by app registration, server data saving, and database confirmation."
+"the server generates and saves otps, which are sent to the user and checked by the server."
+"the process involves multiple interactions between the user, app, server, and database."
+"utente1 -> utente2 — type=message; label=""digità messaggio""; explanation=""digital message"""
+"utente2 -> app1 — type=send; label=""sendmessage""; explanation=""send message"""
+"app1 -> app2 — type=send; label=""sendnotification""; explanation=""send notification"""
+"app2 -> server — type=get; label=""getmessage""; explanation=""get message"""
+"server -> database — type=get; label=""getmessage""; explanation=""get message"""
+"database -> server — type=return; label=""retrievemessage""; explanation=""retrieve message"""
+"server -> utente2 — type=return; label=""get message""; explanation=""get message"""
+"utente2 -> utente1 — type=return; label=""get message""; explanation=""get message"""
+flow 1: utente1 -> utente2 -> app1 -> app2 -> server -> database -> server -> utente2 -> utente1
+"the diagram models a sequence of interactions between users, applications, a server, and a database."
+the main flows involve sending and receiving messages between these entities.
+the system appears to be designed for user interaction and data retrieval.
+======================================================================

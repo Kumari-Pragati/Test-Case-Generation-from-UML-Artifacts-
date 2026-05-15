@@ -1,0 +1,141 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,"1, 3",User does not exist in the system.,"- Valid email: test@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: short","1. Navigate to the registration page.
+2. Enter valid email and password.
+3. Submit the registration form.
+4. Repeat steps 2-3 with invalid email and password.","- Successful registration with valid email and password.
+- Error message displayed for invalid email and password."
+TC-User-002,User Login,User,"1, 2",User is registered in the system.,"- Valid email: test@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: wrongpassword","1. Navigate to the login page.
+2. Enter valid email and password.
+3. Click on the login button.
+4. Repeat steps 2-3 with invalid email and password.","- Successful login with valid email and password.
+- Error message displayed for invalid email and password."
+TC-User-003,User Logout,User,1,User is logged in.,None,"1. Navigate to the user profile page.
+2. Click on the logout button.",- User is logged out and redirected to the login page.
+TC-Area-001,Create Area,Area,1,User is logged in.,"- Valid description: ""Central Park""
+- Valid location: ""New York City""
+- Invalid description: """"
+- Invalid location: """"","1. Navigate to the area creation page.
+2. Enter valid description and location.
+3. Submit the form.
+4. Repeat steps 2-3 with invalid description and location.","- Successful creation of area with valid description and location.
+- Error message displayed for invalid description and location."
+TC-Categories-001,Create Category,Categories,1,User is logged in and has created an area.,"- Valid description: ""Nature Walks""
+- Valid name: ""Walks""
+- Invalid description: """"
+- Invalid name: """"","1. Navigate to the category creation page.
+2. Select an existing area.
+3. Enter valid description and name.
+4. Submit the form.
+5. Repeat steps 3-4 with invalid description and name.","- Successful creation of category with valid description and name.
+- Error message displayed for invalid description and name."
+TC-Reports-001,Create Report,Reports,1,User is logged in and has created an area and category.,"- Valid description: ""Pothole in path""
+- Valid reportId: 12345
+- Invalid description: """"
+- Invalid reportId: 0","1. Navigate to the report creation page.
+2. Select an existing area and category.
+3. Enter valid description and reportId.
+4. Submit the form.
+5. Repeat steps 3-4 with invalid description and reportId.","- Successful creation of report with valid description and reportId.
+- Error message displayed for invalid description and reportId."
+TC-Influencer-001,Influencer Registration,Influencer,1,Influencer does not exist in the system.,"- Valid email: influencer@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: short","1. Navigate to the influencer registration page.
+2. Enter valid email and password.
+3. Submit the registration form.
+4. Repeat steps 2-3 with invalid email and password.","- Successful registration with valid email and password.
+- Error message displayed for invalid email and password."
+TC-Influencer-002,Influencer Login,Influencer,"1, 2",Influencer is registered in the system.,"- Valid email: influencer@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: wrongpassword","1. Navigate to the login page.
+2. Enter valid email and password.
+3. Click on the login button.
+4. Repeat steps 2-3 with invalid email and password.","- Successful login with valid email and password.
+- Error message displayed for invalid email and password."
+TC-Influencer-003,Influencer Logout,Influencer,1,Influencer is logged in.,None,"1. Navigate to the influencer profile page.
+2. Click on the logout button.",- Influencer is logged out and redirected to the login page.
+TC-Login-001,Validate Login Credentials,Login,2,User is registered in the system.,"- Valid email: test@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: wrongpassword","1. User initiates login process.
+2. System processes login request.
+3. System responds with login result.
+4. User receives login success or failure message.","- Successful login with valid email and password.
+- Error message displayed for invalid email and password."
+TC-Registration-001,User Registration with Firebase Authentication,Registration,3,User does not exist in the system.,"- Valid email: test@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: short","1. User inserts registration data.
+2. UI sends createAccount request to FirebaseAuthentication.
+3. FirebaseAuthentication validates token.
+4. FirebaseRestore validates token.
+5. Repeat steps 1-4 with invalid email and password.","- Successful registration with valid email and password.
+- Error message displayed for invalid email and password."
+TC-Signal-001,Insert Signal with Image Upload,Signal,4,User is logged in.,"- Valid signal data: ""Noise complaint""
+- Invalid signal data: """"
+- Valid image file: image.jpg
+- Invalid image file: invalidfile.txt","1. User inserts signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads image.
+4. Firebase/Firestore confirms signal with assigned entity.
+5. Repeat steps 1-4 with invalid signal data and invalid image file.","- Successful insertion of signal with valid data and image.
+- Error message displayed for incomplete or incorrect data and invalid image file."
+TC-Signal-002,Handle Loop for Incomplete or Incorrect Signal Data,Signal,4,User is logged in.,"- Invalid signal data: """"","1. User inserts invalid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User retries inserting valid signal data.
+4. UI checks for incomplete or incorrect data.","- Loop continues until valid signal data is inserted.
+- Error message displayed for each attempt with invalid data."
+TC-Signal-003,Confirm Signal with Assigned Entity,Signal,4,User is logged in and has uploaded a valid image.,"- Valid signal data: ""Noise complaint""
+- Valid image file: image.jpg","1. User inserts valid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads valid image.
+4. Firebase/Firestore confirms signal with assigned entity.",- Signal is confirmed with assigned entity after valid data and image upload.
+TC-Signal-004,Handle Error for Missing Image File,Signal,4,User is logged in and has inserted valid signal data.,"- Valid signal data: ""Noise complaint""
+- Missing image file","1. User inserts valid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User attempts to submit without uploading an image.",- Error message displayed for missing image file.
+TC-Signal-005,Handle Error for Invalid Image File,Signal,4,User is logged in and has inserted valid signal data.,"- Valid signal data: ""Noise complaint""
+- Invalid image file: invalidfile.txt","1. User inserts valid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads invalid image file.",- Error message displayed for invalid image file.
+TC-Signal-006,Confirm Signal with Assigned Entity After Multiple Attempts,Signal,4,User is logged in and has inserted valid signal data.,"- Valid signal data: ""Noise complaint""
+- Valid image file: image.jpg","1. User inserts valid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads valid image.
+4. Firebase/Firestore confirms signal with assigned entity.
+5. Repeat steps 1-4 multiple times.",- Signal is confirmed with assigned entity after each valid data and image upload.
+TC-Signal-007,Handle Loop for Repeatedly Incomplete or Incorrect Signal Data,Signal,4,User is logged in.,"- Invalid signal data: """"","1. User inserts invalid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User retries inserting invalid signal data multiple times.","- Loop continues until valid signal data is inserted.
+- Error message displayed for each attempt with invalid data."
+TC-Signal-008,Confirm Signal with Assigned Entity After Correcting Data,Signal,4,User is logged in and has inserted invalid signal data.,"- Invalid signal data: """"
+- Valid signal data: ""Noise complaint""
+- Valid image file: image.jpg","1. User inserts invalid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User corrects signal data and uploads valid image.
+4. Firebase/Firestore confirms signal with assigned entity.",- Signal is confirmed with assigned entity after correcting data and uploading valid image.
+TC-Signal-009,Handle Error for Repeatedly Invalid Image File,Signal,4,User is logged in and has inserted valid signal data.,"- Valid signal data: ""Noise complaint""
+- Invalid image file: invalidfile.txt","1. User inserts valid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads invalid image file multiple times.",- Error message displayed for each attempt with invalid image file.
+TC-Signal-010,Confirm Signal with Assigned Entity After Correcting Image File,Signal,4,User is logged in and has inserted valid signal data.,"- Valid signal data: ""Noise complaint""
+- Invalid image file: invalidfile.txt
+- Valid image file: image.jpg","1. User inserts valid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads invalid image file.
+4. User corrects image file and uploads valid image.
+5. Firebase/Firestore confirms signal with assigned entity.",- Signal is confirmed with assigned entity after correcting image file.
+TC-Signal-011,Handle Loop for Repeatedly Incomplete or Incorrect Signal Data and Image File,Signal,4,User is logged in.,"- Invalid signal data: """"
+- Invalid image file: invalidfile.txt","1. User inserts invalid signal data.
+2. UI checks for incomplete or incorrect data.
+3. User uploads invalid image file.
+4. User retries inserting invalid signal data and uploading invalid image file multiple times.","- Loop continues until valid signal data and image file are inserted.
+- Error message displayed for each attempt with invalid data and image file."
+TC-Signal-012,Confirm Signal with Assigned Entity After Correcting Both Data and Image File,Signal,4,User is logged in and has inserted invalid signal,,,

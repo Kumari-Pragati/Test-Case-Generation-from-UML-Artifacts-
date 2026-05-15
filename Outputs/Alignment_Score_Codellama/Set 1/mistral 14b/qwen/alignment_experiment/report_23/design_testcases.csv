@@ -1,0 +1,136 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Validate Utente (User) Registration with Valid Data,User Management,1,"- System is running.
+- No existing user with the same email.","- nome: ""Mario""
+- cognome: ""Rossi""
+- email: ""mario.rossi@example.com""
+- password: ""SecurePass123!""
+- isVenditore: false
+- immagine: ""profile.jpg""","1. Navigate to user registration page.
+2. Enter valid data as per Test Data.
+3. Submit the form.","- User account is created successfully.
+- `getNome()` returns ""Mario"", `getCognome()` returns ""Rossi"", `getEmail()` returns ""mario.rossi@example.com"", and `isVenditore()` returns `false`."
+TC-USER-002,Validate Utente Registration with Invalid Email Format,User Management,1,- System is running.,"- nome: ""Luigi""
+- cognome: ""Bianchi""
+- email: ""invalid-email"" (missing @ and domain)
+- password: ""Pass123""
+- isVenditore: true","1. Navigate to user registration page.
+2. Enter invalid email format.
+3. Submit the form.","- System rejects registration.
+- Error message: ""Invalid email format."""
+TC-USER-003,Validate Utente Registration with Duplicate Email,User Management,1,"- System has a pre-existing user with email ""test@example.com"".","- nome: ""Test""
+- cognome: ""User""
+- email: ""test@example.com"" (duplicate)
+- password: ""Pass123""
+- isVenditore: false","1. Navigate to user registration page.
+2. Enter duplicate email.
+3. Submit the form.","- System rejects registration.
+- Error message: ""Email already in use."""
+TC-CLIENTE-001,Validate Cliente Notification Type Assignment,Client Notifications,"1, 5, 6",- A valid Utente is registered as a Cliente.,"- notifica: ""PROMOTION"" (enum value)","1. Log in as a registered Cliente.
+2. Navigate to notification settings.
+3. Set notification type to ""PROMOTION"".
+4. Save settings.","- `getNotifica()` returns ""PROMOTION"".
+- Notification preferences are updated in the system."
+TC-CLIENTE-002,Validate Cliente Notification Toggle (Push/In-App),Client Notifications,"5, 6",- A valid Cliente is logged in.,,"1. Navigate to notification management screen.
+2. Toggle ""Push Notification"" to ON.
+3. Toggle ""In App Notification"" to OFF.
+4. Save changes.","- Push notifications are enabled for the user.
+- In-app notifications are disabled for the user.
+- System sends a confirmation message: ""Notification settings updated."""
+TC-SEGNALAZIONE-001,Create Valid Segnalazione (Report) for a Venditore,Report Management,1,"- A Cliente and a Venditore are registered.
+- The Cliente is logged in.","- titolo: ""Product Quality Issue""
+- descrizione: ""The product is damaged upon delivery.""
+- cliente: logged-in Cliente
+- venditore: target Venditore","1. Log in as Cliente.
+2. Navigate to ""Report a Problem"" section.
+3. Select the Venditore associated with the product.
+4. Enter titolo and descrizione.
+5. Submit the report.","- Segnalazione is created successfully.
+- `getTitolo()` returns ""Product Quality Issue"".
+- `getDescrizione()` returns the entered text.
+- Venditore receives a notification: ""New report submitted."""
+TC-SEGNALAZIONE-002,Create Segnalazione with Empty Titolo,Report Management,1,- A Cliente is logged in.,"- titolo: """" (empty)
+- descrizione: ""Product issue.""
+- cliente: logged-in Cliente
+- venditore: target Venditore","1. Log in as Cliente.
+2. Navigate to ""Report a Problem"" section.
+3. Leave titolo empty.
+4. Enter descrizione.
+5. Submit the report.","- System rejects the report.
+- Error message: ""Titolo is required."""
+TC-RECENSIONE-001,Create Valid Recensione (Review) for a Venditore,Review Management,1,"- A Cliente and a Venditore are registered.
+- The Cliente is logged in.","- titolo: ""Great Service""
+- descrizione: ""Fast delivery and friendly staff.""
+- voto: 5 (valid range: 1-5)
+- cliente: logged-in Cliente
+- venditore: target Venditore","1. Log in as Cliente.
+2. Navigate to ""Write a Review"" section.
+3. Select the Venditore’s product.
+4. Enter titolo, descrizione, and voto.
+5. Submit the review.","- Recensione is created successfully.
+- `getVoto()` returns 5.
+- Venditore receives a notification: ""New review submitted."""
+TC-RECENSIONE-002,Create Recensione with Invalid Voto (Out of Range),Review Management,1,- A Cliente is logged in.,"- titolo: ""Poor Quality""
+- descrizione: ""Product broke after 2 days.""
+- voto: 6 (invalid, max allowed: 5)
+- cliente: logged-in Cliente
+- venditore: target Venditore","1. Log in as Cliente.
+2. Navigate to ""Write a Review"" section.
+3. Enter titolo, descrizione, and voto=6.
+4. Submit the review.","- System rejects the review.
+- Error message: ""Voto must be between 1 and 5."""
+TC-PRODOTTO-001,Add Valid Prodotto (Product) as Venditore,Product Management,"1, 4",- A Venditore is logged in.,"- nome: ""Organic Apples""
+- categoria: ""Fruits""
+- prezzo: 2.99
+- descrizione: ""Freshly harvested organic apples.""
+- scadenza: ""2024-12-31"" (valid future date)","1. Log in as Venditore.
+2. Click on ""+"" button to add a product.
+3. Fill all fields with valid data.
+4. Click ""Aggiungi"" (Add).","- Prodotto is added successfully.
+- `getNome()` returns ""Organic Apples"".
+- `getPrezzo()` returns 2.99.
+- Product appears in the Venditore’s inventory."
+TC-PRODOTTO-002,Add Prodotto with Negative Prezzo,Product Management,"1, 4",- A Venditore is logged in.,"- nome: ""Broken Widget""
+- categoria: ""Electronics""
+- prezzo: -5.00 (invalid)
+- descrizione: ""Defective item.""
+- scadenza: ""2024-01-01""","1. Log in as Venditore.
+2. Click on ""+"" button to add a product.
+3. Enter negative prezzo.
+4. Click ""Aggiungi"".","- System rejects the product.
+- Error message: ""Prezzo must be greater than 0."""
+TC-PRODOTTO-003,Modify Prodotto with Valid Updated Data,Product Management,"1, 3","- A Venditore has added a product (e.g., ""Organic Apples"" with prezzo=2.99).","- Updated prezzo: 3.49
+- Updated descrizione: ""Organic apples, now in bulk.""","1. Log in as Venditore.
+2. Click on the existing product (""Organic Apples"").
+3. Click ""Modifica"" (Modify).
+4. Update prezzo and descrizione.
+5. Click ""Salva"" (Save).","- Product is updated successfully.
+- `getPrezzo()` returns 3.49.
+- `getDescrizione()` returns the updated text.
+- Confirmation message: ""Product updated successfully."""
+TC-PRODOTTO-004,Modify Prodotto with Empty Descrizione,Product Management,"1, 3",- A Venditore has added a product.,"- Updated prezzo: 2.99 (unchanged)
+- Updated descrizione: """" (empty)","1. Log in as Venditore.
+2. Click on the existing product.
+3. Click ""Modifica"".
+4. Leave descrizione empty.
+5. Click ""Salva"".","- System rejects the update.
+- Error message: ""Descrizione is required."""
+TC-LOCATION-001,Validate Product Listing Based on Accessible User Position,Location-Based Product Search,2,"- System has a map service integrated.
+- User is logged in.",,"1. User grants location access.
+2. System checks if position is accessible.
+3. User’s location is within a valid service area (e.g., GPS coordinates: 40.7128, -74.0060).","- System creates and displays a product list filtered by proximity.
+- List includes products from nearby Venditori."
+TC-LOCATION-002,Handle Inaccessible User Position (No Location Permissions),Location-Based Product Search,2,- User is logged in.,,"1. User denies location access.
+2. System attempts to fetch user position.","- System displays an error: ""Location access required to show nearby products.""
+- No product list is generated."
+TC-NOTIFICATION-001,Send Push Notification to Cliente,Notification System,"5, 6","- A Cliente has enabled push notifications.
+- System has a new promotion for the Cliente’s preferred category.",,"1. Venditore creates a promotion for ""Fruits"" category.
+2. System checks Cliente’s notification settings.
+3. System sends push notification to Cliente’s device.","- Cliente receives a push notification: ""New promotion: 20% off Organic Apples!""
+- Notification is logged in the system."
+TC-NOTIFICATION-002,Send In-App Notification to Cliente,Notification System,"5, 6","- A Cliente has enabled in-app notifications.
+- A Venditore adds a new product in the Cliente’s preferred category.",,"1. Venditore adds a new product (""Organic Apples"").
+2. System checks Cliente’s notification settings.
+3. Cliente logs in to the app.","- Cliente sees an in-app notification banner: ""New product added: Organic Apples!""
+- Notification is logged in the system."
+TC-INTEGRATION-001,End-to-End Flow: Cliente Submits Review → Venditore Receives Notification,Integration (Review + Notification),"1, 5, 6","- A Cliente and a Venditore are registered.
+- Cliente has purchased a product from Venditore.",,1. Cliente,

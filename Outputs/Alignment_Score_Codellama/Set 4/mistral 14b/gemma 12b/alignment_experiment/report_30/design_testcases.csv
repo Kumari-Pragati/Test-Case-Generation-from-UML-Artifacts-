@@ -1,0 +1,34 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-HOMEPAGE-001,Verify navigation to settings page from homepage,Homepage Navigation,1,App is launched; user is on the homepage.,None,"1. User is on the homepage.
+2. User clicks **""impostazioni""** (settings).",The settings page opens successfully.
+TC-HOMEPAGE-002,Verify default display of new location on homepage,Homepage Navigation,1,App is launched; user is on the homepage.,None,"1. User is on the homepage.
+2. User **does not click** ""impostazioni"" (settings).",A new location is displayed on the homepage.
+TC-HOMEPAGE-003,Verify navigation to detailed location page from homepage,Homepage Navigation,1,A new location is displayed on the homepage.,None,"1. User is on the homepage with a new location displayed.
+2. User clicks on the displayed location.",The detailed location page opens successfully.
+TC-HOMEPAGE-004,Verify navigation to Pathfinder from homepage,Homepage Navigation,1,A new location is displayed on the homepage.,None,"1. User is on the homepage with a new location displayed.
+2. User clicks **""Pathfinder""**.",The Pathfinder page opens successfully.
+TC-HOMEPAGE-005,Verify swipe-up action from homepage,Homepage Navigation,1,A new location is displayed on the homepage.,None,"1. User is on the homepage with a new location displayed.
+2. User performs a **swipe-up** gesture.","The app handles the swipe-up gracefully (e.g., no crash, no unexpected behavior)."
+TC-LOCATION-DETAILS-001,Verify opening system map from detailed location page,Location Details,2,User is on the detailed location page.,None,"1. User is on the detailed location page.
+2. User clicks **""Navigate""** (or equivalent ""Apertura mappa di sistema"").",The system map opens with the location highlighted.
+TC-LOCATION-DETAILS-002,Verify opening Yelp in browser from detailed location page,Location Details,2,User is on the detailed location page.,None,"1. User is on the detailed location page.
+2. User clicks **""Open in Browser""** (or equivalent ""Apertura sito Yelp sul browser"").",Yelp website opens in the browser with the location’s page loaded.
+TC-LOCATION-DETAILS-003,Verify calling business from Yelp browser page,Location Details,2,Yelp browser page is open.,None,"1. User is on the Yelp browser page.
+2. User clicks **""Call Business""** (or equivalent ""Avvio chiamata al business"").",The call screen opens with the business number pre-filled.
+TC-LOCATION-DETAILS-004,Verify returning to homepage from Yelp browser page,Location Details,2,Yelp browser page is open.,None,"1. User is on the Yelp browser page.
+2. User clicks **""Indietro""** (back).",The user is returned to the homepage.
+TC-LOCATION-DETAILS-005,Verify returning to homepage after calling business,Location Details,2,"Call screen is open after clicking ""Call Business"".",None,"1. User cancels the call (or hangs up).
+2. User clicks **""Indietro""** (back).",The user is returned to the homepage.
+TC-LOCATION-DETAILS-006,Verify modifying preferences from homepage after returning from detailed page,Location Details,2,User is on the homepage after returning from the detailed page.,None,"1. User is on the homepage.
+2. User clicks **""Like""** or **""Dislike""** on a location.","The preferences are updated, and the system confirms the action (e.g., visual feedback)."
+TC-PATHFINDER-001,Verify returning to homepage from Pathfinder,Pathfinder,3,User is on the Pathfinder page.,None,"1. User is on the Pathfinder page.
+2. User clicks **""Indietro""** (back).",The user is returned to the homepage.
+TC-PATHFINDER-002,Verify displaying a question after entering Pathfinder,Pathfinder,3,User is on the Pathfinder page.,None,"1. User is on the Pathfinder page.
+2. User **does not click ""Indietro""** (back).",A question is displayed for the user to answer.
+TC-PATHFINDER-003,Verify displaying a suggested location after answering a question,Pathfinder,3,A question is displayed on the Pathfinder page.,"A valid answer (e.g., ""Yes"" or ""No"" based on the question).","1. User answers the question.
+2. System determines a suggestion is available.",A suggested location is displayed.
+TC-PATHFINDER-004,Verify handling of no suggestion available after answering a question,Pathfinder,3,A question is displayed on the Pathfinder page.,"An answer that results in no suggestion (e.g., invalid or edge-case input).","1. User answers the question.
+2. System determines no suggestion is available.","A message is displayed indicating no suggestion is available (e.g., ""No locations match your criteria"")."
+TC-EDGE-001,"Verify behavior when clicking ""Navigate"" and ""Open in Browser"" simultaneously (if applicable)",Location Details (Edge Case),2,User is on the detailed location page.,None (simulated rapid clicks or multi-touch).,"1. User attempts to click both **""Navigate""** and **""Open in Browser""** simultaneously (or in rapid succession).","The system handles the input gracefully (e.g., ignores the second click, shows an error, or prioritizes the last click)."
+TC-EDGE-002,Verify behavior when no network connection is available for Yelp or map opening,Location Details (Edge Case),2,User is on the detailed location page; device has no internet connection.,None,"1. User clicks **""Open in Browser""** or **""Navigate""**.","An error message is displayed (e.g., ""No internet connection. Please check your settings."")."
+TC-EDGE-003,Verify behavior when Pathfinder question has no valid answers,Pathfinder (Edge Case),3,User is on the Pathfinder page; question has no valid answers.,None,1. User attempts to answer the question with invalid input.,The system prompts the user to select a valid answer or displays an error message.

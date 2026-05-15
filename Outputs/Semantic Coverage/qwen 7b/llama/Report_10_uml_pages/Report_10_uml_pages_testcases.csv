@@ -1,0 +1,126 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,1,None,"- Email: user@example.com
+- Password: password123
+- Username: testuser","1. Open the application.
+2. Register a new user with the provided credentials.
+3. Confirm the registration process.",A new user account is created successfully.
+TC-User-002,User Login,User,1,User is registered.,"- Email: user@example.com
+- Password: password123","1. Open the application.
+2. Enter the registered email and password.
+3. Click on the login button.",The user is logged in successfully.
+TC-User-003,Invalid User Login,User,1,User is registered.,"- Email: wrong@example.com
+- Password: password123","1. Open the application.
+2. Enter the incorrect email and password.
+3. Click on the login button.",An error message indicating invalid credentials is displayed.
+TC-Event-001,Create Event,Event,"2, 3, 4",User is logged in.,"- Event Name: Test Event
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Search for the city ""Rome"".
+3. Click on ""Add Event"" at the bottom of the city view.
+4. Fill in the event name, city, and description.
+5. Submit the form.",The event is created successfully and appears in the user's list of events.
+TC-Event-002,Create Event with Invalid Data,Event,"2, 3, 4",User is logged in.,"- Event Name: 
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Search for the city ""Rome"".
+3. Click on ""Add Event"" at the bottom of the city view.
+4. Fill in the event name, city, and leave the description field empty.
+5. Submit the form.",An error message indicating that all fields are required is displayed.
+TC-Event-003,Modify Event,Event,"2, 3, 4",User has an existing event.,"- New Event Name: Updated Event
+- New City: Milan
+- New Description: This is an updated event.","1. Log in as a user.
+2. View the existing event.
+3. Click on ""Modify Event"" at the bottom of the event view.
+4. Update the event name, city, and description.
+5. Submit the form.",The event is modified successfully and reflects the changes.
+TC-Event-004,Cancel Event,Event,"2, 3, 4",User has an existing event.,- Event Name: Test Event,"1. Log in as a user.
+2. View the existing event.
+3. Click on ""Cancel Event"" at the bottom of the event view.
+4. Confirm the cancellation.",The event is canceled successfully and does not appear in the user's list of events.
+TC-City-001,Search for City,City,"3, 4",User is logged in.,- City Name: Rome,"1. Log in as a user.
+2. Search for the city ""Rome"".","The city ""Rome"" is found and displayed in the search results."
+TC-City-002,Search for Non-Existent City,City,"3, 4",User is logged in.,- City Name: NonexistentCity,"1. Log in as a user.
+2. Search for the non-existent city ""NonexistentCity"".",No city is found and an appropriate message is displayed.
+TC-POI-001,Add POI,POI,"1, 3, 4",User is logged in.,"- POI Name: Test POI
+- Province: Rome
+- Description: This is a test point of interest.","1. Log in as a user.
+2. Navigate to the POI section.
+3. Click on ""Add POI"".
+4. Fill in the POI name, province, and description.
+5. Submit the form.",The POI is added successfully and appears in the user's list of POIs.
+TC-POI-002,Add POI with Invalid Data,POI,"1, 3, 4",User is logged in.,"- POI Name: 
+- Province: Rome
+- Description: This is a test point of interest.","1. Log in as a user.
+2. Navigate to the POI section.
+3. Click on ""Add POI"".
+4. Fill in the POI name, province, and leave the description field empty.
+5. Submit the form.",An error message indicating that all fields are required is displayed.
+TC-POI-003,Modify POI,POI,"1, 3, 4",User has an existing POI.,"- New POI Name: Updated POI
+- New Province: Milan
+- New Description: This is an updated point of interest.","1. Log in as a user.
+2. View the existing POI.
+3. Click on ""Modify POI"".
+4. Update the POI name, province, and description.
+5. Submit the form.",The POI is modified successfully and reflects the changes.
+TC-POI-004,Cancel POI,POI,"1, 3, 4",User has an existing POI.,- POI Name: Test POI,"1. Log in as a user.
+2. View the existing POI.
+3. Click on ""Cancel POI"".
+4. Confirm the cancellation.",The POI is canceled successfully and does not appear in the user's list of POIs.
+TC-Login-001,User Login with Correct Credentials,Login,1,User is registered.,"- Email: user@example.com
+- Password: password123","1. Open the application.
+2. Enter the registered email and password.
+3. Click on the login button.",The user is logged in successfully.
+TC-Login-002,User Login with Incorrect Credentials,Login,1,User is registered.,"- Email: wrong@example.com
+- Password: password123","1. Open the application.
+2. Enter the incorrect email and password.
+3. Click on the login button.",An error message indicating invalid credentials is displayed.
+TC-Form-Validation-001,Validate Correct Form Fields,Form Validation,"3, 4",User is logged in.,"- Event Name: Test Event
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Navigate to the event creation page.
+3. Fill in the event name, city, and description.
+4. Submit the form.",The form is validated successfully and the event is created.
+TC-Form-Validation-002,Validate Incorrect Form Fields,Form Validation,"3, 4",User is logged in.,"- Event Name: 
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Navigate to the event creation page.
+3. Leave the event name field empty and fill in the city and description.
+4. Submit the form.",An error message indicating that the event name field is required is displayed.
+TC-Form-Validation-003,Validate Correct Form Fields for POI,Form Validation,"1, 3, 4",User is logged in.,"- POI Name: Test POI
+- Province: Rome
+- Description: This is a test point of interest.","1. Log in as a user.
+2. Navigate to the POI creation page.
+3. Fill in the POI name, province, and description.
+4. Submit the form.",The form is validated successfully and the POI is created.
+TC-Form-Validation-004,Validate Incorrect Form Fields for POI,Form Validation,"1, 3, 4",User is logged in.,"- POI Name: 
+- Province: Rome
+- Description: This is a test point of interest.","1. Log in as a user.
+2. Navigate to the POI creation page.
+3. Leave the POI name field empty and fill in the province and description.
+4. Submit the form.",An error message indicating that the POI name field is required is displayed.
+TC-Association-001,Association Between User and Event,Association,"1, 2, 3, 4",User is registered and logged in.,"- Event Name: Test Event
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Create an event with the provided details.
+3. Verify that the event is associated with the user.",The event is listed under the user's profile.
+TC-Association-002,Association Between City and POI,Association,"1, 3, 4",User is registered and logged in.,"- POI Name: Test POI
+- Province: Rome
+- Description: This is a test point of interest.","1. Log in as a user.
+2. Create a POI with the provided details.
+3. Verify that the POI is associated with the city.",The POI is listed under the city's profile.
+TC-Association-003,Association Between User and POI,Association,"1, 3, 4",User is registered and logged in.,"- POI Name: Test POI
+- Province: Rome
+- Description: This is a test point of interest.","1. Log in as a user.
+2. Create a POI with the provided details.
+3. Verify that the POI is associated with the user.",The POI is listed under the user's profile.
+TC-Association-004,Association Between Event and City,Association,"1, 2, 3, 4",User is registered and logged in.,"- Event Name: Test Event
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Create an event with the provided details.
+3. Verify that the event is associated with the city.",The event is listed under the city's profile.
+TC-Association-005,Association Between User and City,Association,"1, 2, 3, 4",User is registered and logged in.,"- Event Name: Test Event
+- City: Rome
+- Description: This is a test event.","1. Log in as a user.
+2. Create an event with the provided details.
+3. Verify that the event is associated with the user.",The event is listed under the user's profile.
+TC-Association-006,Association Between POI and City,Association,"1, 3, 4",User is registered and logged in.,- POI Name,,

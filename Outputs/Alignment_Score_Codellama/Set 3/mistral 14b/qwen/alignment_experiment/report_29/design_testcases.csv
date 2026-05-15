@@ -1,0 +1,67 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-REGISTRATION-001,Successful user registration and homepage access,User Registration,1,User is not logged in; registration form is accessible.,"Valid email (e.g., `test@example.com`), strong password, matching confirmation.","1. User navigates to the registration page.
+2. User enters valid email, password, and confirmation.
+3. User submits the form.
+4. System confirms registration success.
+5. User is redirected to the homepage.",User is successfully registered and lands on the homepage.
+TC-REGISTRATION-002,Failed registration attempt and new user creation prompt,User Registration,1,User is not logged in; registration form is accessible.,"Invalid email (e.g., `test@`), weak password, mismatched confirmation.","1. User navigates to the registration page.
+2. User enters invalid data (e.g., weak password or mismatched fields).
+3. User submits the form.
+4. System detects errors and prompts for new user creation.
+5. User clicks ""Create New User"" and re-enters valid data.
+6. User submits the form again.","System rejects invalid data, prompts for correction, and allows successful registration upon valid input."
+TC-REGISTRATION-003,Registered user skips registration check and accesses homepage,User Registration,1,User is already registered and logged in.,N/A (user session exists).,"1. User logs in with valid credentials.
+2. System verifies registration status as ""registered.""
+3. User is automatically redirected to the homepage.",User bypasses registration check and lands on the homepage.
+TC-NAVIGATION-001,Navigate to homepage via sidebar menu,Sidebar Navigation,2,User is logged in; on the homepage.,N/A.,"1. User clicks the sidebar menu icon.
+2. User selects ""Homepage"" from the menu.
+3. System closes the menu and opens the homepage.",User is redirected to the homepage without errors.
+TC-NAVIGATION-002,"Navigate to ""Le mie segnalazioni"" via sidebar menu",Sidebar Navigation,2,User is logged in; on the homepage.,N/A.,"1. User clicks the sidebar menu icon.
+2. User selects ""Le mie segnalazioni.""
+3. System closes the menu and opens the reports page.","User is redirected to the ""Le mie segnalazioni"" page."
+TC-NAVIGATION-003,"Navigate to ""Impostazioni"" via sidebar menu",Sidebar Navigation,2,User is logged in; on the homepage.,N/A.,"1. User clicks the sidebar menu icon.
+2. User selects ""Impostazioni.""
+3. System closes the menu and opens the settings page.","User is redirected to the ""Impostazioni"" page."
+TC-NAVIGATION-004,Invalid menu selection (edge case),Sidebar Navigation,2,User is logged in; on the homepage.,N/A (simulate a broken menu link or disabled option).,"1. User clicks the sidebar menu icon.
+2. User attempts to select a non-existent or disabled menu option (e.g., via manual URL manipulation or broken link).
+3. System detects the invalid selection.","System either ignores the selection, shows an error, or redirects to a default page (e.g., homepage)."
+TC-ALERT-CREATION-001,Successful alert creation with valid form data,Alert Creation,3,"User is logged in; on the ""Add Alert"" page.","Valid data for the first 4 fields (e.g., title, description, category, location).","1. User clicks ""Add Alert"" in the sidebar menu.
+2. User fills in the first 4 fields correctly.
+3. User clicks ""Add Category"" and selects a valid category.
+4. System validates the fields as correct.
+5. User clicks the green ""Submit"" button.",Alert is created successfully; user sees a confirmation message.
+TC-ALERT-CREATION-002,Failed alert creation with invalid form data,Alert Creation,3,"User is logged in; on the ""Add Alert"" page.","Invalid data for the first 4 fields (e.g., empty title, special characters in description).","1. User clicks ""Add Alert"" in the sidebar menu.
+2. User leaves the first 4 fields blank or enters invalid data.
+3. User clicks the green ""Submit"" button.
+4. System detects incomplete/invalid data.
+5. User corrects the fields and resubmits.","System rejects submission, highlights errors, and allows correction before successful submission."
+TC-ALERT-CREATION-003,Skip category selection and submit alert,Alert Creation,3,"User is logged in; on the ""Add Alert"" page.",Valid data for the first 4 fields; no category selected.,"1. User clicks ""Add Alert"" in the sidebar menu.
+2. User fills in the first 4 fields correctly.
+3. User skips selecting a category.
+4. User clicks the green ""Submit"" button.",System rejects submission and requires category selection before proceeding.
+TC-ALERT-VIEWING-001,View all alerts and navigate to a specific alert detail,Alert Viewing,4,User is logged in; at least one alert exists in the system.,N/A (existing alerts).,"1. User clicks ""View Alerts"" in the sidebar menu.
+2. System displays a list of all alerts.
+3. User clicks on one alert from the list.
+4. System opens the detailed view of the selected alert.",User sees the list of alerts and the detailed view of the clicked alert without errors.
+TC-ALERT-VIEWING-002,No alerts exist in the system,Alert Viewing,4,User is logged in; no alerts exist.,N/A.,"1. User clicks ""View Alerts"" in the sidebar menu.
+2. System detects no alerts are present.","System displays a message indicating ""No alerts found"" or an empty state."
+TC-PROFILE-001,Navigate to profile and view dwellings,Profile Management,5,User is logged in; profile has dwelling data.,N/A.,"1. User clicks ""Profile"" in the sidebar menu.
+2. User clicks the blue house icon on the profile page.
+3. System redirects to the dwellings screen.",User is successfully redirected to the dwellings screen.
+TC-PROFILE-002,Save valid profile changes,Profile Management,5,User is logged in; on the profile page with editable fields.,"Valid updated data (e.g., new address, phone number).","1. User clicks ""Profile"" in the sidebar menu.
+2. User edits profile fields with valid data.
+3. System validates the fields as correct.
+4. User clicks ""Save Changes.""",Changes are saved successfully; user sees a confirmation message.
+TC-PROFILE-003,Correct invalid profile data before saving,Profile Management,5,User is logged in; on the profile page with editable fields.,"Invalid data (e.g., empty required field, invalid phone number).","1. User clicks ""Profile"" in the sidebar menu.
+2. User enters invalid data in profile fields.
+3. User clicks ""Save Changes.""
+4. System detects errors and prompts for correction.
+5. User corrects the data and resubmits.","System rejects invalid data, highlights errors, and allows saving only after corrections."
+TC-PROFILE-004,Discard profile changes,Profile Management,5,User is logged in; on the profile page with unsaved changes.,N/A (unsaved edits).,"1. User clicks ""Profile"" in the sidebar menu.
+2. User makes edits to profile fields.
+3. User clicks ""Discard Changes.""",All unsaved changes are discarded; original data is restored.
+TC-EDGE-CASE-001,Rapid menu clicks during navigation,System Stability,"2, 5",User is logged in; on the homepage.,N/A (simulate rapid clicks).,"1. User rapidly clicks multiple sidebar menu options (e.g., ""Homepage,"" ""Le mie segnalazioni,"" ""Impostazioni"") in quick succession.
+2. System processes each click.",System handles rapid clicks gracefully; no crashes or duplicate actions occur.
+TC-EDGE-CASE-002,Back button navigation after alert creation,Alert Creation,3,User is on the alert creation page with unsaved data.,N/A.,"1. User fills out the alert form partially.
+2. User clicks the browser back button.
+3. User returns to the alert creation page.",System either retains unsaved data or prompts the user to confirm discarding changes.

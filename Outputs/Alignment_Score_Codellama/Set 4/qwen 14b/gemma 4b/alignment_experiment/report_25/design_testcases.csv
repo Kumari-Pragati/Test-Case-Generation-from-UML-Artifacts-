@@ -1,0 +1,140 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,User Registration with Valid Credentials,Registration,"1, 2, 3",None,"- Username: testuser
+- Password: TestPass123!
+- Email: test@example.com","1. User fills in the registration form with valid credentials.
+2. User submits the form.
+3. Application sends a registration request to the server.
+4. Server saves the user data in the database.
+5. Server generates an OTP and saves it in the database.
+6. Server sends the OTP to the user via email.
+7. User receives the OTP and enters it into the application.
+8. Server verifies the OTP against the saved OTP.","- User is successfully registered.
+- User receives an email with the OTP.
+- OTP verification succeeds, and the user is redirected to the login page."
+TC-Registration-002,User Registration with Invalid Email Format,Registration,"1, 2, 3",None,"- Username: testuser
+- Password: TestPass123!
+- Email: invalidemail","1. User fills in the registration form with an invalid email format.
+2. User submits the form.
+3. Application attempts to send a registration request to the server.","- Registration fails due to invalid email format.
+- Error message is displayed indicating the email format is incorrect."
+TC-Login-001,Successful Login with Valid Credentials,Login,"1, 2, 4",User is registered,"- Username: testuser
+- Password: TestPass123!","1. User fills in the login form with valid credentials.
+2. User submits the form.
+3. Application sends an authentication token to the server.
+4. Server retrieves the user's password from the database.
+5. Server verifies the password.
+6. Server generates a token and saves it in the database.
+7. Server sends the token back to the application.
+8. Application opens the home screen.","- User is successfully logged in.
+- Home screen is displayed."
+TC-Login-002,Failed Login with Incorrect Password,Login,"1, 2, 4",User is registered,"- Username: testuser
+- Password: IncorrectPass","1. User fills in the login form with incorrect password.
+2. User submits the form.
+3. Application sends an authentication token to the server.
+4. Server retrieves the user's password from the database.
+5. Server verifies the password.","- Login fails due to incorrect password.
+- Error message is displayed indicating the password is incorrect."
+TC-PasswordReset-001,Request Password Reset with Valid Email,Password Reset,"1, 2, 5",User is registered,- Email: test@example.com,"1. User requests a password reset via email.
+2. Server checks if the email is registered in the database.
+3. Server sends a password reset link to the user's email.
+4. User clicks the link and enters a new password.
+5. Server communicates the password change to the user.
+6. Server saves the new password in the database.","- Password reset link is sent to the user's email.
+- New password is successfully saved in the database.
+- User receives confirmation of password change."
+TC-PasswordReset-002,Request Password Reset with Unregistered Email,Password Reset,"1, 2, 5",None,- Email: unregistered@example.com,"1. User requests a password reset via email.
+2. Server checks if the email is registered in the database.","- Email is not found in the database.
+- Error message is displayed indicating the email is not registered."
+TC-Homepage-001,Load Initial Cards on Homepage,Homepage,"1, 2, 6",User is logged in,- Preload Count: 10,"1. User opens the homepage.
+2. Application calls initCards(10) on the server.
+3. Server requests 10 objects from the database.
+4. Database sends 10 objects to the server.
+5. Server fills the card with 10 objects and sends it to the application.
+6. Application displays the filled cards to the user.","- Homepage displays 10 initial cards.
+- User can swipe through the cards."
+TC-Homepage-002,Load More Cards on Homepage,Homepage,"1, 2, 6",User is logged in and has viewed 10 cards,- Remaining Cards: 5,"1. User continues to swipe cards.
+2. Application requests the next 5 objects from the server.
+3. Server requests 5 objects from the database.
+4. Database sends 5 objects to the server.
+5. Server fills the card with 5 objects and sends it to the application.
+6. Application displays the additional 5 cards to the user.","- Homepage displays an additional 5 cards.
+- User can continue to swipe through the cards."
+TC-Matching-001,Matching Preferences Between Two Users,Matching,"1, 2, 7",Two users are logged in,"- User 1: testuser1
+- User 2: testuser2","1. User 1 swipes right on User 2's card.
+2. Application sends trackObjectPref(true) to the server.
+3. Server saves the preference in the database.
+4. Server confirms the save to the application.
+5. Server asks the application if there are any matches.
+6. Server receives the response (checkMatch(false)).
+7. User 2 swipes right on User 1's card.
+8. Application sends trackObjectPref(true) to the server.
+9. Server saves the preference in the database.
+10. Server confirms the save to the application.
+11. Server asks the application if there are any matches.
+12. Server receives the response (checkMatch(true)).
+13. Application displays the match screen to User 1.","- User 1 and User 2 both express interest in each other.
+- Match is confirmed and displayed to User 1."
+TC-Messaging-001,Send Message Between Two Users,Messaging,"1, 2, 8",Two users are logged in,"- User 1: testuser1
+- User 2: testuser2
+- Message: Hello!","1. User 1 types a message.
+2. Application sends sendMessage() to the server.
+3. Server saves the message in the database.
+4. Server confirms the save to the application.
+5. Server sends the message to User 2's application.
+6. User 2's application retrieves the message from the database.
+7. User 2's application displays a notification.
+8. User 1 opens the chat.
+9. User 1 views the messages.","- Message is successfully sent from User 1 to User 2.
+- User 2 receives a notification about the new message.
+- User 1 can view the message in the chat."
+TC-Messaging-002,Send Empty Message Between Two Users,Messaging,"1, 2, 8",Two users are logged in,"- User 1: testuser1
+- User 2: testuser2
+- Message: (empty)","1. User 1 types an empty message.
+2. Application attempts to send sendMessage() to the server.","- Sending an empty message is not allowed.
+- Error message is displayed indicating the message cannot be empty."
+TC-PushNotifications-001,Send Push Notification After User Action,Push Notifications,"1, 2",User is logged in,- User: testuser,"1. User performs an action that triggers a push notification.
+2. Apitandler processes the request.
+3. Apitandler sends the notification to the Pushnotifications system.
+4. Pushnotifications triggers the Realtimecommunication service.
+5. Realtimecommunication sends the push notification to the user.","- Push notification is successfully sent to the user.
+- User receives the notification on their device."
+TC-PushNotifications-002,No Push Notification Sent When User Is Not Registered,Push Notifications,"1, 2",User is not registered,- User: unregistereduser,"1. User performs an action that would normally trigger a push notification.
+2. Apitandler processes the request.
+3. Apitandler checks if the user is registered.","- User is not registered.
+- No push notification is sent."
+TC-JobQueue-001,Add Job to Job Queue,Job Queue,2,User is logged in,"- Job Name: TestJob
+- Priority: 1","1. User creates a job.
+2. Job is added to the job queue.
+3. Job queue updates its current size.","- Job is successfully added to the job queue.
+- Job queue reflects the updated size."
+TC-JobQueue-002,Remove Job from Job Queue,Job Queue,2,Job is in the job queue,- Job Name: TestJob,"1. User removes a job from the job queue.
+2. Job queue updates its current size.","- Job is successfully removed from the job queue.
+- Job queue reflects the updated size."
+TC-TokenGeneration-001,Generate and Validate Token,Token Generation,2,User is logged in,- User: testuser,"1. User generates a token.
+2. Token is stored with an expiry time.
+3. Token is validated using the validate method.","- Token is successfully generated.
+- Token validation returns true if within expiry time."
+TC-TokenGeneration-002,Validate Expired Token,Token Generation,2,User is logged in,"- User: testuser
+- Token Expiry Time: 1 hour ago","1. User generates a token.
+2. Token expires after 1 hour.
+3. Token is validated using the validate method.",- Token validation returns false due to expiration.
+TC-CacheOperations-001,Get and Set Cache Value,Cache Operations,2,Cache is initialized,"- Key: testkey
+- Value: testvalue
+- Expiry Time: 1 hour","1. Cache sets a value with an expiry time.
+2. Cache gets the value using the same key.","- Value is successfully set in the cache.
+- Value is retrieved correctly before expiry time."
+TC-CacheOperations-002,Retrieve Expired Cache Value,Cache Operations,2,Cache is initialized,"- Key: testkey
+- Value: testvalue
+- Expiry Time: 1 hour ago","1. Cache sets a value with an expiry time.
+2. Cache gets the value using the same key.","- Value is not retrieved due to expiration.
+- Cache returns null or an error indicating the value has expired."
+TC-ErrorReporting-001,Log Error Report,Error Reporting,2,System is running,"- Timestamp: Current time
+- Message: Error occurred
+- Level: Critical
+- Details: Detailed error information",1. System logs an error report.,- Error report is successfully logged with all provided details.
+TC-ErrorReporting-002,Log Error Report with Missing Details,Error Reporting,2,System is running,"- Timestamp: Current time
+- Message: Error occurred
+- Level: Critical
+- Details: (missing)",1. System logs an error report with missing details.,"- Error report is logged with available details.
+- Missing details are noted as null or default values."
+TC-SessionManagement-001,Create and End Session,Session Management,2,User is logged,,,

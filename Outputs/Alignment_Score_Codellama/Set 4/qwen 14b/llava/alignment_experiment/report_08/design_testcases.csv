@@ -1,0 +1,91 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a new user successfully,User,1,The system is up and running.,"- Username: ""testuser""
+- Password: ""password123""
+- Email: ""test@example.com""","1. Call the register method of the User class with valid username, password, and email.
+2. Verify that the User object is created with the provided details.
+3. Check that the RegistrationManager class receives the registration request.
+4. Ensure the Service class updates the user's status to registered.","The user is registered successfully, and the system confirms the registration."
+TC-User-002,Attempt to register a user with an existing username,User,1,"A user with the username ""testuser"" already exists.","- Username: ""testuser""
+- Password: ""password123""
+- Email: ""test@example.com""","1. Call the register method of the User class with the existing username, password, and email.
+2. Verify that the User object creation fails due to duplicate username.
+3. Ensure the RegistrationManager class does not process the registration request.","The registration fails, and an appropriate error message is returned."
+TC-Service-001,Access a service with a registered user,Service,1,"A user with the username ""testuser"" is registered.","- Username: ""testuser""
+- Password: ""password123""","1. Call the login method of the Service class with the registered username and password.
+2. Verify that the Service class authenticates the user.
+3. Ensure the User class is marked as logged in.",The user is authenticated and granted access to the service.
+TC-Service-002,Attempt to access a service with invalid credentials,Service,1,"No user with the username ""invaliduser"" exists.","- Username: ""invaliduser""
+- Password: ""wrongpassword""","1. Call the login method of the Service class with invalid username and password.
+2. Verify that the Service class rejects the authentication attempt.
+3. Ensure the User class remains unauthenticated.","The authentication fails, and an appropriate error message is returned."
+TC-RegistrationManager-001,Process a successful registration request,RegistrationManager,1,The system is up and running.,"- Username: ""newuser""
+- Password: ""password123""
+- Email: ""new@example.com""","1. Call the processRegistration method of the RegistrationManager class with valid user details.
+2. Verify that the RegistrationManager class creates a new User object.
+3. Ensure the Service class updates the user's status to registered.","The registration request is processed successfully, and the user is registered."
+TC-RegistrationManager-002,Handle a failed registration request due to duplicate username,RegistrationManager,1,"A user with the username ""existinguser"" already exists.","- Username: ""existinguser""
+- Password: ""password123""
+- Email: ""duplicate@example.com""","1. Call the processRegistration method of the RegistrationManager class with the existing username.
+2. Verify that the RegistrationManager class detects the duplicate username.
+3. Ensure the Service class does not update the user's status.","The registration request fails, and an appropriate error message is returned."
+TC-User-003,Update user profile information,User,1,"A user with the username ""testuser"" is registered.","- New Email: ""updated@example.com""","1. Call the updateUserProfile method of the User class with the new email address.
+2. Verify that the User object's email attribute is updated.
+3. Ensure the Service class reflects the updated user information.",The user's profile information is updated successfully.
+TC-User-004,Attempt to update user profile with an invalid email format,User,1,"A user with the username ""testuser"" is registered.","- New Email: ""invalidemail""","1. Call the updateUserProfile method of the User class with an invalid email format.
+2. Verify that the User object's email attribute remains unchanged.
+3. Ensure the Service class does not reflect the invalid update.","The update fails, and an appropriate error message is returned."
+TC-Service-003,Log out a user,Service,1,"A user with the username ""testuser"" is logged in.","- Username: ""testuser""","1. Call the logout method of the Service class with the logged-in username.
+2. Verify that the User class is marked as logged out.
+3. Ensure the Service class confirms the logout operation.",The user is logged out successfully.
+TC-Service-004,Attempt to log out a non-logged-in user,Service,1,"No user with the username ""nonexistentuser"" is logged in.","- Username: ""nonexistentuser""","1. Call the logout method of the Service class with a non-existent username.
+2. Verify that the User class does not change its logged-in status.
+3. Ensure the Service class returns an appropriate error message.","The logout operation fails, and an appropriate error message is returned."
+TC-RegistrationManager-003,Validate user registration request before processing,RegistrationManager,1,The system is up and running.,"- Username: ""validuser""
+- Password: ""password123""
+- Email: ""valid@example.com""","1. Call the validateRegistrationRequest method of the RegistrationManager class with valid user details.
+2. Verify that the RegistrationManager class validates the request successfully.
+3. Ensure the Service class processes the validated request.",The registration request is validated and processed successfully.
+TC-RegistrationManager-004,Reject a registration request with invalid email format,RegistrationManager,1,The system is up and running.,"- Username: ""invaliduser""
+- Password: ""password123""
+- Email: ""invalidemail""","1. Call the validateRegistrationRequest method of the RegistrationManager class with an invalid email format.
+2. Verify that the RegistrationManager class rejects the request due to invalid email format.
+3. Ensure the Service class does not process the rejected request.","The registration request is rejected, and an appropriate error message is returned."
+TC-User-005,Retrieve user information,User,1,"A user with the username ""testuser"" is registered.","- Username: ""testuser""","1. Call the getUserInfo method of the User class with the registered username.
+2. Verify that the User object's information is retrieved correctly.
+3. Ensure the Service class provides the correct user information.",The user's information is retrieved successfully.
+TC-User-006,Attempt to retrieve information for a non-existent user,User,1,"No user with the username ""nonexistentuser"" exists.","- Username: ""nonexistentuser""","1. Call the getUserInfo method of the User class with a non-existent username.
+2. Verify that the User object's information retrieval fails.
+3. Ensure the Service class returns an appropriate error message.","The information retrieval fails, and an appropriate error message is returned."
+TC-Service-005,Change user password,Service,1,"A user with the username ""testuser"" is registered.","- Username: ""testuser""
+- Old Password: ""password123""
+- New Password: ""newpassword123""","1. Call the changePassword method of the Service class with the old and new passwords.
+2. Verify that the User object's password is updated.
+3. Ensure the Service class confirms the password change.",The user's password is changed successfully.
+TC-Service-006,Attempt to change password with incorrect old password,Service,1,"A user with the username ""testuser"" is registered.","- Username: ""testuser""
+- Old Password: ""wrongpassword""
+- New Password: ""newpassword123""","1. Call the changePassword method of the Service class with an incorrect old password.
+2. Verify that the User object's password remains unchanged.
+3. Ensure the Service class returns an appropriate error message.","The password change fails, and an appropriate error message is returned."
+TC-RegistrationManager-005,Handle registration request with missing required fields,RegistrationManager,1,The system is up and running.,"- Username: ""missingfields""
+- Password: """"
+- Email: """"","1. Call the processRegistration method of the RegistrationManager class with missing required fields.
+2. Verify that the RegistrationManager class rejects the request due to missing fields.
+3. Ensure the Service class does not process the rejected request.","The registration request is rejected, and an appropriate error message is returned."
+TC-RegistrationManager-006,Validate registration request with special characters in username,RegistrationManager,1,The system is up and running.,"- Username: ""special@chars""
+- Password: ""password123""
+- Email: ""valid@example.com""","1. Call the validateRegistrationRequest method of the RegistrationManager class with a username containing special characters.
+2. Verify that the RegistrationManager class validates the request successfully.
+3. Ensure the Service class processes the validated request.",The registration request is validated and processed successfully.
+TC-User-007,Delete user account,User,1,"A user with the username ""testuser"" is registered.","- Username: ""testuser""","1. Call the deleteUserAccount method of the User class with the registered username.
+2. Verify that the User object is deleted.
+3. Ensure the Service class confirms the deletion.",The user's account is deleted successfully.
+TC-User-008,Attempt to delete a non-existent user account,User,1,"No user with the username ""nonexistentuser"" exists.","- Username: ""nonexistentuser""","1. Call the deleteUserAccount method of the User class with a non-existent username.
+2. Verify that the User object deletion fails.
+3. Ensure the Service class returns an appropriate error message.","The account deletion fails, and an appropriate error message is returned."
+TC-Service-007,Check user login status,Service,1,"A user with the username ""testuser"" is logged in.","- Username: ""testuser""","1. Call the checkLoginStatus method of the Service class with the logged-in username.
+2. Verify that the User class's login status is checked.
+3. Ensure the Service class confirms the user is logged in.",The user's login status is confirmed as logged in.
+TC-Service-008,Check login status for a non-logged-in user,Service,1,"No user with the username ""nonexistentuser"" is logged in.","- Username: ""nonexistentuser""","1. Call the checkLoginStatus method of the Service class with a non-existent username.
+2. Verify that the User class's login status check fails.
+3. Ensure the Service class returns an appropriate error message.","The login status check fails, and an appropriate error message is returned."
+TC-RegistrationManager-007,Process registration request with very long username,RegistrationManager,1,The system is up and running.,"- Username: ""averyveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery",,

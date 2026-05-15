@@ -1,0 +1,149 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration with Valid Credentials,User,3,None,"- Email: test@example.com
+- Password: StrongPassword123
+- Name: John Doe","1. User enters registration details via UI.
+2. UI sends the registration data to Firebase/Authentication.
+3. Firebase/Authentication validates the data.
+4. FireBase/Firestore verifies the validation.
+5. Firebase/Authentication sends valid data/token to UI.
+6. UI saves the user in the system.
+7. UI confirms the data saving.",User is successfully registered and saved in the system.
+TC-User-002,User Registration with Invalid Credentials,User,3,None,"- Email: invalid-email
+- Password: WeakPass
+- Name: Jane Doe","1. User enters registration details via UI.
+2. UI sends the registration data to Firebase/Authentication.
+3. Firebase/Authentication validates the data.
+4. FireBase/Firestore verifies the validation.
+5. Firebase/Authentication detects invalid data.
+6. UI displays an error message.",An error message is displayed indicating invalid registration data.
+TC-User-003,User Login with Valid Credentials,User,2,User is registered,"- Email: test@example.com
+- Password: StrongPassword123","1. User inserts credentials via UI.
+2. UI sends the credentials to FirebaseAuthentication.
+3. FirebaseAuthentication signs the user.
+4. FirebaseAuthentication retrieves user data from FirebaseFirestore.
+5. FirebaseAuthentication returns a token to the UI.
+6. UI confirms successful login.",User is logged in successfully and receives a token.
+TC-User-004,User Login with Invalid Credentials,User,2,User is registered,"- Email: test@example.com
+- Password: IncorrectPassword","1. User inserts credentials via UI.
+2. UI sends the credentials to FirebaseAuthentication.
+3. FirebaseAuthentication signs the user.
+4. FirebaseAuthentication detects invalid credentials.
+5. FirebaseAuthentication returns an error message to the UI.
+6. UI displays an error message.",An error message is displayed indicating incorrect credentials.
+TC-Entity-001,Create Entity with Valid Details,Entity,1,User is logged in,"- Name: Example Entity
+- Description: This is an example entity.
+- Type: Sample Type","1. User creates an entity via the system.
+2. System creates the entity in the database.
+3. Entity is associated with an area.
+4. Area generates a report.
+5. System sends a notification to the user.","Entity is created successfully and associated with an area, generating a report and sending a notification to the user."
+TC-Entity-002,Create Entity with Missing Details,Entity,1,User is logged in,"- Name: Example Entity
+- Description: Missing
+- Type: Sample Type","1. User attempts to create an entity with missing details.
+2. System detects missing details.
+3. System does not create the entity.
+4. System sends an error message to the user.",An error message is displayed indicating missing details.
+TC-Report-001,Generate Report with Valid Details,Report,1,"User is logged in, entity exists","- Date: 2023-10-01
+- Content: This is a sample report.","1. User creates a report via the system.
+2. System associates the report with the user and area.
+3. Area generates the report.
+4. System sends a notification to the user.","Report is generated successfully and associated with the user and area, and a notification is sent to the user."
+TC-Report-002,Generate Report with Invalid Date Format,Report,1,"User is logged in, entity exists","- Date: 2023/10/01
+- Content: This is a sample report.","1. User attempts to create a report with an invalid date format.
+2. System detects the invalid date format.
+3. System does not generate the report.
+4. System sends an error message to the user.",An error message is displayed indicating an invalid date format.
+TC-Notification-001,Send Notification to User on Successful Entity Creation,Notification,1,"User is logged in, entity creation successful","- Message: Your entity has been created successfully.
+- Timestamp: Current datetime","1. User creates an entity via the system.
+2. System creates the entity in the database.
+3. System sends a notification to the user.",Notification is sent successfully to the user.
+TC-Notification-002,Send Notification to User on Failed Entity Creation,Notification,1,"User is logged in, entity creation failed","- Message: Entity creation failed due to missing details.
+- Timestamp: Current datetime","1. User attempts to create an entity with missing details.
+2. System detects missing details.
+3. System does not create the entity.
+4. System sends a notification to the user.",Notification is sent successfully to the user indicating the failure reason.
+TC-ReportSubmission-001,Submit Report with Valid Details,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Valid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User submits a report via the UI.
+2. UI verifies the report details.
+3. Firebase uploads the image.
+4. FirebaseStorage saves the URL of the image.
+5. Firebase finds the nearest entity.
+6. Firebase assigns the nearest entity to the report.
+7. UI confirms the submission of the report with the assigned entity.
+8. Firebase confirms the saving of the report.",Report is submitted successfully with the nearest entity assigned and saved in the system.
+TC-ReportSubmission-002,Submit Report with Missing Details,Report Submission,4,User is logged in,"- Description: Missing
+- Image: Valid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User submits a report with missing details.
+2. UI detects missing details.
+3. UI requests correction from Firebase.
+4. Firebase sends a correction request to the UI.
+5. UI prompts the user to correct and resend the report.",UI prompts the user to correct and resend the report due to missing details.
+TC-ReportSubmission-003,Submit Report with Invalid Image,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Invalid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User submits a report with an invalid image.
+2. Firebase detects the invalid image.
+3. Firebase sends a correction request to the UI.
+4. UI prompts the user to correct and resend the report.",UI prompts the user to correct and resend the report due to an invalid image.
+TC-ReportSubmission-004,Submit Report with Invalid Coordinates,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Valid image file
+- Coordinates: Invalid coordinates
+- Urgency: High","1. User submits a report with invalid coordinates.
+2. Firebase detects the invalid coordinates.
+3. Firebase sends a correction request to the UI.
+4. UI prompts the user to correct and resend the report.",UI prompts the user to correct and resend the report due to invalid coordinates.
+TC-ReportSubmission-005,Submit Report with Low Urgency,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Valid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: Low","1. User submits a report with low urgency.
+2. Firebase processes the report.
+3. Firebase finds the nearest entity.
+4. Firebase assigns the nearest entity to the report.
+5. UI confirms the submission of the report with the assigned entity.
+6. Firebase confirms the saving of the report.","Report is submitted successfully with the nearest entity assigned and saved in the system, even with low urgency."
+TC-ReportSubmission-006,Submit Report with No Urgency Specified,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Valid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: Not specified","1. User submits a report without specifying urgency.
+2. Firebase processes the report.
+3. Firebase finds the nearest entity.
+4. Firebase assigns the nearest entity to the report.
+5. UI confirms the submission of the report with the assigned entity.
+6. Firebase confirms the saving of the report.","Report is submitted successfully with the nearest entity assigned and saved in the system, even without specifying urgency."
+TC-ReportSubmission-007,Submit Report with High Urgency,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Valid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User submits a report with high urgency.
+2. Firebase processes the report.
+3. Firebase finds the nearest entity.
+4. Firebase assigns the nearest entity to the report.
+5. UI confirms the submission of the report with the assigned entity.
+6. Firebase confirms the saving of the report.","Report is submitted successfully with the nearest entity assigned and saved in the system, prioritized due to high urgency."
+TC-ReportSubmission-008,Submit Report with Invalid Description,Report Submission,4,User is logged in,"- Description: Invalid description
+- Image: Valid image file
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User submits a report with an invalid description.
+2. Firebase detects the invalid description.
+3. Firebase sends a correction request to the UI.
+4. UI prompts the user to correct and resend the report.",UI prompts the user to correct and resend the report due to an invalid description.
+TC-ReportSubmission-009,Submit Report with Valid Details but No Image,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: No image provided
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User submits a report with valid details but no image.
+2. Firebase processes the report.
+3. Firebase finds the nearest entity.
+4. Firebase assigns the nearest entity to the report.
+5. UI confirms the submission of the report with the assigned entity.
+6. Firebase confirms the saving of the report.","Report is submitted successfully with the nearest entity assigned and saved in the system, even without an image."
+TC-ReportSubmission-010,Submit Report with Valid Details but No Coordinates,Report Submission,4,User is logged in,"- Description: This is a sample report.
+- Image: Valid image file
+- Coordinates: Not specified
+- Urgency: High","1. User submits a report with valid details but no coordinates.
+2. Firebase processes the report.
+3. Firebase finds the nearest entity.
+4. Firebase assigns the nearest entity to the report.
+5. UI confirms the submission of the report with the assigned entity.
+6. Firebase confirms the saving",

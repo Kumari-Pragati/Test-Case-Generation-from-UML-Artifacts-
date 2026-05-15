@@ -1,0 +1,104 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user creation and authentication,User Authentication,"2, 6","- System is initialized with an empty database.
+- User has not previously registered.","- Valid credentials: `email=""user1@example.com""`, `password=""SecurePass123!""`, `nome=""John""`, `cognome=""Doe""`, `neighborhood=""N123""`","1. User attempts to log in with invalid credentials (e.g., `email=""nonexistent@example.com""`).
+2. System detects user does not exist and triggers `UserCreateProcedure`.
+3. User submits registration data (`nome`, `cognome`, `email`, `password`, `neighborhood`).
+4. `UserCreateProcedure` sends ""Create new entry"" to `StoredDataDB`.
+5. `StoredDataDB` validates and stores the user data.
+6. System redirects to `AuthenticationProcedure` with valid credentials.
+7. User logs in with the newly created credentials.","- User account is created successfully in `StoredDataDB`.
+- User is authenticated and redirected to `HOME`.
+- `ChatList` and `Neighborhood` associations are initialized for the user."
+TC-AUTHENTICATION-002,Failed user creation due to invalid credentials,User Authentication,"2, 6","- System is initialized.
+- User attempts registration with invalid data.","- Invalid credentials: `email=""invalid-email""`, `password=""123""` (too short), `nome=""""` (empty), `neighborhood=""N99999""` (non-existent).","1. User submits registration form with invalid data.
+2. System validates inputs and rejects the request.
+3. `UserCreateProcedure` fails to create an entry in `StoredDataDB`.
+4. System triggers `VerifyLocalizationProcedure` for `neighborhood=""N99999""`.
+5. Localization procedure fails (neighborhood not found).
+6. User is shown an error message: ""Registration failed. Invalid data or neighborhood.""","- No new user entry in `StoredDataDB`.
+- User remains on registration screen with error highlights on invalid fields.
+- System logs the failure for audit."
+TC-AUTHENTICATION-003,Authentication with valid credentials after successful registration,User Authentication,"2, 6",- User is pre-registered in `StoredDataDB` with valid data.,"- Valid credentials: `email=""user1@example.com""`, `password=""SecurePass123!""`.","1. User enters `email` and `password` in login screen.
+2. System sends credentials to `StoredDataDB` for validation.
+3. `StoredDataDB` confirms credentials are valid.
+4. System redirects user to `HOME`.","- User is successfully authenticated.
+- `ChatList` and `Neighborhood` data is loaded for the user.
+- Home screen displays user-specific content (e.g., posts from their neighborhood)."
+TC-NAVIGATION-001,Navigate from Home to Profile via profile photo click,UI Navigation,3,- User is logged in and on the `HOME` screen.,,"1. User clicks on their profile photo on the `HOME` screen.
+2. System transitions to `Profile` section.","- User profile screen loads with correct data (`nome`, `cognome`, `photo`, `neighborhood`).
+- Navigation bar updates to reflect current section (e.g., ""Profile"" highlighted)."
+TC-NAVIGATION-002,Navigate to ChatSection and return to Home,UI Navigation,3,"- User is logged in and on the `HOME` screen.
+- User has at least one chat in `ChatList`.",,"1. User clicks the chat icon in the menu.
+2. System transitions to `ChatSection`.
+3. User clicks the `HOME` icon in the menu.
+4. System returns to `HOME` screen.","- `ChatSection` displays the user’s `chattedWith` list and messages.
+- Returning to `HOME` retains the user’s session and refreshes the feed."
+TC-NAVIGATION-003,Invalid navigation (click outside interactive elements),UI Navigation,3,- User is on the `HOME` screen.,,"1. User taps randomly on a non-interactive area of the screen (e.g., empty space).
+2. System ignores the input.","- No transition occurs; `HOME` screen remains unchanged.
+- System logs the event as a ""no-op"" for analytics."
+TC-POST-COMMENT-001,Create and submit a valid PostComment,Post Interaction,"1, 4","- User is logged in and viewing a `Post` in `FullScreenPost`.
+- User has permission to comment.","- Valid comment: `content=""Great post! Thanks for sharing.""`, `postReference=Post(id=123)`.","1. User clicks ""Aggiungi un commento"" in `FullScreenPost`.
+2. User enters comment text in the input field.
+3. User clicks ""LeaveComment"" to submit.
+4. System validates the comment (`content` not empty, `postReference` exists).
+5. `PostComment` is created with:
+   - `author=User(id=current_user_id)`,
+   - `creationDate=current_timestamp`,
+   - `postReference=Post(id=123)`.
+6. System updates the `Post`’s `comments` list with the new `PostComment`.
+7. User sees a confirmation: ""Comment added successfully.""","- New `PostComment` is stored in `StoredDataDB` with correct associations.
+- Comment appears in the `Post`’s comment section.
+- `lastUpdateDate` of the `Post` is updated to `current_timestamp`."
+TC-POST-COMMENT-002,Submit empty PostComment,Post Interaction,"1, 4",- User is logged in and viewing a `Post`.,"- Invalid comment: `content=""""` (empty).","1. User clicks ""Aggiungi un commento.""
+2. User submits an empty comment.
+3. System validates the input and rejects it.","- Error message: ""Comment cannot be empty.""
+- No new `PostComment` is created.
+- User remains on the `FullScreenPost` screen."
+TC-POST-COMMENT-003,Comment on a non-existent Post,Post Interaction,"1, 4",- User is logged in.,- Invalid `postReference`: `postReference=Post(id=99999)` (non-existent).,"1. User manually sets `postReference` to a non-existent `Post` (e.g., via API or debug mode).
+2. User submits the comment.
+3. System detects the invalid `postReference` and rejects the comment.","- Error message: ""Post not found. Comment failed.""
+- No `PostComment` is created.
+- System logs the error for debugging."
+TC-DASHBOARD-001,Browse posts and load comments for a Post,General Dashboard,4,"- User is logged in and on `GeneralDashboard`.
+- At least one `Post` exists in the user’s `neighborhood`.",,"1. User scrolls through `Scorri posts condivisi presenti in bacheca`.
+2. User clicks on a specific `Post` (e.g., `Post(id=123)`).
+3. System loads comments for the `Post` (`Attend carico commenti`).
+4. `FullScreenPost` displays the post and its comments.","- Comments for `Post(id=123)` are fetched and displayed.
+- `lastUpdateDate` of the `Post` is updated if accessed recently.
+- User can see `author`, `creationDate`, and `content` of each comment."
+TC-DASHBOARD-002,Post with no comments,General Dashboard,4,"- User is logged in.
+- A `Post` exists with no `PostComment` entries.",,"1. User clicks on a `Post` with no comments.
+2. System loads the `Post` and displays a message: ""No comments yet.""","- `FullScreenPost` shows the post content and an empty comment section.
+- User can still add a comment via ""Aggiungi un commento."""
+TC-PROFILE-SEARCH-001,Search and view a ResidentProfile,Profile Search,5,"- User is logged in and performs a search (e.g., ""John Doe"").
+- A resident profile matches the search (`User(id=456)`).",,"1. User searches for a resident and selects the profile.
+2. System transitions to `ResidentProfile`.
+3. User clicks ""Aggiungi ai contatti.""
+4. System adds the resident to the user’s `ChatList.chattedWith`.","- `ResidentProfile` displays correct data (`nome`, `cognome`, `photo`, `neighborhood`).
+- Resident is added to `ChatList.chattedWith` for the user.
+- Chat icon in the menu updates to show ""1 new contact."""
+TC-PROFILE-SEARCH-002,View BusinessProfile and book an appointment,Profile Search,5,"- User searches for a business (e.g., ""Local Bakery"").
+- Business profile exists (`BusinessUser(id=789)`).",,"1. User selects the business profile.
+2. System transitions to `BusinessProfile`.
+3. User clicks ""Prenota appuntamento.""
+4. System opens `Calendar` for appointment scheduling.
+5. User selects a date/time and confirms.
+6. System writes the appointment to `StoredDataDB` (`Attend di operazione di scrittura sul db`).
+7. User sees ""Conferma riuscita.""","- Appointment is recorded in `StoredDataDB` with:
+  - `BusinessUser(id=789)`,
+  - `User(id=current_user_id)`,
+  - `dateTime=selected_slot`.
+- User receives a confirmation notification.
+- Business profile shows ""1 upcoming appointment."""
+TC-PROFILE-SEARCH-003,Search for non-existent profile,Profile Search,5,"- User performs a search with no matches (e.g., ""Nonexistent User"").",,"1. User submits the search query.
+2. System returns no results.","- Message: ""No profiles found. Try a different search.""
+- User can refine the search or return to `HOME`."
+TC-BUSINESS-USER-001,Create a BusinessUser with valid VAT number,Business User Management,1,- User is a `BusinessUser` registering their profile.,"- Valid VAT: `vatNumber=""IT12345678901""`, `brandName=""Local Café""`, `companyName=""Café Italia""`.","1. User submits `BusinessUser` data with valid `vatNumber`.
+2. System validates the VAT format and uniqueness.
+3. `BusinessUser` is created with:
+   - `user=User(id=current_user_id)`,
+   - `vatNumber=""IT12345678901""`,
+   - `brandPhoto=uploaded_uri`.","- `BusinessUser` is stored in `StoredDataDB`.
+- Business profile is accessible via search.
+- `BusinessUser` can list unsold items/promotions."
+TC-BUSINESS-USER-002,,,,,,,

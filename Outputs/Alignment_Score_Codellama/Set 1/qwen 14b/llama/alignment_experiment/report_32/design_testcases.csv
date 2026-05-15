@@ -1,0 +1,108 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-MainProgram-001,Main Program Calls Routine 1,Main Program,1,Main Program is initialized and ready to execute.,N/A,"1. Main Program initiates execution.
+2. Main Program calls Routine 1.",Routine 1 is executed successfully.
+TC-Routine1-002,Routine 1 Calls Routine 1.1,Routine 1,1,Routine 1 is called by Main Program.,N/A,"1. Routine 1 executes.
+2. Routine 1 calls Routine 1.1.",Routine 1.1 is executed successfully.
+TC-Routine1-003,Routine 1 Calls Routine 1.2,Routine 1,1,Routine 1 is called by Main Program.,N/A,"1. Routine 1 executes.
+2. Routine 1 calls Routine 1.2.",Routine 1.2 is executed successfully.
+TC-Routine2-004,Routine 2 Calls Routine 3.1,Routine 2,1,Routine 2 is called by Main Program.,N/A,"1. Routine 2 executes.
+2. Routine 2 calls Routine 3.1.",Routine 3.1 is executed successfully.
+TC-Routine3-005,Routine 3 Calls Routine 3.1,Routine 3,1,Routine 3 is called by Routine 2.,N/A,"1. Routine 3 executes.
+2. Routine 3 calls Routine 3.1.",Routine 3.1 is executed successfully.
+TC-Routine3-006,Routine 3 Calls Routine 3.2,Routine 3,1,Routine 3 is called by Routine 2.,N/A,"1. Routine 3 executes.
+2. Routine 3 calls Routine 3.2.",Routine 3.2 is executed successfully.
+TC-UserManagement-007,User Creation,Utenti,2,System is initialized and ready to accept user creation requests.,"- Valid username: ""testuser""
+- Valid email: ""test@example.com""
+- Valid password: ""password123""
+- Name: ""John Doe""
+- Surname: ""Doe""
+- Position: ""Developer""","1. User attempts to create a new account using valid credentials.
+2. System verifies the provided information.
+3. System creates a new user entry in the database.",User is created successfully and can log in using the provided credentials.
+TC-UserManagement-008,Invalid User Creation,Utenti,2,System is initialized and ready to accept user creation requests.,"- Invalid username: """"
+- Invalid email: ""invalidemail""
+- Invalid password: """"
+- Name: ""John Doe""
+- Surname: ""Doe""
+- Position: ""Developer""","1. User attempts to create a new account using invalid credentials.
+2. System verifies the provided information.
+3. System rejects the request due to invalid credentials.",User creation fails and an appropriate error message is displayed.
+TC-ObjectManagement-009,Object Creation,Oggetti,2,System is initialized and ready to accept object creation requests.,"- Valid name: ""Laptop""
+- Description: [""Portable"", ""High Performance""]
+- Type: 1
+- User ID: 1","1. User attempts to create a new object using valid credentials.
+2. System verifies the provided information.
+3. System creates a new object entry in the database.",Object is created successfully and can be retrieved using the provided details.
+TC-ObjectManagement-010,Invalid Object Creation,Oggetti,2,System is initialized and ready to accept object creation requests.,"- Invalid name: """"
+- Description: []
+- Type: 0
+- User ID: 0","1. User attempts to create a new object using invalid credentials.
+2. System verifies the provided information.
+3. System rejects the request due to invalid credentials.",Object creation fails and an appropriate error message is displayed.
+TC-ServiceManagement-011,Service Creation,Servizi,2,System is initialized and ready to accept service creation requests.,"- Valid name: ""Web Development""
+- Description: [""Frontend"", ""Backend""]
+- Type: 1
+- User ID: 1","1. User attempts to create a new service using valid credentials.
+2. System verifies the provided information.
+3. System creates a new service entry in the database.",Service is created successfully and can be retrieved using the provided details.
+TC-ServiceManagement-012,Invalid Service Creation,Servizi,2,System is initialized and ready to accept service creation requests.,"- Invalid name: """"
+- Description: []
+- Type: 0
+- User ID: 0","1. User attempts to create a new service using invalid credentials.
+2. System verifies the provided information.
+3. System rejects the request due to invalid credentials.",Service creation fails and an appropriate error message is displayed.
+TC-AnnouncementCreation-013,Announcement Creation,Annunci,2,System is initialized and ready to accept announcement creation requests.,"- Valid title: ""New Laptop Available""
+- User ID: 1
+- Object ID: 1
+- Service ID: 1","1. User attempts to create a new announcement using valid credentials.
+2. System verifies the provided information.
+3. System creates a new announcement entry in the database.",Announcement is created successfully and can be retrieved using the provided details.
+TC-AnnouncementCreation-014,Invalid Announcement Creation,Annunci,2,System is initialized and ready to accept announcement creation requests.,"- Invalid title: """"
+- User ID: 0
+- Object ID: 0
+- Service ID: 0","1. User attempts to create a new announcement using invalid credentials.
+2. System verifies the provided information.
+3. System rejects the request due to invalid credentials.",Announcement creation fails and an appropriate error message is displayed.
+TC-LoginProcess-015,Successful Login,Login,3,User has registered and entered valid credentials.,"- Username: ""testuser""
+- Password: ""password123""","1. User enters valid login credentials.
+2. System verifies the provided information.
+3. System grants access.",User is logged in successfully.
+TC-LoginProcess-016,Failed Login,Login,3,User has registered but entered invalid credentials.,"- Username: ""testuser""
+- Password: ""wrongpassword""","1. User enters invalid login credentials.
+2. System verifies the provided information.
+3. System denies access.",User is denied access and prompted to re-enter credentials.
+TC-QueryExecution-017,Successful Query Execution,Query,4,System is initialized and ready to execute queries.,- Valid query: SELECT * FROM table WHERE condition,"1. System receives a valid query.
+2. System executes the query.
+3. System confirms the query was executed successfully.",Query is executed successfully and returns expected results.
+TC-QueryExecution-018,Failed Query Execution,Query,4,System is initialized and ready to execute queries.,- Invalid query: SELECT * FROM non_existent_table,"1. System receives an invalid query.
+2. System attempts to execute the query.
+3. System detects the query failed.
+4. System sends an error message.",Query fails and an appropriate error message is displayed.
+TC-ObjectCreation-019,Successful Object Creation,Object Creation,5,System is initialized and ready to create objects.,"- Valid object details: {""name"": ""Laptop"", ""description"": [""Portable"", ""High Performance""], ""type"": 1}","1. System receives valid object details.
+2. System inserts the object data into the database.
+3. System confirms the query was executed successfully.",Object is created successfully and can be retrieved from the database.
+TC-ObjectCreation-020,Failed Object Creation,Object Creation,5,System is initialized and ready to create objects.,"- Invalid object details: {""name"": """", ""description"": [], ""type"": 0}","1. System receives invalid object details.
+2. System attempts to insert the object data into the database.
+3. System detects the query failed.
+4. System sends an error message.",Object creation fails and an appropriate error message is displayed.
+TC-ServiceCreation-021,Successful Service Creation,Service Creation,6,System is initialized and ready to create services.,"- Valid service details: {""name"": ""Web Development"", ""description"": [""Frontend"", ""Backend""], ""type"": 1}","1. System receives valid service details.
+2. System inserts the service data into the database.
+3. System confirms the query was executed successfully.",Service is created successfully and can be retrieved from the database.
+TC-ServiceCreation-022,Failed Service Creation,Service Creation,6,System is initialized and ready to create services.,"- Invalid service details: {""name"": """", ""description"": [], ""type"": 0}","1. System receives invalid service details.
+2. System attempts to insert the service data into the database.
+3. System detects the query failed.
+4. System sends an error message.",Service creation fails and an appropriate error message is displayed.
+TC-AnnouncementCreation-023,Successful Announcement Creation,Announcement Creation,7,System is initialized and ready to create announcements.,"- Valid announcement details: {""title"": ""New Laptop Available"", ""object_id"": 1, ""service_id"": 1}","1. System receives valid announcement details.
+2. System inserts the announcement data into the database.
+3. System confirms the query was executed successfully.",Announcement is created successfully and can be retrieved from the database.
+TC-AnnouncementCreation-024,Failed Announcement Creation,Announcement Creation,7,System is initialized and ready to create announcements.,"- Invalid announcement details: {""title"": """", ""object_id"": 0, ""service_id"": 0}","1. System receives invalid announcement details.
+2. System attempts to insert the announcement data into the database.
+3. System detects the query failed.
+4. System sends an error message.",Announcement creation fails and an appropriate error message is displayed.
+TC-AnnouncementDeletion-025,Successful Announcement Deletion,Announcement Deletion,"8, 9",System is initialized and ready to delete announcements.,- Valid announcement ID: 1,"1. User selects an announcement to delete.
+2. System queries the database to delete the selected announcement.
+3. System confirms the query was executed successfully.",Announcement is deleted successfully and cannot be retrieved from the database.
+TC-AnnouncementDeletion-026,Failed Announcement Deletion,Announcement Deletion,"8, 9",System is initialized and ready to delete announcements.,- Invalid announcement ID: 0,"1. User selects an announcement to delete.
+2. System queries the database to delete the selected announcement.
+3. System detects the query failed.
+4. System sends an",

@@ -1,0 +1,136 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Validate token retrieval and API request with valid token,Authentication,2,"- LocalUser has a valid token stored.
+- API_Manager is operational and returns ""OK"" status.","- Valid token: `""abc123xyz""`
+- API_Manager response: `{""status"": ""OK""}`","1. Main calls `LocalUser.getToken()` and retrieves `""abc123xyz""`.
+2. LocalUser sends `request(""abc123xyz"")` to API_Manager.
+3. API_Manager returns `{""status"": ""OK""}`.
+4. LocalUser verifies `token != null` and `status == ""OK""`.
+5. LocalUser proceeds with authenticated request.","- No user data request is triggered.
+- System continues with authenticated flow."
+TC-AUTHENTICATION-002,Handle invalid token (null) and request user data,Authentication,2,"- LocalUser has no token (`null`).
+- API_Manager is operational.","- Token: `null`
+- API_Manager response: `{""status"": ""ERROR""}`","1. Main calls `LocalUser.getToken()` and retrieves `null`.
+2. LocalUser sends `request(null)` to API_Manager.
+3. API_Manager returns `{""status"": ""ERROR""}`.
+4. LocalUser detects `token == null OR status != ""OK""`.
+5. LocalUser triggers `richiedi dati utente` (request user data).
+6. Main sends `request(dati utente)` to LocalUser.
+7. LocalUser creates a new instance via API_Manager.
+8. API_Manager confirms completion with `done`.","- User data is re-requested.
+- New LocalUser instance is created successfully."
+TC-AUTHENTICATION-003,Handle API_Manager failure during token validation,Authentication,2,"- LocalUser has a valid token.
+- API_Manager is down/unreachable.","- Token: `""validToken123""`
+- API_Manager response: `null` (timeout/error)","1. Main calls `LocalUser.getToken()` and retrieves `""validToken123""`.
+2. LocalUser sends `request(""validToken123"")` to API_Manager.
+3. API_Manager fails to respond (times out).
+4. LocalUser detects no response and treats as `status != ""OK""`.
+5. LocalUser triggers `richiedi dati utente`.
+6. Main requests user data.
+7. LocalUser creates a new instance via API_Manager.","- System falls back to user data re-entry.
+- Error log is generated (if applicable)."
+TC-DATA_RETRIEVAL-001,Retrieve and display list of Services/Needs/Reports,Data Retrieval,3,"- API_Manager has a populated JSON list of entries.
+- Main is initialized.","- JSON list:
+  ```json
+  [
+    {""id"": 1, ""title"": ""Service A"", ""postDate"": ""2023-10-01""},
+    {""id"": 2, ""title"": ""Need B"", ""postDate"": ""2023-10-02""}
+  ]
+  ```","1. Main sends `listJSON = request()` to API_Manager.
+2. API_Manager processes request and returns JSON list.
+3. For each entry in `listJSON`, API_Manager creates a new `Service/Need/Report` instance.
+4. Each instance calls `displayList()` and sends data to Main.
+5. Main renders the list on screen.","- Two entries (""Service A"" and ""Need B"") are displayed with correct metadata.
+- No errors during instantiation."
+TC-DATA_RETRIEVAL-002,Handle empty JSON list from API_Manager,Data Retrieval,3,- API_Manager returns an empty JSON list.,- JSON list: `[]` (empty),"1. Main sends `listJSON = request()` to API_Manager.
+2. API_Manager returns `[]`.
+3. Loop in API_Manager skips instantiation (no entries).
+4. Main receives no data to display.","- Screen shows ""No entries found"" or empty state.
+- No crashes or errors."
+TC-DATA_RETRIEVAL-003,Handle malformed JSON from API_Manager,Data Retrieval,3,- API_Manager returns invalid JSON.,"- JSON response: `""{invalid: json}""` (syntax error)","1. Main sends `listJSON = request()` to API_Manager.
+2. API_Manager returns malformed JSON.
+3. System detects parsing error.
+4. Main displays error message: ""Failed to load data. Please try again.""","- No data is processed or displayed.
+- User is notified of the error."
+TC-DATA_INSERTION-001,Insert a new Service via API_Manager,Data Insertion,4,"- LocalUser is authenticated.
+- API_Manager is operational.","- New Service:
+  - `title`: ""Community Cleanup""
+  - `link`: ""https://example.com/cleanup""
+  - `description`: ""Volunteer event""
+  - `creator`: ""user123""","1. Main initiates `new` request to API_Manager.
+2. Main converts Service data to JSON: `newEntry = toJSON()`.
+3. API_Manager receives `request(newEntry)`.
+4. Service processes data and returns `done`.
+5. API_Manager confirms completion to Main.","- Service is saved in the system.
+- No validation errors (e.g., missing fields).
+- Confirmation message: ""Service added successfully."""
+TC-DATA_INSERTION-002,Insert a Need with missing required field,Data Insertion,4,- LocalUser is authenticated.,"- New Need (missing `address`):
+  - `title`: ""Food Assistance""
+  - `description`: ""Emergency supplies""
+  - `creator`: ""user456""
+  - `address`: `""""` (empty)","1. Main initiates `new` request.
+2. Main converts Need to JSON (with empty `address`).
+3. API_Manager validates and rejects due to missing `address`.
+4. Service returns error: `""address is required""`.","- Insertion fails.
+- Error message: ""Address is mandatory. Please provide a valid location.""
+- Data is not saved."
+TC-DATA_UPDATE-001,Update an existing Report with valid data,Data Update,5,"- Report with `id: 1` exists in the system.
+- LocalUser is authenticated.","- Updated Report:
+  - `id`: 1
+  - `title`: ""Updated Emergency Report""
+  - `priority`: 2 (changed from 1)
+  - `address`: ""123 New St"" (changed)","1. Main prints current data to screen.
+2. Main retrieves `datiAggiornati` (updated data) via `leggiDatilInseriti()`.
+3. For each updated field, Main calls `set(dato)` on Report.
+4. Main converts updated Report to JSON: `updateEntry = toJSON()`.
+5. Main sends `request(updateEntry)` to API_Manager.
+6. API_Manager processes and returns `done`.","- Report is updated with new `title`, `priority`, and `address`.
+- Confirmation: ""Report updated successfully.""
+- Screen reflects changes."
+TC-DATA_UPDATE-002,Update a Report with invalid priority value,Data Update,5,- Report with `id: 2` exists.,"- Updated Report (invalid `priority`):
+  - `priority`: 5 (assuming max allowed is 3)","1. Main updates Report with `priority: 5`.
+2. Main converts to JSON and sends `request(updateEntry)`.
+3. API_Manager validates and rejects due to invalid `priority`.
+4. Service returns error: `""priority must be 1-3""`.","- Update fails.
+- Error message: ""Priority must be between 1 and 3.""
+- Original Report data remains unchanged."
+TC-NOTIFICATION-001,Send notification for a high-priority Report,Notification System,1,"- NotificationSystem is configured with `MIN_AGE: 18` and `MIN_LENGTH_PASSWORD: 8`.
+- A high-priority Report (`priority: 3`) is created.","- Report:
+  - `title`: ""Critical Outage""
+  - `priority`: 3
+  - `category`: ""Emergency""
+  - `address`: ""Main St, 456""","1. NotificationSystem elaborates Report data via `elaborateData(List<Report>)`.
+2. NotificationSystem calls `sendNotificationReport(Report)`.
+3. NotificationSystem invokes `showNotificationWithDefaultSound(title, message, withSound)` with:
+   - `title`: ""Critical Outage""
+   - `message`: ""High-priority report at Main St, 456""
+   - `withSound`: `true`","- Notification is displayed with sound.
+- Notification includes priority indicator (e.g., ""⚠️ High Priority"")."
+TC-NOTIFICATION-002,Download reports and elaborate data for notifications,Notification System,1,"- NotificationSystem has access to 3 Reports.
+- `downloadReports()` is called.","- Reports:
+  1. `priority: 1`, `category: ""General""`
+  2. `priority: 2`, `category: ""Urgent""`
+  3. `priority: 3`, `category: ""Emergency""`","1. NotificationSystem calls `downloadReports()`.
+2. API returns `true` (success).
+3. NotificationSystem calls `elaborateData(List<Report>)` with the 3 Reports.
+4. For each Report, NotificationSystem checks `priority` and `category`.
+5. High-priority Reports (`priority >= 2`) trigger notifications.","- 2 notifications are generated (for `priority: 2` and `3`).
+- Low-priority Report (`priority: 1`) is ignored.
+- Notifications are categorized correctly."
+TC-USER_PROFILE-001,Update LocalUser profile with valid data,User Profile,1,- LocalUser exists with default values.,"- Updated fields:
+  - `name`: ""John""
+  - `lastname`: ""Doe""
+  - `birthdate`: ""1990-05-15""
+  - `address`: ""789 Oak Ave""","1. LocalUser calls `setName(""John"")`, `setLastname(""Doe"")`, etc.
+2. LocalUser calls `toJSON()` to serialize data.
+3. Main validates and confirms changes.","- Profile updates successfully.
+- `toJSON()` returns correct serialized data:
+  ```json
+  {
+    ""name"": ""John"",
+    ""lastname"": ""Doe"",
+    ""birthdate"": ""1990-05-15"",
+    ""address"": ""789 Oak Ave""
+  }
+  ```"
+TC-USER_PROFILE-002,Set invalid birthdate (under MIN_AGE),User Profile,1,"- `Configuration.MIN_AGE: 18`.
+- LocalUser exists.","- Invalid `birthdate`: ""2010-01-01"" (age 14)",1. LocalUser calls `setBirth,

@@ -1,0 +1,42 @@
+REPORT: Report_16_uml_pages.pdf
+======================================================================
+
+===== Report_16_uml_pages.pdf | Page 1 =====
+UML Type:
+- Class
+
+Components:
+- Utente — kind=class; attributes=[id: int, Password: string, Email: string, Nome: string, Cognome: string]; operations=[Utente(), getid(int), setPassword(newPassword:string), setNome(newNome:string), getNome():string, setCognome(newCognome:string), getCognome():string]
+- Prodotto — kind=class; attributes=[Nome: string, Luogo: string, Descrizione: string, Immagine: string, Prezzo: float, Proprietario: Utente]; operations=[Prodotto(), setNome(newNome:string), getNome():string, setLuogo(newLuogo:string), getLuogo():string, setDescrizione(newDescrizione:string), getDescrizione():string, setImmagine(newImmagine:string), getImmagine():string, setPrezzo(newPrezzo:float), getPrezzo():float, setProprietario(newProprietario:Utente), getProprietario():Utente]
+- Segnalazione — kind=class; attributes=[Tipo: bool, id: int, Titolo: string, Descrizione: string, UtenteSegnalato: Utente, Autore: Utente]; operations=[Segnalazione(), setTipo(newTipo:bool), getTipo():bool, getid():int, setTitolo(newTitolo:string), getTitolo():string, setDescrizione(newDescrizione:string), getDescrizione():string, setUtenteSegnalato(newUtenteSegnalato:Utente), getUtenteSegnalato():Utente, setAutore(newAutore:Utente), getAutore():Utente]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Prodotto — type=association; label=""; explanation="Proprietario"
+- Utente -> Segnalazione — type=association; label=""; explanation="UtenteSegnalato"
+- Utente -> Segnalazione — type=association; label=""; explanation="Autore"
+
+Main Flows:
+- Flow 1: Utente is associated with Prodotto via Proprietario.
+- Flow 2: Utente is associated with Segnalazione via UtenteSegnalato.
+- Flow 3: Utente is associated with Segnalazione via Autore.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system with classes representing Users, Products, and Reports.
+- Users can own Products (Proprietario relationship).
+- Users can be reported in Segnalazioni (UtenteSegnalato relationship).
+- Users can create Segnalazioni (Autore relationship).
+
+
+======================================================================

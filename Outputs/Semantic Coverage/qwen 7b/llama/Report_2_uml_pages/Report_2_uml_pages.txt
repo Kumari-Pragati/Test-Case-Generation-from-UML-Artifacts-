@@ -1,0 +1,282 @@
+REPORT: Report_2_uml_pages.pdf
+======================================================================
+
+===== Report_2_uml_pages.pdf | Page 1 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Accesso all'App**: kind=app; attributes=[none]; operations=[none]; role=main application
+*   **1° Accesso**: kind=access; attributes=[none]; operations=[none]; role=first access
+*   **Utente gia' registrato?**: kind=question; attributes=[none]; operations=[none]; role=registration status
+*   **Home**: kind=home; attributes=[none]; operations=[none]; role=home page
+*   **Login**: kind=login; attributes=[none]; operations=[none]; role=login process
+*   **Registrazione**: kind=registration; attributes=[none]; operations=[none]; role=registration process
+
+**Actors / Lifelines:**
+
+*   **User**: None
+
+**Relationships / Links:**
+
+*   **Accesso all'App** -> **1° Accesso** — type=association; label="start"; explanation="initial access"
+*   **1° Accesso** -> **Utente gia' registrato?** — type=decision; label="start"; explanation="first access decision"
+*   **Utente gia' registrato?** -> **Registrazione** — type=association; label="no"; explanation="no registration"
+*   **Utente gia' registrato?** -> **Login** — type=association; label="yes"; explanation="already registered"
+*   **Login** -> **Home** — type=association; label="login"; explanation="login to home"
+*   **Registrazione** -> **Home** — type=association; label="registration"; explanation="registration to home"
+
+**Main Flows:**
+
+*   **Flow 1:** Accesso all'App -> 1° Accesso -> Utente gia' registrato? -> (no) -> Registrazione -> Home
+*   **Flow 2:** Accesso all'App -> 1° Accesso -> Utente gia' registrato? -> (yes) -> Login -> Home
+
+**Conditions / Branches:**
+
+*   **Utente gia' registrato?** (no) -> Registrazione
+*   **Utente gia' registrato?** (yes) -> Login
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   This sequence diagram models the flow of a user accessing an application, with a decision point for registration status.
+*   The user can either register or login if already registered.
+*   The main flows show the two possible paths: registration or login.
+*   The decision point is based on the user's registration status.
+
+===== Report_2_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Tragitto in Corso**: kind=question; attributes=[?]; operations=[?]; role=question
+*   **Avvia Tragitto**: kind=action; attributes=[?]; operations=[?]; role=start
+*   **Tragitto Terminato**: kind=question; attributes=[?]; operations=[?]; role=end
+*   **Calcolo Emissioni**: kind=action; attributes=[?]; operations=[?]; role=calculate
+
+**Actors / Lifelines:**
+
+*   **Home**
+*   **Menu Orrizontale**
+
+**Relationships / Links:**
+
+*   **Tragitto in Corso** -> **Avvia Tragitto** — type=transition; label=SI; explanation=starts the course
+*   **Avvia Tragitto** -> **Tragitto Terminato** — type=transition; label=SI; explanation=ends the course
+*   **Tragitto Terminato** -> **Calcolo Emissioni** — type=transition; label=SI; explanation=calculate emissions
+*   **Tragitto in Corso** -> **Vuoi Cambiare Sezione?** — type=decision; label=NO; explanation=do not change section
+*   **Vuoi Cambiare Sezione?** -> **Menu Orrizontale** — type=transition; label=SI; explanation=change section
+
+**Main Flows:**
+
+*   **Flow 1:** Avvia Tragitto -> Tragitto Terminato -> Calcolo Emissioni
+
+**Conditions / Branches:**
+
+*   **Tragitto in Corso** has two branches: SI (Avvia Tragitto) and NO (Vuoi Cambiare Sezione?)
+*   **Tragitto Terminato** has one branch: SI (Calcolo Emissioni)
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   This sequence diagram models the flow of a course with a start, end, and calculation of emissions.
+*   The user can choose to change sections or not, and the system will either end the course or calculate emissions.
+*   The diagram does not show any loops or repeated behavior.
+
+===== Report_2_uml_pages.pdf | Page 3 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **Visualizza Report Settimanale**: kind=Activity; attributes=[SI, NO]; operations=[Visualizza Report Settimanale?]; role=Activity to display weekly reports
+* **Menu Orrizontale**: kind=Activity; attributes=[SI]; operations=[Menu Orrizontale]; role=Horizontal menu
+
+**Actors / Lifelines:**
+
+* **User**: The user interacts with the system to view reports and navigate the menu
+
+**Relationships / Links:**
+
+* **Visualizza Report Settimanale** -> **Menu Orrizontale** — type=Transition; label=SI; explanation=If the user chooses to view the report, they are taken to the horizontal menu
+* **Menu Orrizontale** -> **Visualizza Report Settimanale** — type=Transition; label=SI; explanation=If the user selects an option from the menu, they are taken back to the report visualization
+
+**Main Flows:**
+
+* Flow 1: The user views the report, then navigates to the menu, and finally returns to the report
+* Flow 2: None
+
+**Conditions / Branches:**
+
+* **Visualizza Report Settimanale?** — If the user chooses to view the report, they are taken to the menu; otherwise, they are not taken to the menu
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the interaction between the user and the system for viewing reports and navigating the menu
+* The user can view the report and then navigate to the menu, or they can choose not to view the report and exit the system
+* The system provides a horizontal menu for the user to navigate and view reports
+
+===== Report_2_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Visualizza dati personali**: kind=profile; attributes=[visualizza dati personali]; operations=[visualizza dati personali(): void]; role=profile
+*   **Inserisci nuovi dati**: kind=new data; attributes=[inserisci nuovi dati]; operations=[inserisci nuovi dati(): void]; role=new data
+*   **Menu orrizontale**: kind=menu; attributes=[menu orrizontale]; operations=[menu orrizontale(): void]; role=menu
+
+**Actors / Lifelines:**
+
+*   **User**
+*   **System**
+
+**Relationships / Links:**
+
+*   **Visualizza dati personali** -> **Inserisci nuovi dati** — type=association; label="SI"; explanation="insert new data"
+*   **Inserisci nuovi dati** -> **Menu orrizontale** — type=association; label="SI"; explanation="menu"
+*   **Menu orrizontale** -> **Visualizza dati personali** — type=association; label="NO"; explanation="no"
+
+**Main Flows:**
+
+*   **Flow 1:** Visualizza dati personali -> Inserisci nuovi dati -> Menu orrizontale -> Visualizza dati personali
+
+**Conditions / Branches:**
+
+*   **Visualizza dati personali** -> **Inserisci nuovi dati** — condition=SI; explanation="insert new data"
+*   **Inserisci nuovi dati** -> **Menu orrizontale** — condition=SI; explanation="menu"
+*   **Menu orrizontale** -> **Visualizza dati personali** — condition=NO; explanation="no"
+
+**Loops / Repetitions:**
+
+*   **Inserisci nuovi dati** -> **Inserisci nuovi dati** — loop="insert new data"
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a user's interaction with a profile, allowing them to view their personal data, insert new data, and access a menu.
+*   The user can either view their personal data or insert new data, which leads to a menu.
+*   If the user chooses to insert new data, they are presented with a menu.
+*   The user can then return to viewing their personal data.
+*   The system does not allow the user to view their personal data after inserting new data.
+
+===== Report_2_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Utente**: kind=entity; attributes=[username: string, password: string]; operations=[login(username, password): boolean]; role=the user who interacts with the system
+*   **Applicazione**: kind=entity; attributes=[credentials: string]; operations=[insert credentials: void]; role=the application that handles user credentials
+*   **Server**: kind=entity; attributes=[credentials: string]; operations=[verify credentials: boolean]; role=the server that verifies user credentials
+*   **Database**: kind=entity; attributes=[data: string]; operations=[store data: void]; role=the database that stores user data
+
+**Actors / Lifelines:**
+
+*   **Utente**
+*   **Applicazione**
+*   **Server**
+*   **Database**
+
+**Relationships / Links:**
+
+*   **Utente** -> **Applicazione** — type=association; label="dispatch"; explanation="the user dispatches their credentials to the application"
+*   **Applicazione** -> **Server** — type=association; label="insert credentials"; explanation="the application inserts the user's credentials into the server"
+*   **Server** -> **Database** — type=association; label="verify credentials"; explanation="the server verifies the user's credentials against the database"
+*   **Database** -> **Server** — type=association; label="data trovati"; explanation="the database returns the verified data to the server"
+*   **Server** -> **Applicazione** — type=association; label="confronto con quelli inseriti"; explanation="the server confronts the verified data with the inserted data"
+*   **Applicazione** -> **Utente** — type=association; label="login avvenuto"; explanation="the application logs in the user"
+
+**Main Flows:**
+
+*   **Flow 1:** dispatch -> Inserire credenziali -> invio credenziali -> confronto con quelli inseriti -> login avvenuto
+
+**Conditions / Branches:**
+
+*   **Inserire credenziali** -> **invio credenziali** — if the user's credentials are inserted successfully
+*   **confronto con quelli inseriti** -> **login avvenuto** — if the verified data matches the inserted data
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models a sequence of events where the user dispatches their credentials, which are then inserted into the application, verified by the server, and finally logged in.
+*   The user's credentials are verified against the database, and if they match, the user is logged in.
+*   The system uses a sequence of associations to connect the user, application, server, and database.
+
+===== Report_2_uml_pages.pdf | Page 6 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Utente - kind=Utente; attributes=[dispatch: void, avvio percorso: void]; operations=[avvio percorso(): void]; role=Utente
+* Applicazione - kind=Applicazione; attributes=[calcolo e invio dati: void]; operations=[calcolo e invio dati(): void]; role=Applicazione
+* Server - kind=Server; attributes=[aggiunta percorso: void]; operations=[aggiunta percorso(): void]; role=Server
+* Database - kind=Database; attributes=[nuovo percorso: void]; operations=[nuovo percorso(): void]; role=Database
+
+**Actors / Lifelines:**
+
+* Utente
+* Applicazione
+* Server
+* Database
+
+**Relationships / Links:**
+
+* Utente -> Applicazione — type=association; label="dispatch"; explanation="Utente dispatches to Applicazione"
+* Applicazione -> Server — type=association; label="avvio percorso"; explanation="Applicazione starts a new path to Server"
+* Server -> Database — type=association; label="aggiunta percorso"; explanation="Server adds a new path to Database"
+* Database -> Server — type=association; label="nuovo percorso"; explanation="Database receives a new path from Server"
+
+**Main Flows:**
+
+* Flow 1: Utente -> Applicazione -> Server -> Database -> Utente - Utente dispatches to Applicazione, which starts a new path to Server, which adds a new path to Database, which receives a new path from Server, and returns to Utente
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where Utente dispatches to Applicazione, which starts a new path to Server, which adds a new path to Database, which receives a new path from Server, and returns to Utente.
+* The main flows are sequential and do not involve any decisions or loops.
+* The diagram does not show any errors or exceptions.
+
+
+======================================================================

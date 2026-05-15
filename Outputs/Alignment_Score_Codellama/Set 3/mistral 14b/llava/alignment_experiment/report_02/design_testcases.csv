@@ -1,0 +1,97 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login,Authentication,"1, 4","- User has a valid account (registered via signup).
+- Network connectivity is available.","- Username: `john.doe`
+- Password: `SecurePass123!`","1. User navigates to the login page.
+2. User enters valid username (`john.doe`) and password (`SecurePass123!`).
+3. User clicks the ""Login"" button.","- System validates credentials and redirects to the **Home** page.
+- No error messages are displayed.
+- User session is established (verified via subsequent requests)."
+TC-AUTHENTICATION-002,Failed login with incorrect credentials,Authentication,"1, 4",- User has an account but is not currently logged in.,"- Username: `john.doe` (valid)
+- Password: `WrongPass456` (invalid)","1. User navigates to the login page.
+2. User enters valid username (`john.doe`) and incorrect password (`WrongPass456`).
+3. User clicks the ""Login"" button.","- System displays an error message: *""Invalid username or password.""*
+- User is **not** redirected to the Home page.
+- User remains on the login page."
+TC-AUTHENTICATION-003,Successful user registration,Authentication,"1, 4","- User is not registered.
+- Network connectivity is available.","- Email: `jane.smith@example.com`
+- Password: `NewPass789!`
+- First Name: `Jane`
+- Last Name: `Smith`","1. User navigates to the registration page.
+2. User enters valid registration details (email, password, first/last name).
+3. User clicks the ""Register"" button.","- System validates inputs and redirects to the **Home** page.
+- Confirmation message: *""Registration successful. Please log in.""*
+- User account is created in the database (verified via login with new credentials)."
+TC-AUTHENTICATION-004,Failed registration with invalid email format,Authentication,"1, 4",- User is not registered.,"- Email: `jane.smith` (invalid format, missing `@` and domain)
+- Password: `ValidPass123!`
+- First Name: `Jane`
+- Last Name: `Smith`","1. User navigates to the registration page.
+2. User enters invalid email (`jane.smith`) and other valid details.
+3. User clicks the ""Register"" button.","- System displays an error: *""Please enter a valid email address.""*
+- User remains on the registration page.
+- No account is created in the database."
+TC-AUTHENTICATION-005,Registration with existing email,Authentication,"1, 4",- User `existing.user@example.com` already exists in the system.,"- Email: `existing.user@example.com` (duplicate)
+- Password: `NewPass456!`
+- First Name: `Duplicate`
+- Last Name: `User`","1. User navigates to the registration page.
+2. User enters an already registered email and other valid details.
+3. User clicks the ""Register"" button.","- System displays an error: *""Email already registered. Please log in.""*
+- User remains on the registration page.
+- No new account is created."
+TC-EMISSIONS-001,Emission calculation for registered user,Emissions,"2, 5, 6","- User is logged in (authenticated).
+- Emission calculation input fields are accessible.","- User inputs:
+  - Vehicle type: `Sedan`
+  - Distance traveled (km): `150`
+  - Fuel type: `Gasoline`","1. User navigates to the emission calculation section (post-login).
+2. User selects `Sedan` as vehicle type.
+3. User enters `150` km as distance traveled.
+4. User selects `Gasoline` as fuel type.
+5. User submits the form.","- System processes the input and displays calculated emissions (e.g., *""Your trip emitted 45.6 kg CO2.""*).
+- Calculation is logged in the `STATISTICHE` state (if applicable).
+- No errors are displayed."
+TC-EMISSIONS-002,Emission calculation with invalid distance (negative value),Emissions,"2, 5, 6",- User is logged in.,"- Vehicle type: `Sedan`
+- Distance traveled: `-100` (invalid)
+- Fuel type: `Gasoline`","1. User navigates to the emission calculation section.
+2. User enters `-100` km as distance traveled.
+3. User submits the form.","- System displays an error: *""Distance must be a positive number.""*
+- User remains on the calculation page.
+- No emissions are calculated or logged."
+TC-EMISSIONS-003,Emission calculation for unregistered user (access denied),Emissions,"1, 2, 5",- User is **not** logged in.,,"1. User attempts to access the emission calculation section directly (e.g., via URL manipulation).","- System redirects the user to the **Login** page with a message: *""Please log in to calculate emissions.""*
+- Emission calculation page is not accessible without authentication."
+TC-SYSTEM-001,End-to-end request flow (login → home → emission calculation),System Integration,"1, 2, 5, 6","- User is not logged in.
+- Network connectivity is available.","- Login: `test.user@example.com` / `TestPass123!`
+- Emission inputs: `SUV`, `200 km`, `Diesel`","1. User logs in with valid credentials (`test.user@example.com` / `TestPass123!`).
+2. User is redirected to the **Home** page.
+3. User navigates to the emission calculation section.
+4. User enters `SUV`, `200 km`, and `Diesel`.
+5. User submits the form.","- Login succeeds; user reaches Home page.
+- Emission calculation completes successfully (e.g., *""Your trip emitted 78.9 kg CO2.""*).
+- All interactions follow the sequence: **User → Application → Server → Database → Application → User**.
+- No errors or redirects occur during the flow."
+TC-SYSTEM-002,Database connectivity failure during emission calculation,System Integration,"5, 6","- User is logged in.
+- Database server is temporarily unavailable (simulated).",,"1. User submits emission calculation inputs.
+2. System attempts to process the request but fails to connect to the database.","- System displays an error: *""Service unavailable. Please try again later.""*
+- User is not logged out.
+- No emissions are calculated or logged.
+- User can retry the calculation after connectivity is restored."
+TC-UI-001,View profile after successful login,User Profile,4,- User is logged in.,,"1. User clicks the ""Profile"" link in the menu.","- System displays the user’s profile page with details (e.g., username, registration date).
+- Profile data matches the registered account (e.g., `john.doe`, `john.doe@example.com`).
+- No errors are displayed."
+TC-UI-002,Logout functionality,User Session,"1, 4",- User is logged in.,,"1. User clicks the ""Logout"" button.","- User is redirected to the login page.
+- Session is terminated (verified by attempting to access a restricted page).
+- Confirmation message: *""You have been logged out.""*"
+TC-UI-003,Access menu options post-login,Navigation,4,- User is logged in.,,"1. User clicks the ""Menu"" or ""Orizzontale"" (horizontal menu) option.","- System displays the menu with available options (e.g., Home, Profile, Emissions, Logout).
+- Menu options are consistent and functional (e.g., clicking ""Home"" redirects to the home page)."
+TC-EDGE-001,Empty emission inputs,Emissions,2,- User is logged in.,"- Vehicle type: `<empty>`
+- Distance traveled: `<empty>`
+- Fuel type: `<empty>`",1. User submits the emission calculation form with all fields empty.,"- System displays validation errors for each empty field (e.g., *""Vehicle type is required.""*).
+- User remains on the calculation page.
+- No emissions are calculated."
+TC-EDGE-002,Maximum allowed distance input,Emissions,2,- User is logged in.,"- Distance traveled: `999999` (exceeds reasonable limit, e.g., 10,000 km)","1. User enters `999999` km as distance.
+2. User submits the form.","- System displays an error: *""Distance must be ≤ 10,000 km.""*
+- User remains on the calculation page.
+- No emissions are calculated."
+TC-EDGE-003,Case-sensitive login credentials,Authentication,"1, 4",- User registered with `Email: john.doe@example.com` (case-sensitive).,"- Username: `JOHN.DOE@example.com` (uppercase, invalid)
+- Password: `SecurePass123!` (correct)","1. User enters `JOHN.DOE@example.com` (uppercase) and correct password.
+2. User clicks ""Login.""","- System displays an error: *""Invalid username or password.""*
+- User is not logged in.
+- System treats email as case-sensitive (or normalizes it; clarify in requirements)."

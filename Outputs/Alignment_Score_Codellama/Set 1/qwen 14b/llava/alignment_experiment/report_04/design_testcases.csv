@@ -1,0 +1,107 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in successfully,Login,"1, 2",User exists in the system,"- username: ""testuser""
+- password: ""password123""","1. User attempts to log in using valid credentials.
+2. System verifies the credentials against the database.
+3. System returns a successful login response.",User is logged in successfully.
+TC-Login-002,User logs in with invalid password,Login,"1, 2",User exists in the system,"- username: ""testuser""
+- password: ""wrongpassword""","1. User attempts to log in using incorrect password.
+2. System verifies the credentials against the database.
+3. System returns a failed login response.","User is not logged in, and an error message is displayed."
+TC-Login-003,User logs in with non-existent username,Login,"1, 2",User does not exist in the system,"- username: ""nonexistentuser""
+- password: ""password123""","1. User attempts to log in using non-existent username.
+2. System verifies the credentials against the database.
+3. System returns a failed login response.","User is not logged in, and an error message is displayed."
+TC-Logout-001,User logs out successfully,Logout,1,User is logged in,"- username: ""testuser""","1. User initiates logout process.
+2. System clears session data.
+3. System returns a successful logout response.",User is logged out successfully.
+TC-AddToCart-001,User adds product to cart successfully,AddToCart,1,User is logged in,"- product name: ""Product A""
+- product price: 19.99","1. User selects a product to add to cart.
+2. User clicks ""Add to Cart.""
+3. System adds the product to the user's cart.
+4. System updates the cart with the new item.",Product is added to the user's cart successfully.
+TC-AddToCart-002,User tries to add duplicate product to cart,AddToCart,1,"User is logged in, product already in cart","- product name: ""Product A""
+- product price: 19.99","1. User selects a product already in the cart.
+2. User clicks ""Add to Cart.""
+3. System checks if the product is already in the cart.
+4. System prevents duplicate addition and displays a message.","Duplicate product addition is prevented, and a message is displayed."
+TC-RemoveFromCart-001,User removes product from cart successfully,RemoveFromCart,1,"User is logged in, product in cart","- product name: ""Product A""","1. User selects a product to remove from cart.
+2. User clicks ""Remove from Cart.""
+3. System removes the product from the user's cart.
+4. System updates the cart without the removed item.",Product is removed from the user's cart successfully.
+TC-RemoveFromCart-002,Admin removes product from cart successfully,RemoveFromCart,1,"Admin is logged in, product in cart","- product name: ""Product A""","1. Admin selects a product to remove from cart.
+2. Admin clicks ""Remove from Cart.""
+3. System removes the product from the admin's cart.
+4. System updates the cart without the removed item.",Product is removed from the admin's cart successfully.
+TC-ProceedToPayment-001,User proceeds to payment successfully,ProceedToPayment,1,"User is logged in, items in cart",- total amount: 59.97,"1. User reviews the cart contents.
+2. User clicks ""Proceed to Payment.""
+3. System calculates the total amount.
+4. System redirects user to payment gateway.",User is redirected to payment gateway with the correct total amount.
+TC-ProceedToPayment-002,User proceeds to payment with empty cart,ProceedToPayment,1,"User is logged in, cart is empty",- total amount: 0.00,"1. User clicks ""Proceed to Payment.""
+2. System checks if the cart is empty.
+3. System prevents proceeding to payment and displays a message.","User cannot proceed to payment due to an empty cart, and a message is displayed."
+TC-AdminAddToCart-001,Admin adds product to cart successfully,AdminAddToCart,1,Admin is logged in,"- product name: ""Product B""
+- product price: 29.99","1. Admin selects a product to add to cart.
+2. Admin clicks ""Add to Cart.""
+3. System adds the product to the admin's cart.
+4. System updates the cart with the new item.",Product is added to the admin's cart successfully.
+TC-AdminRemoveFromCart-001,Admin removes product from cart successfully,AdminRemoveFromCart,1,"Admin is logged in, product in cart","- product name: ""Product B""","1. Admin selects a product to remove from cart.
+2. Admin clicks ""Remove from Cart.""
+3. System removes the product from the admin's cart.
+4. System updates the cart without the removed item.",Product is removed from the admin's cart successfully.
+TC-DatabaseInteraction-001,User retrieves data from database successfully,DatabaseInteraction,"3, 4",User is logged in,"- query: ""SELECT * FROM products""","1. User initiates a data retrieval request.
+2. System sends the query to the database.
+3. Database processes the query and returns results.
+4. System receives and processes the returned data.",User receives the requested data from the database.
+TC-DatabaseInteraction-002,User retrieves non-existent data from database,DatabaseInteraction,"3, 4",User is logged in,"- query: ""SELECT * FROM non_existent_table""","1. User initiates a data retrieval request for a non-existent table.
+2. System sends the query to the database.
+3. Database processes the query and returns an error.
+4. System handles the error and displays a message.",User receives an error message indicating the non-existent table.
+TC-HardwareSoftwareInteraction-001,Hardware component uses software component successfully,HardwareSoftwareInteraction,5,Hardware component is initialized,"- operation: ""executeSoftwareFunction()""","1. Hardware component invokes the software component function.
+2. Software component executes the requested function.
+3. Software component returns the result to the hardware component.
+4. Hardware component processes the result.",Hardware component successfully uses the software component function.
+TC-HardwareSoftwareInteraction-002,Hardware component fails to use software component,HardwareSoftwareInteraction,5,"Hardware component is initialized, software component is unavailable","- operation: ""executeSoftwareFunction()""","1. Hardware component attempts to invoke the software component function.
+2. Software component is unavailable.
+3. Hardware component handles the failure and displays an error message.","Hardware component fails to use the software component function, and an error message is displayed."
+TC-LoginAsAdmin-001,User logs in as Admin successfully,LoginAsAdmin,1,User has admin privileges,"- username: ""adminuser""
+- password: ""adminpassword""","1. User attempts to log in using admin credentials.
+2. System verifies the credentials against the database.
+3. System returns a successful login response.",User is logged in as Admin successfully.
+TC-LoginAsAdmin-002,User logs in as Admin with invalid password,LoginAsAdmin,1,User has admin privileges,"- username: ""adminuser""
+- password: ""wrongpassword""","1. User attempts to log in using incorrect admin password.
+2. System verifies the credentials against the database.
+3. System returns a failed login response.","User is not logged in as Admin, and an error message is displayed."
+TC-LoginAsAdmin-003,User logs in as Admin with non-existent username,LoginAsAdmin,1,User does not have admin privileges,"- username: ""nonexistentadmin""
+- password: ""adminpassword""","1. User attempts to log in using non-existent admin username.
+2. System verifies the credentials against the database.
+3. System returns a failed login response.","User is not logged in as Admin, and an error message is displayed."
+TC-CheckoutFlow-001,User completes checkout flow successfully,CheckoutFlow,1,"User is logged in, items in cart",- total amount: 59.97,"1. User reviews the cart contents.
+2. User clicks ""Proceed to Payment.""
+3. System calculates the total amount.
+4. System redirects user to payment gateway.
+5. User completes payment process.
+6. System confirms payment and updates order status.","User completes the checkout process successfully, and the order is confirmed."
+TC-CheckoutFlow-002,User cancels checkout flow,CheckoutFlow,1,"User is logged in, items in cart",- total amount: 59.97,"1. User reviews the cart contents.
+2. User clicks ""Proceed to Payment.""
+3. System calculates the total amount.
+4. User cancels the payment process.
+5. System cancels the order and updates order status.","User cancels the checkout process, and the order is canceled."
+TC-AdminCartManagement-001,Admin manages cart successfully,AdminCartManagement,1,"Admin is logged in, items in cart","- product name: ""Product B""","1. Admin reviews the cart contents.
+2. Admin clicks ""Remove from Cart.""
+3. System removes the product from the admin's cart.
+4. System updates the cart without the removed item.
+5. Admin clicks ""Add to Cart.""
+6. System adds the product back to the admin's cart.
+7. System updates the cart with the new item.",Admin successfully manages the cart by removing and adding products.
+TC-AdminCartManagement-002,Admin manages empty cart,AdminCartManagement,1,"Admin is logged in, cart is empty","- product name: ""Product B""","1. Admin attempts to remove a product from an empty cart.
+2. System prevents removal and displays a message.
+3. Admin attempts to add a product to an empty cart.
+4. System adds the product to the admin's cart.
+5. System updates the cart with the new item.","Admin cannot remove a product from an empty cart, and a message is displayed. Admin successfully adds a product to the empty cart."
+TC-UserCartManagement-001,User manages cart successfully,UserCartManagement,1,"User is logged in, items in cart","- product name: ""Product A""","1. User reviews the cart contents.
+2. User clicks ""Remove from Cart.""
+3. System removes the product from the user's cart.
+4. System updates the cart without the removed item.
+5. User clicks ""Add to Cart.""
+6. System adds the product back to the user's cart.
+7. System updates the cart with the new item.",User successfully manages the cart by removing and adding products.

@@ -1,0 +1,128 @@
+REPORT: Report_31_uml_pages.pdf
+======================================================================
+
+===== Report_31_uml_pages.pdf | Page 1 =====
+UML Type:
+- Component
+
+Components:
+- Data organizer — kind=component; attributes=[]; operations=[]; role=centralizes operations of access, modification and synchronization of data.
+- Local user — kind=component; attributes=[]; operations=[]; role=user of the system
+- Data display — kind=component; attributes=[]; operations=[]; role=displays data
+- Firebase — kind=component; attributes=[]; operations=[]; role=back end platform
+- Realtime database — kind=component; attributes=[]; operations=[]; role=stores data
+- Authentication — kind=component; attributes=[]; operations=[]; role=handles authentication
+- Firebase database — kind=component; attributes=[]; operations=[]; role=database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Local user -> Data display — type=association; label=""; explanation="User interacts with the display"
+- Data display -> Data organizer — type=association; label=""; explanation="Display interacts with the data organizer"
+- Data organizer -> Firebase — type=association; label=""; explanation="Data organizer interacts with Firebase"
+- Firebase -> Realtime database — type=association; label=""; explanation="Firebase uses the Realtime database"
+- Firebase -> Authentication — type=association; label=""; explanation="Firebase uses Authentication"
+- Firebase -> Firebase database — type=association; label=""; explanation="Firebase uses the Firebase database"
+
+Main Flows:
+- Flow 1: Local user -> Data display -> Data organizer -> Firebase -> Realtime database, Authentication, Firebase database
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a system architecture with a local user interacting with a data display.
+- The data display communicates with a data organizer, which acts as a central point for managing data.
+- The data organizer interacts with Firebase, which provides services like a Realtime database, authentication, and a Firebase database.
+- The system appears to be designed for real-time data updates and secure access.
+- The diagram focuses on the structural relationships between components rather than specific data flows or user interactions.
+
+===== Report_31_uml_pages.pdf | Page 2 =====
+UML Type:
+- class
+
+Components:
+- Chat — kind=class; attributes=[id: int, url1: string, url2: string]; operations=[]; role=<Chat identifier and URLs>
+- Message — kind=class; attributes=[id: int, chat_id: int, receiver: int, timestamp: string, text: string]; operations=[]; role=<Message content and metadata>
+- Relation — kind=class; attributes=[]; operations=[]; role=<Relationship between chats and users>
+- User — kind=class; attributes=[nickname: string, password: string, pos_lat: float, pos_lon: float, tokens: int, rate: float]; operations=[]; role=<User account information>
+- Post — kind=class; attributes=[id: int, nickname: string, fridge: int, ty: int, cost: int]; operations=[]; role=<Post associated with a fridge>
+- Fridge — kind=class; attributes=[id: int, name: string, qty_inv: int, bbe: date, nickname: string]; operations=[]; role=<Fridge inventory and details>
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Chat -> Relation — type=association; label=""; explanation="Chat is related to Relation"
+- User -> Relation — type=association; label=""; explanation="User is related to Relation"
+- Message -> Chat — type=association; label=""; explanation="Message belongs to Chat"
+- User -> Message — type=association; label=""; explanation="User sends/receives Message"
+- Post -> User — type=association; label=""; explanation="Post is created by User"
+- Post -> Fridge — type=association; label=""; explanation="Post is associated with Fridge"
+- Fridge -> User — type=association; label=""; explanation="Fridge is owned by User"
+
+Main Flows:
+- Flow 1: Chat -> Relation -> User; Message -> Chat -> User; Post -> User -> Fridge
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system involving chats, messages, users, posts, and fridges.
+- Chats are linked to users and messages.
+- Users can create posts associated with fridges.
+- Fridges are associated with users.
+- The relationships suggest a social platform with user profiles, chat functionality, and fridge-related posts.
+
+===== Report_31_uml_pages.pdf | Page 3 =====
+UML Type:
+- Sequence
+
+Components:
+- schema Principale — kind=component; attributes=[]; operations=[ChangeFragment()]; role=Schema
+- fragment Frigorifero — kind=component; attributes=[]; operations=[RimuoviProdotto()]; role=Fragment
+- Firebase Database — kind=component; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- schema Principale
+- fragment Frigorifero
+- Firebase Database
+- None
+
+Relationships / Links:
+- schema Principale -> fragment Frigorifero — type=message; label="ChangeFragment()"; explanation="schema Principale sends ChangeFragment() to fragment Frigorifero"
+- fragment Frigorifero -> Firebase Database — type=message; label="RimuoviProdotto()"; explanation="fragment Frigorifero sends RimuoviProdotto() to Firebase Database"
+
+Main Flows:
+- Flow 1: schema Principale -> fragment Frigorifero (ChangeFragment()) -> Firebase Database (RimuoviProdotto())
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a sequence of actions related to removing a product.
+- The process starts with the `schema Principale` initiating a `ChangeFragment()` call to the `fragment Frigorifero`.
+- Subsequently, the `fragment Frigorifero` triggers a `RimuoviProdotto()` call to the `Firebase Database`.
+- The 'X' at the end of the sequence suggests the end of the process or a potential error state after the database operation.
+
+
+======================================================================

@@ -1,0 +1,107 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful token retrieval and API request,Authentication,2,"- LocalUser is initialized.
+- `getToken()` is implemented and returns a valid token.","- Valid token: `""abc123xyz""`","1. Main calls `getToken()`.
+2. Main checks if token is not null.
+3. Main sends `request(token)` to API_Manager.
+4. API_Manager processes the request and returns a JSON status: `{""status"": ""success""}`.
+5. LocalUser requests user data.
+6. LocalUser creates a new `LocalUser` object.
+7. Main receives `""done""` message.","- API_Manager returns a valid JSON status with `""status"": ""success""`.
+- LocalUser object is created successfully.
+- Main receives confirmation via `""done""`."
+TC-AUTHENTICATION-002,Failed API request due to null token,Authentication,2,- `getToken()` returns `null`.,- Invalid token: `null`,"1. Main calls `getToken()` and receives `null`.
+2. Main skips sending `request(token)` to API_Manager.
+3. LocalUser requests user data.
+4. LocalUser creates a new `LocalUser` object.
+5. Main receives `""done""` message.","- No request is sent to API_Manager.
+- LocalUser object is still created.
+- Main receives `""done""` (no error, but no API interaction)."
+TC-AUTHENTICATION-003,Invalid JSON status response from API_Manager,Authentication,2,"- Token is valid, but API_Manager returns malformed JSON.","- Malformed JSON: `""status: invalid""`","1. Main calls `getToken()` and receives a valid token.
+2. Main sends `request(token)` to API_Manager.
+3. API_Manager returns malformed JSON.
+4. LocalUser attempts to process the response.","- LocalUser fails to parse the response.
+- System logs an error (e.g., ""Invalid JSON format"").
+- Main does not proceed with user data request."
+TC-LISTING-001,Successful listing of Service/Need/Report entries,Data Listing,3,"- `listJSON` contains 3 valid entries: `[{""id"":1}, {""id"":2}, {""id"":3}]`.
+- `displayList()` is implemented.","- `listJSON`: `[{""id"":1, ""type"":""service""}, {""id"":2, ""type"":""need""}, {""id"":3, ""type"":""report""}]`","1. Main sends `listJSON=request()` to API_Manager.
+2. API_Manager iterates through each entry in `listJSON`.
+3. For each entry, API_Manager calls `displayList()` on Service/Need/Report.
+4. Service/Need/Report processes and displays each entry.","- All 3 entries are processed and displayed.
+- No errors or missing entries."
+TC-LISTING-002,Empty listJSON handling,Data Listing,3,- `listJSON` is empty: `[]`.,- `listJSON`: `[]`,"1. Main sends `listJSON=request()` to API_Manager.
+2. API_Manager detects empty list and skips iteration.
+3. No calls to `displayList()` are made.","- No entries are displayed.
+- System logs: ""No entries to display"" (or equivalent)."
+TC-LISTING-003,Malformed JSON entry in listJSON,Data Listing,3,- `listJSON` contains 1 valid and 1 malformed entry.,"- `listJSON`: `[{""id"":1}, {""invalid"": ""entry""}]`","1. Main sends `listJSON=request()` to API_Manager.
+2. API_Manager processes the first entry successfully.
+3. API_Manager fails to process the second entry.
+4. Error is logged for the second entry.","- Only the valid entry (`{""id"":1}`) is displayed.
+- System logs: ""Skipped malformed entry: {""invalid"": ""entry""}"".
+- Process continues for remaining entries (if any)."
+TC-CREATION-001,Successful creation of a new Service/Need/Report entry,Data Creation,4,"- `newEntry` data is valid: `{""type"": ""service"", ""details"": ""...""}`.","- `newEntry`: `{""type"": ""service"", ""address"": ""123 Main St"", ""category"": ""health""}`","1. Main sends `new` message to API_Manager.
+2. API_Manager calls `newEntry` on Service/Need/Report with `request(newEntry)`.
+3. Service/Need/Report processes and saves the entry.
+4. Service/Need/Report returns `done` to API_Manager.
+5. API_Manager forwards `done` to Main.","- Entry is saved successfully in the backend.
+- Main receives `done` confirmation.
+- No errors logged."
+TC-CREATION-002,Failed creation due to invalid entry data,Data Creation,4,- `newEntry` is missing required fields.,"- `newEntry`: `{""type"": ""service""}` (missing `address` and `category`)","1. Main sends `new` message to API_Manager.
+2. API_Manager calls `newEntry` on Service/Need/Report with invalid `newEntry`.
+3. Service/Need/Report detects missing fields and rejects the entry.
+4. Service/Need/Report returns an error (e.g., `{""status"": ""error"", ""message"": ""Missing fields""}`).","- Entry is not saved.
+- Main receives an error response (or no `done` message).
+- System logs: ""Validation failed: Missing required fields""."
+TC-UPDATE-001,Successful update of Service/Need/Report entry,Data Update,5,"- `datiAggiornati` contains 2 valid entries to update.
+- `updateEntry` is implemented.","- `datiAggiornati`: `[{""id"":1, ""newAddress"": ""456 Oak Ave""}, {""id"":2, ""newCategory"": ""education""}]`","1. Main calls `leggiDatInseriti`.
+2. API_Manager iterates through `datiAggiornati` and calls `set(dato)` for each.
+3. API_Manager calls `updateEntry->toJSON()`.
+4. API_Manager sends `request(updateEntry)` to Service/Need/Report.
+5. Service/Need/Report processes updates and returns `done`.
+6. API_Manager forwards `done` to Main.","- Both entries are updated successfully.
+- Main receives `done` confirmation.
+- No errors logged."
+TC-UPDATE-002,Partial update failure due to invalid data,Data Update,5,- `datiAggiornati` contains 1 valid and 1 invalid entry.,"- `datiAggiornati`: `[{""id"":1, ""newAddress"": ""456 Oak Ave""}, {""id"":3, ""invalidField"": ""...""}]`","1. Main calls `leggiDatInseriti`.
+2. API_Manager processes the first entry successfully.
+3. API_Manager fails to process the second entry (invalid field).
+4. Service/Need/Report returns `done` for the first entry and an error for the second.
+5. API_Manager logs the error and continues.","- First entry (`id:1`) is updated.
+- Second entry (`id:3`) is skipped.
+- System logs: ""Update failed for id:3 - Invalid field: invalidField"".
+- Main receives `done` (partial success)."
+TC-UPDATE-003,Empty update data handling,Data Update,5,- `datiAggiornati` is empty: `[]`.,,"1. Main calls `leggiDatInseriti`.
+2. API_Manager detects empty `datiAggiornati` and skips iteration.
+3. No calls to `set(dato)` or `updateEntry` are made.","- No updates are performed.
+- System logs: ""No data to update"".
+- Main receives `done` (no changes)."
+TC-INTEGRATION-001,End-to-end flow: Authenticate → List → Create → Update,Full Workflow,"2, 3, 4, 5","- System is initialized.
+- Valid token exists.","- Token: `""valid123""`
+- `listJSON`: `[{""id"":1}]`
+- New entry: `{""type"": ""report"", ""title"": ""Annual Review""}`
+- Update data: `[{""id"":1, ""newTitle"": ""Updated Review""}]`","1. **Authentication (Page 2):**
+   - Main retrieves token and sends `request(token)` to API_Manager.
+   - API_Manager returns `{""status"": ""success""}`.
+2. **Listing (Page 3):**
+   - Main requests `listJSON`.
+   - API_Manager displays entry `{""id"":1}`.
+3. **Creation (Page 4):**
+   - Main sends `new` to API_Manager.
+   - API_Manager creates a new report entry and returns `done`.
+4. **Update (Page 5):**
+   - Main calls `leggiDatInseriti` with update data.
+   - API_Manager updates entry `id:1` and returns `done`.","- All steps complete successfully.
+- No errors in logs.
+- Final state: 1 updated report entry and 1 new report entry."
+TC-EDGE-001,High-volume listJSON processing,Performance,3,"- `listJSON` contains 1000 entries.
+- System has sufficient memory/timeout settings.",- `listJSON`: Array of 1000 entries with sequential IDs.,"1. Main sends `listJSON` with 1000 entries to API_Manager.
+2. API_Manager processes each entry in sequence.
+3. `displayList()` is called 1000 times.","- All entries are processed within timeout (e.g., 5 seconds).
+- No memory errors or crashes.
+- Final confirmation: ""1000 entries processed""."
+TC-EDGE-002,Concurrent API requests,Concurrency,"2, 4","- System supports concurrent requests.
+- Two users are active simultaneously.","- User 1: Valid token `""token1""`, new entry `{""type"": ""service""}`.
+- User 2: Valid token `""token2""`, new entry `{""type"": ""need""}`.","1. User 1’s Main retrieves `token1` and sends `request(token1)`.
+2. User 2’s Main retrieves `token2` and sends `request(token2)` simultaneously.
+3. Both API_Manager instances process requests in parallel.
+4. Both Service/Need/Report components handle `newEntry` concurrently.","- Both entries are saved without conflict.
+- Both users receive `done` confirmations.
+- No race conditions or data corruption."

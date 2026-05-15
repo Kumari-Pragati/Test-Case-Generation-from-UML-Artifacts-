@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 3, 6","- User account exists in the system with valid credentials.
+- Network connectivity is available.","- Valid email: `user@example.com`
+- Valid password: `SecurePass123!`","1. User enters `user@example.com` in the email field.
+2. User enters `SecurePass123!` in the password field.
+3. User clicks the ""Login"" button.","- System validates credentials and returns a success response.
+- User is logged in and redirected to the dashboard.
+- Session is active (e.g., logout button appears)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,"1, 3, 6",- User account exists with valid email but incorrect password.,"- Valid email: `user@example.com`
+- Invalid password: `WrongPass123`","1. User enters `user@example.com` in the email field.
+2. User enters `WrongPass123` in the password field.
+3. User clicks the ""Login"" button.","- System rejects login attempt.
+- Error message: ""Invalid email or password"" is displayed.
+- User remains on the login page."
+TC-AUTHENTICATION-003,Failed User Login (Non-Existent Email),Authentication,"1, 3, 6",- No user account exists with the provided email.,"- Invalid email: `nonexistent@example.com`
+- Valid password: `SecurePass123!`","1. User enters `nonexistent@example.com` in the email field.
+2. User enters `SecurePass123!` in the password field.
+3. User clicks the ""Login"" button.","- System rejects login attempt.
+- Error message: ""Invalid email or password"" is displayed.
+- User remains on the login page."
+TC-AUTHENTICATION-004,User Logout,Authentication,"1, 3",- User is logged in to the system.,,"1. User clicks the ""Logout"" button in the top-right corner.","- System terminates the user session.
+- User is redirected to the login page.
+- Logout confirmation message appears: ""You have been logged out successfully."""
+TC-NEIGHBORHOOD-001,User Joins a Neighborhood,Neighborhood Management,1,"- User is logged in.
+- Neighborhood exists in the system.",,"1. User navigates to the ""Neighborhoods"" section.
+2. User selects the neighborhood with ID `123`.
+3. User clicks ""Join Neighborhood.""","- System adds the user to the neighborhood.
+- Confirmation message: ""You have successfully joined the neighborhood.""
+- Neighborhood appears in the user's list of joined neighborhoods."
+TC-NEIGHBORHOOD-002,User Leaves a Neighborhood,Neighborhood Management,1,- User is logged in and joined to a neighborhood.,,"1. User navigates to the ""Neighborhoods"" section.
+2. User selects the neighborhood with ID `123`.
+3. User clicks ""Leave Neighborhood.""","- System removes the user from the neighborhood.
+- Confirmation message: ""You have successfully left the neighborhood.""
+- Neighborhood no longer appears in the user's list of joined neighborhoods."
+TC-POST-001,User Creates a Post,Post Management,1,- User is logged in.,"- Title: ""Community Meeting""
+- Content: ""Join us for a meeting on Saturday at 2 PM.""","1. User navigates to the ""Create Post"" section.
+2. User enters ""Community Meeting"" in the title field.
+3. User enters ""Join us for a meeting on Saturday at 2 PM."" in the content field.
+4. User clicks ""Post.""","- System creates the post with ID `456`.
+- Confirmation message: ""Post created successfully.""
+- Post appears in the user's profile and neighborhood feed."
+TC-POST-002,User Deletes a Post,Post Management,1,- User is logged in and has created a post with ID `456`.,,"1. User navigates to their profile or neighborhood feed.
+2. User locates the post with ID `456`.
+3. User clicks the ""Delete"" button.
+4. User confirms deletion in the popup.","- System deletes the post.
+- Confirmation message: ""Post deleted successfully.""
+- Post no longer appears in the user's profile or neighborhood feed."
+TC-CHAT-001,User Joins a Chat,Chat Management,1,"- User is logged in.
+- Chat with ID `789` exists and is accessible.",,"1. User navigates to the ""Chats"" section.
+2. User selects the chat with ID `789`.
+3. User clicks ""Join Chat.""","- System adds the user to the chat.
+- Confirmation message: ""You have joined the chat.""
+- Chat appears in the user's list of active chats."
+TC-CHAT-002,User Leaves a Chat,Chat Management,1,- User is logged in and joined to a chat with ID `789`.,,"1. User navigates to the ""Chats"" section.
+2. User selects the chat with ID `789`.
+3. User clicks ""Leave Chat.""","- System removes the user from the chat.
+- Confirmation message: ""You have left the chat.""
+- Chat no longer appears in the user's list of active chats."
+TC-PROFILE-001,User Updates Profile Information,Profile Management,3,- User is logged in.,"- New name: ""John Doe""
+- New description: ""Community Leader""","1. User navigates to the ""Profile"" section.
+2. User clicks ""Edit Profile.""
+3. User enters ""John Doe"" in the name field.
+4. User enters ""Community Leader"" in the description field.
+5. User clicks ""Save Changes.""","- System updates the user's profile.
+- Confirmation message: ""Profile updated successfully.""
+- Updated profile information is displayed."
+TC-PROFILE-002,User Views Map,Map Management,3,"- User is logged in.
+- Map with ID `101` exists.",,"1. User navigates to the ""Map"" section.
+2. User clicks ""View Map.""","- System retrieves and displays the map with ID `101`.
+- Map details (name, description) are visible."
+TC-ADMIN-001,Admin Creates a New User,Admin Management,"2, 3",- Admin is logged in.,"- New user email: `newuser@example.com`
+- New user password: `NewPass123!`
+- New user name: ""New User""","1. Admin navigates to the ""Users"" section.
+2. Admin clicks ""Add User.""
+3. Admin enters `newuser@example.com` in the email field.
+4. Admin enters `NewPass123!` in the password field.
+5. Admin enters ""New User"" in the name field.
+6. Admin clicks ""Create User.""","- System creates the new user with ID `777`.
+- Confirmation message: ""User created successfully.""
+- New user appears in the list of users."
+TC-ADMIN-002,Admin Deletes a User,Admin Management,2,"- Admin is logged in.
+- User with ID `777` exists.",,"1. Admin navigates to the ""Users"" section.
+2. Admin selects the user with ID `777`.
+3. Admin clicks ""Delete User.""
+4. Admin confirms deletion in the popup.","- System deletes the user with ID `777`.
+- Confirmation message: ""User deleted successfully.""
+- User no longer appears in the list of users."
+TC-ADMIN-003,Admin Logs In,Authentication,"2, 3",- Admin account exists with valid credentials.,"- Valid email: `admin@example.com`
+- Valid password: `AdminPass123!`","1. Admin enters `admin@example.com` in the email field.
+2. Admin enters `AdminPass123!` in the password field.
+3. Admin clicks the ""Login"" button.","- System validates credentials and returns a success response.
+- Admin is logged in and redirected to the admin dashboard.
+- Admin-specific options (e.g., ""Manage Users"") are visible."
+TC-DASHBOARD-001,User Navigates to a Specific Section,Dashboard Navigation,4,- User is logged in.,,"1. User is on the `GeneralDashboard`.
+2. User clicks the ""Neighborhoods"" section.
+3. User navigates to a `SpecificSection` (e.g., ""Active Chats"").
+4. User returns to the `GeneralDashboard`.","- System transitions smoothly between sections.
+- Content in `SpecificSection` is displayed correctly.
+- User can return to `GeneralDashboard` without errors."
+TC-EDGE-001,Empty Post Title Validation,Post Management,1,- User is logged in.,"- Title: (empty)
+- Content: ""This is a post with no title.""","1. User navigates to the ""Create Post"" section.
+2. User leaves the title field empty.
+3. User enters ""This is a post with no title."" in the content field.
+4. User clicks ""Post.""","- System rejects the post creation.
+- Error message: ""Title is required."" is displayed.
+- User remains on the post creation page."
+TC-EDGE-002,Exceeding Character Limit in Post Content,Post Management,1,- User is logged in.,"- Title: ""Long Post""
+- Content: A string of 5000 characters (exceeding the assumed limit of 1000).","1. User navigates to the ""Create Post"" section.
+2. User enters ""Long Post"" in the title field.
+3. User enters a 5000-character string in the content field.
+4. User clicks ""Post.""","- System rejects the post creation.
+- Error message: ""Content must be less than 1000 characters."" is displayed.
+- User remains on the post creation page."
+TC-EDGE-003,Invalid Email Format During User Creation,Admin Management,2,- Admin is logged in.,"- Invalid email: `invalid-email`
+- Password: `AdminPass123!`
+- Name: ""Invalid User""","1. Admin navigates to the ""Users"" section.
+2. Admin clicks ""Add User.""
+3. Admin enters `invalid-email` in the email field.
+4. Admin enters `AdminPass123!` in the password field.
+5. Admin enters ""Invalid",

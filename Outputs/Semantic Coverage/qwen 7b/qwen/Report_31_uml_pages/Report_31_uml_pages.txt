@@ -1,0 +1,126 @@
+REPORT: Report_31_uml_pages.pdf
+======================================================================
+
+===== Report_31_uml_pages.pdf | Page 1 =====
+UML Type:
+- component
+
+Components:
+- Data display — kind=component; attributes=[]; operations=[]; role=display data
+- Local user — kind=component; attributes=[]; operations=[]; role=user interface
+- Data organizer — kind=component; attributes=[]; operations=[]; role=data management
+- Firebase — kind=component; attributes=[]; operations=[]; role=cloud service
+
+Actors / Lifelines:
+- Local user
+
+Relationships / Links:
+- Data display -> Data organizer — type=association; label=""; explanation="data flow"
+- Local user -> Data organizer — type=association; label=""; explanation="user interaction"
+- Data organizer -> Firebase — type=association; label=""; explanation="data synchronization"
+
+Main Flows (step by step):
+- Flow 1: Local user -> Data organizer -> Firebase (data synchronization)
+- Flow 2: Data display -> Data organizer (data retrieval)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram represents the system's architecture with components interacting through Firebase for data management and synchronization.
+
+Observations:
+- The system includes a local user interface, a data display component, and a data organizer component.
+- Data is synchronized with Firebase, which handles real-time database, authentication, and Firebase database functionalities.
+- The local user interacts with the data organizer, which then communicates with Firebase for data management and synchronization.
+- The data display component retrieves data from the data organizer.
+
+===== Report_31_uml_pages.pdf | Page 2 =====
+UML Type:
+- class
+
+Components:
+- Chat — kind=class; attributes=[id: int, usr1: FK <<User>>, usr2: FK <<User>>]; operations=[ ]; role=Chat
+- Message — kind=class; attributes=[id: int, chat_id: FK <<Chat>>, receiver: FK <<User>>, date: timestamp, text: string]; operations=[ ]; role=Message
+- Relation — kind=class; attributes=[chat: FK <<Chat>>, chat: FK <<User>>]; operations=[ ]; role=Relation
+- User — kind=class; attributes=[nickname: string, password: string, pos_lat: float, pos_lon: float, tokens: int, rate: float]; operations=[ ]; role=User
+- Post — kind=class; attributes=[id: int, nickname: FK <<User>>, fridge: FK <<Fridge>>, qty: int, cost: int]; operations=[ ]; role=Post
+- Fridge — kind=class; attributes=[id: int, name: str, qty_inv: int, sale: bool, bbe: date, nickname: FK <<User>>]; operations=[ ]; role=Fridge
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Chat -> Message — type=association; label=""; explanation="Chat has many Messages"
+- Chat -> Relation — type=association; label=""; explanation="Chat has many Relations"
+- Chat -> User — type=association; label=""; explanation="Chat has many Users"
+- Message -> User — type=association; label=""; explanation="Message belongs to User"
+- Relation -> Chat — type=association; label=""; explanation="Relation belongs to Chat"
+- Relation -> User — type=association; label=""; explanation="Relation belongs to User"
+- User -> User — type=association; label=""; explanation="User has many Relations"
+- User -> Fridge — type=association; label=""; explanation="User has many Fridge"
+- Post -> User — type=association; label=""; explanation="Post belongs to User"
+- Post -> Fridge — type=association; label=""; explanation="Post belongs to Fridge"
+
+Main Flows (step by step):
+- Flow 1: Chat creation -> Chat has many Messages -> Message belongs to User -> User has many Relations -> Relation belongs to Chat -> Chat has many Users -> User has many Fridge -> Fridge has many Post -> Post belongs to User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram represents a database schema for managing chats, messages, users, relations, fridges, and posts. It includes associations between entities such as a chat having multiple messages, a user having multiple relations, and a fridge having multiple posts.
+
+Observations:
+- The diagram models a social networking application with chat functionality.
+- Users can create chats, send messages, and have relations with other users.
+- Users can also manage fridges and posts related to those fridges.
+- There are multiple relationships between entities, indicating a complex data model.
+- The diagram does not show any specific conditions or loops, focusing solely on the structure of the database schema.
+
+===== Report_31_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- schemata Principale — kind=fragment; attributes=[]; operations=[]; role=Main Schema
+- fragment Frigorifero — kind=fragment; attributes=[]; operations=[]; role=Fridge Fragment
+- Firebase Database — kind=fragment; attributes=[]; operations=[]; role=Firebase Database
+
+Actors / Lifelines:
+- schemata Principale
+- fragment Frigorifero
+- Firebase Database
+
+Relationships / Links:
+- schemata Principale -> fragment Frigorifero — type=message; label="ChangeFragment()"; explanation="Change Fragment"
+- fragment Frigorifero -> Firebase Database — type=message; label="RimuoviProdotto()"; explanation="Remove Product"
+
+Main Flows (step by step):
+- Flow 1: schemata Principale -> fragment Frigorifero — ChangeFragment()
+- Flow 2: fragment Frigorifero -> Firebase Database — RimuoviProdotto()
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- RIMUOVI PRODOTTO: (Note indicating the purpose of the diagram)
+
+Observations:
+- The diagram models a sequence of interactions involving a main schema, a fridge fragment, and a Firebase database.
+- The main flow starts with the main schema changing the fragment to the fridge fragment.
+- Then, the fridge fragment sends a request to remove a product to the Firebase database.
+- There are no conditions or branches visible in the diagram.
+- The diagram highlights the removal of a product process within a fridge management system using Firebase.
+
+
+======================================================================

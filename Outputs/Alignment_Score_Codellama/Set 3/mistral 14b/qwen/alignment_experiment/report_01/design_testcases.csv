@@ -1,0 +1,100 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- Firebase Authentication service is active.
+- User account exists with valid email/password.","- Email: `user@example.com`
+- Password: `SecurePass123`","1. User enters email and password in the login form.
+2. System validates non-empty fields.
+3. System sends `signInWithEmailAndPassword()` request to Firebase.
+4. Firebase returns `FirebaseUser` object.
+5. System creates a response and device token.","- User is logged in successfully.
+- Device token is generated and stored.
+- No error messages displayed."
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,2,"- Firebase Authentication service is active.
+- User account exists with valid email but incorrect password.","- Email: `user@example.com`
+- Password: `WrongPass123`","1. User enters email and password in the login form.
+2. System validates non-empty fields.
+3. System sends `signInWithEmailAndPassword()` request to Firebase.
+4. Firebase returns an error response.","- Login fails.
+- Error message: ""Invalid email or password"" is displayed.
+- No device token is generated."
+TC-AUTHENTICATION-003,Login with empty email field,Authentication,"2, 3",- Firebase Authentication service is active.,"- Email: (empty)
+- Password: `SecurePass123`","1. User attempts to submit login form with empty email.
+2. System checks `email.isEmpty()`.
+3. System prevents request to Firebase.","- Login form shows error: ""Email is required.""
+- No request is sent to Firebase."
+TC-AUTHENTICATION-004,Successful user registration with valid data,Registration,3,"- Firebase Authentication service is active.
+- No existing user with the provided email.","- Email: `newuser@example.com`
+- Password: `NewPass1234`","1. User enters email and password in the registration form.
+2. System validates `email.isEmpty()` and `password.length() >= 8`.
+3. System calls `CreateUserWithEmailAndPassword()`.
+4. Firebase returns `FirebaseUser` and `UserID`.
+5. System stores user data in Realtime Database via `setValue(HashMap)`.
+6. System logs in the user.","- User account is created successfully.
+- User is logged in automatically.
+- User data (e.g., `Punti=0`) is stored in the database."
+TC-AUTHENTICATION-005,Failed registration with weak password,Registration,3,- Firebase Authentication service is active.,"- Email: `newuser@example.com`
+- Password: `Short1`","1. User enters email and password in the registration form.
+2. System validates `password.length() < 8`.
+3. System prevents registration request.","- Registration fails.
+- Error message: ""Password must be at least 8 characters"" is displayed.
+- No user is created in Firebase."
+TC-DATABASE-001,Update user points after completing a mission,Database Synchronization,"4, 5","- User is logged in (`FirebaseUser` exists).
+- Mission with `Id=1` exists in the database.","- User: `user@example.com`
+- Mission: `Id=1`, `Superato=false` → `Superato=true`
+- Points to add: `10`","1. User completes Mission `Id=1`.
+2. System updates `Utente.Punti += 10` and `Mission.Superato = true`.
+3. System converts `HashMap` to JSON and sends `put()` request to Realtime Database.
+4. Database processes the update asynchronously.
+5. System receives asynchronous response.","- User’s `Punti` increases by 10 in the database.
+- Mission `Id=1` shows `Superato=true`.
+- No errors in database response."
+TC-DATABASE-002,Failed database update due to invalid JSON,Database Synchronization,4,- User is logged in.,"- Corrupted `HashMap` (e.g., missing `Punti` key).","1. System attempts to send malformed JSON to Realtime Database.
+2. Database returns error response.
+3. System handles the asynchronous error.","- Update fails silently or shows error: ""Failed to update data.""
+- User’s state remains unchanged.
+- No partial updates are applied."
+TC-DATABASE-003,Real-time mission data synchronization,Data Listening,5,"- User is logged in.
+- Mission `Id=1` exists with `Superato=false`.",,"1. System adds `addValueEventListener(""Mission"")` to Firebase SDK.
+2. Another user updates Mission `Id=1` to `Superato=true` in the database.
+3. Firebase SDK triggers `onDataChange()`.
+4. System receives updated mission data.
+5. System verifies token and collects data.","- Local mission data updates to `Superato=true`.
+- UI reflects the change (e.g., mission marked as completed).
+- No token errors occur."
+TC-USER-PROGRESS-001,User completes a ranking and earns points,User Progress,"1, 4","- User has `Punti=0`.
+- Ranking `Id=1` exists with `Superato=false`.","- User: `Username=""Alice""`, `Punti=0`
+- Ranking: `Id=1`, `Superato=false` → `Superato=true`
+- Points earned: `50`","1. User completes Ranking `Id=1`.
+2. System updates `Utente.Punti += 50` and `Ranking.Superato = true`.
+3. System sends update to Realtime Database.
+4. Database confirms update.","- User’s `Punti` becomes `50`.
+- Ranking `Id=1` shows `Superato=true`.
+- Association `Utente -> Ranking (""è superata"")` is reflected in the system."
+TC-USER-PROGRESS-002,User completes a mission and a tip in sequence,User Progress,1,"- User has `Punti=10`.
+- Mission `Id=1` and Tip `Id=1` exist with `Superato=false`.","- User: `Punti=10`
+- Mission: `Id=1`, `Superato=false` → `Superato=true` (+20 points)
+- Tip: `Id=1`, `Superato=false` → `Superato=true` (+10 points)","1. User completes Mission `Id=1`.
+2. System updates `Utente.Punti += 20` and `Mission.Superato = true`.
+3. User completes Tip `Id=1`.
+4. System updates `Utente.Punti += 10` and `Tip.Superato = true`.","- User’s `Punti` becomes `40`.
+- Both `Mission` and `Tip` show `Superato=true`.
+- Associations `Utente -> Mission` and `Utente -> Tip` (""è completata"") are updated."
+TC-USER-PROGRESS-003,Edge case – user attempts to complete already completed mission,User Progress,1,"- User has `Punti=30`.
+- Mission `Id=1` exists with `Superato=true`.",,"1. User attempts to ""complete"" Mission `Id=1` again.
+2. System checks `Mission.Superato` status.","- No points are added (`Punti` remains `30`).
+- System shows message: ""Mission already completed.""
+- No database update is attempted."
+TC-INTEGRATION-001,Full flow: Register → Login → Complete Mission → Sync Data,End-to-End,"2, 3, 4, 5",- Firebase services are active.,,"1. **Registration:**
+   - User registers with `email=newuser@example.com`, `password=Pass1234`.
+   - System creates `FirebaseUser` and stores initial data (`Punti=0`).
+2. **Login:**
+   - User logs in with credentials.
+   - Device token is generated.
+3. **Complete Mission:**
+   - User completes Mission `Id=1` (+15 points).
+   - System updates `Utente.Punti` and `Mission.Superato`.
+4. **Sync:**
+   - System sends update to Realtime Database.
+   - Another device listens to changes and reflects updates.","- User is registered and logged in.
+- Mission is marked as completed.
+- Points are synced across all devices.
+- No errors in any step."

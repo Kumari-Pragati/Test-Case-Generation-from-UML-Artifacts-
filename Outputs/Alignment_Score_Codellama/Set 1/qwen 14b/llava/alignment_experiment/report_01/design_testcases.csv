@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Login with Valid Credentials,User,"1, 2",User account exists and is active.,"- username: ""testuser""
+- password: ""password123""","1. User initiates login process.
+2. User enters valid username and password.
+3. System sends login credentials to Firebase Authentication.
+4. Firebase Authentication verifies credentials.
+5. User receives confirmation of successful login.",User successfully logs in and receives confirmation.
+TC-User-002,User Login with Invalid Credentials,User,"1, 2",User account exists but with incorrect credentials.,"- username: ""testuser""
+- password: ""wrongpassword""","1. User initiates login process.
+2. User enters invalid username and password.
+3. System sends login credentials to Firebase Authentication.
+4. Firebase Authentication rejects invalid credentials.
+5. User receives notification of failed login attempt.",User fails to log in and receives notification of invalid credentials.
+TC-User-003,User Logout,User,1,User is logged in.,None,"1. User initiates logout process.
+2. System confirms logout.
+3. User receives confirmation of successful logout.",User successfully logs out and receives confirmation.
+TC-Admin-001,Admin Adds New User,Admin,1,Admin is logged in.,"- username: ""newuser""
+- email: ""newuser@example.com""","1. Admin initiates addUser operation.
+2. Admin provides valid user details.
+3. System adds new user to the system.
+4. Admin receives confirmation of successful addition.",New user is added to the system and admin receives confirmation.
+TC-Admin-002,Admin Deletes Existing User,Admin,1,Admin is logged in and target user exists.,"- userId: ""existingUserId""","1. Admin initiates deleteUser operation.
+2. Admin specifies existing user ID.
+3. System deletes specified user from the system.
+4. Admin receives confirmation of successful deletion.",Specified user is deleted from the system and admin receives confirmation.
+TC-Firebase-001,Firebase Authentication with Valid Credentials,Firebase,"2, 3",User account exists and is active.,"- username: ""testuser""
+- password: ""password123""","1. User initiates login process.
+2. User enters valid username and password.
+3. System sends login credentials to Firebase Authentication.
+4. Firebase Authentication verifies credentials.
+5. Firebase creates user with provided email.
+6. User receives confirmation of successful authentication.",User successfully authenticates with Firebase and receives confirmation.
+TC-Firebase-002,Firebase Authentication with Invalid Credentials,Firebase,"2, 3",User account exists but with incorrect credentials.,"- username: ""testuser""
+- password: ""wrongpassword""","1. User initiates login process.
+2. User enters invalid username and password.
+3. System sends login credentials to Firebase Authentication.
+4. Firebase Authentication rejects invalid credentials.
+5. User receives notification of failed authentication attempt.",User fails to authenticate with Firebase and receives notification of invalid credentials.
+TC-Map-001,Map Retrieves Random Number and Associates with Request Object,Map,4,Random number generator is available.,None,"1. Request object is created.
+2. Map retrieves a random number from the random class.
+3. Map associates the random number with the request object.
+4. Response object is created.
+5. Map associates the response object with the random number.",Request and response objects are correctly associated with the random number.
+TC-Map-002,Map Handles Edge Case of No Available Random Number,Map,4,Random number generator is unavailable.,None,"1. Request object is created.
+2. Map attempts to retrieve a random number from the random class.
+3. Map handles the edge case of no available random number.
+4. Response object is created.
+5. Map associates the response object with a default value.",Request and response objects are associated with a default value due to unavailability of random number.
+TC-Main-001,Main Class Interacts with Firebase and RealTime Database,Main,5,Main class is initialized.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs necessary operations.
+5. Main class receives confirmation from Firebase and RealTime Database.",Main class successfully interacts with Firebase and RealTime Database and receives confirmation.
+TC-Main-002,Main Class Handles Edge Case of Failed Interaction with Firebase,Main,5,Main class is initialized and Firebase interaction fails.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase fails to perform necessary operations.
+3. Main class handles the edge case of failed Firebase interaction.
+4. Main class interacts with RealTime Database.
+5. RealTime Database performs necessary operations.
+6. Main class receives partial confirmation from RealTime Database.","Main class handles the failure of Firebase interaction and continues with RealTime Database interaction, receiving partial confirmation."
+TC-Main-003,Main Class Handles Edge Case of Failed Interaction with RealTime Database,Main,5,Main class is initialized and RealTime Database interaction fails.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database fails to perform necessary operations.
+5. Main class handles the edge case of failed RealTime Database interaction.
+6. Main class receives partial confirmation from Firebase.",Main class handles the failure of RealTime Database interaction and receives partial confirmation from Firebase.
+TC-Main-004,Main Class Handles Edge Case of Both Firebase and RealTime Database Failures,Main,5,Main class is initialized and both Firebase and RealTime Database interactions fail.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase fails to perform necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database fails to perform necessary operations.
+5. Main class handles the edge case of failed interactions with both Firebase and RealTime Database.",Main class handles the failures of both Firebase and RealTime Database interactions and provides appropriate feedback to the user.
+TC-Main-005,Main Class Handles Successful Interaction with Firebase and RealTime Database,Main,5,Main class is initialized and both Firebase and RealTime Database interactions succeed.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs necessary operations.
+5. Main class receives full confirmation from both Firebase and RealTime Database.",Main class successfully interacts with both Firebase and RealTime Database and receives full confirmation.
+TC-Main-006,Main Class Handles Edge Case of Firebase Success and RealTime Database Failure,Main,5,Main class is initialized and Firebase interaction succeeds but RealTime Database interaction fails.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database fails to perform necessary operations.
+5. Main class handles the edge case of successful Firebase interaction and failed RealTime Database interaction.
+6. Main class receives partial confirmation from Firebase.",Main class handles the failure of RealTime Database interaction and receives partial confirmation from Firebase.
+TC-Main-007,Main Class Handles Edge Case of Firebase Failure and RealTime Database Success,Main,5,Main class is initialized and Firebase interaction fails but RealTime Database interaction succeeds.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase fails to perform necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs necessary operations.
+5. Main class handles the edge case of failed Firebase interaction and successful RealTime Database interaction.
+6. Main class receives partial confirmation from RealTime Database.",Main class handles the failure of Firebase interaction and receives partial confirmation from RealTime Database.
+TC-Main-008,Main Class Handles Edge Case of Firebase and RealTime Database Partial Success,Main,5,Main class is initialized and both Firebase and RealTime Database interactions partially succeed.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs partial operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs partial operations.
+5. Main class handles the edge case of partial success in both Firebase and RealTime Database interactions.
+6. Main class receives partial confirmation from both Firebase and RealTime Database.",Main class handles the partial success of both Firebase and RealTime Database interactions and receives partial confirmation.
+TC-Main-009,Main Class Handles Edge Case of Firebase and RealTime Database Full Success,Main,5,Main class is initialized and both Firebase and RealTime Database interactions fully succeed.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs necessary operations.
+5. Main class receives full confirmation from both Firebase and RealTime Database.",Main class successfully interacts with both Firebase and RealTime Database and receives full confirmation.
+TC-Main-010,Main Class Handles Edge Case of Firebase and RealTime Database Full Failure,Main,5,Main class is initialized and both Firebase and RealTime Database interactions fully fail.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase fails to perform necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database fails to perform necessary operations.
+5. Main class handles the edge case of full failure in both Firebase and RealTime Database interactions.",Main class handles the full failure of both Firebase and RealTime Database interactions and provides appropriate feedback to the user.
+TC-Main-011,Main Class Handles Edge Case of Firebase Success and RealTime Database Partial Success,Main,5,Main class is initialized and Firebase interaction succeeds but RealTime Database interaction partially succeeds.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs necessary operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs partial operations.
+5. Main class handles the edge case of successful Firebase interaction and partial success in RealTime Database interaction.
+6. Main class receives partial confirmation from RealTime Database.",Main class handles the partial success of RealTime Database interaction and receives partial confirmation from RealTime Database.
+TC-Main-012,Main Class Handles Edge Case of Firebase Partial Success and RealTime Database Success,Main,5,Main class is initialized and Firebase interaction partially succeeds but RealTime Database interaction succeeds.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs partial operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs necessary operations.
+5. Main class handles the edge case of partial success in Firebase interaction and successful RealTime Database interaction.
+6. Main class receives partial confirmation from Firebase.",Main class handles the partial success of Firebase interaction and receives partial confirmation from Firebase.
+TC-Main-013,Main Class Handles Edge Case of Firebase Partial Success and RealTime Database Partial Success,Main,5,Main class is initialized and both Firebase and RealTime Database interactions partially succeed.,None,"1. Main class initiates interaction with Firebase.
+2. Firebase performs partial operations.
+3. Main class interacts with RealTime Database.
+4. RealTime Database performs partial operations.
+5. Main class handles the edge case of partial success in",

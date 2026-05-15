@@ -1,0 +1,150 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTHENTICATION-001,Successful user login with valid credentials,User Authentication,2,"- User is not logged in.
+- Database contains a registered user with valid credentials (e.g., `username=""chemist123""`, `password=""SecurePass123!""`).","- Username: `chemist123`
+- Password: `SecurePass123!`","1. User initiates login via the application.
+2. Application verifies credentials with the database.
+3. Database responds with ""Registrato?"" (Registered?): **Yes**.
+4. Application grants access and redirects to the homepage.","- User is successfully logged in.
+- Homepage is displayed.
+- No error messages appear."
+TC-USER-AUTHENTICATION-002,Failed login with invalid password,User Authentication,2,"- User is not logged in.
+- Database contains a registered user (`username=""chemist123""`).","- Username: `chemist123`
+- Password: `WrongPass123`","1. User initiates login with invalid password.
+2. Application verifies credentials with the database.
+3. Database responds with ""Registrato?"": **No** (or invalid credentials).
+4. Application prompts user to register or retry.","- Login fails.
+- Error message: ""Invalid username or password. Please try again or register.""
+- User remains on login screen."
+TC-USER-AUTHENTICATION-003,First-time user registration,User Authentication,2,"- User is not logged in.
+- Database has no record of the test user.","- Username: `newuser456`
+- Password: `NewPass789!`
+- Email: `newuser@example.com`
+- Admin: `false`","1. User attempts to log in with unregistered credentials.
+2. Application detects no record in the database.
+3. Application prompts user to register.
+4. User submits registration form with valid data.
+5. Application sends registration request to the database.
+6. Database confirms registration.
+7. Application grants access to the homepage.","- User account is created in the database.
+- User is logged in successfully.
+- Homepage is displayed.
+- Confirmation message: ""Registration successful. Welcome!"""
+TC-DATA-RETRIEVAL-001,Retrieve complete chemical data hierarchy for a registered user,Chemical Data Retrieval,1,"- User is logged in (`admin=false`).
+- UserData contains all associated objects (FormulaChemica, Depositive, etc.) with valid values.","- User ID: `user123`
+- Expected data:
+  - FormulaChemica: `H2O`
+  - Depositive: `1000L`
+  - PercentualePresenza: `95`
+  - CarbonFootprint: `0.5kgCO2`
+  - Modello: `ModelX`
+  - InputProduzione: `raw_material_A`
+  - FootprintTotale: `2.0kgCO2`
+  - InputProduzioneFootprintTotale: `raw_material_A_footprint`","1. User requests data retrieval via `getid()`.
+2. System retrieves `UserData` for `user123`.
+3. System sequentially retrieves:
+   - `FormulaChemica.getformulaChemica()`
+   - `Depositive.getdepositive()`
+   - `PercentualePresenza.getpercentualePresenza()`
+   - `CarbonFootprint.getcarbonFootprint()`
+   - `Modello.getmodello()`
+   - `InputProduzione.getinputProduzione()`
+   - `FootprintTotale.getfootprintTotale()`
+   - `InputProduzioneFootprintTotale.getinputProduzioneFootprintTotale()`","- All data is retrieved successfully.
+- Displayed in a structured format (e.g., table or dashboard).
+- No missing or corrupted data fields."
+TC-DATA-RETRIEVAL-002,Retrieve partial data with missing optional fields,Chemical Data Retrieval,1,"- User is logged in.
+- UserData exists but some fields are empty (e.g., `CarbonFootprint` or `InputProduzioneFootprintTotale`).","- User ID: `user456`
+- Expected data:
+  - FormulaChemica: `CO2`
+  - Depositive: `500L`
+  - PercentualePresenza: `80`
+  - CarbonFootprint: *(empty)*
+  - Modello: `ModelY`
+  - InputProduzione: `raw_material_B`
+  - FootprintTotale: `1.5kgCO2`
+  - InputProduzioneFootprintTotale: *(empty)*","1. User requests data retrieval for `user456`.
+2. System retrieves `UserData` and attempts to fetch all associated objects.
+3. System detects missing `CarbonFootprint` and `InputProduzioneFootprintTotale`.","- System retrieves available data without errors.
+- Missing fields are displayed as `N/A` or `Not specified`.
+- No crash or data corruption."
+TC-DATA-MODIFICATION-001,Update user chemical data successfully,Data Modification,3,"- User is logged in (`admin=true` or authorized).
+- Current data for `user123` exists in the database.","- Current values:
+  - FormulaChemica: `H2O`
+  - New FormulaChemica: `C6H12O6`
+  - New Depositive: `2000L`
+  - New PercentualePresenza: `99`","1. User requests data modification via the application.
+2. Application retrieves current data from the database.
+3. User submits updated values (`C6H12O6`, `2000L`, `99`).
+4. Application updates `UserData` objects in the database:
+   - `FormulaChemica.setformulaChemica(""C6H12O6"")`
+   - `Depositive.setdepositive(""2000L"")`
+   - `PercentualePresenza.setpercentualePresenza(99)`
+5. Database confirms updates.
+6. Application displays updated data to the user.","- Data is updated in the database.
+- Confirmation message: ""Data updated successfully.""
+- Updated values are reflected in the UI."
+TC-DATA-MODIFICATION-002,Failed data modification with invalid input,Data Modification,3,"- User is logged in.
+- Current data exists for `user123`.",- Invalid input for `PercentualePresenza`: `105` (must be ≤ 100).,"1. User requests data modification.
+2. Application retrieves current data.
+3. User submits `PercentualePresenza=105`.
+4. Application validates input.","- Modification fails.
+- Error message: ""PercentualePresenza must be between 0 and 100.""
+- Current data remains unchanged."
+TC-HARDWARE-SCAN-001,Device scan with all components functioning,Hardware Diagnostics,4,"- Device is connected to the application.
+- All components are functioning (e.g., CPU, RAM, Storage).",,"1. User initiates device scan via the application.
+2. Application executes `Esegue scansione dispositivo`.
+3. System checks `Componenti funzionanti?`: **Yes**.
+4. Application retrieves component names and impacts from the database (e.g., `CPU: Low impact`).
+5. Application returns results to the user.","- Scan completes successfully.
+- Displayed output: ""All components are functioning. No issues detected.""
+- Component names and impacts are listed."
+TC-HARDWARE-SCAN-002,Device scan with defective components,Hardware Diagnostics,4,"- Device is connected.
+- One component is defective (e.g., `Storage: High impact`).",,"1. User initiates device scan.
+2. Application executes scan.
+3. System detects `Componenti funzionanti?`: **No**.
+4. Application queries database for defective component details.
+5. Database returns `Storage: High impact` and replacement diagnostics.
+6. Application calculates impact of replacement.
+7. Application displays results.","- Defective component is identified.
+- Output includes:
+  - ""Defective component: Storage""
+  - ""Impact of replacement: High""
+  - ""Recommended action: Replace ASAP""
+- No errors during impact calculation."
+TC-HARDWARE-SCAN-003,Device scan with no database response,Hardware Diagnostics,4,"- Device is connected.
+- Database is unavailable or returns no data.",,"1. User initiates device scan.
+2. Application executes scan.
+3. System checks `Componenti funzionanti?`: **Yes** (but database query fails).
+4. Application attempts to retrieve component data but gets no response.","- Scan completes partially.
+- Output: ""Scan completed. Database unavailable for component details.""
+- Basic functionality (e.g., component list) is displayed without impacts."
+TC-LIFESPAN-CALCULATION-001,Calculate device lifespan with optimal component health,Lifespan Calculation,5,"- Device scan completes with all components in ""Optimal"" health.
+- Scan data includes:
+  - CPU Speed: `3.5GHz` (90% health)
+  - RAM: `16GB` (95% health)
+  - Storage: `500GB SSD` (85% health)",,"1. User initiates hardware scan.
+2. Application scans speed and health of components.
+3. System calculates lifespan based on health metrics.
+4. Application returns result.","- Lifespan calculation: `3.2 years` (example).
+- Output: ""Estimated device lifespan: 3.2 years. Components are healthy.""
+- No warnings or errors."
+TC-LIFESPAN-CALCULATION-002,Calculate lifespan with degraded components,Lifespan Calculation,5,"- Device scan completes with degraded components:
+  - CPU: `2.8GHz` (60% health)
+  - Storage: `HDD` (40% health)",,"1. User initiates hardware scan.
+2. Application scans and detects degraded components.
+3. System calculates reduced lifespan.","- Lifespan calculation: `1.5 years` (example).
+- Output includes:
+  - ""Estimated device lifespan: 1.5 years.""
+  - ""Warning: CPU and Storage health below threshold. Consider replacement.""
+- No crashes during calculation."
+TC-EDGE-CASE-001,Empty UserData object retrieval,Data Retrieval,1,"- User is logged in.
+- UserData exists but all associated objects are empty (e.g., `FormulaChemica=""""`).",,"1. User requests data retrieval.
+2. System attempts to fetch all associated objects.","- System handles empty objects gracefully.
+- Output displays `N/A` for all fields.
+- No errors or crashes."
+TC-EDGE-CASE-002,Invalid percentage input (negative value),Data Modification,3,"- User is logged in.
+- Current `PercentualePresenza=50`.",- New `PercentualePresenza=-10` (invalid).,"1. User submits update with `-10`.
+2. Application validates input.","- Modification fails.
+- Error message: ""PercentualePresenza must be ≥ 0.""
+- Current data remains unchanged."
+TC-EDGE-CASE-003,Concurrent data modification by multiple users,Data Modification,3,-,,,

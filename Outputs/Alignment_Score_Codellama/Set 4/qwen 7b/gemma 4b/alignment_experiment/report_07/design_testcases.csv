@@ -1,0 +1,148 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Authentication Success","Authentication","4","No active user session.","A valid user with correct credentials.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.","Main receives success and proceeds with the next operation."
+"TC-Authentication-002","User Authentication Failure","Authentication","4","No active user session.","An invalid user with incorrect credentials.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns failure to CheckAuthenticated.
+4. CheckAuthenticated passes failure to Main.","Main receives failure and prompts the user to try again."
+"TC-UserProfile-001","Create User Profile","UserProfile","2, 3","No existing user profile.","A new user with all required fields filled.","1. Main initiates GetDataFromUser.
+2. Local User provides user data.
+3. Main checks the data.
+4. Main requests data from the Data Manager.
+5. Data Manager returns success to Main.
+6. Main signals success to the Local User.","User profile is created successfully."
+"TC-UserProfile-002","Re-enter User Data","UserProfile","3","User data is invalid.","Invalid user data.","1. Main initiates GetDataFromUser.
+2. Local User provides invalid user data.
+3. Main checks the data and requests re-entry.
+4. Local User re-provides valid user data.
+5. Main checks the data.
+6. Main requests data from the Data Manager.
+7. Data Manager returns success to Main.
+8. Main signals success to the Local User.","User profile is created successfully after re-entry."
+"TC-DataManagement-001","Add User Data","Data Management","3, 5","User is authenticated.","Valid user data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends data to the Data Manager.
+6. Data Manager processes the data and returns success.
+7. Main signals success to the Local User.","User data is added successfully."
+"TC-DataManagement-002","Update User Data","Data Management","3, 5","User is authenticated and has existing data.","Updated user data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends updated data to the Data Manager.
+6. Data Manager processes the data and returns success.
+7. Main signals success to the Local User.","User data is updated successfully."
+"TC-ReportGeneration-001","Generate Report","Report Generation","2, 6, 7, 8","User is authenticated and has consumption data.","Consumption data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main requests data from the Local User.
+6. Local User provides consumption data.
+7. Local User sends data to the Data Manager.
+8. Data Manager processes the data and returns success.
+9. Data Manager sends success to the Local User.
+10. Local User signals success to Main.","Report is generated successfully."
+"TC-ReportGeneration-002","Generate Report with Invalid Data","Report Generation","2, 6, 7, 8","User is authenticated but has no consumption data.","No consumption data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main requests data from the Local User.
+6. Local User provides no consumption data.
+7. Local User sends no data to the Data Manager.
+8. Data Manager returns failure.
+9. Data Manager sends failure to the Local User.
+10. Local User signals failure to Main.","Report generation fails due to lack of consumption data."
+"TC-AchievementTracking-001","Track Achievement","Achievement Tracking","2","User has achieved an objective.","Achievement data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends achievement data to the NotifySystem.
+6. NotifySystem notifies the user about the achievement.","Achievement is tracked and user is notified."
+"TC-AchievementTracking-002","Track Achievement with Invalid Data","Achievement Tracking","2","User does not have any achievements.","Invalid achievement data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends invalid achievement data to the NotifySystem.
+6. NotifySystem does not notify the user.","Achievement tracking fails due to invalid data."
+"TC-ReportDeletion-001","Delete Report","Report Deletion","9","User has a report.","Report ID.","1. Main initiates checkConsumer with the current user.
+2. Local User checks if it has a consumption.
+3. Local User calls DeleteReport on the Data Manager.
+4. Data Manager returns ""Done"".
+5. Main returns ""Success"" to the Local User.","Report is deleted successfully."
+"TC-ReportDeletion-002","Delete Report with No Consumption","Report Deletion","9","User does not have any consumption.","Report ID.","1. Main initiates checkConsumer with the current user.
+2. Local User checks if it has a consumption.
+3. Local User calls DeleteReport on the Data Manager.
+4. Data Manager returns failure.
+5. Main returns ""Failure"" to the Local User.","Report deletion fails due to no consumption."
+"TC-WebServerDisplay-001","Display Report","Web Server Display","2, 7, 8","User has a report.","Report data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main requests report from the Data Manager.
+6. Data Manager processes the report and returns success.
+7. Data Manager sends success to the Web Server.
+8. Web Server displays the report.","Report is displayed successfully on the Web Server."
+"TC-WebServerDisplay-002","Display Report with Invalid Data","Web Server Display","2, 7, 8","User does not have any report.","Invalid report data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main requests report from the Data Manager.
+6. Data Manager processes the report and returns failure.
+7. Data Manager sends failure to the Web Server.
+8. Web Server does not display the report.","Report display fails due to invalid data."
+"TC-ConsumptionTracking-001","Track Consumption","Consumption Tracking","2, 6","User is authenticated.","Consumption data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends consumption data to the Data Manager.
+6. Data Manager processes the data and returns success.
+7. Data Manager sends success to the Local User.
+8. Local User signals success to Main.","Consumption is tracked successfully."
+"TC-ConsumptionTracking-002","Track Consumption with Invalid Data","Consumption Tracking","2, 6","User is authenticated.","Invalid consumption data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends invalid consumption data to the Data Manager.
+6. Data Manager processes the data and returns failure.
+7. Data Manager sends failure to the Local User.
+8. Local User signals failure to Main.","Consumption tracking fails due to invalid data."
+"TC-GreenPoints-001","Increment Green Points","Green Points","2","User is authenticated.","Valid consumption data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends consumption data to the Data Manager.
+6. Data Manager processes the data and increments green points.
+7. Data Manager sends success to the Local User.
+8. Local User signals success to Main.","Green points are incremented successfully."
+"TC-GreenPoints-002","Decrement Green Points","Green Points","2","User is authenticated and has green points.","Valid consumption data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends consumption data to the Data Manager.
+6. Data Manager processes the data and decrements green points.
+7. Data Manager sends success to the Local User.
+8. Local User signals success to Main.","Green points are decremented successfully."
+"TC-UserModification-001","Modify User Profile","User Profile Modification","3, 5","User is authenticated.","Updated user data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends updated user data to the Data Manager.
+6. Data Manager processes the data and returns success.
+7. Main signals success to the Local User.","User profile is modified successfully."
+"TC-UserModification-002","Modify User Profile with Invalid Data","User Profile Modification","3, 5","User is authenticated.","Invalid user data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends invalid user data to the Data Manager.
+6. Data Manager processes the data and returns failure.
+7. Main signals failure to the Local User.","User profile modification fails due to invalid data."
+"TC-DatabaseAccess-001","Access Database","Database Access","2, 3, 5","User is authenticated.","Valid user data.","1. Main initiates CheckAuthenticated with the current user.
+2. CheckAuthenticated requests data from the Data Manager.
+3. Data Manager returns success to CheckAuthenticated.
+4. CheckAuthenticated passes success to Main.
+5. Main sends data to the Data Manager.
+6. Data Manager processes the data and returns success.
+7. Main signals success to the Local User.","Data is accessed successfully from the database."

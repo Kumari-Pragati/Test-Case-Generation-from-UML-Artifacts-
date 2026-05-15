@@ -1,0 +1,406 @@
+REPORT: Report_32_uml_pages.pdf
+======================================================================
+
+===== Report_32_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+* Main Program - kind=Main Program; attributes=[ ]; operations=[ ]; role=Main Program
+* Routine 1 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 1
+* Routine 2 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 2
+* Routine 3 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 3
+* Routine 1.1 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 1.1
+* Routine 1.2 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 1.2
+* Routine 3.1 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 3.1
+* Routine 3.2 - kind=Routine; attributes=[ ]; operations=[ ]; role=Routine 3.2
+
+**Actors / Lifelines:**
+
+* Main Program
+* Routine 1
+* Routine 2
+* Routine 3
+* Routine 1.1
+* Routine 1.2
+* Routine 3.1
+* Routine 3.2
+
+**Relationships / Links:**
+
+* Main Program -> Routine 1 — type=call; label="Main Program"; explanation="Main Program calls Routine 1"
+* Routine 1 -> Routine 1.1 — type=call; label="Routine 1"; explanation="Routine 1 calls Routine 1.1"
+* Routine 1 -> Routine 1.2 — type=call; label="Routine 1"; explanation="Routine 1 calls Routine 1.2"
+* Routine 2 -> Routine 3.1 — type=call; label="Routine 2"; explanation="Routine 2 calls Routine 3.1"
+* Routine 3 -> Routine 3.2 — type=call; label="Routine 3"; explanation="Routine 3 calls Routine 3.2"
+* Routine 3 -> Routine 3.1 — type=call; label="Routine 3"; explanation="Routine 3 calls Routine 3.1"
+
+**Main Flows:**
+
+* Flow 1: Main Program -> Routine 1 -> Routine 1.1 -> Routine 1.2 -> Main Program
+* Flow 2: Main Program -> Routine 2 -> Routine 3.1 -> Routine 3.2 -> Main Program
+
+**Conditions / Branches:**
+
+* Routine 1 -> Routine 1.1: If condition not visible
+* Routine 1 -> Routine 1.2: If condition not visible
+* Routine 2 -> Routine 3.1: If condition not visible
+* Routine 3 -> Routine 3.2: If condition not visible
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a program with multiple routines that call each other.
+* The main program calls Routine 1, which then calls Routine 1.1 and Routine 1.2.
+* Routine 2 calls Routine 3.1, which then calls Routine 3.2.
+* The program has two main flows, one for each set of routines.
+* There are no conditions or branches visible in the diagram.
+* There are no loops or repetitions.
+
+===== Report_32_uml_pages.pdf | Page 2 =====
+**UML Type:** Class
+
+**Components:**
+
+*   **Utenti**
+    *   kind: class
+    *   attributes: idu: int <<PK>>, username: string, mail: string, password: string NOT NULL, nome: string, cognome: string, posizione: string, getUser(), modifyUser()
+*   **Oggetti**
+    *   kind: class
+    *   attributes: ido: int <<PK>>, nome: string, idu: int <<FK utenti>>, descrizione: string list, tipo: int, inUse: bool, addOggetto(), deleteOggetto(), getOggettoById(), getAllOggetto()
+*   **Servizi**
+    *   kind: class
+    *   attributes: ids: int <<PK>>, nome: string, idu: int <<FK utenti>>, descrizione: string list, tipo: int, inUse: bool, addServizio(), deleteServizio(), getServizioById(), getAllServizio()
+*   **Annunci**
+    *   kind: class
+    *   attributes: ida: int <<PK>>, titolo: string, idu: int <<FK utenti>>, ido: <<FK oggetti>>, ids: <<FK servizi>>, addAnnuncio(), deleteAnnuncio()
+
+**Actors / Lifelines:**
+
+*   None
+
+**Relationships / Links:**
+
+*   **Utenti** -> **Oggetti** - type: association; label: Richiede /offre; explanation: E' offerto/ richiesto
+*   **Oggetti** -> **Oggetti** - type: association; label: E' offerto/ richiesto; explanation: E' offerto/ richiesto
+*   **Oggetti** -> **Servizi** - type: association; label: E' offerto/ richiesto; explanation: E' offerto/ richiesto
+*   **Servizi** -> **Servizi** - type: association; label: E' offerto/ richiesto; explanation: E' offerto/ richiesto
+*   **Oggetti** -> **Annunci** - type: association; label: Crea; explanation: Crea
+*   **Servizi** -> **Servizi** - type: association; label: Servizi Offerti; explanation: Servizi Offerti
+
+**Main Flows:**
+
+*   **Flow 1:** Richiede /offre -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ richiesto -> E' offerto/ rich
+
+===== Report_32_uml_pages.pdf | Page 3 =====
+**UML Type:** Activity
+
+**Components:**
+
+*   **Login**: kind=Login; attributes=[username: string, password: string]; operations=[login(username, password): boolean]; role=Login
+*   **Verifica correttezza delle informazioni**: kind=Verification; attributes=[information: string]; operations=[verify(information): boolean]; role=Verification
+*   **Accesso**: kind=Access; attributes=[access: boolean]; operations=[access(): void]; role=Access
+
+**Actors / Lifelines:**
+
+*   **User**
+*   **System**
+
+**Relationships / Links:**
+
+*   **Login** -> **Verifica correttezza delle informazioni** — type=Message; label="Riprova"; explanation="Verify information"
+*   **Verifica correttezza delle informazioni** -> **Accesso** — type=Message; label="Si"; explanation="Access granted"
+*   **Accesso** -> **Login** — type=Message; label="No"; explanation="Access denied"
+
+**Main Flows:**
+
+*   **Flow 1:** Login -> Verifica correttezza delle informazioni -> Accesso
+
+**Conditions / Branches:**
+
+*   **Riprova**: If the information is incorrect, the system will ask the user to re-enter their information.
+*   **No**: If the information is correct, the system will grant access.
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models the login process, where the user's information is verified, and if correct, they are granted access.
+*   The system will ask for re-entry if the information is incorrect.
+*   There are no error paths or edge cases shown in the diagram.
+
+===== Report_32_uml_pages.pdf | Page 4 =====
+**UML Type:** Activity
+
+**Components:**
+
+* Inserimento input
+	+ Kind: Input
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Input
+* Composizione query
+	+ Kind: Query
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Query Composition
+* La query è stata eseguita con successo?
+	+ Kind: Decision
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Success Query
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Inserimento input -> Composizione query — type: Input
+* Composizione query -> La query è stata eseguita con successo? — type: Query
+* La query è stata eseguita con successo? -> Messaggio di errore — type: Error Message
+* La query è stata eseguita con successo? -> Si — type: Success
+
+**Main Flows:**
+
+* Inserimento input -> Composizione query -> La query è stata eseguita con successo? -> Si -> Messaggio di errore
+
+**Conditions / Branches:**
+
+* La query è stata eseguita con successo?:
+	+ Si: No
+	+ No: Messaggio di errore
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* This diagram models a process that starts with input, composes a query, checks for success, and handles errors.
+* The main flow is a straightforward sequence of steps.
+* The decision point is based on the success of the query.
+* The error message is sent if the query fails.
+
+===== Report_32_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   Creazione dell'oggetto da noleggiare: kind=process; attributes=[n/a]; operations=[n/a]; role=creation of the object to be rented
+*   Query per inserire il dato nel database: kind=process; attributes=[n/a]; operations=[n/a]; role=query to insert data into the database
+*   La query è stata eseguita con successo?: kind=decision; attributes=[n/a]; operations=[n/a]; role=has the query been executed successfully?
+*   Messaggio di errore: kind=process; attributes=[n/a]; operations=[n/a]; role=error message
+
+**Actors/Lifelines:**
+
+*   None
+
+**Relationships/Links:**
+
+*   Creazione dell'oggetto da noleggiare -> Query per inserire il dato nel database — type=association; label=; explanation=creation of the object to be rented leads to query to insert data into the database
+*   Query per inserire il dato nel database -> La query è stata eseguita con successo? — type=decision; label=; explanation=query to insert data into the database leads to has the query been executed successfully?
+*   La query è stata eseguita con successo? -> Messaggio di errore — type=association; label=; explanation=has the query been executed successfully? leads to error message
+*   Messaggio di errore -> Si — type=association; label=; explanation=error message leads to yes
+
+**Main Flows:**
+
+*   Creazione dell'oggetto da noleggiare -> Query per inserire il dato nel database -> La query è stata eseguita con successo? -> Si -> Messaggio di errore
+
+**Conditions/Branches:**
+
+*   La query è stata eseguita con successo? -> No: No
+
+**Loops/Repetitions:**
+
+*   None
+
+**Notes/Annotations:**
+
+*   None
+
+**Observations:**
+
+*   This sequence diagram models the process of creating an object for rent, inserting data into a database, and handling the success or error of the query.
+*   The process starts with the creation of the object to be rented and ends with an error message if the query is not successful.
+*   The decision to check if the query has been executed successfully is a critical point in the process.
+
+===== Report_32_uml_pages.pdf | Page 6 =====
+**UML Type:** Activity
+
+**Components:**
+
+* Creazione del servizio da offrire: kind=service; attributes=[ ]; operations=[ ]; role=service creation
+* Query per inserire il dato nel database: kind=operation; attributes=[ ]; operations=[ ]; role=database query
+* La query è stata eseguita con successo?: kind=decision; attributes=[ ]; operations=[ ]; role=success query
+* Messaggio di errore: kind=error; attributes=[ ]; operations=[ ]; role=error message
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Creazione del servizio da offrire -> Query per inserire il dato nel database — type=association; label=; explanation=service creation
+* Query per inserire il dato nel database -> La query è stata eseguita con successo? — type=decision; label=; explanation=database query
+* La query è stata eseguita con successo? -> Messaggio di errore — type=error; label=; explanation=success query
+* Messaggio di errore -> Si — type=error; label=; explanation=error message
+
+**Main Flows:**
+
+* Flow 1: Creazione del servizio da offrire -> Query per inserire il dato nel database -> La query è stata eseguita con successo? -> Si -> Messaggio di errore
+
+**Conditions / Branches:**
+
+* La query è stata eseguita con successo? -> No: No -> Messaggio di errore
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a service creation and database query process.
+* The main flow involves creating a service, querying the database, and handling success or error messages.
+* The decision point checks for query success, and if not, an error message is sent.
+* The process is a straightforward sequence of actions with a decision point.
+
+===== Report_32_uml_pages.pdf | Page 7 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Creazione dell'annuncio: kind=process; attributes=[-]; operations=[-]; role=Announcement creation
+* Query per inserire il dato nel database: kind=process; attributes=[-]; operations=[-]; role=Database query
+* La query è stata eseguita con successo?: kind=decision; attributes=[-]; operations=[-]; role=Success query
+* Messaggio di errore: kind=process; attributes=[-]; operations=[-]; role=Error message
+* Riprova: kind=process; attributes=[-]; operations=[-]; role=Retry
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Creazione dell'annuncio -> Query per inserire il dato nel database — type=association; label=; explanation=Create announcement and query database
+* Query per inserire il dato nel database -> La query è stata eseguita con successo? — type=decision; label=; explanation=Query database for success
+* La query è stata eseguita con successo? -> Messaggio di errore — type=association; label=; explanation=Success query or error message
+* Messaggio di errore -> Riprova — type=association; label=; explanation=Error message to retry
+* Riprova -> Creazione dell'annuncio — type=association; label=; explanation=Retry to create announcement
+
+**Main Flows:**
+
+* Flow 1: Create announcement, query database, check success, send error message, retry, create announcement
+
+**Conditions / Branches:**
+
+* La query è stata eseguita con successo? — Yes: Si, No: Messaggio di errore
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of creating an announcement, querying the database, checking for success, sending an error message, and retrying if necessary.
+* The main flow is a linear sequence of these steps.
+* The decision point is based on the success of the database query.
+* There are no loops or repetitions in the flow.
+
+===== Report_32_uml_pages.pdf | Page 8 =====
+**UML Type:** Activity
+
+**Components:**
+
+*   **La query è stata eseguita con successo?** — kind=question; attributes=[?]; operations=[No, Si]; role=decision
+
+*   **Riprova** — kind=action; attributes=[ ]; operations=[ ]; role=retry
+
+*   **Selezione dell'annuncio da rimuovere** — kind=action; attributes=[ ]; operations=[ ]; role=selection
+
+*   **Query per cancellare il dato dal database** — kind=action; attributes=[ ]; operations=[ ]; role=query
+
+**Actors / Lifelines:**
+
+*   None
+
+**Relationships / Links:**
+
+*   **La query è stata eseguita con successo?** -> **Riprova** — type=transition; label="No"; explanation="retry if query fails"
+*   **La query è stata eseguita con successo?** -> **La query è stata eseguita con successo?** — type=loop; label="Si"; explanation="if query is successful"
+*   **Selezione dell'annuncio da rimuovere** -> **Query per cancellare il dato dal database** — type=association; label="select announcement"; explanation="select announcement to delete"
+*   **Query per cancellare il dato dal database** -> **Riprova** — type=transition; label="delete"; explanation="delete data from database"
+
+**Main Flows:**
+
+*   **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguita con successo?** -> **Si** -> **La query è stata eseguita con successo?** -> **Riprova** -> **La query è stata eseguit
+
+===== Report_32_uml_pages.pdf | Page 9 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **Selezione dell'oggetto/servizio da rimuovere**: kind=selection; attributes=[None]; operations=[None]; role=selection of object/service to remove
+* **Query per cancellare il dato dal database**: kind=query; attributes=[None]; operations=[None]; role=query to delete data from database
+* **La query è stata eseguita con successo?**: kind=question; attributes=[None]; operations=[None]; role=success of query execution
+* **Messaggio di errore**: kind=message; attributes=[None]; operations=[None]; role=error message
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* **Selezione dell'oggetto/servizio da rimuovere** -> **Query per cancellare il dato dal database** — type=flow; label="Riprova"; explanation=retry
+* **Query per cancellare il dato dal database** -> **La query è stata eseguita con successo?** — type=flow; label="No"; explanation=not successful
+* **La query è stata eseguita con successo?** -> **Messaggio di errore** — type=flow; label="SI"; explanation=success
+
+**Main Flows:**
+
+* **Selezione dell'oggetto/servizio da rimuovere** -> **Query per cancellare il dato dal database** -> **La query è stata eseguita con successo?** -> **Messaggio di errore** -> **Selezione dell'oggetto/servizio da rimuovere** (loop)
+
+**Conditions / Branches:**
+
+* **La query è stata eseguita con successo?** -> **No** -> **Messaggio di errore** (if query is not successful)
+
+**Loops / Repetitions:**
+
+* **Selezione dell'oggetto/servizio da rimuovere** -> **Query per cancellare il dato dal database** -> **La query è stata eseguita con successo?** -> **Messaggio di errore** (loop)
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a process for removing an object/service from a service.
+* The process involves selecting the object/service to remove, querying the database to cancel the data, checking if the query was successful, and handling errors.
+* The process repeats if the query is not successful.
+
+
+======================================================================

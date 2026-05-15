@@ -1,0 +1,139 @@
+flow
+"user -> server: association; type=message; label=""send request""; explanation=""user sends a request to the server."""
+"user -> application: association; type=message; label=""receive response""; explanation=""server sends a response to the user."""
+"server -> database: association; type=message; label=""query database""; explanation=""server queries the database."""
+"server -> application: association; type=message; label=""send data""; explanation=""server sends data to the application."""
+flow 1: user -> server -> application -> database -> server -> user
+user sends a request to the server.
+server receives the request and queries the database.
+database returns the requested data.
+server sends the data to the application.
+application receives the data and sends a response back to the server.
+server sends the response back to the user.
+"the diagram models a simple client-server interaction where a user sends a request to a server, which queries a database and sends a response back to the user."
+the main flow is a request-response cycle.
+the server is the central component that handles both the request and the response.
+the database is a separate component that the server interacts with to retrieve data.
+the application is a component that processes the data received from the server and sends a response back.
+guidelines by diagram type (keep it generic):
+for class diagrams:
+"* treat each class box as a component with kind=""class""."
+"* in the component bullet, list all attributes and operations exactly as written, including type and return type if visible."
+"* in relationships / links, list associations, aggregations, compositions, and inheritances between classes (use ""association"", ""inheritance"", etc.)."
+"* main flows can describe likely collaboration between classes based only on visible methods and relationships (use ""association"", ""inheritance"", etc.)."
+for activity diagrams:
+"* components are actions, decisions, merges, initial nodes, final nodes, etc."
+* relationships / links correspond to control-flow arrows.
+* main flows should be explicit sequences like:
+"""avvv"" -> ""utente registrato"" (si) -> ..."
+* conditions / branches summarize each decision node and its labeled exits.
+for sequence diagrams:
+* none
+for statement diagrams:
+"user -> admin — type=association; label=""login""; explanation=""user logs in as admin"""
+"user -> product — type=association; label=""view""; explanation=""user views a product"""
+"user -> cart — type=association; label=""add""; explanation=""user adds a product to cart"""
+"user -> checkout — type=association; label=""checkout""; explanation=""user checks out from cart"""
+"admin -> product — type=association; label=""add""; explanation=""admin adds a product"""
+flow 1: user -> admin -> checkout
+flow 2: user -> product -> cart -> checkout
+"the diagram represents a simple e-commerce system where a user can log in as an admin, view products, add products to a cart, and checkout."
+"the user and admin can interact with products and carts, but only the admin can add products."
+"the user can only view products and add them to their cart, while the admin can view and add products."
+the checkout is the final step where the user checks out from their cart.
+the user and admin can interact with each other through the login process.
+"the user can only view products, while the admin can view and add products."
+"the user can only add products to their cart, while the admin can add products."
+"the user can only checkout from their cart, while the admin can checkout from their cart."
+guidelines by diagram type:
+* each class box as a component.
+"* in the component bullet, list all attributes and operations exactly as written."
+"* in the relationships / links, list all associations, aggregations, compositions, etc."
+for activity
+* for activity
+* for object
+* for obb. for obb. for ob. for ob. for ob. for ob. for ob. for ob. for ob. for o
+"utente -> app — type=message; label=""send(msg)""; explanation=""utente sends a message to app"""
+"app -> server — type=message; label=""send(msg)""; explanation=""app sends a message to server"""
+"server -> database — type=message; label=""receive(msg)""; explanation=""server receives a message from database"""
+flow 1: utente -> app -> server -> database
+flow 2: none
+"the sequence diagram shows the interaction between an utente (user), an app (application), a server, and a database."
+"the utente sends a message to the app, which then sends a message to the server."
+the server receives a message from the database.
+"the utente, app, server, and database are all actors or lifelines in this diagram."
+"the utente, app, server, and database are all objects in this diagram."
+"the utente sends a message to the app, which is a string."
+"the app sends a message to the server, which is a string."
+"the server receives a message from the database, which is a string."
+"the utente, app, server, and database are all involved in this sequence diagram."
+"the utente, and database are all involved in this sequence diagram."
+"the utente, and database are all."
+"utente -> app — type=association; label=""""; explanation=""user interacts with application"""
+"utente -> server — type=association; label=""""; explanation=""user interacts with server"""
+"utente -> database — type=association; label=""""; explanation=""user interacts with database"""
+"app -> server — type=association; label=""""; explanation=""application interacts with server"""
+"app -> database — type=association; label=""""; explanation=""application interacts with database"""
+"the diagram represents a simple class diagram with four classes: utente, app, server, and database."
+"utente is a user, app is an application, server is a server, and database is a database."
+"utente interacts with app, server, and database."
+app interacts with server and database.
+server interacts with database.
+the diagram does not show any specific operations or attributes for the classes.
+the diagram does not show any specific interactions between the classes.
+the diagram does not show any specific conditions or branches.
+the diagram does not show any specific loops or repetitions.
+the diagram does not show any specific notes or annotations.
+"* main flows should be explicit sequences like: ""avvio app"" -> ""utente registrato con successo al servizio?"" (si) -> ..."
+"* actors / lifelines should list all participants (client, server, database, etc.)."
+"* main flows should describe likely sequences like: ""avvio app"" -> ""utente registrato con successo al servizio?"" (si) -> ..."
+for statement:
+"the diagram represents a class diagram with four classes: utente, app, server, and database."
+the diagram does not show any decision points or loops.
+"* actors / lifelines should list all participants (client, server, database, logger, etc.)."
+* main flows should narrate the interaction from top to bottom.
+for use-case diagrams:
+* main flows should describe the interaction from top to bottom.
+"server -> database — type=association; label=""""; explanation=""server interacts with database"""
+"the diagram represents a simple system with a user (utente), an application (app), a server (server), and a database (database)."
+"the user interacts with the application, which in turn interacts with the server and the database."
+"the system is designed to handle user input, process it through the application, and store or retrieve data from the database."
+"the system is likely to have error handling and exception processing, but these are not explicitly shown in the diagram."
+the diagram does not show any specific error paths or error handling mechanisms.
+"the system may have additional components or relationships not visible in the diagram, but these are not part of the visible system."
+"* components can repeat these lifelines plus important fragments (alt, loop, etc.)."
+* relationships / links must capture each message with its order and arrow direction.
+* conditions / branches:
+for state
+"utente -> server — type=association; label=""acquista""; explanation=""utente acquista un prodotto dal server"""
+"utente -> database — type=association; label=""aggiungi""; explanation=""utente aggiunge un prodotto al database"""
+"server -> database — type=association; label=""elimina""; explanation=""server elimina un prodotto dal database"""
+flow 1: utente -> server -> database
+utente acquista un prodotto dal server
+server aggiunge il prodotto al database
+this diagram models a simple e-commerce system where an utente (user) interacts with a server to purchase products.
+the server is responsible for managing the inventory and transactions with the database.
+"the main flow of the system is the acquisition of a product by the user, which involves the server and the database."
+there are no decision points or loops in this system.
+"the system is designed to be straightforward, with no complex error paths or repetitive behaviors."
+"""avvio app"" -> ""utente registrato con successo al servizio?"" (si) -> ..."
+"* actors / lifelines should list all participants (client, server, database)."
+* main flows should describe the interaction from top to bottom in a step-by-step manner.
+for statement
+this is a sample diagram.
+"utente -> server — type=association; label=""registraconsuccesso()""; explanation=""utente effettua il registro con successo al server"";"
+"utente -> database — type=association; label=""registraconsuccesso()""; explanation=""utente effettua il registro con successo al database"";"
+"utente -> app — type=association; label=""effettuapagina()""; explanation=""utente effettua la pagina tramite l'applicazione"";"
+"server -> database — type=association; label=""registraconsuccesso()""; explanation=""server effettua il registro con successo al database"";"
+"server -> app — type=association; label=""effettuapagina()""; explanation=""server effettua la pagina tramite l'applicazione"";"
+flow 1: utente -> server -> database -> app -> utente
+"this uml class diagram models the interactions between a user (utente), a server, a database, and an application (app)."
+"the main flow of the system is that a user registers with success at the server and the database, and then the user interacts with the application."
+there are no decision points or loops visible in this diagram.
+the diagram does not provide any specific error paths or error handling mechanisms.
+* main flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+"* in the component bullet, list all activities exactly as written, including type and return type if visible."
+"* in relationships / links, list control-flows, data flows, etc."
+* main flows can describe the main flow from start to end based only on visible methods and relationships (no guessing).
+* include diagrams:
+======================================================================

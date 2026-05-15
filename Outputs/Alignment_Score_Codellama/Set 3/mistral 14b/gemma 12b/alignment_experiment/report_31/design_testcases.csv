@@ -1,0 +1,114 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login via Firebase Authentication,Authentication,1,"- Firebase Authentication service is active.
+- User account exists with valid credentials (e.g., `nickname: ""user123""`, `password: ""SecurePass123!""`).","- Valid nickname: `user123`
+- Valid password: `SecurePass123!`
+- Invalid password: `wrongpass`","1. User enters `nickname: user123` and `password: SecurePass123!` in the login screen.
+2. System forwards credentials to **Firebase Authentication** via **Data Organizer**.
+3. Firebase validates credentials.
+4. System receives success response and grants access.","- User session is created.
+- **Local User** is authenticated and redirected to **Data Display** home screen.
+- No error messages appear."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,1,"- Firebase Authentication service is active.
+- User account exists but credentials are invalid.","- Valid nickname: `user123`
+- Invalid password: `wrongpass`","1. User enters `nickname: user123` and `password: wrongpass`.
+2. System forwards credentials to **Firebase Authentication**.
+3. Firebase rejects the request due to invalid credentials.
+4. System receives failure response.","- Error message: *""Invalid nickname or password""* is displayed.
+- User remains on login screen.
+- No session is created."
+TC-CHAT-001,Create a new chat between two users,Chat,2,"- Two users (`user1`, `user2`) exist in the system.
+- Both users are logged in.","- `user1.nickname: ""Alice""`, `user2.nickname: ""Bob""`
+- `Relation` between `user1` and `user2` does not exist.","1. **Alice** navigates to chat creation screen.
+2. **Alice** selects **Bob** from the user list.
+3. System creates a new `Chat` with:
+   - `id: 101`
+   - `url1: ""chat/101/Alice""`, `url2: ""chat/101/Bob""`
+4. System establishes a `Relation` between `Chat(101)` and both users.","- New chat appears in both users' chat lists.
+- `Chat.id = 101` is stored in **Firebase Realtime Database**.
+- `Relation` entries are created linking `Chat(101)` to `user1` and `user2`."
+TC-CHAT-002,Send a message in an existing chat,Chat,2,"- Chat with `id: 101` exists between `user1` (Alice) and `user2` (Bob).
+- Both users are logged in.","- Message text: `""Let's meet at 5 PM""`
+- Timestamp: `""2023-10-15T14:30:00Z""`","1. **Alice** opens chat with `id: 101`.
+2. **Alice** types and sends the message: `""Let's meet at 5 PM""`.
+3. System creates a new `Message` with:
+   - `id: 201`
+   - `chat_id: 101`
+   - `receiver: user2.id`
+   - `timestamp: ""2023-10-15T14:30:00Z""`
+   - `text: ""Let's meet at 5 PM""`
+4. System associates `Message(201)` with `user1` (sender) and `Chat(101)`.
+5. **Firebase Realtime Database** syncs the message to both users' chat histories.","- Message appears in **Bob's** chat list under `Chat(101)`.
+- Message appears in **Alice's** sent messages.
+- `Message.id = 201` is stored with metadata in the database."
+TC-FRIDGE-001,Add a new fridge to a user's inventory,Fridge,"2, 3","- User (`user1`) is logged in.
+- No fridges are associated with `user1`.","- Fridge details:
+  - `id: 501`
+  - `name: ""Home Fridge""`
+  - `qty_inv: 0` (initially empty)
+  - `bbe: ""2023-12-31""` (best-before date)
+  - `nickname: ""Alice""` (owner)","1. **Alice** navigates to fridge management screen.
+2. **Alice** clicks ""Add Fridge"" and enters details:
+   - Name: `""Home Fridge""`
+   - Best-before date: `""2023-12-31""`
+3. System creates a new `Fridge` with `id: 501` and associates it with `user1`.
+4. **Firebase Database** stores the fridge data.","- Fridge appears in **Alice's** fridge list.
+- `Fridge.id = 501` is linked to `user1` in the database.
+- `qty_inv` starts at `0`."
+TC-FRIDGE-002,Remove a product from fridge inventory (via UI),Fridge,"2, 3","- User (`user1`) owns a fridge (`id: 501`) with `qty_inv: 5`.
+- Fridge fragment is open in the UI.","- Product to remove: `1` unit of `""Milk""` (assumed to be tracked in `qty_inv`).","1. **Alice** opens `Fridge(id: 501)` in the UI.
+2. **Alice** selects `""Milk""` and clicks ""Remove 1"".
+3. **Schema Principale** calls `ChangeFragment()` on `fragment Frigorifero`.
+4. `fragment Frigorifero` calls `RimuoviProdotto()` on **Firebase Database** with:
+   - `fridge_id: 501`
+   - `qty_change: -1`
+5. Database updates `qty_inv` from `5` to `4`.","- UI reflects updated inventory: `qty_inv = 4`.
+- **Firebase Database** confirms the update.
+- No error occurs if `qty_inv` would not go below `0`."
+TC-FRIDGE-003,Edge case - Remove last product from fridge,Fridge,"2, 3",- User (`user1`) owns a fridge (`id: 501`) with `qty_inv: 1`.,- Product to remove: `1` unit (last item).,"1. **Alice** opens `Fridge(id: 501)` with `qty_inv = 1`.
+2. **Alice** removes the last product.
+3. System attempts to update `qty_inv` to `0`.","- Inventory updates to `qty_inv = 0`.
+- No error; UI shows empty fridge.
+- Confirmation message: *""Fridge is now empty""* appears."
+TC-FRIDGE-004,Negative - Remove product when fridge is empty,Fridge,"2, 3",- User (`user1`) owns a fridge (`id: 501`) with `qty_inv: 0`.,- Attempt to remove `1` product.,"1. **Alice** opens `Fridge(id: 501)` with `qty_inv = 0`.
+2. **Alice** attempts to remove a product.
+3. System detects `qty_inv = 0` and blocks the action.","- Error message: *""Cannot remove: fridge is empty""* appears.
+- `qty_inv` remains `0`.
+- No database update occurs."
+TC-POST-001,Create a post associated with a fridge,Post,2,"- User (`user1`) owns a fridge (`id: 501`).
+- User is logged in.","- Post details:
+  - `id: 301`
+  - `nickname: ""Alice""`
+  - `fridge: 501`
+  - `ty: 1` (type: e.g., ""Share"")
+  - `cost: 0` (free)","1. **Alice** navigates to post creation screen.
+2. **Alice** selects `Fridge(id: 501)` and enters:
+   - Type: `""Share""`
+   - Cost: `0`
+3. System creates a new `Post` with:
+   - `id: 301`
+   - Linked to `user1` and `Fridge(501)`.
+4. **Firebase Database** stores the post.","- Post appears in **Alice's** profile and fridge details.
+- `Post.id = 301` is associated with `Fridge(501)` and `user1`.
+- Post is visible to other users if privacy settings allow."
+TC-DATA-SYNC-001,Real-time sync of fridge inventory changes,Data Organizer,"1, 3","- Two users (`user1`, `user2`) are logged in.
+- `user1` owns a fridge (`id: 501`) with `qty_inv: 3`.
+- Both users have the fridge open in their UI.",- `user1` removes `1` product (new `qty_inv: 2`).,"1. **user1** removes a product from `Fridge(501)` (as in **TC-FRIDGE-002**).
+2. **Data Organizer** syncs the change to **Firebase Realtime Database**.
+3. **Firebase** broadcasts the update to all connected clients.
+4. **user2's** UI receives the update.","- **user2's** fridge inventory updates to `qty_inv = 2` in real-time.
+- No manual refresh is needed.
+- Both users see consistent data."
+TC-DATA-SYNC-002,Offline user receives sync after reconnecting,Data Organizer,1,"- `user1` is online; `user2` is offline.
+- `user1` changes `qty_inv` from `3` to `1` in `Fridge(501)`.",- `user2` reconnects after the change.,"1. **user1** removes `2` products (new `qty_inv: 1`).
+2. **user2** disconnects before the sync completes.
+3. **user2** reconnects to the system.
+4. **Data Organizer** detects pending syncs and pushes updates.","- **user2's** UI shows `qty_inv = 1` immediately after reconnecting.
+- No data loss; all changes are applied.
+- Confirmation toast: *""Sync complete""* appears."
+TC-ERROR-HANDLING-001,"Database operation fails (e.g., network error)",Firebase Database,"1, 3","- User (`user1`) attempts to remove a product.
+- **Firebase Database** is temporarily unavailable.","- `fridge_id: 501`, `qty_change: -1`.","1. **user1** removes a product from `Fridge(501)`.
+2. `fragment Frigorifero` calls `RimuoviProdotto()`.
+3. **Firebase Database** returns a `503 Service Unavailable` error.
+4. System retries the operation (e.g., 3 times with 2-second delays).
+5. After retries, the system gives up and shows an error.
+**",

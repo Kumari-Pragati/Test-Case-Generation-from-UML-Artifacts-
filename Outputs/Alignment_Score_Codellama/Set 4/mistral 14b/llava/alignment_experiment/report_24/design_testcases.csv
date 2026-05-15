@@ -1,0 +1,40 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-INTERACTION-001,Verify User-Service-HomePage Interaction Flow,User Navigation,1,"- System is initialized.
+- User is authenticated (assumed, as no login logic is shown).","- Valid user session token: `""user_token_123""`
+- HomePage URL: `""/home""`","1. User sends request to `Servizio` with token `""user_token_123""`.
+2. `Servizio` processes request and forwards to `Home`.
+3. `Home` renders content and returns response to `Servizio`.
+4. `Servizio` relays response to `Utente`.","- User receives HomePage content without errors.
+- No data corruption or missing elements in the response."
+TC-USER-INTERACTION-002,Validate User-Service Interaction with Invalid Token,User Navigation (Negative),1,- System is initialized.,"- Invalid user token: `""invalid_token_999""`","1. User sends request to `Servizio` with token `""invalid_token_999""`.
+2. `Servizio` detects invalid token (assumed, as no validation is shown).
+3. `Servizio` either:
+   - Returns error to `Utente`, **or**
+   - Silently fails (edge case).","- System rejects request with **HTTP 401 Unauthorized** (or equivalent).
+- Logs error for invalid token (if logging exists)."
+TC-USER-INTERACTION-003,Verify User-Menu Interaction Flow,Menu Navigation,3,"- User is on HomePage.
+- `Menu` class is initialized with attribute `a = ""default_menu""`.",,"1. User invokes `Menu.op(args)` with input `args = ""navigate_to_dashboard""`.
+2. `Menu` processes request and returns response (e.g., `""dashboard_url""`).
+3. User receives response and navigates.","- `Menu.op()` returns valid string (e.g., `""dashboard_url""`).
+- No null/empty responses."
+TC-USER-INTERACTION-004,Validate Menu Operation with Empty Input,Menu Navigation (Edge Case),3,"- `Menu` is initialized with `a = ""default_menu""`.","- Empty input: `args = """"`","1. User invokes `Menu.op(args)` with `args = """"`.
+2. `Menu` processes request.","- System either:
+  - Returns default menu option (e.g., `""home""`), **or**
+  - Throws error (if input validation exists)."
+TC-USER-INTERACTION-005,Verify Service-HomePage Communication Failure,System Resilience (Negative),1,- `Servizio` is running but `Home` is down (simulated).,,"1. User sends request to `Servizio`.
+2. `Servizio` attempts to forward to `Home` but fails (e.g., timeout).
+3. `Servizio` handles failure (assumed: retry or fallback).","- `Servizio` returns **user-friendly error** (e.g., ""Service temporarily unavailable"").
+- No crash or infinite retry loop."
+TC-MENU-ATTRIBUTE-001,Validate Menu Attribute Persistence,Menu State Management,3,"- `Menu` is initialized with `a = ""default_menu""`.",,"1. User changes `Menu.a` to `""new_menu""` (via external API or direct access).
+2. User invokes `Menu.op(args)` with `args = ""verify_state""`.","- `Menu.op()` reflects updated state (e.g., returns `""new_menu""`).
+- No data inconsistency."
+TC-INTEGRATION-001,End-to-End User Flow: Login → Menu → Home,Full User Journey,"1, 3",- System is reset to default state.,,"1. User authenticates (assumed external step).
+2. User navigates to `Menu` and selects option (e.g., `""home""`).
+3. `Menu.op(""home"")` returns `""home_url""`.
+4. User follows URL to `Home` via `Servizio`.","- User lands on HomePage without errors.
+- All intermediate steps (auth, menu, service) complete successfully."
+TC-PERFORMANCE-001,Measure Menu Operation Latency,Performance,3,- System under normal load.,- 100 concurrent users invoking `Menu.op()`.,"1. Simulate 100 users calling `Menu.op(""home"")` simultaneously.
+2. Measure response time per user.","- Average response time < 500ms (assumed SLA).
+- No timeouts or crashes."
+TC-SECURITY-001,Prevent Menu Operation Injection,Security (Negative),3,- `Menu` is initialized.,"- Malicious input: `args = ""javascript:alert('xss')""`",1. User invokes `Menu.op(args)` with malicious input.,"- Input is **sanitized** (if validation exists).
+- No XSS or command injection executed."

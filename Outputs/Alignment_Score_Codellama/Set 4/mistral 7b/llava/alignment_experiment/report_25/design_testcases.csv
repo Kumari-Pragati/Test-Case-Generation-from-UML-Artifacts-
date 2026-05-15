@@ -1,0 +1,50 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User registration with valid data,User,"1, 2",User is not registered,"- username: testuser1
+- email: testuser1@example.com
+- password: testpassword1","1. Navigate to the registration page.
+2. Enter the test user data.
+3. Click the ""Register"" button.",The user is registered successfully.
+TC-User-002,User registration with invalid email format,User,"1, 2",User is not registered,"- username: testuser2
+- email: testuser2
+- password: testpassword2","1. Navigate to the registration page.
+2. Enter the test user data with an invalid email format.
+3. Click the ""Register"" button.",The registration fails due to an invalid email format.
+TC-User-003,User registration with existing username,User,"1, 2",User with the same username is already registered,"- username: testuser3
+- email: testuser3@example.com
+- password: testpassword3","1. Navigate to the registration page.
+2. Enter the test user data with an existing username.
+3. Click the ""Register"" button.",The registration fails due to an existing username.
+TC-User-004,User login with valid credentials,User,"1, 2",User is registered,"- username: testuser1
+- password: testpassword1","1. Navigate to the login page.
+2. Enter the test user credentials.
+3. Click the ""Login"" button.",The user logs in successfully.
+TC-User-005,User login with invalid credentials,User,"1, 2",User is registered,"- username: testuser1
+- password: invalidpassword1","1. Navigate to the login page.
+2. Enter the test user credentials with an invalid password.
+3. Click the ""Login"" button.",The login fails due to invalid credentials.
+TC-Product-001,Viewing products,Product,3,User is logged in,,"1. Navigate to the products page.
+2. Verify that the products are displayed correctly.",The products are displayed correctly.
+TC-Product-002,Adding a product to the cart,Product,3,User is logged in and products are displayed,,"1. Navigate to the products page.
+2. Select a product to add to the cart.
+3. Click the ""Add to Cart"" button.",The product is added to the cart.
+TC-Product-003,Removing a product from the cart,Product,3,"User is logged in, a product is in the cart",,"1. Navigate to the cart page.
+2. Select the product to remove from the cart.
+3. Click the ""Remove"" button.",The product is removed from the cart.
+TC-Checkout-001,Checking out with valid payment information,Checkout,4,"User is logged in, a product is in the cart",,"1. Navigate to the checkout page.
+2. Enter valid payment information.
+3. Click the ""Checkout"" button.",The order is processed successfully.
+TC-Checkout-002,Checking out with invalid payment information,Checkout,4,"User is logged in, a product is in the cart",,"1. Navigate to the checkout page.
+2. Enter invalid payment information.
+3. Click the ""Checkout"" button.",The checkout fails due to invalid payment information.
+TC-Server-001,Server handling user registration,Server,"1, 2",User is not registered,,"1. Send a registration request from the client.
+2. Verify that the request is processed correctly.",The user is registered successfully.
+TC-Server-002,Server handling user login,Server,"1, 2",User is registered,,"1. Send a login request from the client.
+2. Verify that the request is processed correctly.",The user logs in successfully.
+TC-Server-003,Server handling product updates,Server,3,Products are displayed,,"1. Send a request to update a product.
+2. Verify that the request is processed correctly.",The product is updated correctly.
+TC-Database-001,Database handling user registration,Database,"1, 2",User is not registered,,"1. Receive a registration request from the server.
+2. Verify that the request is stored correctly.",The user is registered successfully.
+TC-Database-002,Database handling user login,Database,"1, 2",User is registered,,"1. Receive a login request from the server.
+2. Verify that the request is stored correctly.",The user logs in successfully.
+TC-Database-003,Database handling product updates,Database,3,Products are displayed,,"1. Receive a request to update a product from the server.
+2. Verify that the request is stored correctly.",The product is updated correctly.

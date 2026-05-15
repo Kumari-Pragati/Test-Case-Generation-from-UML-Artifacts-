@@ -1,0 +1,166 @@
+REPORT: Report_8_uml_pages.pdf
+======================================================================
+
+===== Report_8_uml_pages.pdf | Page 1 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **Avvio applicazione** — kind=initial node; attributes=[ ]; operations=[ ]; role=initial node
+* **Aggiungere veicolo** — kind=activity; attributes=[ ]; operations=[ ]; role=activity
+* **Inserisci il veicolo manuale/porte** — kind=activity; attributes=[ ]; operations=[ ]; role=activity
+* **Cerca il veicolo del dataset** — kind=activity; attributes=[ ]; operations=[ ]; role=activity
+* **Selezione e aggiungere il veicolo** — kind=final node; attributes=[ ]; operations=[ ]; role=final node
+
+**Actors / Lifelines:**
+
+* **User**
+* **System**
+
+**Relationships / Links:**
+
+* **Avvio applicazione** -> **Aggiungere veicolo** — type=control flow; label="No"; explanation="No"
+* **Aggiungere veicolo** -> **Inserisci il veicolo manuale/porte** — type=control flow; label="No"; explanation="No"
+* **Inserisci il veicolo manuale/porte** -> **Cerca il veicolo del dataset** — type=control flow; label="No"; explanation="No"
+* **Cerca il veicolo del dataset** -> **Selezione e aggiungere il veicolo** — type=control flow; label="S"; explanation="S"
+* **Avvio applicazione** -> **Accesso lista distribuzione** — type=control flow; label="S"; explanation="S"
+* **Accesso lista distribuzione** -> **Vedi alteri diagrammi** — type=control flow; label="S"; explanation="S"
+
+**Main Flows:**
+
+* **Flow 1:** Avvio applicazione -> Aggiungere veicolo -> Inserisci il veicolo manuale/porte -> Cerca il veicolo del dataset -> Selezione e aggiungere il veicolo
+* **Flow 2:** Avvio applicazione -> Accesso lista distribuzione -> Vedi alteri diagrammi
+
+**Conditions / Branches:**
+
+* **Aggiungere veicolo:** No -> Inserisci il veicolo manuale/porte
+* **Inserisci il veicolo manuale/porte:** No -> Cerca il veicolo del dataset
+* **Cerca il veicolo del dataset:** S -> Selezione e aggiungere il veicolo
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the configuration process for adding vehicles.
+* The main flows involve the user interacting with the system to add a vehicle.
+* The system checks if the vehicle is already in the dataset and selects it if it is.
+* The user can access a list of distributions and view other diagrams.
+
+===== Report_8_uml_pages.pdf | Page 2 =====
+**UML Type:** Activity
+
+**Components:**
+
+*   **Avvio app**: kind=action; attributes=[ ]; operations=[ ]; role=initial node
+*   **Utente registrato con successo al servizio?**: kind=decision; attributes=[ ]; operations=[ ]; role=decision node
+*   **Utente non registrato**: kind=action; attributes=[ ]; operations=[ ]; role=final node
+*   **Utente registrato con successo al servizio?**: kind=decision; attributes=[ ]; operations=[ ]; role=decision node
+*   **Avvio app**: kind=action; attributes=[ ]; operations=[ ]; role=final node
+
+**Actors / Lifelines:**
+
+*   **Utente**
+*   **Servizio**
+
+**Relationships / Links:**
+
+*   **Avvio app** -> **Utente registrato con successo al servizio?** — type=control-flow; label=""; explanation="?"
+*   **Utente registrato con successo al servizio?** -> **Utente registrato con successo al servizio?** — type=control-flow; label=""; explanation="?"
+*   **Utente registrato con successo al servizio?** -> **Avvio app** — type=control-flow; label=""; explanation="?"
+*   **Utente non registrato** -> **Avvio app** — type=control-flow; label=""; explanation="?"
+
+**Main Flows:**
+
+*   **Flow 1:** Avvio app -> Utente registrato con successo al servizio? -> Utente registrato con successo al servizio? -> Avvio app
+*   **Flow 2:** Avvio app -> Utente non registrato -> Avvio app
+
+**Conditions / Branches:**
+
+*   **Utente registrato con successo al servizio?** has two branches: **SI** and **NO**
+*   **Utente registrato con successo al servizio?** has two branches: **SI** and **NO**
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a simple user registration process with two possible outcomes: successful registration or not.
+*   The process starts with an initial node "Avvio app" and ends with a final node "Avvio app".
+*   The decision node "Utente registrato con successo al servizio?" has two branches: "SI" and "NO".
+*   The process involves two actors: "Utente" and "Servizio".
+*   The diagram does not show any loops or repetitions.
+
+===== Report_8_uml_pages.pdf | Page 3 =====
+**UML Type:** Activity
+
+**Components:**
+
+* Accesso pagina impostazioni
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Accessing page settings
+* Visualizza le impostazioni
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Visualizing settings
+* Modifica lista dei vocali
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Modifying the list of vowels
+* Accesso pagina statistiche
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Accessing statistical pages
+
+**Actors / Lifelines:**
+
+* User
+* System
+
+**Relationships / Links:**
+
+* Accesso pagina impostazioni -> Visualizza le impostazioni - type: Association; label: "Visualizza le impostazioni"; explanation: "Visualize the settings"
+* Visualizza le impostazioni -> Modifica lista dei vocali - type: Association; label: "Modifica lista dei vocali"; explanation: "Modify the list of vowels"
+* Modifica lista dei vocali -> Accesso pagina statistiche - type: Association; label: "Accesso pagina statistiche"; explanation: "Access statistical pages"
+
+**Main Flows:**
+
+* Flow 1: Accesso pagina impostazioni -> Visualizza le impostazioni -> Modifica lista dei vocali -> Accesso pagina statistiche
+
+**Conditions / Branches:**
+
+* Visualizza le impostazioni -> No -> Visualizza le impostazioni - description: "No"
+* Modifica lista dei vocali -> No -> Modifica lista dei vocali - description: "No"
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the flow of accessing and modifying page settings and accessing statistical pages.
+* The main flows involve the user accessing the page settings, visualizing them, modifying the list of vowels, and then accessing statistical pages.
+* There are no loops or repeated behavior in the diagram.
+* The diagram does not have any notes or annotations.
+
+
+======================================================================

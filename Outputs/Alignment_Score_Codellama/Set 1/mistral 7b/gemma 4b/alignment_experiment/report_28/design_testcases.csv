@@ -1,0 +1,19 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Valid user login","Login","1","User exists in the system","Valid username and password","1. Main sends a request to API_Manager with the username and password.
+2. API_Manager verifies the credentials and returns a status.
+3. Main receives the status and checks if it is successful.","Main receives a successful status."
+"TC-Login-002","Invalid user login","Login","1","User does not exist in the system","Invalid username and password","1. Main sends a request to API_Manager with the username and password.
+2. API_Manager verifies the credentials and returns a status.
+3. Main receives the status and checks if it is unsuccessful.","Main receives an unsuccessful status."
+"TC-List-001","List services, needs, and reports","List","2","Data is available in the system","None","1. Main sends a listJSON request to the API_Manager.
+2. API_Manager iterates through the listJSON and calls the displayList() method on the Service/Need/Report object for each entry.","The list of services, needs, and reports is displayed."
+"TC-NewEntry-001","Submit a new service, need, or report","New Entry","4","None","Service/Need/Report data","1. Main sends a 'new' message to API_Manager.
+2. API_Manager calls the 'newEntry' method on Service/Need/Report, passing 'request(newEntry)' as an argument.
+3. Service/Need/Report handles the creation and returns a confirmation ('done') to API_Manager.
+4. API_Manager sends a confirmation to Main.","The new service, need, or report is created and confirmed."
+"TC-UpdateEntry-001","Update an existing service, need, or report","Update Entry","5","Data is available in the system","Updated service/need/report data","1. Main calls stampa dai a schermo.
+2. Main calls leggiDatInseriti.
+3. For each dato in datiAggiornati, API_Manager calls set(dato).
+4. API_Manager sends request(updateEntry) to Service/Need/Report.
+5. Service/Need/Report sends done to API_Manager.
+6. API_Manager sends done to Main.","The service, need, or report is updated and confirmed."

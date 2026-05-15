@@ -1,0 +1,51 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Utente-001","User Registration Verification","Utente","1, 2","User is attempting to log in for the first time.","Username: ""testuser"", Password: ""password123"", Email: ""test@example.com""","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is prompted to register before accessing the homepage."
+"TC-Utente-002","Successful User Login","Utente","1, 2","User is already registered.","Username: ""registereduser"", Password: ""securepassword"", Email: ""registered@example.com""","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Registered"".
+5. Application sends homepage to the user.","User successfully logs in and is redirected to the homepage."
+"TC-Utente-003","Invalid User Credentials","Utente","1, 2","User attempts to log in with incorrect credentials.","Username: ""wronguser"", Password: ""wrongpassword"", Email: ""wrong@example.com""","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is informed that the username or password is incorrect."
+"TC-Produzione-001","Production Data Association","Produzione","1","User has initiated a production process.","ID: 1, Utente: ""user1"", Modello: ""modelA"", Footprint produzione: ""100kgCO2"", Footprint totale: ""200kgCO2""","1. Utente creates a new production entry.
+2. Produzione associates the entry with Utente.
+3. Produzione associates the entry with Modello.
+4. Produzione associates the entry with Footprint produzione.
+5. Produzione associates the entry with Footprint totale.","Production data is correctly associated with all relevant entities."
+"TC-Materiale-001","Material Data Association","Materiale","1","User has added material data.","Formula chimica: ""H2O"", Deposizione: 50, Percentuale Presenza: 75, Carbon footprint: ""5kgCO2""","1. Utente adds material data.
+2. Materiale associates the data with Formula Chimica.
+3. Materiale associates the data with Deposizione.
+4. Materiale associates the data with Percentuale Presenza.
+5. Materiale associates the data with Carbon Footprint.","Material data is correctly associated with all relevant attributes."
+"TC-Applicazione-003","Edge Case - Empty User Input","Applicazione","2","User attempts to log in with empty fields.","Username: """", Password: """"","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is prompted to enter valid credentials."
+"TC-Applicazione-004","Edge Case - Special Characters in Username","Applicazione","2","User attempts to log in with special characters in the username.","Username: ""user@name"", Password: ""password123""","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is prompted to enter a valid username format."
+"TC-Applicazione-005","Edge Case - Long Password","Applicazione","2","User attempts to log in with a very long password.","Username: ""longuser"", Password: ""a"" * 1000","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is prompted to enter a password within the allowed length limit."
+"TC-Applicazione-006","Edge Case - Invalid Email Format","Applicazione","2","User attempts to log in with an invalid email format.","Username: ""testuser"", Password: ""password123"", Email: ""invalidemail""","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is prompted to enter a valid email format."
+"TC-Applicazione-007","Edge Case - Non-ASCII Characters in Username","Applicazione","2","User attempts to log in with non-ASCII characters in the username.","Username: ""üser"", Password: ""password123""","1. User initiates login.
+2. Application checks if the user is registered.
+3. Application requests registration status from the database.
+4. Database responds with ""Not Registered"".
+5. Application sends homepage to the user.","User is prompted to enter a username using ASCII characters only."

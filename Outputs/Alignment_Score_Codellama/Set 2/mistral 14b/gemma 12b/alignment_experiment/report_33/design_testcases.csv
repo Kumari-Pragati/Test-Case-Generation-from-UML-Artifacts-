@@ -1,0 +1,160 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOCATION-SELECTION-001,Validate location selection hierarchy (country → state → region → city),Location Hierarchy,"5, 6","- User has launched the app (`AirQualityActivity`).
+- Network connection is stable.
+- AirVisual API is operational.","- Valid country: ""Italy""
+- Valid state: ""Lombardy""
+- Valid region: ""Milan""
+- Valid city: ""Milan""","1. User selects ""Italy"" from the country dropdown.
+2. System loads and displays states for Italy (e.g., Lombardy, Veneto).
+3. User selects ""Lombardy"" from the state dropdown.
+4. System loads and displays regions for Lombardy (e.g., Milan, Brescia).
+5. User selects ""Milan"" from the region dropdown.
+6. System loads and displays cities for Milan (e.g., Milan, Monza).
+7. User selects ""Milan"" from the city dropdown.
+8. System triggers `getHTTPData()` to fetch air quality data for Milan.","- Dropdowns populate correctly at each step with valid options.
+- No errors or crashes during API calls.
+- Data for Milan is successfully retrieved and displayed on the map."
+TC-LOCATION-SELECTION-002,Handle invalid location selection (empty/missing data),Location Hierarchy,"5, 6","- User has launched the app.
+- Network connection is unstable or API returns empty data.","- Invalid country: """" (empty)
+- Invalid state: ""NonExistentState""
+- Invalid region: ""NonExistentRegion""
+- Invalid city: ""NonExistentCity""","1. User attempts to select an empty country dropdown.
+2. System shows an error message: ""Seleziona una nazione valida.""
+3. User selects ""Italy"" → then enters ""NonExistentState"" manually in the state field.
+4. System shows: ""Stato non trovato. Ricarica i dati.""
+5. User selects a valid state → then enters ""NonExistentRegion"" in the region field.
+6. System shows: ""Regione non valida. Seleziona una regione esistente.""
+7. User selects a valid region → then enters ""NonExistentCity"" in the city field.
+8. System shows: ""Città non trovata. Verifica la regione.""","- System prevents invalid selections with clear error messages.
+- Dropdowns remain populated with valid options only.
+- No crashes; UI remains responsive."
+TC-LOCATION-PERMISSION-003,Validate location permission request/grant flow,Location Services,6,"- User has not granted `ACCESS_FINE_LOCATION` permission.
+- Device is not in ""mock location"" mode.",,"1. User launches the app and selects ""Seleziona la tua posizione attuale.""
+2. System prompts for location permission:
+   - Title: ""Condividi la tua posizione""
+   - Message: ""L'app ha bisogno della tua posizione per mostrare i dati locali.""
+   - Buttons: ""Consenti"" / ""Non consentire"".
+3. User clicks ""Non consentire.""
+4. System shows: ""Impossibile caricare i dati. Attiva la posizione per continuare.""
+5. User opens device settings → enables location → returns to app.
+6. System requests permission again; user clicks ""Consenti.""
+7. System retrieves current location and displays it on the map.","- Permission dialog appears with correct text and buttons.
+- App handles denial gracefully (no crash).
+- Location is successfully retrieved after permission is granted."
+TC-MAP-DISPLAY-004,Verify initial map load with weather/air quality data,Map Rendering,"1, 3, 8","- User has selected a valid location (e.g., Milan).
+- API returns data for the location.","- Location: Milan
+- API Response:
+  ```json
+  {
+    ""Longitudine"": 9.1900,
+    ""Latitudine"": 45.4642,
+    ""QualitàAria"": 75,
+    ""Temperatura"": 22,
+    ""Umidità"": 65,
+    ""Vento"": 3.2,
+    ""Pressione"": 1012,
+    ""Categoria"": ""Moderata""
+  }
+  ```","1. User selects Milan from the location hierarchy.
+2. System displays the map centered on Milan (coordinates: 45.4642, 9.1900).
+3. Map pin (""Puntina della Mappa"") appears at the location with:
+   - AQI: 75 (displayed as ""Moderata"").
+   - Temperature: 22°C.
+   - Humidity: 65%.
+   - Wind: 3.2 m/s.
+4. User scrolls down to trigger data reload.
+5. System sends request to API; new data is fetched and displayed.","- Map loads with correct center and pin.
+- All weather/air quality metrics are displayed accurately.
+- Scrolling triggers a successful reload without errors."
+TC-MAP-DISPLAY-005,Validate map update on scroll (pagination/refresh),Map Rendering,3,"- Map is initialized with data for Milan.
+- API supports pagination (e.g., returns 10 points per request).",,"1. User scrolls down past the bottom of the initial map view.
+2. System detects scroll event and triggers `Ricaricare i dati scrollando giù`.
+3. Server receives request and returns 10 additional `Puntina della Mappa` entries for nearby locations.
+4. Map updates to display:
+   - Original pin (Milan) + 10 new pins.
+   - New pins include locations like ""Monza"" (AQI: 68, ""Buona"") and ""Bergamo"" (AQI: 82, ""Moderata"").
+5. User scrolls up; map retains all pins without duplication.","- New pins appear correctly on the map.
+- No overlapping or misplaced pins.
+- Performance remains smooth (no lag > 2s)."
+TC-SUGGESTIONS-006,Display suggestions based on air quality category,Suggestion Engine,"1, 4, 9","- User has selected a location with AQI = 120 (""Insalubre"").
+- `getConsigliPerAqi(120)` is implemented.","- AQI: 120 (Category: ""Insalubre"")
+- Expected Suggestion:
+  ```json
+  {
+    ""Titolo"": ""Attenzione: Aria Insalubre"",
+    ""Testo"": ""Evita attività all'aperto. Indossa una maschera FFP2 se esci."",
+    ""Immagine"": ""warning_air.png"",
+    ""Categoria"": ""Insalubre""
+  }
+  ```","1. User selects a location with AQI = 120 (e.g., Milan during pollution alert).
+2. System calls `getConsigliPerAqi(120)`.
+3. User clicks the ""Suggerimenti"" button on the map.
+4. System displays `Schermata suggerimenti` with:
+   - Title: ""Attenzione: Aria Insalubre""
+   - Text: ""Evita attività all'aperto...""
+   - Image: ""warning_air.png""
+   - Category: ""Insalubre"" (highlighted in red).","- Correct suggestion is displayed for the AQI category.
+- UI matches the suggestion format (title, text, image, category).
+- No crashes or missing data."
+TC-SUGGESTIONS-007,Handle edge-case AQI values (boundaries),Suggestion Engine,"1, 9","- System supports AQI categories: Buona (0–50), Moderata (51–100), Insalubre sensibile (101–150), etc.","- AQI = 50 (boundary: Buona/Moderata)
+- AQI = 51 (boundary: Moderata/Insalubre sensibile)
+- AQI = 150 (boundary: Insalubre sensibile/Insalubre)
+- AQI = 300 (invalid, clamp to ""Pericolosa"")","1. User selects a location with AQI = 50.
+2. System displays suggestion for ""Buona"" category.
+3. User selects a location with AQI = 51.
+4. System displays suggestion for ""Moderata"" category.
+5. User selects a location with AQI = 150.
+6. System displays suggestion for ""Insalubre sensibile"" category.
+7. User selects a location with AQI = 300 (simulated via API mock).
+8. System clamps to ""Pericolosa"" and displays:
+   - Title: ""Emergenza: Aria Pericolosa""
+   - Text: ""Rimani in interno. Chiudi finestre e porte.""","- Boundaries are handled correctly (no miscategorization).
+- Invalid AQI values are clamped to the highest category.
+- Suggestions are appropriate for each category."
+TC-API-INTEGRATION-008,Validate API response parsing (success/failure),API Client,"5, 6, 7","- Network connection is available.
+- AirVisual API is operational.","- **Success Response (200 OK):**
+  ```json
+  {
+    ""status"": ""ok"",
+    ""data"": {
+      ""city"": ""Milan"",
+      ""aqi"": 75,
+      ""coordinates"": [45.4642, 9.1900]
+    }
+  }
+  ```
+- **Failure Response (500 Internal Server Error):**
+  ```json
+  {
+    ""status"": ""error"",
+    ""message"": ""Database connection failed""
+  }
+  ```
+- **Empty Response (204 No Content):**
+  ```json
+  {}
+  ```","1. System sends `getHTTPData()` for Milan.
+2. API returns success response (200 OK).
+3. System parses data and updates the map with AQI = 75.
+4. User triggers a manual refresh; API returns 500 error.
+5. System displays: ""Impossibile caricare i dati. Riprova più tardi.""
+6. User triggers refresh; API returns empty response (204).
+7. System displays: ""Nessun dato disponibile per questa posizione.""","- Success response updates the map correctly.
+- Error responses show user-friendly messages.
+- Empty responses are handled without crashes."
+TC-WIDGET-UPDATE-009,Test widget data refresh and display,Widget Provider,7,"- Widget is enabled on the home screen.
+- User has granted location permission.",,"1. User enables the widget via device settings.
+2. Widget calls `onEnable()` and requests initial data via `updateAppWidget()`.
+3. AirVisual API returns data for the user’s current location (e.g., AQI = 45, ""Buona"").
+4. Widget updates and displays:
+   - AQI: 45 (green icon)
+   - Temperature: 20°C
+   - Short text: ""Oggi: Aria Buona""
+5. User changes location (e.g., to a high-pollution area).
+6. Widget auto-refreshes every 30 minutes and updates to AQI = 120 (""Insalubre"").","- Widget initializes and displays data correctly.
+- Auto-refresh works without manual intervention.
+- UI updates reflect changes in air quality."
+TC-EDGE-CASES-010,Validate input sanitization for `Puntina della Mappa`,Data Model,1,"- System allows manual input of weather data (e.g., via admin panel).","- **Valid:**
+  - Longitudine: 9.1900
+  - Latitudine: 45.4642
+  - QualitàAria:",,

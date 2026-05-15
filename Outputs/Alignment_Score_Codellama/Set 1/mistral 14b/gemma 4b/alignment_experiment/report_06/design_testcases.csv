@@ -1,0 +1,116 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration with valid credentials,User Registration,3,"- Firebase/Firestore is accessible.
+- No existing user with the provided email.","- Email: `test.user@example.com`
+- Password: `SecurePass123!`
+- Username: `TestUser`","1. User enters registration data (email, password, username) via UI.
+2. UI sends `creaAccount(email, password)` to Firebase/Authentication.
+3. Firebase/Authentication validates data (format, uniqueness).
+4. Firestore confirms data validity and returns a token.
+5. UI saves user data (`nome`, `email`, `token`) to the system.
+6. UI displays confirmation: *""Registration successful!""*","- User account created in Firestore with `id`, `username`, `email`, and `password` (hashed).
+- Token returned to UI for future authentication.
+- No error messages displayed."
+TC-AUTHENTICATION-002,Failed user registration with invalid email format,User Registration,3,- Firebase/Firestore is accessible.,"- Email: `invalid.email` (missing `@` and domain)
+- Password: `ValidPass123!`
+- Username: `TestUser`","1. User enters invalid email and submits registration.
+2. UI sends `creaAccount(invalid.email, password)` to Firebase/Authentication.
+3. Firebase/Authentication rejects data due to invalid email format.
+4. Firestore returns validation failure.
+5. UI displays error: *""Invalid email format. Please correct and try again.""*","- No new user record created in Firestore.
+- Error message shown without exposing validation details.
+- User can retry with corrected data."
+TC-AUTHENTICATION-003,Successful user login with correct credentials,User Login,2,- User `test.user@example.com` exists in Firestore with password `SecurePass123!`.,"- Email: `test.user@example.com`
+- Password: `SecurePass123!`","1. User enters email and password via UI.
+2. UI sends `sign(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication validates credentials.
+4. FirebaseAuthentication returns a valid token to UI.
+5. FirebaseFirestore retrieves user data using the token’s UID.
+6. UI displays: *""Login successful!""*","- Token stored locally for authenticated sessions.
+- User session initialized with loaded user data (`id`, `username`, `email`).
+- No error messages."
+TC-AUTHENTICATION-004,Failed user login with incorrect password,User Login,2,- User `test.user@example.com` exists with password `SecurePass123!`.,"- Email: `test.user@example.com`
+- Password: `WrongPass123!`","1. User enters correct email but wrong password.
+2. UI sends `sign(email, WrongPass123!)` to FirebaseAuthentication.
+3. FirebaseAuthentication rejects credentials.
+4. UI displays: *""Error: Invalid password. Please try again.""*","- No token issued.
+- No user data loaded.
+- Error message shown; user can retry."
+TC-ENTITY-MANAGEMENT-001,Create a new entity linked to an area,Entity Management,1,"- Authenticated user with role allowing entity creation.
+- Area ""Downtown"" exists with `id=1`.","- Entity: `id=101`, `name=""Police Station""`, `description=""24/7 Emergency Response""`, `type=""Public Safety""`, `area_id=1`","1. Authenticated user calls `Entities.create(args)` with entity data.
+2. System validates `name`, `description`, `type`, and `area_id`.
+3. System associates entity with area `id=1` (""Downtown"").
+4. System persists entity to database.
+5. System returns success confirmation.","- New entity record created with `id=101`, linked to `area_id=1`.
+- No validation errors (e.g., duplicate `name` or invalid `area_id`).
+- Notification sent to user: *""Entity 'Police Station' created successfully.""*"
+TC-ENTITY-MANAGEMENT-002,Create entity with invalid area reference,Entity Management,1,"- Authenticated user.
+- No area exists with `id=999`.","- Entity: `id=102`, `name=""Fire Department""`, `area_id=999` (invalid)","1. User attempts to create entity with non-existent `area_id`.
+2. System validates `area_id` against database.
+3. System detects invalid `area_id` and rejects creation.
+4. System returns error: *""Area not found. Please select a valid area.""*","- No new entity record created.
+- Error message displayed to user.
+- User prompted to select an existing area."
+TC-REPORTING-001,Successful report creation with image upload,Report Creation,"1, 4","- Authenticated user `id=1`.
+- Entity `id=101` (""Police Station"") exists in area `id=1`.
+- FirebaseStorage is accessible.","- Report: `user_id=1`, `area_id=1`, `date=2023-11-15T14:30:00`, `content=""Broken streetlight at Main St""`, `urgenza=""High""`, `image=""streetlight.jpg""`
+- Coordinates: `40.7128, -74.0060`","1. User submits report via UI with description, image, coordinates, and urgency.
+2. UI validates data completeness (all fields filled).
+3. UI uploads `streetlight.jpg` to FirebaseStorage.
+4. FirebaseStorage returns image URL.
+5. Firebase searches for nearest entity (`id=101`) in area `id=1`.
+6. System creates report record with `entity_id=101` and image URL.
+7. UI confirms: *""Report sent to Police Station. Urgency: High.""*","- Report record created with `id`, `user_id`, `entity_id`, `date`, `content`, and `image_url`.
+- Notification sent to user: *""Your report has been assigned to Police Station.""*
+- Image stored in FirebaseStorage with accessible URL."
+TC-REPORTING-002,Report creation with incomplete data (missing image),Report Creation,4,- Authenticated user.,"- Report: `content=""Pothole on Oak Ave""`, `urgenza=""Medium""` (no image, no coordinates)","1. User submits report without image or coordinates.
+2. UI detects missing required fields (`image`, `coordinates`).
+3. UI displays: *""Error: Please add an image and location coordinates.""*
+4. User corrects and resubmits.
+5. System processes complete report.","- Initial submission rejected; no report created.
+- Error message highlights missing fields.
+- User can retry after providing all data."
+TC-NOTIFICATIONS-001,System sends notification for successful user registration,Notification System,1,- User registers successfully (see TC-AUTHENTICATION-001).,,"1. System detects `user_registered_successfully = true`.
+2. System creates notification record:
+   - `user_id=1` (new user),
+   - `message=""Welcome! Your account has been created.""`,
+   - `timestamp=current_datetime`.
+3. Notification is queued for delivery to the user.","- New `Notifications` record with `id`, `user_id`, `message`, and `timestamp`.
+- User receives notification in their account dashboard or via email (if configured)."
+TC-NOTIFICATIONS-002,System sends error notification for failed login,Notification System,"1, 2",- User attempts login with incorrect password (see TC-AUTHENTICATION-004).,,"1. System detects `user_login_failed = true`.
+2. System creates notification record:
+   - `user_id=1`,
+   - `message=""Login failed. Check your credentials.""`,
+   - `timestamp=current_datetime`.
+3. Notification is displayed in UI error modal.","- Notification record created in `Notifications` table.
+- Error message shown to user: *""Invalid password. Please try again.""*
+- No sensitive data (e.g., correct password) leaked in notification."
+TC-AREA-MANAGEMENT-001,Create a new area with valid data,Area Management,1,- Authenticated admin user.,"- Area: `id=2`, `name=""Uptown""`, `description=""Commercial district""`","1. Admin calls `Areas.create(args)` with area data.
+2. System validates `name` and `description` (non-empty).
+3. System persists area to database.
+4. System returns success confirmation.","- New area record created with `id=2`, `name=""Uptown""`, `description=""Commercial district""`.
+- No validation errors (e.g., duplicate `name`).
+- Admin receives notification: *""Area 'Uptown' created successfully.""*"
+TC-AREA-MANAGEMENT-002,Create area with duplicate name,Area Management,1,"- Area ""Downtown"" (`id=1`) already exists.","- Area: `id=3`, `name=""Downtown""` (duplicate), `description=""Residential""`","1. Admin attempts to create area with duplicate `name`.
+2. System detects duplicate and rejects creation.
+3. System returns error: *""Area name already exists. Choose a unique name.""*","- No new area record created.
+- Error message displayed to admin.
+- Admin prompted to use a different name."
+TC-INTEGRATION-001,End-to-end flow: User reports issue → Entity assigned → Notification sent,End-to-End Reporting,"1, 4","- Authenticated user `id=1`.
+- Entity `id=101` (""Police Station"") exists in area `id=1`.
+- FirebaseStorage and Firestore are operational.",,"1. User submits report via UI:
+   - Description: *""Car accident on Maple Ave""*
+   - Image: `accident.jpg`
+   - Coordinates: `40.7128, -74.0060`
+   - Urgency: *""High""*
+2. UI validates data and uploads image to FirebaseStorage.
+3. System assigns nearest entity (`id=101`) to report.
+4. System creates `Reports` record with `entity_id=101`.
+5. System generates notification for user:
+   - `message=""Your report has been assigned to Police Station. ETA: 10 mins.""`
+6. User receives confirmation in UI.","- Report record created with `id`, `user_id`, `entity_id`, `content`, `image_url`, and `date`.
+- Image stored in FirebaseStorage with accessible URL.
+- Notification record created in `Notifications` for the user.
+- UI displays: *""Report sent to Police Station. Tracking #REP-1001.""*"
+TC-EDGE-CASE-001,Report creation with maximum allowed content length,Report Validation,"1, 4","- Authenticated user.
+- System enforces `content` max length of 1000 characters.","- Report `content`: A string of exactly 1000 characters (e.g., repeated `""a""`).","1. User submits report with 1000-character description.
+2. UI validates content length",

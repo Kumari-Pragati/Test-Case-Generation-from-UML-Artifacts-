@@ -1,0 +1,122 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Authentication-001,User logs in successfully,Authentication,2,No user is logged in.,"- email: test@example.com
+- password: Test123!","1. Application calls log_in(email, password).
+2. Sistema di Gestione Utente gets Firebase Auth instance.
+3. Sistema di Gestione Utente checks if user is null.
+4. Sistema di Gestione Utente signs in with email and password.
+5. Sistema di Gestione Utente gets current user.",User is logged in successfully.
+TC-Authentication-002,User logs in with incorrect password,Authentication,2,No user is logged in.,"- email: test@example.com
+- password: IncorrectPassword","1. Application calls log_in(email, password).
+2. Sistema di Gestione Utente gets Firebase Auth instance.
+3. Sistema di Gestione Utente checks if user is null.
+4. Sistema di Gestione Utente attempts to sign in with email and password.
+5. Sistema di Gestione Utente gets current user.",Authentication fails and no user is logged in.
+TC-Authentication-003,User registers successfully,Authentication,2,No user is logged in.,"- email: newuser@example.com
+- password: NewUser123!","1. Application calls log_in(email, password).
+2. Sistema di Gestione Utente gets Firebase Auth instance.
+3. Sistema di Gestione Utente checks if user is null.
+4. Sistema di Gestione Utente creates user with email and password.
+5. Sistema di Gestione Utente gets current user.",User is registered successfully.
+TC-Authentication-004,User registers with invalid email,Authentication,2,No user is logged in.,"- email: invalidemail
+- password: NewUser123!","1. Application calls log_in(email, password).
+2. Sistema di Gestione Utente gets Firebase Auth instance.
+3. Sistema di Gestione Utente checks if user is null.
+4. Sistema di Gestione Utente attempts to create user with email and password.
+5. Sistema di Gestione Utente gets current user.",Registration fails due to invalid email format.
+TC-Reports-001,Retrieve list of reports,Reports,"3, 6",A report exists in the database.,- No specific data required.,"1. Application calls getSegnalazioni().
+2. Sistema di gestione segnalazioni forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns the payload.
+5. Sistema di gestione dei dati returns the payload to Sistema di gestione segnalazioni.
+6. Sistema di gestione segnalazioni returns the payload to Application.
+7. Application checks if the list is null and displays accordingly.",List of reports is displayed correctly.
+TC-Reports-002,Retrieve list of reports with empty result,Reports,"3, 6",No reports exist in the database.,- No specific data required.,"1. Application calls getSegnalazioni().
+2. Sistema di gestione segnalazioni forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns an empty payload.
+5. Sistema di gestione dei dati returns the empty payload to Sistema di gestione segnalazioni.
+6. Sistema di gestione segnalazioni returns the empty payload to Application.
+7. Application checks if the list is null and displays accordingly.",Null is displayed since there are no reports.
+TC-Calendar-001,Insert a new calendar entry,Calendar,5,No calendar entries exist.,"- calendar: id=""1"", data=""2023-10-01""","1. Application sets the calendar data.
+2. Sistema gestione calendario forwards the data to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns a status code.
+5. Sistema di gestione dei dati forwards the status code to Sistema gestione calendario.
+6. Sistema gestione calendario forwards the status code to Application.",Calendar entry is inserted successfully.
+TC-Calendar-002,Retrieve a calendar entry,Calendar,6,A calendar entry exists.,- No specific data required.,"1. Application requests the calendar data.
+2. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns the payload.
+5. Sistema di gestione dei dati forwards the payload to Sistema gestione calendario.
+6. Sistema gestione calendario forwards the payload to Application.
+7. Application checks if the calendar is null and displays accordingly.",Calendar data is displayed correctly.
+TC-Trains-001,Retrieve list of trains,Trains,"7, 8",A train list exists.,- No specific data required.,"1. Application requests the train list.
+2. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati requests trains from API Trenitalia.
+4. API Trenitalia queries the database.
+5. Database returns the payload.
+6. API Trenitalia forwards the payload to Sistema di gestione dei dati.
+7. Sistema di gestione dei dati forwards the payload to Sistema gestione calendario.
+8. Sistema gestione calendario forwards the payload to Application.
+9. Application checks if the list is null and displays accordingly.",Train list is displayed correctly.
+TC-Trains-002,Retrieve list of trains with empty result,Trains,"7, 8",No train list exists.,- No specific data required.,"1. Application requests the train list.
+2. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati requests trains from API Trenitalia.
+4. API Trenitalia queries the database.
+5. Database returns an empty payload.
+6. API Trenitalia forwards the empty payload to Sistema di gestione dei dati.
+7. Sistema di gestione dei dati forwards the empty payload to Sistema gestione calendario.
+8. Sistema gestione calendario forwards the empty payload to Application.
+9. Application checks if the list is null and displays accordingly.",Null is displayed since there are no trains.
+TC-Trains-003,Delete a preferred train,Trains,8,A preferred train exists.,"- id: ""123""","1. Application requests to delete a preferred train.
+2. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the API Trenitalia.
+4. API Trenitalia deletes the train.
+5. API Trenitalia returns the status code.
+6. Sistema di gestione dei dati forwards the status code to Sistema gestione calendario.
+7. Sistema gestione calendario forwards the status code to Application.",Preferred train is deleted successfully.
+TC-Trains-004,Delete a preferred train with invalid ID,Trains,8,A preferred train exists.,"- id: ""invalid_id""","1. Application requests to delete a preferred train.
+2. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the API Trenitalia.
+4. API Trenitalia returns an error status code.
+5. Sistema di gestione dei dati forwards the status code to Sistema gestione calendario.
+6. Sistema gestione calendario forwards the status code to Application.",Deletion fails due to invalid train ID.
+TC-Variations-001,Retrieve train variations,Variations,9,Train variations exist.,- No specific data required.,"1. Application requests train variations.
+2. Sistema gestione variazioni retrieves the variations.
+3. Sistema gestione variazioni returns the variations to the application.
+4. Application sends the variations to the notification system.",Train variations are displayed correctly.
+TC-Variations-002,Retrieve train variations with empty result,Variations,9,No train variations exist.,- No specific data required.,"1. Application requests train variations.
+2. Sistema gestione variazioni retrieves the variations.
+3. Sistema gestione variazioni returns an empty result to the application.
+4. Application sends the empty result to the notification system.",Notification system displays an empty result.
+TC-Notifications-001,Display train variations notification,Notifications,9,Train variations exist.,- No specific data required.,"1. Application sends train variations to the notification system.
+2. Sistema di notifica displays the train variations.",Train variations are displayed as notifications.
+TC-Notifications-002,Display train variations notification with empty result,Notifications,9,No train variations exist.,- No specific data required.,"1. Application sends an empty result to the notification system.
+2. Sistema di notifica displays the empty result.",Notification system displays an empty result.
+TC-Stations-001,Retrieve station details,Stations,"Not explicitly mentioned, inferred from context",A station exists.,- No specific data required.,"1. Application requests station details.
+2. Sistema gestione stazioni forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns the station details.
+5. Sistema di gestione dei dati forwards the station details to Sistema gestione stazioni.
+6. Sistema gestione stazioni forwards the station details to Application.",Station details are displayed correctly.
+TC-Stations-002,Retrieve station details with empty result,Stations,"Not explicitly mentioned, inferred from context",No station details exist.,- No specific data required.,"1. Application requests station details.
+2. Sistema gestione stazioni forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns an empty result.
+5. Sistema di gestione dei dati forwards the empty result to Sistema gestione stazioni.
+6. Sistema gestione stazioni forwards the empty result to Application.",Empty result is displayed.
+TC-Transport-001,Retrieve transport details,Transport,"Not explicitly mentioned, inferred from context",A transport entry exists.,- No specific data required.,"1. Application requests transport details.
+2. Sistema gestione trasporto forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns the transport details.
+5. Sistema di gestione dei dati forwards the transport details to Sistema gestione trasporto.
+6. Sistema gestione trasporto forwards the transport details to Application.",Transport details are displayed correctly.
+TC-Transport-002,Retrieve transport details with empty result,Transport,"Not explicitly mentioned, inferred from context",No transport details exist.,- No specific data required.,"1. Application requests transport details.
+2. Sistema gestione trasporto forwards the request to Sistema di gestione dei dati.
+3. Sistema di gestione dei dati queries the database.
+4. Database returns an empty result.
+5. Sistema di gestione dei dati forwards the empty result to Sistema gestione trasporto.
+6. Sistema gestione trasporto forwards the empty result to Application.",Empty result is displayed.
+TC-UserManagement-001,Create a new user,User Management,2,No user exists.,"- email: newuser@example.com
+- password: NewUser123!","1. Application creates a new user.
+2. Sistema di gestione utenti creates the user",

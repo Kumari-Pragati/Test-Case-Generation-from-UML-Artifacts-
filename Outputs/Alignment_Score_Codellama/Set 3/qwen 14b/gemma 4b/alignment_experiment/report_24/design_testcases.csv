@@ -1,0 +1,115 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-StateMachine-001","User Creation Process - User Already Created","State Machine","1","User is already created in the system.","N/A","1. Start the process.
+2. System checks if the user is created.
+3. System transitions to the Home state.","The system should transition to the Home state without initiating any user creation process."
+"TC-StateMachine-002","User Creation Process - User Not Created","State Machine","1","User is not created in the system.","N/A","1. Start the process.
+2. System checks if the user is created.
+3. System initiates the user creation process.
+4. System checks if the user creation is correct.
+5. System transitions to the Home state based on the result of the user creation check.","The system should either transition to the Home state after a successful user creation or remain in the Home state after a failed user creation attempt."
+"TC-StateMachine-003","User Creation Process - Edge Case - User Creation Failure","State Machine","1","User is not created in the system.","N/A","1. Start the process.
+2. System checks if the user is created.
+3. System initiates the user creation process.
+4. System checks if the user creation is correct.
+5. System detects a failure in the user creation process.
+6. System transitions to the Home state.","The system should transition to the Home state after detecting a failure in the user creation process."
+"TC-Activity-001","Decision Process - Access to Creation Possible","Activity","2","User has access to creation.","N/A","1. User accesses the Home activity.
+2. System checks if access to creation is possible.
+3. System transitions to the Accesso alla creazione decision node.
+4. System determines that access to creation is possible.
+5. System transitions to the Creazione commissione decision node.
+6. System checks if the creation is a commission.
+7. System transitions to the Creazione corretta decision node.
+8. System checks if the creation is correct.
+9. System forks to the success path if the creation is correct.","The system should fork to the success path if the creation is correct."
+"TC-Activity-002","Decision Process - Access to Creation Not Possible","Activity","2","User does not have access to creation.","N/A","1. User accesses the Home activity.
+2. System checks if access to creation is possible.
+3. System transitions to the Accesso alla creazione decision node.
+4. System determines that access to creation is not possible.
+5. System transitions to the Creazione offerta decision node.
+6. System checks if the creation is an offer.
+7. System transitions to the Creazione corretta decision node.
+8. System checks if the creation is correct.
+9. System forks to the failure path if the creation is not correct.","The system should fork to the failure path if the creation is not correct."
+"TC-Activity-003","Decision Process - Commission Creation Correct","Activity","2","User has access to creation and is creating a commission.","N/A","1. User accesses the Home activity.
+2. System checks if access to creation is possible.
+3. System transitions to the Accesso alla creazione decision node.
+4. System determines that access to creation is possible.
+5. System transitions to the Creazione commissione decision node.
+6. System checks if the creation is a commission.
+7. System transitions to the Creazione corretta decision node.
+8. System checks if the creation is correct.
+9. System forks to the success path if the creation is correct.","The system should fork to the success path if the creation is correct."
+"TC-Activity-004","Decision Process - Offer Creation Incorrect","Activity","2","User has access to creation and is creating an offer.","N/A","1. User accesses the Home activity.
+2. System checks if access to creation is possible.
+3. System transitions to the Accesso alla creazione decision node.
+4. System determines that access to creation is possible.
+5. System transitions to the Creazione offerta decision node.
+6. System checks if the creation is an offer.
+7. System transitions to the Creazione corretta decision node.
+8. System checks if the creation is correct.
+9. System forks to the failure path if the creation is not correct.","The system should fork to the failure path if the creation is not correct."
+"TC-Navigation-001","Navigation Flow - Access Menu and Profile Information","Navigation","3","User is at the Home activity.","N/A","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System transitions to the Informazioni profilo activity if the user wants to access the menu.
+5. System ends the process at the Informazioni profilo final node.","The system should transition to the Informazioni profilo activity and end the process there."
+"TC-Navigation-002","Navigation Flow - Access Menu and Guide","Navigation","3","User is at the Home activity.","N/A","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System transitions to the Guida activity if the user does not want to access the menu.
+5. System ends the process at the Guida final node.","The system should transition to the Guida activity and end the process there."
+"TC-Navigation-003","Navigation Flow - No Menu Access and Profile Information","Navigation","3","User is at the Home activity.","N/A","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System checks if the user wants to access the profile.
+5. System transitions to the Informazioni profilo activity if the user wants to access the profile.
+6. System ends the process at the Informazioni profilo final node.","The system should transition to the Informazioni profilo activity and end the process there."
+"TC-Navigation-004","Navigation Flow - No Menu Access and Guide","Navigation","3","User is at the Home activity.","N/A","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System checks if the user wants to access the profile.
+5. System transitions to the Guida activity if the user does not want to access the profile.
+6. System ends the process at the Guida final node.","The system should transition to the Guida activity and end the process there."
+"TC-Navigation-005","Navigation Flow - Negative Case - Invalid Input","Navigation","3","User is at the Home activity.","Invalid input provided by the user.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System receives invalid input from the user.
+4. System handles the invalid input gracefully and prompts the user again.","The system should handle the invalid input gracefully and prompt the user again for valid input."
+"TC-Navigation-006","Navigation Flow - Edge Case - User Does Not Want to Access Menu or Profile","Navigation","3","User is at the Home activity.","User does not want to access the menu or profile.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System checks if the user wants to access the profile.
+5. System transitions to the Guida activity if the user does not want to access the menu or profile.
+6. System ends the process at the Guida final node.","The system should transition to the Guida activity and end the process there."
+"TC-Navigation-007","Navigation Flow - Positive Case - User Wants to Access Menu and Profile","Navigation","3","User is at the Home activity.","User wants to access the menu and profile.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System transitions to the Informazioni profilo activity if the user wants to access the menu.
+5. System ends the process at the Informazioni profilo final node.","The system should transition to the Informazioni profilo activity and end the process there."
+"TC-Navigation-008","Navigation Flow - Positive Case - User Wants to Access Menu and Guide","Navigation","3","User is at the Home activity.","User wants to access the menu but not the profile.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System transitions to the Guida activity if the user does not want to access the profile.
+5. System ends the process at the Guida final node.","The system should transition to the Guida activity and end the process there."
+"TC-Navigation-009","Navigation Flow - Positive Case - User Wants to Access Profile","Navigation","3","User is at the Home activity.","User wants to access the profile.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System checks if the user wants to access the profile.
+5. System transitions to the Informazioni profilo activity if the user wants to access the profile.
+6. System ends the process at the Informazioni profilo final node.","The system should transition to the Informazioni profilo activity and end the process there."
+"TC-Navigation-010","Navigation Flow - Positive Case - User Wants to Access Guide","Navigation","3","User is at the Home activity.","User wants to access the guide.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System checks if the user wants to access the profile.
+5. System transitions to the Guida activity if the user does not want to access the profile.
+6. System ends the process at the Guida final node.","The system should transition to the Guida activity and end the process there."
+"TC-Navigation-011","Navigation Flow - Positive Case - User Wants to Access Menu and Profile, Then Guide","Navigation","3","User is at the Home activity.","User wants to access the menu and profile, then the guide.","1. User accesses the Home activity.
+2. System transitions to the Menu activity.
+3. System checks if the user wants to access the menu.
+4. System transitions to the Informazioni profilo activity if the user wants to access the menu.
+5. System ends the process at the Informazioni profilo final node.
+6. User returns to the Home activity.
+7. System transitions to the Menu activity.
+8. System checks if the user wants to access the menu.
+9. System transitions to the Guida activity if the user does not want to access the profile.
+10. System ends the process at the Guida final node.","The system should transition to the Informazioni profilo activity and then to the Guida activity, ending the process at the respective final nodes."

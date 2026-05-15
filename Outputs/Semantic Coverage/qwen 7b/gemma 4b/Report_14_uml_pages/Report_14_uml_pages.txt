@@ -1,0 +1,308 @@
+REPORT: Report_14_uml_pages.pdf
+======================================================================
+
+===== Report_14_uml_pages.pdf | Page 1 =====
+UML Type: class
+- PostComment — kind=class; attributes=[id: int, author: String, creationDate: Date, lastUpdateDate: Date, post: Post, hashCode: String, toString: String, toArray: String, bool: boolean]; operations=[postCommentCopyWithNil(Map<String, Object>): void]
+- BusinessUser — kind=class; attributes=[id: int, brandPhoto: String, username: String, companyName: String, userNumber: String, hashCode: String, businessUserCopyWithNil(Map<String, Object>): void, toString: String, toArray: String, bool: boolean]
+- Post — kind=class; attributes=[id: int, content: String, author: String, postDate: Date, lastUpdateDate: Date, postCode: String, hashCode: String, postCopyWithNil(Map<String, Object>): void, toString: String, toArray: String, bool: boolean]
+- User — kind=class; attributes=[id: int, name: String, surname: String, hashCode: String, userCopyWithNil(Map<String, Object>): void, toString: String, toArray: String, bool: boolean]
+- ChatList — kind=class; attributes=[id: int, hashCode: String, chatListCopyWithNil(Map<String, Object>): void, toString: String, toArray: String, bool: boolean]
+- NeighborGoogle — kind=class; attributes=[id: int, hashCode: String, neighborGoogleCopyWithNil(Map<String, Object>): void, toString: String, toArray: String, bool: boolean]
+- Chat — kind=class; attributes=[id: int, user: User, chatWith: ChatList, hashCode: String, chatCopyWithNil(Map<String, Object>): void, toString: String, toArray: String, bool: boolean]
+
+Actors / Lifelines:
+- User — role=User
+- System — role=System
+
+Relationships / Links:
+- Post -> PostComment — type=association; label="contains"; explanation="A Post can contain multiple PostComments"
+- User -> PostComment — type=association; label="writes"; explanation="A User writes PostComments"
+- Post -> PostComment — type=association; label="has"; explanation="A Post has PostComments"
+- User -> User — type=association; label="is friend of"; explanation="Users can be friends"
+- User -> ChatList — type=association; label="participates in"; explanation="A User participates in ChatLists"
+- ChatList -> Chat — type=association; label="contains"; explanation="A ChatList contains Chats"
+- NeighborGoogle -> ChatList — type=association; label="uses"; explanation="NeighborGoogle uses ChatLists"
+
+Main Flows (step by step):
+- User -> System: createPostComment
+- System -> PostComment: postCommentCopyWithNil
+
+Conditions / Branches:
+- bool: = 0
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+-   This diagram models a system for managing posts, comments, users, and chat lists.
+-   The system allows users to create and write comments on posts.
+-   The system supports user friendships and chat list participation.
+-   The `postCommentCopyWithNil` and `businessUserCopyWithNil` methods are used to create copies of objects with null values.
+
+===== Report_14_uml_pages.pdf | Page 2 =====
+UML Type: Activity
+- Activity Diagram
+
+Components:
+- START — kind=initial node
+- Utente? — kind=decision node
+- UserCreateProcedure — kind=action node
+- Utente creato con successo? — kind=decision node
+- VerifyLocalizationProcedure — kind=action node
+- Procedura completata con successo? — kind=decision node
+- HOME — kind=final node
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- START -> Utente? — type=transition; label="Utente?"; explanation="Checks if a user exists"
+- Utente? -> UserCreateProcedure — type=transition; label="NO"; explanation="If user does not exist, create user"
+- UserCreateProcedure -> Utente creato con successo? — type=transition; label="NO"; explanation="If user creation fails"
+- Utente creato con successo? -> VerifyLocalizationProcedure — type=transition; label="SI"; explanation="If user creation is successful"
+- VerifyLocalizationProcedure -> Procedura completata con successo? — type=transition; label="NO"; explanation="If localization verification fails"
+- Procedura completata con successo? -> HOME — type=transition; label="SI"; explanation="If localization verification is successful"
+- VerifyLocalizationProcedure -> HOME — type=transition; label="SI"; explanation="If localization verification is successful"
+
+Main Flows (step by step):
+- START -> Utente? (SI) -> UserCreateProcedure -> Utente creato con successo? (NO) -> HOME
+- START -> Utente? (SI) -> UserCreateProcedure -> Utente creato con successo? (SI) -> VerifyLocalizationProcedure -> Procedura completata con successo? (NO) -> HOME
+- START -> Utente? (SI) -> UserCreateProcedure -> Utente creato con successo? (SI) -> VerifyLocalizationProcedure -> Procedura completata con successo? (SI) -> HOME
+
+Conditions / Branches:
+- Utente? — branch="SI" (Utente esiste)
+- Utente? — branch="NO" (Utente non esiste)
+- UserCreateProcedure -> Utente creato con successo? — branch="SI" (Creazione utente riuscita)
+- UserCreateProcedure -> Utente creato con successo? — branch="NO" (Creazione utente fallita)
+- VerifyLocalizationProcedure -> Procedura completata con successo? — branch="SI" (Verifica localizzazione riuscita)
+- VerifyLocalizationProcedure -> Procedura completata con successo? — branch="NO" (Verifica localizzazione fallita)
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- The diagram models the process of user creation and localization verification.
+- The diagram shows a loop back to the HOME state if either user creation or localization verification fails.
+
+Observations:
+- The diagram models the process of creating a user and verifying localization.
+- If a user already exists, the system proceeds to localization verification.
+- If user creation fails, the system returns to the HOME state.
+- If localization verification fails, the system returns to the HOME state.
+
+===== Report_14_uml_pages.pdf | Page 3 =====
+UML Type: State_machine
+- Schermata Principale Interattiva e Menu
+
+Components:
+- Home — kind=action;
+- Profile — kind=action;
+- NotificationSection — kind=action;
+- MapFullScreenAPI — kind=action;
+- Menu — kind=action;
+- ChatSection — kind=action;
+- GeneralDashboard — kind=action;
+
+Actors / Lifelines:
+- User — None
+
+Relationships / Links:
+- Home -> Profile — transition="Cliccata foto profilo"; explanation="If user clicks profile picture";
+- Home -> NotificationSection — transition="Cliccata icona notifiche"; explanation="If user clicks notification icon";
+- Home -> MapFullScreenAPI — transition="Interazione con la mappa"; explanation="If user interacts with the map";
+- Home -> Menu — transition="Interazione con il menu"; explanation="If user interacts with the menu";
+- Profile -> Profile — transition="cliccata icona accesso Home"; explanation="If user clicks home icon";
+- Profile -> Profile — transition="cliccata icona accesso personale"; explanation="If user clicks personal profile icon";
+- Profile -> ChatSection — transition="cliccata icona accesso alle chat"; explanation="If user clicks chat icon";
+- ChatSection -> GeneralDashboard — transition="cliccata icona accesso generale"; explanation="If user clicks general dashboard icon";
+
+Main Flows (step by step):
+- User -> Home — start;
+- Home -> Profile — transition="Cliccata foto profilo";
+- Home -> NotificationSection — transition="Cliccata icona notifiche";
+- Home -> MapFullScreenAPI — transition="Interazione con la mappa";
+- Home -> Menu — transition="Interazione con il menu";
+- Profile -> Profile — transition="cliccata icona accesso Home";
+- Profile -> Profile — transition="cliccata icona accesso personale";
+- Profile -> ChatSection — transition="cliccata icona accesso alle chat";
+- ChatSection -> GeneralDashboard — transition="cliccata icona accesso generale";
+
+Conditions / Branches:
+- Home -> Profile — condition="Cliccata foto profilo";
+- Home -> NotificationSection — condition="Cliccata icona notifiche";
+- Home -> MapFullScreenAPI — condition="Interazione con la mappa";
+- Home -> Menu — condition="Interazione con il menu";
+- Profile -> Profile — condition="cliccata icona accesso Home";
+- Profile -> Profile — condition="cliccata icona accesso personale";
+- Profile -> ChatSection — condition="cliccata icona accesso alle chat";
+- ChatSection -> GeneralDashboard — condition="cliccata icona accesso generale";
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram models the navigation flow of a main screen with interactive map and menu.
+
+Observations:
+- The user can start at the Home screen.
+- The user can navigate to the Profile, NotificationSection, MapFullScreenAPI, Menu, ChatSection, or GeneralDashboard based on their interactions.
+- The diagram shows a branching flow based on user actions (clicking icons or interacting with elements).
+
+===== Report_14_uml_pages.pdf | Page 4 =====
+UML Type: Activity
+
+Components:
+- GeneralDashboard — kind=activity;
+- Section — kind=activity;
+- FullScreenPost — kind=activity;
+- LeaveComment — kind=activity;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- GeneralDashboard -> Section — type=flow; label="Scorri posts condivisi presenti in bacheca"; explanation="Scrolling through shared posts in the feed"
+- Section -> FullScreenPost — type=flow; label="Cliccato specifico post"; explanation="Clicking on a specific post"
+- FullScreenPost -> LeaveComment — type=flow; label="Aggiungi un commento"; explanation="Adding a comment"
+- FullScreenPost -> AttendIsvataggio — type=flow; label="Attendi salvataggio"; explanation="Wait for saving"
+- LeaveComment -> AttendIsvataggio — type=flow; label="Attendi salvataggio"; explanation="Wait for saving"
+
+Main Flows (step by step):
+- Flow 1: GeneralDashboard -> Section — Scorri posts condivisi presenti in bacheca
+- Flow 2: Section -> FullScreenPost — Cliccato specifico post
+- Flow 3: FullScreenPost -> LeaveComment — Aggiungi un commento
+- Flow 4: FullScreenPost -> AttendIsvataggio — Attendi salvataggio
+- Flow 5: LeaveComment -> AttendIsvataggio — Attendi salvataggio
+
+Conditions / Branches:
+- SI — FullScreenPost -> LeaveComment —  (Decision)
+- SI — LeaveComment -> AttendIsvataggio — (Decision)
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the user interaction flow within a dashboard when viewing and interacting with a post.
+- The user can scroll through posts, click on a specific post to view it in full screen, add a comment, and then wait for the changes to be saved.
+- The diagram shows two distinct paths: one for adding a comment directly from the full-screen view and another for adding a comment after viewing the full-screen view and waiting for the save operation.
+
+===== Report_14_uml_pages.pdf | Page 5 =====
+UML Type: Activity
+- ItemResultSearch
+- ResultItem
+- Chat
+- BusinessProfile
+- ViewUnSold
+- ViewPromotions
+- Calendar
+- AttendOperationDiScritturaSulDb
+- ConfermaRiuscita
+
+Actors / Lifelines:
+- ItemResultSearch
+- ResultItem
+- Chat
+- BusinessProfile
+- ViewUnSold
+- ViewPromotions
+- Calendar
+- AttendOperationDiScritturaSulDb
+- ConfermaRiuscita
+- None
+
+Relationships / Links:
+- ItemResultSearch -> ResultItem
+  type=association; label="ItemResultSearch"; explanation="Search results are displayed as ResultItems"
+- ResultItem -> Chat
+  type=association; label="Chat"; explanation="Chat is initiated from ResultItem"
+- ResultItem -> BusinessProfile
+  type=association; label="BusinessProfile"; explanation="BusinessProfile is accessed from ResultItem"
+- ResultItem -> ViewUnSold
+  type=association; label="ViewUnSold"; explanation="ViewUnSold is accessed from ResultItem"
+- ResultItem -> ViewPromotions
+  type=association; label="ViewPromotions"; explanation="ViewPromotions is accessed from ResultItem"
+- BusinessProfile -> Calendar
+  type=association; label="Calendar"; explanation="Calendar is accessed from BusinessProfile"
+- BusinessProfile -> AttendOperationDiScritturaSulDb
+  type=association; label="AttendOperationDiScritturaSulDb"; explanation="AttendOperationDiScritturaSulDb is accessed from BusinessProfile"
+- BusinessProfile -> ConfermaRiuscita
+  type=association; label="ConfermaRiuscita"; explanation="ConfermaRiuscita is accessed from BusinessProfile"
+- ResultItem -> BusinessProfile
+  type=association; label="BusinessProfile"; explanation="BusinessProfile is accessed from ResultItem"
+
+Main Flows (step by step):
+- ItemResultSearch -> ResultItem
+- ResultItem -> Chat
+- ResultItem -> BusinessProfile
+- ResultItem -> ViewUnSold
+- ResultItem -> ViewPromotions
+- BusinessProfile -> Calendar
+- BusinessProfile -> AttendOperationDiScritturaSulDb
+- BusinessProfile -> ConfermaRiuscita
+
+Conditions / Branches:
+- ItemResultSearch -> ResultItem (SI)
+- ResultItem -> Chat (SI)
+- ResultItem -> BusinessProfile (SI)
+- ResultItem -> ViewUnSold (SI)
+- ResultItem -> ViewPromotions (SI)
+- BusinessProfile -> Calendar (SI)
+- BusinessProfile -> AttendOperationDiScritturaSulDb (SI)
+- BusinessProfile -> ConfermaRiuscita (SI)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "VISUALIZZAZIONE PROFILI DI ALTRI RESIDENTI, PROFESSIONISTI, ESERCENTI"
+
+===== Report_14_uml_pages.pdf | Page 6 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=sequence;
+- StoredDataDB — kind=database;
+- UserCreateProcedure — kind=procedure;
+
+Actors / Lifelines:
+- Main
+- StoredDataDB
+- UserCreateProcedure
+
+Relationships / Links:
+- Main -> StoredDataDB — transition="authorization"; explanation="Request for authorization";
+- StoredDataDB -> UserCreateProcedure — transition="Not exist"; explanation="User does not exist";
+- StoredDataDB -> UserCreateProcedure — transition="Valid credentials"; explanation="Valid credentials";
+- UserCreateProcedure -> Create new entry — transition="Create new entry"; explanation="Create new entry"
+
+Main Flows (step by step):
+- Main -> StoredDataDB — transition="authorization";
+- StoredDataDB -> UserCreateProcedure — transition="Not exist";
+- StoredDataDB -> UserCreateProcedure — transition="Valid credentials";
+- UserCreateProcedure -> Create new entry
+
+Conditions / Branches:
+- StoredDataDB -> UserCreateProcedure — condition="Not exist" -> transition="Not exist";
+- StoredDataDB -> UserCreateProcedure — condition="Valid credentials" -> transition="Valid credentials";
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of creating a new user entry in a system.
+- It involves an initial authorization check against a database.
+- If the user does not exist, the process branches to a "Not exist" state.
+- If the credentials are valid, the process proceeds to create a new entry.
+
+
+======================================================================

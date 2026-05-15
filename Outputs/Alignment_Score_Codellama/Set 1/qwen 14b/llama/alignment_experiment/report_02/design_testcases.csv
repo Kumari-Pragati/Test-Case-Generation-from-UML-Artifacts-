@@ -1,0 +1,150 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-ACCESS-001,User first access without registration,Access,1,Application is installed and launched for the first time.,- User is not registered.,"1. Launch the application.
+2. System prompts the user to check if they are registered.
+3. User confirms they are not registered.
+4. System redirects the user to the registration process.
+5. Registration process completes successfully.
+6. User is redirected to the home page.","- User is prompted to register.
+- Registration process is initiated.
+- Upon successful registration, user is redirected to the home page."
+TC-ACCESS-002,User first access with registration,Access,1,Application is installed and launched for the first time.,- User is registered.,"1. Launch the application.
+2. System prompts the user to check if they are registered.
+3. User confirms they are registered.
+4. System redirects the user to the login process.
+5. User logs in successfully.
+6. User is redirected to the home page.","- User is prompted to log in.
+- Login process is initiated.
+- Upon successful login, user is redirected to the home page."
+TC-ROUTE-001,Start and complete a route,Route,2,User is logged in and on the home page.,- User initiates a route.,"1. User clicks on 'Start Route'.
+2. System confirms the route is in progress.
+3. User completes the route.
+4. System prompts whether to change sections.
+5. User confirms no change in sections.
+6. System calculates emissions.
+7. User is redirected to the home page.","- Route starts successfully.
+- Route completion triggers emission calculation.
+- User is redirected to the home page."
+TC-ROUTE-002,Change section during route,Route,2,User is logged in and on the home page.,- User initiates a route.,"1. User clicks on 'Start Route'.
+2. System confirms the route is in progress.
+3. User completes the route.
+4. System prompts whether to change sections.
+5. User confirms change in sections.
+6. User navigates to the horizontal menu.
+7. User returns to the route.
+8. System calculates emissions.
+9. User is redirected to the home page.","- Route starts successfully.
+- Changing sections redirects user to the menu.
+- User returns to the route and emission calculation occurs.
+- User is redirected to the home page."
+TC-REPORT-001,View weekly report and navigate menu,Report,3,User is logged in and on the home page.,- User wants to view the weekly report.,"1. User clicks on 'View Weekly Report'.
+2. System displays the weekly report.
+3. User navigates to the horizontal menu.
+4. User returns to the report.
+5. User exits the report.","- Weekly report is displayed.
+- User can navigate to the menu and return to the report.
+- Exiting the report ends the session."
+TC-DATA-001,View personal data and insert new data,Data,4,User is logged in and on the home page.,- User wants to view personal data.,"1. User clicks on 'View Personal Data'.
+2. System displays personal data.
+3. User clicks on 'Insert New Data'.
+4. System prompts for new data input.
+5. User submits new data.
+6. System redirects to the menu.
+7. User returns to view personal data.","- Personal data is displayed.
+- Inserting new data redirects to the menu.
+- Returning to personal data shows updated information."
+TC-CREDENTIALS-001,Successful login process,Credentials,5,User is logged in and on the home page.,- Valid username and password.,"1. User enters valid credentials.
+2. Application inserts credentials into the server.
+3. Server verifies credentials against the database.
+4. Database returns verified data to the server.
+5. Server compares verified data with inserted data.
+6. Application logs in the user.","- Credentials are successfully verified.
+- User is logged in."
+TC-CREDENTIALS-002,Failed login process due to invalid credentials,Credentials,5,User is logged in and on the home page.,- Invalid username and password.,"1. User enters invalid credentials.
+2. Application inserts credentials into the server.
+3. Server verifies credentials against the database.
+4. Database returns no matching data to the server.
+5. Server compares verified data with inserted data.
+6. Application fails to log in the user.","- Credentials are not verified.
+- User is not logged in."
+TC-PATH-001,Dispatch and add a new route,Path,6,User is logged in and on the home page.,- User wants to add a new route.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server adds the new route to the database.
+4. Database receives the new route from the server.
+5. User is redirected back to the home page.","- New route is added successfully.
+- User is redirected to the home page."
+TC-PATH-002,Error handling during route addition,Path,6,User is logged in and on the home page.,- User tries to add a new route but encounters an error.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database encounters an error while receiving the new route.
+5. Server handles the error and informs the application.
+6. Application informs the user about the error.","- Error is handled gracefully.
+- User is informed about the error."
+TC-PATH-003,Edge case: Adding duplicate route,Path,6,User is logged in and on the home page.,- User tries to add a route that already exists.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects the route already exists.
+5. Server handles the duplicate entry and informs the application.
+6. Application informs the user about the duplicate entry.","- Duplicate entry is detected.
+- User is informed about the duplicate entry."
+TC-PATH-004,Negative case: Adding route with invalid data,Path,6,User is logged in and on the home page.,- User tries to add a route with invalid data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects invalid data.
+5. Server handles the invalid data and informs the application.
+6. Application informs the user about the invalid data.","- Invalid data is detected.
+- User is informed about the invalid data."
+TC-PATH-005,Positive case: Adding route with valid data,Path,6,User is logged in and on the home page.,- User tries to add a route with valid data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database receives the new route successfully.
+5. Server confirms the new route to the application.
+6. Application confirms the new route to the user.","- Valid data is accepted.
+- User is informed about the successful addition of the route."
+TC-PATH-006,Edge case: Adding route with empty data,Path,6,User is logged in and on the home page.,- User tries to add a route with empty data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects empty data.
+5. Server handles the empty data and informs the application.
+6. Application informs the user about the empty data.","- Empty data is detected.
+- User is informed about the empty data."
+TC-PATH-007,Negative case: Adding route with incomplete data,Path,6,User is logged in and on the home page.,- User tries to add a route with incomplete data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects incomplete data.
+5. Server handles the incomplete data and informs the application.
+6. Application informs the user about the incomplete data.","- Incomplete data is detected.
+- User is informed about the incomplete data."
+TC-PATH-008,Positive case: Adding route with complete data,Path,6,User is logged in and on the home page.,- User tries to add a route with complete data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database receives the new route successfully.
+5. Server confirms the new route to the application.
+6. Application confirms the new route to the user.","- Complete data is accepted.
+- User is informed about the successful addition of the route."
+TC-PATH-009,Edge case: Adding route with special characters in data,Path,6,User is logged in and on the home page.,- User tries to add a route with special characters in data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects special characters in data.
+5. Server handles the special characters and informs the application.
+6. Application informs the user about the special characters.","- Special characters are detected.
+- User is informed about the special characters."
+TC-PATH-010,Negative case: Adding route with non-alphanumeric characters in data,Path,6,User is logged in and on the home page.,- User tries to add a route with non-alphanumeric characters in data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects non-alphanumeric characters in data.
+5. Server handles the non-alphanumeric characters and informs the application.
+6. Application informs the user about the non-alphanumeric characters.","- Non-alphanumeric characters are detected.
+- User is informed about the non-alphanumeric characters."
+TC-PATH-011,Positive case: Adding route with alphanumeric characters in data,Path,6,User is logged in and on the home page.,- User tries to add a route with alphanumeric characters in data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database receives the new route successfully.
+5. Server confirms the new route to the application.
+6. Application confirms the new route to the user.","- Alphanumeric characters are accepted.
+- User is informed about the successful addition of the route."
+TC-PATH-012,Edge case: Adding route with very long data,Path,6,User is logged in and on the home page.,- User tries to add a route with very long data.,"1. User dispatches to the application.
+2. Application starts a new route to the server.
+3. Server attempts to add the new route to the database.
+4. Database detects very long data.
+5. Server handles the very long data and informs the application.
+6. Application informs the user about the very long data.",- Very long data is detected

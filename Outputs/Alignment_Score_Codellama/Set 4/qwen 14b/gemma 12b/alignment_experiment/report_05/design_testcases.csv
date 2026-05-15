@@ -1,0 +1,85 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a New User,User Registration,2,None,"- Username: ""testuser""
+- Password: ""password123""
+- Name: ""John Doe""
+- Email: ""john.doe@example.com""","1. User calls registerUser() on Main.
+2. Main calls getData() on User.
+3. User returns data to Main.
+4. Main calls verifyValidData() on UsersDatabase.
+5. UsersDatabase returns verification result to Main.
+6. Main calls saveUserData() on UsersDatabase.","- If verification is successful, Main sends ""ok"" to User.
+- If verification fails, Main sends ""error"" to User."
+TC-User-002,Login with Valid Credentials,User Login,3,User registered and saved in Users Database,"- Email: ""john.doe@example.com""
+- Password: ""password123""","1. User sends login request (email, password) to Main.
+2. Main requests user validation (email, password) from Users Database.
+3. Users Database returns true if user is valid.
+4. Main sends ""ok"" response to User.","- User receives ""ok"" response indicating successful login."
+TC-User-003,Login with Invalid Credentials,User Login,3,User registered and saved in Users Database,"- Email: ""john.doe@example.com""
+- Password: ""wrongpassword""","1. User sends login request (email, password) to Main.
+2. Main requests user validation (email, password) from Users Database.
+3. Users Database returns false if user is invalid.
+4. Main sends ""error"" response to User.","- User receives ""error"" response indicating failed login."
+TC-Trip-001,Update Trip Data Successfully,Trip Data Update,4,User logged in and has created a trip,"- New Trip Details: City: ""Paris"", Country: ""France"", FinalDate: ""2023-12-31""","1. User initiates updateTrip() on Main.
+2. Main calls getNewData().
+3. Main calls updateTripData(x) on Trips Database.
+4. Main lists trip data back to User using listTrip().",- Trip data is updated successfully and listed back to User.
+TC-Trip-002,Update Trip Data with Invalid Data,Trip Data Update,4,User logged in and has created a trip,"- Invalid Trip Details: City: """", Country: """", FinalDate: """"","1. User initiates updateTrip() on Main.
+2. Main calls getNewData().
+3. Main attempts to call updateTripData(x) on Trips Database but fails due to invalid data.
+4. Main lists trip data back to User using listTrip().",- Trip data remains unchanged and an error message is displayed to User.
+TC-Profile-001,Change Profile Successfully,Profile Change,5,User logged in,"- New Profile Data: Name: ""Jane Doe"", Email: ""jane.doe@example.com""","1. User initiates changeProfile() on Main.
+2. Main requests new data from User.
+3. User provides new data to Main.
+4. Main sends data to Users Database for verification.
+5. Users Database returns verification result to Main.
+6. Main updates user data in Users Database.
+7. Main informs User of successful change.",- User's profile is updated successfully and User receives confirmation.
+TC-Profile-002,Change Profile with Invalid Data,Profile Change,5,User logged in,"- Invalid Profile Data: Name: """", Email: ""invalid-email""","1. User initiates changeProfile() on Main.
+2. Main requests new data from User.
+3. User provides new data to Main.
+4. Main sends data to Users Database for verification.
+5. Users Database returns verification result to Main.
+6. Main does not update user data in Users Database.
+7. Main informs User of error.",- User's profile remains unchanged and User receives an error message.
+TC-User-004,Create a New Trip,Trip Creation,1,User logged in,"- Trip Details: City: ""London"", Country: ""UK"", FinalDate: ""2023-12-31""","1. User creates a new Trip.
+2. Trip is associated with a Plan.
+3. Plan contains multiple DailyPlans.
+4. Each DailyPlan has associated Weather information.
+5. Places to Visit are categorized and included in the Trip.",- New Trip is created successfully with all associated details.
+TC-User-005,Create a Trip with Missing Information,Trip Creation,1,User logged in,"- Incomplete Trip Details: City: """", Country: """", FinalDate: """"","1. User attempts to create a new Trip with missing information.
+2. System prevents creation of Trip due to incomplete details.",- Trip creation fails and an error message is displayed to User.
+TC-User-006,Retrieve User Information,User Information Retrieval,1,User logged in,- User ID: 1,"1. User requests their information.
+2. System retrieves User data including Username, Password, Name, and Email.",- User information is retrieved successfully and displayed to User.
+TC-User-007,Retrieve Nonexistent User Information,User Information Retrieval,1,User logged in,- User ID: 999999,"1. User requests information for a nonexistent user.
+2. System attempts to retrieve User data but fails.",- An error message is displayed indicating the user does not exist.
+TC-User-008,Add Place to Visit to a Trip,Place to Visit Addition,1,User logged in and has created a Trip,"- Place Details: Name: ""Big Ben"", CategoryId: 1","1. User adds a new Place to Visit to their Trip.
+2. Place is associated with a Category.
+3. Place is included in the Trip.",- Place to Visit is added successfully to the Trip.
+TC-User-009,Add Place to Visit with Invalid Category,Place to Visit Addition,1,User logged in and has created a Trip,"- Place Details: Name: ""Big Ben"", CategoryId: -1","1. User attempts to add a new Place to Visit with an invalid Category.
+2. System prevents addition of Place to Visit due to invalid Category.",- Place to Visit addition fails and an error message is displayed to User.
+TC-User-010,Retrieve Daily Plans for a Trip,Daily Plan Retrieval,1,User logged in and has created a Trip,- Trip ID: 1,"1. User requests Daily Plans for their Trip.
+2. System retrieves Daily Plans associated with the Trip.
+3. Each Daily Plan has associated Weather information.",- Daily Plans and associated Weather information are retrieved successfully and displayed to User.
+TC-User-011,Retrieve Daily Plans for Nonexistent Trip,Daily Plan Retrieval,1,User logged in,- Trip ID: 999999,"1. User requests Daily Plans for a nonexistent Trip.
+2. System attempts to retrieve Daily Plans but fails.",- An error message is displayed indicating the Trip does not exist.
+TC-User-012,Retrieve Weather Information for a Daily Plan,Weather Information Retrieval,1,User logged in and has created a Trip with Daily Plans,- Daily Plan ID: 1,"1. User requests Weather information for a Daily Plan.
+2. System retrieves Weather information associated with the Daily Plan.",- Weather information is retrieved successfully and displayed to User.
+TC-User-013,Retrieve Weather Information for Nonexistent Daily Plan,Weather Information Retrieval,1,User logged in,- Daily Plan ID: 999999,"1. User requests Weather information for a nonexistent Daily Plan.
+2. System attempts to retrieve Weather information but fails.",- An error message is displayed indicating the Daily Plan does not exist.
+TC-User-014,Retrieve Category Information,Category Information Retrieval,1,User logged in,- Category ID: 1,"1. User requests Category information.
+2. System retrieves Category information including Name and Icon.",- Category information is retrieved successfully and displayed to User.
+TC-User-015,Retrieve Category Information for Nonexistent Category,Category Information Retrieval,1,User logged in,- Category ID: 999999,"1. User requests Category information for a nonexistent Category.
+2. System attempts to retrieve Category information but fails.",- An error message is displayed indicating the Category does not exist.
+TC-User-016,Retrieve Place to Visit Information,Place to Visit Information Retrieval,1,User logged in and has created a Trip with Places to Visit,- Place to Visit ID: 1,"1. User requests Place to Visit information.
+2. System retrieves Place to Visit information including Name and Category.",- Place to Visit information is retrieved successfully and displayed to User.
+TC-User-017,Retrieve Place to Visit Information for Nonexistent Place,Place to Visit Information Retrieval,1,User logged in,- Place to Visit ID: 999999,"1. User requests Place to Visit information for a nonexistent Place.
+2. System attempts to retrieve Place to Visit information but fails.",- An error message is displayed indicating the Place to Visit does not exist.
+TC-User-018,Retrieve Plan Information,Plan Information Retrieval,1,User logged in and has created a Trip with a Plan,- Plan ID: 1,"1. User requests Plan information.
+2. System retrieves Plan information including ID.",- Plan information is retrieved successfully and displayed to User.
+TC-User-019,Retrieve Plan Information for Nonexistent Plan,Plan Information Retrieval,1,User logged in,- Plan ID: 999999,"1. User requests Plan information for a nonexistent Plan.
+2. System attempts to retrieve Plan information but fails.",- An error message is displayed indicating the Plan does not exist.
+TC-User-020,Retrieve Trip Information,Trip Information Retrieval,1,User logged in and has created a Trip,- Trip ID: 1,"1. User requests Trip information.
+2. System retrieves Trip information including ID, City, Country, FinalDate, and PlanId.",- Trip information is retrieved successfully and displayed to User.
+TC-User-021,Retrieve Trip Information for Nonexistent Trip,Trip Information Retrieval,1,User logged in,- Trip ID: 999999,"1. User requests Trip information for a nonexistent Trip.
+2. System attempts to retrieve Trip information but fails.",- An error message is displayed indicating the Trip does not exist.
+TC-,,,,,,,

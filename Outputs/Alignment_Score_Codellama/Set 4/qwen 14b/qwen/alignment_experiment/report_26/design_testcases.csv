@@ -1,0 +1,112 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful User Login","Login","1","User is not logged in.","Valid username: ""testuser"", valid password: ""password123"".","1. Navigate to the login page.
+2. Enter the username ""testuser"" and password ""password123"".
+3. Click the login button.
+4. System checks if the user is logged in successfully.","User is redirected to the home page."
+"TC-Login-002","Unsuccessful User Login","Login","1","User is not logged in.","Invalid username: ""wronguser"", invalid password: ""wrongpass"".","1. Navigate to the login page.
+2. Enter the username ""wronguser"" and password ""wrongpass"".
+3. Click the login button.
+4. System checks if the user is logged in successfully.","User remains on the login page with an error message indicating unsuccessful login."
+"TC-Registration-001","Successful User Registration","Registration","1, 7","User is not logged in.","Valid username: ""newuser"", valid password: ""password123"", valid email: ""newuser@example.com"".","1. Navigate to the registration page.
+2. Enter the username ""newuser"", password ""password123"", and email ""newuser@example.com"".
+3. Accept the privacy document.
+4. Click the register button.
+5. System checks if the user is registered successfully.","User is redirected to the home page."
+"TC-Registration-002","Unsuccessful User Registration","Registration","1, 7","User is not logged in.","Invalid username: ""newuser"", invalid password: ""pass"", invalid email: ""invalidemail"".","1. Navigate to the registration page.
+2. Enter the username ""newuser"", password ""pass"", and email ""invalidemail"".
+3. Accept the privacy document.
+4. Click the register button.
+5. System checks if the user is registered successfully.","User remains on the registration page with an error message indicating unsuccessful registration."
+"TC-ProposalExchange-001","Successful Proposal Exchange Submission","ProposalExchange","13, 14, 15","User is logged in.","Valid proposal details.","1. Navigate to the proposal exchange page.
+2. Submit a new proposal with valid details.
+3. System saves the proposal information in the database.
+4. System retrieves the updated list of proposals.","User sees the updated list of proposals including the newly submitted proposal."
+"TC-ProposalExchange-002","Unsuccessful Proposal Exchange Submission","ProposalExchange","13, 14, 15","User is logged in.","Invalid proposal details.","1. Navigate to the proposal exchange page.
+2. Attempt to submit a new proposal with invalid details.
+3. System tries to save the proposal information in the database.
+4. System retrieves the updated list of proposals.","User sees an error message indicating unsuccessful submission and remains on the proposal exchange page."
+"TC-SavedElements-001","View Saved Elements","SavedElements","6","User is logged in and has saved elements.","N/A","1. Navigate to the saved elements page.
+2. System checks if the user has saved elements.
+3. If yes, display the list of saved elements.","User sees the list of saved elements."
+"TC-SavedElements-002","Remove Saved Element","SavedElements","6","User is logged in and has saved elements.","N/A","1. Navigate to the saved elements page.
+2. Select an element to remove.
+3. Confirm the removal.
+4. System removes the selected element from the database.
+5. System checks if the removal was successful.
+6. If successful, display the updated list of saved elements.","User sees the updated list of saved elements without the removed element."
+"TC-PersonalBoard-001","View Personal Board","PersonalBoard","3","User is logged in.","N/A","1. Navigate to the personal board page.
+2. System checks if data about offers is available.
+3. If yes, display the list of offers.","User sees the list of offers."
+"TC-PersonalBoard-002","Insert Offer into Personal Board","PersonalBoard","3","User is logged in.","Valid offer details.","1. Navigate to the personal board page.
+2. Insert a new offer with valid details.
+3. System checks if the insertion was successful.
+4. If successful, display the updated list of offers.","User sees the updated list of offers including the newly inserted offer."
+"TC-PersonalBoard-003","Delete Offer from Personal Board","PersonalBoard","3","User is logged in and has offers.","N/A","1. Navigate to the personal board page.
+2. Select an offer to delete.
+3. Confirm the deletion.
+4. System deletes the selected offer from the database.
+5. System checks if the deletion was successful.
+6. If successful, display the updated list of offers.","User sees the updated list of offers without the deleted offer."
+"TC-ProfileModification-001","Modify Personal Data Successfully","ProfileModification","17","User is logged in.","Valid new personal data.","1. Navigate to the personal info page.
+2. Click on the modify personal info button.
+3. Enter new personal data.
+4. System saves the new data in the database.
+5. System retrieves the updated personal data.","User sees the updated personal data."
+"TC-ProfileModification-002","Modify Personal Data Unsuccessfully","ProfileModification","17","User is logged in.","Invalid new personal data.","1. Navigate to the personal info page.
+2. Click on the modify personal info button.
+3. Enter invalid personal data.
+4. System tries to save the new data in the database.
+5. System retrieves the updated personal data.","User sees an error message indicating unsuccessful modification and remains on the personal info page."
+"TC-OfferListing-001","Explore Offers","OfferListing","12","User is logged in.","N/A","1. Navigate to the explore offers page.
+2. System retrieves the list of offers from the database.
+3. System displays the list of offers to the user.","User sees the list of offers."
+"TC-OfferListing-002","Filter Offers","OfferListing","16","User is logged in.","Valid filter criteria.","1. Navigate to the explore offers page.
+2. Apply a filter criterion.
+3. System retrieves the filtered list of offers from the database.
+4. System displays the filtered list of offers to the user.","User sees the filtered list of offers."
+"TC-OfferListing-003","No Offers Available","OfferListing","16","User is logged in.","N/A","1. Navigate to the explore offers page.
+2. System retrieves the list of offers from the database.
+3. System displays a message indicating no offers are available.","User sees a message indicating no offers are available."
+"TC-ProposalAcceptance-001","Accept Proposal","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to accept.
+3. Click on the accept button.
+4. System updates the proposal status in the database.
+5. System retrieves the updated list of proposals.","User sees the updated list of proposals with the accepted proposal marked as accepted."
+"TC-ProposalAcceptance-002","Reject Proposal","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to reject.
+3. Click on the reject button.
+4. System updates the proposal status in the database.
+5. System retrieves the updated list of proposals.","User sees the updated list of proposals with the rejected proposal marked as rejected."
+"TC-ProposalAcceptance-003","Cancel Proposal Acceptance","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to accept.
+3. Click on the accept button.
+4. Cancel the acceptance.
+5. System retrieves the updated list of proposals.","User sees the updated list of proposals with the proposal still pending."
+"TC-ProposalAcceptance-004","Accept Proposal Unsuccessfully","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to accept.
+3. Click on the accept button.
+4. System fails to update the proposal status in the database.
+5. System retrieves the updated list of proposals.","User sees an error message indicating unsuccessful acceptance and remains on the proposal exchange page."
+"TC-ProposalAcceptance-005","Reject Proposal Unsuccessfully","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to reject.
+3. Click on the reject button.
+4. System fails to update the proposal status in the database.
+5. System retrieves the updated list of proposals.","User sees an error message indicating unsuccessful rejection and remains on the proposal exchange page."
+"TC-ProposalAcceptance-006","Cancel Proposal Rejection","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to reject.
+3. Click on the reject button.
+4. Cancel the rejection.
+5. System retrieves the updated list of proposals.","User sees the updated list of proposals with the proposal still pending."
+"TC-ProposalAcceptance-007","Accept Proposal Without Confirmation","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to accept.
+3. Click on the accept button without confirming.
+4. System retrieves the updated list of proposals.","User sees the updated list of proposals with the proposal still pending."
+"TC-ProposalAcceptance-008","Reject Proposal Without Confirmation","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to reject.
+3. Click on the reject button without confirming.
+4. System retrieves the updated list of proposals.","User sees the updated list of proposals with the proposal still pending."
+"TC-ProposalAcceptance-009","Accept Proposal With Confirmation","ProposalAcceptance","15","User is logged in and has pending proposals.","N/A","1. Navigate to the proposal exchange page.
+2. Select a proposal to accept.
+3. Click on the accept button and confirm.
+4. System updates the proposal status in the database.
+5. System retrieves the updated list of proposals.","User sees the updated list of proposals with the accepted proposal marked as accepted."

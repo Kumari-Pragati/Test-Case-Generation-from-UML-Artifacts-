@@ -1,0 +1,330 @@
+system
+You are a senior SDET and software test designer. Generate concrete, code-faithful test cases ONLY from the given code context. Do NOT invent features, methods, screens, APIs, or validations not shown. You MUST cover every method in MUST_COVER at least once (1 test per method minimum). If there are UI/CTA signals, include interaction tests relevant to those signals. Output ONLY a valid JSON array. No markdown. No extra text.
+user
+TARGET FILE: Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java
+
+MUST_COVER (ensure each appears in covered_methods at least once):
+- onClick
+- onCreate
+- registerUser
+- setSpan
+
+UI/CTA SIGNALS (use if present):
+- ui_component line 44: etFullName = findViewById(R.id.etFullName);
+- ui_component line 45: etEmailRegister = findViewById(R.id.etEmailRegister);
+- ui_component line 46: etPasswordRegister = findViewById(R.id.etPasswordRegister);
+- ui_component line 47: etCarBrand = findViewById(R.id.etCarBrand);
+- ui_component line 48: etCo2Emission = findViewById(R.id.etCo2Emission);
+- ui_component line 49: etFuelType = findViewById(R.id.etFuelType);
+- ui_component line 50: btnRegister = findViewById(R.id.btnRegister);
+- ui_component line 51: tvLoginLink = findViewById(R.id.tvLoginLink);
+- ui_action line 54: btnRegister.setOnClickListener(v -> registerUser());
+
+OUTPUT FORMAT (JSON array ONLY; EXACT keys):
+[
+  {
+    "test_case_id": "TC-<Module>-###",
+    "title": "...",
+    "module": "...",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java"],
+    "covered_methods": ["methodName1","methodName2"],
+    "preconditions": ["..."],
+    "test_data": ["..."],
+    "test_steps": ["..."],
+    "expected_result": ["..."]
+  }
+]
+
+RULES:
+- Keep total test cases <= 60 (merge coverage when needed).
+- Every MUST_COVER method must be in covered_methods somewhere.
+- Steps & expected_result must match code branches, UI actions, and backend outcomes visible.
+- Output ONLY the JSON array.
+
+FEW-SHOT EXAMPLE (how to cover UI + backend from code context):
+
+If code has:
+- Button confirmBt with setOnClickListener
+- Reads EditText newMail + confirmNewMail
+- Branch: empty/mismatch -> Toast error
+- Calls updateUserEmail(email)
+- Backend: getCurrentUser() null -> Toast unauthenticated
+- Backend: verifyBeforeUpdateEmail success -> save SharedPreferences + navigate
+- Backend: verifyBeforeUpdateEmail failure -> Toast failure
+
+Then tests must include covered_methods like:
+["onCreateView","updateUserEmail"] and steps for each branch.
+
+MISSING METHODS FROM PREVIOUS OUTPUT (ADD TESTS FOR THESE NOW):
+- onClick
+- onCreate
+- registerUser
+- setSpan
+
+CONTEXT:
+FILE: Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java
+LANG: java
+
+CLASSES:
+- RegistrationActivity (Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:32-32)
+
+METHODS (must be covered):
+- onCreate | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:38-38
+  sig: protected void onCreate(Bundle savedInstanceState) {         super.onCreate(savedInstanceState);         setContentView(R.layout.activity_registration);          // Inizializza i componenti         etFullName = findViewB
+- setSpan | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:59-59
+  sig: setSpan(new ClickableSpan() {             @Override             public void onClick(View widget) {                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);                 startActivity
+- onClick | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:60-60
+  sig: public void onClick(View widget) {                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);                 startActivity(intent);             }         }, 20, 27, Spanned.SPAN_EXCLUSIV
+- registerUser | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:69-69
+  sig: private void registerUser() {         String fullName = etFullName.getText().toString().trim();         String email = etEmailRegister.getText().toString().trim();         String password = etPasswordRegister.getText().t
+
+UI / CTA / INPUT SIGNALS:
+- ui_component etFullName | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:44 | etFullName = findViewById(R.id.etFullName);
+- ui_component etEmailRegister | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:45 | etEmailRegister = findViewById(R.id.etEmailRegister);
+- ui_component etPasswordRegister | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:46 | etPasswordRegister = findViewById(R.id.etPasswordRegister);
+- ui_component etCarBrand | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:47 | etCarBrand = findViewById(R.id.etCarBrand);
+- ui_component etCo2Emission | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:48 | etCo2Emission = findViewById(R.id.etCo2Emission);
+- ui_component etFuelType | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:49 | etFuelType = findViewById(R.id.etFuelType);
+- ui_component btnRegister | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:50 | btnRegister = findViewById(R.id.btnRegister);
+- ui_component tvLoginLink | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:51 | tvLoginLink = findViewById(R.id.tvLoginLink);
+- ui_action onClick | Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java:54 | btnRegister.setOnClickListener(v -> registerUser());
+
+CODE (snippet):
+
+package com.example.ecodriving;
+
+import static com.example.ecodriving.MainActivity.ip;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+public class RegistrationActivity extends AppCompatActivity {
+
+    private EditText etFullName, etEmailRegister, etPasswordRegister, etCarBrand, etCo2Emission, etFuelType;
+    private Button btnRegister;
+    private TextView tvLoginLink;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registration);
+
+        // Inizializza i componenti
+        etFullName = findViewById(R.id.etFullName);
+        etEmailRegister = findViewById(R.id.etEmailRegister);
+        etPasswordRegister = findViewById(R.id.etPasswordRegister);
+        etCarBrand = findViewById(R.id.etCarBrand);
+        etCo2Emission = findViewById(R.id.etCo2Emission);
+        etFuelType = findViewById(R.id.etFuelType);
+        btnRegister = findViewById(R.id.btnRegister);
+        tvLoginLink = findViewById(R.id.tvLoginLink);
+
+        // Aggiungi listener per il pulsante di registrazione
+        btnRegister.setOnClickListener(v -> registerUser());
+
+        // Testo da rendere cliccabile
+        String text = "Hai già un account? Loggati";
+        SpannableString spannableString = new SpannableString(text);
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        }, 20, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tvLoginLink.setText(spannableString);
+        tvLoginLink.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private void registerUser() {
+        String fullName = etFullName.getText().toString().trim();
+        String email = etEmailRegister.getText().toString().trim();
+        String password = etPasswordRegister.getText().toString().trim();
+        String carBrand = etCarBrand.getText().toString().trim();
+        String co2Emission = etCo2Emission.getText().toString().trim();
+        String fuelType = etFuelType.getText().toString().trim();
+
+        if (TextUtils.isEmpty(fullName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) ||
+                TextUtils.isEmpty(carBrand) || TextUtils.isEmpty(co2Emission) || TextUtils.isEmpty(fuelType)) {
+            Toast.makeText(this, "Compila tutti i campi", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Inserisci un'email valida", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("full_name", fullName);
+            postData.put("email", email);
+            postData.put("password", password);
+            postData.put("car_brand", carBrand);
+            postData.put("co2_emission", co2Emission);
+            postData.put("fuel_type", fuelType);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        new Thread(() -> {
+            OkHttpClient client = new OkHttpClient();
+
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody body = RequestBody.create(JSON, postData.toString());
+
+            Request request = new Request.Builder()
+                    .url("http://" + ip + ":8081/api/register")
+                    .post(body)
+                    .build();
+
+            try {
+                Response response = client.newCall(request).execute();
+
+                if (response.isSuccessful()) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(RegistrationActivity.this, "Registrazione completata", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
+                } else {
+                    String errorResponse = response.body() != null ? response.body().string() : "Errore sconosciuto";
+                    runOnUiThread(() -> Toast.makeText(RegistrationActivity.this, "Errore: " + errorResponse, Toast.LENGTH_SHORT).show());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(RegistrationActivity.this, "Errore di connessione", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+}
+assistant
+```json
+[
+  {
+    "test_case_id": "TC-Registration-001",
+    "title": "Test onCreate method initializes components correctly",
+    "module": "RegistrationActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java"],
+    "covered_methods": ["onCreate"],
+    "preconditions": ["Application is launched"],
+    "test_data": [],
+    "test_steps": [
+      "Launch the RegistrationActivity",
+      "Verify that all EditText fields (etFullName, etEmailRegister, etPasswordRegister, etCarBrand, etCo2Emission, etFuelType) are initialized",
+      "Verify that the btnRegister button is initialized",
+      "Verify that the tvLoginLink TextView is initialized"
+    ],
+    "expected_result": [
+      "All EditText fields are not null",
+      "btnRegister is not null",
+      "tvLoginLink is not null"
+    ]
+  },
+  {
+    "test_case_id": "TC-Registration-002",
+    "title": "Test setSpan method makes 'Hai già un account? Loggati' clickable",
+    "module": "RegistrationActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java"],
+    "covered_methods": ["setSpan"],
+    "preconditions": ["Application is launched"],
+    "test_data": [],
+    "test_steps": [
+      "Launch the RegistrationActivity",
+      "Click on the tvLoginLink TextView",
+      "Verify that it navigates to LoginActivity"
+    ],
+    "expected_result": [
+      "Navigates to LoginActivity"
+    ]
+  },
+  {
+    "test_case_id": "TC-Registration-003",
+    "title": "Test registerUser method with empty fields",
+    "module": "RegistrationActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java"],
+    "covered_methods": ["registerUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": [
+      {"fullName": "", "email": "", "password": "", "carBrand": "", "co2Emission": "", "fuelType": ""}
+    ],
+    "test_steps": [
+      "Launch the RegistrationActivity",
+      "Leave all fields empty",
+      "Click on the btnRegister button",
+      "Verify that a toast message 'Compila tutti i campi' is displayed"
+    ],
+    "expected_result": [
+      "Toast message 'Compila tutti i campi' is displayed"
+    ]
+  },
+  {
+    "test_case_id": "TC-Registration-004",
+    "title": "Test registerUser method with invalid email",
+    "module": "RegistrationActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java"],
+    "covered_methods": ["registerUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": [
+      {"fullName": "John Doe", "email": "invalid-email", "password": "password123", "carBrand": "Toyota", "co2Emission": "100", "fuelType": "Petrol"}
+    ],
+    "test_steps": [
+      "Launch the RegistrationActivity",
+      "Enter an invalid email address",
+      "Click on the btnRegister button",
+      "Verify that a toast message 'Inserisci un'email valida' is displayed"
+    ],
+    "expected_result": [
+      "Toast message 'Inserisci un'email valida' is displayed"
+    ]
+  },
+  {
+    "test_case_id": "TC-Registration-005",
+    "title": "Test registerUser method with successful registration",
+    "module": "RegistrationActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/RegistrationActivity.java"],
+    "covered_methods": ["registerUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": [
+      {"fullName": "John Doe", "email": "john.doe@example.com", "password": "password123", "carBrand": "Toyota", "co2Emission": "100", "fuelType": "Petrol"}
+    ],
+    "test_steps": [
+      "Launch the RegistrationActivity",
+      "Fill all fields with valid data",
+      "Click on the btnRegister button",
+      "Verify that a toast message 'Registrazione completata' is displayed",
+      "Verify that the app navigates to LoginActivity"
+    ],
+    "expected_result": [
+      "Toast message 'Registrazione completata' is displayed",
+      "Navigates to LoginActivity"
+    ]
+  }
+]
+```

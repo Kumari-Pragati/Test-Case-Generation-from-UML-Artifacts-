@@ -1,0 +1,71 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Verify User Registration,User,2,None,"- Username: testuser
+- Password: testpass
+- Email: test@example.com
+- Admin status: false","1. Enter username: testuser
+2. Enter password: testpass
+3. Enter email: test@example.com
+4. Set admin status to false
+5. Click on ""Register"" button","User registration should be successful, and the user should be redirected to the homepage."
+TC-User-002,Verify User Login,User,2,User is registered,"- Username: testuser
+- Password: testpass","1. Enter username: testuser
+2. Enter password: testpass
+3. Click on ""Login"" button",User should be logged in successfully and redirected to the homepage.
+TC-UserData-001,Retrieve User Data,UserData,"1, 2",User is logged in,- User ID: 12345,1. Call getUserData method with user ID: 12345,"User data including username, password, email, and admin status should be retrieved successfully."
+TC-FormulaChemica-001,Retrieve Chemical Formula,FormulaChemica,1,User is logged in and has associated UserData,- FormulaChemica ID: 67890,1. Call getFormulaChemica method with formulaChemica ID: 67890,Chemical formula should be retrieved successfully.
+TC-Depositive-001,Retrieve Deposit Information,Depositive,1,User is logged in and has associated UserData,- Depositive ID: 101112,1. Call getDepositive method with depositive ID: 101112,Deposit information should be retrieved successfully.
+TC-PercentualePresenza-001,Retrieve Presence Percentage,PercentualePresenza,1,User is logged in and has associated UserData,- PercentualePresenza ID: 131415,1. Call getPercentualePresenza method with percentualePresenza ID: 131415,Presence percentage should be retrieved successfully.
+TC-CarbonFootprint-001,Retrieve Carbon Footprint,CarbonFootprint,1,User is logged in and has associated UserData,- CarbonFootprint ID: 161718,1. Call getCarbonFootprint method with carbonFootprint ID: 161718,Carbon footprint information should be retrieved successfully.
+TC-Modello-001,Retrieve Model Information,Modello,1,User is logged in and has associated UserData,- Model ID: 192021,1. Call getModello method with model ID: 192021,Model information should be retrieved successfully.
+TC-InputProduzione-001,Retrieve Production Input,InputProduzione,1,User is logged in and has associated UserData,- InputProduzione ID: 222324,1. Call getInputProduzione method with inputProduzione ID: 222324,Production input information should be retrieved successfully.
+TC-FootprintTotale-001,Retrieve Total Footprint,FootprintTotale,1,User is logged in and has associated UserData,- FootprintTotale ID: 252627,1. Call getFootprintTotale method with footprintTotale ID: 252627,Total footprint information should be retrieved successfully.
+TC-InputProduzioneFootprintTotale-001,Retrieve Production Input with Total Footprint,InputProduzioneFootprintTotale,1,User is logged in and has associated UserData,- InputProduzioneFootprintTotale ID: 282930,1. Call getInputProduzioneFootprintTotale method with inputProduzioneFootprintTotale ID: 282930,Production input with total footprint information should be retrieved successfully.
+TC-DataModification-001,Modify User Data,Data Modification,3,User is logged in and has associated UserData,"- New username: newuser
+- New email: newemail@example.com",1. Call modifyUserData method with new username: newuser and new email: newemail@example.com,"User data should be updated successfully, and the user should be notified of the update."
+TC-DeviceScan-001,Scan Device and Check Functioning Components,Device Scan,4,User is logged in,,"1. Initiate device scan
+2. Check if components are functioning
+3. If components are functioning, proceed to impact search
+4. If components are not functioning, proceed to name and impact component",The system should provide diagnostic information about the device's components and indicate whether they are functioning or need replacement.
+TC-LifespanCalculation-001,Calculate Device Lifespan,Lifespan Calculation,5,User is logged in,,"1. Initiate hardware scanning
+2. Assess component speed and health
+3. Calculate the expected lifespan of the device",The system should calculate the expected lifespan of the device based on the scanned component data and return the result.
+TC-InvalidLogin-001,Invalid User Login,User,2,None,"- Username: invaliduser
+- Password: wrongpass","1. Enter username: invaliduser
+2. Enter password: wrongpass
+3. Click on ""Login"" button","The login attempt should fail, and an error message should be displayed."
+TC-EmptyFields-001,Empty Fields During Registration,User,2,None,"- Username: 
+- Password: 
+- Email: 
+- Admin status: false","1. Leave all fields empty
+2. Click on ""Register"" button","The registration attempt should fail, and appropriate error messages should be displayed for each field."
+TC-InvalidEmail-001,Invalid Email During Registration,User,2,None,"- Username: testuser
+- Password: testpass
+- Email: invalidemail
+- Admin status: false","1. Enter username: testuser
+2. Enter password: testpass
+3. Enter email: invalidemail
+4. Set admin status to false
+5. Click on ""Register"" button","The registration attempt should fail due to an invalid email format, and an error message should be displayed."
+TC-AdminAccess-001,Admin Access Verification,User,2,User is registered and has admin status,"- Username: adminuser
+- Password: adminpass
+- Email: admin@example.com
+- Admin status: true","1. Enter username: adminuser
+2. Enter password: adminpass
+3. Click on ""Login"" button",The admin user should be logged in successfully and have access to additional administrative features. Expected Result: The admin user should be logged in successfully and have access to additional administrative features.
+TC-NonExistentUser-001,Non-Existent User Login,User,2,None,"- Username: nonexistuser
+- Password: nonexistpass","1. Enter username: nonexistuser
+2. Enter password: nonexistpass
+3. Click on ""Login"" button","The login attempt should fail, and an error message should be displayed indicating that the user does not exist."
+TC-DeviceScanDefective-001,Scan Device with Defective Components,Device Scan,4,User is logged in,,"1. Initiate device scan
+2. Identify defective components
+3. Calculate the impact of replacing defective components","The system should identify defective components, calculate the impact of their replacement, and provide diagnostic information about the device's components."
+TC-EmptyUserData-001,Empty UserData Retrieval,UserData,"1, 2",User is logged in,,1. Call getUserData method without providing any ID,The system should return an error or default data if no ID is provided.
+TC-InvalidUserDataID-001,Invalid UserData ID Retrieval,UserData,"1, 2",User is logged in,,1. Call getUserData method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidFormulaChemicaID-001,Invalid FormulaChemica ID Retrieval,FormulaChemica,1,User is logged in and has associated UserData,,1. Call getFormulaChemica method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidDepositiveID-001,Invalid Depositive ID Retrieval,Depositive,1,User is logged in and has associated UserData,,1. Call getDepositive method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidPercentualePresenzaID-001,Invalid PercentualePresenza ID Retrieval,PercentualePresenza,1,User is logged in and has associated UserData,,1. Call getPercentualePresenza method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidCarbonFootprintID-001,Invalid CarbonFootprint ID Retrieval,CarbonFootprint,1,User is logged in and has associated UserData,,1. Call getCarbonFootprint method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidModelID-001,Invalid Model ID Retrieval,Modello,1,User is logged in and has associated UserData,,1. Call getModello method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidInputProduzioneID-001,Invalid InputProduzione ID Retrieval,InputProduzione,1,User is logged in and has associated UserData,,1. Call getInputProduzione method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidFootprintTotaleID-001,Invalid FootprintTotale ID Retrieval,FootprintTotale,1,User is logged in and has associated UserData,,1. Call getFootprintTotale method with an invalid ID,The system should return an error or indicate that the specified ID does not exist.
+TC-InvalidInputProduzione,,,,,,,

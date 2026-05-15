@@ -1,0 +1,113 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-MainProgram-001,Execute Main Program Flow,Main Program,1,System is initialized and ready to execute.,N/A,"1. Initiate the Main Program.
+2. Verify that Routine 1 is executed.
+3. Verify that Routine 1.1 is executed after Routine 1.
+4. Verify that Routine 1.2 is executed after Routine 1.1.
+5. Return to Main Program after Routine 1.2.
+6. Verify that Routine 2 is executed.
+7. Verify that Routine 3 is executed after Routine 2.
+8. Verify that Routine 3.1 is executed after Routine 3.
+9. Verify that Routine 3.2 is executed after Routine 3.1.
+10. Return to Main Program after Routine 3.2.",All routines and their subroutines are executed in the specified order and return control to the Main Program.
+TC-Routine1-002,Execute Routine 1 and Subroutines,Routine 1,1,Main Program has initiated Routine 1.,N/A,"1. Initiate Routine 1.
+2. Verify that Routine 1.1 is executed.
+3. Verify that Routine 1.2 is executed after Routine 1.1.
+4. Return to Main Program after Routine 1.2.",Routine 1.1 and Routine 1.2 are executed in sequence and control returns to the Main Program.
+TC-Routine2-003,Execute Routine 2 and Subroutine,Routine 2,1,Main Program has initiated Routine 2.,N/A,"1. Initiate Routine 2.
+2. Verify that Routine 3 is executed.
+3. Verify that Routine 3.1 is executed after Routine 3.
+4. Verify that Routine 3.2 is executed after Routine 3.1.
+5. Return to Main Program after Routine 3.2.",Routine 3 and its subroutines are executed in sequence and control returns to the Main Program.
+TC-Routine3-004,Execute Routine 3 and Subroutines,Routine 3,1,Routine 2 has initiated Routine 3.,N/A,"1. Initiate Routine 3.
+2. Verify that Routine 3.1 is executed.
+3. Verify that Routine 3.2 is executed after Routine 3.1.
+4. Return to Routine 2 after Routine 3.2.",Routine 3.1 and Routine 3.2 are executed in sequence and control returns to Routine 2.
+TC-Utenti-005,User Registration and Modification,Utenti,2,System is initialized and ready to accept user registration.,"- Valid user details: id=1, username=testuser, mail=test@example.com, password=securepassword, name=John, cognome=Doe, posizione=Developer
+- Invalid user details: id=1, username=testuser, mail=invalidmail, password=, name=, cognome=, posizione=","1. Attempt to register a user with valid details.
+2. Verify that the user is registered successfully.
+3. Attempt to modify the user's details.
+4. Verify that the modification is successful.
+5. Attempt to register a user with invalid details.
+6. Verify that the registration fails and an appropriate error message is displayed.","Valid user registration and modification succeed, while invalid user registration fails with an error message."
+TC-Oggetti-006,Object Creation and Deletion,Oggetti,2,System is initialized and ready to handle object creation and deletion.,"- Valid object details: id=1, name=TestObject, description=[""Description""], idU=1, tipo=1, inUse=True
+- Invalid object details: id=1, name=, description=[], idU=, tipo=, inUse=False","1. Attempt to create an object with valid details.
+2. Verify that the object is created successfully.
+3. Attempt to delete the object.
+4. Verify that the object is deleted successfully.
+5. Attempt to create an object with invalid details.
+6. Verify that the creation fails and an appropriate error message is displayed.","Valid object creation and deletion succeed, while invalid object creation fails with an error message."
+TC-Servizi-007,Service Creation and Deletion,Servizi,2,System is initialized and ready to handle service creation and deletion.,"- Valid service details: id=1, name=TestService, idU=1, descrizione=[""Description""], tipo=1, inUse=True
+- Invalid service details: id=1, name=, idU=, descrizione=[], tipo=, inUse=False","1. Attempt to create a service with valid details.
+2. Verify that the service is created successfully.
+3. Attempt to delete the service.
+4. Verify that the service is deleted successfully.
+5. Attempt to create a service with invalid details.
+6. Verify that the creation fails and an appropriate error message is displayed.","Valid service creation and deletion succeed, while invalid service creation fails with an error message."
+TC-Annunci-008,Announcement Creation and Deletion,Annunci,2,System is initialized and ready to handle announcement creation and deletion.,"- Valid announcement details: id=1, idU=1, idOggetti=1, titolo=TestAnnouncement
+- Invalid announcement details: id=1, idU=, idOggetti=, titolo=","1. Attempt to create an announcement with valid details.
+2. Verify that the announcement is created successfully.
+3. Attempt to delete the announcement.
+4. Verify that the announcement is deleted successfully.
+5. Attempt to create an announcement with invalid details.
+6. Verify that the creation fails and an appropriate error message is displayed.","Valid announcement creation and deletion succeed, while invalid announcement creation fails with an error message."
+TC-Login-009,Successful and Failed Login Attempts,Login,3,System is initialized and ready to handle login attempts.,"- Valid login credentials: username=admin, password=admin
+- Invalid login credentials: username=admin, password=wrongpassword","1. Attempt to log in with valid credentials.
+2. Verify that the login is successful and access is granted.
+3. Attempt to log in with invalid credentials.
+4. Verify that the login fails and an error message is displayed.","Valid login succeeds and grants access, while invalid login fails with an error message."
+TC-QueryProcess-010,Query Process Success and Failure Handling,Query Process,4,System is initialized and ready to handle query processes.,"- Valid query input: ""SELECT * FROM table WHERE column='value'""
+- Invalid query input: ""SELECT * FROM table WHERE""","1. Provide valid query input.
+2. Verify that the query is composed successfully.
+3. Verify that the query is executed successfully.
+4. Provide invalid query input.
+5. Verify that the query composition fails.
+6. Verify that an error message is displayed.
+7. Verify that the process loops back to request new input.","Valid query input results in successful query execution, while invalid query input results in failure and an error message, followed by a loop back to request new input."
+TC-ObjectCreation-011,Object Creation and Database Insertion,Object Creation,5,System is initialized and ready to handle object creation and database insertion.,"- Valid object details: name=TestObject, description=[""Description""], idU=1, tipo=1, inUse=True
+- Invalid object details: name=, description=[], idU=, tipo=, inUse=False","1. Create an object with valid details.
+2. Verify that the query to insert the object into the database is successful.
+3. Verify that the object is inserted successfully.
+4. Create an object with invalid details.
+5. Verify that the query to insert the object into the database fails.
+6. Verify that an error message is displayed.
+7. Verify that the process retries the object creation.","Valid object creation and database insertion succeed, while invalid object creation fails with an error message and retries."
+TC-ServiceOfferCreation-012,Service Offer Creation and Database Insertion,Service Offer Creation,6,System is initialized and ready to handle service offer creation and database insertion.,"- Valid service offer details: name=TestService, idU=1, descrizione=[""Description""], tipo=1, inUse=True
+- Invalid service offer details: name=, idU=, descrizione=[], tipo=, inUse=False","1. Create a service offer with valid details.
+2. Verify that the query to insert the service offer into the database is successful.
+3. Verify that the service offer is inserted successfully.
+4. Create a service offer with invalid details.
+5. Verify that the query to insert the service offer into the database fails.
+6. Verify that an error message is displayed.
+7. Verify that the process retries the service offer creation.","Valid service offer creation and database insertion succeed, while invalid service offer creation fails with an error message and retries."
+TC-AnnouncementCreation-013,Announcement Creation and Database Insertion,Announcement Creation,7,System is initialized and ready to handle announcement creation and database insertion.,"- Valid announcement details: idU=1, idOggetti=1, titolo=TestAnnouncement
+- Invalid announcement details: idU=, idOggetti=, titolo=","1. Create an announcement with valid details.
+2. Verify that the query to insert the announcement into the database is successful.
+3. Verify that the announcement is inserted successfully.
+4. Create an announcement with invalid details.
+5. Verify that the query to insert the announcement into the database fails.
+6. Verify that an error message is displayed.
+7. Verify that the process retries the announcement creation.","Valid announcement creation and database insertion succeed, while invalid announcement creation fails with an error message and retries."
+TC-AnnouncementDeletion-014,Announcement Deletion Process,Announcement Deletion,8,System is initialized and ready to handle announcement deletion.,"- Valid announcement ID: 1
+- Invalid announcement ID: 0","1. Select a valid announcement to remove.
+2. Verify that the query to delete the announcement from the database is successful.
+3. Verify that the announcement is deleted successfully.
+4. Select an invalid announcement to remove.
+5. Verify that the query to delete the announcement from the database fails.
+6. Verify that an error message is displayed.
+7. Verify that the process retries the announcement deletion.","Valid announcement deletion succeeds, while invalid announcement deletion fails with an error message and retries."
+TC-ObjectOrServiceDeletion-015,Object or Service Deletion Process,Object or Service Deletion,9,System is initialized and ready to handle object or service deletion.,"- Valid object/service ID: 1
+- Invalid object/service ID: 0","1. Select a valid object/service to remove.
+2. Verify that the query to delete the object/service from the database is successful.
+3. Verify that the object/service is deleted successfully.
+4. Select an invalid object/service to remove.
+5. Verify that the query to delete the object/service from the database fails.
+6. Verify that an error message is displayed.
+7. Verify that the process retries the object/service deletion.","Valid object/service deletion succeeds, while invalid object/service deletion fails with an error message and retries."
+TC-LoginEdgeCase-016,Edge Cases for Login Process,Login,3,System is initialized and ready to handle login attempts.,"- Empty username/password: username="""", password=""""
+- Username with special characters: username=""!@#"", password=""password""
+- Password with special characters: username=""user"", password=""!@#""","1. Attempt to log in with empty username/password.
+2. Verify that the login fails and an error message is displayed.
+3. Attempt to log in with username containing special characters.
+4. Verify that the login fails and an error message is displayed.
+5. Attempt to log in with password containing special characters.
+6. Verify that the login fails and an error message is displayed.",Login attempts with empty fields or special characters fail with appropriate error messages.

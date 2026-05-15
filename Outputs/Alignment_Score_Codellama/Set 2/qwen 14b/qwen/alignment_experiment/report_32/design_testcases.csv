@@ -1,0 +1,159 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-MainProgram-001,Execute Main Program Routines,Main Program,1,Main program is initialized and ready to execute.,N/A,"1. Start the main program.
+2. Observe the execution of Routine 1.
+3. Observe the execution of Routine 1.1 within Routine 1.
+4. Observe the execution of Routine 1.2 within Routine 1.
+5. Observe the execution of Routine 2.
+6. Observe the execution of Routine 3.1 within Routine 2.
+7. Observe the execution of Routine 3.2 within Routine 2.
+8. Observe the execution of Routine 3.
+9. Observe the execution of Routine 3.1 within Routine 3.
+10. Observe the execution of Routine 3.2 within Routine 3.",All routines and sub-routines execute in the specified order without errors.
+TC-MainProgram-002,Execute Main Program Routines in Reverse Order,Main Program,1,Main program is initialized and ready to execute.,N/A,"1. Start the main program.
+2. Observe the execution of Routine 3.
+3. Observe the execution of Routine 3.1 within Routine 3.
+4. Observe the execution of Routine 3.2 within Routine 3.
+5. Observe the execution of Routine 2.
+6. Observe the execution of Routine 3.1 within Routine 2.
+7. Observe the execution of Routine 3.2 within Routine 2.
+8. Observe the execution of Routine 1.
+9. Observe the execution of Routine 1.1 within Routine 1.
+10. Observe the execution of Routine 1.2 within Routine 1.",All routines and sub-routines execute in reverse order without errors.
+TC-Users-001,Create User,Users,2,Database is empty.,"- idu: 1
+- username: testuser
+- mail: test@example.com
+- password: testpassword
+- nome: John
+- cognome: Doe
+- posizione: Developer","1. Call getUser() method.
+2. Assert that the user does not exist.
+3. Call modifyUser() method to create the user.
+4. Call getUser() method again.
+5. Assert that the user exists with the correct details.",User is created successfully and can be retrieved using getUser().
+TC-Users-002,Modify User Details,Users,2,User with idu=1 exists.,"- idu: 1
+- username: testuser
+- mail: newtest@example.com
+- password: newpassword
+- nome: Jane
+- cognome: Smith
+- posizione: Manager","1. Call modifyUser() method to update user details.
+2. Call getUser() method.
+3. Assert that the user's details have been updated.",User details are modified successfully and can be verified using getUser().
+TC-Objects-001,Add Object,Objects,2,User with idu=1 exists.,"- ido: 1
+- nome: Hammer
+- idu: 1
+- descrizione: [""Heavy hammer""]
+- tipo: 1
+- inUse: false","1. Call addOggetto() method.
+2. Call getOggettoById() method with ido=1.
+3. Assert that the object exists with the correct details.",Object is added successfully and can be retrieved using getOggettoById().
+TC-Objects-002,Delete Object,Objects,2,Object with ido=1 exists.,- ido: 1,"1. Call deleteOggetto() method.
+2. Call getOggettoById() method with ido=1.
+3. Assert that the object does not exist.",Object is deleted successfully and cannot be retrieved using getOggettoById().
+TC-Services-001,Add Service,Services,2,User with idu=1 exists.,"- ids: 1
+- nome: Plumbing
+- idu: 1
+- descrizione: [""Fixing pipes""]
+- tipo: 2
+- inUse: false","1. Call addServizio() method.
+2. Call getServizioById() method with ids=1.
+3. Assert that the service exists with the correct details.",Service is added successfully and can be retrieved using getServizioById().
+TC-Services-002,Delete Service,Services,2,Service with ids=1 exists.,- ids: 1,"1. Call deleteServizio() method.
+2. Call getServizioById() method with ids=1.
+3. Assert that the service does not exist.",Service is deleted successfully and cannot be retrieved using getServizioById().
+TC-Login-001,Successful Login,Login,3,User with valid credentials exists.,"- username: testuser
+- password: testpassword","1. Perform login action.
+2. Verify that the information is correct.
+3. Assert that access is granted.",User logs in successfully and access is granted.
+TC-Login-002,Failed Login Attempt,Login,3,User with invalid credentials exists.,"- username: testuser
+- password: wrongpassword","1. Perform login action.
+2. Verify that the information is incorrect.
+3. Assert that an error message is displayed.
+4. Retry login action.",User receives an error message and can retry the login process.
+TC-Search-001,Successful Search,Search,4,Valid search input is provided.,"- Input: ""hammer""","1. Insert input.
+2. Compose query.
+3. Check if the query was executed successfully.
+4. Assert that the query was executed successfully.",Search query is executed successfully and returns expected results.
+TC-Search-002,Failed Search,Search,4,Invalid search input is provided.,"- Input: """"","1. Insert input.
+2. Compose query.
+3. Check if the query was executed successfully.
+4. Assert that the query was not executed successfully.
+5. Display error message.
+6. Retry input insertion.",Search query fails due to invalid input and prompts user to retry.
+TC-CreateObject-001,Successful Object Creation,Create Object,5,Valid object details are provided.,"- ido: 1
+- nome: Hammer
+- idu: 1
+- descrizione: [""Heavy hammer""]
+- tipo: 1
+- inUse: false","1. Create object.
+2. Insert data into the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was executed successfully.",Object is created successfully and inserted into the database.
+TC-CreateObject-002,Failed Object Creation,Create Object,5,Invalid object details are provided.,"- ido: 1
+- nome: """"
+- idu: 1
+- descrizione: []
+- tipo: 1
+- inUse: false","1. Create object.
+2. Insert data into the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was not executed successfully.
+5. Display error message.
+6. Retry object creation.",Object creation fails due to invalid input and prompts user to retry.
+TC-CreateService-001,Successful Service Creation,Create Service,6,Valid service details are provided.,"- ids: 1
+- nome: Plumbing
+- idu: 1
+- descrizione: [""Fixing pipes""]
+- tipo: 2
+- inUse: false","1. Create service.
+2. Insert data into the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was executed successfully.",Service is created successfully and inserted into the database.
+TC-CreateService-002,Failed Service Creation,Create Service,6,Invalid service details are provided.,"- ids: 1
+- nome: """"
+- idu: 1
+- descrizione: []
+- tipo: 2
+- inUse: false","1. Create service.
+2. Insert data into the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was not executed successfully.
+5. Display error message.
+6. Retry service creation.",Service creation fails due to invalid input and prompts user to retry.
+TC-CreateAnnouncement-001,Successful Announcement Creation,Create Announcement,7,Valid announcement details are provided.,"- ida: 1
+- titolo: ""Hammer for Rent""
+- idu: 1
+- ido: 1
+- ids: 1","1. Create announcement.
+2. Insert data into the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was executed successfully.",Announcement is created successfully and inserted into the database.
+TC-CreateAnnouncement-002,Failed Announcement Creation,Create Announcement,7,Invalid announcement details are provided.,"- ida: 1
+- titolo: """"
+- idu: 1
+- ido: 1
+- ids: 1","1. Create announcement.
+2. Insert data into the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was not executed successfully.
+5. Display error message.
+6. Retry announcement creation.",Announcement creation fails due to invalid input and prompts user to retry.
+TC-DeleteAnnouncement-001,Successful Announcement Deletion,Delete Announcement,8,Announcement with ida=1 exists.,- ida: 1,"1. Select announcement to remove.
+2. Execute query to delete data from the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was executed successfully.",Announcement is deleted successfully and cannot be retrieved.
+TC-DeleteAnnouncement-002,Failed Announcement Deletion,Delete Announcement,8,Announcement with ida=1 exists.,- ida: 1,"1. Select announcement to remove.
+2. Execute query to delete data from the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was not executed successfully.
+5. Display error message.",Announcement deletion fails and an error message is displayed.
+TC-DeleteObjectService-001,Successful Object/Service Deletion,Delete Object/Service,9,Object/Service with ido/ids=1 exists.,- ido/ids: 1,"1. Select object/service to remove.
+2. Execute query to delete data from the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was executed successfully.",Object/Service is deleted successfully and cannot be retrieved.
+TC-DeleteObjectService-002,Failed Object/Service Deletion,Delete Object/Service,9,Object/Service with ido/ids=1 exists.,- ido/ids: 1,"1. Select object/service to remove.
+2. Execute query to delete data from the database.
+3. Check if the query was executed successfully.
+4. Assert that the query was not executed successfully.
+5. Display error message.
+6. Retry object/service selection",

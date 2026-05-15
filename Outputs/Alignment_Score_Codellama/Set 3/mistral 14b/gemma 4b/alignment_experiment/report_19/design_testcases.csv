@@ -1,0 +1,112 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration with valid credentials,Registration,1,"- User is on the U-environment (homepage).
+- No existing account with the provided email.","- First name: ""John""
+- Last name: ""Doe""
+- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""
+- Confirm password: ""SecurePass123!""","1. Navigate to **Register activity** from U-environment.
+2. Enter first name, last name, email, password, and confirm password.
+3. Click ""Register"" button.","- System validates input (e.g., password match, valid email format).
+- Account is created successfully.
+- User is redirected to **Login activity** or **Profile** activity with a confirmation message."
+TC-AUTHENTICATION-002,Registration failure with invalid email format,Registration,1,- User is on the U-environment.,"- First name: ""John""
+- Last name: ""Doe""
+- Email: ""john.doe@example"" (missing @domain)
+- Password: ""Pass123""
+- Confirm password: ""Pass123""","1. Navigate to **Register activity**.
+2. Enter invalid email and other valid fields.
+3. Click ""Register"" button.","- System rejects registration with an error: *""Invalid email format.""*
+- User remains on the registration page with highlighted invalid field."
+TC-AUTHENTICATION-003,Registration failure with mismatched passwords,Registration,1,- User is on the U-environment.,"- First name: ""Jane""
+- Last name: ""Smith""
+- Email: ""jane.smith@example.com""
+- Password: ""Password1""
+- Confirm password: ""password1"" (case mismatch)","1. Navigate to **Register activity**.
+2. Enter fields with mismatched passwords.
+3. Click ""Register"" button.","- System displays error: *""Passwords do not match.""*
+- User remains on the registration page."
+TC-AUTHENTICATION-004,Successful login with valid credentials,Login,1,"- User ""john.doe@example.com"" exists (created via TC-AUTHENTICATION-001).","- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""","1. Navigate to **Login activity** from U-environment.
+2. Enter valid email and password.
+3. Click ""Login"" button.","- User is authenticated and redirected to **Profile** or **U-environment** (homepage).
+- No error messages appear."
+TC-AUTHENTICATION-005,Login failure with incorrect password,Login,1,"- User ""john.doe@example.com"" exists.","- Email: ""john.doe@example.com""
+- Password: ""WrongPass123""","1. Navigate to **Login activity**.
+2. Enter correct email and incorrect password.
+3. Click ""Login"" button.","- System displays error: *""Invalid email or password.""*
+- User remains on the login page."
+TC-AUTHENTICATION-006,Login failure with non-existent email,Login,1,"- No user exists with email ""nonexistent@example.com"".","- Email: ""nonexistent@example.com""
+- Password: ""AnyPassword""","1. Navigate to **Login activity**.
+2. Enter non-existent email and any password.
+3. Click ""Login"" button.","- System displays error: *""Invalid email or password.""*
+- User remains on the login page."
+TC-EVENT-001,Successful event creation with valid details,Event Creation,1,- User is logged in (authenticated).,"- Event name: ""Tech Conference 2023""
+- Description: ""Annual tech conference with keynote speakers.""
+- Date: ""2023-12-15""
+- Time: ""09:00 AM""
+- Location: ""New York Convention Center""","1. Navigate to **Create event** from U-environment.
+2. Fill in all event details.
+3. Click ""Create Event"" button.","- Event is created successfully.
+- User is redirected to **Join/View event** with a confirmation message.
+- Event appears in the system under **Gestione di dati del progetto**."
+TC-EVENT-002,Event creation failure with missing required field,Event Creation,1,- User is logged in.,"- Event name: """" (empty)
+- Description: ""Conference""
+- Date: ""2023-12-15""
+- Time: ""09:00 AM""
+- Location: ""Convention Center""","1. Navigate to **Create event**.
+2. Leave ""Event name"" field empty; fill in other fields.
+3. Click ""Create Event"" button.","- System displays error: *""Event name is required.""*
+- User remains on the event creation page with the empty field highlighted."
+TC-EVENT-003,Successful event joining by authenticated user,Event Participation,1,"- User is logged in.
+- Event ""Tech Conference 2023"" exists (created via TC-EVENT-001).",,"1. Navigate to **Join/View event** from U-environment.
+2. Search for and select ""Tech Conference 2023"".
+3. Click ""Join Event"" button.","- User is added to the event participants list.
+- System displays confirmation: *""You have successfully joined the event.""*
+- Event details now show the user as a participant in **Gestione di dati del progetto**."
+TC-EVENT-004,Event joining failure by unauthenticated user,Event Participation,1,"- User is **not** logged in.
+- Event ""Tech Conference 2023"" exists.",,"1. Navigate to **Join/View event** from U-environment.
+2. Attempt to join ""Tech Conference 2023"" without logging in.","- System redirects to **Login activity** with message: *""Please log in to join an event.""*
+- User cannot join the event until authenticated."
+TC-PROFILE-001,Successful profile update with valid data,Profile Management,1,"- User ""john.doe@example.com"" is logged in.","- Current phone: ""+1234567890""
+- New phone: ""+1987654321""
+- Current address: ""123 Old St""
+- New address: ""456 New Ave""","1. Navigate to **Profile** from U-environment.
+2. Update phone number and address fields.
+3. Click ""Save Changes"" button.","- Profile updates successfully.
+- System displays confirmation: *""Profile updated successfully.""*
+- Changes reflect in **Gestione di dati del progetto**."
+TC-PROFILE-002,Profile update failure with invalid phone format,Profile Management,1,- User is logged in.,"- Phone: ""123"" (invalid format)
+- Address: ""789 Fake St""","1. Navigate to **Profile**.
+2. Enter invalid phone and valid address.
+3. Click ""Save Changes"".","- System displays error: *""Invalid phone number format.""*
+- User remains on the profile page with the invalid field highlighted."
+TC-NEWSLETTER-001,Successful newsletter subscription,Newsletter Management,1,- User is logged in.,"- Email: ""john.doe@example.com"" (user's email)","1. Navigate to **Newsletter activity** from U-environment.
+2. Enter email and click ""Subscribe"".","- User is subscribed to the newsletter.
+- System displays confirmation: *""You have subscribed successfully.""*
+- Email is added to the newsletter list in **Newsletter management**."
+TC-NEWSLETTER-002,Newsletter subscription failure with invalid email,Newsletter Management,1,- User is logged in.,"- Email: ""invalid.email"" (missing @domain)","1. Navigate to **Newsletter activity**.
+2. Enter invalid email and click ""Subscribe"".","- System displays error: *""Invalid email format.""*
+- User remains on the newsletter page."
+TC-NEWSLETTER-003,Successful newsletter content management (admin),Newsletter Management,1,- User has admin privileges (assumed for this test).,"- Newsletter title: ""Weekly Updates""
+- Content: ""Hello users, here are your weekly updates...""","1. Navigate to **Newsletter management** from U-environment.
+2. Create a new newsletter entry with title and content.
+3. Click ""Publish"".","- Newsletter is published successfully.
+- Entry appears in the **Newsletter activity** for subscribers.
+- Data is stored in **Gestione di dati del progetto**."
+TC-FLASH-001,Display of flash activity notifications,Flash Activity,1,"- System has at least one flash notification (e.g., ""System maintenance scheduled"").",,"1. Navigate to **Flash activity** from U-environment.
+2. Observe displayed notifications.","- Flash notifications are displayed in chronological order.
+- Notifications are cleared after viewing or after a timeout (e.g., 5 seconds).
+- **Notification center** logs the display event."
+TC-EXIT-001,Successful application exit,Application Exit,1,- User is logged in or on any activity.,,"1. Navigate to **Exit** from U-environment or any activity.
+2. Confirm exit if prompted.","- Application closes gracefully.
+- User session is terminated (no active sessions in **Gestione di dati del progetto**).
+- No data loss occurs."
+TC-DATA-001,Project data retrieval and validation,Project Data Management,1,"- System contains sample data (e.g., 3 events, 5 users).",,"1. Navigate to **Gestione di dati del progetto** (admin/background access).
+2. Query for all events and users.","- Data is retrieved without errors.
+- All events/users match expected counts (3 events, 5 users).
+- Data integrity is maintained (e.g., no orphaned records)."
+TC-DATA-002,Project data corruption handling,Project Data Management,1,- System has valid data.,,"1. Simulate a data corruption scenario (e.g., manually alter a record in the database).
+2. Attempt to retrieve corrupted data via **Gestione di dati del progetto**.","- System detects corruption and displays an error: *""Data inconsistency detected. Contact support.""*
+- Affected record is quarantined or flagged for review.
+- **Notification center** alerts admin of the issue."
+TC-INTEGRATION-001,End-to-end flow: Register → Create Event → Join Event,User Journey,1,"- No user exists with email """,,,

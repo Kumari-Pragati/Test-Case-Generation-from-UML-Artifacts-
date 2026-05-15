@@ -1,0 +1,98 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,User Authentication,2,"- FirebaseAuth is operational.
+- User account exists with valid email/password (e.g., `user@example.com`, `password123`).","- Email: `user@example.com`
+- Password: `password123`","1. User initiates `log_in()` via the application.
+2. System calls `checkIfLogin()` to verify existing session.
+3. System detects `user == null` and invokes `loggingIn(email, password)`.
+4. System forwards credentials to `FirebaseAuth.signInWithEmailAndPassword()`.
+5. FirebaseAuth validates credentials and returns a non-null user object.
+6. System updates local session with `mAuth.getCurrentUser()`.","- User is logged in successfully.
+- Application displays a confirmation message (e.g., ""Login successful"").
+- Session persists for subsequent operations."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,User Authentication,2,"- FirebaseAuth is operational.
+- User account does not exist or credentials are incorrect.","- Email: `nonexistent@example.com`
+- Password: `wrongpassword`","1. User initiates `log_in()` with invalid credentials.
+2. System calls `checkIfLogin()` and detects `user == null`.
+3. System invokes `loggingIn(email, password)`.
+4. FirebaseAuth rejects credentials (`signInWithEmailAndPassword` returns `null`).
+5. System does not update local session.","- Application displays an error message (e.g., ""Invalid email or password"").
+- User remains logged out.
+- No session is created."
+TC-AUTHENTICATION-003,Successful user registration and login,User Authentication,2,"- FirebaseAuth is operational.
+- No existing account for the provided email.","- Email: `newuser@example.com`
+- Password: `newpassword123`","1. User initiates `log_in()` with a non-existent email.
+2. System detects `user == null` and invokes `registerAndLogin(email, password)`.
+3. System calls `FirebaseAuth.createUserWithEmailAndPassword()`.
+4. FirebaseAuth creates the account and returns a non-null user object.
+5. System updates local session with `mAuth.getCurrentUser()`.","- User account is created successfully.
+- Application displays a confirmation message (e.g., ""Account created and logged in"").
+- Session persists for subsequent operations."
+TC-AUTHENTICATION-004,Failed registration due to invalid email format,User Authentication,2,- FirebaseAuth is operational.,"- Email: `invalid-email` (missing `@` and domain)
+- Password: `password123`","1. User attempts to register with invalid email format.
+2. System validates input before calling `createUserWithEmailAndPassword()`.
+3. FirebaseAuth rejects the request due to invalid email format.","- Application displays an error message (e.g., ""Please enter a valid email address"").
+- No account is created.
+- User remains logged out."
+TC-AUTHENTICATION-005,Already logged-in user attempts to log in again,User Authentication,2,- User is already logged in (session exists).,"- Email: `user@example.com` (already logged in)
+- Password: `password123`","1. User initiates `log_in()`.
+2. System calls `checkIfLogin()` and detects an existing session (`user != null`).
+3. System skips `loggingIn()` or `registerAndLogin()`.","- Application detects existing session and displays a message (e.g., ""Already logged in"").
+- No redundant login attempt is made.
+- Session remains active."
+TC-SIGNAL-REPORTING-001,Retrieve and display existing signal reports,Signal Management,3,- Database contains at least one `Segnalazione` record.,"- Expected payload: `[{id: 1, title: ""Track issue"", description: ""Obstacle on track"", date: ""2023-10-01T10:00:00""}]`","1. Application calls `getSegnalazioni()`.
+2. `Sistema gestione segnalazioni` forwards request to `Sistema gestione dati`.
+3. `Sistema gestione dati` queries database with `SELECT Segnalazioni(*)`.
+4. Database returns payload with signal reports.
+5. Payload is forwarded back to the application.","- Application displays a list of signal reports with details (title, description, date).
+- No `Null` is displayed."
+TC-SIGNAL-REPORTING-002,Handle empty signal report list,Signal Management,3,- Database contains no `Segnalazione` records.,- Expected payload: `[]` (empty list),"1. Application calls `getSegnalazioni()`.
+2. Database returns an empty payload.
+3. System forwards `Null` to the application.","- Application displays a message (e.g., ""No signals reported yet"").
+- No list is shown."
+TC-SIGNAL-REPORTING-003,Add a new signal report,Signal Management,1,"- User is logged in.
+- `GestoreSegnalazioni` is operational.","- New signal: `{id: 2, title: ""Signal failure"", description: ""Red light malfunction"", date: ""2023-10-02T11:30:00"", utente: ""user@example.com""}`","1. User calls `addSegnalazione(Segnalazione)` with valid data.
+2. `GestoreSegnalazioni` validates input (non-empty title/description).
+3. System persists the signal to the database.","- Signal is added successfully.
+- `getSegnalazioni()` now includes the new report.
+- Application displays a confirmation (e.g., ""Signal reported successfully"")."
+TC-SIGNAL-REPORTING-004,Add signal report with invalid data,Signal Management,1,- User is logged in.,"- Invalid signal: `{id: 0, title: """", description: """", date: ""invalid-date"", utente: """"}`","1. User calls `addSegnalazione(Segnalazione)` with empty/invalid fields.
+2. `GestoreSegnalazioni` detects invalid data (e.g., empty title).","- Application displays an error (e.g., ""Title and description are required"").
+- Signal is not added to the database."
+TC-SIGNAL-REPORTING-005,Modify an existing signal report,Signal Management,1,"- Database contains a signal with `id: 1`.
+- User is authorized to modify signals.","- Updated signal: `{id: 1, title: ""Updated title"", description: ""Updated description"", date: ""2023-10-02T12:00:00""}`","1. User calls `modifySegnalazione(Segnalazione, id)` with valid data.
+2. `GestoreSegnalazioni` validates the update.
+3. System updates the record in the database.","- Signal is updated successfully.
+- `getSegnalazioni()` reflects the changes.
+- Application displays a confirmation (e.g., ""Signal updated successfully"")."
+TC-SIGNAL-REPORTING-006,Remove a signal report,Signal Management,1,"- Database contains a signal with `id: 1`.
+- User is authorized to delete signals.",,"1. User calls `removeSegnalazione(id)` with `id: 1`.
+2. `GestoreSegnalazioni` validates the ID exists.
+3. System deletes the record from the database.","- Signal is removed successfully.
+- `getSegnalazioni()` no longer includes the deleted report.
+- Application displays a confirmation (e.g., ""Signal deleted successfully"")."
+TC-SIGNAL-REPORTING-007,Remove non-existent signal report,Signal Management,1,- Database contains no signal with `id: 999`.,,"1. User calls `removeSegnalazione(id)` with `id: 999`.
+2. `GestoreSegnalazioni` detects the ID does not exist.","- Application displays an error (e.g., ""Signal not found"").
+- No deletion occurs."
+TC-CALENDAR-001,Retrieve and display calendar data,Calendar Management,6,- Database contains a `Calendario` with 7 `Giorno` entries.,"- Expected payload: `Calendario` with `Giorno[7]` (e.g., days of the week with train schedules).","1. Application calls `getCalendario()`.
+2. `Sistema gestione calendario` forwards the request to `Sistema gestione dati`.
+3. Database returns the `Calendario` payload.
+4. Payload is displayed in the application.","- Application shows the calendar with all 7 days.
+- No `Null` is displayed."
+TC-CALENDAR-002,Handle empty calendar data,Calendar Management,6,- Database contains no `Calendario` data.,,"1. Application calls `getCalendario()`.
+2. Database returns `Null`.
+3. Application displays `Null`.","- Application shows a message (e.g., ""No calendar data available"").
+- No calendar is rendered."
+TC-CALENDAR-003,Update calendar data,Calendar Management,5,"- User is authorized to update the calendar.
+- New `Calendario` data is valid.",- New calendar: `Calendario` with updated `Giorno[7]` entries.,"1. Application calls `setCalendario(cal)` with new data.
+2. `Sistema gestione calendario` forwards the update to `Sistema gestione dati`.
+3. Database processes the update and returns a success status code.
+4. Outcome is displayed in the application.","- Calendar is updated successfully in the database.
+- `getCalendario()` reflects the changes.
+- Application displays a confirmation (e.g., ""Calendar updated successfully"")."
+TC-CALENDAR-004,Update calendar with invalid data,Calendar Management,5,- User is authorized.,- Invalid calendar: `Calendario` with missing or malformed `Giorno` entries.,"1. Application calls `setCalendario(cal)` with invalid data.
+2. `Sistema gestione calendario` detects invalid structure (e.g., fewer than 7 days).","- Application displays an error (e.g., ""Invalid calendar data"").
+- No update occurs in the database."
+TC-TRAIN-MANAGEMENT-001,Retrieve and display train list from calendar,Train Management,"7, 8","- `Calendario` contains valid train data.
+- Trenitalia API is operational.","- Expected payload: `List<Treno>` with 3 trains (e.g., `[{id: 101, tipo: ""reg"", tratta: [...]}, ...]`).","1. Application calls `getTrains(calendario)`.
+2. `Sistema gestione calendario` forwards the request to `Sistema gestione dati`.
+3. `Sistema gestione",

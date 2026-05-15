@@ -1,0 +1,55 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UTENTE-001,Validate Utente constructor and getter/setter operations,User Management,1,None,"- Valid user data: `Id=1001`, `Password=""SecurePass123!""`, `Email=""user@example.com""`, `Nome=""John""`, `Cognome=""Doe""`
+- Invalid data: `Id=-1`, `Password=""weak""`, `Email=""invalid-email""`, `Nome=""""`, `Cognome=""Doe""`","1. Create a new `Utente` object with valid data.
+2. Verify `getId()`, `getPassword()`, `getEmail()`, `getNome()`, and `getCognome()` return the correct values.
+3. Attempt to set invalid values for each attribute (e.g., `setId(-1)`, `setPassword(""weak"")`).
+4. Verify setters reject invalid inputs (e.g., throw exceptions or ignore changes).","- Step 1–2: All getters return the correct values.
+- Step 3–4: Invalid inputs are rejected; object state remains unchanged."
+TC-UTENTE-002,Test Utente association with Prodotto (ownership),User-Product Relationship,1,An `Utente` object exists with `Id=1001`.,"- Valid `Prodotto`: `Nome=""Laptop""`, `Luogo=""Rome""`, `Prezzo=999.99`, `Proprietario=Utente(Id=1001)`
+- Invalid `Prodotto`: `Prezzo=-100`, `Proprietario=null`","1. Create a `Prodotto` with `Proprietario` set to the existing `Utente(1001)`.
+2. Verify `getProprietario()` returns the correct `Utente` object.
+3. Attempt to create a `Prodotto` with `Proprietario=null` or invalid `Prezzo`.
+4. Verify the system rejects invalid associations (e.g., throws exception or sets default values).","- Step 1–2: Association is valid; `getProprietario()` returns the correct user.
+- Step 3–4: Invalid associations are rejected."
+TC-PRODOTTO-001,Validate Prodotto constructor and attribute setters/getters,Product Management,1,None,"- Valid product data: `Nome=""Smartphone""`, `Luogo=""Milan""`, `Descrizione=""Latest model""`, `Immagine=""image.jpg""`, `Prezzo=599.99`, `Proprietario=Utente(Id=1001)`
+- Invalid data: `Nome=""""`, `Prezzo=-50`, `Immagine=""invalid.path""`, `Proprietario=null`","1. Create a `Prodotto` with valid data.
+2. Verify all getters return the correct values.
+3. Attempt to set invalid values for each attribute (e.g., `setPrezzo(-50)`, `setNome("""")`).
+4. Verify setters reject invalid inputs.","- Step 1–2: All getters return correct values.
+- Step 3–4: Invalid inputs are rejected; object state remains unchanged."
+TC-SEGNALAZIONE-001,Validate Segnalazione constructor and attribute setters/getters,Report Management,1,"Two `Utente` objects exist (`Id=1001` as author, `Id=1002` as reported user).","- Valid report: `Tipo=true`, `Id=1`, `Titolo=""Spam""`, `Descrizione=""User posted spam""`, `UtenteSegnalato=Utente(1002)`, `Autore=Utente(1001)`
+- Invalid report: `Tipo=null`, `Id=-1`, `Titolo=""""`, `UtenteSegnalato=null`, `Autore=null`","1. Create a `Segnalazione` with valid data.
+2. Verify all getters return the correct values.
+3. Attempt to set invalid values for each attribute (e.g., `setId(-1)`, `setTitolo("""")`).
+4. Verify setters reject invalid inputs.","- Step 1–2: All getters return correct values.
+- Step 3–4: Invalid inputs are rejected; object state remains unchanged."
+TC-SEGNALAZIONE-002,Test Segnalazione association with Utente (author and reported user),User-Report Relationship,1,"Two `Utente` objects exist (`Id=1001` as author, `Id=1002` as reported user).","- Valid report: `Autore=Utente(1001)`, `UtenteSegnalato=Utente(1002)`
+- Invalid report: `Autore=null`, `UtenteSegnalato=null`, or `Autore=UtenteSegnalato`","1. Create a `Segnalazione` with `Autore=Utente(1001)` and `UtenteSegnalato=Utente(1002)`.
+2. Verify `getAutore()` and `getUtenteSegnalato()` return the correct users.
+3. Attempt to create a report where `Autore` or `UtenteSegnalato` is `null`.
+4. Attempt to create a report where `Autore` and `UtenteSegnalato` are the same user.
+5. Verify the system rejects invalid associations.","- Step 1–2: Associations are valid; getters return correct users.
+- Step 3–4: Invalid associations (null or self-report) are rejected."
+TC-INTEGRATION-001,End-to-end flow: User creates a product and receives a report,System Integration,1,"Two `Utente` objects exist (`Id=1001` as owner, `Id=1002` as reporter).","- Product: `Nome=""Headphones""`, `Proprietario=Utente(1001)`
+- Report: `Autore=Utente(1002)`, `UtenteSegnalato=Utente(1001)`, `Tipo=true`","1. `Utente(1001)` creates a `Prodotto` with valid data.
+2. `Utente(1002)` creates a `Segnalazione` targeting `Utente(1001)`.
+3. Verify `Prodotto.getProprietario()` returns `Utente(1001)`.
+4. Verify `Segnalazione.getAutore()` returns `Utente(1002)` and `getUtenteSegnalato()` returns `Utente(1001)`.
+5. Verify `Segnalazione.getTipo()` is `true` (valid report).","- Steps 1–4: All associations and attributes are correctly set.
+- Step 5: Report is valid and linked to the correct users."
+TC-EDGE-001,"Test boundary conditions for numeric attributes (Id, Prezzo)",Data Validation,1,None,"- Minimum `Id`: `0` (assuming `Id` cannot be negative but can be zero).
+- Maximum `Id`: `2147483647` (max `int` value).
+- Minimum `Prezzo`: `0.0` (free product).
+- Maximum `Prezzo`: `9999999.99` (arbitrary upper limit).
+- Invalid `Prezzo`: `-0.01`, `10000000.00`.","1. Create an `Utente` with `Id=0` and `Id=2147483647`.
+2. Create a `Prodotto` with `Prezzo=0.0` and `Prezzo=9999999.99`.
+3. Attempt to set `Id=-1` for `Utente` and `Prezzo=-0.01` for `Prodotto`.
+4. Attempt to set `Prezzo=10000000.00` for `Prodotto`.","- Steps 1–2: Boundary values (`0`, max `int`, `0.0`, max price) are accepted.
+- Steps 3–4: Negative `Id` and out-of-range `Prezzo` are rejected."
+TC-EDGE-002,Test empty or null string attributes,Data Validation,1,None,"- Empty strings: `Nome=""""`, `Email=""""`, `Titolo=""""`, `Descrizione=""""`
+- Null strings: `Nome=null`, `Immagine=null` (if allowed by language).
+- Valid strings: `Nome="" ""`, `Email=""user@domain.com""` (single space or valid format).","1. Attempt to create an `Utente` with `Nome=""""` or `Email=""""`.
+2. Attempt to create a `Prodotto` with `Nome=""""` or `Immagine=null`.
+3. Attempt to create a `Segnalazione` with `Titolo=""""` or `Descrizione=null`.
+4. Verify the system rejects truly empty/null values but accepts valid alternatives (e.g., `Nome="" ""`).","- Steps 1–3: Empty/null strings are rejected.
+- Step 4: Whitespace-only or valid strings are accepted."

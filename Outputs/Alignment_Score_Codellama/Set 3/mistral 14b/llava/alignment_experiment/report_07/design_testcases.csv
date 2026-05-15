@@ -1,0 +1,66 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-INTERACTION-001,User submits valid report request via ReportManager,User-ReportManager Integration,"1, 2, 5, 8","- User is authenticated and logged into the system.
+- Database contains valid data for report generation.","- User ID: `user123`
+- Report name: `""Q2_Sales_Report""`
+- Valid parameters: `{start_date: ""2023-01-01"", end_date: ""2023-06-30""}`","1. User selects ""Generate Report"" with the provided parameters.
+2. `ReportManager` receives the request and forwards it to `DataManager`.
+3. `DataManager` retrieves data from `WebServer` (which queries the `Database`).
+4. `WebServer` returns processed data to `DataManager`.
+5. `DataManager` sends formatted data back to `ReportManager`.
+6. `ReportManager` generates the report and displays it to the user.","- Report `""Q2_Sales_Report""` is successfully generated and displayed.
+- No errors in logs. System state: Report generated, data integrity confirmed."
+TC-DATA-VALIDATION-002,DataManager validates and rejects invalid user data,Data Validation,"3, 6","- `DataManager` has active `DataUser` and `LocalUser` sessions.
+- `DataUser` attempts to submit malformed data.","- Invalid data: `{name: """", timestamp: ""invalid_date""}`","1. `DataUser` calls `DataManager.addDataUser(invalid_data)`.
+2. `DataManager` invokes `checkData(invalid_data)`.
+3. `checkData` detects invalid `timestamp` format.
+4. `DataManager` rejects the submission and logs the error.","- Error message: `""Invalid data format: timestamp must be YYYY-MM-DD""`.
+- Data is **not** added to the system. Log entry created."
+TC-DATA-FLOW-003,End-to-end data submission from LocalUser to DataManager,Data Submission Pipeline,"3, 6","- `LocalUser` is authenticated.
+- `DataManager` is operational.","- Valid data: `{user_id: ""local_user456"", data: ""sample_data_123""}`","1. `LocalUser` calls `DataManager.addLocalUser(valid_data)`.
+2. `DataManager` forwards data to `DataUser` via `addDataUser(valid_data)`.
+3. `DataUser` validates data and calls `checkData(valid_data)`.
+4. `DataManager` confirms validity and updates internal records.
+5. `DataManager` responds to `LocalUser` with success status.","- Data is stored in `DataManager`.
+- `LocalUser` receives confirmation: `""Data submitted successfully""`.
+- No partial updates or data loss."
+TC-REPORT-GENERATION-004,ReportGenerator handles conflicting data roles (Producer/Consumer),ReportGenerator Logic,2,"- `ReportGenerator` has both `Producer` and `Consumer` roles.
+- Database contains conflicting entries for the same report.","- Report ID: `report789`
+- Conflicting entries: `[{value: 100}, {value: 200}]` (same key).","1. `ReportGenerator` (as `Consumer`) requests data for `report789`.
+2. `DataManager` returns conflicting entries.
+3. `ReportGenerator` resolves conflicts (e.g., takes latest timestamp).
+4. `ReportGenerator` (as `Producer`) updates the report with resolved data.","- Report reflects resolved data (e.g., `value: 200`).
+- Conflict log entry created: `""Conflict resolved for report789: latest value selected""`."
+TC-ERROR-HANDLING-005,Database unavailability disrupts report generation,System Resilience,"1, 5",- `WebServer` cannot connect to `Database` (simulated outage).,"- Report request: `""Monthly_Inventory_Report""`","1. User submits report request.
+2. `ReportManager` forwards request to `DataManager`.
+3. `DataManager` fails to retrieve data from `WebServer` (timeout).
+4. `ReportManager` retries 3 times (exponential backoff).
+5. After retries, `ReportManager` notifies user of failure.","- User receives: `""Error: Database unavailable. Retry later.""`
+- System logs: `""Database connection failed after 3 retries""`.
+- No partial report generated."
+TC-ROLE-PERMISSIONS-006,Consumer role denied access to Producer-only data,Role-Based Access Control,2,"- `Consumer` (e.g., `Report`) attempts to modify `Producer`-only data.",- Action: `Report` tries to update `User` data directly.,"1. `Report` (as `Consumer`) calls `User.updateData(new_data)`.
+2. `User` checks role permissions and denies access.
+3. `User` logs the unauthorized attempt.","- Error: `""Permission denied: Consumer cannot modify Producer data""`.
+- No data changes occur. Audit log updated."
+TC-SEQUENCE-INTEGRITY-007,Sequence diagram flow with repeated `addDataUser` calls,DataManager Sequence Handling,3,- `DataUser` and `LocalUser` are active.,"- Duplicate data submissions: `[{id: 1}, {id: 1}]` (same ID).","1. `LocalUser` calls `addLocalUser({id: 1})`.
+2. `DataManager` forwards to `DataUser.addDataUser({id: 1})`.
+3. `DataUser` detects duplicate ID and rejects.
+4. `DataManager` logs duplicate attempt.
+5. `LocalUser` retries with `{id: 2}`.","- First submission fails: `""Duplicate ID detected""`.
+- Second submission succeeds: `""Data added for ID: 2""`.
+- No duplicate entries in system."
+TC-EDGE-CASE-008,Empty report name triggers validation error,Input Validation,"1, 2",- User attempts to generate a report with an empty name.,"- Report name: `""""`
+- Parameters: `{start_date: ""2023-01-01""}`","1. User submits report with empty name.
+2. `ReportManager` validates input.
+3. `ReportManager` rejects request.","- Error: `""Report name cannot be empty""`.
+- No report generated. User prompted to re-enter name."
+TC-PERFORMANCE-009,High-volume data submission stress test,System Scalability,"3, 6",- `DataManager` receives 1000 submissions in 1 minute.,- Batch of 1000 valid `addLocalUser` calls.,"1. Simulate 1000 concurrent `LocalUser` submissions.
+2. Monitor `DataManager` response time and throughput.
+3. Verify no data loss or corruption.","- All submissions processed within 2 minutes.
+- No errors in logs. Throughput ≥ 500 submissions/minute.
+- Data integrity confirmed via audit trail."
+TC-FALLBACK-010,WebServer fails; DataManager uses cached data,Fault Tolerance,"1, 5",- `WebServer` is down; `DataManager` has cached data.,"- Report request: `""Cached_Data_Report""`","1. User requests report.
+2. `DataManager` detects `WebServer` unavailability.
+3. `DataManager` uses cached data (last updated 5 minutes ago).
+4. Generates report from cache.","- Report generated with cached data.
+- User notified: `""Live data unavailable. Using cached data (last updated: 2023-10-05 14:30)""`.
+- Log entry: `""Fallback to cache for report generation""`."

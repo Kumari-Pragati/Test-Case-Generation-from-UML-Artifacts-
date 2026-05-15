@@ -1,0 +1,94 @@
+system
+You are a senior SDET and software test designer. Generate concrete, code-faithful test cases ONLY from the given code context. Do NOT invent features, methods, screens, APIs, or validations not shown. You MUST cover every method in MUST_COVER at least once (1 test per method minimum). If there are UI/CTA signals, include interaction tests relevant to those signals. Output ONLY a valid JSON array. No markdown. No extra text.
+user
+TARGET FILE: Ecodriving/app/src/test/java/com/example/ecodriving/ExampleUnitTest.java
+
+MUST_COVER (ensure each appears in covered_methods at least once):
+- addition_isCorrect
+
+UI/CTA SIGNALS (use if present):
+- (none)
+
+OUTPUT FORMAT (JSON array ONLY; EXACT keys):
+[
+  {
+    "test_case_id": "TC-<Module>-###",
+    "title": "...",
+    "module": "...",
+    "source_files": ["Ecodriving/app/src/test/java/com/example/ecodriving/ExampleUnitTest.java"],
+    "covered_methods": ["methodName1","methodName2"],
+    "preconditions": ["..."],
+    "test_data": ["..."],
+    "test_steps": ["..."],
+    "expected_result": ["..."]
+  }
+]
+
+RULES:
+- Keep total test cases <= 60 (merge coverage when needed).
+- Every MUST_COVER method must be in covered_methods somewhere.
+- Steps & expected_result must match code branches, UI actions, and backend outcomes visible.
+- Output ONLY the JSON array.
+
+FEW-SHOT EXAMPLE (how to cover UI + backend from code context):
+
+If code has:
+- Button confirmBt with setOnClickListener
+- Reads EditText newMail + confirmNewMail
+- Branch: empty/mismatch -> Toast error
+- Calls updateUserEmail(email)
+- Backend: getCurrentUser() null -> Toast unauthenticated
+- Backend: verifyBeforeUpdateEmail success -> save SharedPreferences + navigate
+- Backend: verifyBeforeUpdateEmail failure -> Toast failure
+
+Then tests must include covered_methods like:
+["onCreateView","updateUserEmail"] and steps for each branch.
+
+
+CONTEXT:
+FILE: Ecodriving/app/src/test/java/com/example/ecodriving/ExampleUnitTest.java
+LANG: java
+
+CLASSES:
+- ExampleUnitTest (Ecodriving/app/src/test/java/com/example/ecodriving/ExampleUnitTest.java:12-12)
+
+METHODS (must be covered):
+- addition_isCorrect | Ecodriving/app/src/test/java/com/example/ecodriving/ExampleUnitTest.java:13-13
+  sig: public void addition_isCorrect() {         assertEquals(4, 2 + 2);     } }
+
+UI / CTA / INPUT SIGNALS:
+
+CODE (snippet):
+package com.example.ecodriving;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() {
+        assertEquals(4, 2 + 2);
+    }
+}
+assistant
+```json
+[
+  {
+    "test_case_id": "TC-ExampleUnitTest-001",
+    "title": "Verify addition_isCorrect method returns correct result",
+    "module": "ExampleUnitTest",
+    "source_files": ["Ecodriving/app/src/test/java/com/example/ecodriving/ExampleUnitTest.java"],
+    "covered_methods": ["addition_isCorrect"],
+    "preconditions": ["None"],
+    "test_data": ["2", "2"],
+    "test_steps": ["Call addition_isCorrect method"],
+    "expected_result": ["The method should return 4"]
+  }
+]
+```

@@ -1,0 +1,88 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in successfully,Login,2,User exists in the database,"- Username: ""testuser""
+- Password: ""password123""","1. User navigates to the login page.
+2. User enters the username ""testuser"" and password ""password123"".
+3. User clicks the login button.",User is logged in successfully and redirected to the home page.
+TC-Login-002,User logs in with incorrect password,Login,2,User exists in the database,"- Username: ""testuser""
+- Incorrect Password: ""wrongpassword""","1. User navigates to the login page.
+2. User enters the username ""testuser"" and incorrect password ""wrongpassword"".
+3. User clicks the login button.",User sees an error message indicating incorrect credentials and remains on the login page.
+TC-Login-003,User logs in with non-existent username,Login,2,No user with the given username exists in the database,"- Non-existent Username: ""nonexistentuser""
+- Password: ""password123""","1. User navigates to the login page.
+2. User enters the non-existent username ""nonexistentuser"" and password ""password123"".
+3. User clicks the login button.",User sees an error message indicating that the username does not exist and remains on the login page.
+TC-ProductView-001,User views a product successfully,Product View,2,User is logged in,"- Product Name: ""Sample Product""","1. User navigates to the product listing page.
+2. User selects the ""Sample Product"" to view details.
+3. User clicks the ""View"" button.","User sees the details of the ""Sample Product""."
+TC-ProductView-002,User attempts to view a non-existent product,Product View,2,User is logged in,"- Non-existent Product Name: ""Nonexistent Product""","1. User navigates to the product listing page.
+2. User selects the ""Nonexistent Product"" to view details.
+3. User clicks the ""View"" button.",User sees an error message indicating that the product does not exist.
+TC-CartAdd-001,User adds a product to the cart successfully,Cart Add,2,User is logged in,"- Product Name: ""Sample Product""","1. User navigates to the product listing page.
+2. User selects the ""Sample Product"" to add to the cart.
+3. User clicks the ""Add to Cart"" button.",User sees a confirmation message indicating that the product has been added to the cart.
+TC-CartAdd-002,User attempts to add a non-existent product to the cart,Cart Add,2,User is logged in,"- Non-existent Product Name: ""Nonexistent Product""","1. User navigates to the product listing page.
+2. User selects the ""Nonexistent Product"" to add to the cart.
+3. User clicks the ""Add to Cart"" button.",User sees an error message indicating that the product does not exist.
+TC-Checkout-001,User completes checkout successfully,Checkout,2,User is logged in and has items in the cart,"- User: ""testuser""
+- Cart Items: [""Sample Product""]","1. User navigates to the cart page.
+2. User reviews the items in the cart.
+3. User clicks the ""Checkout"" button.
+4. User confirms the checkout details.",User sees a confirmation message indicating that the checkout was successful.
+TC-Checkout-002,User attempts to checkout with an empty cart,Checkout,2,User is logged in and has no items in the cart,"- User: ""testuser""","1. User navigates to the cart page.
+2. User tries to click the ""Checkout"" button.",User sees an error message indicating that the cart is empty and cannot proceed to checkout.
+TC-AdminAddProduct-001,Admin adds a product successfully,Admin Add Product,2,Admin is logged in,"- Product Name: ""New Product""
+- Description: ""Description of New Product""","1. Admin navigates to the product management page.
+2. Admin fills in the product name and description fields.
+3. Admin clicks the ""Add"" button.",Admin sees a confirmation message indicating that the product has been added successfully.
+TC-AdminAddProduct-002,Admin attempts to add a product with invalid data,Admin Add Product,2,Admin is logged in,"- Invalid Product Name: """"
+- Description: ""Description of New Product""","1. Admin navigates to the product management page.
+2. Admin leaves the product name field empty and fills in the description field.
+3. Admin clicks the ""Add"" button.",Admin sees an error message indicating that the product name is required.
+TC-UserToAdminTransition-001,User transitions to admin mode successfully,User To Admin Transition,2,User is logged in,"- Username: ""adminuser""
+- Password: ""adminpassword""","1. User navigates to the login page.
+2. User clicks the ""Login as Admin"" option.
+3. User enters the admin username ""adminuser"" and password ""adminpassword"".
+4. User clicks the ""Login"" button.",User is logged in as an admin and redirected to the admin dashboard.
+TC-UserToAdminTransition-002,User fails to transition to admin mode with incorrect credentials,User To Admin Transition,2,User is logged in,"- Username: ""adminuser""
+- Incorrect Password: ""wrongpassword""","1. User navigates to the login page.
+2. User clicks the ""Login as Admin"" option.
+3. User enters the admin username ""adminuser"" and incorrect password ""wrongpassword"".
+4. User clicks the ""Login"" button.",User sees an error message indicating incorrect credentials and remains on the login page.
+TC-SequenceDiagram-001,"User sends a message to the application, which forwards it to the server and database",Sequence Diagram,3,User is logged in,"- Message: ""Hello""","1. User sends a message ""Hello"" to the application.
+2. Application forwards the message to the server.
+3. Server receives the message and forwards it to the database.","Database receives the message ""Hello"" and processes it accordingly."
+TC-ClassDiagram-001,"User interacts with the application, server, and database",Class Diagram,"4, 5, 6",User is logged in,"- User Action: ""Perform action""","1. User performs an action within the application.
+2. Application interacts with the server.
+3. Server interacts with the database.",The action is processed correctly by the database and the result is returned to the user via the application.
+TC-ECommerceFlow-001,User purchases a product successfully,E-Commerce Flow,7,User is logged in,"- Product: ""Sample Product""","1. User navigates to the product listing page.
+2. User selects the ""Sample Product"" to purchase.
+3. User clicks the ""Buy"" button.
+4. Server processes the purchase request.
+5. Server updates the database with the purchase information.",User sees a confirmation message indicating that the purchase was successful.
+TC-ECommerceFlow-002,User attempts to purchase a non-existent product,E-Commerce Flow,7,User is logged in,"- Non-existent Product: ""Nonexistent Product""","1. User navigates to the product listing page.
+2. User selects the ""Nonexistent Product"" to purchase.
+3. User clicks the ""Buy"" button.",User sees an error message indicating that the product does not exist.
+TC-RegistrationFlow-001,User registers successfully,Registration Flow,8,User does not exist in the database,"- Username: ""newuser""
+- Email: ""newuser@example.com""
+- Password: ""password123""","1. User navigates to the registration page.
+2. User fills in the registration form with the provided details.
+3. User clicks the ""Register"" button.",User sees a confirmation message indicating that the registration was successful.
+TC-RegistrationFlow-002,User attempts to register with an existing username,Registration Flow,8,User already exists in the database,"- Username: ""existinguser""
+- Email: ""existinguser@example.com""
+- Password: ""password123""","1. User navigates to the registration page.
+2. User fills in the registration form with the provided details.
+3. User clicks the ""Register"" button.",User sees an error message indicating that the username is already taken.
+TC-PageNavigation-001,User navigates to different pages successfully,Page Navigation,"2, 8",User is logged in,"- Pages: Home, Product Listing, Cart, Checkout, Admin Dashboard","1. User navigates to the home page.
+2. User clicks on the ""Product Listing"" link.
+3. User clicks on the ""Cart"" link.
+4. User clicks on the ""Checkout"" link.
+5. User clicks on the ""Admin Dashboard"" link (if logged in as admin).",User is redirected to the respective pages without errors.
+TC-PageNavigation-002,User attempts to navigate to a restricted page without proper permissions,Page Navigation,"2, 8",User is logged in but not an admin,- Restricted Page: Admin Dashboard,"1. User navigates to the home page.
+2. User clicks on the ""Admin Dashboard"" link.",User sees an error message indicating that they do not have permission to access the admin dashboard.
+TC-Logout-001,User logs out successfully,Logout,"2, 8",User is logged in,"- User: ""testuser""","1. User navigates to the account settings page.
+2. User clicks the ""Logout"" button.",User is logged out successfully and redirected to the login page.
+TC-Logout-002,User attempts to log out while not logged in,Logout,"2, 8",User is not logged in,"- User: ""testuser""","1. User clicks the ""Logout"" button.",User sees an error message indicating that they are not currently logged in.
+TC-ErrorHandling-001,System handles unexpected errors gracefully,Error Handling,"2, 8",User is logged in,- Unexpected Error: Database connection failure,"1. User performs an action that requires interaction with the database.
+2. System encounters an unexpected error (e.g., database connection failure).",User sees a generic error message indicating that an unexpected error occurred and is prompted to try again later.
+TC-ErrorHandling-002,System handles invalid input gracefully,Error Handling,"2, 8",User is logged in,- Invalid Input: Empty username during registration,"1. User navigates to the registration page.
+2. User leaves the username field empty and submits",

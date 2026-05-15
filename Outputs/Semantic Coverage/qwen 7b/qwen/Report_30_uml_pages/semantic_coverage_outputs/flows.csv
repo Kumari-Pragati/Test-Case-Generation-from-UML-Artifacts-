@@ -1,0 +1,50 @@
+flow
+"homepage -> click impostazioni — type=transition; label=""si""; explanation=""click on settings"""
+"homepage -> visualizzazione nuovo luogo — type=transition; label=""si""; explanation=""display new location"""
+"homepage -> click sul luogo — type=transition; label=""si""; explanation=""click on location"""
+"homepage -> click pathfinder — type=transition; label=""si""; explanation=""click on pathfinder"""
+"homepage -> swipe verso l'alto — type=transition; label=""si""; explanation=""swipe up"""
+"click impostazioni -> apertura pagina impostazioni — type=transition; label=""si""; explanation=""open settings page"""
+"click sul luogo -> apertura pagina luogo dettagliata — type=transition; label=""si""; explanation=""open location details page"""
+"click pathfinder -> apertura pagina pathfinder — type=transition; label=""si""; explanation=""open pathfinder page"""
+flow 1: homepage -> click impostazioni -> apertura pagina impostazioni
+flow 2: homepage -> visualizzazione nuovo luogo
+flow 3: homepage -> click sul luogo -> apertura pagina luogo dettagliata
+flow 4: homepage -> click pathfinder -> apertura pagina pathfinder
+"the diagram models user interactions with the application's homepage, allowing navigation to settings, location details, and pathfinder pages."
+users can also swipe up to return to the homepage.
+"decisions are made based on user actions, leading to specific pages or settings."
+"the diagram covers multiple user paths, ensuring comprehensive coverage for testing."
+"pagina dettagliata -> click ""navigate"" — type=transition; label=""si""; explanation=""navigate action"""
+"click ""navigate"" -> apertura mappa di sistema — type=transition; label=""si""; explanation=""system map opening"""
+"click ""navigate"" -> click ""open in browser"" — type=transition; label=""no""; explanation=""open in browser option"""
+"click ""open in browser"" -> apertura sito yelp sul browser — type=transition; label=""si""; explanation=""browser opening action"""
+"click ""open in browser"" -> click ""call business"" — type=transition; label=""no""; explanation=""call business option"""
+"click ""call business"" -> avvio chiamata al business — type=transition; label=""si""; explanation=""call initiation"""
+"click ""call business"" -> click ""indietro"" — type=transition; label=""no""; explanation=""back action"""
+"click ""indietro"" -> ritorno ad homepage — type=transition; label=""si""; explanation=""home page return"""
+"click ""indietro"" -> click ""like/dislike"" — type=transition; label=""no""; explanation=""like/dislike click"""
+"click ""like/dislike"" -> modifica preferenze — type=transition; label=""si""; explanation=""preferences modification"""
+"flow 1: pagina dettagliata -> click ""navigate"" -> apertura mappa di sistema"
+"flow 2: pagina dettagliata -> click ""navigate"" -> click ""open in browser"" -> apertura sito yelp sul browser"
+"flow 3: pagina dettagliata -> click ""navigate"" -> click ""call business"" -> avvio chiamata al business"
+"flow 4: pagina dettagliata -> click ""navigate"" -> click ""indietro"" -> ritorno ad homepage"
+"flow 5: pagina dettagliata -> click ""navigate"" -> click ""indietro"" -> click ""like/dislike"" -> modifica preferenze"
+"this activity diagram models user interactions with a detailed page, focusing on navigation options such as opening a system map, browsing yelp, calling a business, returning to the homepage, and modifying preferences."
+"the diagram includes multiple decision points (""si"" for yes and ""no"" for"
+"apertura pagina pathfinder -> click ""indietro"" — type=control-flow; label=""si""; explanation=""yes branch"""
+"click ""indietro"" -> ritorno ad homepage — type=control-flow; label=""si""; explanation=""yes branch"""
+"click ""indietro"" -> visualizzazione domanda — type=control-flow; label=""no""; explanation=""no branch"""
+"visualizzazione domanda -> scelta risposta — type=control-flow; label=""none""; explanation=""direct transition"""
+"scelta risposta -> visualizzazione luogo suggestito — type=control-flow; label=""suggerimento disponibile""; explanation=""suggestion available"""
+"scelta risposta -> - none — type=control-flow; label=""suggerimento non disponibile""; explanation=""suggestion not available"""
+"flow 1: apertura pagina pathfinder -> click ""indietro"" (si) -> ritorno ad homepage"
+"flow 2: apertura pagina pathfinder -> click ""indietro"" (no) -> visualizzazione domanda -> scelta risposta -> visualizzazione luogo suggestito"
+this activity diagram models the flow of a pathfinder page interaction.
+the user starts by opening the pathfinder page.
+"they have the option to go back (""indietro""), which leads to returning to the homepage."
+"if they do not click ""indietro,"" they proceed to view a question."
+"after viewing the question, they select a response, which may lead to displaying a suggested location if one is available."
+"if no suggestion is available, the process ends without further steps."
+the diagram captures the main flow and a potential error path (no suggestion available).
+======================================================================

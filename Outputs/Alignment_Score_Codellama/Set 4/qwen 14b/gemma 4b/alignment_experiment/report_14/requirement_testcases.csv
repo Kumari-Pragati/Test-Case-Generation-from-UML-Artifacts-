@@ -1,0 +1,165 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Mapping-001","Verify Real-Time Localization of Commercial Activities","Mapping","5,6","User is logged in and has location services enabled","User’s current location within the app’s defined neighborhood boundaries","1. Open the app and navigate to the map view.
+2. Ensure the user’s current location is marked on the map.
+3. Search for nearby commercial activities (e.g., shops, professionals).
+4. Verify that the searched activities are displayed on the map with correct markers.","The map displays the user’s location and nearby commercial activities accurately, with markers labeled correctly."
+"TC-Mapping-002","Verify GPS-Based Localization Accuracy","Mapping","5,6","User has GPS enabled and is within the app’s neighborhood boundaries","User’s known physical location (e.g., home address)","1. Open the app and navigate to the map view.
+2. Allow the app to access GPS location.
+3. Confirm the app’s displayed location matches the user’s known physical location.","The app accurately reflects the user’s GPS-based location on the map."
+"TC-Messaging-003","Verify Instant Messaging Functionality Between Users","Messaging","6","Two users are registered and logged in","Two test user accounts (User A and User B)","1. User A sends a text message to User B via the app’s messaging feature.
+2. User B opens the app and navigates to the messaging section.
+3. User B reads the message sent by User A.
+4. User B replies to User A’s message.","Messages are successfully sent, received, and displayed in real-time between the two users."
+"TC-Commerce-004","Verify Unsold Goods Sharing Functionality","Commerce","5","User is logged in as a commercial activity owner","Sample unsold goods (e.g., expired products, surplus items)","1. User posts an item for sharing (e.g., ""Free: 5 kg of rice"").
+2. Another user searches for shared items and finds the posted item.
+3. The second user requests the item.
+4. The owner confirms the request.","The item is listed, searched, requested, and confirmed successfully."
+"TC-Commerce-005","Verify Group Purchase Management","Commerce","5","Multiple users are logged in","Sample group purchase (e.g., bulk purchase of vegetables)","1. User A creates a group purchase request (e.g., ""Group buy: 20 kg of potatoes"").
+2. User B and User C join the group purchase.
+3. User A finalizes the purchase and shares the details with participants.","The group purchase is created, joined by users, and finalized without errors."
+"TC-Commerce-006","Verify Appointment Scheduling for Local Services","Commerce","5","User is logged in as a professional/service provider","Sample appointment slot (e.g., ""Haircut at 3 PM"")","1. User A (professional) posts an available appointment slot.
+2. User B searches for available appointments and selects the slot.
+3. User A confirms the booking.","The appointment is posted, searched, selected, and confirmed successfully."
+"TC-Social-007","Verify Tool/Equipment Sharing Functionality","Social","5","User is logged in and owns a tool/equipment","Sample tool (e.g., ""Ladder for rent"")","1. User A lists a tool for sharing (e.g., ""Ladder available for rent"").
+2. User B searches for shared tools and finds the listed tool.
+3. User B requests to borrow the tool.
+4. User A approves the request.","The tool is listed, searched, requested, and approved successfully."
+"TC-Authentication-008","Verify User Registration with Residency Validation (if implemented)","Authentication","6","User has valid residency documents (if required)","Valid residency proof (e.g., utility bill, ID)","1. User attempts to register with residency proof.
+2. The app validates the residency document.
+3. User completes registration.","The app accepts the residency proof and completes registration successfully."
+"TC-PlatformCompatibilit-009","Verify Cross-Platform Compatibility for Android and iOS","Platform Compatibility","12","Flutter SDK installed, Android Studio/XCode configured","None","1. Build the app using Flutter for Android.
+2. Install the APK on an Android device.
+3. Launch the app and verify it loads without crashes.
+4. Repeat steps 1–3 for iOS using Xcode and an iOS device.","App launches successfully on both Android and iOS devices without errors."
+"TC-DataSynchronization-010","Validate Real-Time Data Exchange Between Devices","Data Synchronization","12","Two devices (Android/iOS) with the app installed, active internet connection","Sample data (e.g., user profile, location updates)","1. Log in as two different users on Device A and Device B.
+2. Update data (e.g., location, status) on Device A.
+3. Verify Device B reflects the updated data within 5 seconds.
+4. Repeat with Device B initiating changes.","Data synchronizes in real-time across both devices without delays or conflicts."
+"TC-UserRoles-011","Verify Role-Based Access for ""Abitante"" User","User Roles","12","App installed, test account for ""abitante"" role created","Credentials for ""abitante"" user","1. Log in with ""abitante"" credentials.
+2. Navigate to all available menus/interfaces.
+3. Attempt actions restricted to ""professionista"" (e.g., data entry, admin functions).","Only ""abitante""-specific features are accessible; restricted actions are blocked."
+"TC-UserRoles-012","Verify Role-Based Access for ""Professionista/Esercente"" User","User Roles","12","App installed, test account for ""professionista"" role created","Credentials for ""professionista"" user","1. Log in with ""professionista"" credentials.
+2. Navigate to all available menus/interfaces.
+3. Attempt actions restricted to ""abitante"" (e.g., read-only views).","Only ""professionista""-specific features are accessible; restricted actions are blocked."
+"TC-GeographicalScope-013","Validate Quarter-Level Activity Confinement","Geographical Scope","12","App installed, geolocation enabled, user logged in","Test user located in ""Quarter X""","1. Log in and verify the app displays only data relevant to ""Quarter X.""
+2. Attempt to access data from another quarter (e.g., via search or map).
+3. Confirm no data from outside ""Quarter X"" is visible.","App restricts all actions/data to the user’s assigned quarter."
+"TC-DataQuery-014","Test Nominative Search Functionality","Data Query","12","App installed, sample user data populated","Valid username/ID of an existing user","1. Log in as an ""abitante"" or ""professionista.""
+2. Use the search function to input the username/ID.
+3. Verify the correct user profile/data is displayed.","Search returns accurate, relevant results for the input query."
+"TC-DataQuery-015","Test Geographical Search Functionality","Data Query","12","App installed, sample location-based data populated","Valid geographical query (e.g., ""near school,"" ""in Quarter Y"")","1. Log in and access the search/map feature.
+2. Input a geographical query.
+3. Verify results are filtered to matching locations within the user’s quarter.","Search returns location-specific data without cross-quarter results."
+"TC-Localization-016","Verify Accessibility for Users with Language Barriers","Localization","12","App installed, language settings configured","None","1. Change app language to a non-native language (e.g., English for Italian user).
+2. Navigate through all primary interfaces (login, dashboard, search).
+3. Confirm all UI elements (buttons, labels, errors) are translated.","App displays content in the selected language without missing translations."
+"TC-NetworkDependency-017","Validate Mandatory Internet Connectivity","Network Dependency","12","App installed, device with toggleable internet","None","1. Launch the app with active internet.
+2. Disable internet and attempt to perform a data-dependent action (e.g., search, update).
+3. Re-enable internet and retry the action.","App blocks actions requiring internet; error message appears. Action succeeds after reconnection."
+"TC-NetworkDependency-018","Validate Mandatory Geolocation","Network Dependency","12","App installed, device with toggleable geolocation","None","1. Launch the app with geolocation enabled.
+2. Disable geolocation and attempt to access quarter-specific features.
+3. Re-enable geolocation and retry.","App blocks geolocation-dependent features; error message appears. Features work after re-enabling."
+"TC-ErrorManagement-019","Verify Exception Handling for Technical Failures","Error Management","12","App installed, test environment with forced errors (e.g., mock API failures)","None","1. Simulate a backend/API failure (e.g., timeout, 500 error).
+2. Attempt an action requiring backend communication (e.g., data update).
+3. Observe app behavior (crash, freeze, or graceful degradation).","App displays user-friendly error message; no crash or data corruption occurs."
+"TC-PrototypeTesting-020","Validate Demo Functionality Scope","Prototype Testing","9,12","Demo version of the app installed","None","1. Launch the demo version.
+2. Attempt to use all available features (limited to demo scope).
+3. Attempt to access features not included in the demo (e.g., full database, sensors).","Demo works as specified; restricted features are inaccessible or grayed out."
+"TC-SystemIntegration-021","Verify Sensor Integration in Final Version","System Integration","12","Final app version installed, device with active sensors (e.g., GPS, accelerometer)","None","1. Launch the app and grant sensor permissions.
+2. Perform an action requiring sensor input (e.g., location tracking, motion detection).
+3. Verify sensor data is accurately captured and displayed.","App integrates sensor data correctly without errors or delays."
+"TC-DevelopmentEnvironme-022","Verify IDE Compatibility for Flutter Development","Development Environment","17","Android Studio, VSCode, or XCode with Flutter/Dart plugins installed on a test machine.","None","1. Open Android Studio/VSCode/XCode with Flutter/Dart plugins.
+2. Create a new Flutter project.
+3. Verify the project structure matches Flutter conventions (e.g., `lib/`, `pubspec.yaml`).
+4. Run the default Flutter app on an emulator or connected Android device (6.0+).","Project initializes successfully, app compiles and runs without errors, and emulator/device displays the default Flutter screen."
+"TC-Backend-023","Verify Firebase Integration for Data Persistence","Backend","17","Firebase project set up with a database enabled, Flutter app linked to Firebase.","Sample user data (e.g., `{""name"": ""TestUser"", ""email"": ""test@example.com""}`).","1. Add Firebase SDK to the Flutter project (`pubspec.yaml`).
+2. Initialize Firebase in the app’s main Dart file.
+3. Write a function to save sample data to Firebase Realtime Database/Firestore.
+4. Retrieve the saved data and display it in the app UI.","Data is successfully saved and retrieved without errors, and the UI reflects the retrieved data."
+"TC-HardwareCompatibilit-024","Verify Minimum Android Device Compatibility","Hardware Compatibility","17","Android device with OS 6.0+, 1GB RAM, 100MB storage, GPS, and Google Play Services 11.0+.","None","1. Install the Flutter-built APK on the test device.
+2. Open the app and verify it launches without crashes.
+3. Test basic app functionality (e.g., UI rendering, button clicks).
+4. Enable GPS and check if location-based features (if any) work.","App installs and runs smoothly, UI is responsive, and location services (if used) function as expected."
+"TC-CodeQuality-025","Verify Adherence to OOP and Modularity Standards","Code Quality","17,18","Flutter project with multiple Dart files implementing features.","Code snippets violating OOP principles (e.g., no encapsulation, redundant code).","1. Review a Dart file for adherence to OOP (e.g., classes with private fields, inheritance, polymorphism).
+2. Check for modularity (e.g., separate files for UI, logic, and data models).
+3. Verify variable names are descriptive (e.g., `userName` instead of `un`).
+4. Confirm comments explain non-trivial logic.","Code follows OOP principles, is modular, uses clear naming, and includes necessary comments."
+"TC-VersionControl-026","Verify Branch and Commit Workflow","Version Control","18","GitHub repository with a `main` branch, local Flutter project cloned.","Modified Dart file (e.g., updated UI widget).","1. Create a new branch (`git checkout -b feature/new-ui`).
+2. Make changes to a Dart file and stage them (`git add .`).
+3. Commit changes with a descriptive message (`git commit -m ""Updated login screen""`).
+4. Push the branch to GitHub (`git push origin feature/new-ui`).
+5. Create a pull request (PR) from the branch to `main`.","Branch is created, changes are committed with a clear message, pushed successfully, and PR is created without errors."
+"TC-Testing-027","Verify Integration Test Execution","Testing","18","Flutter project with at least two integrated modules (e.g., UI + Firebase).","Test script covering UI-Firebase interaction (e.g., login flow).","1. Write an integration test in Flutter’s `integration_test` package.
+2. Test a user flow (e.g., login → navigate to dashboard).
+3. Verify data is saved/retrieved from Firebase during the flow.
+4. Run the test (`flutter test integration_test/login_flow_test.dart`).","Test passes without failures, and the app behaves as expected during the tested flow."
+"TC-RiskManagement-028","Verify Backup and Recovery Process","Risk Management","14,15","Flutter project with uncommitted changes, local and remote backups configured.","Modified but uncommitted Dart file.","1. Delete the uncommitted file locally.
+2. Restore the file from a local backup (e.g., `git checkout HEAD -- path/to/file`).
+3. Push the restored file to GitHub (`git push origin main`).
+4. Verify the file matches the backup version.","File is successfully restored from backup, and the remote repository reflects the correct version."
+"TC-Communication-029","Verify Team Collaboration Tools","Communication","16","WhatsApp group, Google Drive folder, and GitHub repository shared with team members.","Sample document (e.g., `design_specs.pdf`) and code snippet.","1. Upload `design_specs.pdf` to Google Drive and share the link in WhatsApp.
+2. Commit a code snippet to a GitHub branch and notify the team via WhatsApp.
+3. Verify all team members can access the document and code changes.","Document and code are accessible to all team members, and notifications are received without delay."
+"TC-DeviceFeatures-030","Verify GPS and Google Play Services Compatibility","Device Features","17","Android device with GPS and Google Play Services 11.0+ enabled.","None","1. Open the app and navigate to a feature requiring location (e.g., map view).
+2. Enable GPS on the device.
+3. Verify the app requests location permissions and displays accurate location data.","App requests permissions correctly, GPS data is fetched, and location is displayed without errors."
+"TC-Authentication-031","User Registration Validation","Authentication","21","User has opened the registration screen.","Valid email (e.g., test@example.com), valid password (8+ chars), valid name.","1. Enter valid email, name, and password in the registration form.
+2. Click the ""Register"" button.","User account is created successfully in Firebase Authentication, and a confirmation message is displayed."
+"TC-Authentication-032","User Login Validation","Authentication","21","User has opened the login screen.","Registered email (e.g., test@example.com), correct password.","1. Enter registered email and correct password in the login form.
+2. Click the ""Login"" button.","User is logged in successfully, and the app navigates to the home screen."
+"TC-Authentication-033","Invalid User Login Attempt","Authentication","21","User has opened the login screen.","Registered email (e.g., test@example.com), incorrect password.","1. Enter registered email and incorrect password in the login form.
+2. Click the ""Login"" button.","Error message ""Invalid email or password"" is displayed."
+"TC-Backend-034","User Data Persistence Test","Backend","19, 21","User is logged in.","Sample user profile data (e.g., name, bio).","1. Navigate to the profile section.
+2. Update user profile data (e.g., name, bio).
+3. Log out and log back in.","Updated user profile data is retained and displayed correctly."
+"TC-Messaging-035","Real-Time Messaging Functionality","Messaging","19, 21","Two users are logged in and in the same chat.","Sample message text.","1. User A sends a message in the chat.
+2. User B refreshes the chat screen.","User B sees the message sent by User A in real-time."
+"TC-Messaging-036","Notification for New Messages","Messaging","19, 21","User A is logged in, User B is logged out.","Sample message text.","1. User A sends a message to User B.
+2. User B logs back in.","User B receives a notification indicating a new message."
+"TC-BachecheFeeds-037","Post Creation and Display","Bacheche (Feeds)","21","User is logged in.","Sample post content (e.g., text, image).","1. Navigate to the post creation screen.
+2. Enter post content and click ""Post.""
+3. Navigate to the feed screen.","The newly created post appears in the user's feed."
+"TC-LocalActivities-038","Interaction with Local Activities","Local Activities","21","User is logged in and has access to local activities.","Sample activity data (e.g., event name, date, location).","1. Navigate to the local activities section.
+2. Select an activity and click ""Join.""","User is marked as participating in the activity, and a confirmation is displayed."
+"TC-TaskScheduling-039","Verify Task Duration and Deadlines for K.2","Task Scheduling","25","Task K.2 is selected for review.","Task K.2 with 5 working days, deadlines: 11/11/2022, 17/11/2022, 05/12/2022, 9/12/2022","1. Open the task scheduling module.
+2. Locate task K.2 in the list.
+3. Verify the duration is set to 5 working days.
+4. Check the deadlines are correctly listed as 11/11/2022, 17/11/2022, 05/12/2022, and 9/12/2022.","Task K.2 displays the correct duration and deadlines."
+"TC-TaskScheduling-040","Verify Task Dependencies for L.2","Task Scheduling","25","Task L.2 is selected for review.","Task L.2 depends on L.1, duration: 8 working days, deadlines: 25/10/2022, 04/11/2022, 24/11/2022, 5/12/2022","1. Open the task scheduling module.
+2. Locate task L.2 in the list.
+3. Verify the dependency is correctly set to L.1.
+4. Check the duration is set to 8 working days.
+5. Confirm deadlines are listed as 25/10/2022, 04/11/2022, 24/11/2022, and 5/12/2022.","Task L.2 shows the correct dependency, duration, and deadlines."
+"TC-TaskScheduling-041","Verify Task Duration and Deadlines for M.1","Task Scheduling","25","Task M.1 is selected for review.","Task M.1 depends on L.3 and K.1, duration: 3 working days, deadlines: 11/11/2022, 15/11/2022, 12/12/2022, 22/12/2022","1. Open the task scheduling module.
+2. Locate task M.1 in the list.
+3. Verify dependencies are correctly set to L.3 and K.1.
+4. Check the duration is set to 3 working days.
+5. Confirm deadlines are listed as 11/11/2022, 15/11/2022, 12/12/2022, and 22/12/2022.","Task M.1 displays the correct dependencies, duration, and deadlines."
+"TC-TaskScheduling-042","Verify Task Duration and Deadlines for M.3","Task Scheduling","25","Task M.3 is selected for review.","Task M.3 depends on L.1, L.4, and K.4, duration: 10 working days, deadlines: 18/11/2022, 01/12/2022, 12/12/2022, 22/12/2022","1. Open the task scheduling module.
+2. Locate task M.3 in the list.
+3. Verify dependencies are correctly set to L.1, L.4, and K.4.
+4. Check the duration is set to 10 working days.
+5. Confirm deadlines are listed as 18/11/2022, 01/12/2022, 12/12/2022, and 22/12/2022.","Task M.3 shows the correct dependencies, duration, and deadlines."
+"TC-BudgetAllocation-043","Verify Budget Allocation for Human Resources","Budget Allocation","27","Budget allocation module is open.","Human resources budget: €600/week, total €7,200 for 12 weeks (4 members  2 hours/day  15€/hour)","1. Navigate to the budget allocation section.
+2. Locate the ""GRUPPO"" category under ""SETTORE.""
+3. Verify the total budget for human resources is €7,200.
+4. Confirm the breakdown is €600 per week for 12 weeks.","The budget allocation for human resources matches the provided values."
+"TC-BudgetAllocation-044","Verify Budget Allocation for Functionalities","Budget Allocation","27,28","Budget allocation module is open.","Functionalities budget breakdown: Business logic €1,600, Database dinamico €400, Messaggistica €400, Mappatura attività commerciali €400, Extra €300, total €3,600","1. Navigate to the budget allocation section.
+2. Locate the ""Funzionalità implementate"" category under ""SETTORE.""
+3. Verify the individual budget allocations: Business logic €1,600, Database dinamico €400, Messaggistica €400, Mappatura attività commerciali €400, Extra €300.
+4. Confirm the total budget for functionalities is €3,600.","The budget allocation for functionalities matches the provided values."
+"TC-BudgetAllocation-045","Verify Total Budget Calculation","Budget Allocation","27,28","Budget allocation module is open.","Total budget: €13,450 (IVA esclusa)","1. Navigate to the budget allocation section.
+2. Sum the partial totals: Human resources €7,200, Documentazione €2,150, Funzionalità implementate €3,600, Grafica €500.
+3. Verify the total budget is €13,450.","The total budget matches the provided value of €13,450."
+"TC-ProjectTimeline-046","Verify Project Deadlines","Project Timeline","28","Project timeline module is open.","Deadlines: Piano di Progetto (17/10/2022), Documento dei requisiti (31/10/2022), Piano di Testing (14/11/2022), Documento di progettazione (28/11/2022), Rilascio versione completa (15/12/2022), Versione integrata (15/01/2023)","1. Open the project timeline module.
+2. Locate each deadline in the list.
+3. Verify the deadlines are correctly listed as: Piano di Progetto (17/10/2022), Documento dei requisiti (31/10/2022), Piano di Testing (14/11/2022), Documento di progettazione (28/11/2022), Rilascio versione completa (15/12/2022), Versione integrata (15/01/2023).","All deadlines are correctly displayed in the timeline module."
+"TC-ResourceManagement-047","Verify Software Tools Availability","Resource Management","26","Resource management module is open.","Required software tools: VSCode with Flutter extensions, Git, Google Drive, Firebase API documentation, Android Studio, XCode","1. Navigate to the software resources section.
+2. Verify the availability of VSCode with Flutter extensions.
+3. Confirm Git is listed as a required tool.
+4. Check that Google Drive is included for documentation sharing.
+5. Verify Firebase API documentation is available.
+6. Confirm Android Studio and XCode are listed for app export.","All required software tools are correctly listed and accessible."
+"TC-ResourceManagement-048","Verify Hardware Tools Availability","Resource Management","26","Resource management module is open.","Required hardware tools: Macintosh system, Android and iOS devices for testing","1. Navigate to the hardware resources section.
+2. Verify at least one Macintosh system is available.
+3. Confirm Android and iOS devices are listed for testing.","All required hardware tools are correctly listed and available."

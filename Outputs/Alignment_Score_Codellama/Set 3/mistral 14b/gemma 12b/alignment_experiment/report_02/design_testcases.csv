@@ -1,0 +1,111 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-ACCESS-FLOW-001,First-time user access triggers registration,User Onboarding,1,"- Application is freshly installed (no user data).
+- User opens the app for the first time.",- None (default state).,"1. User opens the app.
+2. System detects first access (1° Accesso = NO).
+3. System redirects to **Registrazione**.
+4. User completes registration (e.g., enters name, email, password).
+5. System confirms registration and redirects to **Home**.","- User is successfully registered.
+- Home screen loads with no active route or statistics."
+TC-ACCESS-FLOW-002,Registered user access triggers login,User Onboarding,1,"- User exists in the database (registered previously).
+- User opens the app after first access.","- Valid credentials: `email@example.com`, `password123`.","1. User opens the app.
+2. System detects first access = **SI** → proceeds to **Start**.
+3. System checks if user is registered (**Utente già registrato?** = **SI**).
+4. System redirects to **Login**.
+5. User enters valid credentials.
+6. System authenticates and redirects to **Home**.","- User logs in successfully.
+- Home screen loads with user-specific data (e.g., past routes)."
+TC-ACCESS-FLOW-003,Unregistered user after first access triggers registration,User Onboarding,1,"- User opens the app after first access.
+- User is not registered (simulated by clearing user data).",- None.,"1. User opens the app.
+2. System detects first access = **SI** → proceeds to **Start**.
+3. System checks if user is registered (**Utente già registrato?** = **NO**).
+4. System redirects to **Registrazione**.
+5. User completes registration.
+6. System redirects to **Home**.","- User is registered and logged in automatically.
+- Home screen loads."
+TC-ACCESS-FLOW-004,Invalid login attempt (negative case),User Onboarding,"1, 5","- User exists in the database.
+- User opens the app (registered).","- Invalid credentials: `wrongemail@test.com`, `wrongpass`.","1. User opens the app → **Login** screen.
+2. User enters invalid credentials.
+3. System validates credentials via **Server → Database**.
+4. Database returns ""dati non trovati"" (data not found).
+5. System displays error: ""Credenziali errate. Riprova.""
+6. User retries with valid credentials.","- First attempt fails with error message.
+- Second attempt (valid credentials) succeeds → **Home** screen."
+TC-ROUTE-MANAGEMENT-001,Start and complete a route (emissions calculation),Route Tracking,"2, 6","- User is logged in.
+- No active route exists.","- Route details: Start = ""Via Roma 1"", End = ""Piazza Garibaldi"", Distance = 10 km.","1. User taps **Avvia Tragitto** on **Home**.
+2. System checks **TRAGITTO IN CORSO?** = **NO** → starts route.
+3. User simulates route completion (e.g., taps ""Finish"" after 5 mins).
+4. System checks **TRAGITTO TERMINATO?** = **SI**.
+5. System calculates emissions (e.g., 5.2 kg CO₂).
+6. System displays emissions and returns to **Home**.","- Route is recorded in the database.
+- Emissions are displayed: ""Emissioni CO₂: 5.2 kg"".
+- Home screen updates with route history."
+TC-ROUTE-MANAGEMENT-002,Cancel route before completion (edge case),Route Tracking,2,"- User is logged in.
+- User starts a route (**TRAGITTO IN CORSO?** = **SI**).",- None.,"1. User starts a route.
+2. Before completion, user taps **Home** (simulating cancellation).
+3. System checks **TRAGITTO TERMINATO?** = **NO**.
+4. System returns to **Home** without calculating emissions.","- Route is not saved to history.
+- No emissions are calculated.
+- Home screen shows ""Nessun percorso in corso."""
+TC-ROUTE-MANAGEMENT-003,Server/database failure during route calculation (negative case),Route Tracking,"2, 6","- User is logged in.
+- User starts a route.",- Simulated server error: Database timeout.,"1. User starts a route.
+2. User completes the route.
+3. System sends data to **Server** for emissions calculation.
+4. **Server → Database** fails (e.g., timeout).
+5. System retries once, then displays error: ""Impossibile calcolare emissioni. Riprova più tardi.""
+6. User taps ""OK.""","- Route is saved to database (but emissions are missing).
+- Error message is shown.
+- Home screen shows route as ""In attesa di elaborazione."""
+TC-STATISTICS-001,View weekly report and return to statistics,Statistics,3,"- User is logged in.
+- User has completed routes in the past week.","- Weekly report data: Total routes = 3, Total CO₂ = 15.6 kg.","1. User navigates to **STATISTICHE**.
+2. System asks **VISUALIZZA REPORT SETTIMANALE?** → User selects **SI**.
+3. System displays **REPORT SETTIMANALE** with data.
+4. System asks **VUOI CAMBIARE SEZIONE?** → User selects **NO**.
+5. System returns to **STATISTICHE**.","- Report is displayed with correct data.
+- User remains in **STATISTICHE** screen."
+TC-STATISTICS-002,Navigate to horizontal menu from statistics,Statistics,3,- User is in **STATISTICHE**.,- None.,"1. User navigates to **STATISTICHE**.
+2. System asks **VISUALIZZA REPORT SETTIMANALE?** → User selects **NO**.
+3. System redirects to **MENU ORIZZONTALE**.
+4. System asks **VUOI CAMBIARE SEZIONE?** → User selects **SI**.
+5. System returns to **MENU ORIZZONTALE** (loop).
+6. User selects **STATISTICHE** from menu.","- Menu displays options (e.g., Home, Profile, Logout).
+- User can navigate back to **STATISTICHE**."
+TC-PROFILE-001,Update user profile data,User Profile,4,"- User is logged in.
+- Current profile data: Name = ""John Doe"", Email = `john@example.com`.","- Updated data: Name = ""John Smith"", Email = `john.smith@example.com`.","1. User navigates to **4.2.5 PROFILO**.
+2. System displays **VISUALIZZA DATI PERSONALI**.
+3. User selects **VUOI AGGIORNARE L'ACCOUNT?** → **SI**.
+4. User enters new data in **INSERISCI NUOVI DATI**.
+5. System validates and updates via **AGGIORNA DATI**.
+6. System confirms update and returns to **PROFILO**.","- Profile data is updated in the database.
+- Confirmation message: ""Dati aggiornati con successo.""
+- Updated data is displayed."
+TC-PROFILE-002,Logout from profile,User Profile,4,- User is logged in.,- None.,"1. User navigates to **4.2.5 PROFILO**.
+2. System asks **VUOI USCITE DALL'ACCOUNT?** → User selects **SI**.
+3. System performs **LOGOUT**.
+4. System redirects to **Accesso all'app** (login screen).","- User session is terminated.
+- All user-specific data is cleared.
+- Login screen appears with ""Benvenuto! Accedi o registrati."""
+TC-PROFILE-003,Cancel profile update (edge case),User Profile,4,- User is in **PROFILO**.,- None.,"1. User navigates to **PROFILO**.
+2. System displays **VISUALIZZA DATI PERSONALI**.
+3. User selects **VUOI AGGIORNARE L'ACCOUNT?** → **NO**.
+4. System returns to **PROFILO** without changes.","- No data is modified.
+- User remains in **PROFILO** screen."
+TC-SECTION-NAVIGATION-001,Change section from Home to Statistics,Navigation,"2, 3",- User is on **Home** screen.,- None.,"1. User is on **Home**.
+2. System asks **VUOI CAMBIARE SEZIONE?** → User selects **SI**.
+3. System displays **MENU ORIZZONTALE**.
+4. User selects **STATISTICHE** from menu.
+5. System navigates to **STATISTICHE**.","- Menu shows options (Home, Statistics, Profile).
+- User lands in **STATISTICHE** screen."
+TC-SECTION-NAVIGATION-002,Change section from Statistics to Profile (negative flow),Navigation,"3, 4",- User is in **STATISTICHE**.,- None.,"1. User is in **STATISTICHE**.
+2. System asks **VUOI CAMBIARE SEZIONE?** → User selects **SI**.
+3. System displays **MENU ORIZZONTALE**.
+4. User selects **PROFILO** (not directly supported in UML; assume menu includes all sections).
+5. System navigates to **4.2.5 PROFILO**.","- Menu includes all sections (Home, Statistics, Profile).
+- User lands in **PROFILO** screen."
+TC-INTEGRATION-001,End-to-end flow: Register → Start route → View emissions → Logout,Full Workflow,"1, 2, 4, 6",- Fresh app install.,"- Registration: Name = ""Alice"", Email = `alice@example.com`, Password = `pass123`.
+- Route: Start = ""Via Milano"", End = ""Piazza Duomo"", Distance = 8 km.","1. **Registration**: User opens app → registers → lands on **Home**.
+2. **Route**: User starts route → completes it → sees emissions (e.g., 4.1 kg CO₂).
+3. **Profile**: User navigates to **PROFILO** → updates email to `alice.new@example.com`.
+4. **Logout**: User logs out → returns to login screen.","- User is registered and logged in.
+- Route and emissions are recorded.
+- Profile data is updated.
+- User is successfully logged out."

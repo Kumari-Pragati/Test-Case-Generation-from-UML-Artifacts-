@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,"2,3",None,"- Username: testuser
+- Password: TestPassword123","1. Open the registration form on the UI.
+2. Enter the username and password.
+3. Click on the ""Register"" button.
+4. Wait for the FirebaseAuthentication component to validate the registration.
+5. Check if the registration is successful.",The user should be registered successfully and redirected to the login page.
+TC-User-002,User Login,User,2,User is registered.,"- Email: testuser@example.com
+- Password: TestPassword123","1. Open the login form on the UI.
+2. Enter the email and password.
+3. Click on the ""Login"" button.
+4. Wait for the FirebaseAuthentication component to validate the login.
+5. Check if the login is successful.",The user should be logged in successfully and redirected to the dashboard.
+TC-User-003,User Logout,User,1,User is logged in.,None,"1. Click on the ""Logout"" button.
+2. Wait for the FirebaseAuthentication component to log out the user.
+3. Check if the user is logged out and redirected to the login page.",The user should be logged out successfully and redirected to the login page.
+TC-Area-001,Create Area,Area,1,User is logged in.,"- Description: New Area
+- Location: New Location","1. Click on the ""Create Area"" button.
+2. Enter the area description and location.
+3. Click on the ""Save"" button.
+4. Wait for the FirebaseAuthentication component to validate the area creation.
+5. Check if the area is created successfully.",The area should be created successfully and listed in the user's areas.
+TC-Area-002,Delete Area,Area,1,User has at least one area.,- Area ID: 1,"1. Select the area to delete.
+2. Click on the ""Delete Area"" button.
+3. Confirm the deletion.
+4. Wait for the FirebaseAuthentication component to delete the area.
+5. Check if the area is deleted successfully.",The area should be deleted successfully and no longer listed in the user's areas.
+TC-Category-001,Create Category,Category,1,User is logged in.,"- Description: New Category
+- Name: New Category Name","1. Click on the ""Create Category"" button.
+2. Enter the category description and name.
+3. Click on the ""Save"" button.
+4. Wait for the FirebaseAuthentication component to validate the category creation.
+5. Check if the category is created successfully.",The category should be created successfully and listed in the user's categories.
+TC-Category-002,Delete Category,Category,1,User has at least one category.,- Category ID: 1,"1. Select the category to delete.
+2. Click on the ""Delete Category"" button.
+3. Confirm the deletion.
+4. Wait for the FirebaseAuthentication component to delete the category.
+5. Check if the category is deleted successfully.",The category should be deleted successfully and no longer listed in the user's categories.
+TC-Report-001,Create Report,Report,1,User is logged in.,- Description: New Report,"1. Click on the ""Create Report"" button.
+2. Enter the report description.
+3. Click on the ""Save"" button.
+4. Wait for the FirebaseAuthentication component to validate the report creation.
+5. Check if the report is created successfully.",The report should be created successfully and listed in the user's reports.
+TC-Report-002,Delete Report,Report,1,User has at least one report.,- Report ID: 1,"1. Select the report to delete.
+2. Click on the ""Delete Report"" button.
+3. Confirm the deletion.
+4. Wait for the FirebaseAuthentication component to delete the report.
+5. Check if the report is deleted successfully.",The report should be deleted successfully and no longer listed in the user's reports.
+TC-Influencer-001,Influencer Registration,Influencer,"2,3",None,"- Username: influenceruser
+- Password: InfluencerPassword123","1. Open the registration form on the UI.
+2. Enter the username and password.
+3. Click on the ""Register"" button.
+4. Wait for the FirebaseAuthentication component to validate the registration.
+5. Check if the registration is successful.",The influencer should be registered successfully and redirected to the login page.
+TC-Influencer-002,Influencer Login,Influencer,2,Influencer is registered.,"- Email: influenceruser@example.com
+- Password: InfluencerPassword123","1. Open the login form on the UI.
+2. Enter the email and password.
+3. Click on the ""Login"" button.
+4. Wait for the FirebaseAuthentication component to validate the login.
+5. Check if the login is successful.",The influencer should be logged in successfully and redirected to the dashboard.
+TC-Login-001,Invalid Login Credentials,User,2,User is registered.,"- Email: wronguser@example.com
+- Password: WrongPassword123","1. Open the login form on the UI.
+2. Enter the email and password.
+3. Click on the ""Login"" button.
+4. Wait for the FirebaseAuthentication component to validate the login.
+5. Check if the login fails.",The login should fail and display an error message.
+TC-Login-002,Empty Login Credentials,User,2,User is registered.,"- Email: 
+- Password:","1. Open the login form on the UI.
+2. Leave the email and password fields empty.
+3. Click on the ""Login"" button.
+4. Wait for the FirebaseAuthentication component to validate the login.
+5. Check if the login fails.",The login should fail and display an error message.
+TC-Registration-001,Incomplete Registration Data,User,3,None,"- Username: 
+- Password: TestPassword123","1. Open the registration form on the UI.
+2. Enter the password but leave the username field empty.
+3. Click on the ""Register"" button.
+4. Wait for the FirebaseAuthentication component to validate the registration.
+5. Check if the registration fails due to incomplete data.",The registration should fail and display an error message.
+TC-Registration-002,Incorrect Password,User,3,None,"- Username: testuser
+- Password: ShortPass","1. Open the registration form on the UI.
+2. Enter the username and a short password.
+3. Click on the ""Register"" button.
+4. Wait for the FirebaseAuthentication component to validate the registration.
+5. Check if the registration fails due to an incorrect password.",The registration should fail and display an error message.
+TC-Signal-001,Insert Signal with Valid Data,Signal,4,User is logged in.,"- Description: New Signal
+- Image: Valid Image","1. Click on the ""Insert Signal"" button.
+2. Enter the signal description.
+3. Upload a valid image.
+4. Click on the ""Submit"" button.
+5. Wait for the Firebase/Firestore and Firebase/Storage components to process the signal.
+6. Check if the signal is inserted successfully.",The signal should be inserted successfully and the user should be redirected to the dashboard.
+TC-Signal-002,Insert Signal with Incomplete Data,Signal,4,User is logged in.,"- Description: 
+- Image: Valid Image","1. Click on the ""Insert Signal"" button.
+2. Leave the description field empty.
+3. Upload a valid image.
+4. Click on the ""Submit"" button.
+5. Wait for the Firebase/Firestore and Firebase/Storage components to process the signal.
+6. Check if the signal insertion fails due to incomplete data.",The signal insertion should fail and display an error message.
+TC-Signal-003,Insert Signal with Incorrect Image,Signal,4,User is logged in.,"- Description: New Signal
+- Image: Invalid Image","1. Click on the ""Insert Signal"" button.
+2. Enter the signal description.
+3. Upload an invalid image.
+4. Click on the ""Submit"" button.
+5. Wait for the Firebase/Firestore and Firebase/Storage components to process the signal.
+6. Check if the signal insertion fails due to an incorrect image.",The signal insertion should fail and display an error message.
+TC-Signal-004,Insert Signal with No Image,Signal,4,User is logged in.,- Description: New Signal,"1. Click on the ""Insert Signal"" button.
+2. Enter the signal description.
+3. Leave the image field empty.
+4. Click on the ""Submit"" button.
+5. Wait for the Firebase/Firestore and Firebase/Storage components to process the signal.
+6. Check if the signal insertion fails due to no image.",The signal insertion should fail and display an error message.
+TC-Signal-005,Insert Signal with Looping Incomplete Data,Signal,4,User is logged in.,"- Description: 
+- Image: Valid Image","1. Click on the ""Insert Signal"" button.
+2. Leave the description field empty.
+3. Upload a valid image.
+4. Click on the ""Submit"" button.
+5. Wait for the Firebase/Firestore and Firebase/Storage components to process the signal.
+6. Check if the signal insertion fails due to incomplete data.
+7. Repeat steps 2-5 until the signal is inserted successfully.",The signal should eventually be inserted successfully after completing all required fields.
+TC-Signal-006,Confirm Signal with Assigned Entity,Signal,4,Signal is inserted successfully.,- Token: Valid Token,"1. Click on the ""Confirm Signal"" button.
+2. Enter the valid token.
+3. Click on the ""Confirm"" button.
+4. Wait for the Firebase/Firestore and Firebase/Storage components to process the confirmation.
+5. Check if the signal is confirmed successfully.",The signal should be confirmed successfully and the user should be notified of the confirmation.
+TC-Signal-007,Confirm Signal with Invalid Token,Signal,4,Signal is inserted successfully.,- Token: Invalid Token,"1. Click on the ""Confirm Signal"" button.
+2. Enter the invalid token.
+3. Click on the ""Confirm"" button.
+4. Wait for the Firebase/Firestore and Firebase/Storage components to process the confirmation.
+5. Check if the signal confirmation fails due to an invalid token.",The signal confirmation should fail and display an error message.
+TC-Signal-008,Confirm Signal with No Token,Signal,4,Signal is inserted successfully.,- Token:,"1. Click on the ""Confirm Signal"" button.
+2. Leave the token field empty.
+3. Click on the ""Confirm"" button.
+4. Wait for the Firebase/Firestore and Firebase/Storage components to process the confirmation.
+5. Check",

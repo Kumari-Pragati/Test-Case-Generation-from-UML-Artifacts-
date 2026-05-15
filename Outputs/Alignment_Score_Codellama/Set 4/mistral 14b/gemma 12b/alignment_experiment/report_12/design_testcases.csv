@@ -1,0 +1,102 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login,Authentication,"1, 2, 10","- System is running.
+- No existing user with the test email.","- Email: `testuser@example.com`
+- Password: `SecurePass123!`
+- Confirm Password: `SecurePass123!`","1. Navigate to the **Sign Up** page.
+2. Enter `testuser@example.com` as email, `SecurePass123!` as password, and confirm.
+3. Click **Register**.
+4. Verify the system redirects to the **Login** page.
+5. Enter `testuser@example.com` and `SecurePass123!` in the login fields.
+6. Click **Login**.","- User account is created successfully in the database (verified via DB logs or UI confirmation).
+- User is logged in and redirected to the **Bacheca** (board) with access to the lateral menu."
+TC-AUTHENTICATION-002,Failed user registration due to invalid email format,Authentication,"1, 2",- System is running.,"- Email: `invalid-email` (no @ or domain)
+- Password: `Pass123`","1. Navigate to the **Sign Up** page.
+2. Enter `invalid-email` as email and `Pass123` as password.
+3. Click **Register**.","- System displays an error message: *""Invalid email format.""*
+- User is not created in the database."
+TC-AUTHENTICATION-003,Failed login with incorrect credentials,Authentication,"1, 2",- A user `testuser@example.com` exists with password `SecurePass123!`.,"- Email: `testuser@example.com`
+- Password: `WrongPass123!`","1. Navigate to the **Login** page.
+2. Enter `testuser@example.com` and `WrongPass123!`.
+3. Click **Login**.","- System displays an error message: *""Invalid email or password.""*
+- User remains on the login page."
+TC-AUTHENTICATION-004,Logout functionality,Authentication,"1, 3",- User is logged in.,,1. Click the **Logout** option in the lateral menu.,"- User is logged out successfully.
+- System redirects to the login page or home screen.
+- User session is invalidated (verified via DB or UI)."
+TC-GEOLOCATION-001,Geolocation enabled after login,Geolocation,1,- User is logged in.,,"1. Verify the system requests geolocation permissions (e.g., browser popup or mobile prompt).
+2. Grant permissions.","- Geolocation data is successfully fetched and used to filter advertisements (e.g., nearby ads are prioritized).
+- No error messages are displayed."
+TC-ADVERTISEMENT-CREATION-001,Successful advertisement creation,Advertisement Management,"1, 4, 11","- User is logged in.
+- Geolocation is enabled.","- Title: `Laptop for Sale`
+- Description: `Used MacBook Pro, 16GB RAM`
+- Location: `Current geolocation (e.g., Rome, Italy)`
+- Start Date: `2023-12-01`
+- End Date: `2023-12-31`","1. Click **Creazione Annuncio** in the lateral menu.
+2. Fill in the form with the test data.
+3. Click **Submit**.","- Advertisement is created and saved in the database (state: `Created`).
+- User is redirected to the **Bacheca** and sees the new advertisement in their list.
+- Noticeboard details are stored in the DB (verified via logs or UI)."
+TC-ADVERTISEMENT-CREATION-002,Failed advertisement creation due to missing required field,Advertisement Management,"1, 4",- User is logged in.,"- Title: (empty)
+- Description: `Used MacBook Pro`
+- Location: `Current geolocation`","1. Click **Creazione Annuncio**.
+2. Leave the **Title** field empty and fill in the rest.
+3. Click **Submit**.","- System displays an error: *""Title is required.""*
+- Advertisement is not created."
+TC-ADVERTISEMENT-BOOKING-001,Successful advertisement booking,Advertisement Booking,"1, 6, 12","- An advertisement is in the `Created` state.
+- User is logged in.",,"1. Navigate to the advertisement details page.
+2. Click **Prenotazione Annuncio** (Book Advertisement).
+3. Confirm the booking.","- Advertisement state transitions to `Booking` in the database.
+- User sees a confirmation message: *""Booking request sent.""*
+- Booking record is created in the DB (verified via logs)."
+TC-ADVERTISEMENT-BOOKING-002,Booking an already booked advertisement,Advertisement Booking,"1, 6, 9","- An advertisement is in the `Booking` state (already booked by another user).
+- User is logged in.",,"1. Navigate to the advertisement details page.
+2. Attempt to book the advertisement.","- System displays an error: *""This advertisement is already booked.""*
+- Advertisement state remains `Booking`."
+TC-ADVERTISEMENT-ACCEPTANCE-001,Owner accepts a booking request,Advertisement Acceptance,"1, 9","- An advertisement is in the `Booking` state.
+- Owner is logged in.",,"1. Owner navigates to their **MyActivities** → **MyNoticeboard**.
+2. Select the advertisement in `Booking` state.
+3. Click **Accetta Annuncio** (Accept Advertisement).","- Advertisement state transitions to `Accepted`.
+- Booking request is marked as accepted in the DB.
+- Owner receives a confirmation: *""Booking accepted.""*"
+TC-ADVERTISEMENT-FILTERING-001,Filter advertisements by location,Advertisement Filtering,"1, 5, 12","- Multiple advertisements exist in the system.
+- User is logged in.","- Location: `Rome, Italy`","1. Click **Filtraggio Annunci** (Filter Advertisements).
+2. Select **Location** filter and enter `Rome, Italy`.
+3. Apply the filter.","- Only advertisements located in Rome are displayed.
+- Filter is applied successfully (verified via UI)."
+TC-ADVERTISEMENT-FILTERING-002,Invalid filter input,Advertisement Filtering,5,- User is logged in.,- Location: `InvalidCity123` (non-existent),"1. Click **Filtraggio Annunci**.
+2. Select **Location** filter and enter `InvalidCity123`.
+3. Apply the filter.","- System displays a warning: *""No advertisements found for this location.""*
+- No advertisements are shown."
+TC-PROFILE-MANAGEMENT-001,Successful profile modification,User Profile,"1, 8",- User is logged in.,"- New Name: `John Doe`
+- New Phone: `+393331234567`","1. Navigate to **MyProfile** in the lateral menu.
+2. Click **Modifica Account**.
+3. Update name to `John Doe` and phone to `+393331234567`.
+4. Save changes.","- Profile is updated in the database.
+- User sees the updated information in their profile.
+- Confirmation message: *""Profile updated successfully.""*"
+TC-PROFILE-MANAGEMENT-002,Profile modification with invalid phone format,User Profile,8,- User is logged in.,- Phone: `123` (invalid format),"1. Navigate to **MyProfile**.
+2. Click **Modifica Account**.
+3. Enter `123` as phone number.
+4. Save changes.","- System displays an error: *""Invalid phone number format.""*
+- Profile is not updated."
+TC-ADVERTISEMENT-LIFECYCLE-001,Advertisement state transition: Created → Booking → Accepted → InProgress → removed,Advertisement Lifecycle,"1, 9",- Advertisement is in `Created` state.,,"1. User books the advertisement (state: `Booking`).
+2. Owner accepts the booking (state: `Accepted`).
+3. Booking progresses to `InProgress` (e.g., after start date).
+4. Booking ends (e.g., after finish date), and advertisement is set to `removed`.","- Advertisement state transitions correctly through all stages.
+- Points are assigned to the owner (if applicable) in the `PointsAssignment` state.
+- Advertisement is no longer visible in active lists after `removed`."
+TC-ADVERTISEMENT-DELETION-001,Delete an advertisement in Created state,Advertisement Deletion,"1, 9, 16","- Advertisement is in `Created` state.
+- User is the owner.",,"1. Navigate to **MyActivities** → **MyNoticeboard**.
+2. Select the advertisement and click **Elimina Annuncio**.
+3. Confirm deletion.","- Advertisement is deleted from the database.
+- State transitions to `removed`.
+- User sees a confirmation: *""Advertisement deleted successfully.""*"
+TC-ADVERTISEMENT-DELETION-002,Attempt to delete an advertisement in Booking state,Advertisement Deletion,"1, 9","- Advertisement is in `Booking` state.
+- User is the owner.",,"1. Navigate to **MyActivities** → **MyNoticeboard**.
+2. Attempt to delete the advertisement.","- System displays an error: *""Cannot delete an advertisement that is booked.""*
+- Advertisement remains in `Booking` state."
+TC-DATABASE-INTEGRATION-001,Verify user data persistence after registration,Database Integration,"2, 10, 15",- System is running.,"- Email: `dbtest@example.com`
+- Password: `DbPass123!`","1. Register a new user with `dbtest@example.com` and `DbPass123!`.
+2. Log in with the same credentials.
+3. Query the database for the user record.","- User record exists in the `USERS` table with hashed password.
+- User session is valid after login."
+TC-DATABASE-INTEGRATION-002,Verify noticeboard data persistence after creation,Database Integration,"4, 11",- User is logged,,,

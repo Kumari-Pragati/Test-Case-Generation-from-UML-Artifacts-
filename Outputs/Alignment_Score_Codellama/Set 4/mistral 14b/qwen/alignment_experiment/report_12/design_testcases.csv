@@ -1,0 +1,114 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user sign-up and login,User Authentication,"1, 2, 10","- System is running; no existing user with test credentials.
+- Internet/geolocation services enabled.","- Valid email: `testuser@example.com`
+- Strong password: `SecurePass123!`
+- Valid geolocation: `40.7128° N, 74.0060° W` (New York)","1. Navigate to sign-up page.
+2. Enter `testuser@example.com`, `SecurePass123!`, and confirm password.
+3. Select geolocation (e.g., New York).
+4. Click ""Sign Up.""
+5. Verify redirect to login page.
+6. Enter `testuser@example.com` and `SecurePass123!`.
+7. Click ""Login.""
+8. Verify redirection to dashboard (`Bacheca`).","- User account created successfully in DB (Page 10).
+- Login successful; dashboard loads with geolocalized announcements (Page 1).
+- No errors in console/logs."
+TC-AUTHENTICATION-002,Failed sign-up due to duplicate email,User Authentication,"1, 2, 10",- Existing user with email `duplicate@example.com`.,"- Email: `duplicate@example.com`
+- Password: `Password123!`","1. Navigate to sign-up page.
+2. Enter `duplicate@example.com`, `Password123!`, and confirm.
+3. Click ""Sign Up.""
+4. Observe error message.","- System detects duplicate email (Page 2: ""Utente creato?"" → ""Sì"").
+- Error: ""Email already registered."" displayed.
+- No new user created in DB (Page 10)."
+TC-AUTHENTICATION-003,Invalid login credentials,User Authentication,"1, 2",- Existing user with email `validuser@example.com` and password `ValidPass123`.,"- Invalid email: `wrong@example.com`
+- Invalid password: `WrongPass123`","1. Navigate to login page.
+2. Enter `wrong@example.com` and `WrongPass123`.
+3. Click ""Login.""
+4. Observe error message.","- System rejects login (Page 2: ""Utente creato?"" → ""No"" → ""CreateUser"" fails).
+- Error: ""Invalid email or password."" displayed.
+- No dashboard access granted."
+TC-GEOLOCATION-001,Geolocation-based announcement filtering,Announcement Filtering,"1, 5, 12","- User logged in with geolocation set to `Milan, Italy`.
+- At least 3 announcements exist: 1 in Milan, 1 in Rome, 1 expired.","- Filter: ""Location = Milan""","1. Navigate to dashboard (`Bacheca`).
+2. Select ""Filtraggio Annunci"" (Page 1).
+3. Apply filter: ""Location = Milan"" (Page 5).
+4. Verify filtered list (Page 12: `ListWithFilter`).
+5. Click on Milan announcement to view details.","- Only Milan announcement appears in list (Page 5: `Filtro corretto?` → ""Sì"").
+- Rome/expired announcements excluded.
+- Details page loads correctly (Page 6: `NoticeboardDetails`)."
+TC-ANNOUNCEMENT-001,Successful announcement creation,Announcement Management,"1, 4, 11",- User logged in.,"- Title: ""Laptop for Sale""
+- Description: ""Used MacBook Pro, 16GB RAM""
+- Location: `New York`
+- Start Date: `2023-12-01`
+- End Date: `2023-12-31`","1. Click ""CREAZIONE ANNUNCIO"" (Page 1).
+2. Fill form with test data.
+3. Click ""Submit.""
+4. Verify redirection to `NoticeboardCreated` (Page 4).
+5. Check DB for new record (Page 11).","- Announcement saved in DB (Page 11: `Save data`).
+- User sees confirmation message.
+- Announcement appears in user’s `MyActivities` (Page 7)."
+TC-ANNOUNCEMENT-002,Failed announcement creation (invalid dates),Announcement Management,"4, 11",- User logged in.,"- Start Date: `2024-01-01`
+- End Date: `2023-12-31` (end before start)","1. Click ""CREAZIONE ANNUNCIO.""
+2. Enter invalid dates.
+3. Click ""Submit.""
+4. Observe error.","- System rejects submission (Page 4: `Creazione avvenuta?` → ""No"").
+- Error: ""End date must be after start date.""
+- No DB entry created (Page 11)."
+TC-ANNOUNCEMENT-003,Announcement lifecycle (creation → booking → acceptance),Announcement State Machine,"1, 9, 13","- User A creates an announcement (state: `Created`).
+- User B logs in.",,"1. User A creates announcement (Page 9: `Created` → `Booking`).
+2. User B views announcement (Page 12: `Show noticeboard`).
+3. User B books announcement (Page 6: `Booking`).
+4. User A accepts booking (Page 13: `Accept` → `Accepted`).
+5. Verify state transitions in DB.","- States progress: `Created` → `Booking` → `Accept` → `Accepted` (Page 9).
+- User B sees booking confirmation.
+- User A sees accepted booking in `MyActivities`."
+TC-ANNOUNCEMENT-004,Automatic announcement deletion after expiration,Announcement Expiration,"1, 16",- Announcement with end date `2023-10-01` (past date).,,"1. System checks for expired announcements (Page 16: `If Noticeboard's period finished`).
+2. Verify deletion from DB.
+3. User logs in and navigates to `MyActivities`.","- Expired announcement deleted (Page 16: `Delete Noticeboard`).
+- Announcement no longer visible in lists.
+- No errors in logs."
+TC-PROFILE-001,Profile modification (update email),User Profile,"1, 8, 15",- User logged in with email `old@example.com`.,- New email: `newemail@example.com`,"1. Navigate to `MyProfile` (Page 3).
+2. Click ""Modify Account"" (Page 1).
+3. Enter `newemail@example.com`.
+4. Click ""Save.""
+5. Verify DB update (Page 15: `Modify data`).
+6. Log out and log back in with new email.","- Email updated in DB (Page 15).
+- User can log in with `newemail@example.com`.
+- Old email no longer works."
+TC-PROFILE-002,Profile modification (invalid email format),User Profile,"8, 15",- User logged in.,- Invalid email: `invalid.email`,"1. Navigate to `MyProfile`.
+2. Click ""Modify Account.""
+3. Enter `invalid.email`.
+4. Click ""Save.""
+5. Observe error.","- System rejects invalid format (Page 8: `ModifyAccount` fails).
+- Error: ""Please enter a valid email.""
+- No DB changes (Page 15)."
+TC-RESERVATION-001,Successful announcement reservation,Announcement Reservation,"1, 6, 12","- User A creates an announcement (state: `Created`).
+- User B logs in.",,"1. User B views announcement (Page 5: `ListWithFilter`).
+2. Clicks ""Prenotazione Annuncio"" (Page 1).
+3. Confirms reservation (Page 6: `Vuoi prenotarti?` → ""Sì"").
+4. User A accepts reservation (Page 13: `Accept`).","- Reservation recorded in DB (Page 12: `Booking`).
+- User B sees confirmation.
+- Announcement state: `Accepted` (Page 9)."
+TC-RESERVATION-002,Reservation cancellation before acceptance,Announcement Reservation,"6, 9",- User B reserves User A’s announcement (state: `Booking`).,,"1. User B navigates to `MyActivities`.
+2. Clicks ""Cancel Reservation.""
+3. User A checks `MyActivities`.","- Reservation cancelled (state reverts to `Created`).
+- User A sees announcement as unbooked.
+- No points assigned (Page 9: `PointsAssignment` skipped)."
+TC-LOGOUT-001,Logout from dashboard,Session Management,"1, 3",- User logged in on dashboard.,,"1. Click ""Logout"" from lateral menu (Page 3: `Eseguire il logout?` → ""Sì"").
+2. Verify redirection to login page.
+3. Attempt to access `MyProfile` without login.","- Session terminated (Page 1: `LOGOUT`).
+- Redirect to login page.
+- Access to `MyProfile` denied (Page 3: `Accesso a menu laterale` → ""No"")."
+TC-EDGE-001,Concurrent announcement modification,Announcement Conflict Handling,"1, 14","- User A creates announcement.
+- User B logs in and modifies same announcement simultaneously.",,"1. User A opens announcement for edit (Page 14: `Check if noticeboard exist`).
+2. User B opens same announcement and saves changes.
+3. User A attempts to save conflicting changes.","- System detects conflict (Page 14: `Modify data` fails).
+- Error: ""Announcement modified by another user. Please refresh.""
+- User A sees latest version."
+TC-EDGE-002,Geolocation service unavailable,Geolocation Fallback,"1, 5","- Geolocation service disabled (e.g., airplane mode).",,"1. User signs up without geolocation.
+2. Logs in and navigates to `FILTRAGGIO ANNUNCI`.
+3. Attempts to apply location filter.","- System falls back to default location (e.g., ""Unknown"").
+- Filter applies to all announcements (Page 5: `ListNoFilter`).
+- Warning: ""Geolocation unavailable. Showing all announcements."""
+TC-EDGE-003,Maximum announcement limit reached,System Limits,"1, 4",- User has created 100 announcements (system limit: 100).,,"1. User attempts to create 101st announcement.
+2. System validates limit.","- Error: ""Maximum announcements (100) reached.""
+- No new announcement created (Page 4: `CreateNoticeboard` blocked).
+- User sees limit notification in `MyActivities`."

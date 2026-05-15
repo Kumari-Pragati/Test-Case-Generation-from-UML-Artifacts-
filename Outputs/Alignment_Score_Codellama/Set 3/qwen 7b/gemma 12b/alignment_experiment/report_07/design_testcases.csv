@@ -1,0 +1,123 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","Successful User Authentication","Authentication","1, 4, 5, 6, 7, 8, 9","User is registered in the system.","Username and password for a valid user.","1. User enters username and password into the Local User interface.
+2. Local User sends the credentials to the Main component.
+3. Main component requests authentication from the Data Manager.
+4. Data Manager verifies the credentials and returns a success message.
+5. Main component confirms authentication to the Local User.
+6. Local User requests data from the Main component.
+7. Main component sends the requested data to the Local User.
+8. Local User processes the data and confirms receipt.
+9. Local User requests data modification from the Main component.
+10. Main component sends the modified data to the Data Manager.
+11. Data Manager updates the data and confirms success to the Main component.
+12. Main component confirms the update to the Local User.
+13. Local User requests a report from the Main component.
+14. Main component requests data from the Data Manager.
+15. Data Manager provides the report data and confirms success to the Main component.
+16. Main component sends the report to the Local User.
+17. Local User deletes the report.
+18. Local User confirms deletion to the Main component.
+19. Main component confirms the deletion to the Local User.","All steps should succeed, and the user should be authenticated and able to perform all actions."
+"TC-Authentication-002","Failed User Authentication","Authentication","1, 4, 5, 6, 7, 8, 9","User is registered in the system.","Invalid username or password.","1. User enters an invalid username or password into the Local User interface.
+2. Local User sends the credentials to the Main component.
+3. Main component requests authentication from the Data Manager.
+4. Data Manager returns a failure message due to invalid credentials.
+5. Main component confirms the failure to the Local User.","Authentication should fail, and the user should not be able to proceed with further actions."
+"TC-Data-Management-001","Successful Data Addition","Data Management","1, 5, 6, 7, 8, 9","User is authenticated and has valid consumption data.","Consumption data for a user.","1. User enters valid consumption data into the Local User interface.
+2. Local User sends the data to the Main component.
+3. Main component sends the data to the Data Manager.
+4. Data Manager processes the data and confirms success.
+5. Main component confirms the addition to the Local User.
+6. Local User requests a report from the Main component.
+7. Main component requests data from the Data Manager.
+8. Data Manager provides the report data and confirms success.
+9. Main component sends the report to the Local User.
+10. Local User deletes the report.
+11. Local User confirms deletion to the Main component.
+12. Main component confirms the deletion to the Local User.","Data should be successfully added, and the user should be able to generate and delete reports."
+"TC-Data-Management-002","Failed Data Addition","Data Management","1, 5, 6, 7, 8, 9","User is authenticated and has invalid consumption data.","Invalid consumption data for a user.","1. User enters invalid consumption data into the Local User interface.
+2. Local User sends the data to the Main component.
+3. Main component sends the data to the Data Manager.
+4. Data Manager returns a failure message due to invalid data.
+5. Main component confirms the failure to the Local User.","Data addition should fail, and the user should not be able to proceed with generating or deleting reports."
+"TC-Report-Generation-001","Successful Report Generation","Report Generation","1, 7, 8, 9","User is authenticated and has valid consumption data.","Valid consumption data for a user.","1. User requests a report from the Local User interface.
+2. Local User sends the request to the Main component.
+3. Main component requests data from the Data Manager.
+4. Data Manager provides the report data and confirms success.
+5. Main component sends the report to the Local User.
+6. Local User deletes the report.
+7. Local User confirms deletion to the Main component.
+8. Main component confirms the deletion to the Local User.","The report should be generated successfully, and the user should be able to delete it."
+"TC-Report-Generation-002","Failed Report Generation","Report Generation","1, 7, 8, 9","User is authenticated but does not have any consumption data.","No consumption data for a user.","1. User requests a report from the Local User interface.
+2. Local User sends the request to the Main component.
+3. Main component requests data from the Data Manager.
+4. Data Manager returns a failure message due to lack of data.
+5. Main component confirms the failure to the Local User.","Report generation should fail, and the user should not be able to proceed with deleting the report."
+"TC-Profile-Modification-001","Successful Profile Modification","Profile Management","1, 5, 6, 7, 8, 9","User is authenticated.","Updated user profile information.","1. User updates their profile information in the Local User interface.
+2. Local User sends the updated information to the Main component.
+3. Main component sends the updated information to the Data Manager.
+4. Data Manager processes the update and confirms success.
+5. Main component confirms the update to the Local User.
+6. Local User requests a report from the Main component.
+7. Main component requests data from the Data Manager.
+8. Data Manager provides the report data and confirms success.
+9. Main component sends the report to the Local User.
+10. Local User deletes the report.
+11. Local User confirms deletion to the Main component.
+12. Main component confirms the deletion to the Local User.","The user profile should be successfully updated, and the user should be able to generate and delete reports."
+"TC-Profile-Modification-002","Failed Profile Modification","Profile Management","1, 5, 6, 7, 8, 9","User is authenticated.","Invalid profile information.","1. User enters invalid profile information in the Local User interface.
+2. Local User sends the information to the Main component.
+3. Main component sends the information to the Data Manager.
+4. Data Manager returns a failure message due to invalid data.
+5. Main component confirms the failure to the Local User.","Profile modification should fail, and the user should not be able to proceed with generating or deleting reports."
+"TC-Consumption-Tracking-001","Successful Consumption Tracking","Consumption Tracking","1, 5, 6, 7, 8, 9","User is authenticated and has valid consumption data.","Valid consumption data for a user.","1. User enters valid consumption data in the Local User interface.
+2. Local User sends the data to the Main component.
+3. Main component sends the data to the Data Manager.
+4. Data Manager processes the data and confirms success.
+5. Main component confirms the addition to the Local User.
+6. Local User requests a report from the Main component.
+7. Main component requests data from the Data Manager.
+8. Data Manager provides the report data and confirms success.
+9. Main component sends the report to the Local User.
+10. Local User deletes the report.
+11. Local User confirms deletion to the Main component.
+12. Main component confirms the deletion to the Local User.","Consumption data should be successfully tracked, and the user should be able to generate and delete reports."
+"TC-Consumption-Tracking-002","Failed Consumption Tracking","Consumption Tracking","1, 5, 6, 7, 8, 9","User is authenticated and has invalid consumption data.","Invalid consumption data for a user.","1. User enters invalid consumption data in the Local User interface.
+2. Local User sends the data to the Main component.
+3. Main component sends the data to the Data Manager.
+4. Data Manager returns a failure message due to invalid data.
+5. Main component confirms the failure to the Local User.","Consumption tracking should fail, and the user should not be able to proceed with generating or deleting reports."
+"TC-Achievement-Tracking-001","Successful Achievement Tracking","Achievement Tracking","1, 5, 6, 7, 8, 9","User is authenticated and meets achievement criteria.","Achievement criteria met by the user.","1. User meets the achievement criteria in the Local User interface.
+2. Local User sends the achievement criteria to the Main component.
+3. Main component sends the criteria to the Data Manager.
+4. Data Manager processes the criteria and confirms success.
+5. Main component confirms the achievement to the Local User.
+6. Local User requests a report from the Main component.
+7. Main component requests data from the Data Manager.
+8. Data Manager provides the report data and confirms success.
+9. Main component sends the report to the Local User.
+10. Local User deletes the report.
+11. Local User confirms deletion to the Main component.
+12. Main component confirms the deletion to the Local User.","The user should successfully track the achievement, and the user should be able to generate and delete reports."
+"TC-Achievement-Tracking-002","Failed Achievement Tracking","Achievement Tracking","1, 5, 6, 7, 8, 9","User is authenticated and does not meet achievement criteria.","Achievement criteria not met by the user.","1. User does not meet the achievement criteria in the Local User interface.
+2. Local User sends the criteria to the Main component.
+3. Main component sends the criteria to the Data Manager.
+4. Data Manager returns a failure message due to unmet criteria.
+5. Main component confirms the failure to the Local User.","Achievement tracking should fail, and the user should not be able to proceed with generating or deleting reports."
+"TC-Database-Interaction-001","Successful Database Interaction","Database Interaction","1, 5, 6, 7, 8, 9","User is authenticated and has valid consumption data.","Valid consumption data for a user.","1. User enters valid consumption data in the Local User interface.
+2. Local User sends the data to the Main component.
+3. Main component sends the data to the Data Manager.
+4. Data Manager processes the data and confirms success.
+5. Main component confirms the addition to the Local User.
+6. Local User requests a report from the Main component.
+7. Main component requests data from the Data Manager.
+8. Data Manager provides the report data and confirms success.
+9. Main component sends the report to the Local User.
+10. Local User deletes the report.
+11. Local User confirms deletion to the Main component.
+12. Main component confirms the deletion to the Local User.","The data should be successfully stored in the database, and the user should be able to generate and delete reports."
+"TC-Database-Interaction-002","Failed Database Interaction","Database Interaction","1, 5, 6, 7, 8, 9","User is authenticated and has invalid consumption data.","Invalid consumption data for a user.","1. User enters invalid consumption data in the Local User interface.
+2. Local User sends the data to the Main component.
+3. Main component sends the data to the Data Manager.
+4. Data Manager returns a failure message due to invalid data.
+5. Main component confirms the failure to the Local User.","The data should not be stored in the database, and the user should not be able to proceed with generating or deleting reports."

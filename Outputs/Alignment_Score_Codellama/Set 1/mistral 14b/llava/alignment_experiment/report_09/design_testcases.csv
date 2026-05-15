@@ -1,0 +1,79 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTH-001,Successful User Login,Authentication,"1, 6","- User account exists in the database with valid credentials (`username: ""testuser""`, `password: ""SecurePass123""`).
+- Server and database are operational.","- Valid credentials: `username=""testuser""`, `password=""SecurePass123""`","1. User initiates login request via the client.
+2. Client sends login request to the Server.
+3. Server validates credentials with the Database.
+4. Database returns success response.
+5. Server logs the successful login.
+6. Server sends success response to the User.","- User is authenticated and granted access.
+- System logs: `Login successful for testuser`."
+TC-AUTH-002,Failed User Login (Invalid Credentials),Authentication,"1, 6","- User account exists, but invalid credentials are provided.","- Invalid credentials: `username=""testuser""`, `password=""wrongpass""`","1. User initiates login request with invalid credentials.
+2. Client sends request to the Server.
+3. Server queries the Database.
+4. Database returns failure response.
+5. Server logs the failed attempt.
+6. Server sends ""Login Denied"" response to the User.","- User receives error message: `Invalid username or password`.
+- System logs: `Login failed for testuser`."
+TC-AUTH-003,Admin Login and Role Switch,Authentication,1,"- Admin account exists (`username: ""admin""`, `password: ""AdminPass456""`).","- Admin credentials: `username=""admin""`, `password=""AdminPass456""`","1. Admin logs in using their credentials.
+2. System verifies role and grants Admin privileges.
+3. Admin attempts to remove a product from a User’s cart (via `removeFromCart`).
+4. System processes the request and updates the Cart.","- Admin successfully removes the product from the User’s cart.
+- System logs: `Admin removed product X from User’s cart`."
+TC-AUTH-004,Logout Functionality,Authentication,1,- User is currently logged in.,,"1. User calls `logout()`.
+2. Server invalidates the session.
+3. Server logs the logout event.","- User is logged out.
+- System logs: `User testuser logged out`."
+TC-CART-001,User Adds Product to Cart,Cart Management,1,"- User is logged in.
+- Product exists in the system (`name: ""Laptop""`, `price: 999.99`).","- Product details: `name=""Laptop""`, `price=999.99`","1. User calls `addToCart(""Laptop"", 999.99)`.
+2. Cart adds the product to its `items` list.
+3. System updates the Cart state.","- Product is added to the Cart.
+- Cart’s `items` list contains `{""name"": ""Laptop"", ""price"": 999.99}`."
+TC-CART-002,User Removes Product from Cart,Cart Management,1,"- User is logged in.
+- Cart contains `{""name"": ""Laptop"", ""price"": 999.99}`.",,"1. User calls `removeFromCart(""Laptop"")`.
+2. Cart removes the product from its `items` list.","- Product is removed from the Cart.
+- Cart’s `items` list is empty."
+TC-CART-003,Admin Removes Product from User’s Cart,Cart Management,1,"- Admin is logged in.
+- User’s cart contains `{""name"": ""Laptop"", ""price"": 999.99}`.",,"1. Admin calls `removeProduct(Product)` on the User’s Cart.
+2. Cart removes the product.","- Product is removed from the User’s Cart.
+- System logs: `Admin removed Laptop from User’s cart`."
+TC-CART-004,Edge Case – Remove Non-Existent Product,Cart Management,1,- User’s cart is empty.,,"1. User calls `removeFromCart(""NonExistentProduct"")`.","- System returns error: `Product not found in cart`.
+- Cart remains unchanged."
+TC-CHECKOUT-001,Admin Proceeds to Payment,Checkout,1,"- Admin is logged in.
+- Cart contains `{""name"": ""Laptop"", ""price"": 999.99}`.",,"1. Admin calls `calculateTotal()`.
+2. System computes `total = 999.99`.
+3. Admin calls `proceedToPayment()`.
+4. System processes payment (simulated).","- Checkout completes successfully.
+- System logs: `Payment processed for Laptop (999.99)`."
+TC-CHECKOUT-002,Edge Case – Empty Cart Checkout,Checkout,1,"- Admin is logged in.
+- Cart is empty.",,"1. Admin calls `calculateTotal()`.
+2. Admin calls `proceedToPayment()`.","- System returns error: `Cart is empty. Cannot proceed to payment`.
+- No payment is processed."
+TC-REGISTRATION-001,Successful User Registration,Registration,3,- System allows new registrations.,"- Registration details: `nome=""JohnDoe""`, `email=""john@example.com""`, `password=""Pass123""`","1. User calls `registra()` with valid data.
+2. System validates inputs.
+3. System stores user in the Database.
+4. User calls `login()` with new credentials.","- User is registered successfully.
+- System logs: `New user registered: john@example.com`."
+TC-REGISTRATION-002,Failed Registration (Duplicate Email),Registration,3,- User `john@example.com` already exists.,"- Duplicate email: `email=""john@example.com""`",1. User attempts to register with existing email.,"- System returns error: `Email already registered`.
+- No new user is created."
+TC-SERVER-DB-001,Server Processes Valid Database Query,Server-Database Integration,"2, 7",- Database contains user `testuser`.,,"1. User sends login request to Server.
+2. Server queries Database for `testuser`.
+3. Database returns user record.
+4. Server validates credentials and logs response.
+5. Server sends success to User.","- User is authenticated.
+- System logs: `Query processed: SELECT * FROM users WHERE username='testuser'`."
+TC-SERVER-DB-002,Server Handles Database Failure,Server-Database Integration,"2, 7",- Database is down or unresponsive.,,"1. User sends login request.
+2. Server attempts to query Database.
+3. Database fails to respond (timeout/error).
+4. Server logs the failure.
+5. Server sends error to User.","- User receives: `Service unavailable. Please try again later`.
+- System logs: `Database error: Connection timeout`."
+TC-LOGGING-001,Server Logs Successful Login,Logging,"2, 7",- User logs in successfully.,,"1. User logs in with valid credentials.
+2. Server processes login.
+3. Server logs the event to Logger.",- Log entry: `[TIMESTAMP] Login successful for testuser | IP: 192.168.1.1`.
+TC-LOGGING-002,Server Logs Failed Login Attempt,Logging,"2, 7",- User attempts login with invalid credentials.,,"1. User logs in with `password=""wrongpass""`.
+2. Server detects failure.
+3. Server logs the attempt.",- Log entry: `[TIMESTAMP] Failed login for testuser | IP: 192.168.1.1`.
+TC-VOLTAGE-001,Voltage Regulator Operation (Simulated),Voltage Regulator,5,- Regulator is powered on.,,"1. Regulator receives input voltage (e.g., `24V`).
+2. Regulator stabilizes output to `5V`.
+3. System monitors output.","- Output voltage remains stable at `5V ± 0.1V`.
+- No error conditions triggered."

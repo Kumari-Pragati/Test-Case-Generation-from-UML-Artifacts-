@@ -1,0 +1,61 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,User Login Valid Scenario,User,1,"User exists in the system, and the provided username and password are correct.","- Username: valid_user
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the valid username and password.
+3. Click the login button.",The user is successfully logged in.
+TC-USER-002,User Login Invalid Scenario,User,1,"User exists in the system, but the provided username or password is incorrect.","- Username: invalid_user
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the invalid username and valid password.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-USER-003,User Login Empty Credentials Scenario,User,1,User navigates to the login page without entering any credentials.,"- Username: (empty)
+- Password: (empty)","1. Navigate to the login page.
+2. Leave both the username and password fields empty.
+3. Click the login button.","An error message is displayed, asking the user to enter their credentials."
+TC-ADMIN-001,Admin Login Valid Scenario,Admin,1,"Admin exists in the system, and the provided username and password are correct.","- Username: valid_admin
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the valid admin username and password.
+3. Click the login button.",The admin is successfully logged in.
+TC-ADMIN-002,Admin Login Invalid Scenario,Admin,1,"Admin exists in the system, but the provided username or password is incorrect.","- Username: invalid_admin
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the invalid admin username and valid password.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-ADMIN-003,Admin Login Empty Credentials Scenario,Admin,1,Admin navigates to the login page without entering any credentials.,"- Username: (empty)
+- Password: (empty)","1. Navigate to the login page.
+2. Leave both the username and password fields empty.
+3. Click the login button.","An error message is displayed, asking the user to enter their credentials."
+TC-PRODUCT-001,Add Product Valid Scenario,Product,1,Admin is logged in.,"- Name: New Product
+- Description: This is a new product.","1. Admin logs in.
+2. Navigate to the product management page.
+3. Enter the product name and description.
+4. Click the add product button.",The product is successfully added to the system.
+TC-PRODUCT-002,Add Product Invalid Scenario,Product,1,Admin is logged in.,"- Name: (empty)
+- Description: This is a new product.","1. Admin logs in.
+2. Navigate to the product management page.
+3. Enter an empty product name and the product description.
+4. Click the add product button.","An error message is displayed, asking the user to enter a valid product name."
+TC-PRODUCT-003,Add Product Invalid Description Scenario,Product,1,Admin is logged in.,"- Name: New Product
+- Description: (empty)","1. Admin logs in.
+2. Navigate to the product management page.
+3. Enter the product name and an empty description.
+4. Click the add product button.","An error message is displayed, asking the user to enter a valid product description."
+TC-CART-001,Add Item to Cart Valid Scenario,Cart,1,User is logged in and a product exists in the system.,- Product Name: New Product,"1. User logs in.
+2. Navigate to the product page.
+3. Click the add to cart button for the New Product.",The New Product is successfully added to the user's cart.
+TC-CART-002,Add Item to Cart Invalid Scenario,Cart,1,User is logged in and a product exists in the system.,- Product Name: (empty),"1. User logs in.
+2. Navigate to the product page.
+3. Click the add to cart button for the empty product.","An error message is displayed, asking the user to select a valid product."
+TC-CART-003,Remove Item from Cart Valid Scenario,Cart,1,User is logged in and an item exists in the cart.,- Item Name: New Product,"1. User logs in.
+2. Navigate to the cart page.
+3. Click the remove button for the New Product.",The New Product is successfully removed from the user's cart.
+TC-CART-004,Remove Item from Cart Invalid Scenario,Cart,1,User is logged in and an item exists in the cart.,- Item Name: (empty),"1. User logs in.
+2. Navigate to the cart page.
+3. Click the remove button for the empty item.","An error message is displayed, asking the user to select a valid item."
+TC-CART-005,Checkout Valid Scenario,Cart,1,User is logged in and items exist in the cart.,- Items: [New Product],"1. User logs in.
+2. Navigate to the cart page.
+3. Click the checkout button.","The user is redirected to the checkout page, and the New Product is displayed with its price."
+TC-CART-006,Checkout Empty Cart Scenario,Cart,1,"User is logged in, but the cart is empty.",- Items: [],"1. User logs in.
+2. Navigate to the cart page.
+3. Click the checkout button.","An error message is displayed, indicating that the cart is empty."
+TC-CART-007,Checkout Invalid Scenario,Cart,1,"User is logged in, but the cart contains invalid items (e.g., non-existent products).",- Items: [Invalid Product],"1. User logs in.
+2. Navigate to the cart page.
+3. Click the checkout button.","An error message is displayed, indicating that the item is not found in the system."

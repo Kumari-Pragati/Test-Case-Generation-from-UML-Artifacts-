@@ -1,0 +1,208 @@
+REPORT: Report_3_uml_pages.pdf
+======================================================================
+
+===== Report_3_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- DashboardActivity — kind=class; attributes=[drawerLayout, navigationView, toolbar]; operations=[onCreate(Bundle savedInstanceState)]; role=Dashboard Activity
+- MainActivity — kind=class; attributes=[JwtHelper jh, CookieHelper ch]; operations=[onCreate(Bundle savedInstanceState), openSignUp(View view), openUserList(View view), login()]; role=Main Activity
+- SignUpActivity — kind=class; attributes=[JwtHelper jw]; operations=[onCreate(Bundle savedInstanceState), sign_up(), openLogin(View view)]; role=Sign Up Activity
+- UserListActivity — kind=class; attributes=[JwtHelper jh, CookieHelper ch, RecyclerView recyclerView]; operations=[onCreate(Bundle savedInstanceState), loadUsers(), populateListView(List<User> userList)]; role=User List Activity
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- DashboardActivity -> MainActivity — type=association; label=""; explanation="Navigation"
+- MainActivity -> SignUpActivity — type=association; label=""; explanation="Navigation"
+- MainActivity -> UserListActivity — type=association; label=""; explanation="Navigation"
+- MainActivity -> DashboardActivity — type=association; label=""; explanation="Navigation"
+
+Main Flows (step by step):
+- Flow 1: DashboardActivity -> MainActivity -> SignUpActivity -> MainActivity -> UserListActivity
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- com.example.project0
+
+Observations:
+- This diagram models a simple Android application with four activities: DashboardActivity, MainActivity, SignUpActivity, and UserListActivity. The main flow starts from DashboardActivity, navigates to MainActivity, then either to SignUpActivity or UserListActivity, and returns to MainActivity. There are no conditions or loops visible in the diagram.
+
+===== Report_3_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Home — kind=initial_node; role=Home page
+- Click su "weather" — kind=action_node; role=Click action
+- Visualizzazione meteo della località attuale — kind=action_node; role=Display current weather
+- Click su lente d'ingrandimento — kind=decision_node; role=Zoom decision
+- Ricerca meteo di altre località — kind=action_node; role=Search for other locations weather
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Home -> Click su "weather" — type=control_flow; label="->"; explanation="Click action"
+- Click su "weather" -> Visualizzazione meteo della località attuale — type=control_flow; label="->"; explanation="Display current weather"
+- Visualizzazione meteo della località attuale -> Click su lente d'ingrandimento — type=control_flow; label="->"; explanation="Zoom decision"
+- Click su lente d'ingrandimento -> SI — type=control_flow; label="SI"; explanation="Yes branch"
+- Click su lente d'ingrandimento -> NO — type=control_flow; label="NO"; explanation="No branch"
+- Click su lente d'ingrandimento -> Visualizzazione meteo della località attuale — type=control_flow; label="->"; explanation="Return to display current weather"
+
+Main Flows (step by step):
+- Flow 1: Home -> Click su "weather" -> Visualizzazione meteo della località attuale -> Click su lente d'ingrandimento -> SI -> Ricerca meteo di altre località
+- Flow 2: Home -> Click su "weather" -> Visualizzazione meteo della località attuale -> Click su lente d'ingrandimento -> NO -> Visualizzazione meteo della località attuale
+
+Conditions / Branches:
+- Click su lente d'ingrandimento: SI -> Ricerca meteo di altre località
+- Click su lente d'ingrandimento: NO -> Visualizzazione meteo della località attuale
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram represents a flowchart for a weather-related application, starting from the home page, navigating through clicking on "weather," displaying the current weather, and then deciding whether to zoom in or search for other locations' weather.
+
+Observations:
+- The user starts at the home page and clicks on "weather."
+- This leads to displaying the current weather of the user's location.
+- The user has the option to zoom in on the current weather details.
+- If the user chooses to zoom in, they proceed to search for weather in other locations.
+- If the user decides not to zoom in, they remain on the current weather display.
+- The diagram captures the main flow and a conditional path for further actions.
+
+===== Report_3_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- User — kind=actor; role=User
+- Applicazione — kind=component; role=Application
+- Server — kind=component; role=Server
+
+Actors / Lifelines:
+- User
+- Applicazione
+- Server
+
+Relationships / Links:
+- User -> Applicazione — type=message; label="Click su 'Trekking'"; explanation="User clicks on 'Trekking'"
+- Applicazione -> Server — type=message; label="Richiesta elenco province"; explanation="Application requests list of provinces"
+- Server -> Applicazione — type=message; label="Invio elenco province"; explanation="Server sends list of provinces"
+- Applicazione -> Applicazione — type=message; label="Fornisce elenco province"; explanation="Application provides list of provinces"
+- Applicazione -> Server — type=message; label="Richiesta elenco percorsi"; explanation="Application requests list of routes"
+- Server -> Applicazione — type=message; label="Invio elenco percorsi"; explanation="Server sends list of routes"
+- Applicazione -> Applicazione — type=message; label="Click sulla provincia"; explanation="User clicks on a province"
+- Applicazione -> Applicazione — type=message; label="Click sul percorso nella provincia selezionata"; explanation="User clicks on a route in the selected province"
+
+Main Flows (step by step):
+- Flow 1: User clicks on 'Trekking' -> Application requests list of provinces -> Server sends list of provinces -> Application provides list of provinces -> User clicks on a province -> Application requests list of routes -> Server sends list of routes -> User clicks on a route in the selected province
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- SELEZIONE DEL PERCORSO
+
+Observations:
+- This sequence diagram models the process of selecting a trekking route through a user interface.
+- The user initiates the process by clicking on the 'Trekking' option.
+- The application then requests a list of provinces from the server.
+- The server responds with the list of provinces, which is then provided back to the application.
+- The user selects a province, prompting the application to request a list of routes within that province.
+- The server sends the list of routes, which the application then displays for the user to select a specific route.
+- The process involves multiple interactions between the user, the application, and the server, ensuring a smooth selection of a trekking route.
+
+===== Report_3_uml_pages.pdf | Page 4 =====
+UML Type:
+- sequence
+
+Components:
+- User — kind=actor; role=User
+- Applicazione — kind=component; role=Application
+- Server — kind=component; role=Server
+
+Actors / Lifelines:
+- User
+- Applicazione
+- Server
+
+Relationships / Links:
+- User -> Applicazione — type=message; label="Click su 'Weather'"; explanation="User clicks on 'Weather'"
+- Applicazione -> Server — type=message; label="Richiesta dati meteo"; explanation="Application requests weather data"
+- Server -> Applicazione — type=message; label="Invio dati meteo"; explanation="Server sends weather data"
+- Applicazione -> User — type=message; label="Fornisce dati meteo"; explanation="Application provides weather data to user"
+
+Main Flows (step by step):
+- Flow 1: User clicks on 'Weather' -> Application requests weather data from Server -> Server sends weather data to Application -> Application provides weather data to User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "METEO" — stereotype="meteo"
+
+Observations:
+- This diagram models a sequence of interactions between a user, an application, and a server related to retrieving and displaying weather data.
+- The user initiates the process by clicking on a 'Weather' button within the application.
+- The application then requests weather data from the server.
+- The server responds by sending the requested weather data back to the application.
+- Finally, the application provides the weather data to the user.
+- There are no conditions, branches, or loops visible in the diagram.
+
+===== Report_3_uml_pages.pdf | Page 5 =====
+UML Type:
+- sequence
+
+Components:
+- User — kind=actor; role=User
+- Applicazione — kind=component; role=Application
+- Server — kind=component; role=Server
+
+Actors / Lifelines:
+- User
+- Applicazione
+- Server
+
+Relationships / Links:
+- User -> Applicazione — type=message; label="Click su 'Health'"; explanation="User clicks on 'Health'"
+- Applicazione -> Server — type=message; label="Richiesta dati allenamenti passati"; explanation="Application requests past training data"
+- Server -> Applicazione — type=message; label="Invio dati"; explanation="Server sends data"
+- Applicazione -> User — type=message; label="Fornisce elenco allenamenti"; explanation="Application provides training list"
+
+Main Flows (step by step):
+- Flow 1: User clicks on 'Health' -> Application requests past training data from Server -> Server sends data -> Application provides training list to User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- HEALTH
+
+Observations:
+- This sequence diagram models the interaction between a user, an application, and a server related to health data.
+- The user initiates the process by clicking on 'Health'.
+- The application then requests past training data from the server.
+- The server responds with the requested data.
+- Finally, the application provides the training list to the user.
+- There are no conditions or branches visible in the diagram.
+
+
+======================================================================

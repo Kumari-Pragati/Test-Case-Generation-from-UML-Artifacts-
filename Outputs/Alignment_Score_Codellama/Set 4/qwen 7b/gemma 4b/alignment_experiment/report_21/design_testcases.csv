@@ -1,0 +1,40 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-CalendarioUtente-001,Add Event to User Calendar,CalendarioUtente,"1, 4, 5, 6, 7, 8","User is logged in, valid event details provided.","- EventID: E001
+- Title: Birthday Party
+- Date and Time: 2023-10-10 14:00
+- Description: Celebrate with friends
+- Location: Home",,"- Event added successfully to the user's calendar.
+- Event appears in the user's calendar view.
+- Database query executed to add the event."
+TC-CalendarioUtente-002,Modify Event in User Calendar,CalendarioUtente,"1, 4, 5, 6, 7, 8",Event exists in the user's calendar.,"- EventID: E001
+- New Date and Time: 2023-10-10 15:00",,"- Event modified successfully in the user's calendar.
+- Event updated in the database."
+TC-CalendarioUtente-003,Delete Event from User Calendar,CalendarioUtente,"1, 4, 5, 6, 7, 8",Event exists in the user's calendar.,- EventID: E001,,"- Event deleted successfully from the user's calendar.
+- Event removed from the database."
+TC-CalendarioUtente-004,View Events for Specific Date,CalendarioUtente,"1, 4, 5, 6, 7, 8",Events exist in the user's calendar.,- Date: 2023-10-10,,- List of events for the specified date displayed in the user's calendar.
+TC-CalendarioUtente-005,Get Current Season,CalendarioUtente,1,User has a defined season.,- No specific data required.,,- Current season returned correctly.
+TC-CalendarioUtente-006,Get Current Regulation,CalendarioUtente,1,User has a defined regulation.,- No specific data required.,,- Current regulation returned correctly.
+TC-Database-001,Connect to Database,Database,1,Database connection details are correct.,"- URL: jdbc:mysql://localhost:3306/mydb
+- Username: root
+- Password: password",,- Database connection established successfully.
+TC-Database-002,Execute Query,Database,1,Valid SQL query.,- Query: SELECT * FROM events,,- ResultSet containing event data returned.
+TC-Database-003,Disconnect from Database,Database,1,Database connection is active.,- No specific data required.,,- Database connection closed successfully.
+TC-FirebaseAuth-001,User Login,Firebase Auth,2,User credentials are correct.,"- Email: user@example.com
+- Password: password123",,- User logged in successfully.
+TC-FirebaseAuth-002,User Registration,Firebase Auth,2,User does not exist.,"- Email: newuser@example.com
+- Password: password456",,- New user registered and logged in successfully.
+TC-SignalingSystem-001,Retrieve Signal List,Signaling System,3,Signals exist in the system.,- No specific data required.,,- List of signals displayed.
+TC-VariationManagement-001,Retrieve Train Variations,Variation Management,4,Train variations exist.,- Train Code: 12345,,- List of train variations displayed.
+TC-VariationManagement-002,Check for Changed Train Information,Variation Management,4,Train information has changed.,- Train Code: 12345,,- Updated train information retrieved and processed.
+TC-CalendarManagement-001,Insert Calendar Data,Calendar Management,5,Calendar data is valid.,"- Calendar Data: {date: 2023-10-10, events: [{title: ""Meeting"", location: ""Office""}]}",,"- Calendar data inserted successfully.
+- Calendar data displayed."
+TC-CalendarManagement-002,Retrieve Calendar Data,Calendar Management,6,Calendar data exists.,- No specific data required.,,- Calendar data retrieved and displayed.
+TC-CalendarManagement-003,Handle Null Calendar Data,Calendar Management,6,No calendar data exists.,- No specific data required.,,- Null value displayed.
+TC-API-Trenitalia-001,Cancel Preferred Train,API Trenitalia,"7, 8",Preferred train exists.,- Train ID: 12345,,"- Train cancellation initiated successfully.
+- Outcome displayed."
+TC-API-Trenitalia-002,Delete Train from Database,API Trenitalia,8,Train exists in the database.,- Train ID: 12345,,"- Train deleted successfully from the database.
+- Outcome displayed."
+TC-NotificationSystem-001,Show Notification Based on Train Variations,Notification System,9,Train variations exist.,"- Train Variations: {trainCode: 12345, variations: [""Delay"", ""Cancellation""]}",,- Notification shown to the user.
+TC-NotificationSystem-002,No Notification When No Variations,Notification System,9,No train variations exist.,- Train Variations: {},,"- No notification shown to the user. 
+
+Note: Some assumptions were made regarding the exact format of the input data and the expected outcomes, but these are minimal and based on the provided UML diagrams. <|assistant|>"

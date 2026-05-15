@@ -1,0 +1,49 @@
+flow
+"homepage -> click impostazioni — type=transition; label=""si""; explanation=""user clicks impostazioni"";"
+"homepage -> visualizzazione nuovo luogo — type=transition; label=""no""; explanation=""user selects 'visualizzazione nuovo luogo'"";"
+"visualizzazione nuovo luogo -> click pathfinder — type=transition; label=""si""; explanation=""user clicks pathfinder"";"
+"visualizzazione nuovo luogo -> swipe verso l'alto — type=transition; label=""no""; explanation=""user swipes to the right"";"
+"click pathfinder -> apertura pagina pathfinder — type=transition; label=""si""; explanation=""user clicks pathfinder"";"
+"click pathfinder -> apertura pagina pathfinder — type=transition; label=""no""; explanation=""user does not click pathfinder"";"
+flow 1: homepage -> click impostazioni (si) -> apertura pagina impostazioni
+flow 2: homepage -> visualizzazione nuovo luogo (no) -> click pathfinder (si) -> apertura pagina pathfinder
+flow 3: homepage -> visualizzazione nuovo luogo (no) -> swipe verso l'alto
+"the diagram models the user flow through a homepage, allowing the user to either access settings or view a new location."
+"if the user clicks ""impostazioni"", they are directed to the settings page."
+"if the user selects ""visualizzazione nuovo luogo"", they are directed to the pathfinder page."
+"if the user swipes to the right, the behavior is not explicitly defined in the diagram."
+the diagram shows a decision point for whether to click pathfinder or swipe.
+"pagina dettagliata -> apertura mappa di sistema — transition=""click 'navigate'""; explanation=""user clicks 'navigate'"";"
+"pagina dettagliata -> apertura sito yelp sul browser — transition=""click 'open in browser'""; explanation=""user clicks 'open in browser'"";"
+"pagina dettagliata -> avvio chiamata al business — transition=""click 'call business'""; explanation=""user clicks 'call business'"";"
+"pagina dettagliata -> ritorno ad homepage — transition=""click 'indietro'""; explanation=""user clicks 'indietro'"";"
+"apertura mappa di sistema -> pagina dettagliata — transition=""si""; explanation=""user navigates to the page"";"
+"apertura sito yelp sul browser -> pagina dettagliata — transition=""si""; explanation=""user navigates to the page"";"
+"avvio chiamata al business -> pagina dettagliata — transition=""si""; explanation=""user navigates to the page"";"
+"ritorno ad homepage -> pagina dettagliata — transition=""si""; explanation=""user navigates to the page"";"
+"apertura mappa di sistema -> modifica preferenze — transition=""no""; explanation=""user does not modify preferences"";"
+"apertura sito yelp sul browser -> modifica preferenze — transition=""no""; explanation=""user does not modify preferences"";"
+"avvio chiamata al business -> modifica preferenze — transition=""no""; explanation=""user does not modify preferences"";"
+"ritorno ad homepage -> modifica preferenze — transition=""no""; explanation=""user does not modify preferences"";"
+"modifica preferenze -> apertura mappa di sistema — transition=""si""; explanation=""user navigates to the page after modifying preferences"";"
+"modifica preferenze -> apertura sito yelp sul browser — transition=""si""; explanation=""user navigates to the page after modifying preferences"";"
+"modifica preferenze -> avvio chiamata al business — transition=""si""; explanation=""user navigates to the page after modifying preferences"";"
+"modifica preferenze -> ritorno ad homepage — transition=""si""; explanation=""user navigates to the page after modifying preferences"";"
+the diagram models the navigation flow of a user through a detailed page.
+"the user can navigate to a map, open yelp in a browser, initiate a business call, return to the homepage, or modify preferences."
+"the diagram shows a branching flow based on user clicks, leading to different destinations within the application."
+"the ""indietro"" button leads back to the homepage, and subsequent clicks can lead to the map, yelp, or business call."
+"apertura pagina pathfinder -> click ""indietro"" — type=transition; label=""si""; explanation=""if 'click 'indietro' is clicked"";"
+"apertura pagina pathfinder -> visualizzazione domanda — type=transition; label=""no""; explanation=""if 'click 'indietro' is not clicked"";"
+"visualizzazione domanda -> scelta risposta — type=transition; explanation=""proceed to select an answer"";"
+"visualizzazione domanda -> suggerimento disponibile — type=transition; label=""suggerimento disponibile""; explanation=""if a suggestion is available"";"
+"visualizzazione domanda -> visualizzazione luogo suggerito — type=transition; label=""visualizzazione luogo suggerito""; explanation=""if a suggestion is not available"";"
+"suggerimento disponibile -> ritorno ad homepage — type=transition; label=""ritorno ad homepage""; explanation=""if suggestion is available"";"
+"suggerimento non disponibile -> ritorno ad homepage — type=transition; label=""ritorno ad homepage""; explanation=""if suggestion is not available"";"
+the diagram represents a state machine that guides the user through a question and potential suggestion.
+the flow starts with opening the pathfinder page.
+"if the user clicks ""indietro"", the flow returns to the homepage."
+"if the user doesn't click ""indietro"", the question is displayed."
+"if a suggestion is available, it's displayed and the user can return to the homepage."
+"if no suggestion is available, the user is returned to the homepage."
+======================================================================

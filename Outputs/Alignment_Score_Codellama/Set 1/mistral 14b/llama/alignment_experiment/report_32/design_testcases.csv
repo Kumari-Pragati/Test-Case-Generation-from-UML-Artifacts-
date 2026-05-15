@@ -1,0 +1,100 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOGIN-001,Successful login with valid credentials,Authentication,3,"- User account exists in the system with valid credentials (e.g., `username: testuser`, `password: SecurePass123`).
+- System is operational and network connectivity is stable.","- Username: `testuser`
+- Password: `SecurePass123`","1. User enters `testuser` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- System verifies credentials successfully (Page 3: *Verifica correttezza delle informazioni* → *Accesso*).
+- User is granted access (Page 3: *Accesso* → *Si*).
+- System redirects to the main dashboard or home page."
+TC-LOGIN-002,Failed login with incorrect password,Authentication,3,"- User account exists with valid username but incorrect password (e.g., `username: testuser`, `password: WrongPass`).","- Username: `testuser`
+- Password: `WrongPass`","1. User enters `testuser` in the username field.
+2. User enters `WrongPass` in the password field.
+3. User clicks the ""Login"" button.","- System detects incorrect password (Page 3: *Verifica correttezza delle informazioni* → *No*).
+- System displays an error message: ""Invalid password. Please try again.""
+- User is prompted to re-enter credentials (Page 3: *Riprova* → *Login*)."
+TC-LOGIN-003,Failed login with non-existent username,Authentication,3,- No user account exists with the provided username.,"- Username: `nonexistentuser`
+- Password: `AnyPassword`","1. User enters `nonexistentuser` in the username field.
+2. User enters `AnyPassword` in the password field.
+3. User clicks the ""Login"" button.","- System detects non-existent username (Page 3: *Verifica correttezza delle informazioni* → *No*).
+- System displays an error message: ""User not found. Please register or check your username.""
+- User is prompted to re-enter credentials (Page 3: *Riprova* → *Login*)."
+TC-LOGIN-004,Login with empty fields,Authentication,3,- System allows submission with empty fields.,"- Username: *(empty)*
+- Password: *(empty)*","1. User clicks the ""Login"" button without entering any data.","- System validates empty fields and displays an error message: ""Username and password are required.""
+- User remains on the login page."
+TC-USERS-001,Create a new user with valid data,User Management,2,"- System is in registration mode.
+- No user with the provided `username` or `mail` exists.","- `idu`: *(auto-generated)*
+- `username`: `newuser123`
+- `mail`: `newuser@example.com`
+- `password`: `NewPass456`
+- `nome`: `John`
+- `cognome`: `Doe`
+- `posizione`: `Customer`","1. User fills the registration form with the provided data.
+2. User submits the form.","- System validates and stores the user data (Page 2: *Utenti* class).
+- User receives a confirmation message: ""Registration successful. Please login.""
+- User is redirected to the login page."
+TC-USERS-002,Create a user with duplicate username,User Management,2,- A user with `username: newuser123` already exists.,"- `username`: `newuser123` *(duplicate)*
+- Other fields: Valid but unique.","1. User fills the registration form with the duplicate username.
+2. User submits the form.","- System detects duplicate username (Page 2: *Utenti* `username` uniqueness constraint).
+- System displays an error: ""Username already exists. Choose another.""
+- User remains on the registration page."
+TC-USERS-003,Create a user with invalid email format,User Management,2,- System enforces email format validation.,- `mail`: `invalid.email` *(missing @ and .com)*,"1. User fills the registration form with the invalid email.
+2. User submits the form.","- System rejects the invalid email (Page 2: *Utenti* `mail` attribute validation).
+- System displays an error: ""Please enter a valid email address (e.g., user@example.com).""
+- User remains on the registration page."
+TC-OBJECTS-001,Create an object with valid data,Object Management,"2, 5","- User is logged in.
+- Database is accessible.","- `idu`: *(logged-in user's ID, e.g., 1)*
+- `nome`: `Laptop`
+- `descrizione`: `[""High-performance laptop for rent""]`
+- `tipo`: `1` *(e.g., Electronics)*
+- `inUse`: `false`","1. User navigates to ""Add Object"" and fills the form with the provided data.
+2. User submits the form (Page 5: *Creazione dell'oggetto da noleggiare*).
+3. System composes and executes a query to insert the object (Page 5: *Query per inserire il dato nel database*).","- Query executes successfully (Page 5: *La query è stata eseguita con successo?* → *Si*).
+- Object is created in the database (Page 2: *Oggetti* class).
+- User receives a confirmation: ""Object 'Laptop' added successfully."""
+TC-OBJECTS-002,Create an object with missing required field,Object Management,"2, 5",- User is logged in.,"- `nome`: *(empty)*
+- Other fields: Valid but incomplete.",1. User submits the form with an empty `nome` field.,"- System detects missing required field (Page 2: *Oggetti* `nome` attribute).
+- System displays an error: ""Object name is required.""
+- User remains on the ""Add Object"" page."
+TC-OBJECTS-003,Database query failure during object creation,Object Management,5,"- User is logged in.
+- Database is temporarily unavailable (simulated).",,"1. User submits valid object data.
+2. System attempts to execute the query (Page 5: *Query per inserire il dato nel database*).
+3. Database returns an error (e.g., timeout).","- Query fails (Page 5: *La query è stata eseguita con successo?* → *No*).
+- System displays an error message: ""Failed to save object. Please try again later.""
+- User is given the option to retry (Page 5: *Messaggio di errore* → *Riprova*)."
+TC-SERVICES-001,Create a service with valid data,Service Management,"2, 6","- User is logged in.
+- Database is accessible.","- `idu`: *(logged-in user's ID, e.g., 1)*
+- `nome`: `Photography`
+- `descrizione`: `[""Professional photography services""]`
+- `tipo`: `2` *(e.g., Creative)*
+- `inUse`: `false`","1. User navigates to ""Add Service"" and fills the form with the provided data.
+2. User submits the form (Page 6: *Creazione del servizio da offrire*).
+3. System composes and executes a query to insert the service (Page 6: *Query per inserire il dato nel database*).","- Query executes successfully (Page 6: *La query è stata eseguita con successo?* → *Si*).
+- Service is created in the database (Page 2: *Servizi* class).
+- User receives a confirmation: ""Service 'Photography' added successfully."""
+TC-SERVICES-002,Database query failure during service creation,Service Management,6,"- User is logged in.
+- Database is temporarily unavailable.",,"1. User submits valid service data.
+2. System attempts to execute the query (Page 6: *Query per inserire il dato nel database*).
+3. Database returns an error (e.g., constraint violation).","- Query fails (Page 6: *La query è stata eseguita con successo?* → *No*).
+- System displays an error message: ""Failed to save service. Please check your data and try again.""
+- User is given the option to retry (Page 6: *Messaggio di errore* → *Riprova*)."
+TC-ANNOUNCEMENTS-001,Create an announcement linking to an object,Announcement Management,"2, 7","- User is logged in.
+- An object with `ido: 1` exists in the database.
+- Database is accessible.","- `idu`: *(logged-in user's ID, e.g., 1)*
+- `ido`: `1` *(existing object ID)*
+- `titolo`: `Laptop for Rent`
+- `ids`: *(null, no service linked)*","1. User navigates to ""Create Announcement"" and selects the object with `ido: 1`.
+2. User fills the title and submits the form (Page 7: *Creazione dell'annuncio*).
+3. System composes and executes a query to insert the announcement (Page 7: *Query per inserire il dato nel database*).","- Query executes successfully (Page 7: *La query è stata eseguita con successo?* → *Si*).
+- Announcement is linked to the object in the database (Page 2: *Annunci* → *Oggetti* association).
+- User receives a confirmation: ""Announcement 'Laptop for Rent' published successfully."""
+TC-ANNOUNCEMENTS-002,Create an announcement with non-existent object,Announcement Management,"2, 7","- User is logged in.
+- No object exists with `ido: 999`.",- `ido`: `999` *(non-existent)*,1. User submits the form with `ido: 999`.,"- System detects non-existent object (Page 2: *Annunci* → *Oggetti* foreign key constraint).
+- System displays an error: ""Object not found. Please select a valid object.""
+- User remains on the ""Create Announcement"" page."
+TC-ANNOUNCEMENTS-003,Database query failure during announcement creation,Announcement Management,7,"- User is logged in.
+- Database is temporarily unavailable.",,"1. User submits valid announcement data.
+2. System attempts to execute the query (Page 7: *Query per inserire il dato nel database*).
+3. Database returns an error (e.g., timeout).","- Query fails (Page 7: *La query è stata eseguita con successo?* → *No*).
+- System displays an error message: ""Failed to publish announcement. Please try again.""
+- User is prompted to retry (Page 7: *Messaggio di errore* → *Riprova* → *Creazione dell'annuncio*)."
+TC-DELETE-001,Delete an existing object,,,,,,

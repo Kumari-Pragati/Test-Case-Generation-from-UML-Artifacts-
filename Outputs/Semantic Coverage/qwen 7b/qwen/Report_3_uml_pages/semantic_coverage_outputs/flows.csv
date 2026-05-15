@@ -1,0 +1,60 @@
+flow
+"dashboardactivity -> mainactivity — type=association; label=""""; explanation=""navigation"""
+"mainactivity -> signupactivity — type=association; label=""""; explanation=""navigation"""
+"mainactivity -> userlistactivity — type=association; label=""""; explanation=""navigation"""
+"mainactivity -> dashboardactivity — type=association; label=""""; explanation=""navigation"""
+flow 1: dashboardactivity -> mainactivity -> signupactivity -> mainactivity -> userlistactivity
+"this diagram models a simple android application with four activities: dashboardactivity, mainactivity, signupactivity, and userlistactivity. the main flow starts from dashboardactivity, navigates to mainactivity, then either to signupactivity or userlistactivity, and returns to mainactivity. there are no conditions or loops visible in the diagram."
+"home -> click su ""weather"" — type=control_flow; label=""->""; explanation=""click action"""
+"click su ""weather"" -> visualizzazione meteo della località attuale — type=control_flow; label=""->""; explanation=""display current weather"""
+"visualizzazione meteo della località attuale -> click su lente d'ingrandimento — type=control_flow; label=""->""; explanation=""zoom decision"""
+"click su lente d'ingrandimento -> si — type=control_flow; label=""si""; explanation=""yes branch"""
+"click su lente d'ingrandimento -> no — type=control_flow; label=""no""; explanation=""no branch"""
+"click su lente d'ingrandimento -> visualizzazione meteo della località attuale — type=control_flow; label=""->""; explanation=""return to display current weather"""
+"flow 1: home -> click su ""weather"" -> visualizzazione meteo della località attuale -> click su lente d'ingrandimento -> si -> ricerca meteo di altre località"
+"flow 2: home -> click su ""weather"" -> visualizzazione meteo della località attuale -> click su lente d'ingrandimento -> no -> visualizzazione meteo della località attuale"
+"the user starts at the home page and clicks on ""weather."""
+this leads to displaying the current weather of the user's location.
+the user has the option to zoom in on the current weather details.
+"if the user chooses to zoom in, they proceed to search for weather in other locations."
+"if the user decides not to zoom in, they remain on the current weather display."
+the diagram captures the main flow and a conditional path for further actions.
+"user -> applicazione — type=message; label=""click su 'trekking'""; explanation=""user clicks on 'trekking'"""
+"applicazione -> server — type=message; label=""richiesta elenco province""; explanation=""application requests list of provinces"""
+"server -> applicazione — type=message; label=""invio elenco province""; explanation=""server sends list of provinces"""
+"applicazione -> applicazione — type=message; label=""fornisce elenco province""; explanation=""application provides list of provinces"""
+"applicazione -> server — type=message; label=""richiesta elenco percorsi""; explanation=""application requests list of routes"""
+"server -> applicazione — type=message; label=""invio elenco percorsi""; explanation=""server sends list of routes"""
+"applicazione -> applicazione — type=message; label=""click sulla provincia""; explanation=""user clicks on a province"""
+"applicazione -> applicazione — type=message; label=""click sul percorso nella provincia selezionata""; explanation=""user clicks on a route in the selected province"""
+flow 1: user clicks on 'trekking' -> application requests list of provinces -> server sends list of provinces -> application provides list of provinces -> user clicks on a province -> application requests list of routes -> server sends list of routes -> user clicks on a route in the selected province
+this sequence diagram models the process of selecting a trekking route through a user interface.
+the user initiates the process by clicking on the 'trekking' option.
+the application then requests a list of provinces from the server.
+"the server responds with the list of provinces, which is then provided back to the application."
+"the user selects a province, prompting the application to request a list of routes within that province."
+"the server sends the list of routes, which the application then displays for the user to select a specific route."
+"the process involves multiple interactions between the user, the application, and the server, ensuring a smooth selection of a trekking route."
+"user -> applicazione — type=message; label=""click su 'weather'""; explanation=""user clicks on 'weather'"""
+"applicazione -> server — type=message; label=""richiesta dati meteo""; explanation=""application requests weather data"""
+"server -> applicazione — type=message; label=""invio dati meteo""; explanation=""server sends weather data"""
+"applicazione -> user — type=message; label=""fornisce dati meteo""; explanation=""application provides weather data to user"""
+flow 1: user clicks on 'weather' -> application requests weather data from server -> server sends weather data to application -> application provides weather data to user
+"this diagram models a sequence of interactions between a user, an application, and a server related to retrieving and displaying weather data."
+the user initiates the process by clicking on a 'weather' button within the application.
+the application then requests weather data from the server.
+the server responds by sending the requested weather data back to the application.
+"finally, the application provides the weather data to the user."
+"there are no conditions, branches, or loops visible in the diagram."
+"user -> applicazione — type=message; label=""click su 'health'""; explanation=""user clicks on 'health'"""
+"applicazione -> server — type=message; label=""richiesta dati allenamenti passati""; explanation=""application requests past training data"""
+"server -> applicazione — type=message; label=""invio dati""; explanation=""server sends data"""
+"applicazione -> user — type=message; label=""fornisce elenco allenamenti""; explanation=""application provides training list"""
+flow 1: user clicks on 'health' -> application requests past training data from server -> server sends data -> application provides training list to user
+"this sequence diagram models the interaction between a user, an application, and a server related to health data."
+the user initiates the process by clicking on 'health'.
+the application then requests past training data from the server.
+the server responds with the requested data.
+"finally, the application provides the training list to the user."
+there are no conditions or branches visible in the diagram.
+======================================================================

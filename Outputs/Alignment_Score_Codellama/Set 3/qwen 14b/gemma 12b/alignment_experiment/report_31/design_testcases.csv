@@ -1,0 +1,109 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-DataOrganizer-001,Verify Data Organizer Interaction with Firebase,Data Organizer,"1, 2",Data organizer is initialized and connected to Firebase.,N/A,"1. Initiate interaction from Data Organizer to Firebase.
+2. Ensure Firebase interacts with Realtime Database, Authentication, and Firebase Database.",Successful interaction and data synchronization between Data Organizer and Firebase components.
+TC-LocalUser-002,Local User Interacts with Data Display,Local User,1,Local user is authenticated and logged in.,N/A,"1. Local user initiates interaction with Data Display.
+2. Data Display retrieves data from Data Organizer.",Data Display successfully shows relevant data to the local user.
+TC-Chat-003,Create and Send a Chat Message,Chat,2,User is authenticated and logged in.,"- Chat ID: 1
+- URL1: ""http://example.com/chat1""
+- URL2: ""http://example.com/chat2""
+- Message ID: 1
+- Receiver ID: 2
+- Timestamp: ""2023-10-01T12:00:00Z""
+- Text: ""Hello, how are you?""","1. User creates a chat with provided URLs.
+2. User sends a message to another user within the chat.",Message is successfully sent and received by the intended user.
+TC-Relation-004,Establish Relationship Between Chat and User,Relation,2,Chat and User are created and authenticated.,"- Chat ID: 1
+- User ID: 1","1. Associate Chat with User through Relation.
+2. Verify association is correctly stored.",Chat and User are properly associated via Relation.
+TC-Message-005,Retrieve Messages from a Chat,Message,2,Chat and User are created and authenticated.,"- Chat ID: 1
+- User ID: 1","1. User requests messages from a specific chat.
+2. System retrieves and displays messages.",All messages from the specified chat are displayed to the user.
+TC-User-006,User Profile Creation and Authentication,User,2,None,"- Nickname: ""john_doe""
+- Password: ""password123""
+- Position: Latitude 40.7128, Longitude -74.0060
+- Tokens: 100
+- Rate: 5.0","1. User registers with provided details.
+2. User logs in using registered credentials.",User profile is created and authenticated successfully.
+TC-Post-007,Create and Publish a Post,Post,2,User is authenticated and logged in.,"- Post ID: 1
+- Nickname: ""john_doe""
+- Fridge ID: 1
+- Type: 1
+- Cost: 10","1. User creates a post with specified details.
+2. Post is published and associated with the user's fridge.","Post is successfully created and published, associated with the user's fridge."
+TC-Fridge-008,Manage Fridge Inventory,Fridge,2,User is authenticated and logged in.,"- Fridge ID: 1
+- Name: ""My Fridge""
+- Quantity: 10
+- Best Before Date: ""2023-12-31""
+- Owner Nickname: ""john_doe""","1. User adds a new fridge with provided details.
+2. User updates fridge inventory.",Fridge is added and inventory is updated successfully.
+TC-RemoveProduct-009,Remove Product from Fridge,Fragment Frigorifero,3,User is authenticated and logged in.,- Product ID: 1,"1. User initiates removal of a product from their fridge.
+2. Schema Principale sends ChangeFragment() to fragment Frigorifero.
+3. fragment Frigorifero sends RimuoviProdotto() to Firebase Database.",Product is successfully removed from the fridge and the change is synchronized with Firebase Database.
+TC-EdgeCase-010,Handle Edge Cases in Data Organizer,Data Organizer,1,Data organizer is initialized but Firebase is unavailable.,N/A,"1. Attempt to synchronize data with Firebase.
+2. Check for error handling and fallback mechanisms.","System handles the failure gracefully and retries synchronization upon availability of Firebase. <|
+|system|> Your test cases cover the main functionalities and interactions described in the UML diagrams effectively. However, there are a few additional edge cases and negative scenarios that should be considered to ensure comprehensive testing. Here are some additional test cases to cover these aspects:
+
+### Additional Test Cases"
+TC-DataOrganizer-011,Handle Network Failure During Synchronization,Data Organizer,1,Data organizer is initialized and connected to Firebase.,N/A,"1. Simulate network failure during synchronization attempt.
+2. Verify that the system retries synchronization after a delay.",System retries synchronization after a predefined interval and logs the failure.
+TC-LocalUser-012,Unauthorized Access to Data Display,Local User,1,Local user is not authenticated.,N/A,"1. Attempt to access Data Display without authentication.
+2. Verify that unauthorized access is blocked.","Unauthorized access is denied, and an appropriate error message is displayed."
+TC-Chat-013,Invalid Chat URL Handling,Chat,2,User is authenticated and logged in.,"- Chat ID: 1
+- URL1: ""invalid_url""
+- URL2: ""invalid_url""","1. Attempt to create a chat with invalid URLs.
+2. Verify that the system rejects the invalid URLs.",System rejects the invalid URLs and returns an error message.
+TC-Relation-014,Duplicate Relationship Establishment,Relation,2,Chat and User are created and authenticated.,"- Chat ID: 1
+- User ID: 1","1. Attempt to establish a duplicate relationship between the same Chat and User.
+2. Verify that the system prevents duplicate entries.",System prevents the establishment of a duplicate relationship and returns an error message.
+TC-Message-015,Message Sending to Nonexistent User,Message,2,User is authenticated and logged in.,"- Chat ID: 1
+- Receiver ID: 9999 (nonexistent user)
+- Text: ""Hello, how are you?""","1. Attempt to send a message to a nonexistent user.
+2. Verify that the system rejects the message.",System rejects the message and returns an error message indicating the user does not exist.
+TC-User-016,Invalid User Registration,User,2,None,"- Nickname: ""john_doe"" (already exists)
+- Password: ""password123""
+- Position: Latitude 40.7128, Longitude -74.0060
+- Tokens: 100
+- Rate: 5.0","1. Attempt to register a user with an already existing nickname.
+2. Verify that the system rejects the registration.",System rejects the registration and returns an error message indicating the nickname is already taken.
+TC-Post-017,Invalid Post Details,Post,2,User is authenticated and logged in.,"- Post ID: 1
+- Nickname: ""john_doe""
+- Fridge ID: 9999 (nonexistent fridge)
+- Type: 1
+- Cost: -10 (negative cost)","1. Attempt to create a post with invalid details.
+2. Verify that the system rejects the invalid details.",System rejects the post creation and returns an error message indicating invalid details.
+TC-Fridge-018,Invalid Fridge Details,Fridge,2,User is authenticated and logged in.,"- Fridge ID: 1
+- Name: """"
+- Quantity: -10 (negative quantity)
+- Best Before Date: ""2023-12-31""
+- Owner Nickname: ""john_doe""","1. Attempt to add a fridge with invalid details.
+2. Verify that the system rejects the invalid details.",System rejects the fridge addition and returns an error message indicating invalid details.
+TC-RemoveProduct-019,Remove Nonexistent Product from Fridge,Fragment Frigorifero,3,User is authenticated and logged in.,- Product ID: 9999 (nonexistent product),"1. Attempt to remove a nonexistent product from the fridge.
+2. Verify that the system rejects the removal.","System rejects the removal and returns an error message indicating the product does not exist.
+
+These additional test cases help ensure that the system handles various edge cases and negative scenarios effectively. <|
+|user|>
+Could you please add more negative test cases specifically for the Firebase interactions, such as when Firebase is down or returns an error? Also, include a scenario where the Realtime Database fails to update. <|)
+|system|>
+Certainly! Here are additional negative test cases focusing on Firebase interactions and Realtime Database failures:
+
+### Additional Negative Test Cases"
+TC-FirebaseInteraction-020,Firebase Unavailable During Synchronization,Data Organizer,1,Data organizer is initialized and attempts to connect to Firebase.,N/A,"1. Simulate Firebase being unavailable.
+2. Attempt to synchronize data with Firebase.
+3. Verify that the system logs the failure and retries synchronization after a delay.",System logs the failure and retries synchronization after a predefined interval.
+TC-FirebaseInteraction-021,Firebase Returns Error During Synchronization,Data Organizer,1,Data organizer is initialized and attempts to connect to Firebase.,N/A,"1. Simulate Firebase returning an error during synchronization.
+2. Attempt to synchronize data with Firebase.
+3. Verify that the system logs the error and retries synchronization after a delay.",System logs the error and retries synchronization after a predefined interval.
+TC-RealtimeDatabase-022,Realtime Database Update Failure,Data Organizer,1,Data organizer is initialized and attempts to update Realtime Database.,N/A,"1. Simulate Realtime Database failing to update.
+2. Attempt to update data in Realtime Database.
+3. Verify that the system logs the failure and retries the update after a delay.",System logs the failure and retries the update after a predefined interval.
+TC-RealtimeDatabase-023,Realtime Database Returns Error During Update,Data Organizer,1,Data organizer is initialized and attempts to update Realtime Database.,N/A,"1. Simulate Realtime Database returning an error during update.
+2. Attempt to update data in Realtime Database.
+3. Verify that the system logs the error and retries the update after a delay.","System logs the error and retries the update after a predefined interval.
+
+These additional test cases ensure that the system can handle various failure scenarios related to Firebase and Realtime Database interactions, providing robustness and reliability. <|
+|user|>
+Can you also add a test case for when the Authentication service fails or returns an error during user login? Additionally, include a scenario where the Firebase Database fails to store a new user record. <|)
+|system|>
+Certainly! Here are the additional test cases for handling failures and errors in the Authentication service and Firebase Database:
+
+### Additional Negative Test Cases"
+TC-Authentication-024,Authentication Service Unavailable During Login,Authentication,,,,,

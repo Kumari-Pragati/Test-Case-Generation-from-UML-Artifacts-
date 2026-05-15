@@ -1,0 +1,62 @@
+flow
+"user -> admin — type=association; label=""adduser()""; explanation=""user can add admin"""
+"user -> admin — type=association; label=""removeuser()""; explanation=""admin can remove user"""
+flow 1: user -> admin -> user (login() -> adduser() -> logout())
+"login -> user — type=association; label=""login""; explanation=""login""; explanation=""user sends login request"""
+main flows (step-by-step:
+"flow 1: login -> user -> login; explanation=""login""; explanation=""login"";"
+diagram of activities:
+"user -> server: association; type=login; label=""login""; explanation=""user sends login request to server"""
+"user -> database: association; type=query; label=""query""; explanation=""user sends query to database"""
+"server -> database: association; type=handlelogin; label=""handlelogin""; explanation=""server handles login request from user"""
+flow 1: user -> server -> database
+user sends login request to server
+server handles login request from user
+server sends login result to user
+user receives login result from server
+"the diagram models a login process where a user attempts to log in to a system through a server, which interacts with a database to authenticate the user."
+"the main flow is the sequence of actions from the user's login request to the server's response, which includes the user's login attempt, the server's handling of the login, and the server's response to the user."
+"the login process is the key interaction between the user and the server, and the server's handling of the login is the central operation in this process."
+"the database is involved in the process to authenticate the user, and the server sends the authentication result back to the user."
+there are no decision points or loops visible in this diagram.
+guidelines by diagram type (keep it generic):
+for class diagrams:
+"* components are classes, and the attributes and operations are listed as they appear in the diagram."
+"* relationships are associations between classes, and the type and explanation are given for each association."
+"* main flows describe the interactions between classes, focusing on the methods and relationships that are visible in the diagram."
+for activity diagrams:
+"* components are activities, and the attributes and operations are listed as they appear in the diagram."
+"* relationships are control-flow arrows, and the type and explanation are given for each arrow."
+"* main flows describe the sequence of activities, focusing on the flow of control from start to end."
+for sequence diagrams:
+"* components are sequence diagrams, and the attributes and operations are listed as they appear in the diagram."
+"* relationships are messages between lifelines and lifelines, and the type and explanation are given for each message."
+"* main flows describe the sequence of messages, focusing on the flow from start to end."
+for use-case diagrams:
+"* components are use cases, and the attributes and operations are listed as they appear in the diagram."
+"* relationships are relationships between actors and lifelines, and the type and explanation are given for each relationship."
+"* main flows describe the sequence of interactions, focusing on the use cases, focusing on the flow from start to end."
+for statement
+"user -> server: association; type=handlerequest; label=""handlerequest""; explanation=""server handles login request from user"""
+"user -> server: association; type=handleresponse; label=""handleresponse""; explanation=""server sends response to user"""
+"user -> database: association; type=update; label=""update""; explanation=""user sends update to database"""
+server sends response to user
+user sends query to database
+database handles query from user
+database sends response to user
+"the diagram represents a login process where a user logs in to a server, which then handles the login request and sends a response. the user then sends a query to the database, which handles the query and sends a response back to the user."
+"* treat each class box as a component with kind=""class""."
+"* in the component bullet, list all attributes and operations exactly as written, including type and return type if visible."
+"* in relationships / links, list associations, aggregations, compositions, and inheritances between classes (use ""association"", ""inheritance"", etc.)."
+"* main flows can describe likely collaboration between classes based only on visible methods and relationships (use ""association"", ""inheritance"", etc.)."
+"* components are actions, decisions, merges, initial nodes, final nodes, etc."
+* relationships / links correspond to control-flow arrows.
+* main flows should be explicit sequences like:
+"""avvio app"" -> ""utente registrato con successo al servizio?"" (si) -> ..."
+* conditions / branches summarize each decision node and its labeled exits.
+"* actors / lifelines should list all participants, decisions, merges, initial nodes, final nodes, etc."
+* main flows should describe the interaction from start to end.
+* components should be described in a sequence of events.
+for statement diagrams:
+* components
+======================================================================

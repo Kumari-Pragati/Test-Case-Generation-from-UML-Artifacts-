@@ -1,0 +1,90 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-DataDisplay-001,Verify Data Display Component Retrieves Data from Data Organizer,Data Display,"1, 2",Data organizer is initialized and contains data.,N/A,"1. Initiate the Data Display component.
+2. Request data from the Data Organizer.
+3. Verify that the Data Display receives the requested data.",Data Display successfully retrieves and displays the data from Data Organizer.
+TC-LocalUser-002,Verify Local User Interaction with Data Organizer,Local User,1,Data organizer is initialized and contains data.,N/A,"1. Simulate a user action that triggers an interaction with the Data Organizer.
+2. Verify that the Data Organizer processes the user's request.
+3. Confirm that the Data Organizer updates the Firebase database accordingly.",Data Organizer correctly processes the user's request and synchronizes data with Firebase.
+TC-Firebase-003,Verify Data Synchronization Between Data Organizer and Firebase,Firebase,1,Data organizer is initialized and contains data.,N/A,"1. Initiate a data synchronization request from the Data Organizer to Firebase.
+2. Verify that the data is successfully uploaded to Firebase.
+3. Confirm that the data is accessible from Firebase.",Data Organizer successfully synchronizes data with Firebase.
+TC-Chat-004,Verify Chat Creation and Message Sending,Chat,2,Two users are registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- User2: nickname=""user2"", password=""password2""
+- Chat: id=1, usr1=""user1"", usr2=""user2""
+- Message: id=1, chat_id=1, receiver=""user2"", date=""2023-10-01T12:00:00Z"", text=""Hello!""","1. Create a chat between User1 and User2.
+2. Send a message from User1 to User2.
+3. Verify that the message is stored in the database under the correct chat.","Chat is created successfully, and the message is sent and stored correctly."
+TC-Message-005,Verify Message Belongs to Correct User,Message,2,A chat exists between two users.,"- User1: nickname=""user1"", password=""password1""
+- User2: nickname=""user2"", password=""password2""
+- Chat: id=1, usr1=""user1"", usr2=""user2""
+- Message: id=1, chat_id=1, receiver=""user2"", date=""2023-10-01T12:00:00Z"", text=""Hello!""","1. Send a message from User1 to User2.
+2. Retrieve the message from the database.
+3. Verify that the message is associated with User1.",The message is correctly associated with User1.
+TC-Relation-006,Verify User Has Many Relations,Relation,2,Multiple users are registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- User2: nickname=""user2"", password=""password2""
+- User3: nickname=""user3"", password=""password3""
+- Relation1: chat=1, user=""user1""
+- Relation2: chat=1, user=""user2""
+- Relation3: chat=1, user=""user3""","1. Create a chat with three users.
+2. Add each user to the chat as a relation.
+3. Retrieve the relations from the database.
+4. Verify that each user is listed as a relation in the chat.",Each user is correctly added as a relation in the chat.
+TC-User-007,Verify User Has Many Fridge Associations,User,2,A user is registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- Fridge1: id=1, name=""fridge1"", nickname=""user1""
+- Fridge2: id=2, name=""fridge2"", nickname=""user1""","1. Register a user.
+2. Associate two fridges with the user.
+3. Retrieve the fridges associated with the user from the database.
+4. Verify that both fridges are associated with the user.",Both fridges are correctly associated with the user.
+TC-Post-008,Verify Post Belongs to Correct User and Fridge,Post,2,A user and a fridge are registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- Fridge1: id=1, name=""fridge1"", nickname=""user1""
+- Post1: id=1, nickname=""user1"", fridge=""fridge1"", qty=5, cost=10","1. Register a user and associate a fridge with them.
+2. Create a post for the fridge.
+3. Retrieve the post from the database.
+4. Verify that the post is associated with the correct user and fridge.",The post is correctly associated with the user and fridge.
+TC-Fridge-009,Verify Fridge Has Many Posts,Fridge,2,A user and a fridge are registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- Fridge1: id=1, name=""fridge1"", nickname=""user1""
+- Post1: id=1, nickname=""user1"", fridge=""fridge1"", qty=5, cost=10
+- Post2: id=2, nickname=""user1"", fridge=""fridge1"", qty=10, cost=20","1. Register a user and associate a fridge with them.
+2. Create two posts for the fridge.
+3. Retrieve the posts from the database.
+4. Verify that both posts are associated with the fridge.",Both posts are correctly associated with the fridge.
+TC-Fragment-010,Verify Main Schema Changes to Fridge Fragment,Fragment,3,Main schema is initialized.,N/A,"1. Initiate the main schema.
+2. Trigger the change fragment operation to switch to the fridge fragment.
+3. Verify that the main schema changes to the fridge fragment.",The main schema successfully changes to the fridge fragment.
+TC-FirebaseDatabase-011,Verify Removal of Product from Firebase Database,Firebase Database,3,A product is registered in the Firebase database.,"- Product: id=1, name=""product1""","1. Initiate the fridge fragment.
+2. Send a request to remove the product from the Firebase database.
+3. Verify that the product is removed from the database.",The product is successfully removed from the Firebase database.
+TC-EdgeCase-012,Verify Edge Case - Empty Chat,Chat,2,A chat is created but contains no messages.,"- Chat: id=1, usr1=""user1"", usr2=""user2""","1. Create a chat between two users.
+2. Verify that the chat is empty.",The chat is created successfully but contains no messages.
+TC-NegativeCase-013,Verify Negative Case - Invalid User Credentials,User,2,A user is registered in the system.,"- User1: nickname=""user1"", password=""wrongpassword""","1. Attempt to log in with invalid credentials.
+2. Verify that the login fails.",The login attempt fails due to invalid credentials.
+TC-EdgeCase-014,Verify Edge Case - Zero Quantity Post,Post,2,A user and a fridge are registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- Fridge1: id=1, name=""fridge1"", nickname=""user1""
+- Post1: id=1, nickname=""user1"", fridge=""fridge1"", qty=0, cost=10","1. Register a user and associate a fridge with them.
+2. Create a post with zero quantity.
+3. Verify that the post is created with zero quantity.",The post is created successfully with zero quantity.
+TC-NegativeCase-015,Verify Negative Case - Nonexistent Fridge,Post,2,A user is registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- Nonexistent Fridge: id=1, name=""nonexistent_fridge"", nickname=""user1""
+- Post1: id=1, nickname=""user1"", fridge=""nonexistent_fridge"", qty=5, cost=10","1. Attempt to create a post for a nonexistent fridge.
+2. Verify that the post creation fails.",The post creation fails due to the nonexistent fridge.
+TC-PositiveCase-016,Verify Positive Case - Successful Product Removal,Firebase Database,3,A product is registered in the Firebase database.,"- Product: id=1, name=""product1""","1. Initiate the fridge fragment.
+2. Send a request to remove the product from the Firebase database.
+3. Verify that the product is removed from the database.",The product is successfully removed from the Firebase database.
+TC-EdgeCase-017,Verify Edge Case - Empty Message Text,Message,2,A chat exists between two users.,"- User1: nickname=""user1"", password=""password1""
+- User2: nickname=""user2"", password=""password2""
+- Chat: id=1, usr1=""user1"", usr2=""user2""
+- Message: id=1, chat_id=1, receiver=""user2"", date=""2023-10-01T12:00:00Z"", text=""""","1. Create a chat between User1 and User2.
+2. Send a message with an empty text.
+3. Verify that the message is stored with an empty text.",The message is created successfully with an empty text.
+TC-NegativeCase-018,Verify Negative Case - Unauthorized Access to Firebase,Firebase Database,3,A product is registered in the Firebase database.,"- Product: id=1, name=""product1""","1. Attempt to remove a product without proper authorization.
+2. Verify that the removal fails.",The product removal fails due to unauthorized access.
+TC-PositiveCase-019,Verify Positive Case - Successful Chat Creation,Chat,2,Two users are registered in the system.,"- User1: nickname=""user1"", password=""password1""
+- User2: nickname=""user2"", password=""password2""","1. Create a chat between User1 and User2.
+2. Verify that the chat is created successfully.",The chat is created successfully between User1 and User2.
+TC-EdgeCase-020,Verify Edge Case - Duplicate User Registration,User,2,A user is registered in the system.,"- User1: nickname=""user1"", password=""password1""","1. Attempt to register the same user again.
+2. Verify that the registration fails.",The duplicate user registration fails.
+TC-NegativeCase-021,Verify Negative Case - Invalid Date Format,Message,2,A chat exists between two users.,"- User1: nickname=""user1"", password=""password1""
+- User2: nickname=""user2"", password=""password2""
+- Chat: id=1, usr1=""user1"", usr2=""user2""
+- Message: id=1, chat_id=1, receiver=""user2"", date=""invalid_date_format"", text=""Hello!""","1. Create a chat between User1 and User2.
+2. Attempt",

@@ -1,0 +1,98 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 5","- User account exists in the system with valid credentials (e.g., `username: john_doe`, `password: SecurePass123`).
+- Server and Database are operational.","- Valid username: `john_doe`
+- Valid password: `SecurePass123`","1. User enters `john_doe` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.
+4. Server receives the login request and forwards it to the Database.
+5. Database validates credentials.
+6. Server sends a success response to the User.","- User is logged in successfully.
+- `login()` returns `true`.
+- User session is established (e.g., `logout()` is now available)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,"1, 5",- User account exists with valid username but invalid password.,"- Valid username: `john_doe`
+- Invalid password: `wrongpass`","1. User enters `john_doe` in the username field.
+2. User enters `wrongpass` in the password field.
+3. User clicks the ""Login"" button.
+4. Server receives the request and forwards it to the Database.
+5. Database rejects the credentials.
+6. Server sends an error response to the User.","- `login()` returns `false`.
+- User sees an error message: *""Invalid username or password""*.
+- User remains logged out."
+TC-AUTHENTICATION-003,Failed User Login (Non-Existent User),Authentication,"1, 5",- No user account exists with the provided username.,"- Non-existent username: `nonexistent_user`
+- Any password: `SecurePass123`","1. User enters `nonexistent_user` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.
+4. Server receives the request and queries the Database.
+5. Database returns no matching record.
+6. Server sends an error response to the User.","- `login()` returns `false`.
+- User sees an error message: *""User not found""*.
+- User remains logged out."
+TC-AUTHENTICATION-004,User Logout,Authentication,"1, 5","- User is currently logged in (e.g., `john_doe`).",,"1. User clicks the ""Logout"" button.
+2. Server processes the `logout()` request.
+3. User session is terminated.","- `logout()` executes without errors.
+- User is redirected to the login page.
+- User can no longer access protected features (e.g., cart, checkout)."
+TC-ECOMMERCE-001,Admin Adds a Product to Cart,Product Management,1,"- Admin is logged in (`admin_user`).
+- A product exists in the system (e.g., `name: ""Hiking Boots""`, `description: ""Waterproof boots for trekking""`).","- Product: `name: ""Hiking Boots""`, `description: ""Waterproof boots for trekking""`","1. Admin selects the product from the admin panel.
+2. Admin clicks ""Add to Cart"" (triggers `addProduct()`).
+3. Cart receives the product and updates its `items` list.","- Product is added to the Cart’s `items` list.
+- `addProduct()` executes without errors.
+- Cart now contains `[""Hiking Boots""]`."
+TC-ECOMMERCE-002,User Adds a Product to Cart,Cart Operations,1,"- User is logged in (`john_doe`).
+- A product exists in the system (e.g., `name: ""Trekking Backpack""`).","- Product: `name: ""Trekking Backpack""`, `description: ""50L capacity""`","1. User browses the product catalog.
+2. User clicks ""Add to Cart"" (triggers `addToCart()`).
+3. Cart receives the product and updates its `items` list.","- Product is added to the User’s Cart.
+- `addToCart()` executes without errors.
+- Cart now contains `[""Trekking Backpack""]`."
+TC-ECOMMERCE-003,User Removes a Product from Cart,Cart Operations,1,"- User’s Cart contains at least one product (e.g., `[""Trekking Backpack""]`).","- Product to remove: `name: ""Trekking Backpack""`","1. User views their Cart.
+2. User clicks ""Remove"" next to ""Trekking Backpack"" (triggers `removeFromCart()`).
+3. Cart removes the product from its `items` list.","- Product is removed from the Cart.
+- `removeFromCart()` executes without errors.
+- Cart is now empty (`items: []`)."
+TC-ECOMMERCE-004,Admin Removes a Product from Cart,Product Management,1,"- Admin’s Cart contains a product (e.g., `[""Hiking Boots""]`).","- Product to remove: `name: ""Hiking Boots""`","1. Admin views the Cart.
+2. Admin clicks ""Remove Product"" (triggers `removeProduct()`).
+3. Cart removes the product from its `items` list.","- Product is removed from the Cart.
+- `removeProduct()` executes without errors.
+- Cart is now empty (`items: []`)."
+TC-ECOMMERCE-005,User Places an Order (Checkout),Checkout,1,"- User’s Cart contains at least one product (e.g., `[""Trekking Backpack""]`).
+- Cart’s `total` is calculated (e.g., `99.99`).",- Cart total: `99.99`,"1. User clicks ""Checkout"" (triggers `placeOrder()`).
+2. Checkout processes the order with the `total` value.
+3. Order is submitted to the system.","- `placeOrder(99.99)` executes without errors.
+- User receives a confirmation message: *""Order placed successfully!""*.
+- Cart is cleared (`items: []`)."
+TC-WEATHER-001,User Logs In to Weather Service,Weather Service Authentication,"2, 4","- User account exists in the Weather Service (e.g., `username: weather_user`, `password: WeatherPass123`).","- Valid username: `weather_user`
+- Valid password: `WeatherPass123`","1. User enters `weather_user` in the username field.
+2. User enters `WeatherPass123` in the password field.
+3. User clicks ""Login"" (triggers `login()`).
+4. WeatherService processes the request.","- User is authenticated.
+- `login()` returns `true`.
+- User can now request weather data."
+TC-WEATHER-002,User Requests Weather Data,Weather Service,"2, 4","- User is logged in to the Weather Service.
+- Server and Database are operational.","- Location: `""New York""`","1. User clicks the ""Weather"" button (triggers `getWeather()`).
+2. Server receives the request and queries the Database.
+3. Database returns weather data for ""New York"".
+4. Server sends the data back to the User.","- User receives weather data (e.g., `{""location"": ""New York"", ""temperature"": ""22°C"", ""conditions"": ""Sunny""}`).
+- No errors occur during the request-response cycle."
+TC-WEATHER-003,Failed Weather Data Request (Invalid Location),Weather Service,"2, 4",- User is logged in to the Weather Service.,"- Invalid location: `""Mars""`","1. User enters `""Mars""` in the location field.
+2. User clicks the ""Weather"" button.
+3. Server queries the Database.
+4. Database returns no data for ""Mars"".
+5. Server sends an error response.","- User receives an error message: *""Weather data not available for Mars""*.
+- No data is displayed."
+TC-INTEGRATION-001,User Switches from E-Commerce to Weather Service,Cross-Module Authentication,"1, 2, 4, 5","- User is logged in to the e-commerce system (`john_doe`).
+- User is not logged in to the Weather Service.",,"1. User clicks the ""Weather"" tab.
+2. System detects no active Weather Service session.
+3. User is prompted to log in to the Weather Service.
+4. User enters valid credentials (`weather_user`, `WeatherPass123`).
+5. Weather Service authenticates the user.","- User is logged in to the Weather Service.
+- User can now request weather data without re-authenticating.
+- E-commerce session remains active."
+TC-EDGE-001,Empty Cart Checkout,Checkout,1,- User’s Cart is empty (`items: []`).,,"1. User clicks ""Checkout"".
+2. System detects empty Cart.","- User receives an error message: *""Your cart is empty. Add products to checkout.""*.
+- `placeOrder()` is not executed."
+TC-EDGE-002,Concurrent Admin and User Cart Operations,Cart Operations,1,"- Admin and User are both logged in.
+- Admin’s Cart contains `[""Hiking Boots""]`.
+- User’s Cart is empty.",,"1. Admin removes ""Hiking Boots"" from their Cart (`removeProduct()`).
+2. Simultaneously, User adds ""Trekking Backpack"" to their Cart (`addToCart()`).","- Admin’s Cart becomes empty (`items: []`).
+- User’s Cart contains `[""Trekking Backpack""]`.
+- No conflicts or data corruption occurs."

@@ -1,0 +1,76 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTH-001,Valid user registration and password update,User Authentication,1,"- System is running.
+- No existing user with email `test.user@example.com`.","- Email: `test.user@example.com`
+- Password: `SecurePass123!`
+- New Password: `NewSecurePass456!`","1. Create a new user with email `test.user@example.com` and password `SecurePass123!`.
+2. Log in with the new credentials.
+3. Call `setPassword(""NewSecurePass456!"")`.
+4. Log out and attempt login with old password (`SecurePass123!`).
+5. Attempt login with new password (`NewSecurePass456!`).","- Step 1: User created successfully.
+- Step 2: Login successful with old password.
+- Step 3: Password updated without errors.
+- Step 4: Login fails (invalid password).
+- Step 5: Login successful with new password."
+TC-USER-AUTH-002,Invalid password format during registration,User Authentication,1,- System is running.,"- Email: `test.user@example.com`
+- Invalid Password: `weak` (no special char, short)",1. Attempt to create a user with email `test.user@example.com` and password `weak`.,"- Registration fails with error (e.g., ""Password must be at least 8 characters and contain a special character"")."
+TC-USER-PROFILE-001,"Update user personal details (name, surname)",User Profile Management,1,- User `test.user@example.com` exists and is logged in.,"- New Name: `John`
+- New Surname: `Doe`","1. Call `setNome(""John"")`.
+2. Call `setCognome(""Doe"")`.
+3. Retrieve and display user details.","- Steps 1–2: No errors; details updated.
+- Step 3: Display shows `Nome = John`, `Cognome = Doe`."
+TC-USER-PROFILE-002,Empty name/surname update,User Profile Management,1,- User `test.user@example.com` exists and is logged in.,"- Empty Name: `` (null/empty string)
+- Empty Surname: ``","1. Call `setNome("""")`.
+2. Call `setCognome("""")`.","- Steps 1–2: Update fails with error (e.g., ""Name and surname cannot be empty"")."
+TC-PRODUCT-CREATION-001,Create a product with valid details,Product Management,1,- User `test.user@example.com` is logged in.,"- Product Name: `Vintage Chair`
+- Location: `Milan, Italy`
+- Description: `Handcrafted oak chair, 1920s design.`
+- Image URL: `http://example.com/chair.jpg`
+- Price: `199.99`","1. Create a new `Prodotto` with the above details.
+2. Set `Proprietario` to current user (`test.user@example.com`).
+3. Retrieve and display product details.","- Step 1: Product created successfully.
+- Step 2: Proprietario set to `test.user@example.com`.
+- Step 3: Display matches input data."
+TC-PRODUCT-CREATION-002,Create product with invalid price (negative),Product Management,1,- User `test.user@example.com` is logged in.,- Price: `-50.00`,1. Attempt to create a product with `Prezzo = -50.00`.,"- Creation fails with error (e.g., ""Price must be a positive number"")."
+TC-PRODUCT-EDIT-001,"Update product details (name, location, price)",Product Management,1,- Product `Vintage Chair` exists and is owned by `test.user@example.com`.,"- New Name: `Antique Oak Chair`
+- New Location: `Rome, Italy`
+- New Price: `249.99`","1. Call `setNome(""Antique Oak Chair"")`.
+2. Call `setLuogo(""Rome, Italy"")`.
+3. Call `setPrezzo(249.99)`.
+4. Retrieve and display updated product details.","- Steps 1–3: No errors; details updated.
+- Step 4: Display shows updated values."
+TC-PRODUCT-OWNERSHIP-001,Non-owner attempts to edit product,Product Ownership Validation,1,"- Product `Vintage Chair` exists, owned by `user1@example.com`.
+- User `user2@example.com` is logged in.",,"1. User `user2@example.com` calls `setNome(""Unauthorized Edit"")` on `Vintage Chair`.","- Edit fails with error (e.g., ""Only the product owner can edit this product"")."
+TC-SIGNALING-CREATION-001,User signals another user’s product (valid),Product Signaling,1,"- Product `Vintage Chair` exists, owned by `user1@example.com`.
+- User `user2@example.com` is logged in.","- Signal Type: `true` (e.g., complaint)
+- Title: `Broken leg`
+- Description: `The chair has a cracked leg.`","1. User `user2@example.com` creates a `Segnalazione` with:
+- `Tipo = true`
+- `Titolo = ""Broken leg""`
+- `Descrizione = ""The chair has a cracked leg.""`
+- `UtenteSegnalato = user1@example.com` (owner of product)
+- `Autore = user2@example.com`
+2. Retrieve and display the signal details.","- Step 1: Signal created successfully.
+- Step 2: Display shows correct `Autore`, `UtenteSegnalato`, and signal content."
+TC-SIGNALING-CREATION-002,Signal creation with empty title/description,Product Signaling,1,- User `user2@example.com` is logged in.,"- Title: `` (empty)
+- Description: `` (empty)",1. Attempt to create a signal with empty `Titolo` and `Descrizione`.,"- Creation fails with error (e.g., ""Title and description cannot be empty"")."
+TC-SIGNALING-CREATION-003,User signals their own product,Product Signaling,1,"- Product `Vintage Chair` exists, owned by `user1@example.com`.
+- User `user1@example.com` is logged in.",,1. User `user1@example.com` attempts to create a signal for their own product (`UtenteSegnalato = user1@example.com`).,"- Signal creation fails with error (e.g., ""Cannot signal your own product"")."
+TC-SIGNALING-VALIDATION-001,Verify signal type and author retrieval,Product Signaling,1,"- A signal exists with:
+- `Tipo = false` (feedback)
+- `Autore = user2@example.com`
+- `UtenteSegnalato = user1@example.com`",,"1. Call `getTipo()` on the signal.
+2. Call `getAutore()` on the signal.
+3. Call `getUtenteSegnalato()` on the signal.","- Step 1: Returns `false`.
+- Step 2: Returns `user2@example.com`.
+- Step 3: Returns `user1@example.com`."
+TC-INTEGRATION-FLOW-001,End-to-end flow: User creates product → signals it,System Integration,1,- User `user1@example.com` is logged in.,,"1. User creates a product (`Prodotto`) with:
+- `Nome = ""Test Product""`
+- `Proprietario = user1@example.com`.
+2. User `user2@example.com` logs in and creates a signal (`Segnalazione`) for the product with:
+- `Tipo = true`
+- `Titolo = ""Issue found""`
+- `Autore = user2@example.com`
+- `UtenteSegnalato = user1@example.com`.
+3. User `user1@example.com` retrieves their product and checks associated signals.","- Step 1: Product created successfully.
+- Step 2: Signal created successfully.
+- Step 3: Product display shows 1 associated signal with correct details."

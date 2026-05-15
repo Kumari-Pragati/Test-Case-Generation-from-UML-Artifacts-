@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in successfully with valid credentials,Login,"1, 2",User has registered and obtained a valid token,"- email: test@example.com
+- password: securepassword123
+- token: valid_token","1. Main requests token from LocalUser
+2. LocalUser requests user data from API_Manager using the token
+3. API_Manager returns a new LocalUser object to LocalUser
+4. LocalUser returns status ""OK"" to Main","User is logged in successfully, and a new LocalUser object is created"
+TC-Login-002,User logs in unsuccessfully with invalid token,Login,"1, 2",User has registered but token is invalid,"- email: test@example.com
+- password: securepassword123
+- token: invalid_token","1. Main requests token from LocalUser
+2. LocalUser requests user data from API_Manager using the token
+3. API_Manager returns status ""NOT_OK"" to LocalUser
+4. LocalUser returns status ""NOT_OK"" to Main","User is not logged in, and an error message is displayed"
+TC-DataRetrieval-001,Retrieve list of data successfully,Data Retrieval,3,User is logged in and has access to the requested data,"- listJSON: [{""id"": 1, ""name"": ""John""}, {""id"": 2, ""name"": ""Jane""}]","1. Main requests listJSON from API_Manager
+2. API_Manager passes request to Service/Need/Report
+3. Service/Need/Report processes the request and returns results to API_Manager
+4. API_Manager returns results to Main
+5. Main displays the list",List of data is retrieved and displayed successfully
+TC-DataRetrieval-002,Retrieve list of data with empty JSON response,Data Retrieval,3,User is logged in but no data is available,- listJSON: [],"1. Main requests listJSON from API_Manager
+2. API_Manager passes request to Service/Need/Report
+3. Service/Need/Report processes the request and returns an empty list to API_Manager
+4. API_Manager returns an empty list to Main
+5. Main displays an empty list",Empty list is displayed indicating no data available
+TC-NewEntryCreation-001,Create a new entry successfully,New Entry Creation,4,User is logged in and has permission to create new entries,"- newEntry: {""title"": ""New Entry"", ""description"": ""This is a new entry""}","1. Main requests to create a new entry via API_Manager
+2. API_Manager transforms the new entry into JSON format
+3. API_Manager passes the new entry data to Service/Need/Report
+4. Service/Need/Report processes the request and sends confirmation back to API_Manager
+5. API_Manager informs Main that the process is complete","New entry is created successfully, and Main receives confirmation"
+TC-NewEntryCreation-002,Fail to create a new entry due to invalid data,New Entry Creation,4,User is logged in but provided invalid data,"- newEntry: {""title"": """", ""description"": """"}","1. Main requests to create a new entry via API_Manager
+2. API_Manager transforms the new entry into JSON format
+3. API_Manager passes the new entry data to Service/Need/Report
+4. Service/Need/Report detects invalid data and sends an error back to API_Manager
+5. API_Manager informs Main of the failure","Entry creation fails, and Main receives an error message"
+TC-DataUpdate-001,Update data successfully,Data Update,5,User is logged in and has permission to update data,"- datiAggiornati: [{""id"": 1, ""name"": ""John""}, {""id"": 2, ""name"": ""Jane""}]","1. Main requests to print data to screen
+2. API_Manager confirms printing is done
+3. Main requests to read inserted data from API_Manager
+4. API_Manager iterates through the data and sets it
+5. Service/Need/Report converts data to JSON
+6. API_Manager requests an update entry to Main
+7. Main confirms request is done","Data is updated successfully, and Main confirms the update"
+TC-DataUpdate-002,Fail to update data due to invalid data,Data Update,5,User is logged in but provided invalid data,"- datiAggiornati: [{""id"": 1, ""name"": """"}, {""id"": 2, ""name"": ""Jane""}]","1. Main requests to print data to screen
+2. API_Manager confirms printing is done
+3. Main requests to read inserted data from API_Manager
+4. API_Manager iterates through the data and sets it
+5. Service/Need/Report detects invalid data and sends an error back to API_Manager
+6. API_Manager informs Main of the failure","Data update fails, and Main receives an error message"
+TC-Configuration-001,Start configuration successfully,Configuration,1,System is initialized,"- MIN_AGE: 18
+- MIN_PASSWORD: 8
+- API_key: valid_api_key","1. Configuration starts
+2. Configuration downloads report
+3. Configuration shows notification
+4. Configuration sends notification","Configuration is started successfully, and all operations are completed without errors"
+TC-Configuration-002,Fail to start configuration due to invalid API key,Configuration,1,System is initialized but API key is invalid,"- MIN_AGE: 18
+- MIN_PASSWORD: 8
+- API_key: invalid_api_key","1. Configuration starts
+2. Configuration attempts to download report but fails due to invalid API key
+3. Configuration shows error notification
+4. Configuration sends error notification","Configuration fails to start, and error notifications are shown and sent"
+TC-NotificationSystem-001,Show notification successfully,Notification System,1,System is initialized,"- Notification content: ""New report available""","1. NotificationSystem starts
+2. NotificationSystem downloads report
+3. NotificationSystem shows notification
+4. NotificationSystem sends notification",Notification is shown and sent successfully
+TC-NotificationSystem-002,Fail to show notification due to missing report,Notification System,1,System is initialized but report is missing,"- Notification content: ""New report available""","1. NotificationSystem starts
+2. NotificationSystem attempts to download report but fails due to missing report
+3. NotificationSystem shows error notification
+4. NotificationSystem sends error notification","Notification fails to show, and error notifications are shown and sent"
+TC-ServerFunctionality-001,Sign up user successfully,Server Functionality,1,System is initialized,"- signup: ""test@example.com""
+- password: ""securepassword123""","1. Server signs up user
+2. Server returns success message","User is signed up successfully, and a success message is returned"
+TC-ServerFunctionality-002,Fail to sign up user due to existing email,Server Functionality,1,System is initialized and email already exists,"- signup: ""test@example.com""
+- password: ""securepassword123""","1. Server signs up user
+2. Server checks if email exists
+3. Server returns error message","User sign-up fails, and an error message is returned"
+TC-ServiceFunctionality-001,Create report successfully,Service Functionality,1,System is initialized,"- oldDate: 2023-01-01
+- newDate: 2023-01-31
+- creatorID: ""user123""","1. Service creates report
+2. Service returns report details","Report is created successfully, and report details are returned"
+TC-ServiceFunctionality-002,Fail to create report due to invalid dates,Service Functionality,1,System is initialized but dates are invalid,"- oldDate: 2023-01-01
+- newDate: 2022-12-31
+- creatorID: ""user123""","1. Service creates report
+2. Service validates dates
+3. Service returns error message","Report creation fails, and an error message is returned"
+TC-APIManager-001,Send request successfully,API Manager,1,System is initialized,"- Request: ""GET /users""
+- Response: ""200 OK""","1. API_Manager sends request
+2. API_Manager receives response
+3. API_Manager returns response to caller","Request is sent successfully, and a successful response is received and returned"
+TC-APIManager-002,Fail to send request due to invalid URL,API Manager,1,System is initialized but URL is invalid,"- Request: ""GET /invalid""
+- Response: ""404 Not Found""","1. API_Manager sends request
+2. API_Manager receives error response
+3. API_Manager returns error response to caller","Request fails, and an error response is received and returned"
+TC-ReportData-001,Create report data successfully,Report Data,1,System is initialized,"- createDate: 2023-01-01
+- title: ""January Report""
+- priority: 1
+- category: ""Monthly""
+- address: ""123 Main St""
+- creator: ""user123""","1. Report creates data
+2. Report returns data details","Report data is created successfully, and data details are returned"
+TC-ReportData-002,Fail to create report data due to missing fields,Report Data,1,System is initialized but some fields are missing,"- createDate: 2023-01-01
+- title: """"
+- priority: 1
+- category: ""Monthly""
+- address: ""123 Main St""
+- creator: ""user123""","1. Report creates data
+2. Report validates fields
+3. Report returns error message","Report data creation fails, and an error message is returned"
+TC-NeedData-001,Create need data successfully,Need Data,1,System is initialized,"- createDate: 2023-01-01
+- title: ""January Need""
+- description: ""This is a January need""
+- assistant: 1
+- priority: 1
+- address: ""123 Main St""
+- latitude: ""40.7128""
+- longitude: ""-74.0060""","1. Need creates data
+2. Need returns data details","Need data is created successfully, and data details are returned"
+TC-NeedData-002,Fail to create need data due to invalid coordinates,Need Data,1,System is initialized but coordinates are invalid,"- createDate: 2023-01-01
+- title: ""January Need""
+- description: ""This is a January need""
+- assistant: 1
+- priority: 1
+- address: ""123 Main St""
+- latitude: ""91.0""
+- longitude: ""-181.0""","1. Need creates data
+2. Need validates coordinates
+3. Need",

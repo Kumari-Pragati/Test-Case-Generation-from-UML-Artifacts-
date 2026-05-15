@@ -1,0 +1,51 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-GestoreSegnalazioni-001","Test adding a new signal","GestoreSegnalazioni","1","The system is initialized and the GestoreSegnalazioni object is available.","A new signal with valid attributes (id, title, description, date, utente).","1. Call the addSegnalazione(Segnalazione) operation on the GestoreSegnalazioni object.
+2. Pass the new signal as an argument.
+3. Verify that the signal is added to the list of signals.","The new signal is added to the list of signals."
+"TC-GestoreSegnalazioni-002","Test modifying an existing signal","GestoreSegnalazioni","1","The system is initialized, and the GestoreSegnalazioni object is available. A signal with valid attributes already exists.","A modified signal with valid attributes.","1. Call the modifySegnalazione(Segnalazione, int) operation on the GestoreSegnalazioni object.
+2. Pass the modified signal and the index of the signal to be modified as arguments.
+3. Verify that the signal is modified correctly.","The signal is modified correctly."
+"TC-GestoreSegnalazioni-003","Test removing a signal","GestoreSegnalazioni","1","The system is initialized, and the GestoreSegnalazioni object is available. A signal with valid attributes exists.","The index of the signal to be removed.","1. Call the removeSegnalazione(int) operation on the GestoreSegnalazioni object.
+2. Pass the index of the signal to be removed as an argument.
+3. Verify that the signal is removed from the list of signals.","The signal is removed from the list of signals."
+"TC-Utente-002","Test getting user attributes","Utente","1","The system is initialized, and the Utente object is available.","None.","1. Call the getSPart() operation on the Utente object.
+2. Verify that the departure station is returned.
+3. Call the getSArr() operation on the Utente object.
+4. Verify that the arrival station is returned.
+5. Call the getSede() operation on the Utente object.
+6. Verify that the user location is returned.
+7. Call the calcMToStation() operation on the Utente object.
+8. Verify that the minimum travel time is calculated correctly.","The user attributes are returned correctly, and the minimum travel time is calculated correctly."
+"TC-Calendario-001","Test setting calendar data","Calendario","1","The system is initialized, and the Calendario object is available.","Valid calendar data (calendario).","1. Call the setCalendario(Calendario) operation on the Calendario object.
+2. Pass the new calendar data as an argument.
+3. Verify that the calendar data is set correctly.","The calendar data is set correctly."
+"TC-Calendario-002","Test getting calendar data","Calendario","1","The system is initialized, and the Calendario object is available.","None.","1. Call the getCalendario() operation on the Calendario object.
+2. Verify that the calendar data is returned correctly.","The calendar data is returned correctly."
+"TC-GestoreCalendario-001","Test getting calendar data","GestoreCalendario","1","The system is initialized, and the GestoreCalendario object is available.","None.","1. Call the getCalendario() operation on the GestoreCalendario object.
+2. Verify that the calendar data is returned correctly.","The calendar data is returned correctly."
+"TC-GestoreCalendario-002","Test updating calendar data","GestoreCalendario","1","The system is initialized, and the GestoreCalendario object is available.","Updated calendar data (calendario).","1. Call the updateCalendario(Calendario) operation on the GestoreCalendario object.
+2. Pass the updated calendar data as an argument.
+3. Verify that the calendar data is updated correctly.","The calendar data is updated correctly."
+"TC-GestoreTreni-001","Test getting train information","GestoreTreni","1","The system is initialized, and the GestoreTreni object is available.","A valid train ID.","1. Call the getTrainInfo(int id) operation on the GestoreTreni object.
+2. Pass the train ID as an argument.
+3. Verify that the train information is returned correctly.","The train information is returned correctly."
+"TC-GestoreTreni-003","Test deleting preferred train","GestoreTreni","1","The system is initialized, and the GestoreTreni object is available. A preferred train exists.","The index of the preferred train to be deleted.","1. Call the deletePrefTrain(int) operation on the GestoreTreni object.
+2. Pass the index of the preferred train to be deleted as an argument.
+3. Verify that the preferred train is deleted correctly.","The preferred train is deleted correctly."
+"TC-GestoreVariazioni-001","Test getting train variations","GestoreVariazioni","1","The system is initialized, and the GestoreVariazioni object is available.","None.","1. Call the GetVariazioni() operation on the GestoreVariazioni object.
+2. Verify that the list of train variations is returned correctly.","The list of train variations is returned correctly."
+"TC-GestoreVariazioni-002","Test getting train variations for a specific train","GestoreVariazioni","1","The system is initialized, and the GestoreVariazioni object is available.","A valid train ID.","1. Call the GetVariazioni(Treno) operation on the GestoreVariazioni object.
+2. Pass the train object as an argument.
+3. Verify that the list of train variations for the specified train is returned correctly.","The list of train variations for the specified train is returned correctly."
+"TC-GestoreVariazioni-003","Test getting train variations for a specific station","GestoreVariazioni","1","The system is initialized, and the GestoreVariazioni object is available.","A valid station.","1. Call the GetVariazioni(Stazione) operation on the GestoreVariazioni object.
+2. Pass the station object as an argument.
+3. Verify that the list of train variations for the specified station is returned correctly.","The list of train variations for the specified station is returned correctly."
+"TC-GestoreVariazioni-004","Test getting notifications","SistemaNotifica","2","The system is initialized, and the SistemaNotifica object is available. Train variations exist.","None.","1. Call the Start() operation on the SistemaNotifica object.
+2. Verify that the notifications are displayed correctly.","The notifications are displayed correctly."
+"TC-API-001","Test API communication","API","2","The system is initialized, and the API object is available.","Valid user credentials (email, password) for login and a valid calendar for train scheduling.","1. Call the FirebaseAuth.getInstance() operation on the API object.
+2. Verify that the Firebase Authentication instance is returned correctly.
+3. Call the mAuth.signInWithEmailAndPassword(email, password) operation on the API object.
+4. Pass the user email and password as arguments.
+5. Verify that the user is logged in successfully.
+6. Call the getCalendario() operation on the Sistema gestione dati object.
+7. Verify that the calendar data is returned correctly.","The user is logged in successfully, and the calendar data is returned correctly."

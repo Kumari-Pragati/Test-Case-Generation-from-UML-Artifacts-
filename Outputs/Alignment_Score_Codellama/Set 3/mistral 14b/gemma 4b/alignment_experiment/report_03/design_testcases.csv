@@ -1,0 +1,115 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and navigation to dashboard,Authentication,1,"- App is installed and launched (Avvio flow).
+- User is not logged in.
+- Network connection is available.","- Valid email: `test.user@example.com`
+- Valid password: `SecurePass123!`
+- Confirm password: `SecurePass123!`","1. Launch the app (Avvio).
+2. Navigate to **SignUpActivity** via ""Registrazione"" flow.
+3. Enter `test.user@example.com` in the email field.
+4. Enter `SecurePass123!` in the password field.
+5. Re-enter `SecurePass123!` in the confirm password field.
+6. Click the ""Register"" button.
+7. Verify the success message: ""Utente registrato con successo al servizio.""
+8. Click ""Ritorna"" to return to **AppCompatActivity**.
+9. Navigate to **DashboardActivity** via ""Dashboard"" flow.","- Registration is successful.
+- User is redirected to **DashboardActivity** without errors.
+- No duplicate accounts are created for the same email."
+TC-AUTHENTICATION-002,Failed user registration due to invalid email format,Authentication,1,"- App is launched (Avvio).
+- User is not logged in.","- Invalid email: `test.user@example` (missing TLD)
+- Valid password: `SecurePass123!`","1. Launch the app (Avvio).
+2. Navigate to **SignUpActivity** via ""Registrazione"" flow.
+3. Enter `test.user@example` in the email field.
+4. Enter `SecurePass123!` in the password field.
+5. Re-enter `SecurePass123!` in the confirm password field.
+6. Click the ""Register"" button.","- Registration fails.
+- Error message appears: ""Formato email non valido.""
+- User remains on **SignUpActivity**."
+TC-AUTHENTICATION-003,Failed user registration due to password mismatch,Authentication,1,"- App is launched (Avvio).
+- User is not logged in.","- Valid email: `test.user@example.com`
+- Password: `SecurePass123!`
+- Confirm password: `DifferentPass456!`","1. Launch the app (Avvio).
+2. Navigate to **SignUpActivity** via ""Registrazione"" flow.
+3. Enter `test.user@example.com` in the email field.
+4. Enter `SecurePass123!` in the password field.
+5. Enter `DifferentPass456!` in the confirm password field.
+6. Click the ""Register"" button.","- Registration fails.
+- Error message appears: ""Le password non corrispondono.""
+- User remains on **SignUpActivity**."
+TC-NAVIGATION-001,Navigation from dashboard to user list and back,Navigation,1,- User is logged in and on **DashboardActivity**.,,"1. From **DashboardActivity**, navigate to **UserListActivity** via ""Elenco Utenti"" flow.
+2. Verify the list of users is displayed.
+3. Click ""Ritorna"" to return to **AppCompatActivity**.
+4. From **AppCompatActivity**, navigate back to **DashboardActivity** via ""Dashboard"" flow.","- **UserListActivity** loads successfully with user data.
+- Return flow (""Ritorna"") works without crashes.
+- **DashboardActivity** is accessible after returning."
+TC-NAVIGATION-002,Navigation flow without user registration (unauthenticated),Navigation,1,"- App is launched (Avvio).
+- User is not logged in.",,"1. Attempt to navigate directly to **UserListActivity** (e.g., via back button or forced URL).
+2. Attempt to navigate to **DashboardActivity** without registration.","- **UserListActivity** or **DashboardActivity** redirects to **MainActivity** or shows an error.
+- User is prompted to register/login if required."
+TC-WEATHER-001,"Display current location weather after clicking ""weather"" button",Weather,"2, 4","- App is on **Home** screen.
+- Device has location permissions granted.
+- Network connection is available.",,"1. Click the ""weather"" button on **Home**.
+2. Verify weather data for the current location is displayed (e.g., temperature, conditions).
+3. Click the enlargement side (e.g., ""+"" or ""Dettagli"").
+4. Enter a valid city name (e.g., ""Rome"") in the search field.
+5. Click the search button.","- Current location weather is displayed correctly.
+- Enlargement side opens a search interface.
+- Weather for ""Rome"" is fetched and displayed without errors."
+TC-WEATHER-002,Weather search with invalid location,Weather,"2, 4","- App is on **Home** screen.
+- User has clicked ""weather"" and is on the weather screen.",- Invalid city: `Zxxyz123` (non-existent location),"1. Click the enlargement side to open search.
+2. Enter `Zxxyz123` in the search field.
+3. Click the search button.","- Error message appears: ""Località non trovata.""
+- No weather data is displayed for the invalid location."
+TC-WEATHER-003,Weather display without location permissions,Weather,"2, 4","- App is on **Home** screen.
+- Device location permissions are **denied**.",,"1. Click the ""weather"" button on **Home**.
+2. Verify the app prompts for location permissions.
+3. Click ""Deny"" on the permission dialog.
+4. Attempt to view weather data.","- App shows a fallback message: ""Autorizza l'accesso alla posizione per visualizzare il meteo.""
+- Weather data is not displayed without permissions."
+TC-TREKKING-001,Successful province and path selection flow,Trekking,3,"- App is launched.
+- Network connection is available.",,"1. User clicks on ""Trekking"" in the app.
+2. App requests and receives a list of provinces from the server (e.g., [""Lombardia"", ""Piemonte"", ""Veneto""]).
+3. User selects ""Lombardia"" from the list.
+4. App requests and receives a list of paths for ""Lombardia"" (e.g., [""Valle Camonica"", ""Adamello""]).
+5. User selects ""Valle Camonica"" from the list.","- List of provinces is displayed correctly.
+- Paths for ""Lombardia"" are fetched and displayed.
+- Selection of ""Valle Camonica"" completes the flow without errors."
+TC-TREKKING-002,Trekking flow with empty province list,Trekking,3,"- App is launched.
+- Server returns an empty province list (simulated).",,"1. User clicks on ""Trekking.""
+2. App requests province list from the server.
+3. Server responds with an empty list: `[]`.
+4. User attempts to select a province.","- App displays a message: ""Nessuna provincia disponibile.""
+- User cannot proceed further without valid data."
+TC-TREKKING-003,Trekking flow with network failure,Trekking,3,"- App is launched.
+- Device is in **airplane mode** (no network).",,"1. User clicks on ""Trekking.""
+2. App attempts to request province list from the server.
+3. User waits for 10 seconds (timeout).
+4. User attempts to select a province.","- Error message appears: ""Impossibile connettersi al server. Verifica la connessione.""
+- User cannot proceed without network."
+TC-HEALTH-001,Successful retrieval and display of past training data,Health,5,"- User is logged in.
+- Server has training data for the user (e.g., [""Run 5km"", ""Yoga 30min""]).",,"1. User clicks on ""Health"" in the app.
+2. App requests past training data from the server.
+3. Server responds with training data: `[""Run 5km"", ""Yoga 30min""]`.
+4. App displays the list of training data to the user.","- List of training data is displayed correctly.
+- No errors occur during the data fetch or display."
+TC-HEALTH-002,Health data retrieval with no past training records,Health,5,"- User is logged in.
+- Server returns an empty training list for the user.",,"1. User clicks on ""Health.""
+2. App requests past training data from the server.
+3. Server responds with an empty list: `[]`.
+4. App displays the training data list.","- App displays a message: ""Nessun allenamento registrato.""
+- Empty state is handled gracefully."
+TC-HEALTH-003,Health data retrieval with server error,Health,5,"- User is logged in.
+- Server returns a 500 error (simulated).",,"1. User clicks on ""Health.""
+2. App requests past training data from the server.
+3. Server responds with a 500 error.
+4. User waits for the app to handle the error.","- Error message appears: ""Errore nel recupero dei dati. Riprova più tardi.""
+- User is not locked out and can retry."
+TC-INTEGRATION-001,End-to-end flow: Registration → Weather → Trekking,Integration,"1, 2, 3, 4","- App is fresh install (no user data).
+- Network and location permissions are granted.",,"1. Launch the app (Avvio).
+2. Register a new user (valid credentials) and navigate to **DashboardActivity**.
+3. From **Home**, click ""weather"" and verify current location weather is displayed.
+4. Click the enlargement side and search for ""Milan.""
+5. Verify weather for ""Milan"" is displayed.
+6. Click ""Trekking"" and select a province (e.g., ""Lombardia"").
+7. Select a path (e.g., ""Valle Camonica"").","- All flows execute without errors.
+- Data is fetched and displayed correctly at each step.
+- No crashes or permission issues occur."

@@ -1,0 +1,70 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login via Firebase,Authentication,1,"- Firebase Authentication is enabled.
+- User does not exist in the system.","- Valid nickname: `john_doe`
+- Valid password: `SecurePass123!`
+- Valid email: `john@example.com`","1. User enters `john_doe` as nickname, `SecurePass123!` as password, and `john@example.com` as email.
+2. System validates input (nickname/password/email format).
+3. User clicks ""Register.""
+4. System creates user in Firebase Authentication.
+5. User logs in with the same credentials.","- User account is created successfully.
+- Authentication token is generated and stored.
+- User is redirected to the home screen with valid session."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,1,"- Firebase Authentication is enabled.
+- User exists but is not logged in.","- Invalid password: `WrongPass123`
+- Valid nickname: `john_doe`","1. User enters `john_doe` as nickname and `WrongPass123` as password.
+2. User clicks ""Login.""","- System rejects login attempt.
+- Error message: ""Invalid credentials. Please try again."""
+TC-AUTHENTICATION-003,Data organizer validates and stores user data in Firebase,Data Management,1,"- User is authenticated.
+- Data organizer is active.","- Valid data payload: `{ ""id"": 101, ""content"": ""Sample post"", ""timestamp"": ""2023-10-01T12:00:00Z"" }`
+- Invalid data payload: `{ ""id"": """", ""content"": """", ""timestamp"": ""invalid"" }`","1. Authenticated user sends valid data payload to data organizer.
+2. Data organizer validates payload (non-empty fields, correct format).
+3. Data organizer stores payload in Firebase Realtime Database.
+4. Repeat with invalid payload.","- Valid payload is stored successfully.
+- Invalid payload is rejected with error: ""Invalid data format."""
+TC-CHAT-001,Create and send a message between two users,Messaging,2,"- User1 and User2 exist in the system.
+- Chat between User1 and User2 exists.","- Valid message: `{ ""text"": ""Hello!"", ""timestamp"": ""2023-10-01T12:00:00Z"" }`
+- Invalid message: `{ ""text"": """", ""timestamp"": ""invalid"" }`","1. User1 sends a valid message to User2 via the chat.
+2. System associates message with `chat_id` and `receiver` (User2).
+3. System stores message in the database.
+4. Repeat with invalid message.","- Valid message is stored and visible to User2.
+- Invalid message is rejected with error: ""Message cannot be empty."""
+TC-CHAT-002,Verify many-to-many user-chat relationships,Chat Associations,2,"- User1, User2, and User3 exist.
+- Chat1 exists between User1 and User2.
+- Chat2 exists between User1 and User3.","- Chat1: `{ ""id"": 1, ""user1"": User1, ""user2"": User2 }`
+- Chat2: `{ ""id"": 2, ""user1"": User1, ""user2"": User3 }`","1. User1 sends a message to User2 via Chat1.
+2. User1 sends a message to User3 via Chat2.
+3. Verify Chat1 only shows messages between User1 and User2.
+4. Verify Chat2 only shows messages between User1 and User3.","- Messages are correctly segmented by chat.
+- No cross-chat message leakage."
+TC-FRIDGE-001,Create a fridge and associate it with a user,Fridge Management,2,- User exists in the system.,"- Valid fridge: `{ ""id"": 1, ""name"": ""Home Fridge"", ""sale"": false, ""owner"": User1 }`
+- Invalid fridge: `{ ""id"": """", ""name"": """", ""sale"": null }`","1. User1 creates a valid fridge.
+2. System associates fridge with User1’s `FK <<User>>`.
+3. Repeat with invalid fridge.","- Valid fridge is created and linked to User1.
+- Invalid fridge is rejected with error: ""Fridge name cannot be empty."""
+TC-FRIDGE-002,Create a post linked to a fridge,Post Management,2,"- User1 exists.
+- Fridge1 (owned by User1) exists.","- Valid post: `{ ""id"": 1, ""nickname"": User1, ""fridge"": Fridge1, ""sty"": 5, ""cont"": 10 }`
+- Invalid post: `{ ""id"": """", ""nickname"": null, ""fridge"": null }`","1. User1 creates a valid post linked to Fridge1.
+2. System validates post attributes and links to fridge.
+3. Repeat with invalid post.","- Valid post is created and associated with Fridge1.
+- Invalid post is rejected with error: ""Fridge or user not specified."""
+TC-PRODUCT-REMOVAL-001,Remove a product from Firebase via fragment change,Product Management,3,"- User is authenticated.
+- Product exists in FirebaseDatabase.","- Valid product ID: `prod_123`
+- Invalid product ID: `invalid_id`","1. User triggers `ChangeFragment0` to remove `prod_123`.
+2. System calls `RimuoviProdotto0` with `prod_123`.
+3. `FirebaseDatabase` receives removal request and deletes the product.
+4. Repeat with `invalid_id`.","- Valid product is removed successfully.
+- Invalid product ID returns error: ""Product not found."""
+TC-INTEGRATION-001,End-to-end flow: User posts data → Data organizer stores → Chat notifies,System Integration,"1, 2","- User1 and User2 exist.
+- Chat between User1 and User2 exists.
+- Firebase is active.","- Post data: `{ ""content"": ""New fridge alert!"", ""timestamp"": ""2023-10-01T12:00:00Z"" }`","1. User1 creates a post with the data.
+2. Data organizer validates and stores post in Firebase.
+3. System notifies User2 via chat: ""New post from User1!""
+4. User2 views the post in their chat.","- Post is stored in Firebase.
+- Notification appears in User2’s chat.
+- Post is retrievable via data organizer."
+TC-EDGE-001,Concurrent product removal by multiple users,Conflict Handling,3,"- Two users (User1, User2) are authenticated.
+- Same product exists in Firebase.",,"1. User1 initiates `RimuoviProdotto0` for `prod_123`.
+2. Before completion, User2 attempts to remove the same product.
+3. System processes requests sequentially.","- First request succeeds; second request fails with error: ""Product already removed."""
+TC-EDGE-002,Empty fridge post validation,Data Validation,2,- Fridge exists but has no posts.,"- Empty post: `{ ""id"": null, ""nickname"": null, ""fridge"": Fridge1 }`",1. User attempts to create an empty post linked to Fridge1.,"- System rejects post with error: ""Post content or attributes missing."""
+TC-SECURITY-001,Unauthenticated access to Firebase data,Security,1,- Firebase rules require authentication.,,1. Unauthenticated user attempts to read/write data via data organizer.,"- Request is blocked with error: ""Unauthorized access."""

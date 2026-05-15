@@ -1,0 +1,213 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Signup-001","Successful User Registration with Valid Data","Signup","3, 22, 36","User is on the Signup screen of the app.","Valid email (e.g., user@example.com), valid password (e.g., ""Password123!""), valid name (e.g., ""John Doe""), valid phone number (e.g., ""+393123456789"")","1. Enter valid email address in the email field.
+2. Enter valid password in the password field.
+3. Re-enter the same password in the confirm password field.
+4. Enter valid name in the name field.
+5. Enter valid phone number in the phone number field.
+6. Click on the ""Register"" button.","User account is successfully created, and a confirmation message is displayed. User is redirected to the Login screen."
+"TC-Signup-002","User Registration with Invalid Email Format","Signup","3, 22, 36","User is on the Signup screen of the app.","Invalid email (e.g., ""user@example""), valid password (e.g., ""Password123!""), valid name (e.g., ""John Doe""), valid phone number (e.g., ""+393123456789"")","1. Enter invalid email address in the email field.
+2. Enter valid password in the password field.
+3. Re-enter the same password in the confirm password field.
+4. Enter valid name in the name field.
+5. Enter valid phone number in the phone number field.
+6. Click on the ""Register"" button.","Error message is displayed indicating the email format is invalid. User remains on the Signup screen."
+"TC-Signup-003","User Registration with Mismatched Passwords","Signup","3, 22, 36","User is on the Signup screen of the app.","Valid email (e.g., ""user@example.com""), first password (e.g., ""Password123!""), second password (e.g., ""Password456!""), valid name (e.g., ""John Doe""), valid phone number (e.g., ""+393123456789"")","1. Enter valid email address in the email field.
+2. Enter first password in the password field.
+3. Enter second password (different from the first) in the confirm password field.
+4. Enter valid name in the name field.
+5. Enter valid phone number in the phone number field.
+6. Click on the ""Register"" button.","Error message is displayed indicating the passwords do not match. User remains on the Signup screen."
+"TC-Login-004","Successful Login with Valid Credentials","Login","3, 22, 37","User has a registered account and is on the Login screen of the app.","Valid email (e.g., ""user@example.com""), valid password (e.g., ""Password123!"")","1. Enter valid email address in the email field.
+2. Enter valid password in the password field.
+3. Click on the ""Login"" button.","User is successfully logged in and redirected to the home screen."
+"TC-Login-005","Failed Login with Invalid Password","Login","3, 22, 37","User has a registered account and is on the Login screen of the app.","Valid email (e.g., ""user@example.com""), invalid password (e.g., ""WrongPassword!"")","1. Enter valid email address in the email field.
+2. Enter invalid password in the password field.
+3. Click on the ""Login"" button.","Error message is displayed indicating invalid credentials. User remains on the Login screen."
+"TC-CreateAnnouncement-006","Successful Creation of a Service Announcement","Create Announcement","3, 22, 37","User is logged in and on the ""Create Announcement"" screen.","Valid title (e.g., ""Need help with gardening""), valid description (e.g., ""I need help trimming my bushes""), valid service type (e.g., ""Gardening""), valid location (e.g., ""Via Roma, 123""), valid date and time (e.g., ""2023-12-25 10:00"")","1. Enter valid title in the title field.
+2. Enter valid description in the description field.
+3. Select valid service type from the dropdown menu.
+4. Enter valid location in the location field.
+5. Select valid date and time for the service.
+6. Click on the ""Post Announcement"" button.","Announcement is successfully created and displayed in the user's profile and the neighborhood feed."
+"TC-CreateAnnouncement-007","Creation of Announcement with Missing Required Field","Create Announcement","3, 22, 37","User is logged in and on the ""Create Announcement"" screen.","Missing title, valid description (e.g., ""I need help trimming my bushes""), valid service type (e.g., ""Gardening""), valid location (e.g., ""Via Roma, 123""), valid date and time (e.g., ""2023-12-25 10:00"")","1. Leave the title field empty.
+2. Enter valid description in the description field.
+3. Select valid service type from the dropdown menu.
+4. Enter valid location in the location field.
+5. Select valid date and time for the service.
+6. Click on the ""Post Announcement"" button.","Error message is displayed indicating the title field is required. User remains on the ""Create Announcement"" screen."
+"TC-ViewAnnouncement-008","Successful Viewing of an Announcement","View Announcement","3, 23, 38","User is logged in and there is at least one announcement posted in the system.","Existing announcement (e.g., ""Need help with gardening"")","1. Navigate to the neighborhood feed or search for an existing announcement.
+2. Click on the announcement titled ""Need help with gardening"".","Announcement details (title, description, service type, location, date, and time) are displayed correctly."
+"TC-BookAnnouncement-009","Successful Booking of an Announcement","Book Announcement","3, 23, 39","User is logged in and there is at least one available announcement.","Existing announcement (e.g., ""Need help with gardening"")","1. Navigate to the neighborhood feed and find the announcement titled ""Need help with gardening"".
+2. Click on the ""Book"" button next to the announcement.
+3. Confirm the booking in the confirmation dialog.","Announcement is marked as booked, and a notification is sent to the service provider. User receives a confirmation message."
+"TC-AcceptAnnouncement-010","Successful Acceptance of a Booking Request","Accept Announcement","3, 24, 39","User is logged in as a service provider and has received a booking request for an announcement.","Pending booking request for an announcement (e.g., ""Need help with gardening"")","1. Navigate to the ""Booking Requests"" section.
+2. Find the pending booking request for the announcement titled ""Need help with gardening"".
+3. Click on the ""Accept"" button next to the request.","Booking request is accepted, and a confirmation message is displayed. Both the user and the service provider receive notifications."
+"TC-DeleteAnnouncement-011","Successful Deletion of an Announcement","Delete Announcement","3, 24, 40","User is logged in as the owner of an announcement.","Existing announcement (e.g., ""Need help with gardening"")","1. Navigate to the user's profile or announcement list.
+2. Find the announcement titled ""Need help with gardening"".
+3. Click on the ""Delete"" button next to the announcement.
+4. Confirm deletion in the confirmation dialog.","Announcement is successfully deleted, and a confirmation message is displayed. The announcement is no longer visible in the feed or user's profile."
+"TC-ViewProfile-012","Successful Viewing of Another User's Profile","View Profile","3, 25, 41","User is logged in and there is at least one other user in the system.","Existing user profile (e.g., ""Jane Smith"")","1. Navigate to the neighborhood feed or search for another user.
+2. Click on the profile of ""Jane Smith"".","User profile details (name, email, phone number, posted announcements, and booking history) are displayed correctly."
+"TC-EditAccount-013","Successful Editing of User Account Information","Edit Account","3, 25, 42","User is logged in and on the account settings screen.","Updated name (e.g., ""Johnathan Doe""), updated phone number (e.g., ""+393987654321"")","1. Navigate to the account settings.
+2. Enter updated name in the name field.
+3. Enter updated phone number in the phone number field.
+4. Click on the ""Save Changes"" button.","Account information is successfully updated, and a confirmation message is displayed."
+"TC-EditAnnouncement-014","Successful Editing of an Announcement","Edit Announcement","3, 26, 42","User is logged in as the owner of an announcement and on the announcement details screen.","Existing announcement (e.g., ""Need help with gardening""), updated description (e.g., ""I need help trimming my bushes and mowing the lawn"")","1. Navigate to the announcement titled ""Need help with gardening"".
+2. Click on the ""Edit"" button.
+3. Enter updated description in the description field.
+4. Click on the ""Save Changes"" button.","Announcement is successfully updated, and a confirmation message is displayed. Updated details are visible in the announcement."
+"TC-UserAccount-015","Successful User Registration","User Account","12","User is not registered in the system","Valid email, password, name, and location data","1. User opens the application.
+2. User navigates to the registration page.
+3. User enters valid email address.
+4. User enters valid password.
+5. User enters name.
+6. User enters location data.
+7. User confirms registration by clicking ""Sign Up"" or equivalent button.","User account is created successfully, and the system redirects the user to the login or home page with a confirmation message."
+"TC-UserAccount-016","Registration with Missing Required Field","User Account","12","User is not registered in the system","Valid email, empty password field, name, and location data","1. User opens the application.
+2. User navigates to the registration page.
+3. User enters valid email address.
+4. User leaves password field empty.
+5. User enters name.
+6. User enters location data.
+7. User attempts to confirm registration by clicking ""Sign Up"" or equivalent button.","System displays an error message indicating that the password field is required."
+"TC-UserAccount-017","Registration with Invalid Email Format","User Account","12","User is not registered in the system","Invalid email format (e.g., ""user@example""), password, name, and location data","1. User opens the application.
+2. User navigates to the registration page.
+3. User enters invalid email format (e.g., ""user@example"").
+4. User enters valid password.
+5. User enters name.
+6. User enters location data.
+7. User attempts to confirm registration by clicking ""Sign Up"" or equivalent button.","System displays an error message indicating that the email format is invalid."
+"TC-Geolocalization-018","Device Geo-localization and Nearby User Identification","Geo-localization","7","User is logged in and has enabled location services","User location data (e.g., coordinates of a specific neighborhood)","1. User opens the application.
+2. System requests and obtains user location permissions.
+3. User grants location access.
+4. System displays a map or list of nearby users/devices.
+5. User verifies the number of active users in the vicinity.","System accurately identifies and displays nearby users/devices within the selected neighborhood or area."
+"TC-Geolocalization-019","Geo-localization with Denied Location Permissions","Geo-localization","7","User is logged in","None","1. User opens the application.
+2. System requests location permissions.
+3. User denies location access.
+4. User attempts to view nearby users or services.","System displays a message indicating that location services are required to access geo-localized features."
+"TC-VirtualCurrency-020","Automatic Assignment of Punti Quartiere After Service Completion","Virtual Currency","9","User has completed a service as requested in an announcement","Service completion confirmation (e.g., user marks task as done)","1. User completes a service requested in an announcement.
+2. User confirms completion of the service in the application.
+3. System verifies the completion criteria.","System automatically assigns the predefined number of Punti Quartiere to the user’s account."
+"TC-VirtualCurrency-021","Display of Punti Quartiere Balance","Virtual Currency","9","User is logged in and has completed at least one service","User account with assigned Punti Quartiere","1. User opens the application.
+2. User navigates to the profile or wallet section.
+3. User views the Punti Quartiere balance.","System displays the correct balance of Punti Quartiere assigned to the user’s account."
+"TC-AnnouncementManageme-022","Publishing a Service Announcement","Announcement Management","12","User is logged in as a ""Pubblicatore annuncio""","Valid service description, title, and location","1. User opens the application.
+2. User navigates to the announcement creation page.
+3. User enters a title for the service.
+4. User enters a detailed description of the service.
+5. User selects the location for the service.
+6. User confirms publication by clicking ""Post Announcement"" or equivalent button.","Announcement is published successfully and appears in the system for other users to view."
+"TC-AnnouncementManageme-023","Viewing Published Announcements","Announcement Management","12","At least one announcement is published in the system","Published service announcements","1. User opens the application.
+2. User navigates to the announcements section.
+3. User views the list of published announcements.","System displays all published announcements with relevant details (title, description, location, etc.)."
+"TC-UserManagement-024","New User Registration","User Management","13","None","Valid user details (name, email, password)","1. User navigates to the registration page.
+2. User fills in the required fields (name, email, password).
+3. User submits the registration form.","A new user profile is created successfully."
+"TC-Authentication-025","Successful User Login","Authentication","13","User account exists","Valid credentials (email/password)","1. User navigates to the login page.
+2. User enters valid email and password.
+3. User clicks the login button.","User is redirected to the home screen and the Shelf is displayed."
+"TC-AnnouncementManageme-026","Create a New Announcement","Announcement Management","14","User is logged in","Valid announcement details (title, description, activity type)","1. User navigates to the announcement creation page.
+2. User fills in the announcement details.
+3. User submits the form.","A new announcement is added to the online shelf."
+"TC-AnnouncementManageme-027","View Announcement on Shelf","Announcement Management","14","At least one announcement exists","None","1. User navigates to the shelf page.
+2. User selects an announcement to view.","The announcement content is displayed correctly."
+"TC-AnnouncementManageme-028","Book an Announcement","Announcement Management","15","User is logged in and an announcement is visible","None","1. User navigates to an announcement page.
+2. User clicks the ""Prenotazione"" (Booking) button.","User is added to the list of candidates for the announcement."
+"TC-AnnouncementManageme-029","Accept a Candidate for an Announcement","Announcement Management","15-16","A list of candidates exists for an announcement","None","1. Advertiser navigates to the announcement management page.
+2. Advertiser selects a candidate from the list.
+3. Advertiser confirms the selection.","The selected candidate is accepted, and an agreement is reached between the parties."
+"TC-AnnouncementManageme-030","Delete an Announcement","Announcement Management","16","User has created an announcement","None","1. User navigates to the announcement management page.
+2. User selects the announcement to delete.
+3. User confirms deletion (due to expiration or user decision).","The announcement is permanently removed from the shelf."
+"TC-UserManagement-031","View Another User’s Profile","User Management","17","At least one announcement exists","None","1. User navigates to an announcement created by another user.
+2. User clicks on the profile link associated with the announcement.","The other user’s profile data is displayed."
+"TC-UserManagement-032","Modify User Account Details","User Management","17","User is logged in","Updated user details (name, email, privacy settings)","1. User navigates to the account settings page.
+2. User modifies personal data or privacy settings.
+3. User submits the changes.","User account details and privacy settings are updated successfully."
+"TC-AnnouncementManageme-033","Modify an Existing Announcement","Announcement Management","18","User has created an announcement","Updated announcement details","1. User navigates to the announcement management page.
+2. User selects the announcement to modify.
+3. User updates the details.
+4. User submits the changes.","The announcement is updated with the new details."
+"TC-Authentication-034","User Logout","Authentication","18","User is logged in","None","1. User navigates to the logout option.
+2. User confirms logout.","User is successfully logged out of the application."
+"TC-Authentication-035","Successful User Signup","Authentication","22","User is not registered in the application","Valid email, strong password, required user details","1. Navigate to the signup page.
+2. Enter valid email, strong password, and required user details.
+3. Click the ""Register"" button.","User account is created successfully, and a confirmation message is displayed."
+"TC-AnnouncementManageme-036","Creation of a New Announcement","Announcement Management","23","User is logged in","Valid announcement details (title, description, type, etc.)","1. Navigate to the ""Create Announcement"" section.
+2. Fill in all required fields for the announcement (e.g., title, description, type of service).
+3. Click the ""Submit"" or ""Create"" button.","Announcement is created successfully, and a confirmation message is displayed."
+"TC-AnnouncementManageme-037","Manual Deletion of Announcement by Creator","Announcement Management","25","User is logged in and has created an announcement.","Valid announcement ID created by the user.","1. User navigates to the announcement list.
+2. User selects the announcement to delete.
+3. User confirms deletion via a confirmation dialog.","The announcement is permanently removed from the bulletin board, and a success notification appears."
+"TC-AnnouncementManageme-038","Automatic Deletion of Expired Announcement","Announcement Management","25","System time is set to a date beyond the announcement's expiration.","Announcement with an expiration date in the past.","1. System checks for expired announcements.
+2. System triggers automatic deletion of the expired announcement.","The announcement is permanently removed from the bulletin board, and no manual action is required."
+"TC-AnnouncementManageme-039","Automatic Deletion of Assigned Announcement","Announcement Management","25","An announcement has been taken in charge by another user.","Announcement marked as ""taken in charge.""","1. System detects the announcement is taken in charge.
+2. System triggers automatic deletion of the announcement.","The announcement is permanently removed from the bulletin board, and no manual action is required."
+"TC-UserProfile-040","View Another User’s Profile","User Profile","25","User is logged in and another user’s profile exists.","Valid profile ID of another user.","1. User searches for another user by name or ID.
+2. User selects the profile to view.","The profile details (as defined in the system) are displayed without errors."
+"TC-UserAccount-041","Modify User Account Information","User Account","26","User is logged in.","Valid updated account details (e.g., name, email).","1. User navigates to account settings.
+2. User modifies one or more account fields.
+3. User confirms changes via a submit button.","The account details are updated successfully, and a confirmation message appears."
+"TC-AnnouncementManageme-042","Modify Existing Announcement Details","Announcement Management","26","User is logged in and has created an announcement.","Valid announcement ID and updated details (e.g., title, description).","1. User navigates to the announcement list.
+2. User selects the announcement to modify.
+3. User edits the announcement details.
+4. User confirms changes via a submit button.","The announcement details are updated successfully, and a confirmation message appears."
+"TC-UserAuthentication-043","Successful Account Creation with Valid Data","User Authentication","36","User has an internet connection and is on the signup screen","Unique email (e.g., testuser123@gmail.com), valid phone number (e.g., +393123456789), name (e.g., John Doe), password (e.g., SecurePass123), valid address (e.g., Via Roma 1, 00100 Roma)","1. User enters name, surname, phone number, email, address, and password in the signup form.
+2. User clicks the ""Register"" or ""Create Account"" button.","A success message appears confirming account creation, and user data is stored in Firebase."
+"TC-UserAuthentication-044","Duplicate Email Rejection","User Authentication","36","User has an internet connection and is on the signup screen. An account with email testuser123@gmail.com already exists.","Email (testuser123@gmail.com), valid phone number, name, password, address","1. User enters email (testuser123@gmail.com) and other valid details.
+2. User clicks the ""Register"" or ""Create Account"" button.","An error message appears stating the email is already in use."
+"TC-UserAuthentication-045","Duplicate Phone Number Rejection","User Authentication","36","User has an internet connection and is on the signup screen. An account with phone number +393123456789 already exists.","Unique email, phone number (+393123456789), name, password, address","1. User enters phone number (+393123456789) and other valid details.
+2. User clicks the ""Register"" or ""Create Account"" button.","An error message appears stating the phone number is already in use."
+"TC-Authentication-046","Successful Login with Valid Credentials","Authentication","37","User has created an account and has internet access","Valid registered email and correct password","1. Navigate to the login page.
+2. Enter the registered email in the email field.
+3. Enter the correct password in the password field.
+4. Click the login button.","User is successfully logged in and redirected to the main application screen."
+"TC-AnnouncementVisualiz-047","View Announcements List and Details","Announcement Visualization","38","At least one announcement exists in the system created by another user","None","1. Navigate to the announcements list page.
+2. Scroll through the list of announcements.
+3. Click on any announcement in the list.","The selected announcement details are displayed on the screen."
+"TC-AnnouncementReservat-048","Reserve an Announcement","Announcement Reservation","39","User is logged in and an announcement exists","None","1. Navigate to the announcements list page.
+2. Locate an announcement and click the reservation button.","The user is added to the reservation list for the selected announcement."
+"TC-AnnouncementAcceptan-049","Accept a Reservation Request","Announcement Acceptance","40","At least one user has reserved the announcement created by the logged-in user","None","1. Navigate to the reservation list for the announcement.
+2. Select one or more users from the reservation list.
+3. Click the ""Accept"" button.","The selected user(s) are accepted for the announcement and added to the list of users who must perform the requested task."
+"TC-ProfileManagement-050","View Another User's Profile","Profile Management","41","Another user's profile exists in the database","None","1. Navigate to the announcements list or any page where user profiles are linked.
+2. Click on the profile link of another user.","The profile page of the selected user is displayed, showing public information (profile photo, name, email)."
+"TC-AccountManagement-051","Modify User Account Information","Account Management","42","User has an existing account","New profile photo, updated name, additional personal information","1. Navigate to the account modification section.
+2. Upload a new profile photo.
+3. Update the name field with new information.
+4. Add or remove additional personal information.
+5. Click the ""Save Changes"" button.","The user's profile is updated with the new information, and changes are saved in the database."
+"TC-AdvertisementManagem-052","Modify Existing Advertisement","Advertisement Management","43","User must have created an advertisement (precondition explicitly stated)","An existing advertisement with at least one editable field (e.g., title, description, price)","1. User logs in to the application.
+2. User navigates to the section where their created advertisements are listed.
+3. User selects the advertisement to be modified.
+4. User clicks the ""Edit"" or ""Modify"" button/option.
+5. User changes at least one field (e.g., title, description, price).
+6. User confirms the changes by clicking ""Save"" or ""Update.""","The advertisement is updated in the database, and the changes are reflected in the user's advertisement list."
+"TC-UserSessionManagemen-053","User Logout and Offline Mode Activation","User Session Management","43","User must be logged in to the application (precondition explicitly stated)","None","1. User is logged in to the application.
+2. User navigates to the logout option (e.g., profile menu, settings, or dedicated logout button).
+3. User selects the ""Logout"" option.","The application closes the session, disconnects the user, and switches to offline mode. The user is no longer able to access logged-in features."
+"TC-UserRegistration-054","Verify registration functionality for users aged 60+","User Registration","49","User has a smartphone and basic knowledge of app usage","User aged 60+ with pre-existing smartphone knowledge","1. User opens the ShareShelf app.
+2. User selects the registration option.
+3. User fills in registration details (name, email, password, etc.).
+4. User submits the registration form.","User is successfully registered and can access the app without significant difficulty."
+"TC-UserAuthentication-055","Verify login functionality for registered users","User Authentication","49","User is registered in the ShareShelf app","Registered user credentials (email and password)","1. User opens the ShareShelf app.
+2. User selects the login option.
+3. User enters registered email and password.
+4. User submits the login form.","User is successfully logged in and can access the app features."
+"TC-AnnouncementManageme-056","Verify manual announcement posting functionality","Announcement Management","49","User is logged in to the ShareShelf app","Valid announcement details (title, description, date, time, address)","1. User navigates to the announcement posting section.
+2. User fills in announcement details (title, description, date, time).
+3. User manually enters the address of the service location.
+4. User submits the announcement.","Announcement is successfully posted and visible in the user’s profile or relevant section."
+"TC-AnnouncementManageme-057","Verify manual address entry for announcements","Announcement Management","49","User is logged in to the ShareShelf app","Valid announcement details without GPS tracking","1. User navigates to the announcement posting section.
+2. User fills in announcement details (title, description, date, time).
+3. User is prompted to enter the address manually (no GPS tracking).
+4. User enters the address manually.
+5. User submits the announcement.","Announcement is successfully posted with the manually entered address."
+"TC-UserCommunication-058","Verify absence of user-to-user communication feature","User Communication","49","User is logged in to the ShareShelf app","None","1. User navigates to the section where communication with other users might be expected (e.g., announcement details page).
+2. User attempts to find a chat or messaging option.","No chat or messaging feature is available for communication between users."
+"TC-AnnouncementManageme-059","Verify absence of automated recurring announcement feature","Announcement Management","49","User is logged in to the ShareShelf app","None","1. User navigates to the announcement posting section.
+2. User attempts to set an announcement to recur automatically at a specified interval.","No option to set automated recurring announcements is available; user must manually repost each occurrence."
+"TC-AnnouncementManageme-060","Verify absence of reposting expired announcements feature","Announcement Management","49","User has posted an announcement that has expired due to disavowal or lack of booking","Expired announcement details","1. User navigates to their past announcements section.
+2. User attempts to repost an expired announcement.","No option to repost an expired announcement is available; user must manually create a new announcement."

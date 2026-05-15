@@ -1,0 +1,418 @@
+REPORT: Report_21_uml_pages.pdf
+======================================================================
+
+===== Report_21_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+*   **Database**
+    *   kind=Class
+    *   attributes=[id: String, username: String, password: String, email: String]
+    *   operations=[getUsers(): List<User>, modifyUser(username: String, password: String, email: String): void]
+    *   role=Database
+*   **User**
+    *   kind=Class
+    *   attributes=[id: String, username: String, password: String, email: String]
+    *   operations=[getUsers(): List<User>, modifyUser(username: String, password: String, email: String): void]
+    *   role=User
+*   **User**
+    *   kind=Class
+    *   attributes=[id: String, username: String, password: String, email: String]
+    *   operations=[getUsers(): List<User>, modifyUser(username: String, password: String, email: String): void]
+    *   role=User
+
+**Actors / Lifelines:**
+
+*   - None
+
+**Relationships / Links:**
+
+*   **Database** -> **User** — type=association; label="User"; explanation="User"
+*   **User** -> **User** — type=association; label="User"; explanation="User"
+*   **User** -> **User** — type=association; label="User"; explanation="User"
+
+**Main Flows:**
+
+*   Flow 1: Database -> User -> User -> User -> User
+
+**Conditions / Branches:**
+
+*   - None
+
+**Loops / Repetitions:**
+
+*   - None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram represents a simple user management system with a database and two types of users.
+*   The system allows users to be created, modified, and retrieved.
+*   The database is the central component, and users are associated with it.
+*   The system has a simple flow where users are created, modified, and retrieved.
+
+===== Report_21_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Applicazione**: kind=Application; attributes=[user= log_In(), user= checkIfLogin(), user= loggingIn(), user= registerAndLogin(), user= mAuth.getcurrentUser(), user= mAuth.createUser(), user= mAuth.signInWithEmailAndPassword(), user= mAuth.getCurrentUser(), user= mAuth.createUserWithEmailAndPassword()]
+*   **Sistema Gestione Utente**: kind=System; attributes=[user= log_In(), user= checkIfLogin(), user= loggingIn(), user= registerAndLogin(), user= mAuth.getcurrentUser(), user= mAuth.createUser(), user= mAuth.signInWithEmailAndPassword(), user= mAuth.getCurrentUser(), user= mAuth.createUserWithEmailAndPassword()]
+*   **Sistema di gestione dei dati**: kind=System; attributes=[mAuth= FirebaseAuth.getInstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance()]
+*   **API FirebaseAuth**: kind=API; attributes=[mAuth= FirebaseAuth.getInstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance(), mAuth= FirebaseAuth.getinstance()]
+
+**Actors / Lifelines:**
+
+*   **user**
+*   **mAuth**
+
+**Relationships / Links:**
+
+*   **user** -> **Applicazione** — type=association; label="log_In"; explanation="user logs in"
+*   **user** -> **Sistema Gestione Utente** — type=association; label="checkIfLogin"; explanation="user checks if logged in"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="loggingIn"; explanation="user logs in"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="registerAndLogin"; explanation="user registers and logs in"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="mAuth.getcurrentUser()"; explanation="user gets current user"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="mAuth.createUser()"; explanation="user creates user"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="mAuth.signInWithEmailAndPassword()"; explanation="user signs in with email and password"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="mAuth.getCurrentUser()"; explanation="user gets current user"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="mAuth.createUserWithEmailAndPassword()"; explanation="user creates user with email and password"
+*   **user** -> **Sistema di gestione dei dati** — type=association; label="mAuth.getCurrentUser()"; explanation="user gets current user"
+
+**Main Flows:**
+
+*   **Flow 1:** user -> Applicazione -> user -> Sistema Gestione Utente -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user -> Applicazione -> user -> Sistema di gestione dei dati -> user -> API FirebaseAuth -> user ->
+
+===== Report_21_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Applicazione**: kind=Application; attributes=[list = getSegnalazioni]; operations=[forward(getSegnalazioni()): forward(payload): payload]; role=Application
+* **Sistema di gestione segnalazioni**: kind=System; attributes=[forward(getSegnalazioni()): forward(payload): payload]; operations=[getSegnalazioni(): list = getSegnalazioni]; role=Signal Management System
+* **Sistema di gestione dei dati**: kind=System; attributes=[query(select Segnalazioni()): query(select Segnalazioni())); operations=[query(select Segnalazioni()): query(select Segnalazioni())); role=Data Management System
+* **Database**: kind=Database; attributes=[query(select Segnalazioni()): query(select Segnalazioni())); operations=[query(select Segnalazioni()): query(select Segnalazioni())); role=Database
+
+**Actors / Lifelines:**
+
+* **Applicazione**
+* **Sistema di gestione segnalazioni**
+* **Sistema di gestione dei dati**
+* **Database**
+
+**Relationships / Links:**
+
+* **Applicazione** -> **Sistema di gestione segnalazioni** — type=forward; label="getSegnalazioni"; explanation="get signalizations"
+* **Sistema di gestione segnalazioni** -> **Sistema di gestione dei dati** — type=forward; label="getSegnalazioni"; explanation="get signalizations"
+* **Sistema di gestione dei dati** -> **Database** — type=query; label="select Segnalazioni"; explanation="select signalizations"
+* **Sistema di gestione dei dati** -> **Sistema di gestione dei dati** — type=query; label="select Segnalazioni"; explanation="select signalizations"
+
+**Main Flows:**
+
+* Flow 1: Applicazione -> Sistema di gestione segnalazioni -> Sistema di gestione dei dati -> Database -> Applicazione
+
+**Conditions / Branches:**
+
+* **list = getSegnalazioni()** -> **list = payload** (list = Null) -> **display(Null)** (list 1= Null) -> **display_list(list)**
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where the application sends a request to the signal management system, which forwards it to the data management system, which queries the database and returns the result to the application.
+* The application receives a list of signalizations and processes it by displaying it or displaying a list of it.
+* There are no loops or repetitions in the flow.
+
+===== Report_21_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Applicazione**: kind=Application; attributes=[train_variations: getVariazioni]; operations=[train_variations: res]; role=Application
+* **Sistema gestione variazioni**: kind=System; attributes=[list_pref_train: getPrefTreni]; operations=[list_pref_train: getPrefTreni]; role=Variation Management System
+* **Sistema gestione del dati**: kind=System; attributes=[list_pref_train: forward]; operations=[list_pref_train: forward]; role=Data Management System
+* **Database**: kind=Database; attributes=[train_info: getTrainInfo(train_code)]; operations=[train_info: getTrainInfo(train_code)]; role=Database
+* **API Trenitalia**: kind=API; attributes=[train_info: forward]; operations=[train_info: forward]; role=API Trenitalia
+
+**Actors / Lifelines:**
+
+* **Applicazione**
+* **Sistema gestione variazioni**
+* **Sistema gestione del dati**
+* **Database**
+* **API Trenitalia**
+
+**Relationships / Links:**
+
+* **Applicazione** -> **Sistema gestione variazioni** — type=association; label="train_variations"; explanation="getVariazioni"
+* **Sistema gestione variazioni** -> **Sistema gestione del dati** — type=association; label="list_pref_train"; explanation="getPrefTreni"
+* **Sistema gestione del dati** -> **Database** — type=association; label="list_pref_train"; explanation="forward"
+* **Database** -> **API Trenitalia** — type=association; label="train_info"; explanation="getTrainInfo(train_code)"
+* **API Trenitalia** -> **Sistema gestione del dati** — type=association; label="train_info"; explanation="forward"
+
+**Main Flows:**
+
+* **Flow 1:** Applicazione -> train_variations -> getVariazioni -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_variations -> res -> train_var
+
+===== Report_21_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Applicazione**: kind=Application; attributes=[setCalendario(cal)]; operations=[forward(setCalendario(cal)): void; display(outcome): void]; role=Application
+* **Sistema gestione calendario**: kind=System; attributes=[forward(setCalendario(cal)); query(new Calendario(cal))]; operations=[setCalendario(cal): void; forward(outcome): void]; role=Calendar Management System
+* **Database**: kind=Database; attributes=[]; operations=[]; role=Database
+
+**Actors / Lifelines:**
+
+* **Applicazione**
+* **Sistema gestione calendario**
+* **Database**
+
+**Relationships / Links:**
+
+* **Applicazione** -> **Sistema gestione calendario** — type=forward; label=setCalendario(cal); explanation=Set calendar
+* **Sistema gestione calendario** -> **Database** — type=query; label=new Calendario(cal); explanation=Query new calendar
+* **Sistema gestione calendario** -> **Applicazione** — type=forward; label=forward(outcome); explanation=Forward outcome
+* **Sistema gestione calendario** -> **Applicazione** — type=query; label=query(new Calendario(cal)); explanation=Query new calendar
+
+**Main Flows:**
+
+* Flow 1: Applicazione -> Sistema gestione calendario -> Database -> Applicazione -> Sistema gestione calendario -> Applicazione
+
+**Conditions / Branches:**
+
+* **setCalendario(cal)**: outcome -> display(outcome)
+* **forward(outcome)**: forward(outcome)
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where the application sets a calendar, queries the database for a new calendar, and then forwards the outcome.
+* The system management system is responsible for setting and querying the calendar.
+* The database is used to store and retrieve calendar data.
+* The application displays the outcome of the calendar operation.
+
+===== Report_21_uml_pages.pdf | Page 6 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Applicazione**: kind=Application; attributes=[calendario = getCalendario()]; operations=[forward(getCalendario())]; role=Application
+* **Sistema gestione calendario**: kind=System; attributes=[forward(getCalendario())]; operations=[forward(payload)]; role=Calendar Management System
+* **Sistema di gestione dei dati**: kind=System; attributes=[query(select Calendario())]; operations=[payload]; role=Data Management System
+* **Database**: kind=Database; attributes=[payload]; operations=[payload]; role=Database
+
+**Actors / Lifelines:**
+
+* **Applicazione**
+* **Sistema gestione calendario**
+* **Sistema di gestione dei dati**
+* **Database**
+
+**Relationships / Links:**
+
+* **Applicazione** -> **Sistema gestione calendario** — type=forward; label="getCalendario()"; explanation="Get calendario from the calendar management system"
+* **Sistema gestione calendario** -> **Sistema di gestione dei dati** — type=forward; label="getCalendario()"; explanation="Forward calendario to the data management system"
+* **Sistema di gestione dei dati** -> **Database** — type=query; label="select Calendario()"; explanation="Query the database for Calendario"
+* **Database** -> **Sistema di gestione dei dati** — type=payload; label="payload"; explanation="Return payload from the database"
+
+**Main Flows:**
+
+* Flow 1: Applicazione -> Sistema gestione calendario -> Sistema di gestione dei dati -> Database -> Sistema di gestione dei dati -> Applicazione
+
+**Conditions / Branches:**
+
+* **calendario = getCalendario()** -> [calendario = payload] -> [calendario = Null] -> [calendario = Null]
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the flow of calendario from the application to the database through the calendar management system and data management system.
+* The application gets calendario from the calendar management system, which then forwards it to the data management system.
+* The data management system queries the database for calendario and returns a payload.
+* The application receives the payload from the data management system.
+* The diagram does not show any loops or repeated behavior.
+
+===== Report_21_uml_pages.pdf | Page 7 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **list_trains**: kind=class; attributes=[list_trains: getTrains(calendario)]; operations=[getTrains(calendario): list_trains]; role=List of trains
+*   **forward(getTrains(calendario)**: forward(payload): payload; role=Forwarding trains
+*   **requestTrains(calendario)**: requestTrains(calendario): payload; role=Requesting trains
+*   **list_trains = payload**: list_trains = payload; role=List of trains = payload
+*   **displayNull**: displayNull: displayNull; role=Displaying null
+*   **setPrefTrain(id, info)**: setPrefTrain(id, info): setPrefTrain(id, info); role=Setting preferred train
+*   **forward(getPrefTrain(id, info))**: forward(getPrefTrain(id, info)): forward(getPrefTrain(id, info)); role=Forwarding preferred train
+*   **query(new Treno(id, info))**: query(new Treno(id, info)): query(new Treno(id, info)); role=Querying new train
+*   **display(outcome)**: display(outcome): display(outcome); role=Displaying outcome
+*   **forward(outcome)**: forward(outcome): forward(outcome); role=Forwarding outcome
+*   **status code**: status code: status code; role=Status code
+
+**Actors / Lifelines:**
+
+*   **list_trains**
+*   **forward(getTrains(calendario)**
+*   **requestTrains(calendario)**
+*   **list_trains = payload**
+*   **displayNull**
+*   **setPrefTrain(id, info)**
+*   **forward(getPrefTrain(id, info))**
+*   **query(new Treno(id, info))**
+*   **display(outcome)**
+*   **forward(outcome)**
+*   **status code**
+
+**Relationships / Links:**
+
+*   **list_trains -> list_trains = getTrains(calendario)**
+*   **forward(getTrains(calendario) -> forward(payload)**
+*   **forward(payload) -> requestTrains(calendario)**
+*   **list_trains = payload -> list_trains = payload**
+*   **displayNull -> displayNull**
+*   **setPrefTrain(id, info) -> setPrefTrain(id, info)**
+*   **forward(getPrefTrain(id, info)) -> forward(getPrefTrain(id, info))**
+*   **query(new Treno(id, info)) -> query(new Treno(id, info))**
+*   **display(outcome) -> display(outcome)**
+*   **forward(outcome) -> forward(outcome)**
+*   **status code -> status code**
+
+**Main Flows:**
+
+*   **list_trains -> list_trains = getTrains(calendario) -> forward(getTrains(calendario) -> forward(payload) -> requestTrains(calendario) -> payload -> list_trains = payload -> displayNull -> setPrefTrain(id, info) -> forward(getPrefTrain(id, info)) -> query(new Treno(id, info)) -> display(outcome) -> forward(outcome) -> status code**
+*   **list_trains = payload -> list_trains = payload -> displayNull -> setPrefTrain(id, info) -> forward(getPrefTrain(id, info)) -> query(new Treno(id, info)) -> display(outcome) -> forward(outcome) -> status code**
+
+**Conditions / Branches:**
+
+*   **list_trains = getTrains(calendario) -> forward(getTrains(calendario) -> forward(payload) -> requestTrains(calendario) -> payload -> list_trains = payload -> displayNull -> setPrefTrain(id, info) -> forward(getPrefTrain(id, info)) -> query(new Treno(id, info)) -> display(outcome) -> forward(outcome) -> status code**
+*   **list_trains = payload -> list_trains = payload -> displayNull -> setPrefTrain(id, info) -> forward(getPrefTrain(id, info)) -> query(new Treno(id, info)) -> display(outcome) -> forward(outcome) -> status code**
+
+**Loops /
+
+===== Report_21_uml_pages.pdf | Page 8 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **list_trains**: kind=class; attributes=[list_trains: getTrains(calendario)]; operations=[forward(getTrains(calendario)): payload]; role=List of trains
+* **Sistema gestione calendario**: kind=class; attributes=[forward(getTrains(calendario)): payload]; operations=[forward(payload): forward(payload)]; role=Calendar management system
+* **Sistema di gestione dei dati**: kind=class; attributes=[requestTrains(calendario): payload]; operations=[forward(deletePrefTrain(id)): forward(outcome)]; role=Data management system
+* **API Trenitalia**: kind=class; attributes=[requestTrains(calendario): payload]; operations=[forward(deleteTreno(id)): query(delete Treno(id)); role=API Trenitalia
+* **Database**: kind=class; attributes=[query(delete Treno(id)): status code]; operations=[forward(outcome): forward(outcome)]; role=Database
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* list_trains -> Sistema gestione calendario — type=forward; label=forward(getTrains(calendario)); explanation=Get trains from calendar
+* Sistema gestione calendario -> list_trains — type=forward; label=forward(payload); explanation=Forward payload
+* list_trains -> Sistema di gestione dei dati — type=forward; label=forward(getTrains(calendario)); explanation=Get trains from data management system
+* Sistema di gestione dei dati -> list_trains — type=forward; label=forward(payload); explanation=Forward payload
+* API Trenitalia -> Database — type=request; label=requestTrains(calendario); explanation=Request trains from database
+* Database -> API Trenitalia — type=forward; label=forward(deleteTreno(id)); explanation=Forward delete Treno(id)
+* API Trenitalia -> list_trains — type=forward; label=forward(deleteTreno(id)); explanation=Forward delete Treno(id)
+* list_trains -> Database — type=query; label=query(delete Treno(id)); explanation=Query delete Treno(id)
+* Database -> list_trains — type=forward; label=forward(outcome); explanation=Forward outcome
+
+**Main Flows:**
+
+* Flow 1: list_trains -> Sistema gestione calendario -> list_trains -> Sistema di gestione dei dati -> API Trenitalia -> Database -> list_trains
+* Flow 2: API Trenitalia -> Database -> list_trains
+
+**Conditions / Branches:**
+
+* list_trains -> Null -> list_trains -> Null: display(Null)
+* list_trains -> Null -> list_trains -> Null: display_list(list_trains)
+* list_trains -> Null -> list_trains -> Null: deletePrefTrain(id)
+* forward(deletePrefTrain(id)) -> forward(outcome)
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events involving the interaction between different components.
+* The main flows involve the exchange of data between the components.
+* The system appears to be handling train-related data and performing operations on it.
+* The database is involved in the process, suggesting that it may be storing or retrieving data.
+
+===== Report_21_uml_pages.pdf | Page 9 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Applicazione**: kind=Application; attributes=[train_variations = getVariazioni()]
+*   **Sistema gestione variazioni**: kind=System; attributes=[train_variations = res]
+*   **Sistema di notifica**: kind=System; attributes=[]
+
+**Actors / Lifelines:**
+
+*   **Applicazione**
+*   **Sistema gestione variazioni**
+*   **Sistema di notifica**
+
+**Relationships / Links:**
+
+*   **Applicazione** -> **Sistema gestione variazioni** — type=association; label="train_variations = getVariazioni()"
+*   **Sistema gestione variazioni** -> **Sistema di notifica** — type=association; label="train_variations = res"
+*   **Sistema di notifica** -> **Applicazione** — type=association; label="showNotifica(train_variations)"
+
+**Main Flows:**
+
+*   **Flow 1:** Applicazione -> train_variations = getVariazioni() -> train_variations = res -> showNotifica(train_variations)
+
+**Conditions / Branches:**
+
+*   **train_variations = getVariazioni()** -> train_variations = res
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models a sequence of events where the application requests train variations, the system processes these variations, and then shows notifications based on these variations.
+*   The system's role is to process train variations and provide a response.
+*   The application's role is to request and receive train variations.
+*   The system's response is to show notifications based on the received train variations.
+*   There are no loops or repeated behavior in this sequence.
+
+
+======================================================================

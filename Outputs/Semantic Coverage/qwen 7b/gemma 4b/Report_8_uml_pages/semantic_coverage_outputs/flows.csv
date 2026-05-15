@@ -1,0 +1,37 @@
+flow
+"avvio applicazione -> configurazione iniziale — type=transition; label=""sì""; explanation=""user starts the application"""
+"avvio applicazione -> configurazione iniziale — type=transition; label=""no""; explanation=""configuration already exists"""
+"configurazione iniziale -> aggiungi veicolo — type=transition; label=""aggiungi veicolo"""
+"configurazione iniziale -> accesso lista distributori — type=transition; label=""accesso lista distributori"""
+"configurazione iniziale -> aggiungi veicolo — type=transition; label=""inserisci il veicolo manualmente"""
+"configurazione iniziale -> seleziona e aggiungi il veicolo — type=transition; label=""seleziona e aggiungi il veicolo"""
+"configurazione iniziale -> aggiungi veicolo — type=transition; label=""non aggiungere un altro veicolo?"""
+"the diagram models the initial configuration process of an application, starting with the application launch."
+the user can either start a new configuration or access a list of distributors.
+the user can add a vehicle manually or select and add it.
+the process can be stopped if the user chooses not to add another vehicle.
+"accesso sito web -> visualizza lista distributori — type=transition; label=""accesso sito web""; explanation=""user accesses the website."";"
+"visualizza lista distributori -> verificare se sono disponibili distributori — type=transition; label=""verificare se sono disponibili distributori""; explanation=""check if distributors are available."";"
+"verificare se sono disponibili distributori -> visualizza lista distributori non disponibili — type=transition; label=""visualizza lista distributori non disponibili""; explanation=""if distributors are not available, display the list."";"
+"verificare se sono disponibili distributori -> visualizza lista distributori — type=transition; label=""visualizza lista distributori""; explanation=""if distributors are available, display the list."";"
+"visualizza lista distributori -> visualizza informazioni distributore — type=transition; label=""visualizza informazioni distributore""; explanation=""display distributor information."";"
+"visualizza lista distributori -> annullare apertura finestra applicativa del dettaglio del distributore — type=transition; label=""annullare apertura finestra applicativa del dettaglio del distributore""; explanation=""cancel opening the distributor detail window."";"
+"visualizza informazioni distributore -> salvare i parametri della lista di distributori — type=transition; label=""salvare i parametri della lista di distributori""; explanation=""save the distributor parameters."";"
+"salvare i parametri della lista di distributori -> aprire finestra applicativa del dettaglio del distributore — type=transition; label=""aprire finestra applicativa del dettaglio del distributore""; explanation=""open the distributor detail application window."";"
+the diagram models the process of accessing a distributor page on a website.
+the user first accesses the website.
+the system checks if distributors are available.
+"if distributors are available, the system displays a list of distributors."
+"if distributors are not available, the system displays a list of unavailable distributors."
+"the user can then select a distributor to view its details, or cancel the opening of the detail window."
+"accesso pagina impostazioni -> valutazione le impostazioni — transition=""yes""; explanation=""proceed to evaluate settings"";"
+"accesso pagina impostazioni -> mostra i dati dei distributori — transition=""no""; explanation=""proceed to show distributor data"";"
+"valutazione le impostazioni -> mostra i dati dei distributori — transition=""no""; explanation=""proceed to show distributor data"";"
+"valutazione le impostazioni -> mostra i dati statistiche — transition=""yes""; explanation=""proceed to show statistics data"";"
+"mostra i dati dei distributori -> aggiungi lista dei veicoli — transition=""no""; explanation=""proceed to add vehicle list"";"
+"mostra i dati statistiche -> aggiungi lista dei veicoli — transition=""no""; explanation=""proceed to add vehicle list"";"
+"aggiungi lista dei veicoli -> visualizza popup con informazioni effettuate — transition=""yes""; explanation=""proceed to display popup"";"
+the diagram models the flow of a user accessing the settings page and then potentially navigating to different sections based on whether they are evaluating settings or viewing distributor/statistic data.
+the user can add a vehicle list and then view a popup with information about completed actions.
+the diagram shows a branching path based on whether the user is evaluating settings or not.
+======================================================================

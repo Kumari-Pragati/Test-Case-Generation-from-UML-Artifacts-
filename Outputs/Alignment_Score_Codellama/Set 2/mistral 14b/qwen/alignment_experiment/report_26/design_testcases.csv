@@ -1,0 +1,127 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login,Authentication,"1, 8","- User account exists in the database with valid credentials (e.g., `user@example.com`, `Password123`).
+- User is not already logged in.","- Valid email: `user@example.com`
+- Valid password: `Password123`","1. User navigates to the login page.
+2. User enters valid email and password.
+3. User clicks the ""Login"" button.
+4. System processes credentials and sends request to the database.
+5. Database verifies credentials and returns success.","- User is redirected to the **HOME** page.
+- System displays a success message (e.g., ""Login successful"").
+- User session is active (verified via UI/logout button)."
+TC-AUTHENTICATION-002,Failed user login (invalid credentials),Authentication,"1, 8","- User account exists, but credentials are invalid (e.g., wrong password).","- Valid email: `user@example.com`
+- Invalid password: `wrongpassword`","1. User navigates to the login page.
+2. User enters valid email and invalid password.
+3. User clicks the ""Login"" button.
+4. System processes credentials and sends request to the database.
+5. Database rejects credentials and returns failure.","- System displays an error message (e.g., ""Invalid email or password"").
+- User remains on the login page.
+- No session is created."
+TC-AUTHENTICATION-003,Successful user registration,Authentication,"1, 7","- User is not logged in.
+- No existing account with the provided email.","- New email: `newuser@example.com`
+- Password: `SecurePass123`
+- Name: `John Doe`
+- Privacy document: Accepted (checkbox checked)","1. User navigates to the registration page.
+2. User fills in all required fields (email, password, name) and accepts privacy policy.
+3. User clicks the ""Register"" button.
+4. System validates input and sends data to the database.
+5. Database inserts user record and returns success.","- System displays a success message (e.g., ""Registration successful. Please log in."").
+- User is redirected to the login page.
+- New account is created in the database (verified via admin panel or API)."
+TC-AUTHENTICATION-004,Failed user registration (duplicate email),Authentication,"1, 7",- An account already exists with the test email (`user@example.com`).,"- Email: `user@example.com` (duplicate)
+- Password: `Password123`
+- Name: `John Doe`","1. User navigates to the registration page.
+2. User enters duplicate email and other valid data.
+3. User clicks the ""Register"" button.
+4. System detects duplicate email and returns error.","- System displays an error message (e.g., ""Email already registered"").
+- User remains on the registration page with form data preserved.
+- No new account is created."
+TC-AUTHENTICATION-005,Logged-in user bypasses login check,Authentication,1,- User is already logged in (session active).,,1. User navigates directly to the **HOME** page (bypassing login check).,"- User is automatically redirected to the **HOME** page without login prompts.
+- No error occurs."
+TC-PROPOSAL-MANAGEMENT-001,View received proposals (data available),Proposal Exchange,"2, 14","- User is logged in.
+- User has at least one received proposal in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Proposte di scambio"" (Exchange Proposals).
+3. System checks for received proposals and finds data.
+4. System displays the list of received proposals.","- List of received proposals is rendered with details (e.g., sender, item, date).
+- User can click on a proposal to view details."
+TC-PROPOSAL-MANAGEMENT-002,View sent proposals (data available),Proposal Exchange,"2, 14","- User is logged in.
+- User has at least one sent proposal in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Proposte di scambio"" (Exchange Proposals).
+3. System checks for sent proposals and finds data.
+4. System displays the list of sent proposals.","- List of sent proposals is rendered with details (e.g., recipient, item, status).
+- User can click on a proposal to view details."
+TC-PROPOSAL-MANAGEMENT-003,No proposals data available,Proposal Exchange,2,"- User is logged in.
+- User has no received or sent proposals in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Proposte di scambio"" (Exchange Proposals).
+3. System checks for proposals and finds no data.","- System displays a message (e.g., ""No proposals found"").
+- User is not redirected and can navigate back to **HOME**."
+TC-PROPOSAL-MANAGEMENT-004,Accept a received proposal,Proposal Exchange,"2, 15","- User is logged in.
+- User has at least one received proposal in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Proposte di scambio"" and views received proposals.
+3. User clicks ""Accept"" on a proposal.
+4. System prompts for confirmation.
+5. User confirms acceptance.
+6. System updates proposal status in the database.","- Proposal status changes to ""Accepted"" in the database.
+- System displays an updated list of proposals with the accepted proposal marked.
+- User receives a success notification (e.g., ""Proposal accepted"")."
+TC-PROPOSAL-MANAGEMENT-005,Reject a received proposal,Proposal Exchange,"2, 15","- User is logged in.
+- User has at least one received proposal in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Proposte di scambio"" and views received proposals.
+3. User clicks ""Reject"" on a proposal.
+4. System prompts for confirmation.
+5. User confirms rejection.
+6. System updates proposal status in the database.","- Proposal status changes to ""Rejected"" in the database.
+- System displays an updated list of proposals with the rejected proposal removed or marked.
+- User receives a success notification (e.g., ""Proposal rejected"")."
+TC-OFFER-MANAGEMENT-001,Insert a new offer (with image),Personal Inbox,"3, 10","- User is logged in.
+- User has permission to post offers.","- Offer title: ""Laptop for Books""
+- Description: ""Trade my laptop for textbooks.""
+- Image: Attached (e.g., `laptop.jpg`)","1. User navigates to the **HOME** page.
+2. User clicks on ""Bacheca personale"" (Personal Inbox).
+3. User clicks ""Inserisci nuova offerta"" (Insert New Offer).
+4. User fills in title, description, and uploads an image.
+5. System requests image capture/selection.
+6. User confirms image and submits offer.
+7. System saves offer to the database.","- Offer is added to the database with image.
+- System displays a success message (e.g., ""Offer posted successfully"").
+- New offer appears in the user's offer list."
+TC-OFFER-MANAGEMENT-002,Insert a new offer (without image),Personal Inbox,"3, 10",- User is logged in.,"- Offer title: ""Books for Bike""
+- Description: ""Trade textbooks for a used bike.""
+- Image: Not attached.","1. User navigates to the **HOME** page.
+2. User clicks on ""Bacheca personale"" (Personal Inbox).
+3. User clicks ""Inserisci nuova offerta"" (Insert New Offer).
+4. User fills in title and description but skips image upload.
+5. User submits offer.
+6. System saves offer to the database without image.","- Offer is added to the database without an image.
+- System displays a success message (e.g., ""Offer posted successfully"").
+- New offer appears in the user's offer list with a placeholder for the image."
+TC-OFFER-MANAGEMENT-003,Delete an offer,Personal Inbox,"3, 11","- User is logged in.
+- User has at least one offer in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Bacheca personale"" (Personal Inbox).
+3. User views the list of offers.
+4. User selects an offer and clicks ""Elimina"" (Delete).
+5. System prompts for confirmation.
+6. User confirms deletion.
+7. System deletes the offer from the database.","- Offer is removed from the database.
+- System displays a success message (e.g., ""Offer deleted successfully"").
+- Deleted offer no longer appears in the user's offer list."
+TC-OFFER-MANAGEMENT-004,View offer details,Personal Inbox,"3, 4, 12","- User is logged in.
+- User has at least one offer in the database.",,"1. User navigates to the **HOME** page.
+2. User clicks on ""Bacheca personale"" (Personal Inbox).
+3. User views the list of offers.
+4. User clicks on an offer to view details.","- Detailed view of the offer is displayed (title, description, image, date).
+- User can navigate back to the offer list."
+TC-OFFER-MANAGEMENT-005,Filter offers (data available),Offer Exploration,"4, 16","- User is logged in.
+- Database contains multiple offers.","- Filter: ""Category = Electronics""","1. User navigates to the **HOME** page.
+2. User clicks on ""Esplora offerte"" (Explore Offers).
+3. System checks for offer data and finds results.
+4. User applies a filter (e.g., ""Electronics"").
+5. System retrieves filtered offers from the database.","- List of offers is displayed, filtered by category.
+- Only offers matching ""Electronics"" are shown."
+TC-OFFER-MANAGEMENT-006,Filter offers (no data available),Offer Exploration,"4, 16","- User is logged in.
+- Database contains no offers matching the filter.","- Filter: ""Category = Rare Books"" (no matches)","1. User navigates to the **HOME** page.
+2. User clicks on ""Esplora offerte"" (Explore Offers).
+3. System checks for offer data and finds results.
+4. User applies a filter with no matches.
+5. System retrieves no offers from the database.","- System displays a message (e.g., ""No offers found for this filter"").
+- Empty list is shown."
+TC-SAVED-ITEMS-001,,,,,,,

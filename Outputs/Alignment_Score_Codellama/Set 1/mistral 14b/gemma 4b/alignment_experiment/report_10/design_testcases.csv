@@ -1,0 +1,90 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTHENTICATION-001,Successful user registration,User Authentication,2,User is not registered in the system.,"- Email: `testuser@example.com`
+- Username: `testuser123`
+- Password: `SecurePass123!`","1. Launch the app.
+2. Attempt to log in with the provided credentials.
+3. System detects no existing account and redirects to ""Creazione di un nuovo utente.""
+4. Fill in the registration form with the test data.
+5. Submit the form.",User is registered successfully and redirected to the Homepage.
+TC-USER-AUTHENTICATION-002,Failed login with invalid credentials,User Authentication,2,User is registered but not logged in.,"- Email: `wronguser@example.com`
+- Password: `WrongPass123!`","1. Launch the app.
+2. Enter invalid credentials in the login form.
+3. Submit the form.","System displays an error message and redirects to ""Creazione di un nuovo utente"" (new user creation flow)."
+TC-USER-AUTHENTICATION-003,Successful login with valid credentials,User Authentication,2,User is registered and logged out.,"- Email: `validuser@example.com`
+- Password: `ValidPass123!`","1. Launch the app.
+2. Enter valid credentials in the login form.
+3. Submit the form.",User is logged in successfully and redirected to the Homepage.
+TC-EVENT-CREATION-001,Create an event with valid data (logged-in user),Event Creation,3,User is logged in.,"- Titolo: `Summer Festival 2024`
+- Data: `2024-07-15`
+- Tipologia: `Concerto`
+- Creatore: `testuser123`
+- Descrizione: `Live music event in the city park.`
+- Città: `Roma`","1. Launch the app and log in.
+2. Search for and select ""Roma"" as the city.
+3. Scroll down and tap ""+"" to add an event.
+4. Fill in the event form with the provided test data.
+5. Submit the form.",Event is created successfully and displayed on the Homepage.
+TC-EVENT-CREATION-002,Create an event with invalid data (logged-in user),Event Creation,3,User is logged in.,"- Titolo: (empty)
+- Data: `2023-01-01` (past date)
+- Tipologia: (empty)
+- Descrizione: `Incomplete event details.`","1. Launch the app and log in.
+2. Search for a city and tap ""+"" to add an event.
+3. Fill in the form with invalid data.
+4. Submit the form.","System rejects the submission and redirects back to the form with validation error messages (e.g., ""Titolo is required,"" ""Data must be in the future"")."
+TC-EVENT-CREATION-003,Attempt to create an event without logging in,Event Creation,3,User is not logged in.,"- Titolo: `Unauthorized Event`
+- Data: `2024-08-20`","1. Launch the app without logging in.
+2. Attempt to tap ""+"" to add an event.
+3. System detects no active session and redirects to the login/registration flow.
+4. Fill in the event form (if allowed) and submit.",Event creation is blocked; user is prompted to log in or register first.
+TC-EVENT-MODIFICATION-001,Modify an existing event with valid data,Event Modification,4,User is logged in and an event exists in their city.,"- Original Event: Titolo = `Old Event`, Data = `2024-06-10`
+- Modified Data: Titolo = `Updated Event`, Data = `2024-08-15`","1. Launch the app and log in.
+2. Search for the city where the event is located.
+3. Navigate to the event details screen.
+4. Scroll down and tap ""A"" to modify the event.
+5. Update the event details with the modified data.
+6. Submit the changes.","Event is updated successfully, and changes are reflected in the system."
+TC-EVENT-MODIFICATION-002,Cancel an existing event,Event Modification,4,User is logged in and an event exists in their city.,,"1. Launch the app and log in.
+2. Search for the city where the event is located.
+3. Navigate to the event details screen.
+4. Scroll down and tap ""?"" to cancel the event.
+5. Confirm cancellation in the prompt.","Event is removed from the system, and a confirmation message is displayed."
+TC-EVENT-MODIFICATION-003,Attempt to modify an event without logging in,Event Modification,4,User is not logged in.,,"1. Launch the app without logging in.
+2. Search for a city and navigate to an event.
+3. Attempt to tap ""A"" to modify the event.",Modification option is disabled; user is redirected to the login/registration flow.
+TC-EVENT-MODIFICATION-004,Modify an event with invalid data,Event Modification,4,User is logged in and an event exists.,"- Modified Data: Titolo = (empty), Data = `2023-12-31` (past date)","1. Launch the app and log in.
+2. Navigate to an event and tap ""A"" to modify.
+3. Update fields with invalid data.
+4. Submit the changes.","System rejects the submission and displays validation errors (e.g., ""Titolo is required,"" ""Data must be valid"")."
+TC-CITY-POI-ASSOCIATION-001,Verify POI association with city and province,City/POI Management,1,POI data exists in the system.,"- POI: `Colosseum`
+- Città: `Roma`
+- Provincia: `RM`","1. Query the system for the POI ""Colosseum.""
+2. Verify the associated city is ""Roma.""
+3. Verify the associated province is ""RM.""",POI is correctly linked to both city and province.
+TC-CITY-POI-ASSOCIATION-002,Update POI city association,City/POI Management,1,POI exists with an initial city association.,"- Original POI: `Trevi Fountain`, Città = `Roma`
+- Updated Città: `Firenze`","1. Locate the POI ""Trevi Fountain"" in the system.
+2. Update its associated city to ""Firenze.""
+3. Save changes.","POI’s city association is updated to ""Firenze,"" and the province is also updated if required by system logic."
+TC-USER-CITY-ASSOCIATION-001,Verify user-city association,User Management,1,User is registered and associated with a city.,"- User: `testuser123`
+- Associated Città: `Milano`","1. Retrieve the user `testuser123` from the system.
+2. Verify the associated city is ""Milano.""","User is correctly linked to the city ""Milano."""
+TC-USER-CITY-ASSOCIATION-002,Update user’s associated city,User Management,1,User is registered with an initial city.,"- Original Città: `Torino`
+- Updated Città: `Bologna`","1. Log in as the user.
+2. Navigate to user profile settings.
+3. Update the associated city to ""Bologna.""
+4. Save changes.","User’s city association is updated to ""Bologna."""
+TC-USER-ATTRIBUTES-001,Update user email and verify changes,User Management,1,User is logged in.,"- Original Email: `olduser@example.com`
+- Updated Email: `newuser@example.com`","1. Log in as the user.
+2. Navigate to profile settings.
+3. Update the email to `newuser@example.com`.
+4. Save changes.
+5. Log out and log back in with the new email.","Email is updated successfully, and the user can log in with the new address."
+TC-USER-ATTRIBUTES-002,Attempt to set invalid email format,User Management,1,User is logged in.,- Invalid Email: `invalid.email@`,"1. Navigate to profile settings.
+2. Attempt to update the email to `invalid.email@`.
+3. Submit the form.","System rejects the update and displays an error (e.g., ""Invalid email format"")."
+TC-EVENT-ATTRIBUTES-001,Update event title and verify changes,Event Management,"1, 4",User is logged in and an event exists.,"- Original Titolo: `Old Title`
+- Updated Titolo: `New Title 2024`","1. Log in and navigate to the event.
+2. Modify the event title to ""New Title 2024.""
+3. Save changes.
+4. Refresh the event details.","Event title is updated to ""New Title 2024."""
+TC-EVENT-ATTRIBUTES-002,Set event date to past date,Event Management,"1, 3",User is logged in and an event exists.,- Data: `2023-05-10` (past date),"1. Navigate to the event and attempt to update the date to `2023-05-10`.
+2. Submit the form.","System rejects the update and displays an error (e.g., ""Data must be in the future"")."

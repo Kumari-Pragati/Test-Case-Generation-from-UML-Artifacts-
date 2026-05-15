@@ -1,0 +1,123 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User logs in successfully,User,"1,2,3,4,5",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters ""testuser"" as the username.
+2. User enters ""testpassword"" as the password.
+3. User clicks the login button.
+4. System verifies the credentials.
+5. System redirects to the dashboard.",User is logged in and redirected to the dashboard.
+TC-User-002,User logs in with invalid credentials,User,"1,2,3,4,5",User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters ""wronguser"" as the username.
+2. User enters ""wrongpassword"" as the password.
+3. User clicks the login button.
+4. System verifies the credentials.
+5. System displays an error message.",User is not logged in and sees an error message.
+TC-User-003,User attempts to add another user,User,"1,2,3,4,5",User is logged in and has admin privileges.,"- New username: newuser
+- New password: newpassword","1. User clicks the ""Add User"" button.
+2. User enters ""newuser"" as the username.
+3. User enters ""newpassword"" as the password.
+4. User clicks the ""Add"" button.
+5. System verifies the credentials.
+6. System adds the new user.",New user is added successfully.
+TC-User-004,User attempts to add another user with invalid credentials,User,"1,2,3,4,5",User is logged in but does not have admin privileges.,"- New username: newuser
+- New password: newpassword","1. User clicks the ""Add User"" button.
+2. User enters ""newuser"" as the username.
+3. User enters ""newpassword"" as the password.
+4. User clicks the ""Add"" button.
+5. System checks user permissions.
+6. System denies the request.",User is not allowed to add a new user and sees an error message.
+TC-User-005,User attempts to delete another user,User,"1,2,3,4,5",User is logged in and has admin privileges.,- User ID: 12345,"1. User clicks the ""Delete User"" button.
+2. User enters ""12345"" as the user ID.
+3. User clicks the ""Delete"" button.
+4. System verifies the user ID.
+5. System deletes the user.",User is deleted successfully.
+TC-User-006,User attempts to delete another user with invalid ID,User,"1,2,3,4,5",User is logged in and has admin privileges.,- User ID: 98765,"1. User clicks the ""Delete User"" button.
+2. User enters ""98765"" as the user ID.
+3. User clicks the ""Delete"" button.
+4. System verifies the user ID.
+5. System displays an error message.",User is not deleted and sees an error message.
+TC-Firebase-001,User logs in through Firebase Authentication,Firebase,"1,2,3,4,5",User has a valid email and password.,"- Email: testuser@example.com
+- Password: testpassword","1. User enters ""testuser@example.com"" as the email.
+2. User enters ""testpassword"" as the password.
+3. User clicks the login button.
+4. System verifies the credentials.
+5. System redirects to the dashboard.",User is logged in and redirected to the dashboard.
+TC-Firebase-002,User logs in with invalid Firebase credentials,Firebase,"1,2,3,4,5",User has an invalid email or password.,"- Email: wronguser@example.com
+- Password: wrongpassword","1. User enters ""wronguser@example.com"" as the email.
+2. User enters ""wrongpassword"" as the password.
+3. User clicks the login button.
+4. System verifies the credentials.
+5. System displays an error message.",User is not logged in and sees an error message.
+TC-RealTimeDatabase-001,Main class interacts with Firebase and RealTime Database,Main,"1,2,3,4,5",Main class is initialized and connected to Firebase and RealTime Database.,,"1. Main class initializes.
+2. Main class connects to Firebase.
+3. Main class connects to RealTime Database.
+4. Main class performs a database operation.",Database operation is successful.
+TC-RealTimeDatabase-002,Main class fails to connect to Firebase,Main,"1,2,3,4,5",Main class is initialized but unable to connect to Firebase.,,"1. Main class initializes.
+2. Main class attempts to connect to Firebase.
+3. Connection fails.",Connection failure is handled gracefully.
+TC-RealTimeDatabase-003,Main class fails to connect to RealTime Database,Main,"1,2,3,4,5",Main class is initialized but unable to connect to RealTime Database.,,"1. Main class initializes.
+2. Main class attempts to connect to RealTime Database.
+3. Connection fails.",Connection failure is handled gracefully.
+TC-Map-001,Map retrieves a random number and associates it with a request object,Map,4,Map is initialized and connected to Random class.,,"1. Map initializes.
+2. Map requests a random number from the Random class.
+3. Map associates the random number with a request object.",Random number is retrieved and associated with the request object.
+TC-Map-002,Map fails to retrieve a random number,Map,4,Map is initialized but unable to retrieve a random number.,,"1. Map initializes.
+2. Map attempts to request a random number from the Random class.
+3. Retrieval fails.",Retrieval failure is handled gracefully.
+TC-Request-001,Request retrieves a random number from the Random class,Request,4,Request is initialized and connected to Random class.,,"1. Request initializes.
+2. Request requests a random number from the Random class.",Random number is retrieved successfully.
+TC-Request-002,Request fails to retrieve a random number,Request,4,Request is initialized but unable to retrieve a random number.,,"1. Request initializes.
+2. Request attempts to request a random number from the Random class.
+3. Retrieval fails.",Retrieval failure is handled gracefully.
+TC-Response-001,Response associates a random number with itself,Response,4,Response is initialized and connected to Random class.,,"1. Response initializes.
+2. Response associates a random number with itself.",Random number is associated with the response object.
+TC-Response-002,Response fails to associate a random number,Response,4,Response is initialized but unable to associate a random number.,,"1. Response initializes.
+2. Response attempts to associate a random number with itself.
+3. Association fails.",Association failure is handled gracefully.
+TC-Admin-001,Admin adds a new user,Admin,"1,2,3,4,5",Admin is logged in and has admin privileges.,,"1. Admin clicks the ""Add User"" button.
+2. Admin enters the new user's details.
+3. Admin clicks the ""Add"" button.
+4. System verifies the credentials.
+5. System adds the new user.",New user is added successfully.
+TC-Admin-002,Admin attempts to add a new user without admin privileges,Admin,"1,2,3,4,5",Admin is logged in but does not have admin privileges.,,"1. Admin clicks the ""Add User"" button.
+2. Admin enters the new user's details.
+3. Admin clicks the ""Add"" button.
+4. System checks user permissions.
+5. System denies the request.",User is not added and sees an error message.
+TC-Admin-003,Admin deletes a user,Admin,"1,2,3,4,5",Admin is logged in and has admin privileges.,,"1. Admin clicks the ""Delete User"" button.
+2. Admin enters the user ID.
+3. Admin clicks the ""Delete"" button.
+4. System verifies the user ID.
+5. System deletes the user.",User is deleted successfully.
+TC-Admin-004,Admin attempts to delete a user without admin privileges,Admin,"1,2,3,4,5",Admin is logged in but does not have admin privileges.,,"1. Admin clicks the ""Delete User"" button.
+2. Admin enters the user ID.
+3. Admin clicks the ""Delete"" button.
+4. System checks user permissions.
+5. System denies the request.",User is not deleted and sees an error message.
+TC-Sequence-001,User logs in and Firebase Authentication processes the login,Sequence,2,User has a valid username and password.,,"1. User sends login credentials to MAIN.
+2. User sends login credentials to Firebase Authentication.
+3. MAIN processes the login.
+4. Firebase Authentication processes the login.
+5. System verifies the credentials.
+6. System redirects to the dashboard.",User is logged in and redirected to the dashboard.
+TC-Sequence-002,User logs in with invalid credentials,Sequence,2,User has an invalid username or password.,,"1. User sends login credentials to MAIN.
+2. User sends login credentials to Firebase Authentication.
+3. MAIN processes the login.
+4. Firebase Authentication processes the login.
+5. System verifies the credentials.
+6. System displays an error message.",User is not logged in and sees an error message.
+TC-Sequence-003,User logs in and Firebase Authentication processes the login with Firebase,Sequence,2,User has a valid username and password.,,"1. User sends login credentials to MAIN.
+2. User sends login credentials to Firebase Authentication.
+3. MAIN processes the login.
+4. Firebase Authentication processes the login.
+5. Firebase creates a user with the provided email.
+6. System verifies the credentials.
+7. System redirects to the dashboard.",User is logged in and redirected to the dashboard.
+TC-Sequence-004,User logs in with invalid credentials and Firebase Authentication processes the login,Sequence,2,User has an invalid username or password.,,"1. User sends login credentials to MAIN.
+2. User sends login credentials to Firebase Authentication.
+3. MAIN processes the login.
+4. Firebase Authentication processes the login.
+5. Firebase creates a user with the provided email.
+6. System verifies the credentials.
+7. System displays an error message.",User is not logged in and sees an error message.
+TC-Sequence-005,User logs in and Firebase Authentication processes the login with Firebase and RealTime Database,Sequence,"2,5",User has a valid username and password.,,"1. User sends login credentials to MAIN.
+2. User sends login credentials to Firebase Authentication.",

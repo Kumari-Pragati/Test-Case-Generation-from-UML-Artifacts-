@@ -1,0 +1,349 @@
+REPORT: Report_33_uml_pages.pdf
+======================================================================
+
+===== Report_33_uml_pages.pdf | Page 1 =====
+UML Type: class
+- PuntinaMappa — kind=class; attributes=[longitudine: real, latitudine: real, qualitaAria: int, temperatura: int, statoMeteo: string, umidita: float, vento: float, pressione: int, categoria: enum ("Buona", "Moderata", "Insalubre", "Molto Insalubre", "Pericolosa")]; operations=[PuntinaMappa(longitudine, latitudine): PuntinaMappa, SetLongitudine(nuovaLongitudine, real), SetLatitudine(nuovaLatitudine, real), GetLongitudine(): real, GetLatitudine(): real, SetQualitaAria(nuovaQualitaAria: int), GetQualitaAria(): int, SetTemperatura(nuovaTemperatura: int), GetTemperatura(): int, SetStatoMeteo(nuovoStatoMeteo: string), GetStatoMeteo(): string, SetUmidita(nuovaUmidita: float), GetUmidita(): float, SetVento(nuovoVento: float), GetVento(): float, SetPressione(nuovaPressione: int), GetPressione(): float, SetCategoria(nuovaCategoria: enum), GetCategoria(): enum];
+
+- Suggerimento — kind=class; attributes=[titolo: string, testo: string, immagine: string, categoria: enum ("Buona", "Moderata", "Insalubre", "Molto Insalubre", "Pericolosa")]; operations=[Suggerimento(titolo, testo, immagine): Suggerimento, GetTitolo(): string, GetTesto(): string, GetImmagine(): string, GetCategoria(): enum];
+
+Actors / Lifelines:
+- PuntinaMappa
+- Suggerimento
+
+Relationships / Links:
+- PuntinaMappa -> Suggerimento — type=associazione; label="contiene"; explanation="PuntinaMappa contiene Suggerimenti".
+
+Main Flows:
+- PuntinaMappa -> Suggerimento — type=associazione; label="contiene"
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a system for managing air quality data and associated suggestions.
+- The `PuntinaMappa` class represents a location with air quality data and contains a collection of `Suggerimento` objects.
+- The `Suggerimento` class represents a suggestion related to the air quality at a location.
+- The `categoria` attribute in both classes indicates the severity of the air quality.
+
+===== Report_33_uml_pages.pdf | Page 2 =====
+UML Type: activity
+- Diagramma attività POSIZIONE
+
+Components:
+- Schermata iniziale — kind=action;
+- Selezioniamo lo stato, la regione e la città — kind=action;
+- Viene effettuata la richiesta al server — kind=action;
+- Presenta i dati ritornati — kind=action;
+- Seleziona la tua posizione attuale — kind=action;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Schermata iniziale -> Selezioniamo lo stato, la regione e la città — type=flow; label="Seleziona"; explanation="Initiates the process";
+- Selezioniamo lo stato, la regione e la città -> Viene effettuata la richiesta al server — type=flow; label="Richiesta"; explanation="Sends request to server";
+- Viene effettuata la richiesta al server -> Presenta i dati ritornati — type=flow; label="Risposta"; explanation="Receives and displays data";
+- Selezioniamo la tua posizione attuale -> Presenta i dati ritornati — type=flow; label="Posizione"; explanation="Displays current location";
+
+Main Flows (step by step):
+- Schermata iniziale -> Selezioniamo lo stato, la regione e la città -> Viene effettuata la richiesta al server -> Presenta i dati ritornati -> Seleziona la tua posizione attuale -> Presenta i dati ritornati
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of obtaining location data.
+- The process starts with an initial screen, then the user selects a location, a request is sent to a server, data is returned, and finally the user selects their current position.
+- The process repeats to display the current location.
+
+===== Report_33_uml_pages.pdf | Page 3 =====
+UML Type: Activity
+
+Components:
+- Mappa iniziale — kind=action;
+- Ricaricare i dati scrolling giu — kind=action;
+- Il server riceve la richiesta e invia dati nuovi — kind=action;
+- Mappa aggiornata — kind=action;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Mappa iniziale -> Ricaricare i dati scrolling giu — type=flow; label="Ricaricare i dati scrolling giu"; explanation="Initiates the process of refreshing the map."
+- Ricaricare i dati scrolling giu -> Il server riceve la richiesta e invia dati nuovi — type=flow; label="Il server riceve la richiesta e invia dati nuovi"; explanation="Sends a request to the server for updated map data."
+- Il server riceve la richiesta e invia dati nuovi -> Mappa aggiornata — type=flow; label="Mappa aggiornata"; explanation="Updates the map display."
+- Mappa aggiornata -> Ricaricare i dati scrolling giu — type=flow; label="Ricaricare i dati scrolling giu"; explanation="Initiates the process of refreshing the map."
+
+Main Flows (step by step):
+- Flow 1: Mappa iniziale -> Ricaricare i dati scrolling giu -> Il server riceve la richiesta e invia dati nuovi -> Mappa aggiornata
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of updating a map.
+- The process starts with an initial map, then requests updated data from a server, and finally displays the updated map.
+- The loop "Ricaricare i dati scrolling giu" suggests a continuous refresh mechanism.
+
+===== Report_33_uml_pages.pdf | Page 4 =====
+UML Type: Activity
+- Mappa iniziale — kind=activity;
+- Premere il pulsante per i suggerimenti — kind=activity;
+- Schermata suggerimenti — kind=activity;
+
+Actors / Lifelines:
+- Utente - None
+
+Relationships / Links:
+- Mappa iniziale -> Premere il pulsante per i suggerimenti — type=flow; label="Mappa iniziale"; explanation="Starting point of the process."
+- Premere il pulsante per i suggerimenti -> Schermata suggerimenti — type=flow; label="Premere il pulsante"; explanation="Transition to the suggestions screen."
+
+Main Flows:
+- Flow 1: Mappa iniziale -> Premere il pulsante per i suggerimenti -> Schermata suggerimenti
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This diagram models the process of navigating from an initial map to a screen displaying suggestions after pressing a button. It represents a simple, linear flow.
+
+===== Report_33_uml_pages.pdf | Page 5 =====
+UML Type: Sequence
+
+Components:
+- Utente — kind=actor;
+- AirQualityActivity — kind=activity;
+- MainActivity — kind=activity;
+- AirVisual API — kind=api;
+
+Actors / Lifelines:
+- Utente
+- AirQualityActivity
+- MainActivity
+- AirVisual API
+
+Relationships / Links:
+- AirQualityActivity -> MainActivity — message="Avvia applicazione";
+- AirQualityActivity -> AirVisual API — message="LoadCountries()";
+- MainActivity -> AirVisual API — message="LoadStates()";
+- MainActivity -> AirVisual API — message="LoadCountries()";
+- MainActivity -> AirVisual API — message="LoadCities()";
+- AirQualityActivity -> MainActivity — message="handleMessage()";
+- MainActivity -> AirQualityActivity — message="Intent/AirQualityActivity.this, MainActivity.class)";
+
+Main Flows (step by step):
+- AirQualityActivity -> Avvia applicazione
+- AirQualityActivity -> AirVisual API -> LoadCountries()
+- MainActivity -> LoadStates()
+- MainActivity -> LoadCountries()
+- MainActivity -> LoadCities()
+- AirQualityActivity -> MainActivity -> handleMessage() — presenta i dati recuperati dalla richiesta http
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram shows the sequence of interactions between the user, the AirQualityActivity, the MainActivity, and the AirVisual API. The AirQualityActivity initiates the process and calls the API to retrieve data.
+
+Observations:
+- The user starts the application.
+- The AirQualityActivity calls the AirVisual API to load countries, states, and cities.
+- The MainActivity handles the data received from the API and presents it to the user.
+- The diagram focuses on the flow of data and interactions between the components.
+
+===== Report_33_uml_pages.pdf | Page 6 =====
+UML Type: Sequence
+
+Components:
+- AirQualityActivity — kind=activity;
+- MainActivity — kind=activity;
+- AirVisual API — kind=API;
+
+Actors / Lifelines:
+- Utente
+- AirQualityActivity
+- MainActivity
+- AirVisual API
+
+Relationships / Links:
+- AirQualityActivity -> MainActivity — message=“Avvia applicazione”;
+- AirQualityActivity -> MainActivity -> AirVisual API — message=“LoadCountries()”;
+- AirQualityActivity -> MainActivity -> AirVisual API -> AirQualityActivity — message=“getHTTPData()”;
+- AirQualityActivity -> MainActivity -> AirVisual API — message=“LoadStates()”;
+- AirQualityActivity -> MainActivity -> AirVisual API — message=“LoadCities()”;
+- AirQualityActivity -> MainActivity — message=“getLocations()”;
+- AirQualityActivity -> MainActivity -> AirQualityActivity — message=“handleMessage()”;
+
+Main Flows:
+- Flow 1: AirQualityActivity -> MainActivity — Avvia applicazione;
+- Flow 2: MainActivity -> AirVisual API — LoadCountries();
+- Flow 3: AirVisual API -> MainActivity — getHTTPData();
+- Flow 4: MainActivity -> AirVisual API — LoadStates();
+- Flow 5: AirVisual API -> MainActivity — LoadCities();
+- Flow 6: MainActivity -> AirQualityActivity — getLocations();
+- Flow 7: AirQualityActivity -> MainActivity — handleMessage();
+
+Conditions / Branches:
+- PERMISSION_GRANTED — branch=“SI”/“NO”;
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The AirQualityActivity initiates the process.
+- The MainActivity coordinates the data retrieval from the AirVisual API.
+- The AirVisual API retrieves data from various sources (countries, states, cities, locations).
+- The handleMessage() method processes the retrieved data.
+
+Observations:
+- The application starts with the AirQualityActivity.
+- The application requests location permission from the user.
+- The MainActivity loads countries, states, cities, and locations sequentially from the AirVisual API.
+- The application handles the data received from the API and presents it to the user.
+- The diagram shows a typical flow for retrieving location-based air quality data.
+
+===== Report_33_uml_pages.pdf | Page 7 =====
+UML Type: Sequence
+
+Components:
+- Utente — kind=actor;
+- Widget Provider — kind=component;
+- AirVisual API — kind=component;
+
+Actors / Lifelines:
+- Utente
+- Widget Provider
+- AirVisual API
+
+Relationships / Links:
+- Utente -> Widget Provider : onEnable()
+- Widget Provider -> AirVisual API : updateAppWidget()
+- AirVisual API -> Widget Provider : Recupera i dati
+- Widget Provider -> Utente : Presenta i dati all'utente
+
+Main Flows (step by step):
+- Utente -> Widget Provider : onEnable()
+- Widget Provider -> AirVisual API : updateAppWidget()
+- AirVisual API -> Widget Provider : Recupera i dati
+- Widget Provider -> Utente : Presenta i dati all'utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the interaction between a user, a widget provider, and an air visual API to update and display data.
+- The user initiates the process by calling `onEnable()` on the widget provider.
+- The widget provider then requests data from the AirVisual API using `updateAppWidget()`.
+- Finally, the widget provider presents the retrieved data to the user.
+
+===== Report_33_uml_pages.pdf | Page 8 =====
+UML Type: Sequence
+
+Components:
+- Utente — kind=actor;
+- Map Activity — kind=component;
+- AirVisual API — kind=component;
+- Web View — kind=component
+
+Actors / Lifelines:
+- Utente
+- Map Activity
+- AirVisual API
+- Web View
+
+Relationships / Links:
+- Utente -> Map Activity — message="L'utente vuole visualizzare la mappa";
+- Map Activity -> AirVisual API — message="la web view effettua il refresh dei dati";
+- AirVisual API -> Web View — message="la web view vengono ritornati i nuovi dati";
+- Web View -> Utente — message="I dati vengono presentati all'utente"
+
+Main Flows (step by step):
+- Utente -> Map Activity: L'utente vuole visualizzare la mappa
+- Map Activity -> AirVisual API: la web view effettua il refresh dei dati
+- AirVisual API -> Web View: la web view vengono ritornati i nuovi dati
+- Web View -> Utente: I dati vengono presentati all'utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a sequence of events where a user requests a map view, the Map Activity requests data from the AirVisual API, and the Web View displays the updated data to the user. The process involves a refresh of data from the API.
+
+===== Report_33_uml_pages.pdf | Page 9 =====
+UML Type: Activity
+
+Components:
+- Utente — kind=actor;
+- Posizione — kind=action;
+- Tips — kind=action;
+- ActivityTips — kind=action;
+- getConsigliPerFAQ(int aqi) — kind=operation;
+- I dati vengono presentati all'utente — kind=action;
+
+Actors / Lifelines:
+- Utente - None
+
+Relationships / Links:
+- Utente -> Posizione — type=association; label="L'utente decide la nazione, la regione e la città di interesse"; explanation="The user decides the nation, region, and city of interest.";
+- Posizione -> getConsigliPerFAQ(int aqi) — type=message; label="Dalla posizione otteniamo l'FAQ della città"; explanation="From the position we obtain the FAQ of the city.";
+- getConsigliPerFAQ(int aqi) -> I dati vengono presentati all'utente — type=message; label="Ritorna dati"; explanation="Returns data.";
+
+Main Flows (step by step):
+- Utente -> Posizione
+- Posizione -> getConsigliPerFAQ(int aqi)
+- getConsigliPerFAQ(int aqi) -> I dati vengono presentati all'utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a process where a user provides location information, which is then used to retrieve relevant tips from an FAQ system. The system returns the data to the user.
+
+
+======================================================================

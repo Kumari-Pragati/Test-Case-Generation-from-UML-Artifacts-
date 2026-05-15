@@ -1,0 +1,106 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User logs in successfully,User,"1, 5",User account exists and is active,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User navigates to the login page.
+2. User enters the valid username and password.
+3. User clicks the login button.","- System displays a success message.
+- User is redirected to the home page."
+TC-User-002,User logs in with invalid credentials,User,"1, 5",User account exists but with incorrect credentials,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User navigates to the login page.
+2. User enters the invalid username and password.
+3. User clicks the login button.","- System displays an error message indicating invalid credentials.
+- User remains on the login page."
+TC-User-003,User logs out successfully,User,"1, 5",User is logged in,None,1. User clicks the logout button.,"- System displays a logout confirmation message.
+- User is redirected to the login page."
+TC-Admin-001,Admin logs in successfully,Admin,"1, 5",Admin account exists and is active,"- Valid username: ""adminuser""
+- Valid password: ""adminpassword""","1. Admin navigates to the admin login page.
+2. Admin enters the valid username and password.
+3. Admin clicks the login button.","- System displays a success message.
+- Admin is redirected to the admin dashboard."
+TC-Admin-002,Admin logs in with invalid credentials,Admin,"1, 5",Admin account exists but with incorrect credentials,"- Invalid username: ""wrongadmin""
+- Invalid password: ""wrongadminpass""","1. Admin navigates to the admin login page.
+2. Admin enters the invalid username and password.
+3. Admin clicks the login button.","- System displays an error message indicating invalid credentials.
+- Admin remains on the login page."
+TC-Product-001,User adds a product to the cart,Product,1,User is logged in,"- Product name: ""Product A""
+- Product description: ""Description A""","1. User selects a product to add to the cart.
+2. User clicks the ""Add to Cart"" button.","- Product is added to the user's cart.
+- Confirmation message is displayed."
+TC-Product-002,User removes a product from the cart,Product,1,User has at least one product in the cart,"- Product name: ""Product A""","1. User selects a product to remove from the cart.
+2. User clicks the ""Remove from Cart"" button.","- Product is removed from the user's cart.
+- Confirmation message is displayed."
+TC-Cart-001,User places an order,Cart,1,User has items in the cart,- Total amount: $100.00,"1. User reviews the items in the cart.
+2. User clicks the ""Place Order"" button.","- Order is placed successfully.
+- Confirmation message is displayed."
+TC-Cart-002,User cancels the order before placing,Cart,1,User has items in the cart,None,"1. User reviews the items in the cart.
+2. User clicks the ""Cancel Order"" button.","- Order cancellation is confirmed.
+- User is redirected to the cart page."
+TC-Checkout-001,User places an order with a valid total amount,Checkout,1,User has items in the cart with a valid total amount,- Total amount: $100.00,"1. User confirms the total amount.
+2. User clicks the ""Place Order"" button.","- Order is placed successfully.
+- Confirmation message is displayed."
+TC-Checkout-002,User attempts to place an order with an invalid total amount,Checkout,1,User has items in the cart with an invalid total amount,- Total amount: -$100.00,"1. User confirms the total amount.
+2. User clicks the ""Place Order"" button.","- System displays an error message indicating an invalid total amount.
+- User remains on the checkout page."
+TC-WeatherService-001,User logs in to WeatherService successfully,WeatherService,2,User account exists and is active,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User navigates to the WeatherService login page.
+2. User enters the valid username and password.
+3. User clicks the login button.","- System displays a success message.
+- User is redirected to the weather information page."
+TC-WeatherService-002,User logs in to WeatherService with invalid credentials,WeatherService,2,User account exists but with incorrect credentials,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User navigates to the WeatherService login page.
+2. User enters the invalid username and password.
+3. User clicks the login button.","- System displays an error message indicating invalid credentials.
+- User remains on the login page."
+TC-SequenceDiagram-001,"User clicks on ""Trekking"" button",SequenceDiagram,3,User is logged in,None,"1. User clicks on the ""Trekking"" button.","- Server processes the request.
+- Server interacts with the database.
+- Confirmation message is displayed."
+TC-SequenceDiagram-002,"User clicks on ""Trekking"" button with server failure",SequenceDiagram,3,User is logged in,None,"1. User clicks on the ""Trekking"" button.","- Server fails to process the request.
+- Error message is displayed."
+TC-ClassDiagram-001,User logs in to Server successfully,ClassDiagram,"4, 5",User account exists and is active,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User sends a login request to the server.
+2. Server handles the login request.
+3. Server sends a login result to the user.","- User receives a login success message.
+- User is authenticated."
+TC-ClassDiagram-002,User logs in to Server with invalid credentials,ClassDiagram,"4, 5",User account exists but with incorrect credentials,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User sends a login request to the server.
+2. Server handles the login request.
+3. Server sends an error message to the user.","- User receives an error message indicating invalid credentials.
+- User is not authenticated."
+TC-ClassDiagram-003,User queries the database successfully,ClassDiagram,"4, 5",User is logged in,"- Query: ""SELECT * FROM products""","1. User sends a query to the database.
+2. Database processes the query.
+3. Database returns the results to the user.","- User receives the query results.
+- Results are displayed."
+TC-ClassDiagram-004,User queries the database with invalid query,ClassDiagram,"4, 5",User is logged in,"- Invalid query: ""SELECT * FROM non_existent_table""","1. User sends an invalid query to the database.
+2. Database processes the query.
+3. Database returns an error message to the user.","- User receives an error message indicating an invalid query.
+- No results are displayed."
+TC-ClassDiagram-005,Admin adds a product to the cart,ClassDiagram,"1, 4, 5",Admin is logged in,"- Product name: ""Product B""
+- Product description: ""Description B""","1. Admin selects a product to add to the cart.
+2. Admin clicks the ""Add to Cart"" button.","- Product is added to the cart.
+- Confirmation message is displayed."
+TC-ClassDiagram-006,Admin removes a product from the cart,ClassDiagram,"1, 4, 5",Admin has at least one product in the cart,"- Product name: ""Product B""","1. Admin selects a product to remove from the cart.
+2. Admin clicks the ""Remove from Cart"" button.","- Product is removed from the cart.
+- Confirmation message is displayed."
+TC-ClassDiagram-007,Admin logs out successfully,ClassDiagram,"1, 4, 5",Admin is logged in,None,1. Admin clicks the logout button.,"- System displays a logout confirmation message.
+- Admin is redirected to the login page."
+TC-ClassDiagram-008,Admin logs in to Server successfully,ClassDiagram,"4, 5",Admin account exists and is active,"- Valid username: ""adminuser""
+- Valid password: ""adminpassword""","1. Admin sends a login request to the server.
+2. Server handles the login request.
+3. Server sends a login result to the admin.","- Admin receives a login success message.
+- Admin is authenticated."
+TC-ClassDiagram-009,Admin logs in to Server with invalid credentials,ClassDiagram,"4, 5",Admin account exists but with incorrect credentials,"- Invalid username: ""wrongadmin""
+- Invalid password: ""wrongadminpass""","1. Admin sends a login request to the server.
+2. Server handles the login request.
+3. Server sends an error message to the admin.","- Admin receives an error message indicating invalid credentials.
+- Admin is not authenticated."
+TC-ClassDiagram-010,Admin queries the database successfully,ClassDiagram,"4, 5",Admin is logged in,"- Query: ""SELECT * FROM products""","1. Admin sends a query to the database.
+2. Database processes the query.
+3. Database returns the results to the admin.","- Admin receives the query results.
+- Results are displayed."
+TC-ClassDiagram-011,Admin queries the database with invalid query,ClassDiagram,"4, 5",Admin is logged in,"- Invalid query: ""SELECT * FROM non_existent_table""","1. Admin sends an invalid query to the database.
+2. Database processes the query.
+3. Database returns an error message to the admin.","- Admin receives an error message indicating an invalid query.
+- No results are displayed."
+TC-ClassDiagram-012,Admin places an order,ClassDiagram,"1, 4, 5",Admin has items in the cart,- Total amount: $100.00,"1. Admin reviews the items in the cart.
+2. Admin clicks the ""Place Order"" button.","- Order is placed successfully.
+- Confirmation message is displayed."
+TC-ClassDiagram-013,Admin cancels the order before placing,,,,,,

@@ -1,0 +1,129 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful User Registration,Login/Registration,3,User is not registered.,"- Email: test@example.com
+- Password: P@ssw0rd
+- Confirm Password: P@ssw0rd","1. Navigate to the registration page.
+2. Enter the email address and password.
+3. Click on the ""Register"" button.","- User is successfully registered.
+- User is redirected to the login page."
+TC-Login-002,Failed User Registration with Invalid Email,Login/Registration,3,User is not registered.,"- Email: invalid-email
+- Password: P@ssw0rd
+- Confirm Password: P@ssw0rd","1. Navigate to the registration page.
+2. Enter an invalid email address and password.
+3. Click on the ""Register"" button.","- Error message is displayed indicating an invalid email format.
+- User remains on the registration page."
+TC-Login-003,Successful User Login,Login/Registration,3,User is registered.,"- Email: test@example.com
+- Password: P@ssw0rd","1. Navigate to the login page.
+2. Enter the email address and password.
+3. Click on the ""Login"" button.","- User is successfully logged in.
+- User is redirected to the home page."
+TC-Login-004,Failed User Login with Incorrect Password,Login/Registration,3,User is registered.,"- Email: test@example.com
+- Password: wrongpassword","1. Navigate to the login page.
+2. Enter the email address and an incorrect password.
+3. Click on the ""Login"" button.","- Error message is displayed indicating incorrect credentials.
+- User remains on the login page."
+TC-EmergencyVisualization-001,Successful Emergency Visualization,Emergency Visualization,2,User is authenticated.,- User is authenticated.,"1. Click on the ""Visualizza emergenze"" button.
+2. Check if emergencies are available.
+3. If emergencies are available, visualize them.","- Emergencies are successfully visualized.
+- List of emergencies is displayed."
+TC-EmergencyVisualization-002,No Emergencies Available,Emergency Visualization,2,User is authenticated.,- No emergencies are available.,"1. Click on the ""Visualizza emergenze"" button.
+2. Check if emergencies are available.
+3. If no emergencies are available, display a message.",- Message indicating no emergencies available is displayed.
+TC-EmergencyCreation-001,Successful Emergency Creation,Emergency Creation,4,Coordinator is authenticated.,- Complete emergency details.,"1. Authenticate as a coordinator.
+2. Click on ""Inserisci emergenza"".
+3. Enter complete emergency details.
+4. Submit the form.","- Emergency is successfully created.
+- Confirmation message is displayed."
+TC-EmergencyCreation-002,Failed Emergency Creation with Missing Details,Emergency Creation,4,Coordinator is authenticated.,- Incomplete emergency details.,"1. Authenticate as a coordinator.
+2. Click on ""Inserisci emergenza"".
+3. Enter incomplete emergency details.
+4. Submit the form.","- Error message is displayed indicating missing details.
+- User is prompted to update the details."
+TC-VolunteerRemoval-001,Successful Volunteer Removal,Volunteer Removal,5,Coordinator is authenticated and a volunteer is assigned.,- Valid emergency ID.,"1. Click on ""Visualizza emergenza"".
+2. Authenticate as a coordinator.
+3. Select a task.
+4. Verify if a volunteer is assigned.
+5. Remove the volunteer.","- Volunteer is successfully removed.
+- Confirmation message is displayed."
+TC-VolunteerRemoval-002,Failed Volunteer Removal with Unassigned Volunteer,Volunteer Removal,5,Coordinator is authenticated but no volunteer is assigned.,- Valid emergency ID.,"1. Click on ""Visualizza emergenza"".
+2. Authenticate as a coordinator.
+3. Select a task.
+4. Verify if a volunteer is assigned.","- Error message is displayed indicating no volunteer is assigned.
+- User remains on the emergency visualization page."
+TC-TokenGeneration-001,Successful Token Generation During Login,Token Generation,6,User is authenticated.,- Valid email and password.,"1. Send a POST request to /login.
+2. Server queries the database for the user.
+3. Server compares the password using bcrypt.
+4. Server generates a JWT token.
+5. Server updates the tokens table in the database.
+6. Server inserts a new token into the tokens table.
+7. Server sends a response with the token.","- Token is successfully generated.
+- Response contains the generated token."
+TC-TokenGeneration-002,Failed Token Generation Due to Invalid Credentials,Token Generation,6,User is not authenticated.,- Invalid email and password.,"1. Send a POST request to /login.
+2. Server queries the database for the user.
+3. Server compares the password using bcrypt.","- Error response is sent due to invalid credentials.
+- Response contains an error message."
+TC-NewTaskCreation-001,Successful New Task Creation,Task Creation,7,User is authenticated.,- Valid task details.,"1. Send a POST request to /nuovoCompito.
+2. Server attempts to insert the new task into the database.
+3. Database returns the result.
+4. Server sends a success response.","- Task is successfully created.
+- Response contains a success message."
+TC-NewTaskCreation-002,Failed New Task Creation Due to Database Error,Task Creation,7,User is authenticated.,- Invalid task details.,"1. Send a POST request to /nuovoCompito.
+2. Server attempts to insert the new task into the database.
+3. Database returns an error.
+4. Server logs the error.
+5. Server sends an HTTP error response.","- Task creation fails.
+- Response contains an error message."
+TC-EmergencyTermination-001,Successful Emergency Termination,Emergency Termination,8,User is authenticated and has a valid token.,- Valid emergency ID.,"1. Send a POST request to /terminaEmergenza.
+2. Server verifies the token.
+3. Database executes an UPDATE query.
+4. Database returns the number of terminated emergencies.
+5. Server checks if the result is greater than 0.
+6. Server sends a success message.","- Emergency is successfully terminated.
+- Response contains a success message indicating the number of terminated emergencies."
+TC-EmergencyTermination-002,Failed Emergency Termination with No Emergencies Terminated,Emergency Termination,8,User is authenticated and has a valid token.,- Invalid emergency ID.,"1. Send a POST request to /terminaEmergenza.
+2. Server verifies the token.
+3. Database executes an UPDATE query.
+4. Database returns the number of terminated emergencies.
+5. Server checks if the result is less than or equal to 0.
+6. Server sends an error message.","- Emergency termination fails.
+- Response contains an error message indicating no emergencies were terminated."
+TC-AssignmentCreation-001,Successful Assignment Creation,Assignment Creation,1,User is authenticated.,- Valid assignment details.,"1. User creates an assignment.
+2. Assignment is associated with a task.
+3. Assignment is associated with a coordinate.
+4. Assignment is associated with a user task.
+5. Assignment is associated with a token.","- Assignment is successfully created.
+- All associations are correctly established."
+TC-AssignmentCreation-002,Failed Assignment Creation with Invalid Token,Assignment Creation,1,User is authenticated.,- Invalid token.,"1. User creates an assignment.
+2. Assignment is associated with a task.
+3. Assignment is associated with a coordinate.
+4. Assignment is associated with a user task.
+5. Assignment is associated with an invalid token.","- Assignment creation fails.
+- Error message is displayed indicating an invalid token."
+TC-TaskModification-001,Successful Task Modification,Task Modification,1,User is authenticated and has a valid task.,- Valid task modification details.,"1. User modifies a task.
+2. Task details are updated in the database.","- Task is successfully modified.
+- Updated task details are reflected."
+TC-TaskModification-002,Failed Task Modification with Invalid Task ID,Task Modification,1,User is authenticated.,- Invalid task ID.,"1. User attempts to modify a task.
+2. Task ID is validated.","- Task modification fails.
+- Error message is displayed indicating an invalid task ID."
+TC-TaskDeletion-001,Successful Task Deletion,Task Deletion,1,User is authenticated and has a valid task.,- Valid task ID.,"1. User deletes a task.
+2. Task is removed from the database.","- Task is successfully deleted.
+- Confirmation message is displayed."
+TC-TaskDeletion-002,Failed Task Deletion with Invalid Task ID,Task Deletion,1,User is authenticated.,- Invalid task ID.,"1. User attempts to delete a task.
+2. Task ID is validated.","- Task deletion fails.
+- Error message is displayed indicating an invalid task ID."
+TC-UserModification-001,Successful User Modification,User Modification,1,User is authenticated and has a valid user profile.,- Valid user modification details.,"1. User modifies their profile.
+2. Profile details are updated in the database.","- User profile is successfully modified.
+- Updated profile details are reflected."
+TC-UserModification-002,Failed User Modification with Invalid User ID,User Modification,1,User is authenticated.,- Invalid user ID.,"1. User attempts to modify their profile.
+2. User ID is validated.","- User profile modification fails.
+- Error message is displayed indicating an invalid user ID."
+TC-UserDeletion-001,Successful User Deletion,User Deletion,1,User is authenticated and has a valid user profile.,- Valid user ID.,"1. User deletes their profile.
+2. Profile is removed from the database.","- User profile is successfully deleted.
+- Confirmation message is displayed."
+TC-UserDeletion-002,Failed User Deletion with Invalid User ID,User Deletion,1,User is authenticated.,- Invalid user ID.,"1. User attempts to delete their profile.
+2. User ID is validated.","- User profile deletion fails.
+- Error message is displayed indicating an invalid user ID."
+TC-TaskCompletion-001,Successful Task Completion,Task Completion,1,User is authenticated and has a valid task.,- Valid task ID.,"1. User marks a task as completed.
+2. Task status is updated in the database.","- Task is successfully marked as completed.
+- Updated task status is reflected."
+TC-TaskCompletion-002,"Failed Task Completion with Invalid Task ID
+Module",,,,,,

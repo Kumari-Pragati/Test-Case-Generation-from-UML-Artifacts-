@@ -1,0 +1,85 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login Process,Login,2,Main is initialized and has access to LocalUser and API_Manager.,"- Token: ""valid_token""","1. Main calls getToken() to retrieve a token.
+2. Main sends a request to API_Manager with the token.
+3. API_Manager returns a status.
+4. LocalUser requests data from the user.
+5. LocalUser creates a new LocalUser object.
+6. Main receives the ""done"" message.",The login process completes successfully with a status returned by the API_Manager.
+TC-Login-002,Failed Login Process due to Null Token,Login,2,Main is initialized and has access to LocalUser and API_Manager.,- Token: null,"1. Main calls getToken() to retrieve a token.
+2. Main does not send a request to API_Manager because the token is null.","No request is sent to API_Manager, and the login process fails."
+TC-DisplayList-001,Display List of Entries Successfully,DisplayList,3,Main is initialized and has access to API_Manager and Service/Need/Report.,"- ListJSON: [{""id"": 1, ""name"": ""entry1""}, {""id"": 2, ""name"": ""entry2""}]","1. Main sends a listJSON request to API_Manager.
+2. API_Manager iterates through the listJSON and calls displayList() on Service/Need/Report for each entry.",Each entry in the list is displayed correctly.
+TC-DisplayList-002,Empty List Handling,DisplayList,3,Main is initialized and has access to API_Manager and Service/Need/Report.,- ListJSON: [],"1. Main sends a listJSON request to API_Manager.
+2. API_Manager iterates through the empty listJSON and does not call displayList() on Service/Need/Report.",No entries are displayed.
+TC-NewEntry-001,Create New Entry Successfully,NewEntry,4,Main is initialized and has access to API_Manager and Service/Need/Report.,"- NewEntry: {""id"": 1, ""name"": ""new_entry""}","1. Main sends a 'new' message to API_Manager.
+2. API_Manager calls the 'newEntry' method on Service/Need/Report, passing 'request(newEntry)' as an argument.
+3. Service/Need/Report returns a 'done' message to API_Manager.","The new entry is created successfully, and a 'done' message is received by API_Manager."
+TC-NewEntry-002,Invalid New Entry Creation,NewEntry,4,Main is initialized and has access to API_Manager and Service/Need/Report.,"- NewEntry: {""id"": """", ""name"": """"}","1. Main sends a 'new' message to API_Manager.
+2. API_Manager calls the 'newEntry' method on Service/Need/Report, passing 'request(newEntry)' as an argument.
+3. Service/Need/Report returns an error message to API_Manager.","The new entry creation fails, and an error message is received by API_Manager."
+TC-UpdateEntry-001,Update Entry Successfully,UpdateEntry,5,Main is initialized and has access to API_Manager and Service/Need/Report.,"- DatiAggiornati: [{""id"": 1, ""name"": ""updated_entry""}]","1. Main calls stampa dai a schermo.
+2. Main calls leggiDatInseriti.
+3. For each dato in datiAggiornati, API_Manager calls set(dato).
+4. API_Manager calls updateEntry->toJSON().
+5. API_Manager sends request(updateEntry) to Service/Need/Report.
+6. Service/Need/Report sends done to API_Manager.
+7. API_Manager sends done to Main.","The entry is updated successfully, and a 'done' message is received by Main."
+TC-UpdateEntry-002,Update Entry with Invalid Data,UpdateEntry,5,Main is initialized and has access to API_Manager and Service/Need/Report.,"- DatiAggiornati: [{""id"": """", ""name"": """"}]","1. Main calls stampa dai a schermo.
+2. Main calls leggiDatInseriti.
+3. For each dato in datiAggiornati, API_Manager calls set(dato).
+4. API_Manager calls updateEntry->toJSON().
+5. API_Manager sends request(updateEntry) to Service/Need/Report.
+6. Service/Need/Report sends an error message to API_Manager.
+7. API_Manager sends an error message to Main.","The entry update fails, and an error message is received by Main."
+TC-ReportGeneration-001,Generate Report Successfully,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server gets the address from Locator.
+5. Service gets the category and address from Need.",The report is generated successfully and returned to the client.
+TC-ReportGeneration-002,Generate Report with Invalid Date,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""invalid_date""}","1. Client sends a request to API_Manager.
+2. API_Manager attempts to get the status code from the Server.
+3. Server fails to generate the report due to invalid date.",An error message is returned to the client indicating the failure to generate the report.
+TC-ReportGeneration-003,Generate Report with Missing Address,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server fails to get the address from Locator.",An error message is returned to the client indicating the failure to generate the report due to missing address.
+TC-ReportGeneration-004,Generate Report with Multiple Requests,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends multiple requests to API_Manager.
+2. API_Manager gets the status code from the Server for each request.
+3. Server gets the report from Report for each request.
+4. Server gets the address from Locator for each request.
+5. Service gets the category and address from Need for each request.",Multiple reports are generated successfully and returned to the client.
+TC-ReportGeneration-005,Generate Report with Concurrent Requests,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends concurrent requests to API_Manager.
+2. API_Manager gets the status code from the Server for each request.
+3. Server gets the report from Report for each request.
+4. Server gets the address from Locator for each request.
+5. Service gets the category and address from Need for each request.",Reports are generated concurrently without conflicts and returned to the client.
+TC-ReportGeneration-006,Generate Report with Edge Cases,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server gets the address from Locator.
+5. Service gets the category and address from Need.",The report is generated successfully even under edge conditions such as high load or network latency.
+TC-ReportGeneration-007,Generate Report with Missing Category,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server gets the address from Locator.
+5. Service fails to get the category from Need.",An error message is returned to the client indicating the failure to generate the report due to missing category.
+TC-ReportGeneration-008,Generate Report with Missing Service,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server gets the address from Locator.
+5. Service is unavailable.",An error message is returned to the client indicating the failure to generate the report due to missing service.
+TC-ReportGeneration-009,Generate Report with Missing Report,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server fails to get the report from Report.",An error message is returned to the client indicating the failure to generate the report due to missing report.
+TC-ReportGeneration-010,Generate Report with Missing Locator,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server fails to get the address from Locator.",An error message is returned to the client indicating the failure to generate the report due to missing locator.
+TC-ReportGeneration-011,Generate Report with Missing Need,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager gets the status code from the Server.
+3. Server gets the report from Report.
+4. Server gets the address from Locator.
+5. Service fails to get the category and address from Need.",An error message is returned to the client indicating the failure to generate the report due to missing need.
+TC-ReportGeneration-012,Generate Report with Missing Server,ReportGeneration,1,"Client is initialized and has access to API_Manager, Server, and Service.","- Request: {""date"": ""2023-10-01""}","1. Client sends a request to API_Manager.
+2. API_Manager fails to get the status code from the Server.",An error message is returned to the client indicating the failure to generate the report due to missing server.
+TC-ReportGeneration-013,Generate Report with Missing API_Manager,ReportGeneration,,,,,

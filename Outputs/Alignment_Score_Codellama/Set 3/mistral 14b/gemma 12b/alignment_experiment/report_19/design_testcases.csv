@@ -1,0 +1,133 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER_REGISTRATION-001,Successful user registration with valid credentials,User Registration,1,"- User is on the home screen (U-moviment).
+- Network connection is active.
+- Database (PostgreSQL) is accessible.","- Username: `john_doe_123`
+- Email: `john.doe@example.com`
+- Password: `SecurePass123!`
+- Confirm Password: `SecurePass123!`","1. User clicks **""Register""** from U-moviment.
+2. User enters valid username, email, password, and confirms password.
+3. User clicks **""Submit""** registration form.
+4. System displays **""Registration successful""** flash message.
+5. Notification Center triggers and logs the registration event.","- User account is created in PostgreSQL.
+- Flash activity shows success message.
+- Notification Center records the event and triggers no further actions (no event creation/joining by default).
+- User is redirected to login screen (implicit from flow)."
+TC-USER_REGISTRATION-002,Registration failure with invalid email format,User Registration,1,Same as TC-001.,"- Username: `john_doe_123`
+- Email: `john.doe@example` (missing TLD)
+- Password: `SecurePass123!`","1. User clicks **""Register""** from U-moviment.
+2. User enters invalid email and valid username/password.
+3. User clicks **""Submit""**.
+4. System displays **""Invalid email format""** flash message.","- No new account is created in PostgreSQL.
+- Flash activity shows error message.
+- Notification Center logs **no** registration event.
+- User remains on registration screen with error highlighted."
+TC-USER_REGISTRATION-003,Registration failure with weak password,User Registration,1,Same as TC-001.,"- Username: `john_doe_123`
+- Email: `john.doe@example.com`
+- Password: `123` (too short)","1. User clicks **""Register""**.
+2. User enters weak password and valid username/email.
+3. User clicks **""Submit""**.
+4. System displays **""Password must be at least 8 characters""** flash message.","- No account creation.
+- Flash activity shows password error.
+- Notification Center logs **no** event.
+- User stays on registration screen."
+TC-USER_LOGIN-001,Successful login with valid credentials,User Login,1,"- User `john_doe_123` exists in PostgreSQL.
+- User is on U-moviment screen.","- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User clicks **""Login""** from U-moviment.
+2. User enters valid email and password.
+3. User clicks **""Submit""**.
+4. System displays **""Login successful""** flash message.
+5. Notification Center triggers and logs login event.","- User session is established (not explicitly modeled but implied).
+- Flash activity shows success message.
+- Notification Center triggers **Join/View event** flow (user can now access events).
+- User is redirected to event dashboard (implicit from Flow 2)."
+TC-USER_LOGIN-002,Login failure with incorrect password,User Login,1,Same as TC-001.,"- Email: `john.doe@example.com`
+- Password: `WrongPass123!`","1. User clicks **""Login""**.
+2. User enters correct email but wrong password.
+3. User clicks **""Submit""**.
+4. System displays **""Invalid credentials""** flash message.","- No session established.
+- Flash activity shows error.
+- Notification Center logs **failed login attempt** (if applicable; assume no event triggered).
+- User remains on login screen."
+TC-NOTIFICATION_CENTER-001,Notification triggers event creation after registration,Notification Center,1 (Flow 1),"- User `john_doe_123` successfully registered (TC-001).
+- Notification Center is active.",,"1. Registration completes (from TC-001).
+2. Notification Center receives registration event.
+3. System checks for **event creation trigger** (assume: new users get a welcome event).
+4. Notification Center initiates **Create event** flow.","- A **""Welcome Event""** is created in PostgreSQL via `Gestione dati del progetto`.
+- Flash activity shows **""Your welcome event is ready!""** (if user is logged in).
+- Event is visible in **Join/View event** section for the user."
+TC-NOTIFICATION_CENTER-002,Notification triggers profile access after flash message,Notification Center,1 (Flow 3),"- User is logged in (TC-001).
+- Flash message is displayed (e.g., ""New updates available"").",,"1. User views flash message (e.g., after login).
+2. Flash activity sends message to Notification Center.
+3. Notification Center triggers **Profile** flow.
+4. User clicks on flash message or notification.","- User is redirected to **Profile** screen.
+- Profile data (e.g., username, email) is loaded from PostgreSQL.
+- No events are created/joined (only profile access)."
+TC-EVENT_CREATION-001,Successful event creation by registered user,Event Creation,1 (Flow 1),"- User `john_doe_123` is logged in (TC-001).
+- Notification Center triggered event creation (TC-001).","- Event Name: `Team Lunch`
+- Date: `2023-12-15`
+- Time: `12:00 PM`
+- Location: `Office Cafeteria`","1. User is redirected to **Create event** screen (via Notification Center).
+2. User fills in event details.
+3. User clicks **""Create Event""**.
+4. System validates inputs and saves to PostgreSQL.
+5. Flash activity shows **""Event created successfully""**.","- Event is stored in PostgreSQL with all details.
+- Event appears in **Join/View event** list for the user.
+- Notification Center logs event creation (no further triggers)."
+TC-EVENT_JOIN-001,User joins an existing event,Event Participation,1 (Flow 2),"- User `john_doe_123` is logged in.
+- Event **""Team Lunch""** exists in PostgreSQL.",,"1. User navigates to **Join/View event** screen.
+2. User selects **""Team Lunch""** event.
+3. User clicks **""Join Event""**.
+4. System updates user-event association in PostgreSQL.
+5. Flash activity shows **""You joined Team Lunch""**.","- User-event join record is created in PostgreSQL.
+- Event now appears in user’s **""My Events""** list.
+- Notification Center logs join action (no further triggers)."
+TC-NEWSLETTER-001,User subscribes to newsletter,Newsletter Management,1 (Flow 4),- User is on U-moviment screen.,,"1. User clicks **""Newsletter activity""**.
+2. User enters email: `john.doe@example.com`.
+3. User clicks **""Subscribe""**.
+4. Newsletter management validates email and adds to database.
+5. Flash activity shows **""Subscribed successfully""**.","- Email is added to newsletter subscriber list in PostgreSQL.
+- `Gestione dati del progetto` processes subscription.
+- No immediate event creation/joining (Flow 4 ends at PostgreSQL)."
+TC-NEWSLETTER-002,Newsletter sending to subscribers,Newsletter Management,1 (Flow 4),"- User `john.doe@example.com` is subscribed (TC-001).
+- Admin triggers newsletter send.","- Newsletter Title: `December Updates`
+- Content: `Hello! Here are your updates...`","1. Admin navigates to **Newsletter management**.
+2. Admin composes newsletter and clicks **""Send""**.
+3. System retrieves subscribers from PostgreSQL.
+4. System sends emails to all subscribers (simulated).
+5. Flash activity shows **""Newsletter sent to 1 recipient""**.","- Newsletter records are logged in PostgreSQL.
+- Subscribers receive emails (simulated; no actual SMTP in scope).
+- No event triggers (Flow 4 ends at PostgreSQL)."
+TC-PROFILE-001,User updates profile information,User Profile,1 (Flow 3),- User `john_doe_123` is logged in.,"- New Email: `john.doe.new@example.com`
+- New Username: `john_doe_updated`","1. User navigates to **Profile** screen.
+2. User edits email and username.
+3. User clicks **""Save Changes""**.
+4. System validates inputs and updates PostgreSQL.
+5. Flash activity shows **""Profile updated""**.","- User record in PostgreSQL is updated.
+- Changes reflect in all system interactions (e.g., login uses new email).
+- Notification Center logs profile update (no event triggers)."
+TC-DATABASE-001,PostgreSQL data integrity after concurrent operations,Project Data Management,1 (Flow 4),"- Multiple users are registered and logged in.
+- Events and newsletters exist.",,"1. User A registers (TC-001).
+2. User B logs in (TC-001) and joins an event (TC-001).
+3. Admin sends a newsletter (TC-002).
+4. User A updates profile (TC-001).
+5. System queries PostgreSQL for all records.","- All operations succeed without conflicts.
+- Data in PostgreSQL is consistent:
+  - Users table: 2 records (A, B).
+  - Events table: 1 welcome event + 1 joined event.
+  - Newsletters table: 1 sent newsletter.
+  - Subscribers table: 1 email.
+- No duplicate or corrupted records."
+TC-EXIT-001,User exits application after session,Application Exit,1 (Flow 3),- User is logged in (TC-001).,,"1. User clicks **""Exit""** from U-moviment or profile screen.
+2. Notification Center receives exit event.
+3. System terminates user session (simulated).
+4. Flash activity shows **""Goodbye!""**.","- User session is invalidated (no explicit logout modeled, but implied).
+- No further notifications/events are triggered.
+- User is redirected to home screen or closed (if mobile)."
+TC-EDGE_CASE-001,Registration with existing email,User Registration,1,User `john.doe@example.com` exists.,- Email: `john.doe@example.com` (duplicate),"1. User attempts to register with existing email.
+2. System checks PostgreSQL for duplicates.
+3. Flash activity shows **""Email already registered""**.","- No new account created.
+- Notification Center logs **failed registration**.
+- User remains on registration screen."
+TC-EDGE_CASE-002,Newsletter subscription with invalid email,Newsletter Management,1,,- Email: `invalid-email`,"1. User enters invalid email in newsletter subscription.
+2. System validates input.
+3. Flash activity shows **""Invalid email format""**.",

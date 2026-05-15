@@ -1,0 +1,83 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-MGMT-001,Create a new user with valid credentials,User Management,1,System is running; no user with the same email exists.,"- ID: ""user123""
+- nomeCognome: ""Mario Rossi""
+- email: ""mario.rossi@example.com""","1. Call `createUser(""Mario Rossi"", ""mario.rossi@example.com"", ""user123"")`.
+2. Verify the method returns `true`.
+3. Call `getUserInfo()` and confirm the returned list contains all user details.","User is created successfully; `getUserInfo()` returns `[ID: user123, nomeCognome: Mario Rossi, email: mario.rossi@example.com]`."
+TC-USER-MGMT-002,Create a user with invalid email format,User Management,1,System is running.,"- nomeCognome: ""Luigi Bianchi""
+- email: ""invalid-email"" (no @ or domain)
+- ID: ""user456""","1. Call `createUser(""Luigi Bianchi"", ""invalid-email"", ""user456"")`.
+2. Verify the method returns `false`.
+3. Confirm no new user record is created.",User creation fails; system rejects invalid email format.
+TC-USER-MGMT-003,Check user existence with valid credentials,User Management,1,"User ""user123"" exists (from TC-USER-MGMT-001).","- ID: ""user123""
+- email: ""mario.rossi@example.com""","1. Call `checkUser(""user123"", ""mario.rossi@example.com"")`.
+2. Verify the method returns `true`.",User verification succeeds.
+TC-USER-MGMT-004,Check user existence with incorrect ID,User Management,1,"User ""user123"" exists.","- ID: ""wrongID""
+- email: ""mario.rossi@example.com""","1. Call `checkUser(""wrongID"", ""mario.rossi@example.com"")`.
+2. Verify the method returns `false`.",User verification fails due to incorrect ID.
+TC-DEVICE-MGMT-001,Add a device to a user,Device Management,"1, 3","User ""user123"" exists; no device with ID ""device001"" exists.","- User ID: ""user123""
+- Device ID: ""device001""
+- Device title: ""Greenhouse A""","1. Call `addDevices(""device001"")` for user ""user123"".
+2. Verify the method returns `true`.
+3. Confirm the device is associated with the user (via system logs or indirect verification).",Device is added successfully; association is established.
+TC-DEVICE-MGMT-002,Add a device with invalid ID format,Device Management,"1, 3","User ""user123"" exists.","- Device ID: ""invalid-device"" (non-alphanumeric)","1. Call `addDevices(""invalid-device"")` for user ""user123"".
+2. Verify the method returns `false`.
+3. Confirm no new device is added.",Device addition fails due to invalid ID format.
+TC-CONFIG-MGMT-001,Set valid configuration parameters for a device,Configuration Management,"1, 4","Device ""device001"" exists and is associated with user ""user123"".","- max_temp: 30.0
+- min_temp: 15.0
+- light: true","1. Call `setMaxTemp(30.0)` for device ""device001"".
+2. Call `setMinTemp(15.0)` for device ""device001"".
+3. Call `setLight(true)` for device ""device001"".
+4. Call `getConfig()` and verify the returned list includes:
+   - `max_temp: 30.0`
+   - `min_temp: 15.0`
+   - `light: true`",Configuration parameters are updated successfully.
+TC-CONFIG-MGMT-002,Set invalid temperature range (min > max),Configuration Management,"1, 4","Device ""device001"" exists.","- max_temp: 10.0
+- min_temp: 20.0","1. Call `setMaxTemp(10.0)` for device ""device001"".
+2. Call `setMinTemp(20.0)` for device ""device001"".
+3. Verify both methods return `false`.
+4. Call `getConfig()` and confirm `max_temp` and `min_temp` remain unchanged.",Configuration update fails due to invalid range.
+TC-CONFIG-MGMT-003,Set negative humidity values,Configuration Management,"1, 4","Device ""device001"" exists.","- max_soil_hum: -5.0
+- min_air_hum: -10.0","1. Call `setMaxSoilHum(-5.0)` for device ""device001"".
+2. Call `setMinAirHum(-10.0)` for device ""device001"".
+3. Verify both methods return `false`.
+4. Call `getConfig()` and confirm humidity values remain unchanged.",Configuration update fails due to negative values.
+TC-HISTORY-MGMT-001,Update device history with valid sensor data,History Management,1,"Device ""device001"" exists; no history records exist.","- date: ""2023-10-01T12:00:00""
+- air_humidity: 45.0
+- soil_humidity: 30.0
+- air_temperature: 22.5
+- luminosity: 500.0","1. Call `updateHistory(""2023-10-01T12:00:00"", 45.0, 30.0, 22.5, 500.0)` for device ""device001"".
+2. Verify the method returns `true`.
+3. Call `getHistory()` and confirm the returned list includes the new record.",History record is added successfully.
+TC-HISTORY-MGMT-002,Update history with invalid date format,History Management,1,"Device ""device001"" exists.","- date: ""invalid-date"" (non-standard format)
+- air_humidity: 40.0
+- soil_humidity: 25.0
+- air_temperature: 20.0
+- luminosity: 450.0","1. Call `updateHistory(""invalid-date"", 40.0, 25.0, 20.0, 450.0)`.
+2. Verify the method returns `false`.
+3. Call `getHistory()` and confirm no new record is added.",History update fails due to invalid date format.
+TC-ALERT-MGMT-001,Update alert message for a device,Alert Management,1,"Device ""device001"" exists; no alert message is set.","- message: ""High temperature detected in Greenhouse A""","1. Call `updateMessage(""High temperature detected in Greenhouse A"")` for device ""device001"".
+2. Verify the method returns `true`.
+3. Call `getMessage()` and confirm the returned string matches the input.",Alert message is updated successfully.
+TC-GUI-GREENHOUSE-LIST-001,Display list of associated greenhouses,Greenhouse List Display,2,"User ""user123"" has at least one associated device (""device001"").",,"1. User logs in and clicks ""Serre"" (greenhouses).
+2. System displays ""Visualizzazione elenco serre"" (list of greenhouses).
+3. Verify the list includes ""device001"" with title ""Greenhouse A"".",List of greenhouses is displayed correctly.
+TC-GUI-GREENHOUSE-LIST-002,Display default message when no greenhouses are associated,Greenhouse List Display,2,"User ""user123"" has no associated devices.",,"1. User logs in and clicks ""Serre"" (greenhouses).
+2. System displays ""Visualizzazione messaggio default"" (default message).","Default message is shown (e.g., ""No greenhouses associated"")."
+TC-GUI-ADD-DEVICE-001,Successfully add a device with valid input,Device Addition,3,"User ""user123"" is logged in.","- Device ID: ""device002""
+- Device title: ""Greenhouse B""","1. User clicks ""Add Devices"".
+2. User enters valid device ID (""device002"") and title (""Greenhouse B"").
+3. System confirms ""Operazione eseguita"" (operation executed).",Device is added successfully; no errors occur.
+TC-GUI-ADD-DEVICE-002,Fail to add device with invalid input,Device Addition,3,"User ""user123"" is logged in.","- Device ID: ""invalid-device"" (non-alphanumeric)","1. User clicks ""Add Devices"".
+2. User enters invalid device ID (""invalid-device"").
+3. System detects ""valore errato"" (invalid value) and loops back to input.",Device addition fails; user is prompted to re-enter valid data.
+TC-GUI-CONFIGURATION-001,Successfully update device configuration with valid inputs,Configuration Update,4,"User ""user123"" is logged in; device ""device001"" is connected.","- max_temp: 28.0
+- min_temp: 18.0","1. User connects to device ""device001"".
+2. User clicks ""Configuration"".
+3. User enters valid values (max_temp: 28.0, min_temp: 18.0).
+4. System confirms ""Operazione eseguita"" (operation executed).",Configuration is updated successfully; no errors occur.
+TC-GUI-CONFIGURATION-002,Fail to update configuration with invalid inputs,Configuration Update,4,"User ""user123"" is logged in; device ""device001"" is connected.","- max_temp: 10.0
+- min_temp: 20.0 (invalid: min > max)","1. User connects to device ""device001"".
+2. User clicks ""Configuration"".
+3. User enters invalid values (max_temp: 10.0, min_temp: 20.0).
+4. System detects ""valore errato"" (value error) and loops back to input.",Configuration update fails; user is prompted to re-enter valid data.

@@ -1,0 +1,96 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Authentication-001,Authenticate a user,Authentication System,1,User credentials are available,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. Send authentication request with valid credentials.
+2. Verify the response indicates successful authentication.",Successful authentication response received.
+TC-Authentication-002,Attempt to authenticate with invalid credentials,Authentication System,1,User credentials are available,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpass""","1. Send authentication request with invalid credentials.
+2. Verify the response indicates failed authentication.",Failed authentication response received.
+TC-NotifySystem-001,Notify system sends data to data manager,NotifySystem,1,Authentication system is active,- Sample notification data,"1. Authentication system triggers NotifySystem.
+2. NotifySystem sends data to DataManager.
+3. Verify DataManager receives the data.",Data successfully transferred to DataManager.
+TC-UserProfile-001,Retrieve user profile data,UserProfile,"1, 2",User is authenticated,- Authenticated user ID: 123,"1. UserProfile retrieves data from DataManager.
+2. Verify UserProfile contains expected user details.",UserProfile contains correct user details.
+TC-UserProfile-002,Update user profile data,UserProfile,"1, 2",User is authenticated,"- Authenticated user ID: 123
+- New email: ""newemail@example.com""","1. UserProfile updates user email.
+2. Verify updated email is reflected in DataManager.",Updated email is stored correctly in DataManager.
+TC-ReportHandler-001,Generate a report,ReportHandler,"1, 2",User is authenticated,- Authenticated user ID: 123,"1. ReportHandler generates a report based on user data.
+2. Verify report contains expected data.",Report contains accurate user consumption data.
+TC-DataManager-001,Retrieve user data from database,DataManager,"1, 2",User is authenticated,- Authenticated user ID: 123,"1. DataManager queries the database for user data.
+2. Verify user data is retrieved correctly.",Correct user data is retrieved from the database.
+TC-DataManager-002,Store user data in database,DataManager,"1, 2",User is authenticated,"- Authenticated user ID: 123
+- New consumption data","1. DataManager stores new consumption data in the database.
+2. Verify stored data matches the input.",New consumption data is stored correctly in the database.
+TC-WebServer-001,Web server retrieves report from database,WebServer,1,Report is generated,- Report ID: 123,"1. WebServer requests report from Database.
+2. Verify report is retrieved correctly.",Report is retrieved successfully from the database.
+TC-WebServer-002,Web server sends report to user,WebServer,1,Report is generated,- Report ID: 123,"1. WebServer sends report to ReportHandler.
+2. Verify ReportHandler receives the report.",Report is sent successfully to ReportHandler.
+TC-Report-001,Generate report comment,Report,2,Report data is available,- Report ID: 123,"1. Report generates a comment based on consumption data.
+2. Verify comment is generated correctly.",Comment accurately reflects user consumption patterns.
+TC-Utenti-001,Retrieve user consumption data,Utenti,2,User is authenticated,- Authenticated user ID: 123,"1. Utenti retrieves consumption data from DataManager.
+2. Verify consumption data is retrieved correctly.",Consumption data is retrieved successfully.
+TC-Utenti-002,Add new consumption data,Utenti,2,User is authenticated,"- Authenticated user ID: 123
+- New consumption record","1. Utenti adds new consumption data to DataManager.
+2. Verify new consumption data is stored correctly.",New consumption data is stored successfully.
+TC-Obbiettivi-001,Track achievement status,Obbiettivi,2,User is authenticated,"- Authenticated user ID: 123
+- Achievement ID: 1","1. Obbiettivi sets achievement status for user.
+2. Verify achievement status is updated correctly.",Achievement status is updated successfully.
+TC-Gioco-001,Increment green points,Gioco,2,User is authenticated,"- Authenticated user ID: 123
+- Points to increment: 10","1. Gioco increments green points for user.
+2. Verify green points are incremented correctly.",Green points are incremented successfully.
+TC-UserCreation-001,Create a new user,User Creation,3,None,"- New user details: ""John Doe"", ""johndoe@example.com"", ""password123""","1. Main retrieves user data from Local User.
+2. Main validates user data.
+3. If data is valid, Main adds user to Data Manager.
+4. Verify user is added successfully.",User creation is successful.
+TC-UserCreation-002,Re-enter invalid user data,User Creation,3,None,"- Invalid user details: ""John Doe"", ""invalid-email"", ""password123""","1. Main retrieves user data from Local User.
+2. Main validates user data.
+3. If data is invalid, Main prompts Local User to re-enter data.
+4. Repeat until valid data is entered.
+5. Verify user is added successfully after valid data entry.",User creation is successful after valid data entry.
+TC-ProfileView-001,View user profile,Profile View,4,User is authenticated,- Authenticated user ID: 123,"1. Main checks if user is authenticated.
+2. If authenticated, Main requests user data from Data Manager.
+3. Verify user data is retrieved successfully.",User profile data is retrieved successfully.
+TC-ProfileView-002,Attempt to view profile without authentication,Profile View,4,User is not authenticated,- Unauthenticated user ID: 123,"1. Main checks if user is authenticated.
+2. If not authenticated, Main prompts user to authenticate first.
+3. Verify user is redirected to authentication.",User is prompted to authenticate before viewing profile.
+TC-DataModification-001,Modify user data,Data Modification,5,User is authenticated,"- Authenticated user ID: 123
+- Modified user details: ""Jane Doe"", ""janedoe@example.com"", ""newpassword""","1. Main checks if user is authenticated.
+2. If authenticated, Main requests data modification from Local User.
+3. Local User modifies data and sends request to Data Manager.
+4. Data Manager updates data.
+5. Verify data is updated successfully.",User data is updated successfully.
+TC-DataModification-002,Attempt to modify data without authentication,Data Modification,5,User is not authenticated,"- Unauthenticated user ID: 123
+- Modified user details: ""Jane Doe"", ""janedoe@example.com"", ""newpassword""","1. Main checks if user is authenticated.
+2. If not authenticated, Main prompts user to authenticate first.
+3. Verify user is redirected to authentication.",User is prompted to authenticate before modifying data.
+TC-ConsumptionEntry-001,Enter new consumption data,Consumption Entry,6,User is authenticated,"- Authenticated user ID: 123
+- New consumption record","1. Main requests consumption data from Local User.
+2. Local User adds consumption data to Data Manager.
+3. Data Manager confirms successful addition.
+4. Verify consumption data is added successfully.",New consumption data is added successfully.
+TC-ConsumptionEntry-002,Attempt to enter invalid consumption data,Consumption Entry,6,User is authenticated,"- Authenticated user ID: 123
+- Invalid consumption record","1. Main requests consumption data from Local User.
+2. Local User attempts to add invalid consumption data to Data Manager.
+3. Data Manager rejects invalid data.
+4. Verify invalid data is not added.",Invalid consumption data is rejected.
+TC-DataRequest-001,Request user consumption data,Data Request,7,User has at least one consumption,- Authenticated user ID: 123,"1. Main checks user consumption.
+2. If user has consumption, Main requests data from Data Manager.
+3. Data Manager retrieves data and sends it back to Local User.
+4. Verify data is retrieved successfully.",User consumption data is retrieved successfully.
+TC-DataRequest-002,Attempt to request data without consumption,Data Request,7,User has no consumption,- Authenticated user ID: 123,"1. Main checks user consumption.
+2. If user has no consumption, Main does not request data.
+3. Verify no data request is made.",No data request is made due to lack of consumption.
+TC-ReportUpdate-001,Update user report with new data,Report Update,8,User has at least one consumption,"- Authenticated user ID: 123
+- New consumption record","1. Main requests user consumption data from Local User.
+2. Local User requests new data from Data Manager.
+3. Data Manager retrieves new data and sends it back to Local User.
+4. Local User updates report with new data.
+5. Main confirms successful report update.",Report is updated successfully with new data.
+TC-ReportDeletion-001,Delete user report,Report Deletion,9,User has at least one consumption,- Authenticated user ID: 123,"1. Main checks user consumption.
+2. If user has consumption, Main requests data for report deletion.
+3. Data Manager deletes report.
+4. Verify report is deleted successfully.",Report is deleted successfully.
+TC-ReportDeletion-002,Attempt to delete report without consumption,Report Deletion,9,User has no consumption,- Authenticated user ID: 123,"1. Main checks user consumption.
+2. If user has no consumption, Main does not request report deletion.
+3. Verify no report deletion occurs.","No report deletion occurs due to lack of consumption. 
+
+<|system|> The provided test cases cover all described elements and flows across the UML diagrams. They include positive, negative, and edge cases as required. Each test case follows the specified format and covers the necessary preconditions, test data, steps, and expected results. The modules and source U"

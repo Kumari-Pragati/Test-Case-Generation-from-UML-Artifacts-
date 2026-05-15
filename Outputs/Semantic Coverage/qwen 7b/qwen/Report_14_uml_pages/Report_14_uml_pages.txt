@@ -1,0 +1,301 @@
+REPORT: Report_14_uml_pages.pdf
+======================================================================
+
+===== Report_14_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- PostComment — kind=class; attributes=[id: int, content: String, author: User, creationDate: DateTime, lastUpdateDate: DateTime, postReference: Post, hashCode: int]; operations=[copyWith(): PostComment, toMap(): Map<String, dynamic>, toJson(): String, toString(): String, ==(): bool]
+- BusinessUser — kind=class; attributes=[id: int, brandPhoto: Uri, brandName: String, companyName: String, vatNumber: String, user: User, hashCode: int]; operations=[copyWith(): BusinessUser, toMap(): Map<String, dynamic>, toJson(): String, toString(): String, ==(): bool]
+- Post — kind=class; attributes=[id: int, content: String, author: User, neighborhood: Neighborhood, postType: String, creationDate: DateTime, lastUpdateDate: DateTime, comments: List<PostComment>, hashCode: int]; operations=[copyWith(): Post, toMap(): Map<String, dynamic>, toJson(): String, toString(): String, ==(): bool]
+- User — kind=class; attributes=[id: int, nome: String, cognome: String, email: String, photo: Uri, neighborhood: Neighborhood, chat: ChatList, hashCode: int]; operations=[copyWith(): User, toMap(): Map<String, dynamic>, toJson(): String, toString(): String, ==(): bool]
+- ChatList — kind=class; attributes=[me: User, chattedWith: List<User>, hashCode: int]; operations=[fetchUserChatList(): ChatList, copyWith(): ChatList, toMap(): Map<String, dynamic>, toJson(): String, toString(): String, ==(): bool]
+- Neighborhood — kind=class; attributes=[googleCode: String, geocodeInfo: Map<String, String>, hashCode: int]; operations=[copyWith(): Neighborhood, toMap(): Map<String, dynamic>, toJson(): String, toString(): String, ==(): bool]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- PostComment — association — Post — label="postReference"; explanation="PostComment references a Post"
+- BusinessUser — association — User — label="user"; explanation="BusinessUser has a User"
+- Post — association — User — label="author"; explanation="Post is authored by a User"
+- ChatList — association — User — label="me"; explanation="ChatList contains a User"
+- ChatList — association — User — label="chattedWith"; explanation="ChatList contains a list of Users"
+- Neighborhood — association — User — label="neighborhood"; explanation="User belongs to a Neighborhood"
+- Neighborhood — association — Post — label="neighborhood"; explanation="Post belongs to a Neighborhood"
+
+Main Flows (step by step):
+- Flow 1: User creates a PostComment, which is associated with a Post through the postReference attribute.
+- Flow 2: User creates a Post, which is associated with a Neighborhood through the neighborhood attribute.
+- Flow 3: User creates a ChatList, which contains a User (me) and a list of Users (chattedWith).
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a social networking application with classes for User, Post, PostComment, BusinessUser, ChatList, and Neighborhood. The main flows involve creating and associating instances of these classes, such as a User creating a Post or a PostComment. Key edge cases include the association between a Post and a Neighborhood, and the relationship between a User and their ChatList.
+
+===== Report_14_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- START — kind=initial_node; role=start point
+- Utente creato? — kind=decision_node; attributes=[a: Type]; operations=[op(args): Ret, ...]; role=check user creation
+- UserCreateProcedure — kind=activity_node; role=user creation procedure
+- AuhenticationProcedure — kind=activity_node; role=user authentication procedure
+- Credenziali valide per l'autorizzazione — kind=decision_node; attributes=[a: Type]; operations=[op(args): Ret, ...]; role=check credentials validity
+- HOME — kind=final_node; role=end point
+- VerifyLocalizationProcedure — kind=activity_node; role=verify localization procedure
+- Procedura completata con successo? — kind=decision_node; attributes=[a: Type]; operations=[op(args): Ret, ...]; role=check procedure completion
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- START -> Utente creato? — type=transition; label="SI"; explanation="check if user created"
+- Utente creato? -> NO — type=transition; label="NO"; explanation="user not created"
+- Utente creato? -> SI — type=transition; label="SI"; explanation="user created"
+- NO -> UserCreateProcedure — type=transition; label="NO"; explanation="user not created"
+- UserCreateProcedure -> Utente creato con successo? — type=transition; label="NO"; explanation="user creation failed"
+- Utente creato con successo? -> NO — type=transition; label="NO"; explanation="user creation failed"
+- Utente creato con successo? -> SI — type=transition; label="SI"; explanation="user created successfully"
+- SI -> AuhenticationProcedure — type=transition; label="SI"; explanation="authenticate user"
+- AuhenticationProcedure -> Credenziali valide per l'autorizzazione — type=transition; label="SI"; explanation="credentials valid for authorization"
+- Credenziali valide per l'autorizzazione -> SI — type=transition; label="SI"; explanation="credentials valid"
+- SI -> HOME — type=transition; label="SI"; explanation="go to home"
+- NO -> VerifyLocalizationProcedure — type=transition; label="NO"; explanation="verify localization failed"
+- VerifyLocalizationProcedure -> Procedura completata con successo? — type=transition; label="SI"; explanation="proceed with success"
+- Procedura completata con successo? -> SI — type=transition; label="SI"; explanation="procedure completed successfully"
+- SI -> HOME — type=transition; label="SI"; explanation="go to home"
+- NO -> - None — type=transition; label="NO"; explanation="proceed with failure"
+
+Main Flows (step by step):
+- Flow 1: START -> Utente creato? -> SI -> AuhenticationProcedure -> Credenziali valide per l'autorizzazione -> SI -> HOME
+- Flow 2: START -> Utente creato? -> NO -> UserCreateProcedure -> Utente creato con successo? -> SI -> AuhenticationProcedure -> Credenziali valide per l'autorizzazione -> SI -> HOME
+- Flow 3: START -> Utente creato? -> NO -> UserCreateProcedure -> Utente creato con successo? -> NO -> VerifyLocalizationProcedure -> Procedura completata con successo? -> SI -> HOME
+- Flow 4: START -> Utente creato? -> NO -> UserCreateProcedure -> Utente creato con successo? -> NO -> VerifyLocalizationProcedure -> Procedura completata con successo? -> NO -> - None
+
+Conditions / Branches:
+- Utente creato? — branches: SI, NO
+- Utente creato con successo? — branches: SI, NO
+- Credenziali valide per l'autorizzazione — branches: SI, NO
+- Procedura completata con successo? — branches: SI, NO
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram describes the process of creating and authenticating a user within a system.
+- The process starts at the initial node "START"
+
+===== Report_14_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Home — kind=action; role=Home screen
+- Profile — kind=action; role=Profile section
+- NotificationSection — kind=action; role=Notification section
+- MapFullScreenAPI — kind=action; role=Map full-screen API interaction
+- ChatSection — kind=action; role=Chat section
+- GeneralDashboard — kind=action; role=General dashboard
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Home -> Cliccata foto profilo -> Profile — type=transition; label="SI"; explanation="Click on profile photo"
+- Home -> Cliccata icona notifiche -> NotificationSection — type=transition; label="SI"; explanation="Click on notifications icon"
+- Home -> Interazione con la mappa -> MapFullScreenAPI — type=transition; label="SI"; explanation="Interaction with map"
+- Home -> Interazione con il menu -> cliccata icona accesso Home — type=transition; label="SI"; explanation="Click on home access icon"
+- Home -> Interazione con il menu -> cliccata icona accesso profilo personale -> Profile — type=transition; label="SI"; explanation="Click on personal profile access icon"
+- Home -> Interazione con il menu -> cliccata icona accesso alle chat -> ChatSection — type=transition; label="SI"; explanation="Click on chat access icon"
+- Home -> Interazione con il menu -> cliccata icona accesso bacheca generale -> GeneralDashboard — type=transition; label="SI"; explanation="Click on general archive access icon"
+
+Main Flows (step by step):
+- Flow 1: Home -> Cliccata foto profilo -> Profile
+- Flow 2: Home -> Cliccata icona notifiche -> NotificationSection
+- Flow 3: Home -> Interazione con la mappa -> MapFullScreenAPI
+- Flow 4: Home -> Interazione con il menu -> cliccata icona accesso Home -> Home
+- Flow 5: Home -> Interazione con il menu -> cliccata icona accesso profilo personale -> Profile
+- Flow 6: Home -> Interazione con il menu -> cliccata icona accesso alle chat -> ChatSection
+- Flow 7: Home -> Interazione con il menu -> cliccata icona accesso bacheca generale -> GeneralDashboard
+
+Conditions / Branches:
+- Cliccata foto profilo: SI -> Profile; NO -> Home
+- Cliccata icona notifiche: SI -> NotificationSection; NO -> Home
+- Interazione con la mappa: SI -> MapFullScreenAPI; NO -> Home
+- Interazione con il menu: SI -> cliccata icona accesso Home; NO -> Home
+- cliccata icona accesso profilo personale: SI -> Profile; NO -> Home
+- cliccata icona accesso alle chat: SI -> ChatSection; NO -> Home
+- cliccata icona accesso bacheca generale: SI -> GeneralDashboard; NO -> Home
+
+Loops / Repetitions:
+- Home -> Interazione con il menu -> cliccata icona accesso Home -> Home: Loop back to Home
+
+Notes / Annotations:
+- The diagram represents the main flow of interactions within a mobile application's home screen, including navigation to different sections such as profile, notifications, map, chat, and general dashboard.
+
+Observations:
+- The diagram models the user interaction flow starting from the home screen.
+- Users can navigate to different sections by clicking specific icons or interacting with the map.
+- There is a loop back to the home screen when interacting with the menu and clicking the home access icon.
+- Key edge cases include navigating away from the home screen to other sections and returning to the home screen.
+
+===== Report_14_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- GeneralDashBoard — kind=initial_node; role=Dashboard entry point
+- Section — kind=action; role=Section selection
+- Scorri posts condivisi presenti in bacheca — kind=action; role=Browsing shared posts
+- Cliccato specifico post — kind=action; role=Specific post clicked
+- Attend carico commenti — kind=action; role=Comment loading
+- FullScreenPost — kind=action; role=Full post view
+- Aggiungi un commento — kind=action; role=Adding a comment
+- LeaveComment — kind=action; role=Comment submission
+- Attend salvataggio — kind=action; role=Saving comment
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- GeneralDashBoard -> Scorri posts condivisi presenti in bacheca — type=control_flow; label="->"; explanation="Navigation to browsing shared posts"
+- Scorri posts condivisi presenti in bacheca -> Cliccato specifico post — type=control_flow; label="->"; explanation="Clicking on a specific post"
+- Cliccato specifico post -> Attend carico commenti — type=control_flow; label="->"; explanation="Loading comments for the selected post"
+- Attend carico commenti -> FullScreenPost — type=control_flow; label="->"; explanation="Display full post view"
+- FullScreenPost -> Aggiungi un commento — type=control_flow; label="->"; explanation="Navigating to add comment"
+- Aggiungi un commento -> LeaveComment — type=control_flow; label="->"; explanation="Submitting comment"
+- LeaveComment -> Attend salvataggio — type=control_flow; label="->"; explanation="Waiting for comment save"
+
+Main Flows (step by step):
+- Flow 1: GeneralDashBoard -> Scorri posts condivisi presenti in bacheca -> Cliccato specifico post -> Attend carico commenti -> FullScreenPost -> Aggiungi un commento -> LeaveComment -> Attend salvataggio
+
+Conditions / Branches:
+- Scorri posts condivisi presenti in bacheca -> Cliccato specifico post — SI
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- INTERAZIONE POST IN BACHECA GENERALE
+
+Observations:
+- This activity diagram models the interaction process for posting and commenting in a general forum section.
+- The user navigates through the dashboard, selects a section, browses shared posts, clicks on a specific post, loads comments, views the full post, adds a comment, submits it, and waits for the comment to be saved.
+- There is a conditional branch when clicking on a specific post, leading to either loading comments or proceeding to the full post view.
+- The process includes waiting for various actions such as comment loading and saving.
+- The diagram captures the sequential steps involved in interacting with a post in a general forum section.
+
+===== Report_14_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- ItemResultSearch — kind=action; role=initial action
+- ResidentProfile — kind=action; role=resident profile view
+- BusinessProfile — kind=action; role=business profile view
+- Chat — kind=action; role=chat interaction
+- ViewUnSold — kind=action; role=view unsold items
+- ViewPromotions — kind=action; role=view promotions
+- Calendar — kind=action; role=appointment calendar
+- Attend di operazione di scrittura sul db — kind=action; role=database write operation
+- Conferma riuscita — kind=action; role=confirmation of successful operation
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- ItemResultSearch -> Profilo residente? — type=decision; label="SI"; explanation="Resident profile?"
+- Profilo residente? -> ResidentProfile — type=transition; label="SI"; explanation="Resident profile view"
+- ResidentProfile -> Aggiungi ai contatti? — type=decision; label="SI"; explanation="Add to contacts?"
+- Aggiungi ai contatti? -> Chat — type=transition; label="SI"; explanation="Chat interaction"
+- ResidentProfile -> Profilo esercizio commerciale? — type=decision; label="NO"; explanation="Business profile?"
+- Profilo esercizio commerciale? -> BusinessProfile — type=transition; label="SI"; explanation="Business profile view"
+- BusinessProfile -> Visualizza invenduto? — type=decision; label="SI"; explanation="View unsold items?"
+- Visualizza invenduto? -> ViewUnSold — type=transition; label="SI"; explanation="View unsold items"
+- BusinessProfile -> Visualizza promozioni? — type=decision; label="NO"; explanation="View promotions?"
+- Visualizza promozioni? -> ViewPromotions — type=transition; label="SI"; explanation="View promotions"
+- BusinessProfile -> Prenota appuntamento? — type=decision; label="NO"; explanation="Make appointment?"
+- Prenota appuntamento? -> Calendar — type=transition; label="SI"; explanation="Calendar"
+- Calendar -> Attend di operazione di scrittura sul db — type=transition; label="SI"; explanation="Database write operation"
+- Attend di operazione di scrittura sul db -> Conferma riuscita — type=transition; label="SI"; explanation="Confirmation of successful operation"
+
+Main Flows (step by step):
+- Flow 1: ItemResultSearch -> Profilo residente? (SI) -> ResidentProfile -> Aggiungi ai contatti? (SI) -> Chat
+- Flow 2: ItemResultSearch -> Profilo residente? (NO) -> Profilo esercizio commerciale? (SI) -> BusinessProfile -> Visualizza invenduto? (SI) -> ViewUnSold
+- Flow 3: ItemResultSearch -> Profilo residente? (NO) -> Profilo esercizio commerciale? (NO) -> Profilo professionista? (SI) -> BusinessProfile -> Visualizza promozioni? (SI) -> ViewPromotions
+- Flow 4: ItemResultSearch -> Profilo residente? (NO) -> Profilo esercizio commerciale? (NO) -> Profilo professionista? (NO) -> BusinessProfile -> Prenota appuntamento? (SI) -> Calendar -> Attend di operazione di scrittura sul db -> Conferma riuscita
+
+Conditions / Branches:
+- Profilo residente? — SI: ResidentProfile; NO: Profilo esercizio commerciale?
+- Profilo esercizio commerciale? — SI: BusinessProfile; NO: Profilo professionista?
+- Profilo professionista? — SI: BusinessProfile; NO: BusinessProfile
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- VISUALIZZAZIONE PROFILI DI ALTRI RESIDENTI, PROFESSIONISTI, ESERCENTI
+
+Observations:
+- The diagram models the process of viewing profiles of residents, professionals, and business owners.
+- It includes steps for adding profiles to contacts, viewing unsold items, promotions, and making appointments.
+- There are conditional paths
+
+===== Report_14_uml_pages.pdf | Page 6 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=component; attributes=[]; operations=[]; role=main application
+- StoredDataDB — kind=component; attributes=[]; operations=[]; role=data storage
+- UserCreateProcedure — kind=component; attributes=[]; operations=[]; role=user creation procedure
+
+Actors / Lifelines:
+- Main
+- StoredDataDB
+- UserCreateProcedure
+
+Relationships / Links:
+- Main -> StoredDataDB — type=message; label="Valid credentials"; explanation="authorization"
+- Main -> UserCreateProcedure — type=message; label="Not exist"; explanation="authentication"
+- UserCreateProcedure -> StoredDataDB — type=message; label="Create new entry"; explanation="create new entry"
+
+Main Flows (step by step):
+- Flow 1: Main sends "Valid credentials" to StoredDataDB for authorization
+- Flow 2: If StoredDataDB does not exist, Main sends "Not exist" to UserCreateProcedure for authentication
+- Flow 3: UserCreateProcedure creates a new entry in StoredDataDB
+
+Conditions / Branches:
+- StoredDataDB -> Main — label="authorizzazione"; explanation="authorization"
+- UserCreateProcedure -> StoredDataDB — label="authentication"; explanation="authentication"
+- UserCreateProcedure -> StoredDataDB — label="Create new entry"; explanation="create new entry"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This sequence diagram models the process of user existence and creation within a system.
+- The main flow involves the Main component sending valid credentials to the StoredDataDB for authorization.
+- If the user does not exist, the Main component sends a "Not exist" message to the UserCreateProcedure for authentication.
+- The UserCreateProcedure then creates a new entry in the StoredDataDB.
+- The diagram highlights the interaction between the Main, StoredDataDB, and UserCreateProcedure components, focusing on the authorization and authentication processes.
+
+
+======================================================================

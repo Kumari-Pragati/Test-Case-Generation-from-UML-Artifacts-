@@ -1,0 +1,78 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User registration,User,1,None,"- Valid email: test@example.com
+- Valid password: Test1234
+- Valid name: Test User","1. Navigate to the registration page.
+2. Enter the email, password, and name.
+3. Click the ""Register"" button.",The user is successfully registered and redirected to the login page.
+TC-User-002,Invalid email format,User,1,User is on the registration page.,- Invalid email: testexample.com,"1. Navigate to the registration page.
+2. Enter the invalid email, password, and name.
+3. Click the ""Register"" button.","An error message is displayed, and the user is unable to register."
+TC-User-003,Empty password,User,1,User is on the registration page.,"- Valid email: test@example.com
+- Empty password
+- Valid name: Test User","1. Navigate to the registration page.
+2. Enter the email, empty password, and name.
+3. Click the ""Register"" button.","An error message is displayed, and the user is unable to register."
+TC-ReportManager-001,Generate report,ReportManager,"1, 2",User is logged in and has selected data to generate a report.,- Selected data: Sales data for the last month,"1. Navigate to the report generation page.
+2. Select the data to generate the report.
+3. Click the ""Generate Report"" button.",The report is generated and displayed to the user.
+TC-ReportManager-002,Invalid data selection,ReportManager,"1, 2",User is logged in and on the report generation page.,- No data selected,"1. Navigate to the report generation page.
+2. Click the ""Generate Report"" button without selecting any data.","An error message is displayed, and the report is not generated."
+TC-DataManager-001,Retrieve data,DataManager,"1, 2",User is logged in and on the report generation page.,,"1. Navigate to the report generation page.
+2. Select the data to generate the report.
+3. Click the ""Generate Report"" button.",The selected data is retrieved from the database and used to generate the report.
+TC-DataManager-002,Invalid data retrieval,DataManager,"1, 2",User is logged in and on the report generation page.,,"1. Navigate to the report generation page.
+2. Select an invalid data type (e.g., ""Users"" instead of ""Sales"").
+3. Click the ""Generate Report"" button.","An error message is displayed, and the report is not generated."
+TC-WebServer-001,Display report,WebServer,"1, 2",User is logged in and a report has been generated.,,"1. Navigate to the report generation page.
+2. Generate a report.
+3. Verify that the report is displayed correctly.",The report is displayed correctly on the web page.
+TC-WebServer-002,Incorrect report display,WebServer,"1, 2",User is logged in and a report has been generated.,,"1. Navigate to the report generation page.
+2. Generate a report.
+3. Modify the report data (e.g., change the font size).
+4. Verify that the modified report is displayed incorrectly.",The report is displayed incorrectly on the web page.
+TC-Database-001,Retrieve data from database,Database,"1, 2",User is logged in and on the report generation page.,,"1. Navigate to the report generation page.
+2. Select the data to generate the report.
+3. Click the ""Generate Report"" button.",The selected data is retrieved from the database and used to generate the report.
+TC-Database-002,Incorrect data retrieval,Database,"1, 2",User is logged in and on the report generation page.,,"1. Navigate to the report generation page.
+2. Select an invalid data type (e.g., ""Users"" instead of ""Sales"").
+3. Click the ""Generate Report"" button.","An error message is displayed, and the report is not generated."
+TC-Login-001,Successful login,Login,1,User has registered an account.,"- Valid email: test@example.com
+- Valid password: Test1234","1. Navigate to the login page.
+2. Enter the email and password.
+3. Click the ""Login"" button.",The user is successfully logged in and redirected to the dashboard.
+TC-Login-002,Incorrect password,Login,1,User is on the login page.,"- Valid email: test@example.com
+- Incorrect password: Wrong1234","1. Navigate to the login page.
+2. Enter the email and incorrect password.
+3. Click the ""Login"" button.","An error message is displayed, and the user is unable to log in."
+TC-Login-003,Inactive account,Login,1,User has an inactive account.,"- Valid email: test@example.com
+- Valid password: Test1234","1. Navigate to the login page.
+2. Enter the email and password.
+3. Click the ""Login"" button.","An error message is displayed, and the user is unable to log in."
+TC-Dashboard-001,View dashboard,Dashboard,1,User is logged in.,,"1. Navigate to the dashboard page.
+2. Verify that the user's information is displayed correctly.",The user's information is displayed correctly on the dashboard page.
+TC-Dashboard-002,Incorrect user information,Dashboard,1,User is logged in.,,"1. Navigate to the dashboard page.
+2. Modify the user's information (e.g., change the name).
+3. Verify that the modified information is displayed incorrectly.",The user's information is displayed incorrectly on the dashboard page.
+TC-Report-001,Generate report with valid data,Report,"1, 2",User is logged in and has selected valid data to generate a report.,- Selected data: Sales data for the last month,"1. Navigate to the report generation page.
+2. Select the valid data to generate the report.
+3. Click the ""Generate Report"" button.",The report is generated and displayed to the user.
+TC-Report-002,Generate report with invalid data,Report,"1, 2",User is logged in and has selected invalid data to generate a report.,"- Selected data: Invalid data type (e.g., ""Users"" instead of ""Sales"")","1. Navigate to the report generation page.
+2. Select the invalid data to generate the report.
+3. Click the ""Generate Report"" button.","An error message is displayed, and the report is not generated."
+TC-Report-003,Generate report with missing data,Report,"1, 2",User is logged in and has not selected any data to generate a report.,,"1. Navigate to the report generation page.
+2. Click the ""Generate Report"" button without selecting any data.","An error message is displayed, and the report is not generated."
+TC-Report-004,Edit report,Report,"1, 2",User is logged in and has generated a report.,,"1. Navigate to the report generation page.
+2. Generate a report.
+3. Modify the report data (e.g., change the font size).
+4. Click the ""Save Changes"" button.","The modified report is saved, and the updated report is displayed."
+TC-Report-005,Edit report with invalid data,Report,"1, 2",User is logged in and has generated a report.,,"1. Navigate to the report generation page.
+2. Generate a report.
+3. Modify the report data with invalid data (e.g., negative values).
+4. Click the ""Save Changes"" button.","An error message is displayed, and the report is not updated."
+TC-Report-006,Delete report,Report,"1, 2",User is logged in and has generated a report.,,"1. Navigate to the report generation page.
+2. Generate a report.
+3. Click the ""Delete Report"" button.","The report is deleted, and it is no longer visible to the user."
+TC-Logout-001,Successful logout,Logout,1,User is logged in.,,"1. Navigate to the logout page.
+2. Click the ""Logout"" button.",The user is successfully logged out and redirected to the login page.
+TC-Logout-002,Incorrect logout,Logout,1,User is not logged in.,,"1. Navigate to the logout page.
+2. Click the ""Logout"" button.","An error message is displayed, and the user remains logged in."

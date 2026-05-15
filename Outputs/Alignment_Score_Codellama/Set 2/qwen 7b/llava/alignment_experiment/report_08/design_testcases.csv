@@ -1,0 +1,118 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,User successfully registers with valid data,Registration,"1,2,3",None,"- Username: testuser
+- Password: TestPass123
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User enters valid username, password, and email.
+3. User clicks on the register button.
+4. System validates the input and sends a confirmation message.",User is registered successfully and receives a confirmation message.
+TC-Registration-002,User fails to register due to empty fields,Registration,"1,2,3",None,"- Username: 
+- Password: 
+- Email:","1. User navigates to the registration page.
+2. User leaves all fields empty.
+3. User clicks on the register button.
+4. System displays an error message indicating required fields.",User is informed about the missing fields and cannot proceed with registration.
+TC-Registration-003,User fails to register due to invalid email format,Registration,"1,2,3",None,"- Username: testuser
+- Password: TestPass123
+- Email: testuserexample.com","1. User navigates to the registration page.
+2. User enters a valid username and password but an invalid email format.
+3. User clicks on the register button.
+4. System displays an error message indicating an invalid email format.",User is informed about the invalid email format and cannot proceed with registration.
+TC-Login-001,User successfully logs in with valid credentials,Login,"1,2,3",User has been registered successfully.,"- Username: testuser
+- Password: TestPass123","1. User navigates to the login page.
+2. User enters valid username and password.
+3. User clicks on the login button.
+4. System validates the input and grants access.",User is logged in successfully and redirected to the dashboard.
+TC-Login-002,User fails to log in due to incorrect password,Login,"1,2,3",User has been registered successfully.,"- Username: testuser
+- Password: WrongPass123","1. User navigates to the login page.
+2. User enters a valid username but an incorrect password.
+3. User clicks on the login button.
+4. System displays an error message indicating incorrect password.",User is informed about the incorrect password and cannot proceed with login.
+TC-Login-003,User fails to log in due to non-existent username,Login,"1,2,3",User has not been registered.,"- Username: nonexistuser
+- Password: TestPass123","1. User navigates to the login page.
+2. User enters a non-existent username and a valid password.
+3. User clicks on the login button.
+4. System displays an error message indicating non-existent username.",User is informed about the non-existent username and cannot proceed with login.
+TC-Access-001,User accesses service after successful login,Access,"1,2,3",User has been logged in successfully.,None,"1. User navigates to the service page.
+2. User is prompted to enter their credentials.
+3. User enters valid credentials and clicks on the access button.
+4. System grants access to the service.",User is granted access to the service and can use its features.
+TC-Access-002,User fails to access service due to expired session,Access,"1,2,3",User has been logged in successfully and session has expired.,None,"1. User tries to access the service page.
+2. System detects an expired session.
+3. User is prompted to re-login.
+4. User re-enters valid credentials and clicks on the access button.
+5. System grants access to the service.",User is prompted to re-login and then granted access to the service.
+TC-Access-003,User fails to access service due to invalid credentials,Access,"1,2,3",User has been logged in successfully.,"- Username: testuser
+- Password: WrongPass123","1. User tries to access the service page.
+2. User enters invalid credentials.
+3. System displays an error message indicating invalid credentials.",User is informed about the invalid credentials and cannot access the service.
+TC-Logout-001,User logs out successfully,Logout,"1,2,3",User is currently logged in.,None,"1. User navigates to the logout page.
+2. User clicks on the logout button.
+3. System logs the user out.",User is logged out and redirected to the login page.
+TC-Logout-002,User fails to log out due to expired session,Logout,"1,2,3",User's session has expired.,None,"1. User tries to navigate to the logout page.
+2. System detects an expired session.
+3. User is prompted to re-login.
+4. User re-enters valid credentials and clicks on the access button.
+5. System grants access to the service.",User is prompted to re-login and then granted access to the service.
+TC-Error-001,System handles invalid input gracefully,Error Handling,"1,2,3",None,"- Invalid username: """"
+- Invalid password: """"
+- Invalid email: ""testuserexamplecom""","1. User navigates to the registration page.
+2. User enters invalid input (empty fields, invalid email format).
+3. User clicks on the register button.
+4. System displays appropriate error messages.",System displays clear and specific error messages for invalid input.
+TC-Error-002,System handles unexpected errors gracefully,Error Handling,"1,2,3",None,None,"1. User performs an action that triggers an unexpected error (e.g., server downtime, database failure).
+2. System displays an error message indicating the issue.
+3. User is provided with options to retry or contact support.",System provides clear and actionable feedback to the user in case of unexpected errors.
+TC-Edge-001,User attempts to register with existing username,Registration,"1,2,3",A user with the same username has already registered.,"- Username: testuser
+- Password: TestPass123
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User enters an existing username, valid password, and email.
+3. User clicks on the register button.
+4. System displays an error message indicating the username is already taken.",User is informed that the username is already taken and cannot proceed with registration.
+TC-Edge-002,User attempts to log in with expired account,Login,"1,2,3",User's account has been marked as expired.,"- Username: testuser
+- Password: TestPass123","1. User navigates to the login page.
+2. User enters valid credentials.
+3. User clicks on the login button.
+4. System displays an error message indicating the account is expired.",User is informed that the account is expired and cannot proceed with login.
+TC-Edge-003,User attempts to access service with expired account,Access,"1,2,3",User's account has been marked as expired.,None,"1. User tries to access the service page.
+2. System detects an expired account.
+3. User is prompted to re-login.
+4. User re-enters valid credentials and clicks on the access button.
+5. System displays an error message indicating the account is expired.",User is informed that the account is expired and cannot access the service.
+TC-Edge-004,User attempts to log out with expired session,Logout,"1,2,3",User's session has expired.,None,"1. User tries to navigate to the logout page.
+2. System detects an expired session.
+3. User is prompted to re-login.
+4. User re-enters valid credentials and clicks on the access button.
+5. System grants access to the service.",User is prompted to re-login and then granted access to the service.
+TC-Edge-005,User attempts to access service with expired session,Access,"1,2,3",User's session has expired.,None,"1. User tries to access the service page.
+2. System detects an expired session.
+3. User is prompted to re-login.
+4. User re-enters valid credentials and clicks on the access button.
+5. System grants access to the service.",User is prompted to re-login and then granted access to the service.
+TC-Edge-006,User attempts to register with very long username,Registration,"1,2,3",None,"- Username: aVeryLongUsernameThatExceedsTheMaximumAllowedLength
+- Password: TestPass123
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User enters a very long username, valid password, and email.
+3. User clicks on the register button.
+4. System displays an error message indicating the username exceeds the maximum allowed length.",User is informed that the username exceeds the maximum allowed length and cannot proceed with registration.
+TC-Edge-007,User attempts to register with very short username,Registration,"1,2,3",None,"- Username: t
+- Password: TestPass123
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User enters a very short username, valid password, and email.
+3. User clicks on the register button.
+4. System displays an error message indicating the username is too short.",User is informed that the username is too short and cannot proceed with registration.
+TC-Edge-008,User attempts to register with very long password,Registration,"1,2,3",None,"- Username: testuser
+- Password: aVeryLongPasswordThatExceedsTheMaximumAllowedLength
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User enters a valid username, a very long password, and email.
+3. User clicks on the register button.
+4. System displays an error message indicating the password exceeds the maximum allowed length.",User is informed that the password exceeds the maximum allowed length and cannot proceed with registration.
+TC-Edge-009,User attempts to register with very short password,Registration,"1,2,3",None,"- Username: testuser
+- Password: t
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User enters a valid username, a very short password, and email.
+3. User clicks on the register button.
+4. System displays an error message indicating the password is too short.",User is informed that the password is too short and cannot proceed with registration.
+TC-Edge-010,User attempts to register with invalid email format,Registration,"1,2,3",None,"- Username: testuser
+- Password: TestPass123
+- Email: testuserexamplecom","1. User navigates to the registration page.
+2. User enters",

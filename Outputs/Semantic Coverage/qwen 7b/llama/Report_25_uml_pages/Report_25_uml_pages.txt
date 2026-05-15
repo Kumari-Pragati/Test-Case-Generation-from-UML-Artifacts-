@@ -1,0 +1,400 @@
+REPORT: Report_25_uml_pages.pdf
+======================================================================
+
+===== Report_25_uml_pages.pdf | Page 1 =====
+**UML Type:** 
+- **Component**
+
+**Components:**
+- **MySQL** — kind=Database; attributes=[User, Object, Chat]; operations=[User: User, Object: Object, Chat: Chat]; role=Database
+- **Models** — kind=Models; attributes=[User, Object, Chat]; operations=[User: User, Object: Object, Chat: Chat]; role=Models
+- **Controllers** — kind=Controllers; attributes=[Jobs]; operations=[Jobs: Jobs]; role=Controllers
+- **Repository / Controllers** — kind=Repository / Controllers; attributes=[ObjectRepository, LoginController, RegisterController]; operations=[ObjectRepository: ObjectRepository, LoginController: LoginController, RegisterController: RegisterController]; role=Repository / Controllers
+- **APIs** — kind=APIs; attributes=[Models, Controllers]; operations=[Models: Models, Controllers: Controllers]; role=APIs
+- **Jobs** — kind=Jobs; attributes=[Jobs]; operations=[Jobs: Jobs]; role=Jobs
+- **Push notifications system** — kind=Push notifications system; attributes=[]; operations=[]; role=Push notifications system
+
+**Actors / Lifelines:**
+- **User**
+- **Object**
+- **Chat**
+
+**Relationships / Links:**
+- **MySQL** -> **Models** — type=Communication; label=Communication; explanation=Communication
+- **Models** -> **Controllers** — type=Communication; label=Communication; explanation=Communication
+- **Controllers** -> **APIs** — type=Communication; label=Communication; explanation=Communication
+- **APIs** -> **Jobs** — type=Communication; label=Communication; explanation=Communication
+- **Jobs** -> **Push notifications system** — type=Communication; label=Communication; explanation=Communication
+
+**Main Flows:**
+- **Flow 1:** MySQl -> Models -> Controllers -> APIs -> Jobs -> Push notifications system
+
+**Conditions / Branches:**
+- **Real-time communication service** -> **Models** — Real-time communication service
+- **Push notifications system** -> **Jobs** — Push notifications system
+
+**Loops / Repetitions:**
+- **Jobs** -> **Jobs** — Push notifications system
+
+**Notes / Annotations:**
+- **Real-time communication service** — Real-time communication service
+- **Push notifications system** — Push notifications system
+
+**Observations:**
+- The diagram models a system that handles user communication, object chat, and job management through a push notifications system.
+- The main flow starts with real-time communication service and ends with push notifications.
+- The system has a loop for job management.
+
+===== Report_25_uml_pages.pdf | Page 2 =====
+**UML Type:** Class
+
+**Components:**
+
+* **User**: kind=class; attributes=[username: String, password: String]; operations=[login(username, password): Boolean, register(username, password): Boolean]; role=the user who can log in and register
+* **Product**: kind=class; attributes=[name: String, price: Float, description: String]; operations=[create(name, price, description): Product, update(name, price, description): void, delete(): void]; role=the product that can be created, updated, and deleted
+* **Order**: kind=class; attributes=[id: Integer, userId: Integer, productId: Integer, quantity: Integer]; operations=[create(userId, productId, quantity): Order, update(id, userId, productId, quantity): void, delete(id): void]; role=the order that can be created, updated, and deleted
+* **Category**: kind=class; attributes=[name: String]; operations=[create(name): Category, update(name): void, delete(): void]; role=the category that can be created, updated, and deleted
+* **ProductCategory**: kind=class; attributes=[id: Integer, categoryId: Integer, productId: Integer]; operations=[create(categoryId, productId): ProductCategory, update(id, categoryId, productId): void, delete(id): void]; role=the product category that can be created, updated, and deleted
+
+**Actors / Lifelines:** None
+
+**Relationships / Links:**
+
+* **User** -> **Order** — type=association; label="has"; explanation="a user can have multiple orders"
+* **Product** -> **Order** — type=association; label="is in"; explanation="a product can be in multiple orders"
+* **Category** -> **ProductCategory** — type=association; label="has"; explanation="a category can have multiple product categories"
+* **Product** -> **ProductCategory** — type=association; label="is in"; explanation="a product can be in multiple product categories"
+
+**Main Flows:**
+
+* Flow 1: A user logs in, creates an order, adds products to the order, and pays for the order
+* Flow 2: A user logs in, creates a product, adds it to a category, and updates the product
+
+**Conditions / Branches:**
+
+* If the user is logged in, then they can create an order
+* If the user has a product in their cart, then they can add it to their order
+* If the user has a product in their cart, then they can remove it from their cart
+
+**Loops / Repetitions:** None
+
+**Notes / Annotations:** None
+
+**Observations:**
+
+* The system allows users to log in and create orders
+* Users can add products to their cart and then add them to their order
+* Users can create products and add them to a category
+* The system has a user interface for logging in, creating orders, and managing products and categories
+* The system has a database for storing user information, orders, products, and categories
+* The system has a payment gateway for processing payments
+* The system has a security feature for encrypting user passwords
+
+===== Report_25_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Utente - kind=Utente; attributes=[Compilazione campi]; operations=[doRegistration()]; role=Utente
+* App - kind=App; attributes=[Mail otp]; operations=[sendOtp()]; role=App
+* Server - kind=Server; attributes=[Salvataggio dati]; operations=[generateOtp(), Salvataggio otp]; role=Server
+* Database - kind=Database; attributes=[Salvataggio dati]; operations=[Conferma inserimento]; role=Database
+
+**Actors / Lifelines:**
+
+* Utente
+* App
+* Server
+* Database
+
+**Relationships / Links:**
+
+* Utente -> App — type=Message; label="doRegistration()"; explanation="Compilazione campi"
+* App -> Server — type=Message; label="doRegistration()"; explanation="doRegistration()"
+* Server -> Database — type=Message; label="Salvataggio dati"; explanation="Salvataggio dati"
+* Server -> Utente — type=Message; label="Salvataggio otp"; explanation="Salvataggio otp"
+* Server -> App — type=Message; label="Salvataggio otp"; explanation="Salvataggio otp"
+* App -> Utente — type=Message; label="sendOtp()"; explanation="sendOtp()"
+* Database -> Server — type=Message; label="Conferma inserimento"; explanation="Conferma inserimento"
+* Server -> Utente — type=Message; label="Chiede otp salvato"; explanation="Chiede otp salvato"
+* Utente -> Server — type=Message; label="Riceve otp salvato"; explanation="Riceve otp salvato"
+* Server -> Database — type=Message; label="Riceve otp salvato"; explanation="Riceve otp salvato"
+
+**Main Flows:**
+
+* Flow 1: Utente -> App -> Server -> Database -> Utente -> App -> Utente
+* Flow 2: None
+
+**Conditions / Branches:**
+
+* doRegistration() -> doRegistration() — condition=Salvataggio dati; branch=Salvataggio dati
+* doRegistration() -> doRegistration() — condition=Salvataggio otp; branch=Salvataggio otp
+* sendOtp() -> sendOtp() — condition=Conferma inserimento; branch=Conferma inserimento
+* Chiede otp salvato -> Chiede otp salvato — condition=Riceve otp salvato; branch=Riceve otp salvato
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* [Scheck] : sendAuthToken()
+
+**Observations:**
+
+* The diagram models a user registration process involving an app, a server, and a database.
+* The process starts with user registration, followed by app registration, server data saving, and database confirmation.
+* The server generates and saves OTPs, which are sent to the user and checked by the server.
+* The process involves multiple interactions between the user, app, server, and database.
+
+===== Report_25_uml_pages.pdf | Page 4 =====
+**UML Type**
+* Sequence
+
+**Components**
+* Utente: kind=entity; attributes=[email, password, passwordValidate]; operations=[emailValidate(): void, passwordValidate(): void]; role=User
+* App: kind=entity; attributes=[ScheckU, ScheckP]; operations=[emailValidate(), passwordValidate(), doLogin(): void]; role=Application
+* Server: kind=entity; attributes=[Richiesta password associata alla mail]; operations=[invio password(): void, checkPassword(): void, generateToken(): void]; role=Server
+* Database: kind=entity; attributes=[Salvataggio AuthToken]; operations=[sendAuthToken(): void]; role=Database
+
+**Actors / Lifelines**
+* Utente
+* App
+* Server
+* Database
+
+**Relationships / Links**
+* Utente -> App — type=association; label="Compilazione campi"; explanation="User data compilation"
+* App -> Server — type=association; label="ScheckU: emailValidate()"; explanation="User email validation"
+* App -> Server — type=association; label="ScheckP: passwordValidate()"; explanation="User password validation"
+* Server -> App — type=association; label="ScheckU and ScheckP: doLogin()"; explanation="User login"
+* Server -> Database — type=association; label="Richiesta password associata alla mail"; explanation="Password request associated with email"
+* Server -> App — type=association; label="Invio password"; explanation="Password sending"
+* Server -> App — type=association; label="Scheck = checkPassword()"; explanation="Password check"
+* Server -> App — type=association; label="Scheck: generateToken()"; explanation="Token generation"
+* App -> Database — type=association; label="Salvataggio AuthToken"; explanation="Token saving"
+
+**Main Flows**
+* Flow 1: Utente -> App -> Server -> Database -> App -> Utente
+	+ Utente -> App: Compilazione campi
+	+ App -> Server: ScheckU: emailValidate()
+	+ App -> Server: ScheckP: passwordValidate()
+	+ Server -> App: ScheckU and ScheckP: doLogin()
+	+ Server -> App: Richiesta password associata alla mail
+	+ Server -> App: Invio password
+	+ Server -> App: Scheck = checkPassword()
+	+ Server -> App: Scheck: generateToken()
+	+ App -> Database: Salvataggio AuthToken
+	+ App -> Utente: Apertura schermata home
+
+**Conditions / Branches**
+* [ScheckU and ScheckP: doLogin()]: doLogin() -> [ScheckU: emailValidate()]; [ScheckP: passwordValidate()]
+* [Scheck = checkPassword()]: checkPassword() -> [Scheck: generateToken()]
+
+**Loops / Repetitions**
+* [Scheck: sendAuthToken(): void] -> [Scheck: sendAuthToken(): void]
+
+**Notes / Annotations**
+* None
+
+**Observations**
+* The diagram models a user login process where the user provides their email and password, which are validated by the application and server. The server then sends a password associated with the email and checks the password. If the password is correct, a token is generated and saved in the database. The user is then redirected to the home page.
+* The main flows are the user providing their email and password, the application and server validating the credentials, and the server sending a password associated with the email and generating a token.
+* There are no error paths or edge cases explicitly shown in the diagram.
+
+===== Report_25_uml_pages.pdf | Page 5 =====
+**UML Type**
+- Sequence
+
+**Components**
+- Utente: kind=actor; attributes=[email: string; password: string]; operations=[login(email, password): void; register(email, password): void]; role=the user
+- App: kind=component; attributes=[none]; operations=[none]; role=the application
+- Server: kind=component; attributes=[none]; operations=[none]; role=the server
+- Database: kind=component; attributes=[none]; operations=[none]; role=the database
+
+**Actors / Lifelines**
+- Utente
+- App
+- Server
+- Database
+
+**Relationships / Links**
+- Utente -> App — type=association; label="Richiesta psw dimenticata"; explanation=the user requests a password reset
+- App -> Server — type=association; label="LostPSWRequest()"; explanation=the application sends a lost password request to the server
+- Server -> Database — type=association; label="Check mail"; explanation=the server checks the mail
+- Server -> Utente — type=association; label="ScheckMail==F"; explanation=the server sends a check mail response to the user
+- Utente -> App — type=association; label="Mail con link"; explanation=the user receives a mail with a link
+- App -> Utente — type=association; label="Invio nuova password & token recupero psw"; explanation=the application sends a new password and a token for password recovery
+- Utente -> App — type=association; label="Comunicazione cambio password avvenuta"; explanation=the user communicates the password change
+- App -> Server — type=association; label="Scheck = checkTokenPsw()"; explanation=the application checks the token and password
+- Server -> Database — type=association; label="ScheckMail==T"; explanation=the server checks the mail
+- Server -> Utente — type=association; label="Salvataggio token recupero psw"; explanation=the server saves the recovery token
+- Utente -> App — type=association; label="Conferma salvataggio"; explanation=the user confirms the saving
+- App -> Server — type=association; label="Scheck = checkTokenPsw()"; explanation=the application checks the token and password
+- Server -> Database — type=association; label="Scheck"; explanation=the server checks
+- Server -> Utente — type=association; label="Conferma nuova psw"; explanation=the server confirms the new password
+
+**Main Flows**
+- Flow 1: Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente -> App -> Server -> Database -> Utente ->
+
+===== Report_25_uml_pages.pdf | Page 6 =====
+**UML Type**
+* Sequence
+
+**Components**
+* Utente: kind=actor; attributes=[n oggetti, riempie card]; operations=[Fa swipe di n/2 card, Continua swipe di card]; role=the user
+* App: kind=component; attributes=[n oggetti, riempie card]; operations=[n oggetti, riempie card]; role=the application
+* Server: kind=component; attributes=[n oggetti, riempie card]; operations=[Richiedi oggetti limit n, Riceve n oggetti]; role=the server
+* Database: kind=component; attributes=[n oggetti, riempie card]; operations=[Riceve n/2 oggetti]; role=the database
+
+**Actors / Lifelines**
+* Utente
+* App
+* Server
+* Database
+
+**Relationships / Links**
+* Utente -> App — type=association; label="Apre hompage"; explanation=the user opens the homepage
+* App -> Server — type=association; label="initCards(n:SpreloadCount)"; explanation=the application initializes cards with a specific count
+* Server -> Database — type=association; label="Richiedi oggetti limit n"; explanation=the server requests objects with a limit
+* Database -> Server — type=association; label="Riceve n oggetti"; explanation=the database receives objects
+* Server -> Utente — type=association; label="Fa swipe di n/2 card"; explanation=the server performs a swipe of n/2 cards
+* Utente -> App — type=association; label="Continua swipe di card"; explanation=the user continues to swipe cards
+* App -> Server — type=association; label="n oggetti, riempie card"; explanation=the application fills the card with n objects
+* Server -> Database — type=association; label="n oggetti, riempie card"; explanation=the server fills the card with n objects
+* Database -> Server — type=association; label="Riceve n/2 oggetti"; explanation=the database receives n/2 objects
+
+**Main Flows**
+* Flow 1: Apre hompage -> visualizza card riempite -> Fa swipe di n/2 card -> Continua swipe di card -> n oggetti, riempie card -> [remainigCard<n/2]: loadMoreCards(n/2) -> n/2 oggetti, riempie card -> Richiedi oggetti limit n -> Riceve n oggetti -> Richiedi oggetti limit n/2 -> Riceve n/2 oggetti
+
+**Conditions / Branches**
+* visualizza card riempite -> Fa swipe di n/2 card
+* Fa swipe di n/2 card -> Continua swipe di card
+* n oggetti, riempie card -> [remainigCard<n/2]: loadMoreCards(n/2)
+* n/2 oggetti, riempie card -> Richiedi oggetti limit n
+* Richiedi oggetti limit n -> Riceve n oggetti
+* Richiedi oggetti limit n/2 -> Riceve n/2 oggetti
+
+**Loops / Repetitions**
+* n/2 oggetti, riempie card -> n/2 oggetti, riempie card
+
+**Notes / Annotations**
+* None
+
+**Observations**
+* The diagram models a sequence of interactions between the user, the application, the server, and the database.
+* The user opens the homepage, visualizes the cards, and swipes them.
+* The application fills the card with n objects and requests more cards.
+* The server requests objects with a limit and receives them.
+* The database receives n/2 objects.
+* The user continues to swipe cards, and the application fills the card with n/2 objects.
+* The server requests objects with a limit and receives them.
+* The database receives n/2 objects.
+* The user continues to swipe cards, and the application fills the card with n/2 objects.
+* The server requests objects with a limit and receives them.
+* The database receives n/2 objects.
+
+===== Report_25_uml_pages.pdf | Page 7 =====
+**UML Type**
+* Sequence
+
+**Components**
+* Utente 1 — kind=Utente; attributes=[a: Type,...]; operations=[op(args): Ret,...]; role=Utente
+* Utente 2 — kind=Utente; attributes=[a: Type,...]; operations=[op(args): Ret,...]; role=Utente
+* App utente 1 — kind=App; attributes=[a: Type,...]; operations=[op(args): Ret,...]; role=App
+* App utente 2 — kind=App; attributes=[a: Type,...]; operations=[op(args): Ret,...]; role=App
+* Server — kind=Server; attributes=[a: Type,...]; operations=[op(args): Ret,...]; role=Server
+* Database — kind=Database; attributes=[a: Type,...]; operations=[op(args): Ret,...]; role=Database
+
+**Actors / Lifelines**
+* Utente 1
+* Utente 2
+* App utente 1
+* App utente 2
+* Server
+* Database
+
+**Relationships / Links**
+* Utente 1 -> App utente 1 — type=association; label="Swipe card da utente 2"; explanation="Utente 1 swipes card to App utente 1"
+* App utente 1 -> Server — type=association; label="trackObjectPre{true}"; explanation="App utente 1 tracks object pre{true} to Server"
+* Server -> Database — type=association; label="Salvataggio preferenza"; explanation="Server saves preference"
+* Database -> Server — type=association; label="Salvataggio preferenza"; explanation="Database saves preference"
+* Utente 2 -> App utente 2 — type=association; label="Swipe card da utente 2"; explanation="Utente 2 swipes card to App utente 2"
+* App utente 2 -> Server — type=association; label="trackObjectPre{true}"; explanation="App utente 2 tracks object pre{true} to Server"
+* Server -> Database — type=association; label="Salvataggio preferenza"; explanation="Server saves preference"
+* Database -> Server — type=association; label="Salvataggio preferenza"; explanation="Database saves preference"
+
+**Main Flows**
+* Flow 1: Utente 1 -> App utente 1 -> Server -> Database -> Utente 1
+* Flow 2: Utente 2 -> App utente 2 -> Server -> Database -> Utente 2
+
+**Conditions / Branches**
+* [Scheck] notifica match e apertura chat (false) -> [Scheck] schermata match
+* [Scheck] schermata match -> [Scheck] notifica match e apertura chat (false)
+
+**Loops / Repetitions**
+* [Scheck] notifica match e apertura chat (false) -> [Scheck] schermata match -> [Scheck] notifica match e apertura chat (false)
+
+**Notes / Annotations**
+* [Scheck] notifica match e apertura chat (false) -> [Scheck] schermata match -> [Scheck] notifica match e apertura chat (false)
+
+**Observations**
+* The diagram models a sequence of interactions between users, apps, server, and database.
+* The main flows involve user interaction with the app and server, with the database being involved in saving preferences.
+* There are two distinct flows, one for each user, with the same sequence of actions.
+* The conditions and branches are based on the result of the "Scheck" checks.
+
+===== Report_25_uml_pages.pdf | Page 8 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Utente1 — kind=Utente; attributes=[a: none]; operations=[none]; role=Utente
+* Utente2 — kind=Utente; attributes=[a: none]; operations=[none]; role=Utente
+* App1 — kind=App; attributes=[none]; operations=[none]; role=App
+* App2 — kind=App; attributes=[none]; operations=[none]; role=App
+* Server — kind=Server; attributes=[none]; operations=[none]; role=Server
+* Database — kind=Database; attributes=[none]; operations=[none]; role=Database
+
+**Actors / Lifelines:**
+
+* Utente1
+* Utente2
+
+**Relationships / Links:**
+
+* Utente1 -> Utente2 — type=Message; label="Digità messaggio"; explanation="Digital message"
+* Utente2 -> App1 — type=Send; label="sendMessage"; explanation="send message"
+* App1 -> App2 — type=Send; label="sendNotification"; explanation="send notification"
+* App2 -> Server — type=Get; label="getMessage"; explanation="get message"
+* Server -> Database — type=Get; label="getMessage"; explanation="get message"
+* Database -> Server — type=Return; label="retrieveMessage"; explanation="retrieve message"
+* Server -> Utente2 — type=Return; label="get message"; explanation="get message"
+* Utente2 -> Utente1 — type=Return; label="get message"; explanation="get message"
+
+**Main Flows:**
+
+* Flow 1: Utente1 -> Utente2 -> App1 -> App2 -> Server -> Database -> Server -> Utente2 -> Utente1
+* Flow 2: None
+
+**Conditions / Branches:**
+
+* Mostra notifica -> Apre chat
+* Visualizza messaggi -> Visualizza messaggi
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of interactions between users, applications, a server, and a database.
+* The main flows involve sending and receiving messages between these entities.
+* The system appears to be designed for user interaction and data retrieval.
+
+
+======================================================================

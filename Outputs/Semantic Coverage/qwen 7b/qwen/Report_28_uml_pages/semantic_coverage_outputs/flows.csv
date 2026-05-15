@@ -1,0 +1,68 @@
+flow
+"configuration -> notificationsystem — type=association; label=""""; explanation=""configuration provides data to notificationsystem"""
+"notificationsystem -> report — type=association; label=""""; explanation=""notificationsystem handles reports"""
+"report -> localuser — type=association; label=""""; explanation=""report is associated with localuser"""
+"localuser -> service — type=association; label=""""; explanation=""localuser interacts with service"""
+"localuser -> need — type=association; label=""""; explanation=""localuser interacts with need"""
+"service -> api_manager — type=association; label=""""; explanation=""service communicates through api_manager"""
+"need -> api_manager — type=association; label=""""; explanation=""need communicates through api_manager"""
+"api_manager -> service — type=association; label=""""; explanation=""api_manager manages service"""
+"api_manager -> need — type=association; label=""""; explanation=""api_manager manages need"""
+"service -> localuser — type=association; label=""""; explanation=""service interacts with localuser"""
+"need -> localuser — type=association; label=""""; explanation=""need interacts with localuser"""
+flow 1: configuration provides data to notificationsystem -> notificationsystem handles reports -> report is associated with localuser -> localuser interacts with service -> service communicates through api_manager -> api_manager manages service -> service interacts with localuser
+this diagram models a system with multiple components interacting through apis and associations.
+"the main flows involve configuration settings, notification handling, user interactions with services and needs, and data exchange through api_manager."
+key edge cases include data transfer between components and user interactions with services and needs.
+error paths are
+"main -> localuser — type=message; label=""token = gettoken()""; explanation=""main retrieves token"""
+"localuser -> api_manager — type=message; label=""request(token)""; explanation=""localuser requests data with token"""
+"api_manager -> localuser — type=message; label=""return status""; explanation=""api manager returns status"""
+"localuser -> main — type=message; label=""[token != null]: request(token)""; explanation=""localuser checks token and requests data"""
+"localuser -> main — type=message; label=""[token == null or status != ok] richiedi dati utente""; explanation=""localuser checks conditions and requests user data"""
+"main -> localuser — type=message; label=""request(dati utente)""; explanation=""main requests user data"""
+"localuser -> api_manager — type=message; label=""new localuser""; explanation=""localuser creates new instance"""
+"api_manager -> localuser — type=message; label=""done""; explanation=""api manager completes action"""
+flow 1: main -> localuser — token = gettoken()
+flow 2: localuser -> api_manager — request(token)
+flow 3: api_manager -> localuser — return status
+flow 4: [token != null]: request(token)
+flow 5: [token == null or status != ok] richiedi dati utente
+flow 6: main -> localuser — request(dati utente)
+flow 7: localuser -> api_manager — new localuser
+flow 8: api_manager -> localuser — done
+"this diagram models a login process involving a main process, a localuser, and an api manager."
+the main process retrieves a token and uses it to request data from the api manager.
+"if the token is valid and the status is ok, the process continues normally."
+"if the token is invalid or the status is not ok, the localuser requests user data."
+the localuser then creates a new instance and the api manager completes the action.
+"the process involves checking token validity and status, requesting user data, and handling responses in json format."
+"main -> api_manager — type=message; label=""listjson=request()""; explanation=""request json list"""
+"api_manager -> service/need/report — type=message; label=""[for each entry in listjson]: new""; explanation=""create new service/need/report for each entry"""
+"service/need/report -> main — type=message; label=""displaylist()""; explanation=""display list of services/needs/reports"""
+flow 1: main -> api_manager -> service/need/report -> main
+this sequence diagram models the process of reading and displaying a list of services/needs/reports.
+"the application starts with the main participant, which sends a request to the api_manager to get a json list."
+the api_manager processes the request and creates a new service/need/report for each entry in the json list.
+"the service/need/report participant then sends back a display list to the main participant, which displays the list of services/needs/reports."
+"the process repeats for each entry in the json list, creating multiple instances of service/need/report."
+"main -> api_manager — type=message; label=""new""; explanation=""initiates request"""
+"main -> service/need/report — type=message; label=""newentry=tojson()""; explanation=""converts data to json format"""
+"api_manager -> service/need/report — type=message; label=""request(newentry)""; explanation=""sends json data for processing"""
+"service/need/report -> api_manager — type=message; label=""done""; explanation=""returns completion status"""
+"flow 1: main -> api_manager — ""new"" -> main -> service/need/report — ""newentry=tojson()"" -> api_manager -> service/need/report — ""request(newentry)"" -> service/need/report -> api_manager — ""done"""
+"this sequence diagram models the insertion process involving a client (main) interacting with a server (api_manager) and a service (service/need/report). the client initiates the process by sending a ""new"" message to the server, which then converts the data into json format and sends it to the service for processing. upon completion, the service returns a ""done"" message back to the server, which then communicates the status to the client."
+"main -> api_manager — type=message; label=""stampa dati a schermo""; explanation=""print data to screen"""
+"api_manager -> service/need/report — type=message; label=""done""; explanation=""completion signal"""
+"main -> api_manager — type=message; label=""datiaggiornati = leggidatilinseriti()""; explanation=""retrieve updated data"""
+"main -> api_manager — type=message; label=""[for each dato in datiaggiornati] : set(dato)""; explanation=""set each updated data item"""
+"main -> api_manager — type=message; label=""updateentry= tojson()""; explanation=""convert entry to json format"""
+"main -> api_manager — type=message; label=""request(updateentry)""; explanation=""request update entry"""
+"api_manager -> main — type=message; label=""done""; explanation=""completion signal"""
+"flow 1: main -> api_manager — ""stampa dati a schermo"" -> api_manager -> service/need/report — ""done"" -> main -> api_manager — ""datiaggiornati = leggidatilinseriti()"" -> main -> api_manager — ""[for each dato in datiaggiornati] : set(dato)"" -> main -> api_manager — ""updateentry= tojson()"" -> main -> api_manager — ""request(updateentry)"" -> api_manager -> main — ""done"""
+"this sequence diagram models the interaction between the main application, api manager, and service/need/report."
+"the main application prints data to the screen, retrieves updated data, processes each item, converts it to json format, and requests the update entry."
+"the api manager handles the retrieval, processing, and conversion of data, and signals completion."
+there is a loop in the main application for processing each updated data item.
+"the diagram highlights the flow of data and control between the components, ensuring the update process is completed successfully."
+======================================================================

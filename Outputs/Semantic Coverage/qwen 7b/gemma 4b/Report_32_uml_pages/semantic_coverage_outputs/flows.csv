@@ -1,0 +1,97 @@
+flow
+"main program -> routine 1 — type=flow; label=""start""; explanation=""initiates the program flow"";"
+"main program -> routine 2 — type=flow; label=""start""; explanation=""initiates the program flow"";"
+"main program -> routine 3 — type=flow; label=""start""; explanation=""initiates the program flow"";"
+"routine 1 -> routine 1.1 — type=flow; label=""execute""; explanation=""executes routine 1.1"";"
+"routine 1 -> routine 1.2 — type=flow; label=""execute""; explanation=""executes routine 1.2"";"
+"routine 2 -> routine 3 — type=flow; label=""execute""; explanation=""executes routine 3"";"
+"routine 3 -> routine 3.1 — type=flow; label=""execute""; explanation=""executes routine 3.1"";"
+"routine 3 -> routine 3.2 — type=flow; label=""execute""; explanation=""executes routine 3.2"";"
+flow 1: start -> routine 1 -> routine 1.1 -> routine 1.2 -> main program
+flow 2: start -> routine 2 -> routine 3 -> routine 3.1 -> routine 3.2 -> main program
+"the diagram represents a hierarchical program flow, where the main program initiates three routines (1, 2, and 3)."
+"each routine is further divided into two sub-routines (1.1, 1.2, 3.1, 3.2)."
+"the flow appears to be a sequential execution of these routines, with no branching or looping explicitly shown."
+"utenti -> richiede_offre — type=association; label=""offre""; explanation=""utenti possono richiedere offerte"";"
+"utenti -> servizi — type=association; label=""servizi""; explanation=""utenti possono richiedere servizi"";"
+"utenti -> annunci — type=association; label=""annunci""; explanation=""utenti possono pubblicare annunci"";"
+"richiede_offre -> oggetti — type=association; label=""oggetti richiesti""; explanation=""richieste di offerte si riferiscono a oggetti"";"
+"oggetti -> oggetti_richiesti — type=association; label=""oggetti offerti""; explanation=""oggetti si riferiscono a oggetti richiesti"";"
+"servizi -> oggetti — type=association; label=""oggetti""; explanation=""servizi possono essere associati a oggetti"";"
+"annunci -> oggetti — type=association; label=""oggetti""; explanation=""annunci possono riferirsi a oggetti"";"
+"utente -> richiede_offre — type=association; label=""offre"";"
+richiede_offre -> oggetti_richiesti
+oggetti -> oggetti_offerti
+sistema -> oggetti_offerti
+"this diagram models a system for managing user requests for services and objects, and the publication of announcements related to those objects."
+"users can request services and objects, and the system manages the relationships between them."
+the system allows users to publish announcements about available objects.
+"login -> verifica correttezza informazioni — transition=""login""; explanation=""initiates the login process"";"
+"verifica correttezza informazioni -> riprova — transition=""no"" ; explanation=""incorrect login details"";"
+"verifica correttezza informazioni -> accesso — transition=""si"" ; explanation=""correct login details"";"
+"riprova -> messaggio di errore — transition=""no""; explanation=""displays an error message"";"
+accesso -> - none
+"the diagram models the login process. it starts with a login attempt. if the credentials are incorrect, an error message is displayed. if the credentials are correct, access is granted."
+"inserimento input -> composizione query — type=flow; label=""inserimento input""; explanation=""input is provided to the system"";"
+"composizione query -> la query è stata eseguita con successo? — type=flow; label=""composizione query""; explanation=""the query is composed"";"
+"la query è stata eseguita con successo? -> messaggio di errore — type=flow; label=""no""; explanation=""if the query fails, an error message is displayed"";"
+"la query è stata eseguita con successo? -> riprova — type=flow; label=""si""; explanation=""if the query succeeds, the process continues"";"
+"composizione query -> inserimento input — type=flow; label=""riprova""; explanation=""if the input is invalid, the process repeats"";"
+inserimento input -> composizione query -> la query è stata eseguita con successo?
+"se la risposta è ""no"", viene visualizzato un messaggio di errore e il processo si ripete."
+"se la risposta è ""si"", il processo termina."
+this diagram models the basic flow of a search or service query process.
+"the process starts with user input, attempts to compose a query, and checks for success."
+"if the query fails, an error message is displayed, and the process loops back to request new input."
+"if the query is successful, the process completes."
+"creazione dell'oggetto da noleggiare -> la query è stata eseguita con successo? — transition=""yes""; explanation=""success"";"
+"creazione dell'oggetto da noleggiare -> messaggio di errore — transition=""no""; explanation=""failure"";"
+"la query è stata eseguita con successo? -> query per inserire il dato nel database — transition=""yes""; explanation=""insert data"";"
+"la query è stata eseguita con successo? -> riprova — transition=""no""; explanation=""retry"";"
+"query per inserire il dato nel database -> la query è stata eseguita con successo? — transition=""success""; explanation=""check success"";"
+the diagram models the process of creating an object for rental and inserting it into a database.
+the process starts with creating the object.
+a query is sent to the database to insert the data.
+the diagram checks if the query was successful.
+"if successful, the process continues."
+"if not successful, an error message is displayed and the process retries."
+"creazione del servizio da offrire -> query per inserire il dato nel database — type=flow; label=""query per inserire il dato nel database""; explanation=""initiates the process"""
+"query per inserire il dato nel database -> la query è stata eseguita con successo? — type=transition; label=""si""; explanation=""success"""
+"query per inserire il dato nel database -> la query è stata eseguita con successo? — type=transition; label=""no""; explanation=""failure"""
+"la query è stata eseguita con successo? -> messaggio di errore — type=transition; label=""no""; explanation=""error"""
+"la query è stata eseguita con successo? -> messaggio di errore — type=transition; label=""si""; explanation=""success"""
+"messaggio di errore -> creazione del servizio da offrire — type=loop; label=""riprova""; explanation=""retry"""
+* the diagram models the process of creating a service offer and attempting to insert data into a database.
+"* if the database insertion is successful, the process completes."
+"* if the database insertion fails, an error message is displayed, and the process retries."
+"creazione dell'annuncio -> query per inserire il dato nel database — type=flow; label=""query per inserire il dato nel database""; explanation=""initiates the process of creating an announcement and querying the database."""
+"query per inserire il dato nel database -> la query è stata eseguita con successo? — type=decision; label=""la query è stata eseguita con successo?""; explanation=""checks the success of the database query."""
+"la query è stata eseguita con successo? -> messaggio di errore — type=transition; label=""no""; explanation=""if the query fails, a message of error is displayed."""
+"la query è stata eseguita con successo? -> riprova — type=transition; label=""si""; explanation=""if the query succeeds, the process continues."""
+"messaggio di errore -> riprova — type=transition; label=""messaggio di errore""; explanation=""handles the error case."""
+the diagram models the process of creating an announcement and checking if the data insertion into the database is successful.
+"if the database query fails, the process is aborted and an error message is displayed."
+"if the database query is successful, the process continues."
+"selezione dell'annuncio da rimuovere -> query per cancellare il dato dal database — type=flow; label=""query""; explanation=""initiates the process"""
+"query per cancellare il dato dal database -> la query è stata eseguita con successo? — type=flow; label=""success""; explanation=""checks for successful query execution"""
+"la query è stata eseguita con successo? -> messaggio di errore — type=flow; label=""no""; explanation=""handles query failure"""
+"la query è stata eseguita con successo? -> riprova — type=flow; label=""si""; explanation=""continues to removal"""
+"messaggio di errore -> riprova — type=flow; label=""errore""; explanation=""returns to the beginning"""
+selezione dell'annuncio da rimuovere -> query per cancellare il dato dal database -> la query è stata eseguita con successo?
+la query è stata eseguita con successo? -> messaggio di errore -> riprova
+la query è stata eseguita con successo? -> riprova
+the process starts with selecting an announcement to remove.
+it then attempts to delete the announcement data from the database.
+"if the query fails, an error message is displayed, and the process restarts from the beginning."
+"selezione dell'oggetto/servizio da rimuovere -> query per cancellare il dato dal database — type=transition; label=""si""; explanation=""selezione dell'oggetto/servizio e richiesta di cancellazione"""
+"query per cancellare il dato dal database -> la query è stata eseguita con successo? — type=decision; label=""si""; explanation=""verifica del successo della query"""
+"la query è stata eseguita con successo? —> messaggio di errore — type=transition; label=""no""; explanation=""se la query fallisce, viene visualizzato un messaggio di errore"""
+"la query è stata eseguita con successo? —> riprova — type=transition; label=""no""; explanation=""se la query fallisce, si riprova"""
+"la query è stata eseguita con successo? —> riprova — type=transition; label=""si""; explanation=""se la query ha successo, si riprova"""
+* the diagram models a process for removing an object or service.
+* the process starts with selecting the object/service to remove.
+* it then attempts to delete the data associated with it from the database.
+* a decision point checks if the deletion was successful.
+"* if successful, the process continues."
+"* if not successful, an error message is displayed, and the process repeats."
+======================================================================

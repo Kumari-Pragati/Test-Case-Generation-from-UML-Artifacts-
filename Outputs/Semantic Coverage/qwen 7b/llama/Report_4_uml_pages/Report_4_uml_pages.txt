@@ -1,0 +1,278 @@
+REPORT: Report_4_uml_pages.pdf
+======================================================================
+
+===== Report_4_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+*   **User**
+    *   kind=class
+    *   attributes=[username: string, password: string, email: string, admin: boolean]
+    *   operations=[login(string): void, register(string, string, string): void, delete(string): void]
+    *   role= User
+*   **Database**
+    *   kind=class
+    *   attributes=[ID (PK): string, username (PK): string, email: string, password: string, admin: boolean]
+    *   operations=[insert(string, string, string, string, boolean): void, delete(string): void, update(string, string, string, string, boolean): void]
+    *   role= Database
+*   **Material**
+    *   kind=class
+    *   attributes=[name: string, description: string, price: string, quantity: string, carbon footprint: string]
+    *   operations=[insert(string, string, string, string, string): void, delete(string): void, update(string, string, string, string, string): void]
+    *   role= Material
+
+**Actors / Lifelines:**
+
+*   User
+*   Database
+*   Material
+
+**Relationships / Links:**
+
+*   User -> Database — type=association; label="User registration"; explanation="User registration"
+*   User -> Material — type=association; label="User material"; explanation="User material"
+*   Database -> Material — type=association; label="Material database"; explanation="Material database"
+
+**Main Flows:**
+
+*   Flow 1: User -> Database -> Material -> User — User registers, Database creates new user, Material is added to user's account
+
+**Conditions / Branches:**
+
+*   If user is admin, then User -> Database -> Material -> User — User can access all materials
+*   If user is not admin, then User -> Database -> Material -> User — User can only access own materials
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a user registration system where users can register and access their own materials.
+*   The database stores user information and material details.
+*   The system allows users to access their own materials but not others.
+*   The system has a user-friendly interface for registration and material management.
+
+===== Report_4_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Utente**: kind=Person; attributes=[username: string, password: string]; operations=[login(): void]; role=User
+*   **Applicazione**: kind=Application; attributes=[database: Database]; operations=[verifyUser(): boolean, register(): void]; role=Application
+*   **Database**: kind=Database; attributes=[users: List<User>, applications: List<Application>]; operations=[addUser(User): void, addApplication(Application): void]; role=Database
+
+**Actors / Lifelines:**
+
+*   **Utente**
+*   **Applicazione**
+
+**Relationships / Links:**
+
+*   **Utente** -> **Applicazione** — type=association; label="login"; explanation="User logs in"
+*   **Applicazione** -> **Database** — type=association; label="verifyUser"; explanation="Application verifies user"
+*   **Applicazione** -> **Utente** — type=association; label="register"; explanation="Application registers user"
+*   **Applicazione** -> **Database** — type=association; label="addUser"; explanation="Application adds user to database"
+*   **Applicazione** -> **Database** — type=association; label="addApplication"; explanation="Application adds itself to database"
+
+**Main Flows:**
+
+*   Flow 1: Utente -> Applicazione -> Database -> Utente -> Applicazione -> Database
+    1.  Utente logs in
+    2.  Applicazione verifies user
+    3.  If user is registered, Applicazione registers user
+    4.  Applicazione adds user to database
+    5.  If user is not registered, Applicazione asks if user wants to register
+    6.  If user agrees, Applicazione registers user
+    7.  Applicazione adds user to database
+
+**Conditions / Branches:**
+
+*   **If user is not registered:** Applicazione -> Utente -> Applicazione -> Database -> Utente -> Applicazione -> Database
+    1.  If user is not registered, Applicazione asks if user wants to register
+    2.  If user agrees, Applicazione registers user
+    3.  Applicazione adds user to database
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models the interaction between a user and an application.
+*   The application verifies the user's registration and allows them to register if they are not already registered.
+*   The application adds the user to the database after registration.
+*   The user can log in and access the application's services.
+
+===== Report_4_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main: Main
+* Applicazione: Application
+* Database: Database
+
+**Actors / Lifelines:**
+
+* Main
+* Applicazione
+* Database
+
+**Relationships / Links:**
+
+* Main -> Applicazione — type=association; label="Richiedi dati"; explanation="Richiede dati"
+* Applicazione -> Database — type=association; label="Richiedi dati"; explanation="Richiedi dati"
+* Applicazione -> Main — type=association; label="Mostra dati"; explanation="Mostra dati"
+* Main -> Applicazione — type=association; label="Invia nuovi dati"; explanation="Invia nuovi dati"
+* Applicazione -> Main — type=association; label="Conferma aggiornamento"; explanation="Conferma aggiornamento"
+
+**Main Flows:**
+
+* Flow 1: Main -> Applicazione -> Database -> Main -> Applicazione -> Main
+* Flow 2: Applicazione -> Main -> Applicazione -> Database -> Main -> Applicazione
+
+**Conditions / Branches:**
+
+* Mostra dati -> Invia nuovi dati
+* Conferma aggiornamento -> Aggiornamento effettuato
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where the Main component requests data from the Application, which then requests data from the Database, and the process repeats.
+* The Application shows data, sends new data, and confirms the update.
+* The Main component is the starting point and the end point of the sequence.
+* The Application and Database are the middle components that interact with each other and with the Main component.
+
+===== Report_4_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main: kind=Main; attributes=[none]; operations=[Esegue scansione dispositivo, Esegue scansione hardware, Nome e Impatto componente]; role=Main
+* Applicazione: kind=Application; attributes=[none]; operations=[Esegue scansione dispositivo, Esegue scansione hardware]; role=Application
+* Database: kind=Database; attributes=[none]; operations=[none]; role=Database
+
+**Actors / Lifelines:**
+
+* Main
+* Applicazione
+* Database
+
+**Relationships / Links:**
+
+* Main -> Applicazione — type=association; label="Esegue scansione dispositivo"; explanation="Main executes the device scan"
+* Applicazione -> Database — type=association; label="Esegue scansione hardware"; explanation="Application executes hardware scan"
+* Main -> Esegue scansione dispositivo — type=call; label="Esegue scansione dispositivo"; explanation="Main executes device scan"
+* Esegue scansione hardware -> Esegue scansione hardware — type=call; label="Esegue scansione hardware"; explanation="Hardware scan is executed"
+* Esegue scansione hardware -> Componenti funzionanti? — type=decision; label="Componenti funzionanti?"; explanation="Are components functioning?"
+* Componenti funzionanti? -> Si, ricavo impatto sostituzione componente — type=flow; label="Si, ricavo impatto sostituzione componente"; explanation="Yes, I retrieve the impact of component replacement"
+* Si, ricavo impatto sostituzione componente -> Nome e Impatto componente — type=flow; label="Nome e Impatto componente"; explanation="Name and impact of component"
+* Componenti funzionanti? -> No — type=flow; label="No"; explanation="No"
+* No -> return result — type=flow; label="return result"; explanation="Return result"
+* return result -> return nome, impatto componente, diagnostica dispositivo — type=flow; label="return nome, impatto componente, diagnostica dispositivo"; explanation="Return name, impact component, diagnostic device"
+
+**Main Flows:**
+
+* Main -> Esegue scansione dispositivo -> Esegue scansione hardware -> Componenti funzionanti? -> Si, ricavo impatto sostituzione componente -> Nome e Impatto componente -> return result -> return nome, impatto componente, diagnostica dispositivo
+
+**Conditions / Branches:**
+
+* Componenti funzionanti? — If component is functioning, then Si, ricavo impatto sostituzione componente; otherwise, No
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* Se ci sono componenti difettosi si calcola quanto impatto ha cambiato
+
+**Observations:**
+
+* The diagram models the flow of a device scan, where the main application executes the device scan, which then checks if the hardware is functioning. If it is, it retrieves the impact of component replacement; otherwise, it returns a result with the name, impact component, and diagnostic device. The flow is a sequence of events that can be tested by checking the conditions and branches. The diagram does not show any loops or repetitions. The note suggests that if there are defective components, the impact of the change should be calculated.
+
+===== Report_4_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main
+	+ Kind: Main
+	+ Attributes: None
+	+ Operations: Esegui scansione hardware, return result
+	+ Role: Main application
+
+* Applicazione
+	+ Kind: Application
+	+ Attributes: None
+	+ Operations: Scansione velocità e salute componenti, Calcolo aspettativa di vita
+	+ Role: Application
+
+**Actors / Lifelines:**
+
+* Main
+* Applicazione
+
+**Relationships / Links:**
+
+* Main -> Esegui scansione hardware
+	+ Type: Message
+	+ Label: Esegui scansione hardware
+	+ Explanation: Main sends a message to hardware to execute a scan
+* Esegui scansione hardware -> Scansione velocità e salute componenti
+	+ Type: Message
+	+ Label: Scansione velocità e salute componenti
+	+ Explanation: Hardware responds with component speed and health
+* Scansione velocità e salute componenti -> Calcolo aspettativa di vita
+	+ Type: Message
+	+ Label: Calcolo aspettativa di vita
+	+ Explanation: Component speed and health are calculated
+* Calcolo aspettativa di vita -> return result
+	+ Type: Message
+	+ Label: return result
+	+ Explanation: The result of the calculation is returned
+
+**Main Flows:**
+
+* Main -> Esegui scansione hardware -> Scansione velocità e salute componenti -> Calcolo aspettativa di vita -> return result
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the flow of data between the main application and hardware.
+* The main application sends a request to the hardware to perform a scan.
+* The hardware responds with the component's speed and health.
+* The application calculates the expected life of the component based on this information.
+* The result is then returned to the main application.
+
+
+======================================================================

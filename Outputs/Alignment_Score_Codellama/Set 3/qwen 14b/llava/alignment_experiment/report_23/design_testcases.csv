@@ -1,0 +1,55 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User logs in successfully","Login","1","User exists in the system","username = ""testuser"", password = ""password123""","1. User enters username and password
+2. User clicks login button","User is logged in and redirected to the home page"
+"TC-Login-002","Admin logs in successfully","Login","1","Admin exists in the system","username = ""adminuser"", password = ""adminpass""","1. Admin enters username and password
+2. Admin clicks login button","Admin is logged in and redirected to the admin dashboard"
+"TC-Login-003","User logs in with invalid credentials","Login","1","User exists in the system","username = ""wronguser"", password = ""wrongpass""","1. User enters incorrect username and password
+2. User clicks login button","Error message displayed, user remains on login page"
+"TC-Logout-001","User logs out successfully","Logout","1","User is logged in","N/A","1. User clicks logout button","User is logged out and redirected to the login page"
+"TC-ViewProduct-001","User views a product successfully","View Product","1","User is logged in, product exists","product name = ""Sample Product""","1. User navigates to the product page
+2. User selects the product to view","Product details are displayed"
+"TC-EditProduct-001","Admin edits a product successfully","Edit Product","1","Admin is logged in, product exists","product name = ""Sample Product"", new description = ""Updated Description""","1. Admin navigates to the product page
+2. Admin selects the product to edit
+3. Admin updates the product description
+4. Admin saves changes","Product description is updated"
+"TC-AddToCart-001","User adds a product to cart successfully","Add To Cart","1","User is logged in, product exists","product name = ""Sample Product""","1. User navigates to the product page
+2. User selects the product to add to cart
+3. User clicks ""Add to Cart""","Product added to cart, confirmation message displayed"
+"TC-RemoveFromCart-001","User removes a product from cart successfully","Remove From Cart","1","User is logged in, product exists in cart","product name = ""Sample Product""","1. User navigates to the cart page
+2. User selects the product to remove
+3. User clicks ""Remove from Cart""","Product removed from cart, confirmation message displayed"
+"TC-CalculateTotal-001","User calculates total cart cost successfully","Calculate Total","1","User is logged in, cart contains products","cart contains products with prices $10, $20, $30","1. User navigates to the cart page
+2. User clicks ""Calculate Total""","Total cost of $60 is displayed"
+"TC-PlaceOrder-001","Admin places an order successfully","Place Order","1","Admin is logged in, cart contains products","cart contains products with prices $10, $20, $30","1. Admin navigates to the cart page
+2. Admin clicks ""Place Order""","Order placed, confirmation message displayed"
+"TC-CancelOrder-001","Admin cancels an order successfully","Cancel Order","1","Admin is logged in, order exists","order ID = ""ORD123""","1. Admin navigates to the order page
+2. Admin selects the order to cancel
+3. Admin clicks ""Cancel Order""","Order canceled, confirmation message displayed"
+"TC-SendRequest-001","User sends a request to the server successfully","Send Request","2","User is logged in","request payload = {""key"": ""value""}","1. User sends a request to the server","Server processes the request and returns a response"
+"TC-QueryDatabase-001","Server queries the database successfully","Query Database","2","Server is connected to the database","query = ""SELECT * FROM table""","1. Server queries the database","Database returns the requested data"
+"TC-SendResponse-001","Server sends a response to the user successfully","Send Response","2","Server has processed the request","response payload = {""status"": ""success""}","1. Server sends a response to the user","User receives the response"
+"TC-ManageNotification-001","User manages notification successfully","Manage Notification","5","User is logged in","notification content = ""New update available""","1. User triggers the notification management process
+2. Notification is sent to the user","User receives the notification"
+"TC-ProductManagement-001","User adds a new product successfully","Product Management","6","User is logged in","product name = ""New Product"", price = 9.99, description = ""Description""","1. User adds a new product to the system
+2. System updates the product list
+3. System displays the updated product list","New product is added and displayed in the product list"
+"TC-ProductManagement-002","User removes a product successfully","Product Management","6","User is logged in, product exists","product name = ""Old Product""","1. User removes a product from the system
+2. System updates the product list
+3. System displays the updated product list","Product is removed and not displayed in the product list"
+"TC-ProductManagement-003","User updates a product successfully","Product Management","6","User is logged in, product exists","product name = ""Existing Product"", new price = 19.99, new description = ""Updated Description""","1. User updates a product in the system
+2. System updates the product list
+3. System displays the updated product list","Product details are updated and displayed in the product list"
+"TC-ProductManagement-004","User retrieves a product successfully","Product Management","6","User is logged in, product exists","product name = ""Existing Product""","1. User retrieves a product from the system
+2. System displays the product details","Product details are displayed"
+"TC-AggungimentoProdotto-001","User clicks on 'aggungimentoProdotto'","AggungimentoProdotto","4","User is logged in","N/A","1. User clicks on 'aggungimentoProdotto'","AggungimentoProdotto class is invoked, product aggregation process begins"
+"TC-Premuto-001","User triggers Premuto operation","Premuto","5","User is logged in","N/A","1. User triggers Premuto operation","Premuto operation is executed, initiating notification process"
+"TC-InviaNotifica-001","User sends a notification successfully","Send Notification","5","User is logged in, notification content prepared","notification content = ""Important update""","1. User sends a notification","Notification is sent to the intended recipient"
+"TC-InvalidOperation-001","User attempts invalid operation","Invalid Operation","1, 2, 5, 6","User is logged in","invalid operation = ""nonexistentOperation()""","1. User attempts to perform an invalid operation","Error message displayed, operation fails"
+"TC-EdgeCase-001","User performs edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""empty cart""","1. User performs an edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-002","User performs another edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""zero-priced product""","1. User performs another edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-003","User performs yet another edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""multiple concurrent requests""","1. User performs yet another edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-004","User performs one more edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""large number of products in cart""","1. User performs one more edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-005","User performs final edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""negative product price""","1. User performs final edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-006","User performs additional edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""empty product description""","1. User performs additional edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-007","User performs further edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""long product name""","1. User performs further edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"
+"TC-EdgeCase-008","User performs last edge case scenario","Edge Case","1, 2, 5, 6","User is logged in","edge case scenario = ""duplicate product entry""","1. User performs last edge case scenario","System handles the edge case appropriately, displaying relevant messages or taking necessary actions"

@@ -1,0 +1,68 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Authentication,2,User has registered and received a valid email and password.,"- Email: user@example.com
+- Password: testpassword","1. Enter email and password into the UI.
+2. Click the login button.
+3. UI validates the input.
+4. UI sends credentials to FirebaseAuthentication.
+5. FirebaseAuthentication validates the credentials.
+6. FirebaseAuthentication retrieves user data from FirebaseStore.
+7. FirebaseAuthentication returns a token to FirebaseStore.
+8. FirebaseStore confirms the save operation.
+9. FirebaseAuthentication returns the token to the UI.
+10. UI displays ""Login riuscito"" and ""Accesso effettuato con successo"".",User is logged in successfully.
+TC-Login-002,Invalid Credentials,Authentication,2,User has registered but entered incorrect credentials.,"- Email: wrongemail@example.com
+- Password: wrongpassword","1. Enter incorrect email and password into the UI.
+2. Click the login button.
+3. UI validates the input.
+4. UI sends credentials to FirebaseAuthentication.
+5. FirebaseAuthentication validates the credentials and finds them invalid.
+6. FirebaseAuthentication returns an error message to the UI.
+7. UI displays ""Login fallito"" and ""Mostra messaggio di errore"".",User is informed of the login failure.
+TC-Registration-001,Successful Registration,Registration,3,User has provided valid registration data.,"- Name: John Doe
+- Email: johndoe@example.com
+- Password: strongpassword","1. Provide valid registration data in the UI.
+2. Click the registration button.
+3. UI validates the input.
+4. UI sends registration request to FirebaseAuthentication.
+5. FirebaseAuthentication validates the data.
+6. FirebaseAuthentication saves the user data to FirebaseStore.
+7. FirebaseStore confirms the save operation.
+8. FirebaseAuthentication returns a confirmation message to the UI.
+9. UI displays ""Conferma registrazione avvenuta"".",User is registered successfully.
+TC-Registration-002,Invalid Registration Data,Registration,3,User has provided invalid registration data.,"- Name: John Doe
+- Email: invalidemail
+- Password: weakpassword","1. Provide invalid registration data in the UI.
+2. Click the registration button.
+3. UI validates the input and finds it invalid.
+4. UI informs the user about the invalid data.
+5. User corrects and resubmits the data.
+6. UI validates the corrected input.
+7. UI sends the corrected registration request to FirebaseAuthentication.
+8. FirebaseAuthentication validates the data and finds it invalid.
+9. FirebaseAuthentication returns an error message to the UI.
+10. UI displays ""Login fallito"" and ""Mostra messaggio di errore"".",User is informed of the registration failure.
+TC-ReportSubmission-001,Successful Report Submission,Reporting,4,User is logged in and has valid report data.,"- Description: ""Tree fallen on sidewalk""
+- Image: ""image.jpg""
+- Coordinates: ""40.7128,74.0060""
+- Urgency: ""High""","1. Provide valid report data in the UI.
+2. Click the submit button.
+3. UI validates the input.
+4. UI uploads the image to FirebaseStorage.
+5. FirebaseStorage returns the URL of the saved image.
+6. UI searches for the appropriate authority.
+7. UI saves the report data with the image URL and authority information.
+8. UI confirms the report submission with the assigned authority.",Report is submitted successfully.
+TC-ReportSubmission-002,Invalid Report Data,Reporting,4,User is logged in and has invalid report data.,"- Description: """"
+- Image: ""invalidimage.jpg""
+- Coordinates: ""invalidcoordinates""
+- Urgency: ""Low""","1. Provide invalid report data in the UI.
+2. Click the submit button.
+3. UI validates the input and finds it invalid.
+4. UI informs the user about the invalid data.
+5. User corrects and resubmits the data.
+6. UI validates the corrected input.
+7. UI uploads the image to FirebaseStorage.
+8. FirebaseStorage returns the URL of the saved image.
+9. UI searches for the appropriate authority.
+10. UI saves the report data with the image URL and authority information.
+11. UI confirms the report submission with the assigned authority.",User is informed of the report submission failure and can correct the data. <|end|>

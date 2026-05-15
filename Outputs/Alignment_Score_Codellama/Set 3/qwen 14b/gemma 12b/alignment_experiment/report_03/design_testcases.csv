@@ -1,0 +1,111 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Component-001,Verify the main flow of the application components,Component,1,The application is installed and launched.,N/A,"1. Launch the application.
+2. Observe that DashboardActivity initializes.
+3. Navigate to MainActivity.
+4. Navigate to SignUpActivity.
+5. Navigate to UserListActivity.","The application navigates through DashboardActivity, MainActivity, SignUpActivity, and UserListActivity in the specified order."
+TC-Activity-002,Verify the weather display flow,Activity,2,The application is installed and launched.,N/A,"1. Start at the Home screen.
+2. Click on the ""weather"" button.
+3. Observe the current weather being displayed.
+4. Click on the magnifying glass icon.
+5. Observe the transition to searching weather for other locations.
+6. Alternatively, do not click on the magnifying glass icon and observe the transition to searching weather for other locations.",The application correctly transitions from displaying current weather to searching weather for other locations based on user interaction.
+TC-Sequence-003,Verify the sequence of interactions for selecting a trekking path,Sequence,3,The application is installed and launched.,"- User: Alice
+- Province: Tuscany
+- Path: Florence to Siena","1. User clicks on ""Trekking"".
+2. Application requests a list of provinces from the server.
+3. Server sends the list of provinces to the application.
+4. Application provides the list of provinces to the user.
+5. User clicks on a specific province (e.g., Tuscany).
+6. Application requests a list of paths from the server.
+7. Server sends the list of paths to the application.
+8. Application provides the list of paths to the user.
+9. User clicks on a specific path (e.g., Florence to Siena).",The application correctly retrieves and displays the list of provinces and paths based on user interaction.
+TC-UseCase-004,Verify the use case for retrieving weather information,UseCase,4,The application is installed and launched.,"- Weather data: Sunny, 25°C","1. User clicks on ""Weather"".
+2. Application requests weather data from the server.
+3. Server sends the weather data to the application.
+4. Application provides the weather data to the user.",The application correctly retrieves and displays the weather data provided by the server.
+TC-UseCase-005,Verify the use case for retrieving health-related training sessions,UseCase,5,The application is installed and launched.,"- Training session data: Jogging, Monday, 10:00 AM","1. User clicks on ""Health"".
+2. Application requests training data from the server.
+3. Server sends the training data to the application.
+4. Application provides the list of training sessions to the user.",The application correctly retrieves and displays the list of training sessions provided by the server.
+TC-Component-006,Verify the negative scenario for navigating to SignUpActivity,Component,1,The application is installed and launched.,N/A,"1. Launch the application.
+2. Navigate to MainActivity.
+3. Attempt to navigate to SignUpActivity without proper permissions.",The application should prevent navigation to SignUpActivity and display an appropriate error message.
+TC-Activity-007,Verify the negative scenario for weather display flow,Activity,2,The application is installed and launched.,N/A,"1. Start at the Home screen.
+2. Click on the ""weather"" button.
+3. Observe the current weather being displayed.
+4. Simulate network failure while attempting to search weather for other locations.",The application should handle the network failure gracefully and display an appropriate error message.
+TC-Sequence-008,Verify the negative scenario for selecting a trekking path,Sequence,3,The application is installed and launched.,"- User: Bob
+- Province: Lombardy
+- Path: Milan to Como","1. User clicks on ""Trekking"".
+2. Application requests a list of provinces from the server.
+3. Simulate server failure while requesting the list of provinces.",The application should handle the server failure gracefully and display an appropriate error message.
+TC-UseCase-009,Verify the negative scenario for retrieving weather information,UseCase,4,The application is installed and launched.,N/A,"1. User clicks on ""Weather"".
+2. Simulate server failure while requesting weather data.",The application should handle the server failure gracefully and display an appropriate error message.
+TC-UseCase-010,Verify the negative scenario for retrieving health-related training sessions,UseCase,5,The application is installed and launched.,N/A,"1. User clicks on ""Health"".
+2. Simulate server failure while requesting training data.",The application should handle the server failure gracefully and display an appropriate error message.
+TC-Component-011,Verify the edge case for navigating to UserListActivity,Component,1,The application is installed and launched.,N/A,"1. Launch the application.
+2. Navigate to MainActivity.
+3. Navigate to SignUpActivity.
+4. Navigate to UserListActivity with no users connected.",The application should display an empty state or appropriate message indicating no users are connected.
+TC-Activity-012,Verify the edge case for weather display flow,Activity,2,The application is installed and launched.,N/A,"1. Start at the Home screen.
+2. Click on the ""weather"" button.
+3. Observe the current weather being displayed.
+4. Click on the magnifying glass icon.
+5. Observe the transition to searching weather for other locations.
+6. Simulate a timeout while searching weather for other locations.",The application should handle the timeout gracefully and display an appropriate error message.
+TC-Sequence-013,Verify the edge case for selecting a trekking path,Sequence,3,The application is installed and launched.,"- User: Charlie
+- Province: Piedmont
+- Path: Turin to Cuneo","1. User clicks on ""Trekking"".
+2. Application requests a list of provinces from the server.
+3. Server sends the list of provinces to the application.
+4. Application provides the list of provinces to the user.
+5. User clicks on a specific province (e.g., Piedmont).
+6. Application requests a list of paths from the server.
+7. Server sends the list of paths to the application.
+8. Application provides the list of paths to the user.
+9. User clicks on a specific path (e.g., Turin to Cuneo).
+10. Simulate a timeout while fetching the selected path details.",The application should handle the timeout gracefully and display an appropriate error message.
+TC-UseCase-014,Verify the edge case for retrieving weather information,UseCase,4,The application is installed and launched.,N/A,"1. User clicks on ""Weather"".
+2. Application requests weather data from the server.
+3. Server sends the weather data to the application.
+4. Application provides the weather data to the user.
+5. Simulate a timeout while fetching additional weather details.",The application should handle the timeout gracefully and display an appropriate error message.
+TC-UseCase-015,Verify the edge case for retrieving health-related training sessions,UseCase,5,The application is installed and launched.,N/A,"1. User clicks on ""Health"".
+2. Application requests training data from the server.
+3. Server sends the training data to the application.
+4. Application provides the list of training sessions to the user.
+5. Simulate a timeout while fetching additional training session details.",The application should handle the timeout gracefully and display an appropriate error message.
+TC-Component-016,Verify the edge case for navigating to SignUpActivity with invalid input,Component,1,The application is installed and launched.,"- Invalid email: ""test@invalid""
+- Invalid password: ""pass""","1. Launch the application.
+2. Navigate to MainActivity.
+3. Navigate to SignUpActivity.
+4. Enter invalid email and password.
+5. Attempt to sign up.",The application should validate the input and display appropriate error messages for invalid email and password formats.
+TC-Activity-017,Verify the edge case for weather display flow with invalid location,Activity,2,The application is installed and launched.,"- Invalid location: ""InvalidCity""","1. Start at the Home screen.
+2. Click on the ""weather"" button.
+3. Observe the current weather being displayed.
+4. Enter an invalid location.
+5. Attempt to search weather for the invalid location.",The application should validate the input and display an appropriate error message for the invalid location.
+TC-Sequence-018,Verify the edge case for selecting a trekking path with invalid province,Sequence,3,The application is installed and launched.,"- Invalid province: ""InvalidProvince""","1. User clicks on ""Trekking"".
+2. Application requests a list of provinces from the server.
+3. Server sends the list of provinces to the application.
+4. Application provides the list of provinces to the user.
+5. User enters an invalid province.
+6. Attempt to select an invalid province.",The application should validate the input and display an appropriate error message for the invalid province.
+TC-UseCase-019,Verify the edge case for retrieving weather information with invalid request,UseCase,4,The application is installed and launched.,"- Invalid request: ""InvalidRequest""","1. User clicks on ""Weather"".
+2. Application attempts to send an invalid request to the server.",The application should handle the invalid request gracefully and display an appropriate error message.
+TC-UseCase-020,Verify the edge case for retrieving health-related training sessions with invalid request,UseCase,5,The application is installed and launched.,"- Invalid request: ""InvalidRequest""","1. User clicks on ""Health"".
+2. Application attempts to send an invalid request to the server.",The application should handle the invalid request gracefully and display an appropriate error message.
+TC-Component-021,Verify the edge case for navigating to UserListActivity with large dataset,Component,1,The application is installed and launched.,- Large number of users: 1000+,"1. Launch the application.
+2. Navigate to MainActivity.
+3. Navigate to SignUpActivity.
+4. Navigate to UserListActivity with a large number of users.",The application should handle the large dataset efficiently and display the list of users without performance degradation.
+TC-Activity-022,Verify the edge case for weather display flow with large dataset,Activity,2,The application is installed and launched.,- Large number of locations: 1000+,"1. Start at the Home screen.
+2. Click on the ""weather"" button.
+3. Observe the current weather being displayed.
+4. Search weather for a large number of locations.",The application should handle the large dataset efficiently and display the weather information without performance degradation.
+TC-Sequence-023,Verify the edge case for selecting a trekking path with large dataset,Sequence,3,The application is installed and launched.,"- Large number of provinces: 1000+
+- Large number of paths: 1000+","1. User clicks on ""Trekking"".
+2. Application requests",

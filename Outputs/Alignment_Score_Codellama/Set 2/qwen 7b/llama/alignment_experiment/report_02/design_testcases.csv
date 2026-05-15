@@ -1,0 +1,90 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User successfully logs in with correct credentials","Login","5","User has registered and stored credentials in the database.","username: ""testuser"", password: ""testpassword""","1. User enters ""testuser"" as username and ""testpassword"" as password.
+2. Application dispatches credentials to the server.
+3. Server verifies credentials against the database.
+4. Server confirms credentials match.
+5. Application logs in the user.","User is redirected to the home page."
+"TC-Login-002","User fails to log in with incorrect credentials","Login","5","User has registered but entered incorrect credentials.","username: ""testuser"", password: ""wrongpassword""","1. User enters ""testuser"" as username and ""wrongpassword"" as password.
+2. Application dispatches credentials to the server.
+3. Server verifies credentials against the database.
+4. Server confirms credentials do not match.
+5. Application displays an error message.","User is shown an error message indicating incorrect credentials."
+"TC-Registration-001","User successfully registers with valid data","Registration","1","User has not registered yet.","username: ""newuser"", password: ""newpassword""","1. User initiates registration.
+2. System prompts for username and password.
+3. User enters ""newuser"" as username and ""newpassword"" as password.
+4. System stores the data in the database.
+5. System redirects user to the home page.","User is redirected to the home page after successful registration."
+"TC-Registration-002","User fails to register with invalid data","Registration","1","User attempts to register with invalid data.","username: """", password: """"","1. User initiates registration.
+2. System prompts for username and password.
+3. User leaves both fields empty.
+4. System displays an error message.","User is shown an error message indicating required fields are missing."
+"TC-Course-Start-001","User starts a course and ends it without calculating emissions","Course Management","2","User is logged in and ready to start a course.","None","1. User initiates the course.
+2. System starts the course.
+3. User ends the course.
+4. System ends the course.","User is redirected to the home page after ending the course."
+"TC-Course-Start-002","User starts a course and calculates emissions","Course Management","2","User is logged in and ready to start a course.","None","1. User initiates the course.
+2. System starts the course.
+3. System calculates emissions.
+4. User ends the course.
+5. System ends the course.","User is redirected to the home page after ending the course with emissions calculated."
+"TC-Report-View-001","User views weekly report and navigates to the menu","Report Viewing","3","User is logged in and ready to view the report.","None","1. User views the weekly report.
+2. System prompts for navigation to the menu.
+3. User navigates to the menu.
+4. System displays the menu options.","User is shown the menu options after viewing the report."
+"TC-Report-View-002","User views weekly report and exits without navigating to the menu","Report Viewing","3","User is logged in and ready to view the report.","None","1. User views the weekly report.
+2. System prompts for navigation to the menu.
+3. User exits without navigating to the menu.","User remains on the report page."
+"TC-Data-Update-001","User updates personal data and returns to the report","Data Management","4","User is logged in and ready to update personal data.","New email: ""newemail@example.com""","1. User updates personal data.
+2. System prompts for menu navigation.
+3. User navigates to the report.
+4. System displays the updated report.","User is shown the updated report after returning to the report page."
+"TC-Data-Update-002","User updates personal data and exits without navigating to the report","Data Management","4","User is logged in and ready to update personal data.","New email: ""newemail@example.com""","1. User updates personal data.
+2. System prompts for menu navigation.
+3. User exits without navigating to the report.","User remains on the data update page."
+"TC-Data-Update-Loop-001","User repeatedly updates personal data","Data Management","4","User is logged in and ready to update personal data.","New email: ""newemail@example.com""","1. User updates personal data.
+2. System prompts for menu navigation.
+3. User updates personal data again.
+4. System prompts for menu navigation.
+5. User navigates to the report.
+6. System displays the updated report.","User is shown the updated report after navigating to the report page."
+"TC-Data-Update-Loop-002","User repeatedly updates personal data and exits without navigating to the report","Data Management","4","User is logged in and ready to update personal data.","New email: ""newemail@example.com""","1. User updates personal data.
+2. System prompts for menu navigation.
+3. User updates personal data again.
+4. System prompts for menu navigation.
+5. User exits without navigating to the report.","User remains on the data update page."
+"TC-Data-Update-Invalid-001","User tries to update personal data with invalid email","Data Management","4","User is logged in and ready to update personal data.","New email: ""invalidemail""","1. User updates personal data with ""invalidemail"".
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid email format."
+"TC-Data-Update-Invalid-002","User tries to update personal data with empty email","Data Management","4","User is logged in and ready to update personal data.","New email: """"","1. User updates personal data with an empty email.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating a required field is missing."
+"TC-Data-Update-Invalid-003","User tries to update personal data with special characters in email","Data Management","4","User is logged in and ready to update personal data.","New email: ""email@!#""","1. User updates personal data with ""email@!#"".
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid email format."
+"TC-Data-Update-Invalid-004","User tries to update personal data with a very long email","Data Management","4","User is logged in and ready to update personal data.","New email: ""a"" * 255 + ""@example.com""","1. User updates personal data with a very long email.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid email format."
+"TC-Data-Update-Invalid-005","User tries to update personal data with a very short email","Data Management","4","User is logged in and ready to update personal data.","New email: ""a"" * 1 + ""@example.com""","1. User updates personal data with a very short email.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid email format."
+"TC-Data-Update-Invalid-006","User tries to update personal data with a very long username","Data Management","4","User is logged in and ready to update personal data.","New username: ""u"" * 255","1. User updates personal data with a very long username.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid username format."
+"TC-Data-Update-Invalid-007","User tries to update personal data with a very short username","Data Management","4","User is logged in and ready to update personal data.","New username: ""u"" * 1","1. User updates personal data with a very short username.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid username format."
+"TC-Data-Update-Invalid-008","User tries to update personal data with a very long password","Data Management","4","User is logged in and ready to update personal data.","New password: ""p"" * 255","1. User updates personal data with a very long password.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid password format."
+"TC-Data-Update-Invalid-009","User tries to update personal data with a very short password","Data Management","4","User is logged in and ready to update personal data.","New password: ""p"" * 1","1. User updates personal data with a very short password.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid password format."
+"TC-Data-Update-Invalid-010","User tries to update personal data with a very long phone number","Data Management","4","User is logged in and ready to update personal data.","New phone number: ""1234567890"" * 10","1. User updates personal data with a very long phone number.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid phone number format."
+"TC-Data-Update-Invalid-011","User tries to update personal data with a very short phone number","Data Management","4","User is logged in and ready to update personal data.","New phone number: ""1234567890"" * 1","1. User updates personal data with a very short phone number.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid phone number format."
+"TC-Data-Update-Invalid-012","User tries to update personal data with a non-numeric phone number","Data Management","4","User is logged in and ready to update personal data.","New phone number: ""abc123""","1. User updates personal data with a non-numeric phone number.
+2. System prompts for menu navigation.
+3. System displays an error message.","User is shown an error message indicating an invalid phone number format."

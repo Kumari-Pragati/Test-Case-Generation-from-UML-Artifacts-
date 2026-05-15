@@ -1,0 +1,152 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,User Registration,Utente,"1,2",Application is launched and user is not registered.,"- email: testuser@example.com
+- password: P@ssw0rd
+- username: testuser","1. Launch the application.
+2. Navigate to the registration page.
+3. Enter the email, password, and username.
+4. Submit the registration form.",User is registered successfully and redirected to the homepage.
+TC-Utente-002,User Login,Utente,"1,2",User is registered and has valid credentials.,"- email: testuser@example.com
+- password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and password.
+4. Submit the login form.",User is logged in successfully and redirected to the homepage.
+TC-Utente-003,Invalid User Login,Utente,"1,2",User is registered but uses invalid credentials.,"- email: testuser@example.com
+- password: wrongpassword","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and incorrect password.
+4. Submit the login form.","User is not logged in, and an error message is displayed."
+TC-Utente-004,Retrieve User Email,Utente,1,User is logged in.,- email: testuser@example.com,"1. Launch the application.
+2. Log in as the user.
+3. Call the getEmail() method.","The email address ""testuser@example.com"" is returned."
+TC-Utente-005,Update User Email,Utente,1,User is logged in.,- newEmail: newuser@example.com,"1. Launch the application.
+2. Log in as the user.
+3. Call the setEmail(newEmail) method.
+4. Call the getEmail() method.","The updated email address ""newuser@example.com"" is returned."
+TC-Città-006,Retrieve City Name,Città,1,City object is available.,- nome: Rome,"1. Create a city object with name ""Rome"".
+2. Call the getNome() method.","The city name ""Rome"" is returned."
+TC-Città-007,Update City Name,Città,1,City object is available.,- newName: Roma,"1. Create a city object with name ""Rome"".
+2. Call the setNome(newName) method.
+3. Call the getNome() method.","The updated city name ""Roma"" is returned."
+TC-Poi-008,Retrieve POI Name,POI,1,POI object is available.,- nome: Colosseum,"1. Create a POI object with name ""Colosseum"".
+2. Call the getNome() method.","The POI name ""Colosseum"" is returned."
+TC-Poi-009,Update POI Name,POI,1,POI object is available.,- newName: Colosseo,"1. Create a POI object with name ""Colosseum"".
+2. Call the setNome(newName) method.
+3. Call the getNome() method.","The updated POI name ""Colosseo"" is returned."
+TC-InserimentoEvento-010,Insert Event with Correct Fields,Inserimento Evento,3,User is logged in.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Click on the ""+"" button to add a new event.
+5. Fill in all required fields with valid data.
+6. Submit the form.",The event is created successfully and displayed on the homepage.
+TC-InserimentoEvento-011,Insert Event with Incorrect Fields,Inserimento Evento,3,User is logged in.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: 
+- provincia:","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Click on the ""+"" button to add a new event.
+5. Fill in all required fields except city and province.
+6. Submit the form.",An error message is displayed indicating that the fields are incorrect.
+TC-ModificaCancellazioneEvento-012,Modify Event,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""A"" button to modify the event.
+6. Update the event details.
+7. Submit the modified form.",The event is successfully modified and displayed on the homepage.
+TC-ModificaCancellazioneEvento-013,Cancel Event,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""?"" button to cancel the event.
+6. Confirm the cancellation.",The event is successfully canceled and no longer appears on the homepage.
+TC-ModificaCancellazioneEvento-014,Cancel Event with Incorrect Fields,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""?"" button to cancel the event.
+6. Leave some fields blank and submit.","An error message is displayed indicating that the fields are incorrect, and the event is not canceled."
+TC-ModificaCancellazioneEvento-015,Modify Event with Incorrect Fields,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""A"" button to modify the event.
+6. Leave some fields blank and submit.","An error message is displayed indicating that the fields are incorrect, and the event is not modified."
+TC-ModificaCancellazioneEvento-016,Attempt to Modify Nonexistent Event,Modifica/Cancellazione Evento,4,User is logged in.,- Nonexistent event ID,"1. Launch the application.
+2. Log in as the user.
+3. Attempt to navigate to a nonexistent event's details page.
+4. Click on the ""A"" button to modify the event.",An error message is displayed indicating that the event does not exist.
+TC-ModificaCancellazioneEvento-017,Attempt to Cancel Nonexistent Event,Modifica/Cancellazione Evento,4,User is logged in.,- Nonexistent event ID,"1. Launch the application.
+2. Log in as the user.
+3. Attempt to navigate to a nonexistent event's details page.
+4. Click on the ""?"" button to cancel the event.",An error message is displayed indicating that the event does not exist.
+TC-ModificaCancellazioneEvento-018,Modify Event with Empty Description,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: Summer Festival
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: 
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""A"" button to modify the event.
+6. Clear the description field and submit.","An error message is displayed indicating that the description cannot be empty, and the event is not modified."
+TC-ModificaCancellazioneEvento-019,Cancel Event with Empty Title,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: 
+- data: 2023-07-01
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""?"" button to cancel the event.
+6. Clear the title field and submit.","An error message is displayed indicating that the title cannot be empty, and the event is not canceled."
+TC-ModificaCancellazioneEvento-020,Modify Event with Invalid Date,Modifica/Cancellazione Evento,4,User is logged in and has an existing event.,"- titolo: Summer Festival
+- data: 2023-02-30
+- tipologia: Cultural
+- creatore: testuser
+- descrizione: A summer festival celebrating local culture.
+- città: Rome
+- provincia: Lazio","1. Launch the application.
+2. Log in as the user.
+3. Search for the city ""Rome"".
+4. Navigate to the event details page.
+5. Click on the ""A"" button to modify the event.
+6. Enter an invalid date and submit.","An error message is displayed indicating that the date is invalid, and the event is not modified."
+TC-ModificaCancellazioneEvento-021,Cancel Event with Invalid Date,Modifica/Cancellazione Evento,4,User,,,

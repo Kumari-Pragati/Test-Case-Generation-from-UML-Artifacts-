@@ -1,0 +1,137 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,1,User is not registered in the system.,"- Username: testuser
+- Password: TestPass123!
+- Email: test@example.com
+- Admin: false","1. User navigates to the registration page.
+2. User enters the required details (username, password, email).
+3. User clicks the 'Register' button.
+4. System validates the input fields.
+5. System inserts the user into the database.","- User is successfully registered.
+- Confirmation message is displayed.
+- User can now log in using the provided credentials."
+TC-User-002,User Login,User,"1, 2",User is registered in the system.,"- Username: testuser
+- Password: TestPass123!","1. User navigates to the login page.
+2. User enters the correct username and password.
+3. User clicks the 'Login' button.
+4. System verifies the user's credentials against the database.
+5. System grants access to the user.","- User is logged in successfully.
+- User is redirected to the dashboard."
+TC-User-003,Invalid User Login,User,"1, 2",User is registered in the system.,"- Username: testuser
+- Incorrect Password: wrongpass","1. User navigates to the login page.
+2. User enters the correct username and incorrect password.
+3. User clicks the 'Login' button.
+4. System verifies the user's credentials against the database.
+5. System denies access to the user.","- Error message is displayed indicating invalid credentials.
+- User remains on the login page."
+TC-User-004,User Deletion,User,1,User is registered in the system.,"- Username: testuser
+- Password: TestPass123!","1. User logs in.
+2. User navigates to the profile settings.
+3. User initiates the deletion process.
+4. System prompts for confirmation.
+5. User confirms the deletion.
+6. System deletes the user from the database.","- User is deleted from the system.
+- Confirmation message is displayed.
+- User cannot log in again with the same credentials."
+TC-User-005,Admin User Access All Materials,User,1,Admin user is registered in the system.,"- Username: adminuser
+- Password: AdminPass123!
+- Admin: true","1. Admin user logs in.
+2. Admin user navigates to the materials section.
+3. System grants access to all materials.",- Admin user can view all materials in the system.
+TC-User-006,Non-Admin User Access Own Materials,User,1,Non-admin user is registered in the system.,"- Username: testuser
+- Password: TestPass123!
+- Admin: false","1. Non-admin user logs in.
+2. Non-admin user navigates to the materials section.
+3. System grants access only to the user's own materials.",- Non-admin user can view only their own materials.
+TC-Database-001,Insert User into Database,Database,1,User is not registered in the system.,"- Username: testuser
+- Password: TestPass123!
+- Email: test@example.com
+- Admin: false","1. User registration request is sent to the database.
+2. Database receives the request.
+3. Database inserts the user into the database.","- User is successfully inserted into the database.
+- Confirmation message is returned to the application."
+TC-Database-002,Delete User from Database,Database,1,User is registered in the system.,- Username: testuser,"1. User deletion request is sent to the database.
+2. Database receives the request.
+3. Database deletes the user from the database.","- User is successfully deleted from the database.
+- Confirmation message is returned to the application."
+TC-Database-003,Update User Information in Database,Database,1,User is registered in the system.,"- Username: testuser
+- New Email: newemail@example.com","1. User update request is sent to the database.
+2. Database receives the request.
+3. Database updates the user's email in the database.","- User's email is successfully updated in the database.
+- Confirmation message is returned to the application."
+TC-Material-001,Insert Material into Database,Material,1,User is registered in the system.,"- Name: Test Material
+- Description: This is a test material.
+- Price: $10.00
+- Quantity: 10
+- Carbon Footprint: 0.5 kg CO2","1. Material insertion request is sent to the database.
+2. Database receives the request.
+3. Database inserts the material into the database.","- Material is successfully inserted into the database.
+- Confirmation message is returned to the application."
+TC-Material-002,Delete Material from Database,Material,1,Material is registered in the system.,- Name: Test Material,"1. Material deletion request is sent to the database.
+2. Database receives the request.
+3. Database deletes the material from the database.","- Material is successfully deleted from the database.
+- Confirmation message is returned to the application."
+TC-Material-003,Update Material Information in Database,Material,1,Material is registered in the system.,"- Name: Test Material
+- New Price: $15.00","1. Material update request is sent to the database.
+2. Database receives the request.
+3. Database updates the material's price in the database.","- Material's price is successfully updated in the database.
+- Confirmation message is returned to the application."
+TC-Application-001,Application Registers User,Application,2,User is not registered in the system.,"- Username: testuser
+- Password: TestPass123!
+- Email: test@example.com","1. User registration request is sent to the application.
+2. Application verifies the user's credentials.
+3. Application registers the user.
+4. Application adds the user to the database.","- User is successfully registered.
+- Confirmation message is returned to the user."
+TC-Application-002,Application Adds Itself to Database,Application,2,Application is running.,- Application instance,"1. Application adds itself to the database.
+2. Database receives the request.
+3. Database adds the application instance to the database.","- Application is successfully added to the database.
+- Confirmation message is returned to the application."
+TC-Application-003,Application Verifies User,Application,2,User is registered in the system.,"- Username: testuser
+- Password: TestPass123!","1. User login request is sent to the application.
+2. Application verifies the user's credentials against the database.
+3. Application grants access to the user.","- User is verified successfully.
+- Confirmation message is returned to the user."
+TC-Application-004,Application Requests Data from Database,Application,3,Application is running.,- Requested data,"1. Application requests data from the database.
+2. Database processes the request.
+3. Database returns the requested data to the application.","- Data is successfully retrieved from the database.
+- Confirmation message is returned to the application."
+TC-Application-005,Application Sends New Data to Database,Application,3,Application is running.,- New data,"1. Application sends new data to the database.
+2. Database processes the request.
+3. Database updates the data in the database.","- Data is successfully updated in the database.
+- Confirmation message is returned to the application."
+TC-Application-006,Application Confirms Update,Application,3,Application has updated data in the database.,- Updated data,"1. Application confirms the update.
+2. Database processes the confirmation.
+3. Database returns the confirmation to the application.","- Update is confirmed successfully.
+- Confirmation message is returned to the application."
+TC-HardwareScan-001,Execute Device Scan,Main,4,Main application is running.,- Device to scan,"1. Main application executes the device scan.
+2. Application executes the hardware scan.
+3. Application checks if components are functioning.
+4. If components are functioning, application retrieves the impact of component replacement.
+5. Application returns the name, impact component, and diagnostic device.","- Device scan is executed successfully.
+- Components are checked for functionality.
+- Impact of component replacement is retrieved if components are functioning.
+- Results are returned to the main application."
+TC-HardwareScan-002,Execute Hardware Scan,Application,4,Device scan is initiated.,- Device to scan,"1. Application executes the hardware scan.
+2. Application checks if components are functioning.
+3. If components are functioning, application retrieves the impact of component replacement.
+4. Application returns the results to the main application.","- Hardware scan is executed successfully.
+- Components are checked for functionality.
+- Impact of component replacement is retrieved if components are functioning.
+- Results are returned to the main application."
+TC-HardwareScan-003,Return Results of Device Scan,Main,4,Device scan is completed.,- Device scan results,"1. Main application receives the results of the device scan.
+2. Main application processes the results.
+3. Main application displays the results to the user.",- Results of the device scan are processed and displayed correctly.
+TC-HardwareScan-004,Calculate Expected Life of Component,Application,5,Hardware scan is completed.,- Component speed and health,"1. Application calculates the expected life of the component based on speed and health.
+2. Application returns the result to the main application.","- Expected life of the component is calculated accurately.
+- Result is returned to the main application."
+TC-HardwareScan-005,Execute Hardware Scan with Defective Components,Application,"4, 5",Device scan is initiated.,- Device with defective components,"1. Application executes the hardware scan.
+2. Application checks if components are functioning.
+3. If components are not functioning, application returns the results to the main application.","- Hardware scan is executed successfully.
+- Defective components are identified.
+- Results are returned to the main application."
+TC-HardwareScan-006,Return Results of Hardware Scan with Defective Components,Main,"4, 5",Hardware scan is completed with defective components.,- Hardware scan results with defective components,"1. Main application receives the results of the hardware scan.
+2. Main application processes the results.
+3. Main application displays the results to the user.","- Results of the hardware scan are processed and displayed correctly.
+- Defective components are highlighted in the results."
+TC-HardwareScan-007,Calculate Expected Life of Component with Defective Components,Application,5,Hardware scan is completed with defective components.,- Component speed and health with defective components,"1. Application calculates the expected life of the component based on speed and health.
+2. Application returns the result to the main application",

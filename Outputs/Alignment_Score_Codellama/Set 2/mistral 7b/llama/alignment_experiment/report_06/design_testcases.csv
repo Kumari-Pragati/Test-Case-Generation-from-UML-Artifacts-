@@ -1,0 +1,112 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Login with Valid Credentials,User,1,User is on the login page,"- Valid email: test@example.com
+- Valid password: password123","1. Enter the email and password
+2. Click the login button
+Test Steps:",User is logged in successfully
+TC-User-002,User Login with Invalid Credentials,User,1,User is on the login page,"- Invalid email: invalidemail
+- Valid password: password123","1. Enter the email and password
+2. Click the login button
+Test Steps:","Login fails, and an error message is displayed"
+TC-User-003,User Registration with Valid Credentials,User,2,User is on the registration page,"- Valid email: test@example.com
+- Valid password: password123","1. Enter the email and password
+2. Click the register button
+Test Steps:",User is registered successfully
+TC-User-004,User Registration with Invalid Credentials,User,2,User is on the registration page,"- Invalid email: invalidemail
+- Valid password: password123","1. Enter the email and password
+2. Click the register button
+Test Steps:","Registration fails, and an error message is displayed"
+TC-Area-001,User Creates an Area,Area,1,User is logged in,"- Description: Test Area
+- Location: Test Location","1. Navigate to the area creation page
+2. Enter the description and location
+3. Click the create button
+Test Steps:",The area is created successfully
+TC-Area-002,User Deletes an Area,Area,1,User is logged in and has an area,- Area ID: 1,"1. Navigate to the area management page
+2. Select the area to delete
+3. Click the delete button
+Test Steps:",The area is deleted successfully
+TC-Category-001,User Creates a Category,Categories,1,User is logged in,"- Description: Test Category
+- Name: Test Category Name","1. Navigate to the category creation page
+2. Enter the description and name
+3. Click the create button
+Test Steps:",The category is created successfully
+TC-Category-002,User Deletes a Category,Categories,1,User is logged in and has a category,- Category ID: 1,"1. Navigate to the category management page
+2. Select the category to delete
+3. Click the delete button
+Test Steps:",The category is deleted successfully
+TC-Report-001,User Creates a Report,Reports,1,User is logged in and has an area and a category,- Description: Test Report,"1. Navigate to the report creation page
+2. Enter the description
+3. Select the area and category
+4. Click the create button
+Test Steps:",The report is created successfully
+TC-Report-002,User Deletes a Report,Reports,1,User is logged in and has a report,- Report ID: 1,"1. Navigate to the report management page
+2. Select the report to delete
+3. Click the delete button
+Test Steps:",The report is deleted successfully
+TC-Influencer-001,Influencer Registers with Valid Credentials,Influencer,2,Influencer is on the registration page,"- Valid email: influencer@example.com
+- Valid password: influencer123","1. Enter the email and password
+2. Click the register button
+Test Steps:",Influencer is registered successfully
+TC-Influencer-002,Influencer Registers with Invalid Credentials,Influencer,2,Influencer is on the registration page,"- Invalid email: invalidemail
+- Valid password: influencer123","1. Enter the email and password
+2. Click the register button
+Test Steps:","Registration fails, and an error message is displayed"
+TC-User-005,User Logs Out,User,1,User is logged in,,"1. Click the logout button
+Test Steps:",User is logged out successfully
+TC-User-006,User Tries to Access a Report without Logging In,Reports,1,User is not logged in,,"1. Navigate to the report management page
+Test Steps:",User is redirected to the login page
+TC-User-007,User Tries to Access an Area without Logging In,Area,1,User is not logged in,,"1. Navigate to the area management page
+Test Steps:",User is redirected to the login page
+TC-User-008,User Tries to Access a Category without Logging In,Categories,1,User is not logged in,,"1. Navigate to the category management page
+Test Steps:",User is redirected to the login page
+TC-User-009,User Tries to Create a Report without an Area or Category,Reports,1,User is logged in,,"1. Navigate to the report creation page
+2. Enter the description
+3. Click the create button
+Test Steps:","An error message is displayed, and the report is not created"
+TC-User-010,User Tries to Delete a Report without Logging In,Reports,1,User is not logged in,,"1. Navigate to the report management page
+2. Select the report to delete
+3. Click the delete button
+Test Steps:",User is redirected to the login page
+TC-User-011,User Tries to Delete a Report that Does Not Exist,Reports,1,User is logged in,,"1. Navigate to the report management page
+2. Select a non-existent report to delete
+3. Click the delete button
+Test Steps:","An error message is displayed, and the report is not deleted"
+TC-User-012,User Tries to Create a Report with an Invalid Description,Reports,1,User is logged in,,"1. Navigate to the report creation page
+2. Enter an invalid description
+3. Click the create button
+Test Steps:","An error message is displayed, and the report is not created"
+TC-User-013,User Tries to Delete a Report with an Invalid Report ID,Reports,1,User is logged in,,"1. Navigate to the report management page
+2. Enter an invalid report ID to select the report
+3. Click the delete button
+Test Steps:","An error message is displayed, and the report is not deleted"
+TC-User-014,User Tries to Create a Report with an Existing Report ID,Reports,1,User is logged in,,"1. Navigate to the report creation page
+2. Enter an existing report ID
+3. Click the create button
+Test Steps:","An error message is displayed, and the report is not created"
+TC-User-015,User Tries to Delete a Report with an Existing Report ID,Reports,1,User is logged in,,"1. Navigate to the report management page
+2. Enter an existing report ID to select the report
+3. Click the delete button
+Test Steps:","An error message is displayed, and the report is not deleted"
+TC-User-016,User Tries to Create a Report with an Empty Description,Reports,1,User is logged in,,"1. Navigate to the report creation page
+2. Enter an empty description
+3. Click the create button
+Test Steps:","An error message is displayed, and the report is not created"
+TC-User-017,User Tries to Delete a Report with an Empty Report ID,Reports,1,User is logged in,,"1. Navigate to the report management page
+2. Enter an empty report ID to select the report
+3. Click the delete button
+Test Steps:","An error message is displayed, and the report is not deleted"
+TC-User-018,User Tries to Create a Report with a Long Description,Reports,1,User is logged in,,"1. Navigate to the report creation page
+2. Enter a description that exceeds the maximum length
+3. Click the create button
+Test Steps:","An error message is displayed, and the report is not created"
+TC-User-019,User Tries to Delete a Report with a Long Report ID,Reports,1,User is logged in,,"1. Navigate to the report management page
+2. Enter a report ID that exceeds the maximum length
+3. Click the delete button
+Test Steps:","An error message is displayed, and the report is not deleted"
+TC-User-020,User Tries to Create a Report with a Special Character in the Description,Reports,1,User is logged in,,"1. Navigate to the report creation page
+2. Enter a description containing special characters
+3. Click the create button
+Test Steps:","An error message is displayed, and the report is not created"
+TC-User-021,User Tries to Delete a Report with a Special Character in the Report ID,Reports,1,User is logged in,,"1. Navigate to the report management page
+2. Enter a report ID containing special characters
+3. Click the delete button
+Test Steps:","An error message is displayed, and the"

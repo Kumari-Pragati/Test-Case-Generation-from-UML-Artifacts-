@@ -1,0 +1,46 @@
+flow
+"utente -> mission — type=association; label=""ha superato""; explanation=""user has completed the mission"""
+flow 1: utente -> mission -> mission
+the diagram models a user's mission completion process.
+the user can have multiple missions.
+"each mission has a title, a boolean status, and a description."
+"the user can get and set their username, email, and password."
+the user can get and set their point value.
+"the user can get and set their mission's title, status, and description."
+the user can get and set their mission's id.
+the user can get and set their mission's title and description.
+the user can get and set their mission's status.
+"main -> firebase authentication — type=association; label=""sign in with email and password""; explanation=""create response"""
+"email -> main — type=association; label=""email is empty""; explanation=""password is empty"""
+"password -> main — type=association; label=""password is empty""; explanation=""email is empty"""
+"signinwithemailandpassword -> firebase authentication — type=association; label=""sign in with email and password""; explanation=""create response"""
+"create response -> main — type=association; label=""create response""; explanation=""if response is error return firebase user"""
+"flow 1: email is empty, password is empty -> sign in with email and password -> create response -> if response is error return firebase user"
+the diagram models the process of user authentication using email and password.
+"the main flow starts with the user entering their email and password, which are then sent to the firebase authentication component for verification."
+"if the response is an error, the user is returned to the main page."
+the diagram does not show any loops or repeated behavior.
+"email -> createwithemailandpassword - type: message; label: ""create user with email and password""; explanation: creates a new user with email and password"
+"createwithemailandpassword -> if(response!= error) - type: transition; label: ""if(response!= error)""; explanation: if the response is not an error, proceed to the next step"
+"if(response!= error) -> db.child(userid).setvalue(hashmap<string, object>) - type: message; label: ""db.child(userid).setvalue(hashmap<string, object>)""; explanation: sets the user's data in the database"
+"db.child(userid).setvalue(hashmap<string, object>) -> if(response!= error) - type: transition; label: ""if(response!= error)""; explanation: if the response is not an error, proceed to the next step"
+"if(response!= error) -> lugin firebaseuser - type: message; label: ""lugin firebaseuser""; explanation: logs in the user"
+"flow 1: email -> createwithemailandpassword -> if(response!= error) -> db.child(userid).setvalue(hashmap<string, object>) -> if(response!= error) -> lugin firebaseuser"
+"the diagram models the registration process, where a user creates an account with email and password, and then logs in."
+the main flow is the sequence of events from creating a user to logging in.
+the diagram does not show any error handling or loops.
+main -> realtime database — type=association; label=none; explanation=none
+risposta asincrona -> realtime database — type=association; label=none; explanation=none
+flow 1: main -> risposta asincrona -> realtime database -> main
+the diagram models a sequence of events where the main process interacts with the real-time database.
+"the main process sends a request to the real-time database, which responds with an asynchronous response."
+the main process then handles the response.
+"the process repeats itself in a loop, indicating a continuous interaction between the main process and the real-time database."
+"main -> firebase sdk — type=association; label=add/valueeventlistener(""mission""); explanation=listen to mission events"
+"firebase sdk -> realtime database — type=association; label=add/valueeventlistener(""mission""); explanation=listen to mission events"
+main -> realtime database — type=association; label=ondatachange(); explanation=handle data changes
+"flow 1: main -> add/valueeventlistener(""mission"") -> ondatachange() -> manda la risposta con i dati richiesti -> controla il token e raccoglie i dati richiesti"
+"the diagram models a workflow that involves listening to mission events, handling data changes, and controlling tokens and retrieving data."
+"the main flow involves adding event listeners, handling data changes, and sending responses with requested data."
+the system appears to be designed for real-time data management and mission control.
+======================================================================

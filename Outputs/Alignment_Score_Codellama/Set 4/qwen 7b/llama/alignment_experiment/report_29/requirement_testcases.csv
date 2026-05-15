@@ -1,0 +1,195 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-UserRegistration-001","Successful User Registration with Valid Data","User Registration","3,10","User is on the registration page of the app.","Valid email (e.g., test@example.com), strong password (e.g., Passw0rd!), full name (e.g., John Doe), address (e.g., Via Roma 1, 30175 Venezia)","1. Open the registration page.
+2. Enter valid email address.
+3. Enter strong password.
+4. Re-enter the same password.
+5. Enter full name.
+6. Enter address.
+7. Click ""Register"" button.","User account is created successfully, and a confirmation message appears. User is redirected to the login page."
+"TC-UserLogin-002","Successful User Login with Valid Credentials","User Login","3,10","User has a registered account.","Registered email (e.g., test@example.com), correct password (e.g., Passw0rd!)","1. Open the login page.
+2. Enter registered email address.
+3. Enter correct password.
+4. Click ""Login"" button.","User is logged in successfully, and the app redirects to the home screen or profile page."
+"TC-UserLogin-003","Failed User Login with Incorrect Password","User Login","3,10","User has a registered account.","Registered email (e.g., test@example.com), incorrect password (e.g., wrongpass)","1. Open the login page.
+2. Enter registered email address.
+3. Enter incorrect password.
+4. Click ""Login"" button.","Error message appears stating ""Invalid email or password."" User remains on the login page."
+"TC-AddIncidentReport-004","Add New Incident Report with Valid Data","Add Incident Report","3,11","User is logged in.","Valid incident type (e.g., Theft), valid location (e.g., Piazza San Marco), description (e.g., ""Suspicious activity observed""), timestamp (current date/time)","1. Navigate to the ""Add Report"" section.
+2. Select incident type from dropdown (e.g., Theft).
+3. Specify location (e.g., Piazza San Marco).
+4. Enter description.
+5. Click ""Submit"" button.","Incident report is saved successfully, and a confirmation message appears. Report is visible in the user’s report history."
+"TC-SpecifyIncidentType-005","Specify Incident Type for New Report","Specify Incident Type","3,11","User is logged in and on the ""Add Report"" page.","Predefined incident types (e.g., Theft, Vandalism, Noise, Illegal Parking)","1. Open the ""Add Report"" page.
+2. Click the dropdown menu for incident type.
+3. Select an incident type (e.g., Vandalism).
+4. Verify the selected type is displayed.","Selected incident type is saved and displayed correctly in the report form."
+"TC-SpecifyIncidentLocat-006","Specify Location for New Report","Specify Incident Location","3,12","User is logged in and on the ""Add Report"" page.","Valid location (e.g., Via Roma 1, 30175 Venezia), GPS coordinates (if applicable)","1. Open the ""Add Report"" page.
+2. Enter location details (e.g., Via Roma 1).
+3. Optionally, enter GPS coordinates if required.
+4. Verify the location is displayed on a map (if applicable).","Location is saved and displayed correctly in the report form. Map (if available) shows the selected location."
+"TC-ReceiveNotifications-007","Receive Notification for Nearby Incident Reported by Another User","Receive Notifications","3,12","User is logged in and has enabled notifications. Another user has reported an incident within a predefined radius (e.g., 500 meters).","Incident reported by another user (e.g., Theft at Piazza San Marco), user’s location set to within 500 meters of the incident.","1. Another user reports an incident (e.g., Theft at Piazza San Marco).
+2. Ensure the reporting user’s location is within 500 meters of the test user’s location.
+3. Wait for notification to appear.","User receives a real-time notification about the incident, including type, location, and timestamp. Notification appears in the app’s notification center."
+"TC-ViewProfile-008","View User Profile Information","View Profile","3,14","User is logged in.","User profile data (e.g., full name, email, address, registration date)","1. Navigate to the ""Profile"" section.
+2. Click ""View Profile"" button.","User’s profile information is displayed correctly, including full name, email, address, and registration date."
+"TC-ModifyProfile-009","Modify User Profile with Valid Data","Modify Profile","3,14","User is logged in and on the profile page.","Updated profile data (e.g., new address: Via Garibaldi 2, new phone number: +393451234567)","1. Navigate to the ""Profile"" section.
+2. Click ""Edit Profile"" button.
+3. Update address field with new address.
+4. Update phone number field with new number.
+5. Click ""Save Changes"" button.","Profile is updated successfully, and a confirmation message appears. Updated data is reflected in the profile view."
+"TC-ModifyIncidentReport-010","Modify Existing Incident Report","Modify Incident Report","3,13","User is logged in and has at least one reported incident.","Existing incident report (e.g., Theft at Piazza San Marco), updated description (e.g., ""Suspicious person seen near ATM""), updated location (e.g., Via Roma 2)","1. Navigate to the ""My Reports"" section.
+2. Select an existing report to modify.
+3. Update the description field with new details.
+4. Update the location if necessary.
+5. Click ""Save Changes"" button.","Incident report is updated successfully, and a confirmation message appears. Updated details are reflected in the report history."
+"TC-UserAuthentication-011","Successful User Registration","User Authentication","10","App is installed on an Android device (version ≥ 8.1)","Valid username, password, name, surname, gender, date of birth, phone number, email","1. Launch the app for the first time.
+2. User is automatically redirected to the registration screen.
+3. Fill in the registration form with valid data: Username, Password, Name, Surname, Gender, Date of Birth, Phone, Email.
+4. Submit the form.","Account is created in the database, and the user is redirected to the main application screen."
+"TC-UserAuthentication-012","User Registration with Missing Required Field","User Authentication","10","App is installed on an Android device (version ≥ 8.1)","Valid data except for one missing required field (e.g., email)","1. Launch the app for the first time.
+2. User is redirected to the registration screen.
+3. Fill in the registration form with valid data but leave one required field (e.g., email) empty.
+4. Submit the form.","System displays an error message indicating the missing field and prevents account creation."
+"TC-UserAuthentication-013","Successful User Login","User Authentication","10","User has an existing account and the app is installed","Valid email and password used during registration","1. Launch the app.
+2. Enter the registered email and password.
+3. Press the ""Accedi"" (Login) button.","User is authenticated and redirected to the main application screen."
+"TC-UserAuthentication-014","Login with Incorrect Credentials","User Authentication","10","User has an existing account and the app is installed","Valid email but incorrect password","1. Launch the app.
+2. Enter the registered email and an incorrect password.
+3. Press the ""Accedi"" (Login) button.","System displays an error message indicating invalid credentials and prevents login."
+"TC-UserAuthentication-015","Login with Non-Existent Account","User Authentication","10","App is installed","Non-registered email and any password","1. Launch the app.
+2. Enter a non-registered email and any password.
+3. Press the ""Accedi"" (Login) button.","System displays an error message indicating the account does not exist and prevents login."
+"TC-UserAuthentication-016","Redirect to Registration for Unregistered User","User Authentication","10","App is installed, user does not have an account","None","1. Launch the app.
+2. Attempt to log in without an account (leave fields empty or enter invalid data).
+3. System detects no account exists.","User is redirected to the registration screen with a message prompting registration."
+"TC-EmergencyReporting-017","Successful Emergency Report Submission","Emergency Reporting","11,12","User is logged in and an emergency occurs in real life","Valid type of emergency (from predefined list), valid location (manual or GPS)","1. User taps the ""Segnala Emergenza"" (Report Emergency) button.
+2. User is redirected to the emergency report form.
+3. User selects a type of emergency from the predefined list.
+4. User specifies the location of the emergency either manually or via GPS.
+5. User submits the form.","Emergency report is saved in the database with the specified type and location."
+"TC-EmergencyReporting-018","Emergency Report with Missing Type","Emergency Reporting","11,12","User is logged in","Valid location but no type selected","1. User taps the ""Segnala Emergenza"" (Report Emergency) button.
+2. User is redirected to the emergency report form.
+3. User skips selecting the type of emergency.
+4. User specifies the location of the emergency.
+5. User attempts to submit the form.","System displays an error message indicating the type of emergency is required and prevents submission."
+"TC-EmergencyReporting-019","Emergency Report with Missing Location","Emergency Reporting","11,12","User is logged in","Valid type but no location provided","1. User taps the ""Segnala Emergenza"" (Report Emergency) button.
+2. User is redirected to the emergency report form.
+3. User selects a type of emergency.
+4. User skips specifying the location.
+5. User attempts to submit the form.","System displays an error message indicating the location is required and prevents submission."
+"TC-EmergencyReporting-020","Emergency Report with GPS Location","Emergency Reporting","11,12","User is logged in, GPS is enabled on the device","Valid type of emergency","1. User taps the ""Segnala Emergenza"" (Report Emergency) button.
+2. User is redirected to the emergency report form.
+3. User selects a type of emergency.
+4. User allows GPS to automatically detect the location.
+5. User submits the form.","Emergency report is saved in the database with the GPS-detected location."
+"TC-Notifications-021","User Receives Notifications for Nearby Emergencies","Notifications","12","An emergency is reported near the user’s home address","None","1. An emergency is reported near the user’s registered home address.
+2. The server sends a notification to the user’s device.
+3. User receives the notification and taps on it.","User is redirected to the screen displaying the emergency details."
+"TC-Notifications-022","User Receives All Notifications if No Home Address is Registered","Notifications","12","An emergency is reported anywhere, user has no home address registered","None","1. An emergency is reported anywhere.
+2. The server sends a notification to the user’s device.
+3. User receives the notification and taps on it.","User is redirected to the screen displaying the emergency details."
+"TC-Notifications-023","User Ignores Notification","Notifications","12","User receives a notification","None","1. User receives a notification for an emergency.
+2. User swipes the notification away or dismisses it.","Notification is cleared from the device, and no further action is taken."
+"TC-UserRegistration-024","Create New User Account","User Registration","18","User opens the app for the first time","Valid name, surname, date of birth, email, phone number, address","1. User opens the app for the first time.
+2. User selects the registration option.
+3. User fills in the registration form with valid data.
+4. User submits the form.","User account is created and added to the database. User is redirected to the app home screen."
+"TC-ReportVisualization-025","View Nearby Report on Map","Report Visualization","13","User is within the range of a report","Existing report within user’s location range","1. User is logged in and located within the range of a report.
+2. User selects the report marker on the map.
+3. User is redirected to the report view screen.","Report details are displayed correctly."
+"TC-ReportVisualization-026","View Report Details","Report Visualization","13","User has selected a report on the map","Existing report","1. User is on the report view screen.
+2. User scrolls through the report content.","All report information (title, description, location, etc.) is displayed correctly."
+"TC-ReportManagement-027","Modify Own Report","Report Management","13","User has created a report and is logged in","Existing report created by the user","1. User selects a report they created on the map.
+2. User clicks the ""Modify Report"" option.
+3. User is redirected to the report modification screen.
+4. User edits report details (e.g., title, description).
+5. User submits the changes.","Report is updated in the database with the new details."
+"TC-ProfileManagement-028","View User Profile","Profile Management","14","User has created an account and is logged in","Existing user profile with personal data and addresses","1. User selects the ""Profile"" option from the menu.
+2. User views the profile screen.","User’s personal data (name, surname, date of birth, phone, email) and addresses are displayed correctly."
+"TC-ProfileManagement-029","Modify User Profile (Non-Email Fields)","Profile Management","14,18","User is logged in and has an existing profile","Valid updated phone number, address, and personal data (excluding email)","1. User selects the ""Profile"" option from the menu.
+2. User clicks the ""Modify Profile"" option.
+3. User edits non-email fields (e.g., phone number, address).
+4. User submits the changes.","Updated profile data is saved in the database. Changes are reflected in the profile view."
+"TC-GPSTracking-030","Real-Time User Location Update","GPS Tracking","15","User has an active GPS connection and is logged in","User moves to a new location","1. User moves to a new location while the app is open or in the background.
+2. App periodically updates user location.","User’s location is updated in the database via API. Nearby reports are recalculated and displayed on the map."
+"TC-Authentication-031","Successful Login with Valid Credentials","Authentication","20","User account exists in the system with valid credentials (username/email and password).","Valid username/email: ""user@example.com"", Valid password: ""SecurePass123""","1. Open the application.
+2. Navigate to the login screen.
+3. Enter the valid username/email in the username/email field.
+4. Enter the valid password in the password field.
+5. Tap the ""Login"" button.","User is successfully logged in and redirected to the home/profile screen."
+"TC-Authentication-032","Successful Logout from Account","Authentication","19","User is currently logged in to the application.","None","1. Open the application and ensure the user is logged in.
+2. Navigate to the profile or settings screen.
+3. Tap the ""Logout"" button.","User is logged out successfully and redirected to the login screen."
+"TC-ReportManagement-033","Add a New Report with Predefined Type","Report Management","19","User is logged in to the application.","Report type: ""Traffic Issue"", Location: ""Via Roma 123"", Description: ""Pothole on the road""","1. Open the application and ensure the user is logged in.
+2. Navigate to the ""Add Report"" screen.
+3. Select a predefined report type (e.g., ""Traffic Issue"").
+4. Enter the location of the report (e.g., ""Via Roma 123"").
+5. Enter a description of the report (e.g., ""Pothole on the road"").
+6. Tap the ""Submit"" button.","Report is successfully added and displayed in the user's report history or the community feed."
+"TC-ReportManagement-034","View All Community Reports","Report Management","19","At least one report exists in the system.","None","1. Open the application and ensure the user is logged in.
+2. Navigate to the ""Reports"" or ""Community Feed"" screen.
+3. Ensure the list of reports is displayed.","All community reports are successfully displayed in a list or feed format."
+"TC-ReportManagement-035","Edit an Existing Report","Report Management","20","User has added at least one report and is logged in.","Existing report ID: ""REP001"", Updated description: ""Large pothole causing damage to vehicles""","1. Open the application and ensure the user is logged in.
+2. Navigate to the ""My Reports"" or ""Manage Reports"" screen.
+3. Select the existing report (e.g., ""REP001"").
+4. Tap the ""Edit"" button.
+5. Modify the description to ""Large pothole causing damage to vehicles"".
+6. Tap the ""Save"" button.","Report is successfully updated with the new description."
+"TC-DataSecurity-036","Verify Database Security for Sensitive User Data","Data Security","22","User account exists with sensitive data (e.g., email, phone number, residence).","Sensitive data: Email: ""user@example.com"", Phone: ""3456789012"", Residence: ""Via Roma 123""","1. Add a new user account with sensitive data (email, phone, residence).
+2. Log in to the account.
+3. Attempt to access or modify sensitive data without proper authentication (e.g., via direct database access or unauthorized API calls).","Access to sensitive data is denied, and data remains secure and unaltered."
+"TC-Compatibility-037","Verify Application Compatibility with Android 8.1+","Compatibility","23","Android emulator or device with Android 8.1 or higher is set up.","None","1. Install the application on an Android device/emulator with Android 8.1.
+2. Attempt to open and use the application.
+3. Verify all primary functionalities (login, report addition, report viewing).","Application installs and runs successfully on Android 8.1 without crashes or errors."
+"TC-Performance-038","Verify Application Response Time for Report Submission","Performance","24","User is logged in and connected to the internet.","Report type: ""Noise Complaint"", Location: ""Via Roma 123"", Description: ""Loud music at night""","1. Open the application and navigate to the ""Add Report"" screen.
+2. Enter report details (type, location, description).
+3. Measure the time taken from tapping ""Submit"" to the confirmation screen appearing.","Report submission completes within 3 seconds or less."
+"TC-UserInterface-039","Verify Clean and Intuitive UI Design","User Interface","25","Application is installed and launched","None","1. Open the application.
+2. Navigate through all primary screens (e.g., home, map, event list).
+3. Observe the layout, color scheme, and text readability.","The UI is visually clean, intuitive, and free of clutter. All interactive elements are easily identifiable and accessible."
+"TC-Database-040","Verify Firebase Database Integration","Database","26","Internet connection is active","Sample user data (e.g., event details)","1. Attempt to connect to Firebase database.
+2. Perform a write operation (e.g., add a test event).
+3. Perform a read operation (e.g., retrieve the test event).","The database connection is established successfully. Data is written and retrieved without errors."
+"TC-Network-041","Verify Internet Connectivity Requirement","Network","26","Application is launched","None","1. Disable internet connection on the device.
+2. Attempt to perform any database-related operation (e.g., load events).","The application displays an error message indicating the need for an active internet connection."
+"TC-GPS-042","Verify GPS Functionality for Location Tracking","GPS","26","GPS is enabled on the device","None","1. Launch the application.
+2. Navigate to the map screen.
+3. Observe if the user’s current location is displayed on the map.","The user’s location is accurately displayed on the map with minimal delay."
+"TC-GPS-043","Verify GPS Error Handling","GPS","26","GPS is disabled on the device","None","1. Launch the application.
+2. Navigate to the map screen.","The application prompts the user to enable GPS or displays an error message indicating GPS is required."
+"TC-Security-044","Verify Secure Data Transmission","Security","27","Internet connection is active","Sample sensitive user data (e.g., login credentials)","1. Attempt to transmit sensitive data to the database.
+2. Use a network monitoring tool to verify encryption in transit.","Data is transmitted using secure protocols (e.g., HTTPS) and is encrypted during transit."
+"TC-Security-045","Verify Data Encryption at Rest","Security","27","Data is stored in Firebase database","Sample sensitive user data","1. Retrieve stored data from the database.
+2. Verify if the data is encrypted in the database.","Sensitive data is stored in an encrypted format within the database."
+"TC-Performance-046","Verify Reasonable Operation Response Time","Performance","28","Internet and GPS are active","None","1. Perform a database read/write operation (e.g., add or retrieve an event).
+2. Measure the time taken for the operation to complete.","All operations complete within a reasonable time frame (e.g., < 2 seconds for read/write)."
+"TC-Compatibility-047","Verify Compatibility with Android 8.1+","Compatibility","28","Application is installed on a device with Android 8.1+","None","1. Launch the application on a device running Android 8.1 or higher.
+2. Perform basic operations (e.g., navigate screens, load data).","The application runs without crashes or compatibility issues."
+"TC-Installation-048","Verify Minimum Storage Requirement","Installation","28","Device has < 300 MB free storage","None","1. Attempt to install the application on a device with insufficient storage (< 300 MB).","The installation fails with an error message indicating insufficient storage space."
+"TC-DataManagement-049","Verify Data Deletion on Uninstall","Data Management","28","Application is installed and contains user data","Sample user data","1. Uninstall the application from the device.
+2. Verify if all application-related data is deleted.","All user data associated with the application is permanently deleted upon uninstall."
+"TC-AccountManagement-050","First-time user account creation","Account Management","31","Application installed correctly on Android device (OS 8.1+), device has internet connection","Valid email, phone number, password, residence","1. Launch the application for the first time
+2. Select the option to create a new account
+3. Enter valid email, phone number, password, and residence
+4. Confirm registration by tapping the ""Register"" button","Account is successfully created, user is redirected to the app’s main screen"
+"TC-AccountManagement-051","Update user phone number and residence","Account Management","31","User is logged in with an existing account","Updated phone number, updated residence","1. Navigate to the profile/account settings section
+2. Select the option to edit phone number and residence
+3. Enter new phone number and residence
+4. Confirm changes by tapping the ""Save"" button","Phone number and residence are updated successfully, confirmation message appears"
+"TC-Reporting-052","Submit a predefined report","Reporting","32","User is logged in, user knows the app’s rules","Valid report type (e.g., ""Noise Complaint""), location coordinates, description","1. Navigate to the ""Submit Report"" section
+2. Select a predefined report type (e.g., ""Noise Complaint"")
+3. Enter location coordinates (via GPS or manual input)
+4. Add a description if required
+5. Confirm submission by tapping the ""Submit"" button","Report is created in the system, user sees a confirmation message, new entry appears in the database"
+"TC-Reporting-053","View all community reports on map","Reporting","32","User is logged in, at least one report exists in the system","None","1. Navigate to the ""Community Reports"" section
+2. Select the map view option","Map displays all community reports with markers, reports are clickable to show details"
+"TC-Authentication-054","User login to the application","Authentication","36","User has a registered account, user is not currently logged in","Valid registered email/phone and password","1. Navigate to the login screen
+2. Enter registered email/phone and password
+3. Tap the ""Login"" button","User is successfully logged in, redirected to the app’s main screen"
+"TC-Authentication-055","User logout from the application","Authentication","31","User is currently logged in","None","1. Navigate to the profile/settings section
+2. Select the ""Logout"" option
+3. Confirm logout if prompted","User is logged out, redirected to the login screen, cannot access reports or comments"
+"TC-Reporting-056","Edit or delete a user-submitted report","Reporting","34","User is logged in, user has submitted at least one report","Existing report ID, updated report details (if editing)","1. Navigate to the ""My Reports"" section
+2. Select the report to edit or delete
+3. For editing: Modify report details (e.g., description, location)
+4. For deletion: Select the ""Delete"" option and confirm","Report is updated/deleted successfully, changes reflect in the system and user’s report list"

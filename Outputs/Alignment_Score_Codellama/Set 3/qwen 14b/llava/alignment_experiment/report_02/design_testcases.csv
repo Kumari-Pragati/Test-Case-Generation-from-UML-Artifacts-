@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login with Correct Credentials,Login,1,User has an existing account with correct credentials.,"- Username: testuser
+- Password: password123","1. User initiates login process.
+2. User enters correct login credentials.
+3. System verifies the entered credentials.
+4. System grants access and directs the user to the home page.",User is successfully logged in and redirected to the home page.
+TC-Login-002,Failed Login with Incorrect Credentials,Login,1,User attempts to log in with incorrect credentials.,"- Username: testuser
+- Password: wrongpassword","1. User initiates login process.
+2. User enters incorrect login credentials.
+3. System verifies the entered credentials.
+4. System denies access and displays an error message.",User is not logged in and an error message is displayed.
+TC-Register-001,Successful Registration with Valid Information,Register,1,User does not have an existing account.,"- Email: testuser@example.com
+- Password: password123
+- First Name: John
+- Last Name: Doe","1. User initiates registration process.
+2. User enters valid registration information.
+3. System validates the entered information.
+4. System creates a new account and directs the user to the home page.",User is successfully registered and redirected to the home page.
+TC-Register-002,Failed Registration with Invalid Information,Register,1,User attempts to register with invalid information.,"- Email: invalidemail
+- Password: short
+- First Name: 
+- Last Name:","1. User initiates registration process.
+2. User enters invalid registration information.
+3. System validates the entered information.
+4. System rejects the registration attempt and displays an error message.",User is not registered and an error message is displayed.
+TC-Home-001,Access Home Page After Successful Login,Home,1,User is successfully logged in.,"- Username: testuser
+- Password: password123","1. User logs in with correct credentials.
+2. System verifies the entered credentials.
+3. System grants access and redirects the user to the home page.",User is redirected to the home page after successful login.
+TC-Home-002,Access Home Page After Successful Registration,Home,1,User is successfully registered.,"- Email: testuser@example.com
+- Password: password123
+- First Name: John
+- Last Name: Doe","1. User registers with valid information.
+2. System validates the entered information.
+3. System creates a new account and redirects the user to the home page.",User is redirected to the home page after successful registration.
+TC-Profile-001,View Profile Successfully,Profile,4,User is logged in.,- Username: testuser,"1. User navigates to the profile view.
+2. User sends username to the system.
+3. System retrieves and displays the user's profile information.",User's profile information is displayed correctly.
+TC-Profile-002,View Profile with Nonexistent Username,Profile,4,User attempts to view a nonexistent profile.,- Username: nonexistuser,"1. User navigates to the profile view.
+2. User sends a nonexistent username to the system.
+3. System returns an error message indicating the username does not exist.",An error message is displayed indicating the username does not exist.
+TC-Logout-001,Successful Logout,Logout,4,User is logged in.,- Username: testuser,"1. User navigates to the logout functionality.
+2. User sends username to the system.
+3. System logs out the user.
+4. System redirects the user to the login page.",User is successfully logged out and redirected to the login page.
+TC-Menu-001,View Menu Successfully,Menu,4,User is logged in.,- Username: testuser,"1. User navigates to the menu view.
+2. User sends username to the system.
+3. System retrieves and displays the menu options.",Menu options are displayed correctly.
+TC-Menu-002,View Menu with Nonexistent Username,Menu,4,User attempts to view a menu with a nonexistent username.,- Username: nonexistuser,"1. User navigates to the menu view.
+2. User sends a nonexistent username to the system.
+3. System returns an error message indicating the username does not exist.",An error message is displayed indicating the username does not exist.
+TC-HorizontalMenu-001,View Horizontal Menu Successfully,Horizontal Menu,4,User is logged in.,- Username: testuser,"1. User navigates to the horizontal menu view.
+2. User sends username to the system.
+3. System retrieves and displays the horizontal menu options.",Horizontal menu options are displayed correctly.
+TC-HorizontalMenu-002,View Horizontal Menu with Nonexistent Username,Horizontal Menu,4,User attempts to view a horizontal menu with a nonexistent username.,- Username: nonexistuser,"1. User navigates to the horizontal menu view.
+2. User sends a nonexistent username to the system.
+3. System returns an error message indicating the username does not exist.",An error message is displayed indicating the username does not exist.
+TC-ApplicationFlow-001,Application Flow with Valid Request,Application Flow,5,User is logged in.,- Request: Valid request,"1. User sends a request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request and sends a response back to the server.
+5. Server forwards the response back to the application.
+6. Application forwards the response back to the user.",User receives a valid response from the application.
+TC-ApplicationFlow-002,Application Flow with Invalid Request,Application Flow,5,User is logged in.,- Request: Invalid request,"1. User sends an invalid request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request and sends an error response back to the server.
+5. Server forwards the error response back to the application.
+6. Application forwards the error response back to the user.",User receives an error response from the application.
+TC-SequenceDiagram-001,User Sends Request to Application,Sequence Diagram,"5, 6",User is logged in.,- Request: Valid request,"1. User sends a request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request and sends a response back to the server.
+5. Server forwards the response back to the application.
+6. Application forwards the response back to the user.",User receives a valid response from the application.
+TC-SequenceDiagram-002,User Sends Invalid Request to Application,Sequence Diagram,"5, 6",User is logged in.,- Request: Invalid request,"1. User sends an invalid request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request and sends an error response back to the server.
+5. Server forwards the error response back to the application.
+6. Application forwards the error response back to the user.",User receives an error response from the application.
+TC-CalcoloEmissioni-001,Calculate Emissions After Successful Registration,Calcolo Emissioni,2,User is successfully registered.,"- Email: testuser@example.com
+- Password: password123
+- First Name: John
+- Last Name: Doe","1. User registers with valid information.
+2. System validates the entered information.
+3. System creates a new account and calculates emissions.
+4. System redirects the user to the home page.",User is registered and emissions are calculated correctly.
+TC-CalcoloEmissioni-002,Calculate Emissions After Failed Registration,Calcolo Emissioni,2,User attempts to register with invalid information.,"- Email: invalidemail
+- Password: short
+- First Name: 
+- Last Name:","1. User registers with invalid information.
+2. System validates the entered information.
+3. System rejects the registration attempt and does not calculate emissions.
+4. System displays an error message.",User is not registered and emissions are not calculated.
+TC-StatisticalData-001,Retrieve Statistical Data,Statistiche,3,User is logged in.,- None,"1. User requests statistical data.
+2. System retrieves statistical data from the database.
+3. System displays the statistical data to the user.",User receives and views the statistical data correctly.
+TC-StatisticalData-002,Retrieve Nonexistent Statistical Data,Statistiche,3,User is logged in.,- None,"1. User requests statistical data.
+2. System attempts to retrieve statistical data but finds none.
+3. System displays an error message indicating no statistical data available.",User receives an error message indicating no statistical data available.
+TC-ApplicationFlow-003,Application Flow with Valid Request and No Response,Application Flow,"5, 6",User is logged in.,- Request: Valid request,"1. User sends a request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request but does not send a response back to the server.
+5. Server waits for a response from the database.
+6. Application waits for a response from the server.
+7. User waits for a response from the application.",User receives no response from the application.
+TC-ApplicationFlow-004,Application Flow with Invalid Request and No Response,Application Flow,"5, 6",User is logged in.,- Request: Invalid request,"1. User sends an invalid request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request but does not send a response back to the server.
+5. Server waits for a response from the database.
+6. Application waits for a response from the server.
+7. User waits for a response from the application.",User receives no response from the application.
+TC-SequenceDiagram-003,User Sends Request to Application with No Response,Sequence Diagram,"5, 6",User is logged in.,- Request: Valid request,"1. User sends a request to the application.
+2. Application forwards the request to the server.
+3. Server forwards the request to the database.
+4. Database processes the request but does not send a response back to the server.
+5. Server waits for a response from the database.
+6. Application waits for a response from the server.
+7. User waits for a response from the application.",User receives no response from the application.
+TC-SequenceDiagram-004,User Sends Invalid Request to Application with No Response,Sequence Diagram,"5, 6","User is logged in.
+Test",,,

@@ -1,0 +1,64 @@
+REPORT: Report_19_uml_pages.pdf
+======================================================================
+
+===== Report_19_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- U-moviment — kind=action; attributes=[]; operations=[]; role=User interface
+- Register activity — kind=action; attributes=[]; operations=[]; role=User registration
+- Login activity — kind=action; attributes=[]; operations=[]; role=User login
+- Flash activity — kind=action; attributes=[]; operations=[]; role=Flash messages
+- Notification center — kind=action; attributes=[]; operations=[]; role=Central notification hub
+- Create event — kind=action; attributes=[]; operations=[]; role=Event creation
+- Join/View event — kind=action; attributes=[]; operations=[]; role=Event participation
+- Newsletter activity — kind=action; attributes=[]; operations=[]; role=Newsletter management
+- Newsletter management — kind=action; attributes=[]; operations=[]; role=Newsletter sending
+- Profile — kind=action; attributes=[]; operations=[]; role=User profile
+- Exit — kind=action; attributes=[]; operations=[]; role=Application exit
+- Gestione dati del progetto — kind=action; attributes=[]; operations=[]; role=Project data management
+- PostgreSQL — kind=action; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- U-moviment -> Register activity — type=control_flow; label=""; explanation="User initiates registration"
+- U-moviment -> Login activity — type=control_flow; label=""; explanation="User initiates login"
+- U-moviment -> Flash activity — type=control_flow; label=""; explanation="User sees flash messages"
+- Register activity -> Notification center — type=control_flow; label=""; explanation="Registration triggers notification"
+- Login activity -> Notification center — type=control_flow; label=""; explanation="Login triggers notification"
+- Flash activity -> Notification center — type=control_flow; label=""; explanation="Flash messages are sent to notification center"
+- Notification center -> Create event — type=control_flow; label=""; explanation="Notification triggers event creation"
+- Notification center -> Join/View event — type=control_flow; label=""; explanation="Notification triggers event joining/viewing"
+- Notification center -> Profile — type=control_flow; label=""; explanation="Notification triggers profile access"
+- Notification center -> Exit — type=control_flow; label=""; explanation="Notification triggers exit"
+- U-moviment -> Newsletter activity — type=control_flow; label=""; explanation="User initiates newsletter activity"
+- Newsletter activity -> Newsletter management — type=control_flow; label=""; explanation="Newsletter activity triggers newsletter management"
+- Newsletter management -> Gestione dati del progetto — type=control_flow; label=""; explanation="Newsletter management interacts with project data"
+- Gestione dati del progetto -> PostgreSQL — type=control_flow; label=""; explanation="Project data management uses PostgreSQL"
+
+Main Flows:
+- Flow 1: U-moviment -> Register activity -> Notification center -> Create event
+- Flow 2: U-moviment -> Login activity -> Notification center -> Join/View event
+- Flow 3: U-moviment -> Flash activity -> Notification center -> Profile
+- Flow 4: U-moviment -> Newsletter activity -> Newsletter management -> Gestione dati del progetto -> PostgreSQL
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram depicts the flow of actions within an application, starting from user interactions (U-moviment) and branching to various activities like registration, login, newsletter management, and event handling.
+- Notifications play a central role, triggering actions like event creation, joining events, and profile access.
+- Data management is handled by the "Gestione dati del progetto" component, which interacts with a PostgreSQL database.
+- The diagram illustrates a relatively linear flow, with the user's initial action leading to a series of subsequent actions and notifications.
+
+
+======================================================================

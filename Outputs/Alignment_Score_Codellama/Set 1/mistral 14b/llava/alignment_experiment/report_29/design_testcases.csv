@@ -1,0 +1,84 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login flow,Authentication,"1, 3, 5","- User is on the homepage.
+- System is operational with no existing account for test credentials.","- Valid username: `john_doe_123`
+- Valid password: `SecurePass123!`
+- Valid email: `john.doe@example.com`","1. User clicks **""Register""** on the homepage (Page 1).
+2. User enters `john_doe_123`, `SecurePass123!`, and `john.doe@example.com` in the signup form (Page 3).
+3. User submits the form.
+4. System redirects to **""Success""** message (Page 1).
+5. User clicks **""Login""** (Page 3).
+6. User enters `john_doe_123` and `SecurePass123!` in the login form.
+7. User submits the form.","- Registration succeeds (no errors, confirmation message displayed).
+- User is logged in successfully (homepage updates to reflect logged-in state).
+- System stores user credentials (Page 5: `User.login()` returns `true`)."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,"1, 3, 5","- User is on the login page.
+- System has no existing account for test credentials.","- Invalid username: `wrong_user`
+- Valid password: `SecurePass123!`","1. User clicks **""Login""** (Page 3).
+2. User enters `wrong_user` and `SecurePass123!`.
+3. User submits the form.","- System displays **""Invalid credentials""** error (Page 1: no success flow).
+- `User.login()` returns `false` (Page 5).
+- User remains on login page."
+TC-AUTHENTICATION-003,Password reset flow for registered user,Authentication,"1, 3","- User is registered (`john_doe_123` with `SecurePass123!`).
+- User is logged out.","- Registered username: `john_doe_123`
+- Forgotten password: `oldpass`
+- New password: `NewSecurePass456!`
+- Email: `john.doe@example.com`","1. User clicks **""Forgot Password""** (Page 3).
+2. User enters `john_doe_123` and submits.
+3. System sends reset link to `john.doe@example.com` (assumed implicit).
+4. User clicks reset link and enters `NewSecurePass456!`.
+5. User submits new password.
+6. User logs in with `john_doe_123` and `NewSecurePass456!`.","- Password reset email is sent (simulated success).
+- User logs in successfully with new password.
+- Old password (`oldpass`) no longer works."
+TC-AUTHENTICATION-004,Admin login and logout,Authentication,"3, 5","- Admin account exists (`admin_user` with `AdminPass123!`).
+- User is on the login page.","- Admin username: `admin_user`
+- Admin password: `AdminPass123!`","1. User enters `admin_user` and `AdminPass123!` in login form (Page 3).
+2. User submits the form.
+3. User navigates to an admin-only page (e.g., dashboard).
+4. User clicks **""Logout""** (Page 3).","- `Admin.login()` returns `true` (Page 5).
+- User gains admin privileges (e.g., restricted UI elements appear).
+- `Admin.logout()` executes successfully (Page 5).
+- User is redirected to homepage (Page 1)."
+TC-ECOMMERCE-001,Add product to cart and checkout,E-Commerce,"2, 4","- User is logged in (`john_doe_123`).
+- Product ""Laptop"" exists with price `$999`.","- Product: ""Laptop"" (ID: `P1001`)
+- Quantity: `1`","1. User browses product catalog and selects **""Laptop""** (Page 4: `User -> Product`).
+2. User clicks **""Add to Cart""** (Page 4: `User -> Cart`).
+3. User navigates to **Cart** and verifies ""Laptop"" is listed.
+4. User clicks **""Checkout""** (Page 4: `Cart -> Checkout`).
+5. User enters shipping details and confirms order.","- Product is added to cart (Page 4: `Cart` updates).
+- Checkout process completes (no errors).
+- Order is processed (assumed implicit; no confirmation flow shown but inferred)."
+TC-ECOMMERCE-002,Empty cart checkout,E-Commerce,4,"- User is logged in (`john_doe_123`).
+- Cart is empty.",,"1. User navigates to **Cart**.
+2. User clicks **""Checkout""** (Page 4: `Cart -> Checkout`).","- System displays **""Your cart is empty""** error.
+- Checkout process is aborted."
+TC-RESTAURANT-001,Place a restaurant order,Restaurant Ordering,2,"- User is logged in (`john_doe_123`).
+- Restaurant menu has ""Burger"" (`$10`) and ""Pizza"" (`$12`).","- Order: ""Burger"" (quantity: `2`), ""Pizza"" (quantity: `1`)","1. User selects **""Burger""** and **""Pizza""** from menu (Page 2: `User -> Restaurant`).
+2. User enters quantity (`2` for Burger, `1` for Pizza).
+3. User submits order.","- Order is sent to `Restaurant` (Page 2: `Place Order` message).
+- System confirms order (e.g., ""Order placed successfully"").
+- Order details are stored (assumed implicit)."
+TC-RESTAURANT-002,Place order with invalid product,Restaurant Ordering,2,- User is logged in (`john_doe_123`).,"- Invalid product: ""NonExistentDish""","1. User enters ""NonExistentDish"" in order form.
+2. User submits order.","- System displays **""Product not found""** error.
+- Order is not placed."
+TC-INTEGRATION-001,Full user journey: Register → Order → Logout,End-to-End Flow,"1, 2, 3, 4","- System is fresh (no test accounts).
+- Restaurant has menu items.",,"1. User registers (`john_doe_123`, `SecurePass123!`) (Page 1, 3).
+2. User logs in (Page 3).
+3. User places a restaurant order (""Burger"") (Page 2).
+4. User adds a product (""Laptop"") to cart and checks out (Page 4).
+5. User logs out (Page 3).","- All steps complete without errors.
+- User account is created and authenticated.
+- Order and checkout processes succeed.
+- User is logged out successfully."
+TC-EDGE-001,Rapid logout after login,Authentication,"1, 3",- User is logged out.,"- Valid credentials: `john_doe_123`, `SecurePass123!`","1. User logs in (`john_doe_123`, `SecurePass123!`).
+2. User immediately clicks **""Logout""** (Page 3) without further action.","- Login succeeds.
+- Logout executes without errors.
+- User session is terminated."
+TC-EDGE-002,Concurrent cart and order operations,E-Commerce/Restaurant,"2, 4","- User is logged in (`john_doe_123`).
+- Cart is empty.",,"1. User adds ""Laptop"" to cart (Page 4).
+2. Simultaneously, user places a restaurant order (""Pizza"") (Page 2).
+3. User proceeds to checkout (Page 4).","- Both operations complete without conflict.
+- Cart contains ""Laptop"" and order is placed.
+- No data loss or duplication."
+TC-NEGATIVE-001,Logout without login,Authentication,3,- User is logged out.,,"1. User clicks **""Logout""** (Page 3).","- System displays **""No active session""** error.
+- User remains on current page."

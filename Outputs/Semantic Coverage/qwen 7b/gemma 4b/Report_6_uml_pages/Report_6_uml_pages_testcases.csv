@@ -1,0 +1,131 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration with Valid Credentials,User Management,"2,3",None,"- Email: test@example.com
+- Password: Test123","1. User enters email and password into the UI.
+2. UI sends the data to Firebase/Authentication.
+3. Firebase/Authentication validates the data.
+4. Firebase/Authentication retrieves user data from Firestore.
+5. Firebase/Authentication returns a token to the UI.
+6. UI saves the user in the system.
+7. UI confirms the save operation.",User account is successfully created and saved in the system.
+TC-User-002,User Registration with Invalid Credentials,User Management,"2,3",None,"- Email: test@example.com
+- Password: InvalidPassword","1. User enters email and password into the UI.
+2. UI sends the data to Firebase/Authentication.
+3. Firebase/Authentication validates the data.
+4. Firebase/Authentication returns an error message to the UI.
+5. UI displays an error message to the user.",User account creation fails due to invalid credentials.
+TC-User-003,User Login with Valid Credentials,Authentication,2,User has a valid account.,"- Email: test@example.com
+- Password: Test123","1. User enters email and password into the UI.
+2. UI sends the data to FirebaseAuthentication.
+3. FirebaseAuthentication validates the credentials.
+4. FirebaseAuthentication retrieves user data from Firestore.
+5. FirebaseAuthentication returns a token to the UI.
+6. UI displays a success message to the user.",User is logged in successfully.
+TC-User-004,User Login with Invalid Credentials,Authentication,2,User has a valid account.,"- Email: test@example.com
+- Password: InvalidPassword","1. User enters email and password into the UI.
+2. UI sends the data to FirebaseAuthentication.
+3. FirebaseAuthentication validates the credentials.
+4. FirebaseAuthentication returns an error message to the UI.
+5. UI displays an error message to the user.",User login fails due to invalid credentials.
+TC-Entity-001,Create Entity with Valid Data,Entity Management,1,User is logged in.,"- Name: NewEntity
+- Description: This is a new entity.","1. User creates a new entity via the UI.
+2. UI sends the data to the system.
+3. System creates the entity.
+4. System associates the entity with an area.",Entity is successfully created and associated with an area.
+TC-Entity-002,Create Entity with Missing Data,Entity Management,1,User is logged in.,"- Name: 
+- Description: This is a new entity.","1. User tries to create a new entity via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Entity creation fails due to missing name.
+TC-Area-001,Create Area with Valid Data,Area Management,1,User is logged in.,"- Name: NewArea
+- Description: This is a new area.","1. User creates a new area via the UI.
+2. UI sends the data to the system.
+3. System creates the area.",Area is successfully created.
+TC-Area-002,Create Area with Missing Data,Area Management,1,User is logged in.,"- Name: 
+- Description: This is a new area.","1. User tries to create a new area via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Area creation fails due to missing name.
+TC-Report-001,Create Report with Valid Data,Reporting,1,User is logged in and has access to an area.,"- Date: 2023-10-01
+- Content: This is a new report.","1. User creates a new report via the UI.
+2. UI sends the data to the system.
+3. System creates the report.
+4. System associates the report with the user and area.",Report is successfully created and associated with the user and area.
+TC-Report-002,Create Report with Missing Data,Reporting,1,User is logged in and has access to an area.,"- Date: 2023-10-01
+- Content:","1. User tries to create a new report via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Report creation fails due to missing content.
+TC-Notification-001,Send Notification to User with Valid Data,Notification Management,1,User is logged in.,"- Message: You have a new report.
+- Timestamp: 2023-10-01 12:00:00","1. System sends a notification to the user via the UI.
+2. UI displays the notification to the user.",Notification is successfully sent to the user.
+TC-Notification-002,Send Notification to User with Missing Data,Notification Management,1,User is logged in.,"- Message: 
+- Timestamp: 2023-10-01 12:00:00","1. System tries to send a notification to the user via the UI.
+2. UI returns an error message.",Notification sending fails due to missing message.
+TC-Signalling-001,Create Signalling with Valid Data,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User creates a new signalling via the UI.
+2. UI sends the data to the system.
+3. System validates the data.
+4. System uploads the image to FirebaseStorage.
+5. System associates the signalling with the nearest entity.
+6. System confirms the save operation.",Signalling is successfully created and associated with the nearest entity.
+TC-Signalling-002,Create Signalling with Missing Data,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: 
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to missing image.
+TC-Signalling-003,Create Signalling with Invalid Coordinates,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: image.jpg
+- Coordinates: 40.7128, -74.0061
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to invalid coordinates.
+TC-Signalling-004,Create Signalling with Missing Urgency,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency:","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to missing urgency.
+TC-Signalling-005,Create Signalling with Empty Description,Signalling,4,User is logged in.,"- Description: 
+- Image: image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to empty description.
+TC-Signalling-006,Create Signalling with Empty Image,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: 
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to empty image.
+TC-Signalling-007,Create Signalling with Empty Coordinates,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: image.jpg
+- Coordinates: 
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to empty coordinates.
+TC-Signalling-008,Create Signalling with Empty Urgency,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency:","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to empty urgency.
+TC-Signalling-009,Create Signalling with Empty All Fields,Signalling,4,User is logged in.,"- Description: 
+- Image: 
+- Coordinates: 
+- Urgency:","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to empty all fields.
+TC-Signalling-010,Create Signalling with Invalid Image Format,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: invalid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to invalid image format.
+TC-Signalling-011,Create Signalling with Invalid Coordinates Format,Signalling,4,User is logged in.,"- Description: This is a new signalling.
+- Image: image.jpg
+- Coordinates: 40.7128, -74.0060, 123
+- Urgency: High","1. User tries to create a new signalling via the UI.
+2. UI sends the data to the system.
+3. System returns an error message.",Signalling creation fails due to invalid coordinates format.
+TC-Signalling-012,Create Signalling with Invalid Urgency Value,Signalling,"4
+Preconditions",,,,

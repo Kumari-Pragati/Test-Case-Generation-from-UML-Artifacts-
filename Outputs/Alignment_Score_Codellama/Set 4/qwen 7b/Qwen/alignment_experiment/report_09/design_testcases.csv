@@ -1,0 +1,147 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Login,"2,3",User is registered and knows their credentials.,"- Email: test@example.com
+- Password: testpassword","1. Enter email and password in the login form.
+2. Click ""Login"".
+3. Verify that the user is redirected to the home page.",User is successfully logged in and redirected to the home page.
+TC-Login-002,Invalid Email,Login,"2,3",User is registered but enters an invalid email.,"- Email: wrongemail@example.com
+- Password: testpassword","1. Enter wrong email and password in the login form.
+2. Click ""Login"".
+3. Verify that the user is prompted to enter a valid email.",User is shown an error message indicating an invalid email.
+TC-Login-003,Incorrect Password,Login,"2,3",User is registered but enters an incorrect password.,"- Email: test@example.com
+- Password: wrongpassword","1. Enter correct email and wrong password in the login form.
+2. Click ""Login"".
+3. Verify that the user is prompted to enter the correct password.",User is shown an error message indicating an incorrect password.
+TC-Login-004,Unregistered User,Login,"2,3",User is not registered.,"- Email: newuser@example.com
+- Password: newpassword","1. Enter new email and password in the login form.
+2. Click ""Login"".
+3. Verify that the user is prompted to register.",User is redirected to the registration page.
+TC-Compito-001,Create New Task,Compito,"1,6",User is authenticated and has permission to create tasks.,"- Nome: New Task
+- Descrizione: Description of the new task
+- Region: Region
+- Provincia: Province
+- Città: City
+- Utenti Richiesti: User1, User2","1. Click ""Inserisci compito"" button.
+2. Fill in the task details.
+3. Click ""Submit"".
+4. Verify that the task is created and listed in the task list.",Task is successfully created and listed in the task list.
+TC-Compito-002,Create New Task with Missing Fields,Compito,"1,6",User is authenticated and has permission to create tasks.,"- Nome: 
+- Descrizione: 
+- Region: 
+- Provincia: 
+- Città: 
+- Utenti Richiesti:","1. Click ""Inserisci compito"" button.
+2. Fill in all fields except required ones.
+3. Click ""Submit"".
+4. Verify that the user is prompted to fill in all required fields.",User is shown an error message indicating missing required fields.
+TC-Compito-003,Terminate Task,Compito,"1,6",User is authenticated and has permission to terminate tasks.,- Task ID: 1,"1. Select the task to terminate.
+2. Click ""Terminate Task"".
+3. Verify that the task is marked as terminated.",Task is marked as terminated.
+TC-Compito-004,Delete Task,Compito,"1,6",User is authenticated and has permission to delete tasks.,- Task ID: 1,"1. Select the task to delete.
+2. Click ""Delete Task"".
+3. Verify that the task is removed from the task list.",Task is successfully deleted from the task list.
+TC-Assegnazione-001,Assign Task to User,Assegnazione,"1,6",User is authenticated and has permission to assign tasks.,"- Task ID: 1
+- User ID: 1","1. Select the task to assign.
+2. Select the user to assign the task to.
+3. Click ""Assign Task"".
+4. Verify that the task is assigned to the user.",Task is successfully assigned to the user.
+TC-Assegnazione-002,Assign Task to Non-Existent User,Assegnazione,"1,6",User is authenticated and has permission to assign tasks.,"- Task ID: 1
+- User ID: 100","1. Select the task to assign.
+2. Select a non-existent user to assign the task to.
+3. Click ""Assign Task"".
+4. Verify that the user is prompted to select a valid user.",User is shown an error message indicating a non-existent user.
+TC-Assegnazione-003,Accept Assignment,Assegnazione,"1,6",User is authenticated and has accepted the assignment.,- Assignment ID: 1,"1. Select the assignment to accept.
+2. Click ""Accept Assignment"".
+3. Verify that the assignment is marked as accepted.",Assignment is marked as accepted.
+TC-Assegnazione-004,Delete Assignment,Assegnazione,"1,6",User is authenticated and has permission to delete assignments.,- Assignment ID: 1,"1. Select the assignment to delete.
+2. Click ""Delete Assignment"".
+3. Verify that the assignment is removed from the assignment list.",Assignment is successfully deleted from the assignment list.
+TC-Emergenza-001,Create New Emergency,Emergenza,"1,7",User is authenticated and has permission to create emergencies.,"- Nome: New Emergency
+- Descrizione: Description of the new emergency
+- Region: Region
+- Provincia: Province
+- Data Inizio: 2023-10-01
+- Data Fine: 2023-10-02","1. Click ""Inserisci emergenza"" button.
+2. Fill in the emergency details.
+3. Click ""Submit"".
+4. Verify that the emergency is created and listed in the emergency list.",Emergency is successfully created and listed in the emergency list.
+TC-Emergenza-002,Create New Emergency with Missing Fields,Emergenza,"1,7",User is authenticated and has permission to create emergencies.,"- Nome: 
+- Descrizione: 
+- Region: 
+- Provincia: 
+- Data Inizio: 
+- Data Fine:","1. Click ""Inserisci emergenza"" button.
+2. Fill in all fields except required ones.
+3. Click ""Submit"".
+4. Verify that the user is prompted to fill in all required fields.",User is shown an error message indicating missing required fields.
+TC-Emergenza-003,Terminate Emergency,Emergenza,"1,7",User is authenticated and has permission to terminate emergencies.,- Emergency ID: 1,"1. Select the emergency to terminate.
+2. Click ""Terminate Emergency"".
+3. Verify that the emergency is marked as terminated.",Emergency is marked as terminated.
+TC-Emergenza-004,Delete Emergency,Emergenza,"1,7",User is authenticated and has permission to delete emergencies.,- Emergency ID: 1,"1. Select the emergency to delete.
+2. Click ""Delete Emergency"".
+3. Verify that the emergency is removed from the emergency list.",Emergency is successfully deleted from the emergency list.
+TC-Utente-001,Register New User,Utente,"2,3",User is not registered.,"- Nome: John Doe
+- Cognome: Doe
+- Password: testpassword
+- Cellulare: +1234567890
+- Email: john.doe@example.com
+- DoB: 1990-01-01
+- Region: Region
+- Provincia: Province
+- Città: City
+- Is Coordinatore: 1
+- Is Volontario: 1","1. Click ""Register"" button.
+2. Fill in the user details.
+3. Click ""Submit"".
+4. Verify that the user is registered and redirected to the login page.",User is successfully registered and redirected to the login page.
+TC-Utente-002,Register New User with Missing Fields,Utente,"2,3",User is not registered.,"- Nome: 
+- Cognome: 
+- Password: 
+- Cellulare: 
+- Email: 
+- DoB: 
+- Region: 
+- Provincia: 
+- Città: 
+- Is Coordinatore: 
+- Is Volontario:","1. Click ""Register"" button.
+2. Fill in all fields except required ones.
+3. Click ""Submit"".
+4. Verify that the user is prompted to fill in all required fields.",User is shown an error message indicating missing required fields.
+TC-Utente-003,Promote User to Coordinator,Utente,"2,3",User is registered and is a volunteer.,- User ID: 1,"1. Select the user to promote.
+2. Click ""Promote to Coordinator"".
+3. Verify that the user's role is updated to coordinator.",User's role is successfully updated to coordinator.
+TC-Utente-004,Remove User from Coordinator Role,Utente,"2,3",User is registered and is a coordinator.,- User ID: 1,"1. Select the user to demote.
+2. Click ""Remove from Coordinator Role"".
+3. Verify that the user's role is updated to volunteer.",User's role is successfully updated to volunteer.
+TC-Utente-005,Update User Information,Utente,"2,3",User is registered.,"- User ID: 1
+- Nome: John
+- Cognome: Doe
+- Password: newpassword
+- Cellulare: +1234567890
+- Email: john.doe@example.com
+- DoB: 1990-01-01
+- Region: Region
+- Provincia: Province
+- Città: City","1. Select the user to update.
+2. Fill in the updated user details.
+3. Click ""Update"".
+4. Verify that the user's information is updated.",User's information is successfully updated.
+TC-Utente-006,Update User Information with Missing Fields,Utente,"2,3",User is registered.,"- User ID: 1
+- Nome: 
+- Cognome: 
+- Password: 
+- Cellulare: 
+- Email: 
+- DoB: 
+- Region: 
+- Provincia: 
+- Città:","1. Select the user to update.
+2. Fill in all fields except required ones.
+3. Click ""Update"".
+4. Verify that the user is prompted to fill in all required fields.",User is shown an error message indicating missing required fields.
+TC-UtenteCompito-001,Perform Task,UtenteCompito,"1,6",User is authenticated and has been assigned a task.,"- Task ID: 1
+- Data Inizio: 2023-10-01
+- Data Fine: 2023-10-02","1. Select the task to perform.
+2. Click ""Perform Task"".
+3. Verify that the task is marked as performed.",Task is marked as performed.
+TC-Ut,,,,,,,

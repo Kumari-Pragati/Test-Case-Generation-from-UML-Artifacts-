@@ -1,0 +1,112 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful User Login,Login,"1, 2",User account exists in the database.,"- Username: testuser
+- Password: testpass","1. User initiates login process.
+2. Application sends request to database to verify user registration.
+3. Database responds with confirmation of user registration.
+4. Application grants access to the homepage.",User successfully logs in and is redirected to the homepage.
+TC-Login-002,Unsuccessful User Login - Incorrect Password,Login,"1, 2",User account exists in the database but with a different password.,"- Username: testuser
+- Password: incorrectpass","1. User initiates login process.
+2. Application sends request to database to verify user registration.
+3. Database responds with confirmation of user registration.
+4. Application denies access due to incorrect password.",User receives a message indicating incorrect password and is not granted access.
+TC-Login-003,Unsuccessful User Login - Nonexistent Account,Login,"1, 2",User account does not exist in the database.,"- Username: nonexistuser
+- Password: testpass","1. User initiates login process.
+2. Application sends request to database to verify user registration.
+3. Database responds with confirmation of non-registration.
+4. Application prompts user to register.",User receives a message indicating they need to register and is not granted access.
+TC-DataRetrieval-001,Retrieve Chemical Formula Data,Data Retrieval,1,User is logged in and has access to UserData.,- User: testuser,"1. User requests UserData.
+2. UserData retrieves FormulaChemica data.
+3. FormulaChemica retrieves Depositive data.
+4. Depositive retrieves PercentualePresenza data.
+5. PercentualePresenza retrieves CarbonFootprint data.
+6. CarbonFootprint retrieves Modello data.
+7. Modello retrieves InputProduzione data.
+8. InputProduzione retrieves FootprintTotale data.
+9. FootprintTotale retrieves InputProduzioneFootprintTotale data.",User receives all requested data in a hierarchical structure.
+TC-DataRetrieval-002,Retrieve Invalid Chemical Formula Data,Data Retrieval,1,User is logged in but UserData is invalid or missing.,- User: testuser,"1. User requests UserData.
+2. UserData fails to retrieve FormulaChemica data.
+3. System returns error message.",User receives an error message indicating failure to retrieve chemical formula data.
+TC-DataModification-001,Modify User Data Successfully,Data Modification,3,User is logged in and has permission to modify data.,"- User: testuser
+- New Email: newemail@example.com","1. User requests modification of their data.
+2. Application requests current data from the database.
+3. Database provides current data.
+4. Application updates the data in the database.
+5. Database confirms the update.
+6. Application displays the updated data to the user.",User's email is successfully updated and displayed.
+TC-DataModification-002,Attempt to Modify Invalid User Data,Data Modification,3,User is logged in but attempts to modify invalid data.,"- User: testuser
+- New Email: invalidemail","1. User requests modification of their data.
+2. Application requests current data from the database.
+3. Database provides current data.
+4. Application attempts to update invalid data.
+5. Database rejects the update.
+6. Application displays an error message.",User receives an error message indicating failure to update invalid data.
+TC-DeviceScan-001,Device Scan with Functional Components,Device Scan,4,User is logged in and has permission to scan devices.,- User: testuser,"1. User initiates device scan.
+2. Application performs hardware scan.
+3. Application checks if components are functioning.
+4. Application retrieves component name and impact from the database.
+5. Application returns component name, impact, and diagnostic information.",User receives diagnostic information indicating functional components.
+TC-DeviceScan-002,Device Scan with Defective Components,Device Scan,4,User is logged in and has permission to scan devices.,- User: testuser,"1. User initiates device scan.
+2. Application performs hardware scan.
+3. Application checks if components are functioning.
+4. Application retrieves component name and impact from the database.
+5. Application calculates the impact of replacing defective components.
+6. Application returns component name, impact, and diagnostic information.",User receives diagnostic information indicating defective components and their impact.
+TC-LifespanCalculation-001,Calculate Device Lifespan with Healthy Components,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan.
+3. Application assesses component speed and health.
+4. Application calculates device lifespan.
+5. Application returns the calculated lifespan.",User receives the calculated lifespan of the device.
+TC-LifespanCalculation-002,Calculate Device Lifespan with Unhealthy Components,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan.
+3. Application assesses component speed and health.
+4. Application calculates device lifespan considering unhealthy components.
+5. Application returns the calculated lifespan.","User receives the calculated lifespan of the device, adjusted for unhealthy components."
+TC-EdgeCase-001,Edge Case - Empty User Data,Data Retrieval,1,User is logged in but UserData is empty.,- User: testuser,"1. User requests UserData.
+2. UserData fails to retrieve any associated data.
+3. System returns an empty response.",User receives an empty response indicating no associated data.
+TC-EdgeCase-002,Edge Case - Null Values in UserData,Data Retrieval,1,User is logged in but UserData contains null values.,- User: testuser,"1. User requests UserData.
+2. UserData retrieves data with null values.
+3. System returns error message.",User receives an error message indicating null values in the retrieved data.
+TC-EdgeCase-003,Edge Case - Large Dataset Retrieval,Data Retrieval,1,User is logged in and has a large amount of associated data.,- User: testuser,"1. User requests UserData.
+2. UserData retrieves a large dataset.
+3. System processes and returns the dataset.",User receives the large dataset within a reasonable time frame.
+TC-EdgeCase-004,Edge Case - Concurrent Data Modification,Data Modification,3,Multiple users attempt to modify the same data simultaneously.,"- Users: testuser1, testuser2","1. User1 requests modification of their data.
+2. User2 requests modification of the same data.
+3. Application processes both requests concurrently.
+4. Database handles concurrent updates.
+5. Application confirms updates and displays data to both users.",Both users receive confirmation of successful modifications without conflicts.
+TC-EdgeCase-005,Edge Case - Device Scan with Missing Components,Device Scan,4,User is logged in and has permission to scan devices.,- User: testuser,"1. User initiates device scan.
+2. Application performs hardware scan.
+3. Application checks if components are functioning.
+4. Application encounters missing components.
+5. Application returns diagnostic information indicating missing components.",User receives diagnostic information indicating missing components.
+TC-EdgeCase-006,Edge Case - Device Scan with All Components Defective,Device Scan,4,User is logged in and has permission to scan devices.,- User: testuser,"1. User initiates device scan.
+2. Application performs hardware scan.
+3. Application checks if components are functioning.
+4. Application encounters all components as defective.
+5. Application calculates the impact of replacing all components.
+6. Application returns diagnostic information indicating all components are defective.",User receives diagnostic information indicating all components are defective and the impact of replacing them.
+TC-EdgeCase-007,Edge Case - Device Lifespan Calculation with Extreme Conditions,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan under extreme conditions.
+3. Application assesses component speed and health under extreme conditions.
+4. Application calculates device lifespan under extreme conditions.
+5. Application returns the calculated lifespan.",User receives the calculated lifespan of the device under extreme conditions.
+TC-EdgeCase-008,Edge Case - Device Lifespan Calculation with No Data Available,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan but finds no data available.
+3. Application returns an error message.",User receives an error message indicating no data available for lifespan calculation.
+TC-EdgeCase-009,Edge Case - Device Lifespan Calculation with Insufficient Data,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan but finds insufficient data.
+3. Application returns an error message.",User receives an error message indicating insufficient data for lifespan calculation.
+TC-EdgeCase-010,Edge Case - Device Lifespan Calculation with Unexpected Data Format,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan but encounters unexpected data format.
+3. Application returns an error message.",User receives an error message indicating unexpected data format encountered during lifespan calculation.
+TC-EdgeCase-011,Edge Case - Device Lifespan Calculation with Network Issues,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan but encounters network issues.
+3. Application returns an error message.",User receives an error message indicating network issues encountered during lifespan calculation.
+TC-EdgeCase-012,Edge Case - Device Lifespan Calculation with Hardware Failure,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan but encounters hardware failure.
+3. Application returns an error message.",User receives an error message indicating hardware failure encountered during lifespan calculation.
+TC-EdgeCase-013,Edge Case - Device Lifespan Calculation with Timeouts,Lifespan Calculation,5,User is logged in and has permission to calculate device lifespan.,- User: testuser,"1. User initiates hardware scanning.
+2. Application performs hardware scan but encounters timeouts.
+3. Application returns an error message.",User receives an error message indicating timeouts encountered during lifespan calculation.
+TC-EdgeCase,,,,,,,

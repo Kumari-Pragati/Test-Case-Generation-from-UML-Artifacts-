@@ -1,0 +1,106 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful Google Sign-In and Family Activity Transition,Authentication,3,"- User has Google account linked to the app.
+- Internet connection is available.","- Valid Google credentials (e.g., `sebastianocavalet@gmail.com`).","1. User taps ""Sign In with Google"" in the app.
+2. User enters valid email (`sebastianocavalet@gmail.com`) and grants permissions.
+3. System calls `handleSignInTask(Task<GoogleSignInAccount> task)` in `LoginActivity`.
+4. User is redirected to `FamilyActivity`.","- User is successfully authenticated.
+- `FamilyActivity` loads without errors.
+- No error messages or crashes occur."
+TC-AUTHENTICATION-002,Failed Google Sign-In (Invalid Credentials),Authentication,3,- User attempts to sign in with invalid credentials.,"- Invalid email (e.g., `invalidemail@example.com`) or no internet connection.","1. User taps ""Sign In with Google"" and enters invalid credentials.
+2. System attempts to call `handleSignInTask(Task<GoogleSignInAccount> task)`.
+3. Error occurs (e.g., ""Sign-in failed"").","- User sees an error message (e.g., ""Invalid email or network error"").
+- User remains on `LoginActivity` or is prompted to retry.
+- No crash or data leakage occurs."
+TC-FAMILY-MANAGEMENT-001,Create New Family with Valid Inputs,Family Management,3,- User is authenticated and in `FamilyActivity`.,"- Family name: ""Cavalet""
+- Surname: ""Family""
+- Gender: ""Male""
+- Date of birth: ""15/01/2023""","1. User navigates to `CreaFamilyActivity`.
+2. User fills in the form with valid data and taps ""Create"".
+3. System calls `createFamily(""Cavalet"", ""Family"", ""Male"", ""15/01/2023"")`.
+4. System generates a family code via `randomGenerator(6)` and stores it.","- Family is created successfully.
+- Family code (e.g., ""5Rqbuh0N9S"") is displayed or sent to the user.
+- User is redirected to `HomeActivity`.
+- No validation errors appear."
+TC-FAMILY-MANAGEMENT-002,Join Existing Family with Valid Code,Family Management,3,"- A family exists with code ""5Rqbuh0N9S"".
+- User is in `JoinFamilyActivity`.","- Valid family code: ""5Rqbuh0N9S"".","1. User enters the family code ""5Rqbuh0N9S"" in the input field.
+2. System calls `checkCode(""5Rqbuh0N9S"")`.
+3. User is added to the family.","- User is successfully joined to the family.
+- User is redirected to `HomeActivity`.
+- No error messages appear."
+TC-FAMILY-MANAGEMENT-003,Join Family with Invalid Code,Family Management,3,- User is in `JoinFamilyActivity`.,"- Invalid family code: ""123456"" (non-existent).","1. User enters ""123456"" and taps ""Join"".
+2. System calls `checkCode(""123456"")`.
+3. System detects invalid code.","- User sees an error message: ""Invalid family code. Please try again.""
+- User remains on `JoinFamilyActivity`.
+- No crash or data corruption occurs."
+TC-NAVIGATION-001,Access Monitoring Section from Bottom Menu,UI Navigation,2,- User is authenticated and on `HomeActivity`.,,"1. User taps the bottom menu icon (e.g., ""Monitoring"" option).
+2. System evaluates `Accesso al menu a fondo` decision as ""SI"".
+3. User is redirected to `Sezione di monitoraggio` (`MonitorFragment`).","- `MonitorFragment` loads successfully.
+- No delays or crashes occur.
+- UI reflects the monitoring section (e.g., graphs, timers)."
+TC-NAVIGATION-002,Access Notes Section from Bottom Menu,UI Navigation,2,- User is authenticated and on `HomeActivity`.,,"1. User taps the bottom menu icon (e.g., ""Notes"" option).
+2. System evaluates `Accesso al menu a fondo` decision as ""NO"".
+3. User is redirected to `Note` section (`NoteFragment`).
+4. User taps ""Return to Home"".
+5. System returns to `HOME` (`HomeActivity`).","- `NoteFragment` loads without errors.
+- ""Return to Home"" button works and redirects to `HomeActivity`.
+- No data loss or UI glitches occur."
+TC-MONITORING-001,Start and Stop Left Breastfeeding Timer,Breastfeeding Tracking,"1, 3","- User is in `AllattamentoFragment` (child: ""Allattamento"").
+- Left breast timer is initialized (e.g., `Left: ""0""`).",,"1. User taps ""Start Left"" button.
+2. System calls `startTimerLeft()` and `startStopLeft(View view)`.
+3. Timer starts counting (e.g., displays ""00:05:00"").
+4. User taps ""Stop Left"" after 5 minutes.
+5. System calls `startStopLeft(View view)` again and stops timer.
+6. System updates `Left: ""5""` in `Allattamento` entity.","- Timer starts and stops accurately.
+- UI updates to show ""5"" minutes for the left breast.
+- No crashes or incorrect time display."
+TC-MONITORING-002,Reset Breastfeeding Timer,Breastfeeding Tracking,"1, 3","- User is in `AllattamentoFragment` with `Left: ""5""` and `Right: ""3""`.",,"1. User taps ""Reset Left"" button.
+2. System calls `resetLeft(View view)` and `setButtonUILeft(int color)`.
+3. Timer resets to ""0"".
+4. System updates `Left: ""0""` in `Allattamento` entity.","- Left timer resets to ""0"".
+- UI reflects the reset (e.g., button color changes to indicate reset).
+- No data corruption in `Allattamento` entity."
+TC-MONITORING-003,View Sleep Graph in Profile,Growth/Sleep Tracking,3,"- User has sleep data recorded for the child.
+- User is in `ProfileActivity`.",,"1. User taps ""Sleep Graph"" option.
+2. System loads `GraphSonnoFragment`.
+3. System calls `graphSonno(View view)`.","- Sleep graph renders correctly with historical data.
+- No loading errors or empty graph.
+- UI is responsive to user interactions (e.g., zooming)."
+TC-MONITORING-004,View Growth Graph in Profile,Growth Tracking,3,"- User has growth data recorded for the child.
+- User is in `ProfileActivity`.",,"1. User taps ""Growth Graph"" option.
+2. System loads `GraphCrescitaFragment`.
+3. System calls `graphCrescita(View view)`.","- Growth graph displays data points (e.g., weight/height over time).
+- Graph is interactive (e.g., tooltips on data points).
+- No errors or missing data."
+TC-NOTES-001,Create and Edit a Note,Notes Management,3,"- User is in `HomeActivity` and taps ""Notes"" from the bottom menu.",,"1. User taps ""+ Add Note"" in `NoteFragment`.
+2. System loads `EditNoteFragment`.
+3. User types: ""Child had 6 feedings today"" and taps ""Save"".
+4. System returns to `NoteFragment` and displays the new note.
+5. User taps the note to edit it.
+6. User changes text to ""Child had 6 feedings today, slept 14 hours"" and taps ""Save"".","- Note is created and displayed in `NoteFragment`.
+- Edited note updates correctly.
+- No data loss or UI lag."
+TC-NOTES-002,Delete a Note,Notes Management,3,- User has at least one note in `NoteFragment`.,,"1. User long-presses a note.
+2. System shows ""Delete"" option.
+3. User confirms deletion.","- Note is removed from `NoteFragment`.
+- No errors or crashes occur.
+- Remaining notes are unaffected."
+TC-PROFILE-001,Log Out of Application,User Profile,3,- User is authenticated and in `ProfileActivity`.,,"1. User taps ""Log Out"" button.
+2. System calls `abbandona(String userId, GoogleSignInClient googleSignInClient)`.
+3. User is redirected to `LoginActivity`.","- User is successfully logged out.
+- All session data is cleared.
+- `LoginActivity` loads without errors."
+TC-EDGE-CASE-001,Handle Empty Family Name During Creation,Family Management,3,- User is in `CreaFamilyActivity`.,"- Family name: """" (empty).
+- Other fields filled.","1. User leaves ""Family Name"" field empty and taps ""Create"".
+2. System validates input and rejects empty name.","- Error message: ""Family name cannot be empty.""
+- User remains on `CreaFamilyActivity`.
+- No family is created."
+TC-EDGE-CASE-002,Handle Invalid Date Format in Family Creation,Family Management,3,- User is in `CreaFamilyActivity`.,"- Date of birth: ""2023/15/01"" (invalid format).","1. User enters ""2023/15/01"" and taps ""Create"".
+2. System calls `getDate()` and detects invalid format.","- Error message: ""Please enter a valid date (DD/MM/YYYY).""
+- User remains on `CreaFamilyActivity`.
+- No crash or data corruption."
+TC-EDGE-CASE-003,Timer Overflow (Exceeds 24 Hours),Breastfeeding Tracking,"1, 3",- User starts a timer and simulates 25 hours of feeding.,,"1. User starts `startTimerLeft()` and manually sets time to 25 hours.
+2. System attempts to display time via `formatTime(int seconds, int minutes, int hours)`.","- Timer resets to ""00:00:00"" or shows an overflow error.
+- No crash or incorrect time display.
+- User is prompted to reset manually."
+TC-INTEGRATION-001,End-to-End Flow: Sign In → Create Family → Start Feeding Timer → View Graphs,Full User Journey,"1, 2, 3",- User has Google account and no existing family.,,"1. User signs in via Google (`LoginActivity` → `FamilyActivity`).
+2",

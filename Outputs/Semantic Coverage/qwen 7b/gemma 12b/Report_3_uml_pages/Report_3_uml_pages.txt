@@ -1,0 +1,211 @@
+REPORT: Report_3_uml_pages.pdf
+======================================================================
+
+===== Report_3_uml_pages.pdf | Page 1 =====
+UML Type:
+- Component
+
+Components:
+- AppComponentModel — kind=component; attributes=[]; operations=[]; role=Application Component
+- DashboardActivity — kind=component; attributes=[]; operations=[onCreate(Bundle savedInstanceStateState): void]; role=Dashboard Activity
+- MainAcitivity — kind=component; attributes=[jTextField: ]; operations=[onCreate(Bundle savedInstanceStateState): void, onResume(Bundle savedInstanceStateState): void, onPause(): void, onStop(): void]; role=Main Activity
+- SignUpActivity — kind=component; attributes=[]; operations=[onCreate(Bundle savedInstanceStateState): void, onResume(Bundle savedInstanceStateState): void]; role=Sign Up Activity
+- UserListActivity — kind=component; attributes=[recyclerView: ]; operations=[onCreate(Bundle savedInstanceStateState): void, onResume(Bundle savedInstanceStateState): void, onConnected(User User): void]; role=User List Activity
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- AppComponentModel -> DashboardActivity — type=association; label=""; explanation="DashboardActivity is part of AppComponentModel"
+- AppComponentModel -> MainAcitivity — type=association; label=""; explanation="MainAcitivity is part of AppComponentModel"
+- AppComponentModel -> SignUpActivity — type=association; label=""; explanation="SignUpActivity is part of AppComponentModel"
+- AppComponentModel -> UserListActivity — type=association; label=""; explanation="UserListActivity is part of AppComponentModel"
+
+Main Flows:
+- Flow 1: AppComponentModel -> DashboardActivity -> MainAcitivity -> SignUpActivity -> UserListActivity
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a component diagram representing an application with several activities.
+- The AppComponentModel acts as a container for the other activities: DashboardActivity, MainAcitivity, SignUpActivity, and UserListActivity.
+- The activities are connected via associations, suggesting a potential flow or dependency between them.
+- The diagram does not specify the order of execution or any conditional logic between the activities.
+
+===== Report_3_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Home — kind=initial node; attributes=[]; operations=[]; role=Starting point
+- Visualizzazione meteo della località attuale — kind=action; attributes=[]; operations=[]; role=Displaying current weather
+- Ricerca meteo di altre località — kind=action; attributes=[]; operations=[]; role=Searching weather for other locations
+- Click su "weather" — kind=action; attributes=[]; operations=[]; role=Clicking on the "weather" button
+- Click su lente d'ingrandimento — kind=action; attributes=[]; operations=[]; role=Clicking on the magnifying glass icon
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Home -> Click su "weather" — type=transition; label=""; explanation="Transition from Home to Click su 'weather'"
+- Click su "weather" -> Visualizzazione meteo della località attuale — type=transition; label=""; explanation="Transition from Click on 'weather' to displaying current weather"
+- Visualizzazione meteo della località attuale -> Click su lente d'ingrandimento — type=transition; label=""; explanation="Transition from displaying current weather to clicking on the magnifying glass"
+- Click su lente d'ingrandimento -> Ricerca meteo di altre località — type=transition; label="SI"; explanation="Transition to searching weather for other locations if the condition is true"
+- Visualizzazione meteo della località attuale -> Ricerca meteo di altre località — type=transition; label="NO"; explanation="Transition to searching weather for other locations if the condition is false"
+
+Main Flows:
+- Flow 1: Home -> Click su "weather" -> Visualizzazione meteo della località attuale -> Click su lente d'ingrandimento -> Ricerca meteo di altre località
+- Flow 2: Home -> Click su "weather" -> Visualizzazione meteo della località attuale -> Ricerca meteo di altre località
+
+Conditions / Branches:
+- Click su lente d'ingrandimento:
+  - SI -> Ricerca meteo di altre località
+  - NO -> Ricerca meteo di altre località
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a simple weather application flow.
+- The user starts at the Home screen and clicks on "weather" to view the current weather.
+- After viewing the current weather, the user can either click on a magnifying glass icon (SI) or not (NO), leading to the same outcome: searching for weather in other locations.
+- The diagram shows a linear flow with a single decision point.
+
+===== Report_3_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- User — kind=actor; attributes=[]; operations=[]; role=user
+- Applicazione — kind=component; attributes=[]; operations=[]; role=application
+- Server — kind=component; attributes=[]; operations=[]; role=server
+
+Actors / Lifelines:
+- User
+- Applicazione
+- Server
+
+Relationships / Links:
+- User -> Applicazione — type=message; label="Click su \"Trekking\""; explanation="User clicks on 'Trekking'"
+- Applicazione -> Server — type=message; label="Richiesta elenco province"; explanation="Application requests list of provinces from server"
+- Server -> Applicazione — type=message; label="Invio elenco province"; explanation="Server sends list of provinces to application"
+- Applicazione -> User — type=message; label="Fornisce elenco province"; explanation="Application provides list of provinces to user"
+- User -> Applicazione — type=message; label="Click sulla provincia"; explanation="User clicks on a province"
+- Applicazione -> Server — type=message; label="Richiesta elenco percorsi"; explanation="Application requests list of paths from server"
+- Server -> Applicazione — type=message; label="Invio elenco percorsi"; explanation="Server sends list of paths to application"
+- Applicazione -> User — type=message; label="Fornisce elenco province"; explanation="Application provides list of paths to user"
+- User -> Applicazione — type=message; label="Click sul percorso nella provincia selezionata"; explanation="User clicks on a path in the selected province"
+
+Main Flows:
+- Flow 1: User -> Applicazione (Click su "Trekking") -> Applicazione -> Server (Richiesta elenco province) -> Server -> Applicazione (Invio elenco province) -> Applicazione -> User (Fornisce elenco province) -> User -> Applicazione (Click sulla provincia) -> Applicazione -> Server (Richiesta elenco percorsi) -> Server -> Applicazione (Invio elenco percorsi) -> Applicazione -> User (Fornisce elenco province) -> User -> Applicazione (Click sul percorso nella provincia selezionata)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a sequence of interactions between a User, an Application, and a Server for selecting a trekking path.
+- The user initiates the process by clicking on "Trekking" in the application.
+- The application then requests a list of provinces from the server, receives it, and displays it to the user.
+- The user selects a province, triggering a request for a list of paths within that province.
+- The server sends the list of paths to the application, which displays them to the user.
+- Finally, the user selects a path.
+
+===== Report_3_uml_pages.pdf | Page 4 =====
+UML Type:
+- use_case
+
+Components:
+- User — kind=actor; attributes=[]; operations=[]; role=User
+- Applicazione — kind=component; attributes=[]; operations=[]; role=Application
+- Server — kind=component; attributes=[]; operations=[]; role=Server
+- Meteo — kind=use_case; attributes=[]; operations=[]; role=Weather information
+
+Actors / Lifelines:
+- User
+- Applicazione
+- Server
+
+Relationships / Links:
+- User -> Applicazione — type=association; label="Click su 'Weather'"; explanation="User interacts with the Application"
+- Applicazione -> Server — type=association; label="Richiesta dati meteo"; explanation="Application requests weather data from the Server"
+- Server -> Applicazione — type=association; label="Invio dati meteo"; explanation="Server sends weather data to the Application"
+- Applicazione -> User — type=association; label="Fornisce dati meteo"; explanation="Application provides weather data to the User"
+
+Main Flows:
+- Flow 1: User -> Applicazione (Click su 'Weather') -> Server (Richiesta dati meteo) -> Applicazione (Invio dati meteo) -> User (Fornisce dati meteo)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a use case for retrieving weather information.
+- The user initiates the process by clicking on a "Weather" option within the application.
+- The application then requests weather data from a server.
+- The server responds by sending the weather data back to the application.
+- Finally, the application presents the weather data to the user.
+- The diagram depicts a simple, linear flow without any error handling or alternative paths.
+
+===== Report_3_uml_pages.pdf | Page 5 =====
+UML Type:
+- use_case
+
+Components:
+- User — kind=actor; attributes=[]; operations=[]; role=user
+- Application — kind=component; attributes=[]; operations=[]; role=application
+- Server — kind=component; attributes=[]; operations=[]; role=server
+
+Actors / Lifelines:
+- User
+- Application
+- Server
+
+Relationships / Links:
+- User -> Application — type=association; label="Click su "Health"" ; explanation="User interacts with the Application"
+- Application -> Server — type=message; label="Richiesta dati allenamenti passati" ; explanation="Application requests training data from the Server"
+- Server -> Application — type=message; label="Invio dati" ; explanation="Server sends data to the Application"
+- Application -> User — type=message; label="Fornisce elenco allenamenti" ; explanation="Application provides training list to the User"
+
+Main Flows:
+- Flow 1: User -> Application (Click su "Health") -> Application -> Server (Richiesta dati allenamenti passati) -> Server -> Application (Invio dati) -> Application -> User (Fornisce elenco allenamenti)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a use case where a User interacts with an Application to retrieve a list of past training sessions from a Server.
+- The User initiates the process by clicking on the "Health" option within the Application.
+- The Application then requests training data from the Server.
+- The Server responds by sending the data back to the Application.
+- Finally, the Application presents the list of training sessions to the User.
+- The diagram does not show any error handling or alternative flows.
+
+
+======================================================================

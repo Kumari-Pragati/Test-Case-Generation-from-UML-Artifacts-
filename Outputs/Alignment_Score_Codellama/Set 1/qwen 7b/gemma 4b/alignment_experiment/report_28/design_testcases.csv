@@ -1,0 +1,81 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Authentication-001,Successful Token Retrieval,Authentication,2,None,- Token is valid and not null,"1. Main calls getToken() to retrieve a token.
+2. Main sends a request to API_Manager with the valid token.
+3. API_Manager returns a status indicating success.",- Main receives a successful status from API_Manager.
+TC-Authentication-002,Invalid Token Retrieval,Authentication,2,None,- Token is invalid or null,"1. Main calls getToken() to retrieve a token.
+2. Main sends a request to API_Manager with the invalid token.
+3. API_Manager returns a status indicating failure.",- Main receives a failure status from API_Manager.
+TC-DataRetrieval-001,Successful Data Retrieval,DataRetrieval,"3, 4, 5",- ListJSON contains valid entries,"- ListJSON = [{""id"": 1, ""name"": ""entry1""}, {""id"": 2, ""name"": ""entry2""}]","1. Main sends a listJSON request to API_Manager.
+2. API_Manager iterates through the listJSON and calls displayList() on Service/Need/Report for each entry.
+3. Service/Need/Report processes each entry and returns a 'done' message to API_Manager.
+4. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager indicating successful data retrieval.
+TC-DataRetrieval-002,Empty ListJSON Retrieval,DataRetrieval,"3, 4, 5",- ListJSON is empty,- ListJSON = [],"1. Main sends a listJSON request to API_Manager.
+2. API_Manager iterates through the empty listJSON and does nothing.
+3. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager indicating no data to process.
+TC-NewEntry-001,Successful New Entry Creation,NewEntry,4,- New entry data is valid,"- NewEntry = {""id"": 1, ""name"": ""newEntry""}","1. Main sends a 'new' message to API_Manager.
+2. API_Manager calls newEntry on Service/Need/Report, passing request(newEntry) as an argument.
+3. Service/Need/Report processes the new entry and returns a 'done' message to API_Manager.
+4. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager indicating successful new entry creation.
+TC-NewEntry-002,Invalid New Entry Creation,NewEntry,4,- New entry data is invalid,- NewEntry = {},"1. Main sends a 'new' message to API_Manager.
+2. API_Manager calls newEntry on Service/Need/Report, passing request(newEntry) as an argument.
+3. Service/Need/Report returns an error message to API_Manager.
+4. API_Manager sends an error message to Main.",- Main receives an error message from API_Manager indicating invalid new entry data.
+TC-UpdateEntry-001,Successful Update Entry,UpdateEntry,5,- Data to be updated exists and is valid,"- DatiAggiornati = [{""id"": 1, ""name"": ""updatedEntry""}]","1. Main calls leggiDatInseriti.
+2. For each dato in datiAggiornati, API_Manager calls set(dato).
+3. API_Manager calls updateEntry->toJSON().
+4. API_Manager sends request(updateEntry) to Service/Need/Report.
+5. Service/Need/Report processes the update and returns a 'done' message to API_Manager.
+6. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager indicating successful update.
+TC-UpdateEntry-002,Failed Update Entry,UpdateEntry,5,- Data to be updated does not exist,"- DatiAggiornati = [{""id"": 999, ""name"": ""nonexistentEntry""}]","1. Main calls leggiDatInseriti.
+2. For each dato in datiAggiornati, API_Manager calls set(dato).
+3. API_Manager calls updateEntry->toJSON().
+4. API_Manager sends request(updateEntry) to Service/Need/Report.
+5. Service/Need/Report returns an error message to API_Manager.
+6. API_Manager sends an error message to Main.",- Main receives an error message from API_Manager indicating failed update.
+TC-DisplayList-001,Display List with Valid Entries,DisplayList,3,- ListJSON contains valid entries,"- ListJSON = [{""id"": 1, ""name"": ""entry1""}, {""id"": 2, ""name"": ""entry2""}]","1. Main sends a listJSON request to API_Manager.
+2. API_Manager iterates through the listJSON and calls displayList() on Service/Need/Report for each entry.
+3. Service/Need/Report processes each entry and returns a 'done' message to API_Manager.
+4. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager indicating successful display of list entries.
+TC-DisplayList-002,Display List with No Entries,DisplayList,3,- ListJSON is empty,- ListJSON = [],"1. Main sends a listJSON request to API_Manager.
+2. API_Manager iterates through the empty listJSON and does nothing.
+3. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager indicating no entries to display.
+TC-TokenValidation-001,Token Validation Success,TokenValidation,2,- Token is valid and not null,"- Token = ""valid_token""","1. Main calls getToken() to retrieve a token.
+2. Main sends a request to API_Manager with the valid token.
+3. API_Manager validates the token and returns a status indicating success.",- Main receives a successful status from API_Manager.
+TC-TokenValidation-002,Token Validation Failure,TokenValidation,2,- Token is invalid or null,- Token = null,"1. Main calls getToken() to retrieve a token.
+2. Main sends a request to API_Manager with the invalid token.
+3. API_Manager validates the token and returns a status indicating failure.",- Main receives a failure status from API_Manager.
+TC-EmptyRequest-001,Empty Request Handling,RequestHandling,"2, 3, 4, 5",- Request is empty or null,- Request = {},"1. Main sends an empty request to API_Manager.
+2. API_Manager processes the empty request and returns a status indicating failure.
+3. Main receives a failure status from API_Manager.",- Main receives a failure status from API_Manager indicating an empty request.
+TC-NullRequest-001,Null Request Handling,RequestHandling,"2, 3, 4, 5",- Request is null,- Request = null,"1. Main sends a null request to API_Manager.
+2. API_Manager processes the null request and returns a status indicating failure.
+3. Main receives a failure status from API_Manager.",- Main receives a failure status from API_Manager indicating a null request.
+TC-InvalidData-001,Invalid Data Handling,DataHandling,"3, 4, 5",- Data is invalid,- Data = {},"1. Main sends invalid data to API_Manager.
+2. API_Manager processes the invalid data and returns a status indicating failure.
+3. Main receives a failure status from API_Manager.",- Main receives a failure status from API_Manager indicating invalid data.
+TC-ValidData-001,Valid Data Handling,DataHandling,"3, 4, 5",- Data is valid,"- Data = {""id"": 1, ""name"": ""validData""}","1. Main sends valid data to API_Manager.
+2. API_Manager processes the valid data and returns a status indicating success.
+3. Main receives a success status from API_Manager.",- Main receives a success status from API_Manager indicating valid data.
+TC-ErrorPropagation-001,Error Propagation,ErrorPropagation,"2, 3, 4, 5",- An error occurs during processing,- Error condition,"1. An error occurs during processing.
+2. The error is propagated to the next component in the chain.
+3. The final component returns an error message to Main.",- Main receives an error message from the final component indicating the error.
+TC-EdgeCase-001,Edge Case - Multiple Invalid Entries,EdgeCase,5,- Multiple invalid entries are provided,"- DatiAggiornati = [{""id"": 999, ""name"": ""nonexistentEntry1""}, {""id"": 1000, ""name"": ""nonexistentEntry2""}]","1. Main calls leggiDatInseriti.
+2. For each dato in datiAggiornati, API_Manager calls set(dato).
+3. API_Manager calls updateEntry->toJSON().
+4. API_Manager sends request(updateEntry) to Service/Need/Report.
+5. Service/Need/Report returns multiple error messages to API_Manager.
+6. API_Manager sends multiple error messages to Main.",- Main receives multiple error messages from API_Manager indicating failed updates for all invalid entries.
+TC-EdgeCase-002,Edge Case - Single Valid and Invalid Entry,EdgeCase,5,- A mix of valid and invalid entries are provided,"- DatiAggiornati = [{""id"": 1, ""name"": ""validEntry""}, {""id"": 999, ""name"": ""nonexistentEntry""}]","1. Main calls leggiDatInseriti.
+2. For each dato in datiAggiornati, API_Manager calls set(dato).
+3. API_Manager calls updateEntry->toJSON().
+4. API_Manager sends request(updateEntry) to Service/Need/Report.
+5. Service/Need/Report processes the valid entry and returns a 'done' message to API_Manager.
+6. Service/Need/Report returns an error message to API_Manager for the invalid entry.
+7. API_Manager sends a 'done' message and an error message to Main.",- Main receives a 'done' message from API_Manager for the valid entry and an error message for the invalid entry.
+TC-EdgeCase-003,Edge Case - Empty ListJSON with Valid Entry,EdgeCase,"3, 4, 5",- An empty ListJSON with a single valid entry is provided,"- ListJSON = [{""id"": 1, ""name"": ""validEntry""}], DatiAggiornati = [{""id"": 1, ""name"": ""validEntry""}]","1. Main sends a listJSON request to API_Manager.
+2. For each dato in datiAggiornati, API_Manager calls set(dato).
+3. API_Manager calls updateEntry->toJSON().
+4. API_Manager sends request(updateEntry) to Service/Need/Report.
+5. Service/Need/Report processes the valid entry and returns a 'done' message to API_Manager.
+6. API_Manager sends a 'done' message to Main.",- Main receives a 'done' message from API_Manager

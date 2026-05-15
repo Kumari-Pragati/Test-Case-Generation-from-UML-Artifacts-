@@ -1,0 +1,98 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful first-time user registration,User Registration,1,"- User opens the app for the first time.
+- User has a valid email and password (e.g., `testuser@example.com`, `SecurePass123!`).","- Email: `testuser@example.com`
+- Password: `SecurePass123!`
+- Confirm Password: `SecurePass123!`","1. User clicks **""Accesso all'App""** (initial access).
+2. System detects **""Utente già registrato?"" = NO** and redirects to **Registrazione**.
+3. User enters email, password, and confirms password.
+4. User submits registration form.","- Registration succeeds.
+- User is redirected to **Home** page.
+- System stores credentials in **Database** (verified via Page 5)."
+TC-AUTHENTICATION-002,Successful login for registered user,User Login,"1, 5","- User is already registered (e.g., `registereduser@example.com` with password `Pass123!`).
+- User opens the app.","- Email: `registereduser@example.com`
+- Password: `Pass123!`","1. User clicks **""Accesso all'App""**.
+2. System detects **""Utente già registrato?"" = YES** and redirects to **Login**.
+3. User enters valid credentials.
+4. User submits login form.
+5. **Applicazione** sends credentials to **Server** (Page 5).
+6. **Server** verifies credentials with **Database**.","- Login succeeds.
+- User is redirected to **Home** page.
+- **Applicazione** confirms **""login avvenuto""** (Page 5)."
+TC-AUTHENTICATION-003,Failed login with incorrect password,User Login (Negative),"1, 5","- User is registered (`testuser@example.com` with password `SecurePass123!`).
+- User opens the app.","- Email: `testuser@example.com`
+- Password: `WrongPass123!` (invalid)","1. User clicks **""Accesso all'App""**.
+2. System detects **""Utente già registrato?"" = YES** and redirects to **Login**.
+3. User enters valid email but incorrect password.
+4. User submits login form.
+5. **Server** attempts verification with **Database**.","- Login fails.
+- System displays error message: **""Credenziali errate""**.
+- User remains on **Login** page (no redirection to **Home**)."
+TC-AUTHENTICATION-004,Empty field validation during registration,User Registration (Negative),1,- User opens the app for the first time.,"- Email: *(left empty)*
+- Password: `SecurePass123!`","1. User clicks **""Accesso all'App""**.
+2. System detects **""Utente già registrato?"" = NO** and redirects to **Registrazione**.
+3. User skips email field but enters password.
+4. User submits registration form.","- Registration fails.
+- System displays error: **""Inserisci un indirizzo email valido""**.
+- User remains on **Registrazione** page."
+TC-JOURNEY-001,Start and complete a journey with emission calculation,Emission Journey,2,- User is logged in and on **Home** page.,,"1. User selects **""Avvia Tragitto""** (start journey).
+2. System confirms **""Tragitto in Corso"" = SI**.
+3. User completes the journey (e.g., drives 10 km).
+4. System detects **""Tragitto Terminato"" = SI**.
+5. User triggers **""Calcolo Emissioni""**.","- Emission calculation completes successfully.
+- System displays results (e.g., ""Emissioni: 2.5 kg CO₂"").
+- User can return to **Home** or **Menu Orrizontale**."
+TC-JOURNEY-002,Change section mid-journey,Emission Journey (Branch),2,"- User is logged in and has started a journey (**""Tragitto in Corso"" = SI**).",,"1. User selects **""Vuoi Cambiare Sezione?"" = SI**.
+2. System redirects to **Menu Orrizontale**.
+3. User selects a new section (e.g., ""Report Settimanale"").","- Journey pauses.
+- User navigates to **Menu Orrizontale** without losing progress.
+- System allows resuming journey later."
+TC-JOURNEY-003,Incomplete journey (negative),Emission Journey (Negative),2,"- User starts a journey (**""Avvia Tragitto""**).",,"1. User closes the app without completing the journey.
+2. User reopens the app and returns to **Home**.
+3. User attempts to trigger **""Calcolo Emissioni""** without completing the journey.","- System detects **""Tragitto Terminato"" = NO**.
+- Error message: **""Completa il percorso prima di calcolare le emissioni""**.
+- User cannot proceed to emission calculation."
+TC-PROFILE-001,View and update personal data,User Profile,4,- User is logged in and on **Home** page.,,"1. User selects **""Visualizza dati personali""**.
+2. System displays current data (e.g., name, email).
+3. User clicks **""Inserisci nuovi dati""**.
+4. User updates data (e.g., new phone number: `+39123456789`).
+5. User submits changes.
+6. System redirects to **Menu orrizontale**.
+7. User returns to **""Visualizza dati personali""**.","- Updated data is displayed.
+- **Database** reflects changes (Page 5).
+- No errors during submission."
+TC-PROFILE-002,Cancel profile update,User Profile (Edge Case),4,"- User is on **""Visualizza dati personali""** page.",,"1. User selects **""Inserisci nuovi dati""**.
+2. User partially fills form (e.g., changes name but leaves email blank).
+3. User clicks **""Annulla""** (cancel).","- Changes are discarded.
+- Original data remains displayed.
+- User returns to **""Visualizza dati personali""**."
+TC-REPORT-001,View weekly report and navigate menu,Weekly Report,3,- User is logged in and on **Home** page.,,"1. User selects **""Visualizza Report Settimanale""**.
+2. System displays report (e.g., ""Emissioni settimanali: 10 kg CO₂"").
+3. User clicks **""Menu Orrizontale""**.
+4. User selects an option (e.g., ""Profilo"").
+5. User returns to **""Visualizza Report Settimanale""**.","- Report is displayed correctly.
+- Navigation to **Menu Orrizontale** succeeds.
+- Return to report works without data loss."
+TC-REPORT-002,Decline weekly report view,Weekly Report (Branch),3,- User is on **Home** page.,,"1. User is prompted: **""Visualizza Report Settimanale?""**.
+2. User selects **""NO""**.","- System does not redirect to **Menu Orrizontale**.
+- User remains on **Home** or previous page."
+TC-DATABASE-001,Verify credential storage and retrieval,Backend Validation,"5, 6","- User registers with credentials (`user1@example.com`, `Pass456!`).",,"1. **Applicazione** receives credentials from **Utente**.
+2. **Server** sends credentials to **Database** for storage.
+3. **Database** stores data.
+4. User logs in with same credentials.
+5. **Server** retrieves and verifies credentials from **Database**.","- Login succeeds.
+- **Database** confirms data match.
+- No errors in credential flow (Page 5)."
+TC-DATABASE-002,Journey data persistence,Backend Validation,6,- User starts a journey and completes it.,,"1. **Utente** dispatches journey data to **Applicazione**.
+2. **Applicazione** sends **""avvio percorso""** to **Server**.
+3. **Server** adds journey to **Database** as **""nuovo percorso""**.
+4. User logs out and logs back in.
+5. User views past journeys.","- Journey data is retrieved from **Database**.
+- Past journeys are displayed in **Home** or **Profilo**.
+- No data loss."
+TC-INTEGRATION-001,Full user flow: Register → Journey → Profile Update,End-to-End,"1, 2, 4, 5",- Fresh app installation.,,"1. User registers (TC-AUTHENTICATION-001).
+2. User logs in (TC-AUTHENTICATION-002).
+3. User starts/completes a journey (TC-JOURNEY-001).
+4. User updates profile data (TC-PROFILE-001).
+5. User views weekly report (TC-REPORT-001).","- All steps complete without errors.
+- Data consistency across **Database**, **Applicazione**, and **Utente**.
+- No conflicts in credential or journey data."

@@ -1,0 +1,117 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a New User,User Registration,2,None,"- Valid username: ""john_doe""
+- Valid password: ""password123""
+- Valid name: ""John Doe""
+- Valid email: ""john.doe@example.com""","1. User calls `registerUser()` with valid data.
+2. Main verifies the data using `verifyValidData()`.
+3. Main saves the user data to the Users Database using `saveUserData()`.
+4. Main sends a success message ""ok"" back to the User.","User registration is successful, and the user receives a confirmation message."
+TC-User-002,Register a User with Invalid Data,User Registration,2,None,"- Invalid username: ""johndoe""
+- Invalid password: ""pass""
+- Invalid name: ""John""
+- Invalid email: ""john.doe@com""","1. User calls `registerUser()` with invalid data.
+2. Main verifies the data using `verifyValidData()`.
+3. Main does not save the user data to the Users Database.
+4. Main sends an error message ""error"" back to the User.","User registration fails, and the user receives an error message."
+TC-User-003,Log In with Valid Credentials,User Login,3,A registered user exists in the Users Database.,"- Valid email: ""john.doe@example.com""
+- Valid password: ""password123""","1. User provides valid email and password to the system.
+2. Main validates the credentials against the Users Database using `validUser(email, password)`.
+3. Users Database confirms the credentials are valid.
+4. Main sends a success message ""ok"" back to the User.","User login is successful, and the user receives a confirmation message."
+TC-User-004,Log In with Invalid Credentials,User Login,3,A registered user exists in the Users Database.,"- Invalid email: ""john.doe@example.com""
+- Invalid password: ""wrongpassword""","1. User provides invalid email and password to the system.
+2. Main validates the credentials against the Users Database using `validUser(email, password)`.
+3. Users Database confirms the credentials are invalid.
+4. Main sends an error message ""error"" back to the User.","User login fails, and the user receives an error message."
+TC-Trip-001,Create a New Trip,Trip Creation,1,A registered user exists in the Users Database.,"- Valid city: ""Paris""
+- Valid country: ""France""
+- Valid begin date: ""2023-10-01""
+- Valid end date: ""2023-10-07""
+- Valid author: ""john_doe""","1. User creates a new Trip with valid data.
+2. Trip is created with the specified attributes.
+3. Trip contains at least one Plan.
+4. Plan contains at least one DailyPlan.
+5. DailyPlan references a Weather object.","Trip creation is successful, and all related objects are properly linked."
+TC-Trip-002,Create a Trip with Missing Attributes,Trip Creation,1,A registered user exists in the Users Database.,"- Missing city: """"
+- Valid country: ""France""
+- Valid begin date: ""2023-10-01""
+- Valid end date: ""2023-10-07""
+- Valid author: ""john_doe""","1. User attempts to create a new Trip with missing city attribute.
+2. System rejects the Trip creation due to missing required attribute.",Trip creation fails due to missing required attribute.
+TC-Trip-003,Update Trip Data,Trip Update,4,A registered user exists in the Users Database and has created a Trip.,"- Updated city: ""Rome""
+- Updated country: ""Italy""
+- Updated begin date: ""2023-10-08""
+- Updated end date: ""2023-10-14""","1. User initiates the update process by calling `updateTrip()`.
+2. Main updates the trip data in the Trips Database using `updateTripData()`.
+3. User lists the updated trips.","Trip data is successfully updated, and the user can see the changes."
+TC-Trip-004,Update Trip Data with Invalid Dates,Trip Update,4,A registered user exists in the Users Database and has created a Trip.,"- Updated begin date: ""2023-10-15""
+- Updated end date: ""2023-10-10""","1. User initiates the update process by calling `updateTrip()`.
+2. Main attempts to update the trip data in the Trips Database using `updateTripData()`.
+3. System rejects the update due to invalid dates.",Trip data update fails due to invalid dates.
+TC-UserProfile-001,Change User Profile with Valid Data,User Profile Update,5,A registered user exists in the Users Database.,"- New username: ""jane_doe""
+- New password: ""newpassword123""
+- New name: ""Jane Doe""
+- New email: ""jane.doe@example.com""","1. User initiates the change profile process.
+2. Main retrieves new data using `getNewData()`.
+3. Main verifies the data using `verifyValidData()`.
+4. Main updates the user data in the Users Database using `updateUserData()`.
+5. Main sends a success message ""ok"" back to the User.","User profile is successfully updated, and the user receives a confirmation message."
+TC-UserProfile-002,Change User Profile with Invalid Data,User Profile Update,5,A registered user exists in the Users Database.,"- New username: ""janedoe""
+- New password: ""newpass""
+- New name: ""Jane""
+- New email: ""jane.doe@com""","1. User initiates the change profile process.
+2. Main retrieves new data using `getNewData()`.
+3. Main verifies the data using `verifyValidData()`.
+4. Main does not update the user data in the Users Database.
+5. Main sends an error message ""error"" back to the User.","User profile update fails, and the user receives an error message."
+TC-UserProfile-003,Change User Profile with Duplicate Email,User Profile Update,5,Another user with the same email exists in the Users Database.,"- New email: ""john.doe@example.com""","1. User initiates the change profile process.
+2. Main retrieves new data using `getNewData()`.
+3. Main verifies the data using `verifyValidData()`.
+4. Main does not update the user data in the Users Database.
+5. Main sends an error message ""error"" back to the User.","User profile update fails due to duplicate email, and the user receives an error message."
+TC-Weather-001,Reference Weather Data in Daily Plan,Daily Plan Weather Reference,1,A registered user exists in the Users Database and has created a Trip with a Plan and Daily Plan.,"- Valid weather data: 
+  - High temperature: 25.0
+  - Low temperature: 15.0
+  - Icon: ""sun""
+  - Description: ""Sunny""","1. User creates a DailyPlan with valid weather data.
+2. DailyPlan references the Weather object with the provided data.",DailyPlan successfully references the Weather object with the provided data.
+TC-Weather-002,Reference Weather Data with Missing Attributes,Daily Plan Weather Reference,1,A registered user exists in the Users Database and has created a Trip with a Plan and Daily Plan.,"- Missing high temperature: """"
+- Valid low temperature: 15.0
+- Valid icon: ""sun""
+- Valid description: ""Sunny""","1. User attempts to create a DailyPlan with missing high temperature.
+2. System rejects the DailyPlan creation due to missing required attribute.",DailyPlan creation fails due to missing required attribute.
+TC-Category-001,Associate Category with Trip,Trip Category Association,1,A registered user exists in the Users Database and has created a Trip.,"- Valid category name: ""Adventure""
+- Valid category ID: 1
+- Valid category icon: ""adventure_icon""","1. User associates a Category with the Trip.
+2. Trip includes the specified Category.",Category association with Trip is successful.
+TC-Category-002,Associate Category with PlaceToVisit,PlaceToVisit Category Association,1,A registered user exists in the Users Database and has created a Trip with a PlaceToVisit.,"- Valid place name: ""Eiffel Tower""
+- Valid place ID: 1
+- Valid category name: ""Landmark""
+- Valid category ID: 2
+- Valid category icon: ""landmark_icon""","1. User associates a Category with the PlaceToVisit.
+2. PlaceToVisit belongs to the specified Category.",Category association with PlaceToVisit is successful.
+TC-Category-003,Associate Category with Trip and PlaceToVisit,Multi-Association,1,A registered user exists in the Users Database and has created a Trip with a PlaceToVisit.,"- Valid category name: ""Adventure""
+- Valid category ID: 1
+- Valid category icon: ""adventure_icon""","1. User associates a Category with both the Trip and PlaceToVisit.
+2. Both Trip and PlaceToVisit include the specified Category.",Category association with both Trip and PlaceToVisit is successful.
+TC-Category-004,Associate Category with Trip and PlaceToVisit with Invalid Data,Multi-Association,1,A registered user exists in the Users Database and has created a Trip with a PlaceToVisit.,"- Invalid category name: """"
+- Invalid category ID: -1
+- Invalid category icon: """"","1. User attempts to associate a Category with both the Trip and PlaceToVisit with invalid data.
+2. System rejects the association due to invalid data.",Category association fails due to invalid data.
+TC-PlaceToVisit-001,Create a PlaceToVisit with Valid Data,PlaceToVisit Creation,1,A registered user exists in the Users Database and has created a Trip.,"- Valid place name: ""Louvre Museum""
+- Valid place ID: 1
+- Valid category name: ""Museum""
+- Valid category ID: 2
+- Valid category icon: ""museum_icon""
+- Valid city: ""Paris""
+- Valid place icon: ""louvre_icon""","1. User creates a PlaceToVisit with valid data.
+2. PlaceToVisit is created with the specified attributes.","PlaceToVisit creation is successful, and all attributes are correctly set."
+TC-PlaceToVisit-002,Create a PlaceToVisit with Missing Attributes,PlaceToVisit Creation,1,A registered user exists in the Users Database and has created a Trip.,"- Missing place name: """"
+- Valid place ID: 1
+- Valid category name: ""Museum""
+- Valid category ID: 2
+- Valid category icon: ""museum_icon""
+- Valid city: ""Paris""
+- Valid place icon: ""louvre_icon""","1. User attempts to create a PlaceToVisit with missing place name.
+2. System rejects the PlaceToVisit creation due to missing required attribute.",PlaceToVisit creation fails due to missing required attribute.
+TC-PlaceToVisit-003,Create a PlaceToVisit with Invalid Category,PlaceToVisit Creation,1,A registered user exists in the Users Database and has created a Trip.,"- Valid place name: ""Lou",,

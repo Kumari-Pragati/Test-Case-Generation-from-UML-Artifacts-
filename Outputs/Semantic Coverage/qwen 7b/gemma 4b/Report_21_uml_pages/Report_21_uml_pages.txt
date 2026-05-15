@@ -1,0 +1,422 @@
+REPORT: Report_21_uml_pages.pdf
+======================================================================
+
+===== Report_21_uml_pages.pdf | Page 1 =====
+UML Type: class
+
+Components:
+- CalendarioUtente — kind=class; attributes=[utenteID: String, nome: String, cognome: String, dataNascita: String, stagione: String]; operations=[aggiungiEvento(evento: Evento) : void, modificaEvento(evento: Evento) : void, eliminaEvento(evento: Evento) : void, visualizzaCalendario() : void, getEventiPerData(data: LocalDate) : List<Evento>]
+- Evento — kind=class; attributes=[eventoID: String, titolo: String, dataOraInizio: LocalDateTime, dataOraFine: LocalDateTime, descrizione: String, luogo: String]; operations=[getTitolo() : String, getDataOraInizio() : LocalDateTime, getDataOraFine() : LocalDateTime, getDescrizione() : String, getLuogo() : String]
+- Stagione — kind=class; attributes=[nome: String]; operations=[getNome() : String]
+- Regolazione — kind=class; attributes=[idRegolazione: String, dataInizio: LocalDate, dataFine: LocalDate, descrizione: String]; operations=[getDescrizione() : String]
+- Database — kind=class; attributes=[url: String, username: String, password: String]; operations=[connetti() : void, disconnetti() : void, eseguiQuery(query: String) : ResultSet]
+
+Actors / Lifelines:
+- Sistema database — role=database
+- Sistema interfaccia utente — role=user interface
+
+Relationships / Links:
+- CalendarioUtente -> Evento — type=has; label="aggiungi"; explanation="CalendarioUtente ha eventi"
+- CalendarioUtente -> Stagione — type=has; label="stagione"; explanation="CalendarioUtente ha una stagione"
+- CalendarioUtente -> Regolazione — type=has; label="regolazione"; explanation="CalendarioUtente ha una regolazione"
+- Evento -> Database — type=usa; label="eseguiQuery"; explanation="Evento usa il database"
+- CalendarioUtente -> Database — type=usa; label="connetti"; explanation="CalendarioUtente si connette al database"
+- CalendarioUtente -> Database — type=usa; label="disconnetti"; explanation="CalendarioUtente si disconnette dal database"
+
+Main Flows (step by step):
+- Sistema interfaccia utente -> CalendarioUtente: aggiungiEvento(evento)
+- CalendarioUtente -> Database: eseguiQuery(query)
+- Database -> CalendarioUtente: ResultSet
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+-   The diagram models a system for managing events and their scheduling within a user's calendar.
+-   The system utilizes a database to store event information.
+-   The user interface allows adding, modifying, and deleting events.
+-   The system associates events with a specific season and regulation.
+
+===== Report_21_uml_pages.pdf | Page 2 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=component
+- Sistema di gestione dei dati — kind=component
+- Firebase Auth — kind=component
+
+Actors / Lifelines:
+- Applicazione
+- mAuth
+- user
+
+Relationships / Links:
+- Applicazione -> mAuth — message=getinstance();
+- mAuth -> Firebase Auth — message=getcurrentuser();
+- mAuth -> user — message=getcurrentuser();
+- Applicazione -> user — message=logIn();
+- user -> Sistema di gestione dei dati — message=checkIfLogin();
+- Sistema di gestione dei dati -> user — message=null;
+- Applicazione -> mAuth — message=signInWithEmailAndPassword();
+- mAuth -> Firebase Auth — message=getinstance();
+- mAuth -> user — message=createUserWithEmailAndPassword();
+- mAuth -> user — message=getcurrentuser();
+- Applicazione -> user — message=registerAndLogin();
+
+Main Flows (step by step):
+- Applicazione -> user -> logIn();
+- user -> Sistema di gestione dei dati -> checkIfLogin();
+- Sistema di gestione dei dati -> user -> null;
+- Applicazione -> mAuth -> getinstance();
+- mAuth -> Firebase Auth -> getcurrentuser();
+- mAuth -> user -> getcurrentuser();
+- Applicazione -> user -> registerAndLogin();
+- user -> Sistema di gestione dei dati -> null;
+- Applicazione -> mAuth -> getinstance();
+- mAuth -> Firebase Auth -> getinstance();
+- mAuth -> user -> createUserWithEmailAndPassword();
+- mAuth -> user -> getcurrentuser();
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Diagram shows the sequence of operations for user login, registration, and authentication using Firebase Auth.
+
+Observations:
+- The diagram models the sequence of actions involved in user authentication and registration.
+- The flow includes checking if the user is already logged in, registering a new user, and retrieving the current user from Firebase Auth.
+- The diagram highlights the interaction between the application, the data management system, and Firebase Auth.
+
+===== Report_21_uml_pages.pdf | Page 3 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=object;
+- Sistema di segnalazioni — kind=object;
+- Sistema di gestione dei dati — kind=object;
+- Database — kind=object;
+
+Actors / Lifelines:
+- Applicazione
+- Sistema di segnalazioni
+- Sistema di gestione dei dati
+- Database
+
+Relationships / Links:
+- Applicazione -> Sistema di segnalazioni: forward(getSegnalazioni());
+- Sistema di segnalazioni -> Sistema di gestione dei dati: forward(payload);
+- Sistema di gestione dei dati -> Database: query(select Segnalazioni());
+- Database -> Sistema di gestione dei dati: payload
+- Sistema di gestione dei dati -> Applicazione: display(list(list));
+
+Main Flows:
+- Applicazione -> Sistema di segnalazioni: getSegnalazioni();
+- Sistema di segnalazioni -> Sistema di gestione dei dati: forward(payload);
+- Sistema di gestione dei dati -> Database: query(select Segnalazioni());
+- Database -> Sistema di gestione dei dati: payload
+- Sistema di gestione dei dati -> Applicazione: display(list(list));
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The application requests a list of signals from the signaling system.
+- The signaling system forwards a payload to the data management system.
+- The data management system queries the database for signals.
+- The database returns the signals as a payload.
+- The data management system displays the list of signals to the application.
+
+===== Report_21_uml_pages.pdf | Page 4 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=object; attributes = []; operations = [train_variations(getVariationen)]; role=Initiator
+- Sistema gestione variazioni — kind=object; attributes = []; operations = [getVariationen]; role=Provider
+- Sistema gestione dati — kind=object; attributes = []; operations = [getPrefTrend()]; role=Provider
+- Database — kind=object; attributes = []; operations = [getTrendInfo(train.code)]; role=Provider
+- API Trenitalia — kind=object; attributes = []; operations = [getTrendInfo(train.code)]; role=Consumer
+
+Actors / Lifelines:
+- Applicazione - None
+- Sistema gestione variazioni - None
+- Sistema gestione dati - None
+- Database - None
+- API Trenitalia - None
+
+Relationships / Links:
+- Applicazione -> Sistema gestione variazioni: train_variations(getVariationen)
+- Sistema gestione variazioni -> Sistema gestione dati: list_pref_train (getPrefTrend())
+- Sistema gestione dati -> Database: getTrendInfo(train.code)
+- Database -> API Trenitalia: getTrendInfo(train.code)
+
+Main Flows (step by step):
+- Applicazione -> Sistema gestione variazioni: train_variations(getVariationen)
+- Sistema gestione variazioni -> Sistema gestione dati: list_pref_train (getPrefTrend())
+- Sistema gestione dati -> Database: getTrendInfo(train.code)
+- Database -> API Trenitalia: getTrendInfo(train.code)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- loop get_info_changed_train:
+  - Sistema gestione dati -> Database: getTrendInfo(train.code)
+
+Notes / Annotations:
+- The diagram shows the interaction between the application, a variation management system, a data management system, a database, and an API (Trenitalia) to retrieve train variations. The loop suggests a repeated process of checking for changed train information.
+
+Observations:
+- The application initiates the process by requesting train variations.
+- The data management system retrieves train preferences.
+- The database retrieves train information, likely for comparison or validation.
+- The API (Trenitalia) is used to fetch train information, potentially for external data.
+- The loop suggests a mechanism to detect and handle changes in train information.
+
+===== Report_21_uml_pages.pdf | Page 5 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=object; attributes=[]; operations=[setCalendarico(cal)]; role=Client
+- Sistema gestione calendario — kind=object; attributes=[]; operations=[forward(setCalendarico(cal)), forward(outcome)]; role=Server
+- Sistema di gestione dei dati — kind=object; attributes=[]; operations=[query(new Calendarico(cal)), forward(outcome)]; role=Server
+- Database — kind=object; attributes=[status code]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Applicazione - None
+- Sistema gestione calendario - None
+- Sistema di gestione dei dati - None
+- Database - None
+
+Relationships / Links:
+- Applicazione -> Sistema gestione calendario — message=setCalendarico(cal); label="setCalendarico(cal)"; explanation="Application calls setCalendarico(cal)"
+- Sistema gestione calendario -> Sistema di gestione dei dati — message=forward(setCalendarico(cal)); label="forward(setCalendarico(cal))"; explanation="System gestione calendario forwards setCalendarico(cal)"
+- Sistema di gestione dei dati -> Database — message=query(new Calendarico(cal)); label="query(new Calendarico(cal))"; explanation="System di gestione dei dati queries a new Calendarico(cal)"
+- Sistema di gestione dati -> Applicazione — message=forward(outcome); label="forward(outcome)"; explanation="System di gestione dei dati forwards outcome"
+- Sistema gestione calendario -> Applicazione — message=display(outcome); label="display(outcome)"; explanation="System gestione calendario displays outcome"
+
+Main Flows (step by step):
+- Applicazione sends setCalendarico(cal) to Sistema gestione calendario.
+- Sistema gestione calendario forwards setCalendarico(cal) to Sistema di gestione dei dati.
+- Sistema di gestione dei dati queries a new Calendarico(cal) from Database.
+- Sistema di gestione dei dati forwards outcome to Sistema gestione calendario.
+- Sistema gestione calendario displays outcome to Applicazione.
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the interaction between an application, a calendar management system, a data management system, and a database during a calendar insertion process.
+- The application initiates the process by calling `setCalendarico(cal)`.
+- The calendar management system forwards this request to the data management system.
+- The data management system retrieves a new calendar object from the database.
+- Finally, the calendar management system displays the outcome to the application.
+
+===== Report_21_uml_pages.pdf | Page 6 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=object; attributes= []; operations= [getCalendario()];
+- Sistema gestione calendario — kind=object; attributes= []; operations= [forward(getCalendario()), display(Null), display(calendario)];
+- Sistema di gestione dei dati — kind=object; attributes= []; operations= [query(select Calendario(*))];
+- Database — kind=object; attributes= []; operations= [];
+
+Actors / Lifelines:
+- Applicazione
+- Sistema gestione calendario
+- Sistema di gestione dei dati
+- Database
+
+Relationships / Links:
+- Applicazione -> Sistema gestione calendario — message=forward(getCalendario()); label="forward(getCalendario())"; explanation="Application requests calendar data from the calendar management system.";
+- Sistema gestione calendario -> Database — message=query(select Calendario(*)); label="query(select Calendario(*))"; explanation="Calendar management system queries the database for calendar data.";
+- Database -> Sistema di gestione dei dati — message=payload; label="payload"; explanation="Database returns the calendar data.";
+- Sistema di gestione dei dati -> Sistema gestione calendario — message=forward(payload); label="forward(payload)"; explanation="Data management system forwards the calendar data to the calendar management system.";
+- Sistema gestione calendario -> Applicazione — message=display(calendario); label="display(calendario)"; explanation="Calendar management system displays the calendar data to the application.";
+- Sistema gestione calendario -> Applicazione — message=display(Null); label="display(Null)"; explanation="Calendar management system displays Null to the application.";
+
+Main Flows (step by step):
+- Flow 1: Applicazione calls getCalendario() -> Sistema gestione calendario forwards(getCalendario()) -> Database queries(select Calendario(*)) -> Database returns payload -> Sistema di gestione dei dati forwards(payload) -> Sistema gestione calendario displays(calendario) -> Applicazione displays(calendario)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The application initiates the process by requesting calendar data.
+- The calendar management system queries the database for the data.
+- The data management system forwards the retrieved data to the calendar management system.
+- The calendar management system then displays the calendar data to the application.
+
+===== Report_21_uml_pages.pdf | Page 7 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=component;
+- Sistema gestione calendario — kind=component;
+- Sistema gestione dei dati — kind=component;
+- API Trenitalia — kind=component;
+- Database — kind=component;
+
+Actors / Lifelines:
+- Applicazione
+- Sistema gestione calendario
+- Sistema gestione dei dati
+- API Trenitalia
+- Database
+
+Relationships / Links:
+- Applicazione -> Sistema gestione calendario: forward(getTrains(calendario))
+- Sistema gestione calendario -> Sistema gestione dei dati: forward(payload)
+- Sistema gestione dei dati -> API Trenitalia: requestTrains(calendario)
+- API Trenitalia -> Sistema gestione dei dati: payload
+- API Trenitalia -> Database: query(newTrnolo[id, info])
+- Sistema gestione dei dati -> Applicazione: forward(outcome)
+- Applicazione -> Sistema gestione calendario: display(outcome)
+
+Main Flows (step by step):
+- Applicazione -> Sistema gestione calendario: forward(getTrains(calendario))
+- Sistema gestione calendario -> Sistema gestione dei dati: forward(payload)
+- Sistema gestione dei dati -> API Trenitalia: requestTrains(calendario)
+- API Trenitalia -> Sistema gestione dei dati: payload
+- API Trenitalia -> Database: query(newTrnolo[id, info])
+- Sistema gestione dei dati -> Applicazione: forward(outcome)
+- Applicazione -> Sistema gestione calendario: display(outcome)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram shows the sequence of operations involved in cancelling a preferred train.
+
+Observations:
+- The application initiates the cancellation process by requesting train information from the calendar system.
+- The calendar system retrieves the relevant train data and forwards it to the data management system.
+- The data management system then communicates with the API Trenitalia to initiate the cancellation request, passing the train details.
+- The API Trenitalia queries the database for the train information.
+- Finally, the data management system forwards the outcome of the cancellation to the application, which displays it to the user.
+
+===== Report_21_uml_pages.pdf | Page 8 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=object; attributes=[]; operations=[getTrains(calendario)]; role=Client
+- Sistema gestione calendario — kind=object; attributes=[]; operations=[forward(payload)]; role=System
+- Sistema di gestione dei dati — kind=object; attributes=[]; operations=[requestTrains(calendario)]; role=Data System
+- API Trenitalia — kind=object; attributes=[]; operations=[payload]; role=API
+- Database — kind=object; attributes=[]; operations=[query(deleteTrenodi(id))]; role=Database
+- Outcome — kind=object; attributes=[]; operations=[display(outcome)]; role=Display
+
+Actors / Lifelines:
+- Applicazione - None
+- Sistema gestione calendario - None
+- Sistema di gestione dei dati - None
+- API Trenitalia - None
+- Database - None
+
+Relationships / Links:
+- Applicazione -> Sistema gestione calendario — message=getTrains(calendario); label="getTrains(calendario)"; explanation="Application requests train list for a calendar."
+- Sistema gestione calendario -> Sistema di gestione dei dati — message=forward(payload); label="forward(payload)"; explanation="System forwards the request to the data system."
+- Sistema di gestione dei dati -> API Trenitalia — message=payload; label="payload"; explanation="Data system sends the request to the API."
+- API Trenitalia -> Database — message=query(deleteTrenodi(id)); label="query(deleteTrenodi(id))"; explanation="API queries the database to delete a train."
+- Database -> API Trenitalia — message=status code; label="status code"; explanation="Database returns a status code to the API."
+- API Trenitalia -> Sistema di gestione dei dati — message=payload; label="payload"; explanation="API sends the response back to the data system."
+- Sistema di gestione dei dati -> Sistema gestione calendario — message=forward(outcome); label="forward(outcome)"; explanation="Data system forwards the outcome to the calendar system."
+- Sistema gestione calendario -> Applicazione — message=display(outcome); label="display(outcome)"; explanation="Calendar system displays the outcome to the application."
+
+Main Flows:
+- Flow 1: Applicazione -> Sistema gestione calendario: getTrains(calendario)
+- Flow 2: Sistema gestione calendario -> Sistema di gestione dei dati: forward(payload)
+- Flow 3: Sistema di gestione dei dati -> API Trenitalia: payload
+- Flow 4: API Trenitalia -> Database: query(deleteTrenodi(id))
+- Flow 5: Database -> API Trenitalia: status code
+- Flow 6: API Trenitalia -> Sistema di gestione dei dati: payload
+- Flow 7: Sistema di gestione dati -> Sistema gestione calendario: forward(outcome)
+- Flow 8: Sistema gestione calendario -> Applicazione: display(outcome)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The application requests a list of trains for a specific calendar.
+- The system forwards this request to the data system.
+- The data system queries the database to delete a train.
+- The database returns a status code to the API.
+- The API sends the response back to the data system.
+- The data system forwards the outcome to the calendar system.
+- The calendar system displays the outcome to the application.
+
+===== Report_21_uml_pages.pdf | Page 9 =====
+UML Type: Sequence
+
+Components:
+- Applicazione — kind=component;
+- Sistema gestione variazioni — kind=component;
+- Sistema di notifica — kind=component;
+
+Actors / Lifelines:
+- Applicazione - None
+- Sistema gestione variazioni - None
+- Sistema di notifica - None
+
+Relationships / Links:
+- Applicazione -> Sistema gestione variazioni: getVariazioni();
+- Sistema gestione variazioni -> Applicazione: train_variations = res;
+- Applicazione -> Sistema di notifica: showNotifica(train_variations);
+
+Main Flows:
+- Applicazione -> Sistema gestione variazioni: getVariazioni();
+- Sistema gestione variazioni -> Applicazione: train_variations = res;
+- Applicazione -> Sistema di notifica: showNotifica(train_variations);
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- La funzione getVariazioni() esegue la stessa funzionalità del punto 5.2.4, non è riportata nel diagramma di sequenza per semplificare la visualizzazione dello stesso.
+
+Observations:
+- The application initiates a process by requesting variation data from the system.
+- The system processes the request and returns the variation data.
+- The application then displays the received notification.
+
+
+======================================================================

@@ -1,0 +1,108 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Verify user creation,Utente,1,None,"- Id: 1
+- Password: password123
+- Email: user@example.com
+- Nome: John
+- Cognome: Doe","1. Navigate to the user registration page.
+2. Enter the test data.
+3. Click the ""Register"" button.",The user is successfully created and can log in.
+TC-Utente-002,Verify user login,Utente,1,User has been created.,"- Id: 1
+- Password: password123","1. Navigate to the login page.
+2. Enter the test data.
+3. Click the ""Login"" button.",The user is successfully logged in.
+TC-Utente-003,Verify user password change,Utente,1,User is logged in.,- New Password: newPassword123,"1. Navigate to the account settings page.
+2. Click the ""Change Password"" button.
+3. Enter the new password.
+4. Confirm the new password.
+5. Click the ""Save"" button.",The user's password is successfully changed.
+TC-Utente-004,Verify user email change,Utente,1,User is logged in.,- New Email: newuser@example.com,"1. Navigate to the account settings page.
+2. Click the ""Change Email"" button.
+3. Enter the new email.
+4. Click the ""Save"" button.",The user's email is successfully changed.
+TC-Utente-005,Verify user name change,Utente,1,User is logged in.,"- New Nome: Jane
+- New Cognome: Smith","1. Navigate to the account settings page.
+2. Click the ""Change Name"" button.
+3. Enter the new name.
+4. Click the ""Save"" button.",The user's name is successfully changed.
+TC-Prodotto-001,Verify product creation,Prodotto,1,User is logged in.,"- Nome: Product 1
+- Luogo: Location 1
+- Descrizione: Description 1
+- Immagine: Image 1
+- Prezzo: 10.00","1. Navigate to the product creation page.
+2. Enter the test data.
+3. Click the ""Create Product"" button.",The product is successfully created and can be viewed by the user.
+TC-Prodotto-002,Verify product details change,Prodotto,1,User is logged in and the product has been created.,"- New Nome: Product 2
+- New Luogo: Location 2
+- New Descrizione: Description 2
+- New Immagine: Image 2
+- New Prezzo: 20.00","1. Navigate to the product details page.
+2. Click the ""Edit Product"" button.
+3. Enter the new product details.
+4. Click the ""Save"" button.",The product's details are successfully changed.
+TC-Segnalazione-001,Verify product signaling,Segnalazione,1,User is logged in and the product has been created.,"- Tipo: True
+- Titolo: Signal 1
+- Descrizione: Description of the signal","1. Navigate to the product details page.
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The product is successfully signaled, and the user can view their signal."
+TC-Segnalazione-002,Verify product signaling by another user,Segnalazione,1,User 1 has created a product and user 2 is logged in.,"- Tipo: True
+- Titolo: Signal 2
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The product is successfully signaled by user 2, and user 1 can view the signal."
+TC-Segnalazione-003,Verify product signaling type,Segnalazione,1,User is logged in and the product has been signaled.,- New Tipo: False,"1. Navigate to the product details page.
+2. Click the ""Edit Signal"" button.
+3. Change the signal type to false.
+4. Click the ""Save"" button.",The product's signal is successfully changed to false.
+TC-Segnalazione-004,Verify product signaling removal,Segnalazione,1,User is logged in and the product has been signaled.,,"1. Navigate to the product details page.
+2. Click the ""Remove Signal"" button.
+3. Confirm the removal.",The product's signal is successfully removed.
+TC-Segnalazione-005,Verify product signaling by unauthorized user,Segnalazione,1,User is not logged in.,"- Tipo: True
+- Titolo: Signal 3
+- Descrizione: Description of the signal","1. Navigate to the product details page.
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-006,Verify product signaling by unauthorized user (signed-out),Segnalazione,1,User is signed out.,"- Tipo: True
+- Titolo: Signal 4
+- Descrizione: Description of the signal","1. Navigate to the product details page.
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-007,Verify product signaling by unauthorized user (different user),Segnalazione,1,User 1 has created a product and user 2 is logged in.,"- Tipo: True
+- Titolo: Signal 5
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-008,"Verify product signaling by unauthorized user (different user, signed-out)",Segnalazione,1,User 1 has created a product and user 2 is signed out.,"- Tipo: True
+- Titolo: Signal 6
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-009,"Verify product signaling by unauthorized user (different user, different product)",Segnalazione,1,User 1 has created product A and user 2 is logged in.,"- Tipo: True
+- Titolo: Signal 7
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1, product A).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-010,"Verify product signaling by unauthorized user (different user, different product, signed-out)",Segnalazione,1,User 1 has created product A and user 2 is signed out.,"- Tipo: True
+- Titolo: Signal 8
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1, product A).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-011,"Verify product signaling by unauthorized user (different user, different product, different user's product)",Segnalazione,1,User 1 has created product A and user 2 has created product B.,"- Tipo: True
+- Titolo: Signal 9
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1, product A).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."
+TC-Segnalazione-012,"Verify product signaling by unauthorized user (different user, different product, different user's product, signed-out)",Segnalazione,1,User 1 has created product A and user 2 has created product B.,"- Tipo: True
+- Titolo: Signal 10
+- Descrizione: Description of the signal","1. Navigate to the product details page (created by user 1, product A).
+2. Click the ""Signal Product"" button.
+3. Enter the test data.
+4. Click the ""Submit"" button.","The user is not allowed to signal the product, and an error message is displayed."

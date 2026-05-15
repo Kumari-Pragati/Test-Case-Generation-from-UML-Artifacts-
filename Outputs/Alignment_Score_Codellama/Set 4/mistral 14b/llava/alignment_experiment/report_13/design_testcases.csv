@@ -1,0 +1,93 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,1,"- User account exists in the system with valid credentials (e.g., username: `john_doe`, password: `SecurePass123`).
+- Network connectivity is available.","- Username: `john_doe`
+- Password: `SecurePass123`","1. User navigates to the login page.
+2. User enters `john_doe` in the username field.
+3. User enters `SecurePass123` in the password field.
+4. User clicks the ""Login"" button.","- System authenticates the user successfully.
+- System returns ""Authenticated"" response.
+- User is redirected to the profile or home page (assuming post-login flow)."
+TC-AUTHENTICATION-002,Failed login with incorrect password,Authentication,1,"- User account exists in the system (e.g., username: `john_doe`, password: `SecurePass123`).
+- Network connectivity is available.","- Username: `john_doe`
+- Password: `WrongPass456`","1. User navigates to the login page.
+2. User enters `john_doe` in the username field.
+3. User enters `WrongPass456` in the password field.
+4. User clicks the ""Login"" button.","- System rejects the credentials.
+- System returns ""Unauthorized"" response.
+- User remains on the login page with an error message (e.g., ""Invalid username or password"")."
+TC-AUTHENTICATION-003,Failed login with incorrect username,Authentication,1,- Network connectivity is available.,"- Username: `nonexistent_user`
+- Password: `AnyPassword123`","1. User navigates to the login page.
+2. User enters `nonexistent_user` in the username field.
+3. User enters `AnyPassword123` in the password field.
+4. User clicks the ""Login"" button.","- System rejects the credentials.
+- System returns ""Unauthorized"" response.
+- User remains on the login page with an error message."
+TC-AUTHENTICATION-004,Failed login with empty credentials,Authentication,1,- Network connectivity is available.,"- Username: (empty)
+- Password: (empty)","1. User navigates to the login page.
+2. User skips entering a username and password.
+3. User clicks the ""Login"" button.","- System validates empty fields and rejects the attempt.
+- System returns ""Unauthorized"" or ""Fields cannot be empty"" response.
+- User remains on the login page with validation error messages for both fields."
+TC-REGISTRATION-001,Successful user registration with valid data,Registration,1,"- Email `new_user@example.com` is not already registered in the system.
+- Network connectivity is available.","- Email: `new_user@example.com`
+- Password: `NewPass789!`","1. User navigates to the signup page.
+2. User enters `new_user@example.com` in the email field.
+3. User enters `NewPass789!` in the password field.
+4. User clicks the ""Register"" button.","- System validates the email and password.
+- System registers the user successfully.
+- System returns ""User registered successfully"" response.
+- User is redirected to the login page or a confirmation screen."
+TC-REGISTRATION-002,Failed registration with invalid email format,Registration,1,- Network connectivity is available.,"- Email: `invalid.email`
+- Password: `ValidPass123`","1. User navigates to the signup page.
+2. User enters `invalid.email` in the email field.
+3. User enters `ValidPass123` in the password field.
+4. User clicks the ""Register"" button.","- System detects invalid email format.
+- System returns ""Invalid email format"" error.
+- User remains on the signup page with an error message under the email field."
+TC-REGISTRATION-003,Failed registration with existing email,Registration,1,"- Email `existing_user@example.com` is already registered in the system.
+- Network connectivity is available.","- Email: `existing_user@example.com`
+- Password: `NewPass456!`","1. User navigates to the signup page.
+2. User enters `existing_user@example.com` in the email field.
+3. User enters `NewPass456!` in the password field.
+4. User clicks the ""Register"" button.","- System detects duplicate email.
+- System returns ""Email already registered"" error.
+- User remains on the signup page with an error message under the email field."
+TC-PROFILE-001,Successful profile update with valid data,Profile Management,1,"- User is authenticated (e.g., logged in as `john_doe`).
+- Network connectivity is available.","- Username: `john_doe`
+- Profile Data: `{""bio"": ""Software Tester"", ""location"": ""New York""}`","1. User navigates to the profile page.
+2. User enters `john_doe` in the username field (if required for validation).
+3. User updates profile data to `{""bio"": ""Software Tester"", ""location"": ""New York""}`.
+4. User clicks the ""Update Profile"" button.","- System validates the input and updates the profile.
+- System returns ""Profile updated successfully"" response.
+- Updated profile data is reflected on the profile page."
+TC-PROFILE-002,Failed profile update with invalid username,Profile Management,1,"- User is authenticated (e.g., logged in as `john_doe`).
+- Network connectivity is available.","- Username: `hacker_user` (does not match logged-in user)
+- Profile Data: `{""bio"": ""Test"", ""location"": ""Remote""}`","1. User navigates to the profile page.
+2. User enters `hacker_user` in the username field (attempting to update another user's profile).
+3. User updates profile data to `{""bio"": ""Test"", ""location"": ""Remote""}`.
+4. User clicks the ""Update Profile"" button.","- System detects unauthorized username.
+- System returns ""Unauthorized: Cannot update another user's profile"" error.
+- User remains on the profile page with an error message.
+- Original profile data is unchanged."
+TC-EXIT-001,Successful session exit with valid reason,Session Management,1,"- User is authenticated (e.g., logged in as `john_doe`).
+- Network connectivity is available.",- Exit Reason: `Completed tasks`,"1. User navigates to the exit page or clicks the ""Exit"" button.
+2. User enters `Completed tasks` as the exit reason.
+3. User confirms the exit action.","- System logs the exit reason.
+- User session is terminated.
+- System returns ""Session ended successfully"" response.
+- User is redirected to the login page or a logout confirmation screen."
+TC-EXIT-002,Session exit without providing a reason,Session Management,1,"- User is authenticated (e.g., logged in as `john_doe`).
+- Network connectivity is available.",- Exit Reason: (empty),"1. User navigates to the exit page or clicks the ""Exit"" button.
+2. User skips entering an exit reason.
+3. User confirms the exit action.","- System allows exit without a reason (if designed to do so).
+- User session is terminated.
+- System returns ""Session ended"" response (no error for missing reason).
+- User is redirected to the login page."
+TC-EXIT-003,Session exit with invalid reason (edge case),Session Management,1,"- User is authenticated (e.g., logged in as `john_doe`).
+- Network connectivity is available.",- Exit Reason: `!@#$%^&*()` (special characters only),"1. User navigates to the exit page or clicks the ""Exit"" button.
+2. User enters `!@#$%^&*()` as the exit reason.
+3. User confirms the exit action.","- System either:
+  - Accepts the reason as-is (if no validation is enforced), or
+  - Truncates/cleans the input and logs a sanitized version (e.g., `[Invalid Characters]`).
+- User session is terminated.
+- System returns ""Session ended"" response."

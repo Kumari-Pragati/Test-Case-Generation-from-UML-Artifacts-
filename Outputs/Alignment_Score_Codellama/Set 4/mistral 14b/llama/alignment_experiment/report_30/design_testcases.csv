@@ -1,0 +1,63 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-NAVIGATION-001,Verify Homepage to Place Detailed Page Flow,Navigation,1,"- User is logged in and on the Homepage.
+- At least one new place is available in the system.","- Valid place name: ""Central Park Café""
+- Valid location coordinates: (40.785091, -73.968285)","1. User clicks **""Click impostazioni""** (configuration button).
+2. System opens **""Apertura pagina impostazioni""**.
+3. User navigates back to **""Visualizzazione nuovo luogo""** (new place visualization).
+4. User clicks on **""Click sul luogo""** (e.g., ""Central Park Café"").
+5. System opens **""Apertura pagina luogo dettagliata""**.","- Step 1: Configuration page opens successfully.
+- Step 3: New place visualization loads without errors.
+- Step 4: Place detailed page opens with correct place name and details."
+TC-NAVIGATION-002,Verify Pathfinder Flow from Place Detailed Page,Navigation,"1, 3","- User is on the **""Apertura pagina luogo dettagliata""**.
+- Pathfinder feature is enabled.","- Place name: ""Downtown Library""
+- Valid Pathfinder question: ""Do you prefer quiet or lively places?""","1. User clicks **""Click Pathfinder""** on the place detailed page.
+2. System opens **""Apertura pagina Pathfinder""**.
+3. User ignores **""Click Indietro""** (back button) and proceeds to **""Visualizzazione domanda""**.
+4. User selects a response (e.g., ""quiet"").
+5. System displays **""Visualizzazione luogo suggerito""** (e.g., ""Quiet Bookstore"").","- Step 1: Pathfinder page loads without errors.
+- Step 3: Question page appears with the correct prompt.
+- Step 5: Suggested location matches the selected preference."
+TC-NAVIGATION-003,Verify Back Navigation from Pathfinder,Navigation,"1, 3","- User is on the **""Apertura pagina Pathfinder""**.",,"1. User clicks **""Click Indietro""** (back button).
+2. System returns to **""Visualizzazione nuovo luogo""** (or Homepage if no new places).",- Step 1: User is redirected to the previous page without data loss.
+TC-INTEGRATION-001,Verify Yelp Browser Integration from Place Detailed Page,External Integration,2,"- User is on the **""Pagina dettagliata""** of a business (e.g., ""Pizza Place"").
+- Internet connection is active.","- Business name: ""Pizza Place""
+- Valid Yelp URL: `https://www.yelp.com/biz/pizza-place-new-york`","1. User clicks **""Click 'Open in Browser'""** on the place detailed page.
+2. System opens **""Apertura sito Yelp sul browser""** with the correct Yelp URL.
+3. User verifies the Yelp page loads with the business details.","- Step 1: Browser opens with the correct Yelp URL.
+- Step 2: Yelp page displays accurate business information."
+TC-INTEGRATION-002,Verify Business Call Functionality,External Integration,2,"- User is on the **""Pagina dettagliata""** of a business with a valid phone number.
+- Mobile network is available.","- Business name: ""Gourmet Bakery""
+- Phone number: +1 (212) 555-1234","1. User clicks **""Click 'Call Business'""**.
+2. System initiates a call to the business number.
+3. User answers the call (simulated).","- Step 1: Call dialer opens with the correct number.
+- Step 2: Call connects successfully (no errors)."
+TC-INTEGRATION-003,Verify Navigation to System Map,External Integration,2,"- User is on the **""Pagina dettagliata""** of a location.
+- GPS is enabled.","- Location name: ""Grand Central Station""
+- Coordinates: (40.750791, -73.996921)","1. User clicks **""Click 'Navigate'""**.
+2. System opens **""Apertura mappa di sistema""** (e.g., Google Maps or Apple Maps).
+3. User verifies the map centers on the correct location.","- Step 1: Map application opens with the correct coordinates.
+- Step 2: Location is highlighted on the map."
+TC-PREFERENCES-001,Verify Preference Modification Flow,User Preferences,2,"- User is on the **""Pagina dettagliata""** after a call or browser action.","- Current preference: ""Cafés""
+- New preference: ""Restaurants""","1. User clicks **""Click 'Indietro'""** to return to Homepage.
+2. User navigates to **""Modifica preferenze""**.
+3. User selects **""Restaurants""** as the new preference.
+4. User saves changes.
+5. User returns to **""Pagina dettagliata""** and verifies new places reflect the updated preference.","- Step 2: Preferences page loads without errors.
+- Step 5: Place suggestions update to match the new preference."
+TC-EDGE-001,Verify Pathfinder with No Suggestions Available,Pathfinder,3,"- User is on the **""Visualizzazione domanda""** in Pathfinder.
+- No locations match the selected criteria.","- Selected response: ""Vegan options"" (no vegan places in database).","1. User selects **""Vegan options""** as the response.
+2. System displays **""Visualizzazione luogo suggerito""** with a ""No suggestions"" message.",- Step 1: User sees a clear message indicating no suggestions are available.
+TC-NEGATIVE-001,Verify Invalid Pathfinder Response Handling,Pathfinder,3,"- User is on the **""Visualizzazione domanda""**.","- Invalid response: ""None of the above"" (not a predefined option).","1. User selects an invalid response (e.g., taps outside options).
+2. System displays an error message: **""Please select a valid option.""**","- Step 1: Error message appears, and user is prompted to reselect."
+TC-NEGATIVE-002,Verify Missing Internet Connection for Yelp Integration,External Integration,2,"- User is on the **""Pagina dettagliata""** of a business.
+- Device is in **Airplane Mode** (no internet).",,"1. User clicks **""Click 'Open in Browser'""**.
+2. System displays an error: **""No internet connection. Please enable Wi-Fi or mobile data.""**","- Step 1: Error message appears, and the browser does not open."
+TC-NEGATIVE-003,Verify Empty Place List on Homepage,Navigation,1,- No places are available in the system database.,,"1. User opens the app and lands on the **Homepage**.
+2. System displays a message: **""No places available. Please check back later.""**",- Step 1: Empty state message appears with no navigation options.
+TC-EDGE-002,Verify Rapid Swipe on Pathfinder Confirmation,Pathfinder,1,"- User is on the **""Apertura pagina Pathfinder""** with a suggestion displayed.",,"1. User performs a **swipe gesture** (left or right) too quickly.
+2. System ignores the gesture and prompts: **""Please swipe slowly to confirm.""**",- Step 1: System validates swipe speed and shows a guidance message.
+TC-COMPATIBILITY-001,Verify Pathfinder on Low-End Device,Pathfinder,"1, 3","- Device has **slow processing speed** (e.g., 1GB RAM).
+- Pathfinder page is open.",,"1. User navigates to **""Visualizzazione domanda""** on a low-end device.
+2. System loads the question within **3 seconds** (no freezing).
+3. User selects a response; suggestion loads within **5 seconds**.","- Step 1: Page loads without crashes or excessive lag.
+- Step 3: Suggested location appears without performance issues."

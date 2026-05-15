@@ -1,0 +1,92 @@
+flow
+"accesso app -> 1° accesso — type=transition; label=""si""; explanation=""first access"";"
+"accesso app -> 1° accesso — type=transition; label=""no""; explanation=""not first access"";"
+"1° accesso -> utente già registrato? — type=transition; label=""si""; explanation=""user already registered?"";"
+"1° accesso -> utente già registrato? — type=transition; label=""no""; explanation=""user not registered"";"
+"utente già registrato? — type=transition; label=""si""; explanation=""user is registered"";"
+"utente già registrato? — type=transition; label=""no""; explanation=""user is not registered"";"
+"utente già registrato? -> registrazione — type=transition; label=""no""; explanation=""user not registered"";"
+"utente già registrato? -> login — type=transition; label=""si""; explanation=""user is registered"";"
+"registrazione -> home — type=transition; label=""registrazione completata""; explanation=""registration successful"";"
+"login -> home — type=transition; label=""login effettuato""; explanation=""login successful"";"
+"home -> start — type=transition; label=""ritorna all'app""; explanation=""return to app"";"
+the diagram models the initial access flow to an application.
+"if the user has not accessed the app before, they are prompted to register or log in."
+"if the user is registered, they are directed to the home screen."
+"if the user is not registered, they are directed to the registration process."
+"if the user is not already registered, they are directed to the registration process."
+"home -> tragitto in corso — transition=""yes""; explanation=""user wants to start a trip"""
+"home -> vuoi cambiare sezione? — transition=""no""; explanation=""user does not want to change section"""
+"tragitto in corso -> tragitto terminato — transition=""yes""; explanation=""trip is completed"""
+"tragitto terminato -> calcolo emissioni — transition=""yes""; explanation=""after trip completion, calculate emissions"""
+"vuoi cambiare sezione? -> menu orizzontale — transition=""yes""; explanation=""user wants to change section"""
+"vuoi cambiare sezione? -> home — transition=""no""; explanation=""user does not want to change section"""
+the diagram models a state machine representing the flow of a trip calculation process.
+the process starts at the home state.
+the user can either start a trip or change a section.
+"if a trip is in progress, it can be completed, leading to emission calculation."
+"if the user doesn't want to change the section, the process returns to the home state."
+"statistiche -> visualizza report settimanale? — type=transition; label=""si""; explanation=""if yes"""
+"statistiche -> vuoi cambiare sezione? — type=transition; label=""si""; explanation=""if yes"""
+"statistiche -> statistiche — type=transition; label=""no""; explanation=""if no"""
+"visualizza report settimanale? -> report settimanale — type=transition; label=""si""; explanation=""if yes"""
+"vuoi cambiare sezione? -> menu orizzontale — type=transition; label=""si""; explanation=""if yes"""
+statistiche
+statistiche -> visualizza report settimanale? (si) -> report settimanale
+report settimanale
+the diagram models a simple state machine representing the interaction flow for accessing statistics.
+the system starts at the 'statistiche' state.
+the user can either view a weekly report or change the section.
+"if the user wants to view the report, the system transitions to the 'report settimanale' state."
+"if the user doesn't want to view the report, the system checks if they want to change the section."
+"if the user wants to change the section, the system transitions to the 'menu orizzontale' state."
+"if the user doesn't want to change the section, the system returns to the 'statistiche' state."
+"visualizza dati personali -> profilo — type=transition; label=""si""; explanation=""user wants to view personal data"""
+"visualizza dati personali -> profilo — type=transition; label=""no""; explanation=""user does not want to view personal data"""
+"vuoi aggiornare l'account? -> profilo — type=transition; label=""si""; explanation=""user wants to update account"""
+"vuoi aggiornare l'account? -> profilo — type=transition; label=""no""; explanation=""user does not want to update account"""
+"vuoi uscire dall'account? -> logout — type=transition; label=""si""; explanation=""user wants to logout"""
+"vuoi uscire dall'account? -> profilo — type=transition; label=""no""; explanation=""user does not want to logout"""
+"vuoi cambiare sezione? -> menu orrizontale — type=transition; label=""si""; explanation=""user wants to change section"""
+"vuoi cambiare sezione? -> profilo — type=transition; label=""no""; explanation=""user does not want to change section"""
+"inserisci nuovi dati -> aggiorna dati — type=transition; label=""si""; explanation=""user inserts new data"""
+"inserisci nuovi dati -> profilo — type=transition; label=""no""; explanation=""user does not insert new data"""
+"aggiorna dati -> profilo — type=transition; label=""si""; explanation=""data updated"""
+"aggiorna dati -> profilo — type=transition; label=""no""; explanation=""data not updated"""
+the diagram models the user's interaction with a profile section of an application.
+"the user can choose to view personal data, update their account, logout, or change sections."
+"the diagram shows a flow where the user first decides whether to view data, update their account, logout, or change sections."
+each decision leads to a specific action or returns to the main profile view.
+utente -> applicazione: inserire credenziali;
+applicazione -> server: invio credenziali;
+server -> database: verifica dati;
+server -> applicazione: dati trovati;
+applicazione -> server: confronto con quelli inseriti;
+applicazione -> utente: login avvenuto;
+utente -> applicazione: inserire credenziali
+applicazione -> server: invio credenziali
+server -> database: verifica dati
+database -> server: dati trovati
+server -> applicazione: dati trovati
+applicazione -> server: confronto con quelli inseriti
+applicazione -> utente: login avvenuto
+"the diagram models the login sequence between an user, an application, a server, and a database."
+the user initiates the login process by providing credentials to the application.
+the application then sends these credentials to the server for verification.
+the server queries the database to check if the provided credentials are valid.
+"if the credentials are valid, the server sends a confirmation message back to the application, which then informs the user that the login has been successful."
+utente -> applicazione: avvio percorso;
+applicazione -> server: calcolo e invio dati;
+server -> database: aggiunta percorso;
+server -> database: nuovo percorso;
+server -> applicazione: ritorno emissioni;
+applicazione -> server: emissioni co2;
+utente -> applicazione: avvio percorso
+applicazione -> server: calcolo e invio dati
+server -> database: aggiunta percorso
+server -> database: nuovo percorso
+server -> applicazione: ritorno emissioni
+applicazione -> server: emissioni co2
+the diagram models the sequence of events involved in calculating co2 emissions based on a user-provided route.
+"the user initiates the process, the application calculates the emissions, the server interacts with the database to store the route, and finally, the application receives the emission data."
+======================================================================

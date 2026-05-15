@@ -1,0 +1,93 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,LoginActivity,1,User is registered in the system.,"- Username: testuser
+- Password: testpassword","1. Enter username ""testuser"" in the login screen.
+2. Enter password ""testpassword"".
+3. Click on the login button.",User is redirected to the HomeActivity.
+TC-Login-002,Invalid Login - Incorrect Password,LoginActivity,1,User is registered in the system.,"- Username: testuser
+- Password: wrongpassword","1. Enter username ""testuser"" in the login screen.
+2. Enter password ""wrongpassword"".
+3. Click on the login button.",An error message is displayed indicating incorrect password.
+TC-Login-003,Invalid Login - Non-Existent User,LoginActivity,1,No user with the given credentials exists.,"- Username: nonexistuser
+- Password: testpassword","1. Enter username ""nonexistuser"" in the login screen.
+2. Enter password ""testpassword"".
+3. Click on the login button.",An error message is displayed indicating the user does not exist.
+TC-Home-001,Navigate to Profile Activity,HomeActivity,"1, 3",User is logged in.,None,"1. From the HomeActivity, click on the profile icon.",User is redirected to the ProfileActivity.
+TC-Home-002,Navigate to GraphSonoFragment,HomeActivity,"1, 3",User is logged in.,None,"1. From the HomeActivity, click on the ""Sono"" tab.",User is redirected to the GraphSonoFragment.
+TC-Home-003,Navigate to GraphAlattamentoFragment,HomeActivity,"1, 3",User is logged in.,None,"1. From the HomeActivity, click on the ""Alattamento"" tab.",User is redirected to the GraphAlattamentoFragment.
+TC-Home-004,Navigate to GraphCrescitaFragment,HomeActivity,"1, 3",User is logged in.,None,"1. From the HomeActivity, click on the ""Crescita"" tab.",User is redirected to the GraphCrescitaFragment.
+TC-Profile-001,View User Profile,ProfileActivity,"1, 3",User is logged in.,None,"1. From the ProfileActivity, verify that the user's information is displayed correctly.","User's name, email, and other details are displayed accurately."
+TC-Profile-002,Update User Profile - Valid Data,ProfileActivity,"1, 3",User is logged in.,"- New Name: John Doe
+- New Email: johndoe@example.com","1. From the ProfileActivity, update the user's name to ""John Doe"".
+2. Update the user's email to ""johndoe@example.com"".
+3. Save the changes.",User's profile is updated with the new name and email.
+TC-Profile-003,Update User Profile - Invalid Email,ProfileActivity,"1, 3",User is logged in.,- New Email: invalidemail,"1. From the ProfileActivity, attempt to update the user's email to ""invalidemail"".
+2. Save the changes.",An error message is displayed indicating an invalid email format.
+TC-GraphSono-001,View Sono Graph,GraphSonoFragment,"1, 3",User is logged in.,None,"1. From the GraphSonoFragment, verify that the graph is displayed correctly.","A graph showing the user's ""Sono"" data is displayed."
+TC-GraphAlattamento-001,View Alattamento Graph,GraphAlattamentoFragment,"1, 3",User is logged in.,None,"1. From the GraphAlattamentoFragment, verify that the graph is displayed correctly.","A graph showing the user's ""Alattamento"" data is displayed."
+TC-GraphCrescita-001,View Crescita Graph,GraphCrescitaFragment,"1, 3",User is logged in.,None,"1. From the GraphCrescitaFragment, verify that the graph is displayed correctly.","A graph showing the user's ""Crescita"" data is displayed."
+TC-Family-001,Create Family Activity,FamilyActivity,3,User is logged in.,"- Family Name: Doe Family
+- Gender: Male
+- Date: 2023-01-01","1. From the HomeActivity, navigate to the FamilyActivity.
+2. Fill in the family name as ""Doe Family"".
+3. Select ""Male"" as the gender.
+4. Enter the date as ""2023-01-01"".
+5. Click on the create button.",A new family activity is created with the provided details.
+TC-Family-002,Create Family Activity - Invalid Date,FamilyActivity,3,User is logged in.,- Date: 2023-13-01,"1. From the HomeActivity, navigate to the FamilyActivity.
+2. Fill in the family name as ""Doe Family"".
+3. Select ""Male"" as the gender.
+4. Enter the date as ""2023-13-01"".
+5. Click on the create button.",An error message is displayed indicating an invalid date.
+TC-Logout-001,Logout Successfully,LoginActivity,1,User is logged in.,None,"1. From the HomeActivity, click on the logout button.",User is logged out and redirected to the LoginActivity.
+TC-Logout-002,Attempt to Logout Without Being Logged In,LoginActivity,1,User is not logged in.,None,"1. From the LoginActivity, click on the logout button.",An error message is displayed indicating that the user is not logged in.
+TC-UserCamp-001,Add User to Camp,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID: 456","1. From the Faculty interface, select the ""Add User to Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the camp ID as ""456"".
+4. Click on the add button.",The user is added to the specified camp.
+TC-UserCamp-002,Remove User from Camp,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID: 456","1. From the Faculty interface, select the ""Remove User from Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the camp ID as ""456"".
+4. Click on the remove button.",The user is removed from the specified camp.
+TC-UserCamp-003,Attempt to Add User to Non-Existent Camp,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID: 999","1. From the Faculty interface, select the ""Add User to Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the camp ID as ""999"".
+4. Click on the add button.",An error message is displayed indicating that the camp does not exist.
+TC-UserCamp-004,Attempt to Remove User from Non-Existent Camp,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID: 999","1. From the Faculty interface, select the ""Remove User from Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the camp ID as ""999"".
+4. Click on the remove button.",An error message is displayed indicating that the camp does not exist.
+TC-UserCamp-005,Add User to Multiple Camps,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID 1: 456
+- Camp ID 2: 789","1. From the Faculty interface, select the ""Add User to Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the first camp ID as ""456"".
+4. Click on the add button.
+5. Enter the second camp ID as ""789"".
+6. Click on the add button.",The user is added to both specified camps.
+TC-UserCamp-006,Remove User from Multiple Camps,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID 1: 456
+- Camp ID 2: 789","1. From the Faculty interface, select the ""Remove User from Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the first camp ID as ""456"".
+4. Click on the remove button.
+5. Enter the second camp ID as ""789"".
+6. Click on the remove button.",The user is removed from both specified camps.
+TC-UserCamp-007,Attempt to Add User to Existing Camp,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID: 456","1. From the Faculty interface, select the ""Add User to Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the camp ID as ""456"".
+4. Click on the add button.",An error message is displayed indicating that the user is already in the specified camp.
+TC-UserCamp-008,Attempt to Remove User from Existing Camp,Faculty,1,Faculty is logged in.,"- User ID: 123
+- Camp ID: 456","1. From the Faculty interface, select the ""Remove User from Camp"" option.
+2. Enter the user ID as ""123"".
+3. Enter the camp ID as ""456"".
+4. Click on the remove button.",An error message is displayed indicating that the user is not in the specified camp.
+TC-UserCamp-009,Add User to Camp - Invalid User ID,Faculty,1,Faculty is logged in.,"- User ID: abc
+- Camp ID: 456","1. From the Faculty interface, select the ""Add User to Camp"" option.
+2. Enter the user ID as ""abc"".
+3. Enter the camp ID as ""456"".
+4. Click on the add button.",An error message is displayed indicating an invalid user ID.
+TC-UserCamp-010,Remove User from,,,,,,

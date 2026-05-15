@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- FirebaseAuthentication service is active.
+- User account exists with valid email/password.","- Email: `user@example.com`
+- Password: `SecurePass123!`","1. User enters email and password in the UI.
+2. UI sends `signIn(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication validates credentials.
+4. FirebaseAuthentication returns `Credenziali valide` and a token.
+5. UI retrieves user data using the token.
+6. UI displays confirmation of successful login.","- User is authenticated and redirected to the dashboard.
+- Token and user data are stored locally."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,2,"- FirebaseAuthentication service is active.
+- User account does not exist or password is incorrect.","- Email: `nonexistent@example.com`
+- Password: `WrongPass456`","1. User enters invalid email/password in the UI.
+2. UI sends `signIn(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication returns `Credenziali errate`.
+4. UI displays error message: *""Errore login (es. Password errata)""*.","- User remains on login screen.
+- No token or user data is stored."
+TC-AUTHENTICATION-003,Successful user registration with valid data,Registration,3,"- FirebaseAuthentication and FirebaseFirestore are active.
+- No existing account with the provided email.","- Name: `John Doe`
+- Email: `john.doe@example.com`
+- Password: `NewPass789!`
+- Nationality: `Italian`
+- Role: `Citizen`","1. User enters registration data in the UI.
+2. UI sends `creaAccount(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication validates data and returns `Validazione dati`.
+4. UI receives token and sends `salvaUtente(nome, email, token)` to FirebaseFirestore.
+5. FirebaseFirestore confirms user save.
+6. UI displays: *""Conferma registrazione avvenuta""*.","- New user record is created in FirebaseFirestore with all attributes.
+- User is automatically logged in."
+TC-AUTHENTICATION-004,Failed registration with invalid email format,Registration,3,- FirebaseAuthentication is active.,"- Name: `Jane Doe`
+- Email: `invalid-email` (missing @ and domain)
+- Password: `ValidPass123!`","1. User enters invalid email in the UI.
+2. UI sends `creaAccount(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication returns `[Dati non validi]`.
+4. UI displays: *""Errore registrazione: Email non valida""*.","- No user record is created.
+- User remains on registration screen."
+TC-AUTHENTICATION-005,Registration with weak password (edge case),Registration,3,- FirebaseAuthentication enforces password policies.,"- Name: `Alice Smith`
+- Email: `alice@example.com`
+- Password: `123` (too short)","1. User enters weak password in the UI.
+2. UI sends `creaAccount(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication returns `[Dati non validi]`.
+4. UI displays: *""Errore registrazione: Password troppo debole""*.","- No user record is created.
+- UI prompts to enter a stronger password."
+TC-REPORT-CREATION-001,Successful report creation with image and entity assignment,Report Submission,4,"- User is logged in.
+- FirebaseFirestore and FirebaseStorage are active.
+- At least one area and category exist in the database.","- Description: `Broken streetlight on Maple Ave`
+- Image: `streetlight.jpg` (valid file)
+- Coordinates: `40.7128, -74.0060` (New York)
+- Urgency: `High`
+- Assigned Category: `Infrastructure`
+- Assigned Area: `Manhattan`","1. User enters report details (description, image, coordinates, urgency) in the UI.
+2. UI uploads `immagine` to FirebaseStorage.
+3. FirebaseStorage returns `URL immagine salvata`.
+4. UI sends `Cerca ente competente più vicino(coordinate, urgenza)` to FirebaseFirestore.
+5. FirebaseFirestore returns `Ente più vicino trovato (dati ente)`.
+6. UI sends `salvaSegnalazione(datiSegnalazione + URL immagine + dati ente)` to FirebaseFirestore.
+7. FirebaseFirestore confirms `Conferma salvataggio segnalazione`.
+8. UI displays: *""Conferma invio segnalazione con ente assegnato""*.","- Report record is created in FirebaseFirestore with:
+  - `idUser`, `idCategorie`, `idArea`, `urgency`, `description`, and `imageURL`.
+  - Assigned entity data is linked.
+- Image is stored in FirebaseStorage."
+TC-REPORT-CREATION-002,Report creation with missing image (edge case),Report Submission,4,- User is logged in.,"- Description: `Pothole on Oak St`
+- Image: *(none selected)*
+- Coordinates: `34.0522, -118.2437` (Los Angeles)
+- Urgency: `Medium`","1. User enters report details but skips image upload.
+2. UI attempts to send `Carica immagine(immagine)` to FirebaseStorage.
+3. UI detects no image and skips `URL immagine salvata`.
+4. UI sends `salvaSegnalazione(datiSegnalazione)` **without** image URL.
+5. FirebaseFirestore rejects save due to missing image.
+6. UI displays: *""Errore: Carica un'immagine per completare la segnalazione""*.","- No report is saved.
+- User is prompted to add an image."
+TC-REPORT-CREATION-003,Report creation with invalid coordinates (edge case),Report Submission,4,- User is logged in.,"- Description: `Graffiti on wall`
+- Image: `graffiti.jpg`
+- Coordinates: `999.9999, 999.9999` (invalid)
+- Urgency: `Low`","1. User enters invalid coordinates in the UI.
+2. UI sends `Cerca ente competente più vicino(coordinate, urgenza)` to FirebaseFirestore.
+3. FirebaseFirestore returns error: *""Coordinate non valide""*.
+4. UI displays: *""Errore: Inserisci coordinate geografiche valide""*.","- No report is saved.
+- User is prompted to correct coordinates."
+TC-REPORT-CREATION-004,Report creation with non-existent category/area,Report Submission,"1, 4","- User is logged in.
+- Database contains categories/areas, but selected `idCategorie`/`idArea` do not exist.","- Description: `Test report`
+- Image: `test.jpg`
+- Coordinates: `41.8781, -87.6298` (Chicago)
+- Urgency: `High`
+- `idCategorie`: `999` (non-existent)
+- `idArea`: `999` (non-existent)","1. User selects invalid category/area IDs via UI (e.g., hardcoded or API call).
+2. UI sends `salvaSegnalazione(datiSegnalazione + URL immagine)` to FirebaseFirestore.
+3. FirebaseFirestore validates foreign keys and rejects save.
+4. UI displays: *""Errore: Categoria/Area non trovata""*.","- No report is saved.
+- User is prompted to select valid category/area."
+TC-DATA-INTEGRITY-001,Verify report associations (Users → Categories → Areas → Reports),Data Model Validation,1,"- Database contains:
+  - 1 User (`id=1`, role=`Citizen`).
+  - 1 Category (`id=1`, description=`Environment`).
+  - 1 Area (`id=1`, location=`Downtown`, description=`Central`).
+  - 1 Report (`id=1`, `idUser=1`, `idCategorie=1`, `idArea=1`).",,"1. Query FirebaseFirestore to fetch:
+   - User with `id=1` and their associated reports.
+   - Category with `id=1` and its associated reports.
+   - Area with `id=1` and its associated reports.
+2. Verify:
+   - Report `id=1` appears in User `id=1`'s reports.
+   - Report `id=1` appears in Category `id=1`'s reports.
+   - Report `id=1` appears in Area `id=1`'s reports.","- All associations are correctly linked in the database.
+- No orphaned records exist."
+TC-DATA-INTEGRITY-002,Delete user and verify cascading effects on reports/notifications,Data Model Validation,1,"- Database contains:
+  - 1 User (`id=1`).
+  - 2 Reports (`id=1`, `idUser=1`; `id=2`, `idUser=1`).
+  - 1 Notification (`id=1`, `idUser=1`, `idReport=1`).",,"1. Delete User `id=1` via UI/admin interface.
+2. Query FirebaseFirestore to verify:
+   - Reports `id=1` and `id=2` are **soft-deleted** (or hard-deleted with `idUser` set to `null`).
+   - Notification `id=1` is **soft-deleted** (or hard-deleted with `idUser` set to `null`).
+3. Attempt to fetch User `id=1`'s reports/notifications.","- User `id=1` is deleted.
+- Associated reports/notifications are either deleted or marked as orphaned.
+- Queries for User `id=1`'s data return empty results."
+TC-NOTIFICATIONS-001,User receives notification for their report,Notifications,1,"- Database contains:
+  - 1 User (`id=1`).
+  - 1 Report (`id=1`, `idUser=1`, `urgency=High`).
+  - Notification system is configured to send alerts for `High` urgency.",,"1. System detects `urgency=High` for Report `id=1`.
+2. System creates Notification:
+   - `idUser=1`
+   - `idReport=1`
+   - `text=""Your report has been flagged as high urgency. Action required.""`
+   - `date=current_timestamp`.
+3. User logs in and checks their notifications.","- Notification appears in the user's list.
+- Notification links to the associated report (`idReport=1`)."
+TC-URGENCY-FLOW-001,High-urgency report triggers immediate notification,Report Urgency Handling,"1, 4","- User is logged in.
+- Notification system is active.","- Report details:
+  - Urgency: `High`
+  - Description: `Fire hazard detected`
+  - Coordinates: `37.7749, -122.4194` (San Francisco)","1. User submits report with `urgency=High`.
+2. UI sends `salvaSegnalazione` to FirebaseFirestore.
+3. System detects `urgency=High` and immediately:
+   - Creates a notification for the user.
+   - Sends an alert to the assigned entity (if applicable).
+4. User receives notification within 5 seconds.",- Notification is created and delivered instantly

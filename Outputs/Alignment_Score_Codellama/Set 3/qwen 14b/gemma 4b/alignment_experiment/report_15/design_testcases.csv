@@ -1,0 +1,94 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Authentication Success","Authentication","2","User is available and has internet connection.","Valid user credentials.","1. User initiates authentication process.
+2. User provides valid credentials to FirebaseAuthentication.
+3. FirebaseAuthentication stores an image in personal storage.
+4. FirebaseAuthentication retrieves an image from personal storage.
+5. Gemini AI service receives text input from the user via the askText component.","User is authenticated successfully, image stored and retrieved correctly, and text input processed by Gemini AI."
+"TC-Authentication-002","User Authentication Failure with Invalid Credentials","Authentication","2","User is available and has internet connection.","Invalid user credentials.","1. User initiates authentication process.
+2. User provides invalid credentials to FirebaseAuthentication.
+3. FirebaseAuthentication attempts to store an image in personal storage.
+4. FirebaseAuthentication attempts to retrieve an image from personal storage.","Authentication fails, no image is stored or retrieved, and no text input is processed by Gemini AI."
+"TC-Login-001","Successful Login Process","Login","3","User is available and has internet connection.","Valid token.","1. Main requests a token from LocalUser.
+2. Main sends the token to Authentication.
+3. LocalUser requests user data from Authentication.
+4. Authentication creates a new LocalUser object and returns it to LocalUser.
+5. Main receives confirmation (""done"").","User logs in successfully, LocalUser object is created, and main interface confirms successful login."
+"TC-Login-002","Failed Login Process with Null Token","Login","3","User is available and has internet connection.","Null token.","1. Main requests a token from LocalUser.
+2. Main sends a null token to Authentication.
+3. LocalUser requests user data from Authentication.","Login fails, no LocalUser object is created, and main interface does not confirm successful login."
+"TC-PlantPhotoUpload-001","Successful Plant Photo Upload and Species Identification","PlantPhotoUpload","4","User is authenticated and has internet connection.","Valid plant photo.","1. Main sends a new photo to Gemini AI API.
+2. Gemini AI API identifies the plant species.
+3. Gemini AI API stores the identified species in Firebase Storage.
+4. Firebase Storage returns the URL of the uploaded photo to Main.","Plant photo is uploaded successfully, species is identified, and URL of the uploaded photo is returned."
+"TC-PlantPhotoUpload-002","Failed Plant Photo Upload Due to AI API Error","PlantPhotoUpload","4","User is authenticated and has internet connection.","Invalid plant photo.","1. Main sends an invalid photo to Gemini AI API.
+2. Gemini AI API fails to identify the plant species.
+3. Gemini AI API does not store the species in Firebase Storage.
+4. Firebase Storage does not return the URL of the uploaded photo.","Plant photo upload fails, species is not identified, and no URL is returned."
+"TC-PhotoRetrieval-001","Successful Retrieval of Photos for Each Species","PhotoRetrieval","5","User is authenticated and has internet connection.","Valid species list.","1. Main requests access to personal storage from Firebase Storage.
+2. Firebase Storage provides the path to the personal storage.
+3. Main requests photos for each species present.
+4. Firebase Storage downloads the URIs of requested photos.","Personal storage path is provided, photos for each species are downloaded successfully, and URIs are returned."
+"TC-PhotoRetrieval-002","Failed Retrieval of Photos Due to Missing Species","PhotoRetrieval","5","User is authenticated and has internet connection.","Non-existent species list.","1. Main requests access to personal storage from Firebase Storage.
+2. Firebase Storage provides the path to the personal storage.
+3. Main requests photos for non-existent species.
+4. Firebase Storage does not download any photos.","Personal storage path is provided, but no photos are downloaded due to non-existent species, and no URIs are returned."
+"TC-DataManagement-001","Successful Insertion of Plant Data","DataManagement","1","User is authenticated and has internet connection.","Valid plant data.","1. User triggers insertion/modification of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data is inserted/modified.","Plant data is successfully inserted/modified."
+"TC-DataManagement-002","Failed Insertion of Plant Data with Invalid Data","DataManagement","1","User is authenticated and has internet connection.","Invalid plant data.","1. User triggers insertion/modification of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data insertion/modification fails.","Plant data insertion/modification fails due to invalid data."
+"TC-DataManagement-003","Successful Reading of Plant Data","DataManagement","1","User is authenticated and has internet connection.","Valid plant data.","1. User triggers reading of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data is read.","Plant data is successfully read."
+"TC-DataManagement-004","Failed Reading of Plant Data with Nonexistent Entry","DataManagement","1","User is authenticated and has internet connection.","Nonexistent plant data entry.","1. User triggers reading of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data reading fails.","Plant data reading fails due to nonexistent entry."
+"TC-DataManagement-005","Successful Insertion of Diary Data","DataManagement","1","User is authenticated and has internet connection.","Valid diary data.","1. User triggers insertion/modification of diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data is inserted/modified.","Diary data is successfully inserted/modified."
+"TC-DataManagement-006","Failed Insertion of Diary Data with Invalid Data","DataManagement","1","User is authenticated and has internet connection.","Invalid diary data.","1. User triggers insertion/modification of diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data insertion/modification fails.","Diary data insertion/modification fails due to invalid data."
+"TC-DataManagement-007","Successful Reading of Diary Data","DataManagement","1","User is authenticated and has internet connection.","Valid diary data.","1. User triggers reading of diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data is read.","Diary data is successfully read."
+"TC-DataManagement-008","Failed Reading of Diary Data with Nonexistent Entry","DataManagement","1","User is authenticated and has internet connection.","Nonexistent diary data entry.","1. User triggers reading of diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data reading fails.","Diary data reading fails due to nonexistent entry."
+"TC-UserInformation-001","Successful Retrieval of User Information","UserInformation","1","User is authenticated and has internet connection.","Valid user information.","1. User triggers retrieval of user information through DataManager.
+2. DataManager processes the request.
+3. User information is retrieved.","User information is successfully retrieved."
+"TC-UserInformation-002","Failed Retrieval of User Information with Invalid Request","UserInformation","1","User is authenticated and has internet connection.","Invalid user information request.","1. User triggers retrieval of user information through DataManager.
+2. DataManager processes the request.
+3. User information retrieval fails.","User information retrieval fails due to invalid request."
+"TC-AccessOperations-001","Successful Access to Plant Data","AccessOperations","1","User is authenticated and has internet connection.","Valid plant data.","1. User triggers access to plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data is accessed.","Plant data is successfully accessed."
+"TC-AccessOperations-002","Failed Access to Plant Data with Invalid Request","AccessOperations","1","User is authenticated and has internet connection.","Invalid plant data request.","1. User triggers access to plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data access fails.","Plant data access fails due to invalid request."
+"TC-AccessOperations-003","Successful Access to Diary Data","AccessOperations","1","User is authenticated and has internet connection.","Valid diary data.","1. User triggers access to diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data is accessed.","Diary data is successfully accessed."
+"TC-AccessOperations-004","Failed Access to Diary Data with Invalid Request","AccessOperations","1","User is authenticated and has internet connection.","Invalid diary data request.","1. User triggers access to diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data access fails.","Diary data access fails due to invalid request."
+"TC-PlantReading-001","Successful Reading of Plant Data","PlantReading","1","User is authenticated and has internet connection.","Valid plant data.","1. User triggers reading of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data is read.","Plant data is successfully read."
+"TC-PlantReading-002","Failed Reading of Plant Data with Nonexistent Entry","PlantReading","1","User is authenticated and has internet connection.","Nonexistent plant data entry.","1. User triggers reading of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data reading fails.","Plant data reading fails due to nonexistent entry."
+"TC-PlantInsertionModification-001","Successful Insertion of Plant Data","PlantInsertionModification","1","User is authenticated and has internet connection.","Valid plant data.","1. User triggers insertion/modification of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data is inserted/modified.","Plant data is successfully inserted/modified."
+"TC-PlantInsertionModification-002","Failed Insertion of Plant Data with Invalid Data","PlantInsertionModification","1","User is authenticated and has internet connection.","Invalid plant data.","1. User triggers insertion/modification of plant data through DataManager.
+2. DataManager processes the request.
+3. Plant data insertion/modification fails.","Plant data insertion/modification fails due to invalid data."
+"TC-DiaryReading-001","Successful Reading of Diary Data","DiaryReading","1","User is authenticated and has internet connection.","Valid diary data.","1. User triggers reading of diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data is read.","Diary data is successfully read."
+"TC-DiaryReading-002","Failed Reading of Diary Data with Nonexistent Entry","DiaryReading","1","User is authenticated and has internet connection.","Nonexistent diary data entry.","1. User triggers reading of diary data through DataManager.
+2. DataManager processes the request.
+3. Diary data reading fails.","Diary data reading fails due to nonexistent entry."

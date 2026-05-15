@@ -1,0 +1,129 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User logs in successfully","Login","1, 8, 10, 11","User has registered and stored credentials in the database.","Username: testuser, Password: testpassword","1. User enters username and password.
+2. User clicks on the login button.
+3. System sends request to the database.
+4. Database verifies the credentials.
+5. Database returns success response.
+6. System redirects to the main page.","User is redirected to the main page with a success message."
+"TC-Login-002","User logs in with incorrect password","Login","1, 8, 11","User has registered and stored credentials in the database.","Username: testuser, Password: wrongpassword","1. User enters username and password.
+2. User clicks on the login button.
+3. System sends request to the database.
+4. Database verifies the credentials.
+5. Database returns failure response.
+6. System displays an error message.","User sees an error message indicating incorrect password."
+"TC-Login-003","User logs in with incorrect username","Login","1, 8, 11","User has registered and stored credentials in the database.","Username: wronguser, Password: testpassword","1. User enters username and password.
+2. User clicks on the login button.
+3. System sends request to the database.
+4. Database verifies the credentials.
+5. Database returns failure response.
+6. System displays an error message.","User sees an error message indicating incorrect username."
+"TC-Registration-001","User registers successfully","Registration","1, 8","User is not registered.","Username: testuser, Password: testpassword, Email: test@example.com","1. User navigates to the registration page.
+2. User fills in the registration form with the provided data.
+3. User submits the form.
+4. System sends request to the database.
+5. Database stores the user data.
+6. Database returns success response.
+7. System redirects to the login page.","User is redirected to the login page with a success message."
+"TC-Registration-002","User attempts to register with existing username","Registration","1, 8","User with the same username already exists.","Username: testuser, Password: testpassword, Email: test@example.com","1. User navigates to the registration page.
+2. User fills in the registration form with the provided data.
+3. User submits the form.
+4. System sends request to the database.
+5. Database checks for existing username.
+6. Database returns failure response.
+7. System displays an error message.","User sees an error message indicating the username is already taken."
+"TC-Profile-001","User updates personal information successfully","Profile","1, 15, 17","User is logged in and has personal information stored in the database.","New email: newemail@example.com, New phone number: 1234567890","1. User navigates to the personal info page.
+2. User fills in the new information.
+3. User clicks on the save button.
+4. System sends request to the database.
+5. Database updates the user information.
+6. Database returns success response.
+7. System redirects to the personal info page.","User sees the updated information on the personal info page."
+"TC-Profile-002","User fails to update personal information due to invalid email format","Profile","1, 15, 17","User is logged in and has personal information stored in the database.","New email: invalidemail, New phone number: 1234567890","1. User navigates to the personal info page.
+2. User fills in the new information.
+3. User clicks on the save button.
+4. System sends request to the database.
+5. Database validates the email format.
+6. Database returns failure response.
+7. System displays an error message.","User sees an error message indicating the email format is invalid."
+"TC-Item-Insertion-001","User inserts a new item successfully","Item Insertion","10, 12, 13","User is logged in.","Item name: Test Item, Description: This is a test item, Image URL: http://example.com/image.jpg","1. User navigates to the insert item page.
+2. User fills in the item details.
+3. User clicks on the submit button.
+4. System sends request to the database.
+5. Database stores the item information.
+6. Database returns success response.
+7. System redirects to the item list page.","User sees the new item added to the list."
+"TC-Item-Insertion-002","User fails to insert a new item due to missing required fields","Item Insertion","10, 12, 13","User is logged in.","Item name: , Description: This is a test item, Image URL: http://example.com/image.jpg","1. User navigates to the insert item page.
+2. User fills in the item details.
+3. User clicks on the submit button.
+4. System sends request to the database.
+5. Database checks for missing required fields.
+6. Database returns failure response.
+7. System displays an error message.","User sees an error message indicating missing required fields."
+"TC-Item-Deletion-001","User deletes an item successfully","Item Deletion","11, 14, 15","User is logged in and has an item in the list.","Item name: Test Item","1. User navigates to the item list page.
+2. User selects the item to delete.
+3. User clicks on the delete button.
+4. System sends request to the database.
+5. Database removes the item from the list.
+6. Database returns success response.
+7. System redirects to the item list page.","User sees the item removed from the list."
+"TC-Item-Deletion-002","User fails to delete an item due to non-existent item","Item Deletion","11, 14, 15","User is logged in and has an item in the list.","Item name: NonExistentItem","1. User navigates to the item list page.
+2. User selects the item to delete.
+3. User clicks on the delete button.
+4. System sends request to the database.
+5. Database checks for the existence of the item.
+6. Database returns failure response.
+7. System displays an error message.","User sees an error message indicating the item does not exist."
+"TC-Exchange-Proposal-001","User proposes a new exchange successfully","Exchange Proposal","13, 15","User is logged in.","Item name: Test Item, Exchange partner: Partner User","1. User navigates to the exchange page.
+2. User fills in the exchange details.
+3. User clicks on the propose button.
+4. System sends request to the database.
+5. Database stores the exchange information.
+6. Database returns success response.
+7. System redirects to the exchange list page.","User sees the new exchange added to the list."
+"TC-Exchange-Proposal-002","User fails to propose a new exchange due to missing required fields","Exchange Proposal","13, 15","User is logged in.","Item name: , Exchange partner:","1. User navigates to the exchange page.
+2. User fills in the exchange details.
+3. User clicks on the propose button.
+4. System sends request to the database.
+5. Database checks for missing required fields.
+6. Database returns failure response.
+7. System displays an error message.","User sees an error message indicating missing required fields."
+"TC-Exchange-Acceptance-001","User accepts an exchange successfully","Exchange Acceptance","15","User is logged in and has an exchange in the list.","Exchange ID: 12345","1. User navigates to the exchange list page.
+2. User selects the exchange to accept.
+3. User clicks on the accept button.
+4. System sends request to the database.
+5. Database updates the exchange status.
+6. Database returns success response.
+7. System redirects to the exchange list page.","User sees the exchange status updated to accepted."
+"TC-Exchange-Rejection-001","User rejects an exchange successfully","Exchange Rejection","15","User is logged in and has an exchange in the list.","Exchange ID: 12345","1. User navigates to the exchange list page.
+2. User selects the exchange to reject.
+3. User clicks on the reject button.
+4. System sends request to the database.
+5. Database updates the exchange status.
+6. Database returns success response.
+7. System redirects to the exchange list page.","User sees the exchange status updated to rejected."
+"TC-Item-Filtering-001","User filters items successfully","Item Filtering","16","User is logged in and has items in the list.","Filter criteria: Category: Electronics, Price range: $100-$200","1. User navigates to the item list page.
+2. User applies the filter criteria.
+3. System sends request to the database.
+4. Database filters the items based on the criteria.
+5. Database returns the filtered items.
+6. System displays the filtered items list.","User sees the filtered items list."
+"TC-Item-Filtering-002","User fails to filter items due to invalid price range","Item Filtering","16","User is logged in and has items in the list.","Filter criteria: Category: Electronics, Price range: $200-$100","1. User navigates to the item list page.
+2. User applies the filter criteria.
+3. System sends request to the database.
+4. Database validates the price range.
+5. Database returns failure response.
+6. System displays an error message.","User sees an error message indicating the price range is invalid."
+"TC-Profile-Update-001","User updates profile information successfully","Profile Update","17","User is logged in and has profile information stored in the database.","New profile information: Name: John Doe, Address: 123 Main St","1. User navigates to the profile page.
+2. User fills in the new profile information.
+3. User clicks on the save button.
+4. System sends request to the database.
+5. Database updates the profile information.
+6. Database returns success response.
+7. System redirects to the profile page.","User sees the updated profile information on the profile page."
+"TC-Profile-Update-002","User fails to update profile information due to invalid address format","Profile Update","17","User is logged in and has profile information stored in the database.","New profile information: Name: John Doe, Address: 123 Main","1. User navigates to the profile page.
+2. User fills in the new profile information.
+3. User clicks on the save button.
+4. System sends request to the database.
+5. Database validates the address format.
+6. Database returns failure response.
+7. System displays an error message.","User sees an error message indicating the address format is invalid."

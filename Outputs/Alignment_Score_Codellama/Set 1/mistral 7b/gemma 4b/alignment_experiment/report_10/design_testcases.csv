@@ -1,0 +1,107 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Test user registration,User,1,None,"- Valid email: test@example.com
+  - Valid password: Test1234
+  - Valid username: TestUser","1. Navigate to the registration page
+  2. Enter the email, password, and username
+  3. Click the ""Register"" button",- The user is registered successfully
+TC-User-002,Test user login,User,1,User is registered,"- Valid email: test@example.com
+  - Valid password: Test1234","1. Navigate to the login page
+  2. Enter the email and password
+  3. Click the ""Login"" button",- The user is logged in successfully
+TC-City-001,Test city creation,City,1,None,"- Valid city name: Rome
+  - Valid province: Lazio","1. Navigate to the city creation page
+  2. Enter the city name and province
+  3. Click the ""Create"" button",- A new city is created with the provided name and province
+TC-POI-001,Test POI creation,POI,1,None,"- Valid POI name: Colosseum
+  - Valid city: Rome
+  - Valid province: Lazio
+  - Valid type: Historical Site
+  - Valid description: Ancient Roman amphitheater","1. Navigate to the POI creation page
+  2. Enter the POI name, city, province, type, and description
+  3. Click the ""Create"" button",- A new POI is created with the provided details
+TC-Event-001,Test event creation,Event,2,User is logged in,"- Valid event title: Rome Marathon
+  - Valid date: 2023-10-01
+  - Valid event type: Sport
+  - Valid creator: TestUser
+  - Valid description: Annual marathon in Rome","1. Navigate to the event creation page
+  2. Enter the event title, date, type, creator, and description
+  3. Click the ""Create"" button",- A new event is created with the provided details
+TC-Event-002,Test event modification,Event,4,User is logged in and event exists,"- Modified event title: Rome Marathon 2024
+  - Modified date: 2024-10-01
+  - Modified event type: Running","1. Navigate to the event modification page
+  2. Enter the modified event title, date, and type
+  3. Click the ""Save"" button",- The event is modified with the provided details
+TC-Event-003,Test event deletion,Event,4,User is logged in and event exists,,"1. Navigate to the event modification page
+  2. Click the ""Delete"" button",- The event is deleted
+TC-City-002,Test city search,City,1,None,- Search term: Rome,"1. Enter the search term in the search bar
+  2. Click the ""Search"" button",- The city with the provided name is displayed
+TC-POI-002,Test POI search,POI,1,None,- Search term: Colosseum,"1. Enter the search term in the search bar
+  2. Click the ""Search"" button",- The POI with the provided name is displayed
+TC-User-003,Test invalid user registration,User,1,None,"- Invalid email: test
+  - Invalid password: 123
+  - Invalid username: t","1. Navigate to the registration page
+  2. Enter the invalid email, password, and username
+  3. Click the ""Register"" button","- An error message is displayed, and the registration is not successful"
+TC-User-004,Test invalid user login,User,1,User is registered,"- Invalid email: test@example.com
+  - Invalid password: Test123","1. Navigate to the login page
+  2. Enter the invalid email and password
+  3. Click the ""Login"" button","- An error message is displayed, and the login is not successful"
+TC-City-003,Test invalid city creation,City,1,None,- Invalid city name:,"1. Navigate to the city creation page
+  2. Enter an invalid city name
+  3. Click the ""Create"" button","- An error message is displayed, and the city is not created"
+TC-POI-003,Test invalid POI creation,POI,1,None,- Invalid POI name:,"1. Navigate to the POI creation page
+  2. Enter an invalid POI name
+  3. Click the ""Create"" button","- An error message is displayed, and the POI is not created"
+TC-Event-004,Test invalid event creation,Event,2,User is logged in,"- Invalid event title:
+  - Invalid date:
+  - Invalid event type:
+  - Invalid creator:
+  - Invalid description:","1. Navigate to the event creation page
+  2. Enter invalid data for each field
+  3. Click the ""Create"" button","- An error message is displayed, and the event is not created"
+TC-Event-005,Test event creation with missing data,Event,2,User is logged in,"- Valid event title: Rome Marathon
+  - Valid date: 2023-10-01
+  - Valid event type: Sport
+  - Valid creator: TestUser
+  - Invalid description:","1. Navigate to the event creation page
+  2. Enter valid data for each field except the description
+  3. Click the ""Create"" button","- An error message is displayed, and the event is not created"
+TC-Event-006,Test event creation with empty data,Event,2,User is logged in,"- Empty event title:
+  - Empty date:
+  - Empty event type:
+  - Empty creator:
+  - Empty description:","1. Navigate to the event creation page
+  2. Enter empty data for each field
+  3. Click the ""Create"" button","- An error message is displayed, and the event is not created"
+TC-Event-007,Test event modification with missing data,Event,4,User is logged in and event exists,"- Modified event title: Rome Marathon 2024
+  - Modified date: 2024-10-01
+  - Modified event type: Running
+  - Empty description:","1. Navigate to the event modification page
+  2. Enter modified data for each field except the description
+  3. Click the ""Save"" button","- An error message is displayed, and the event is not modified"
+TC-Event-008,Test event modification with empty data,Event,4,User is logged in and event exists,"- Modified event title: Rome Marathon 2024
+  - Modified date: 2024-10-01
+  - Modified event type: Running
+  - Empty description:","1. Navigate to the event modification page
+  2. Enter modified data for each field except the description
+  3. Click the ""Save"" button","- An error message is displayed, and the event is not modified"
+TC-Event-009,Test event deletion with missing data,Event,4,User is logged in and event exists,,"1. Navigate to the event modification page
+  2. Click the ""Delete"" button","- An error message is displayed, and the event is not deleted"
+TC-City-004,Test city search with invalid data,City,1,None,- Search term:,"1. Enter an invalid search term in the search bar
+  2. Click the ""Search"" button",- No city is displayed
+TC-POI-004,Test POI search with invalid data,POI,1,None,- Search term:,"1. Enter an invalid search term in the search bar
+  2. Click the ""Search"" button",- No POI is displayed
+TC-User-005,Test user login with missing data,User,1,User is registered,"- Empty email:
+  - Valid password: Test1234","1. Navigate to the login page
+  2. Enter empty data for the email field
+  3. Enter the valid password
+  4. Click the ""Login"" button","- An error message is displayed, and the login is not successful"
+TC-User-006,Test user login with empty data,User,1,User is registered,"- Empty email:
+  - Empty password:","1. Navigate to the login page
+  2. Enter empty data for both fields
+  3. Click the ""Login"" button","- An error message is displayed, and the login is not successful"
+TC-City-005,Test city creation with missing data,City,1,None,- Empty city name:,"1. Navigate to the city creation page
+  2. Enter empty data for the city name field
+  3. Click the ""Create"" button","- An error message is displayed, and the city is not created"
+TC-POI-005,Test POI creation with missing data,POI,1,None,- Empty POI name:,"1. Navigate to the POI creation page
+  2. Enter empty data",

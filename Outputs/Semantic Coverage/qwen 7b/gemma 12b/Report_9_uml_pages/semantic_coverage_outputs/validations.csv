@@ -1,0 +1,27 @@
+validation
+utente autenticato?:
+no -> login
+"si -> click ""visualizza emergenze"""
+emergenze disponibili?:
+"no -> messaggio ""nessuna emergenza"""
+si -> visualizza emergenze
+utente registrato?:
+si: go to login
+no: go to registrazione utente
+dati corretti?:
+si: go to home
+no: go to login
+coordinatore autenticato?:
+no -> errore
+si -> inserisci dettagli
+informazioni complete?:
+no -> aggiorna dettagli
+si -> crea emergenza
+"coordinatore autenticato? — condition=""coordinatore autenticato?""; branches=[""no"" -> errore, ""si"" -> seleziona emergenza]"
+"volontario assegnato? — condition=""volontario assegnato?""; branches=[""no"" -> errore, ""si"" -> rimuovi volontario]"
+[se errore]:
+true: server -> logger (logger.error(error)) -> server (errore http (400/401/500)) -> client (risposta (successo o nessun compito))
+false: server -> client (risposta (successo o nessun compito))
+alt:
+"[result > 0]: client receives ""{message: 'x emergenza terminata'}"""
+"[result <= 0]: client receives ""{message: 'nessuna emergenza terminata'}"""

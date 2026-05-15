@@ -1,0 +1,151 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-App-001,User Registration Process,App,"1, 2",User has internet access and a browser or mobile app.,"- Valid email: test@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: short","1. User navigates to the registration page.
+2. User enters valid email and password.
+3. User submits the registration form.
+4. App sends registration request to Server.
+5. Server validates email and password.
+6. Server saves user data in Database.
+7. Server generates OTP and saves it in Database.
+8. Server sends OTP to user via email.
+9. User enters OTP in the app.
+10. Server checks OTP validity.
+11. Server sends authentication token to App.","- For valid email and password: User registration is successful, OTP is sent, and authentication token is received.
+- For invalid email or password: Registration fails with appropriate error message."
+TC-App-002,User Login Process,App,"1, 4",User has registered and has an authentication token.,"- Valid email: test@example.com
+- Valid password: Password123!
+- Invalid email: invalid-email
+- Invalid password: wrongpassword","1. User navigates to the login page.
+2. User enters valid email and password.
+3. App sends login request to Server.
+4. Server validates email and password.
+5. Server requests password from Database.
+6. Database sends password to Server.
+7. Server checks password.
+8. Server generates authentication token.
+9. Server sends authentication token to App.
+10. App saves authentication token and opens home screen.","- For valid email and password: Authentication token is generated and home screen is opened.
+- For invalid email or password: Login fails with appropriate error message."
+TC-App-003,Password Recovery Process,App,"1, 5",User has registered and has an account.,"- Valid email: test@example.com
+- Invalid email: invalid-email","1. User requests password recovery on the forgot password page.
+2. App sends request to Server.
+3. Server checks email in Database.
+4. Server generates password recovery token.
+5. Server saves recovery token in Database.
+6. Server sends new password and recovery token to user via email.
+7. User changes password using the recovery token.
+8. App confirms password change.","- For valid email: New password and recovery token are sent, password change is confirmed.
+- For invalid email: Password recovery fails with appropriate error message."
+TC-App-004,Homepage Card Loading Process,App,"1, 6",User is logged in and has an active session.,"- Preload count: 10
+- Remaining cards: 5","1. User opens homepage.
+2. App initiates card loading with preload count.
+3. App sends request to Server for n objects.
+4. Server requests n objects from Database.
+5. Database sends n objects to Server.
+6. Server sends n objects to App to fill cards.
+7. App checks if remaining cards are less than half of preload count.
+8. If true, App sends request to Server for additional n/2 objects.
+9. Server requests n/2 objects from Database.
+10. Database sends n/2 objects to Server.
+11. Server sends n/2 objects to App to fill cards.",- Cards are loaded and displayed correctly based on preload count and additional requests.
+TC-App-005,Matchmaking Process,App,"1, 7",Two users have registered and are logged in.,"- User 1 swipes right on User 2
+- User 2 swipes left on User 1","1. User 1 swipes card for User 2.
+2. App tracks object preference and sends request to Server.
+3. Server saves preference in Database.
+4. Server asks if there are matches.
+5. Server receives response from Database.
+6. Server checks for matches.
+7. If match found, Server displays match screen for both users.
+8. App notifies match and opens chat for both users.","- For mutual preference: Match screen is displayed and chat is opened.
+- For non-mutual preference: No match screen is displayed."
+TC-App-006,Messaging Process,App,"1, 8",Two users have registered and are logged in.,"- Message content: Hello, how are you?
+- Valid token: token1
+- Invalid token: invalid-token","1. User 1 inputs message in the chat.
+2. App sends message to Server using valid token.
+3. Server saves message in Database.
+4. Server confirms saving to App.
+5. App shows notification to User 2.
+6. App opens chat for User 2.
+7. User 2 retrieves message using valid token.
+8. Server retrieves message from Database.
+9. App displays messages for User 2.","- For valid token: Message is saved, notification is shown, and chat is opened.
+- For invalid token: Message saving fails with appropriate error message."
+TC-ApiHandler-001,API Handler Communication with CDN,ApiHandler,1,API handler is operational.,- Request URL: https://example.com/image.jpg,"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with Bunny.net CDN.
+3. CDN returns requested resource.
+4. API handler forwards resource to Repository/Controllers.",- Resource is successfully fetched from CDN and forwarded.
+TC-ApiHandler-002,API Handler Communication with Database,ApiHandler,1,API handler is operational.,- Query: SELECT * FROM users WHERE email='test@example.com',"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with MySQL database.
+3. Database executes query and returns results.
+4. API handler forwards results to Repository/Controllers.",- Query is executed successfully and results are returned.
+TC-ApiHandler-003,API Handler Communication with Models,ApiHandler,1,API handler is operational.,,"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with Models.
+3. Models provide necessary data.
+4. API handler forwards data to Repository/Controllers.",- Data is successfully retrieved and forwarded.
+TC-ApiHandler-004,API Handler Communication with Controllers,ApiHandler,1,API handler is operational.,,"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with Controllers.
+3. Controllers perform necessary actions.
+4. API handler forwards results to Repository/Controllers.",- Actions are performed successfully and results are returned.
+TC-ApiHandler-005,API Handler Communication with Background Jobs,ApiHandler,1,API handler is operational.,,"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with Jobs.
+3. Jobs execute scheduled tasks.
+4. API handler forwards task results to Repository/Controllers.",- Scheduled tasks are executed successfully and results are returned.
+TC-ApiHandler-006,API Handler Communication with Real-Time Service,ApiHandler,1,API handler is operational.,,"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with Pusher service.
+3. Service handles real-time communication.
+4. API handler forwards communication results to Repository/Controllers.",- Real-time communication is handled successfully and results are returned.
+TC-ApiHandler-007,API Handler Communication with Push Notification Service,ApiHandler,1,API handler is operational.,,"1. API handler receives request from Repository/Controllers.
+2. API handler communicates with One Signal service.
+3. Service handles push notifications.
+4. API handler forwards notification results to Repository/Controllers.",- Push notifications are handled successfully and results are returned.
+TC-Jobs-001,Job Queue Management,Jobs,2,Job queue is initialized.,"- Job payload: {""task"": ""process_data""}
+- Attempts: 3","1. Job is added to the queue with specified payload and attempts.
+2. Job is processed by the system.
+3. If processing fails, job is retried up to specified attempts.
+4. If all attempts fail, job is marked as failed.","- Job is processed successfully within specified attempts.
+- Failed jobs are appropriately marked."
+TC-PulseValues-001,Pulse Value Storage,PulseValues,2,Pulse value storage is initialized.,"- Timestamp: 1672531200
+- Type: ""temperature""
+- Key: ""sensor1""
+- Value: 25.5","1. Pulse value is stored with specified attributes.
+2. Stored value is retrieved and verified.",- Pulse value is stored and retrieved accurately.
+TC-PulseAggregates-001,Pulse Aggregate Storage,PulseAggregates,2,Pulse aggregate storage is initialized.,"- Bucket: 1672531200
+- Period: 3600
+- Type: ""temperature""
+- Key: ""sensor1""
+- Aggregate: ""average""
+- Value: 25.5
+- Count: 10","1. Pulse aggregate is stored with specified attributes.
+2. Stored aggregate is retrieved and verified.",- Pulse aggregate is stored and retrieved accurately.
+TC-PulseEntries-001,Pulse Entry Storage,PulseEntries,2,Pulse entry storage is initialized.,"- Timestamp: 1672531200
+- Type: ""temperature""
+- Key: ""sensor1""
+- Value: 255","1. Pulse entry is stored with specified attributes.
+2. Stored entry is retrieved and verified.",- Pulse entry is stored and retrieved accurately.
+TC-PersonalAccessTokens-001,Personal Access Tokens Management,PersonalAccessTokens,2,Personal access tokens management is initialized.,"- Tokenable type: ""User""
+- Tokenable id: 1
+- Name: ""Admin Token""
+- Token: ""abc123""
+- Abilities: [""read"", ""write""]
+- Expiration: 2024-01-01T00:00:00Z","1. Personal access token is created with specified attributes.
+2. Token is retrieved and verified.
+3. Token is deleted.","- Token is created, retrieved, and deleted successfully."
+TC-JobBatches-001,Batch Job Management,JobBatches,2,Batch job management is initialized.,"- Name: ""Batch1""
+- Total jobs: 10
+- Pending jobs: 5
+- Failed jobs: 2
+- Failed job ids: [1, 2]
+- Options: {""priority"": ""high""}","1. Batch job is created with specified attributes.
+2. Batch job is retrieved and verified.
+3. Batch job is updated.
+4. Batch job is deleted.","- Batch job is created, retrieved, updated, and deleted successfully."
+TC-CacheLocks-001,Cache Locks Management,CacheLocks,2,Cache locks management is initialized.,"- Owner: ""User1""
+- Expiration: 3600
+- Key: ""lock1""","1. Cache lock is created with specified attributes.
+2. Lock is retrieved and verified.
+3. Lock is released.","- Cache lock is created, retrieved, and released successfully."
+TC-Cache-001,Cache Storage,Cache,2,Cache storage is initialized.,"- Value: ""data""
+- Expiration: 3600
+- Key: ""key1""",1.,

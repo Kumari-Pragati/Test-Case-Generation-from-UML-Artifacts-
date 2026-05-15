@@ -1,0 +1,57 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login to device,User-Device Authentication,1,"- Device with `id=123` and `name=""TestDevice""` exists in the system.
+- User account with `username=""testuser""` and `password=""SecurePass123""` exists.","- Valid credentials: `username=""testuser""`, `password=""SecurePass123""`
+- Device ID: `123`","1. User calls `login(username=""testuser"", password=""SecurePass123"")` on `Device(id=123)`.
+2. Device authenticates credentials against its internal storage.
+3. Device grants access and returns success (`Ret` type).","- Login operation returns a success response (e.g., `Ret = ""AUTH_SUCCESS""`).
+- User is now ""logged in"" to the device (state not explicitly modeled but implied by flow)."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,User-Device Authentication,1,"- Device with `id=123` exists.
+- User account with `username=""testuser""` exists but password is `""WrongPass""`.","- Invalid credentials: `username=""testuser""`, `password=""WrongPass""`
+- Device ID: `123`","1. User calls `login(username=""testuser"", password=""WrongPass"")` on `Device(id=123)`.
+2. Device validates credentials and detects mismatch.
+3. Device rejects login attempt.","- Login operation returns an error response (e.g., `Ret = ""AUTH_FAILED""`).
+- User remains unauthenticated."
+TC-AUTHENTICATION-003,Logout after successful login,User-Device Authentication,1,- User is logged in to `Device(id=123)` (from TC-AUTHENTICATION-001).,,"1. User calls `logout()` on `Device(id=123)`.
+2. Device terminates the session.","- Logout operation returns success (e.g., `Ret = ""LOGOUT_SUCCESS""`).
+- User is no longer authenticated to the device."
+TC-AUTHENTICATION-004,Login to non-existent device,User-Device Authentication,1,- No device exists with `id=999`.,"- Valid credentials: `username=""testuser""`, `password=""SecurePass123""`
+- Non-existent device ID: `999`","1. User calls `login(username=""testuser"", password=""SecurePass123"")` on `Device(id=999)`.
+2. System detects device does not exist.","- Login operation returns an error (e.g., `Ret = ""DEVICE_NOT_FOUND""`)."
+TC-DEVICE-MANAGEMENT-001,"Successful addition of a new device (""serra"")",Device Management (Add Device),3,"- User is logged in to the system (via TC-AUTHENTICATION-001).
+- `Agliunta Serra` DAO is initialized.","- Valid device name: `""Greenhouse_001""`
+- Valid device ID: `456`","1. User clicks **""Add Devices""** in the UI.
+2. System invokes `Agliunta Serra` with `valore=""Greenhouse_001""`.
+3. `Agliunta Serra` validates input (no errors).
+4. `Agliunta Serra` inserts the value into storage.
+5. System confirms insertion with `""si""` (success).","- Device `""Greenhouse_001""` is added to `ElencoSerre`.
+- UI displays confirmation (e.g., ""Device added successfully"")."
+TC-DEVICE-MANAGEMENT-002,Failed addition of device with invalid input,Device Management (Add Device),3,"- User is logged in.
+- `Agliunta Serra` is initialized.","- Invalid device name: `""""` (empty string)
+- Device ID: `0` (invalid/duplicate)","1. User clicks **""Add Devices""** and submits empty name.
+2. `Agliunta Serra` calls `valore erratore` (error check).
+3. System detects invalid input.","- `Agliunta Serra` rejects insertion.
+- UI displays error (e.g., ""Invalid device name"").
+- Device is **not** added to `ElencoSerre`."
+TC-DEVICE-MANAGEMENT-003,View list of devices after addition,Device Management (List Devices),"2, 3","- Devices `""Greenhouse_001""` and `""TestDevice""` exist in `ElencoSerre` (from TC-DEVICE-MANAGEMENT-001 and TC-AUTHENTICATION-001).
+- User is logged in and has access to `ElencoSerre`.",,"1. User performs `AccessoEsquito` (authenticated access).
+2. User clicks **""Seme""** (assumed to mean ""View Devices"" or similar).
+3. System loads `ElencoSerre` and displays devices.","- UI shows list containing `""Greenhouse_001""` and `""TestDevice""`.
+- `VisualizzazioniEsquito` returns `""Si""` (success)."
+TC-DEVICE-MANAGEMENT-004,Device operation flow (Click → Operazione),System Operations,4,"- User is logged in to `SeraConnesso` (connected state).
+- Device `""Greenhouse_001""` exists and is selected.",,"1. User interacts with `Sera` (main system).
+2. `Sera` transitions to `SeraConnesso` (connected state).
+3. User clicks `Click` component (e.g., ""Start Operation"").
+4. System triggers `Operazione` (e.g., ""Activate Climate Control"").","- `Operazione` executes successfully (e.g., returns `Ret = ""OPERATION_COMPLETED""`).
+- UI reflects operation status (e.g., ""Climate control activated"")."
+TC-DEVICE-MANAGEMENT-005,Edge case: Empty device list,Device Management (List Devices),2,- No devices exist in `ElencoSerre`.,,"1. User performs `AccessoEsquito`.
+2. User clicks **""Seme""** to view devices.
+3. System queries empty `ElencoSerre`.","- UI displays ""No devices available"" or similar.
+- `VisualizzazioniEsquito` returns `""No""` (or equivalent)."
+TC-DEVICE-MANAGEMENT-006,Edge case: Duplicate device addition,Device Management (Add Device),3,"- Device `""Greenhouse_001""` already exists in `ElencoSerre`.","- Duplicate device name: `""Greenhouse_001""`","1. User clicks **""Add Devices""** and submits `""Greenhouse_001""` again.
+2. `Agliunta Serra` detects duplicate via `valore erratore`.","- System rejects insertion.
+- UI displays error: ""Device already exists."""
+TC-SYSTEM-INTEGRATION-001,Full flow: Login → Add Device → View Devices,End-to-End Workflow,"1, 2, 3",None.,,"1. User logs in to `Device(id=123)` with valid credentials (TC-AUTHENTICATION-001).
+2. User adds device `""Greenhouse_001""` (TC-DEVICE-MANAGEMENT-001).
+3. User views device list (TC-DEVICE-MANAGEMENT-003).
+4. User logs out (TC-AUTHENTICATION-003).","- All operations complete successfully in sequence.
+- Final state: User is logged out; `ElencoSerre` contains `""Greenhouse_001""`."

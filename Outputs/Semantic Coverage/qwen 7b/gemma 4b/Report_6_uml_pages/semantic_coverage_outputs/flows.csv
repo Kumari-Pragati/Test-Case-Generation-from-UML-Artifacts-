@@ -1,0 +1,76 @@
+flow
+"entities -> users — type=association; label=""has""; explanation=""a user can be associated with one or more entities."""
+"users -> notifications — type=association; label=""receives""; explanation=""a user receives notifications."""
+"entities -> areas — type=association; label=""belongs to""; explanation=""an entity belongs to an area."""
+"areas -> reports — type=association; label=""generates""; explanation=""an area generates reports."""
+"users -> reports — type=association; label=""creates""; explanation=""a user creates reports."""
+user -> system: create(user)
+system -> entities: create(entity)
+entities -> areas: belongs to (area)
+areas -> system: generate(report)
+system -> users: send(notification)
+the system manages user accounts and entity associations.
+"users can create entities, which belong to areas, and generate reports."
+the system sends notifications to users based on certain conditions.
+the diagram suggests a centralized control model with call-return operations.
+"utente -> firebaseauthentication: sign(email, password);"
+firebaseauthentication -> firebasefirestore: recupera dati utente (uid dal token);
+firebaseauthentication -> utente: restituisci token;
+"utente -> firebaseauthentication: inserisci credenziali (email, password);"
+firebaseauthentication -> utente: credenziali valide;
+utente -> firebaseauthentication: credenziali errate;
+firebaseauthentication -> utente: errore login (es. password errata);
+utente -> firebaseauthentication: corregi credenziali se formato errato;
+firebaseauthentication -> utente: accesso effettuato con successo (login riuscito);
+utente -> firebaseauthentication: login riuscito;
+utente -> firebaseauthentication: login riusato;
+utente -> firebaseauthentication: mostra messaggio di errore
+"firebaseauthentication -> firebaseauthentication: sign(email, password);"
+* the diagram models the login process for a user.
+"* the user provides credentials, the system validates them against firebase authentication."
+* successful login results in a token retrieval and access granted.
+* error handling includes validation of credentials and displaying an error message.
+* the diagram shows a clear flow for both successful and unsuccessful login attempts.
+utente -> ui — message=“inserisci dati registrazione”;
+"ui -> firebase/authentication — message=“creaaccount(email, password)”"
+firebase/authentication -> firebase/firestore — message=“validazione dati”
+firebase/firestore -> firebase/authentication — message=“dati validi / token di autenticazione”
+"firebase/authentication -> ui — message=“salvautente(nome, email, token)”"
+ui -> firebase/authentication — message=“conferma salvataggio”
+ui -> firebase/authentication — message=“conferma salvataggio (dati non validi)”
+ui -> ui — message=“errore registrazione ovvero errore”
+utente inserisce i dati di registrazione tramite ui.
+ui invia i dati di registrazione al firebase/authentication.
+firebase/authentication esegue la validazione dei dati.
+firebase/firestore verifica la validazione.
+firebase/authentication invia i dati validi/token di autenticazione al ui.
+ui salva l'utente nel sistema.
+ui conferma il salvataggio dei dati.
+"se i dati non sono validi, ui mostra un errore di registrazione."
+the diagram models the registration process of a new user in a system.
+"the process involves user input, validation, data storage, and confirmation."
+"there's a branch for handling invalid data, leading to an error message."
+"utente -> ui — message=“inserisci segnalazione (descrizione, immagine, coordinate, urgenza)”"
+ui -> firebase — message=“dati incompleti o errati”
+firebase -> ui — message=“correggi e reinvia”
+ui -> firebasestorage — message=“carica immagine(immagine)”
+firebasestorage -> firebase — message=“url immagine salvata”
+firebase -> ui — message=“ente più vicino trovato (dati ente)”
+ui -> firebase — message=“conferma invio segnalazione con ente assegnato”
+firebase -> firebasestorage — message=“conferma salvataggio segnalazione”
+"utente inserisce segnalazione (descrizione, immagine, coordinate, urgenza)."
+ui verifica i dati.
+"se i dati sono incompleti o errati, ui invia una richiesta di correzione a firebase."
+firebase invia un messaggio di correzione all'ui.
+ui corregge e reinvia la segnalazione.
+firebase carica l'immagine.
+firebasestorage salva l'url dell'immagine.
+firebase cerca l'ente più vicino (dati ente).
+firebase invia l'ente più vicino all'ui.
+ui conferma l'invio della segnalazione con l'ente assegnato.
+firebase conferma il salvataggio della segnalazione.
+* the diagram models the process of a user creating a report and assigning a competent entity.
+"* the process involves data validation, image upload, entity search, and confirmation."
+* the ui acts as an intermediary between the user and the backend services (firebase).
+* error handling is included through data validation and a feedback loop.
+======================================================================

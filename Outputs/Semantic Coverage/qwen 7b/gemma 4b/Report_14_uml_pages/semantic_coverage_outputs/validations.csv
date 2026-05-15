@@ -1,0 +1,28 @@
+validation
+bool: = 0
+"utente? — branch=""si"" (utente esiste)"
+"utente? — branch=""no"" (utente non esiste)"
+"usercreateprocedure -> utente creato con successo? — branch=""si"" (creazione utente riuscita)"
+"usercreateprocedure -> utente creato con successo? — branch=""no"" (creazione utente fallita)"
+"verifylocalizationprocedure -> procedura completata con successo? — branch=""si"" (verifica localizzazione riuscita)"
+"verifylocalizationprocedure -> procedura completata con successo? — branch=""no"" (verifica localizzazione fallita)"
+"home -> profile — condition=""cliccata foto profilo"";"
+"home -> notificationsection — condition=""cliccata icona notifiche"";"
+"home -> mapfullscreenapi — condition=""interazione con la mappa"";"
+"home -> menu — condition=""interazione con il menu"";"
+"profile -> profile — condition=""cliccata icona accesso home"";"
+"profile -> profile — condition=""cliccata icona accesso personale"";"
+"profile -> chatsection — condition=""cliccata icona accesso alle chat"";"
+"chatsection -> generaldashboard — condition=""cliccata icona accesso generale"";"
+si — fullscreenpost -> leavecomment — (decision)
+si — leavecomment -> attendisvataggio — (decision)
+itemresultsearch -> resultitem (si)
+resultitem -> chat (si)
+resultitem -> businessprofile (si)
+resultitem -> viewunsold (si)
+resultitem -> viewpromotions (si)
+businessprofile -> calendar (si)
+businessprofile -> attendoperationdiscritturasuldb (si)
+businessprofile -> confermariuscita (si)
+"storeddatadb -> usercreateprocedure — condition=""not exist"" -> transition=""not exist"";"
+"storeddatadb -> usercreateprocedure — condition=""valid credentials"" -> transition=""valid credentials"";"

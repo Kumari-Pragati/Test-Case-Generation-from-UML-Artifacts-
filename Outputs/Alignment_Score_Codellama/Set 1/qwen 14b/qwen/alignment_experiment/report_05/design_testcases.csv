@@ -1,0 +1,121 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a New User,User,2,None,"- Valid email: test@example.com
+- Valid password: Passw0rd!
+- Valid name: John Doe
+- Valid username: johndoe","1. User initiates the registration process by calling `registerUser()`.
+2. Main system requests data verification from the Users Database using `verifyValidData()`.
+3. Users Database verifies the provided data and returns the result.
+4. Main system receives the verification result and confirms successful registration if `y = true`.
+5. Main system confirms registration failure if `y = false`.","- Successful registration message is displayed if `y = true`.
+- Error message is displayed if `y = false`."
+TC-User-002,Login with Valid Credentials,User,3,A registered user exists in the Users Database.,"- Valid email: test@example.com
+- Valid password: Passw0rd!","1. User initiates the login process by calling `userLogin(email, password)`.
+2. Main system sends a validation request to the Users Database using `validUser(email, password)`.
+3. Users Database verifies the credentials and returns the result.
+4. Main system confirms successful login if `x = true`.",- Successful login message is displayed.
+TC-User-003,Login with Invalid Credentials,User,3,A registered user exists in the Users Database.,"- Invalid email: invalid@example.com
+- Invalid password: wrongpassword","1. User initiates the login process by calling `userLogin(email, password)`.
+2. Main system sends a validation request to the Users Database using `validUser(email, password)`.
+3. Users Database verifies the credentials and returns the result.
+4. Main system confirms failed login if `x = false`.",- Failed login message is displayed.
+TC-Trip-001,Create a New Trip,Trip,"1, 4",A registered user exists in the Users Database.,"- Valid city: Paris
+- Valid country: France
+- Valid start date: 2023-10-01
+- Valid end date: 2023-10-10
+- Valid place to visit: Eiffel Tower
+- Valid category: Landmark
+- Valid plan ID: 1","1. User creates a new trip with specified details.
+2. Trip includes a place to visit named ""Eiffel Tower"".
+3. Place to visit belongs to the category ""Landmark"".
+4. Trip has a plan with ID 1.
+5. User lists all trips after creation.","- Trip is successfully created and listed.
+- Associated place to visit and category are correctly linked.
+- Plan ID is correctly set."
+TC-Trip-002,Update Existing Trip Details,Trip,4,An existing trip exists in the Trips Database.,"- Updated city: London
+- Updated country: United Kingdom
+- Updated start date: 2023-11-01
+- Updated end date: 2023-11-10","1. User initiates the update trip process by calling `updateTrip()`.
+2. Main system requests new data from the user.
+3. Main system updates the trip data in the Trips Database using `updateTripData(x)`.
+4. User lists all trips after updating.","- Trip details are updated successfully.
+- Updated trip is listed correctly."
+TC-Profile-001,Change User Profile Successfully,User,5,A registered user exists in the Users Database.,"- Valid new email: newemail@example.com
+- Valid new password: NewPassw0rd!
+- Valid new name: Jane Doe
+- Valid new username: janedoe","1. User initiates the profile change process by calling `changeProfile()`.
+2. Main system verifies the new data with the Users Database using `verifyValidData(x)`.
+3. Users Database verifies the new data and returns the result.
+4. Main system confirms successful profile change if `y = true`.",- Profile change is confirmed successfully.
+TC-Profile-002,Fail to Change User Profile Due to Invalid Data,User,5,A registered user exists in the Users Database.,"- Invalid new email: invalidemail
+- Invalid new password: short
+- Invalid new name: J
+- Invalid new username: shrt","1. User initiates the profile change process by calling `changeProfile()`.
+2. Main system verifies the new data with the Users Database using `verifyValidData(x)`.
+3. Users Database verifies the new data and returns the result.
+4. Main system confirms failed profile change if `y = false`.",- Profile change is confirmed as failed due to invalid data.
+TC-Validation-001,Validate User Registration Data,User,2,None,"- Valid email: test@example.com
+- Valid password: Passw0rd!
+- Valid name: John Doe
+- Valid username: johndoe","1. User initiates the registration process by calling `registerUser()`.
+2. Main system requests data verification from the Users Database using `verifyValidData()`.
+3. Users Database verifies the provided data and returns the result.",- Verification result is `true` for valid data.
+TC-Validation-002,Validate User Login Credentials,User,3,A registered user exists in the Users Database.,"- Valid email: test@example.com
+- Valid password: Passw0rd!","1. User initiates the login process by calling `userLogin(email, password)`.
+2. Main system sends a validation request to the Users Database using `validUser(email, password)`.
+3. Users Database verifies the credentials and returns the result.",- Validation result is `true` for valid credentials.
+TC-Validation-003,Validate User Profile Change Data,User,5,A registered user exists in the Users Database.,"- Valid new email: newemail@example.com
+- Valid new password: NewPassw0rd!
+- Valid new name: Jane Doe
+- Valid new username: janedoe","1. User initiates the profile change process by calling `changeProfile()`.
+2. Main system verifies the new data with the Users Database using `verifyValidData(x)`.
+3. Users Database verifies the new data and returns the result.",- Verification result is `true` for valid data.
+TC-Validation-004,Validate Invalid User Registration Data,User,2,None,"- Invalid email: invalidemail
+- Invalid password: short
+- Invalid name: J
+- Invalid username: shrt","1. User initiates the registration process by calling `registerUser()`.
+2. Main system requests data verification from the Users Database using `verifyValidData()`.
+3. Users Database verifies the provided data and returns the result.",- Verification result is `false` for invalid data.
+TC-Validation-005,Validate Invalid User Login Credentials,User,3,A registered user exists in the Users Database.,"- Invalid email: invalid@example.com
+- Invalid password: wrongpassword","1. User initiates the login process by calling `userLogin(email, password)`.
+2. Main system sends a validation request to the Users Database using `validUser(email, password)`.
+3. Users Database verifies the credentials and returns the result.",- Validation result is `false` for invalid credentials.
+TC-Validation-006,Validate Invalid User Profile Change Data,User,5,A registered user exists in the Users Database.,"- Invalid new email: invalidemail
+- Invalid new password: short
+- Invalid new name: J
+- Invalid new username: shrt","1. User initiates the profile change process by calling `changeProfile()`.
+2. Main system verifies the new data with the Users Database using `verifyValidData(x)`.
+3. Users Database verifies the new data and returns the result.",- Verification result is `false` for invalid data.
+TC-Edge-001,Handle Empty User Registration Data,User,2,None,"- Empty email: """"
+- Empty password: """"
+- Empty name: """"
+- Empty username: """"","1. User initiates the registration process by calling `registerUser()`.
+2. Main system requests data verification from the Users Database using `verifyValidData()`.
+3. Users Database verifies the provided data and returns the result.",- Verification result is `false` for empty data.
+TC-Edge-002,Handle Empty User Login Credentials,User,3,A registered user exists in the Users Database.,"- Empty email: """"
+- Empty password: """"","1. User initiates the login process by calling `userLogin(email, password)`.
+2. Main system sends a validation request to the Users Database using `validUser(email, password)`.
+3. Users Database verifies the credentials and returns the result.",- Validation result is `false` for empty credentials.
+TC-Edge-003,Handle Empty User Profile Change Data,User,5,A registered user exists in the Users Database.,"- Empty new email: """"
+- Empty new password: """"
+- Empty new name: """"
+- Empty new username: """"","1. User initiates the profile change process by calling `changeProfile()`.
+2. Main system verifies the new data with the Users Database using `verifyValidData(x)`.
+3. Users Database verifies the new data and returns the result.",- Verification result is `false` for empty data.
+TC-Edge-004,Handle Special Characters in User Registration Data,User,2,None,"- Email with special characters: test@exa*mple.com
+- Password with special characters: P@ssw0rd!
+- Name with special characters: John Doe!
+- Username with special characters: johndoe!","1. User initiates the registration process by calling `registerUser()`.
+2. Main system requests data verification from the Users Database using `verifyValidData()`.
+3. Users Database verifies the provided data and returns the result.",- Verification result is `false` for special characters in data.
+TC-Edge-005,Handle Special Characters in User Login Credentials,User,3,A registered user exists in the Users Database.,"- Email with special characters: test@exa*mple.com
+- Password with special characters: P@ssw0rd!","1. User initiates the login process by calling `userLogin(email, password)`.
+2. Main system sends a validation request to the Users Database using `validUser(email, password)`.
+3. Users Database verifies the credentials and returns the result.",- Validation result is `false` for special characters in credentials.
+TC-Edge-006,Handle Special Characters in User Profile Change Data,User,5,A registered user exists in the Users Database.,"- New email with special characters: newemail@exa*mple.com
+- New password with special characters: N3wP@ssw0rd!
+- New name with special characters: Jane Doe!
+- New username with special characters: janedoe!","1. User initiates the profile change process by calling `changeProfile()`.
+2. Main system verifies the new data with the Users Database using `verifyValidData(x)`.
+3. Users Database verifies the new data and returns the result.",- Verification result is `false` for special characters in data.
+TC-Edge-007,Handle Long User Registration Data,User,2,None,"- Email with long string: test@example.com_long_string
+- Password with long string",,

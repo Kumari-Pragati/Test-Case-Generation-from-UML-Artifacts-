@@ -1,0 +1,71 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login via Firebase,Authentication,"1, 2","- Firebase service is operational.
+- LocalUser is registered with valid credentials (e.g., `username: testuser`, `password: SecurePass123`).","- Valid credentials: `username: testuser`, `password: SecurePass123`.","1. LocalUser invokes `login(username, password)` on Authentication.
+2. Authentication forwards credentials to Firebase.
+3. Firebase validates credentials and returns `true`.
+4. Authentication confirms successful login to DataDisplay.","- LocalUser is authenticated; DataDisplay receives real-time data.
+- No error messages; system logs successful login."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,"1, 2","- Firebase service is operational.
+- LocalUser attempts login with incorrect credentials.","- Invalid credentials: `username: testuser`, `password: WrongPass`.","1. LocalUser invokes `login(username, password)` on Authentication.
+2. Authentication forwards credentials to Firebase.
+3. Firebase rejects credentials and returns `false`.
+4. Authentication denies access to DataDisplay.","- Login fails; DataDisplay shows no data.
+- System logs failed login attempt; no error exposed to user."
+TC-AUTHENTICATION-003,Logout functionality,Authentication,"1, 2",- LocalUser is currently logged in.,,"1. LocalUser invokes `logout()` on Authentication.
+2. Authentication clears session and notifies Firebase.
+3. DataDisplay refreshes and shows unauthenticated state.","- User session terminates; DataDisplay displays login prompt.
+- System logs logout event."
+TC-DATADISPLAY-001,Display real-time data to authenticated user,DataDisplay,1,"- LocalUser is authenticated.
+- RealTimeDatabase contains sample data (e.g., `{""key"": ""value""}`).",,"1. DataDisplay requests data from RealTimeDatabase.
+2. RealTimeDatabase returns updated data.
+3. DataDisplay renders data to LocalUser.","- Data is displayed correctly; no loading errors.
+- UI reflects real-time updates (e.g., live product inventory)."
+TC-DATADISPLAY-002,DataDisplay handles unauthenticated access,DataDisplay,1,- LocalUser is not logged in.,,"1. DataDisplay attempts to fetch data from RealTimeDatabase.
+2. Authentication blocks request due to lack of session.","- DataDisplay shows login prompt; no data rendered.
+- System logs access denial."
+TC-CART-001,User adds product to cart,Cart,2,"- User is logged in.
+- Product exists (e.g., `name: ""Laptop""`, `price: 999.99`).",,"1. User invokes `addToCart(name, price)` on Product.
+2. Product notifies Cart via `addProduct(product)`.
+3. Cart updates `items` list.","- Product appears in Cart; Cart confirms addition.
+- UI updates to show cart total (`$999.99`)."
+TC-CART-002,User removes product from cart,Cart,2,"- Cart contains at least one product (e.g., `Laptop`).",,"1. User invokes `removeFromCart(name)` on Product.
+2. Product notifies Cart via `removeProduct(product)`.
+3. Cart removes product from `items` list.","- Product is removed; Cart confirms deletion.
+- UI updates to reflect empty cart or reduced total."
+TC-CART-003,Cart handles duplicate product addition,Cart,2,- Cart already contains `Laptop`.,,"1. User attempts to add `Laptop` again via `addToCart(name, price)`.
+2. Cart processes duplicate entry (assume no quantity tracking; treat as no-op).","- No error; Cart remains unchanged.
+- UI shows same product once."
+TC-CHECKOUT-001,Successful checkout for User,Checkout,2,"- Cart contains `Laptop` (`$999.99`).
+- User is logged in.",,"1. User invokes `checkout()` on Checkout.
+2. Checkout processes Cart and updates Firebase/RealTimeDatabase.
+3. System confirms transaction.","- Cart is cleared; UI shows ""Order confirmed.""
+- Database reflects sold product (e.g., inventory updates)."
+TC-CHECKOUT-002,Checkout with empty cart,Checkout,2,- Cart is empty.,,1. User invokes `checkout()` on Checkout.,"- Checkout rejects transaction; UI shows ""Cart is empty.""
+- No database changes."
+TC-ADMIN-001,Admin adds product to cart,Admin Cart Operations,2,"- Admin is logged in.
+- Product does not exist in system.",,"1. Admin invokes `addToCart(name, price)` on Product.
+2. Product is added to Cart via `addProduct(product)`.
+3. Admin proceeds to `checkout()`.","- Product appears in Cart; checkout processes admin transaction.
+- Database reflects new product (if applicable) or inventory update."
+TC-REALTIMEDB-001,Real-time data sync between DataDisplay and Firebase,RealTimeDatabase,1,"- Firebase contains initial data (e.g., `{""products"": [{""name"": ""Laptop"", ""price"": 999.99}]}`).
+- DataDisplay is active.",,"1. Firebase updates data (e.g., price change to `1099.99`).
+2. RealTimeDatabase propagates change to DataDisplay.
+3. DataDisplay refreshes UI.","- UI updates to show new price (`$1099.99`) without manual refresh.
+- No data loss or corruption."
+TC-REALTIMEDB-002,DataDisplay handles database disconnection,RealTimeDatabase,1,- DataDisplay is active; Firebase connection is stable.,,"1. Simulate Firebase disconnection (e.g., network failure).
+2. DataDisplay attempts to fetch data.","- DataDisplay shows offline message; no errors.
+- System retries connection after timeout (e.g., 10 seconds)."
+TC-INTEGRATION-001,End-to-end user flow: Login → Add to Cart → Checkout,Full User Journey,"1, 2","- Firebase and RealTimeDatabase are operational.
+- User is not logged in; cart is empty.",,"1. User logs in with valid credentials (`testuser`, `SecurePass123`).
+2. User adds `Laptop` to cart (`$999.99`).
+3. User proceeds to checkout.
+4. System confirms order; cart is cleared.","- All steps complete without errors.
+- Database reflects sold product; UI shows success message."
+TC-EDGE-001,Concurrent cart modifications by multiple users,Cart (Edge Case),2,"- Two users (User1, User2) are logged in.
+- Cart contains `Laptop` (`$999.99`).",,"1. User1 removes `Laptop` from cart.
+2. User2 attempts to checkout simultaneously.","- System handles conflict (e.g., rejects User2’s checkout or shows ""Item unavailable"").
+- No negative inventory; UI clarifies conflict."
+TC-EDGE-002,Invalid product input (negative price),Product,2,- User attempts to add product with invalid price.,"- `name: ""Laptop""`, `price: -999.99`.","1. User invokes `addToCart(name, price)` with negative price.","- Cart rejects product; UI shows ""Invalid price.""
+- No changes to cart or database."
+TC-EDGE-003,Firebase rate-limiting during peak load,Authentication/Firebase,1,"- System experiences high login attempts (e.g., 1000 requests/sec).",,1. Simulate rapid login attempts with valid credentials.,"- Firebase throttles requests; system queues or delays responses.
+- No crashes; UI shows ""Service busy, retry later"" after threshold."

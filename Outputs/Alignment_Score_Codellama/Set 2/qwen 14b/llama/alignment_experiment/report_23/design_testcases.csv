@@ -1,0 +1,106 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login","Login","1, 2","User account exists in the database.","Valid username: ""testuser"", valid password: ""password123"".","1. User initiates login request with valid credentials.
+2. Server receives the login request and queries the database for the user.
+3. Database returns the user data.
+4. Server verifies the credentials and returns success.
+5. Client receives the success response.","Client successfully logs in and receives user data."
+"TC-Login-002","Failed Login Attempt","Login","1, 2","User account exists in the database.","Invalid username: ""wronguser"", valid password: ""password123"".","1. User initiates login request with invalid username and valid password.
+2. Server receives the login request and queries the database for the user.
+3. Database returns no user data.
+4. Server returns failure.
+5. Client receives the failure response.","Client receives an error message indicating login failure."
+"TC-Logout-001","Successful Logout","Logout","2","User is logged in.","N/A.","1. User initiates logout request.
+2. Server processes the logout request.
+3. Server updates session status to logged out.
+4. Client receives confirmation of logout.","Client is logged out and receives confirmation."
+"TC-ProductModification-001","Modify Product with Correct Fields","Product Modification","3","User is logged in and has access to modify products.","Valid product details.","1. User clicks on a product.
+2. User modifies the product details.
+3. User clicks the ""Modify"" button.
+4. System checks if all fields are correctly filled.
+5. System applies the modifications.","Product modifications are applied successfully."
+"TC-ProductModification-002","Modify Product with Incorrect Fields","Product Modification","3","User is logged in and has access to modify products.","Incomplete product details.","1. User clicks on a product.
+2. User modifies the product details incompletely.
+3. User clicks the ""Modify"" button.
+4. System checks if all fields are correctly filled.
+5. System signals an error.","System signals an error and does not apply the modifications."
+"TC-AddProduct-001","Add Product with Correct Fields","Add Product","4","User is logged in and has permission to add products.","Valid product details.","1. User clicks the ""Add"" button.
+2. User fills in the product details.
+3. User clicks the ""Add"" button again.
+4. System checks if all fields are correctly filled.
+5. System adds the product.","Product is added successfully."
+"TC-AddProduct-002","Add Product with Incorrect Fields","Add Product","4","User is logged in and has permission to add products.","Incomplete product details.","1. User clicks the ""Add"" button.
+2. User fills in the product details incompletely.
+3. User clicks the ""Add"" button again.
+4. System checks if all fields are correctly filled.
+5. System signals an error.","System signals an error and does not add the product."
+"TC-NotificationManagement-001","Push Notification","Notification Management","5","User is logged in and has notifications enabled.","N/A.","1. User clicks a button.
+2. System triggers the notification management process.
+3. System sends a push notification.
+4. System pushes notifications to the app.","User receives a push notification."
+"TC-NotificationManagement-002","In-App Notification","Notification Management","5","User is logged in and has notifications enabled.","N/A.","1. User clicks a button.
+2. System triggers the notification management process.
+3. System sends an in-app notification.
+4. System pushes notifications to the app.","User receives an in-app notification."
+"TC-NotificationManagement-003","Notification Decision Node","Notification Management","6","User is logged in and has notifications enabled.","N/A.","1. User interacts with a new product.
+2. New product decides whether to send a push or in-app notification.
+3. Notification is sent to the app.","User receives either a push or in-app notification based on the decision made by the new product."
+"TC-UserAccount-001","Create User Account","User Account","1, 2","User does not have an existing account.","Valid email: ""test@example.com"", valid password: ""password123"".","1. User initiates account creation request.
+2. Server receives the request and creates a new user account.
+3. Database stores the new user account.
+4. Server confirms the account creation.
+5. Client receives confirmation of account creation.","User account is created successfully."
+"TC-UserAccount-002","Duplicate Email During Account Creation","User Account","1, 2","User does not have an existing account but email already exists.","Existing email: ""test@example.com"", valid password: ""password123"".","1. User initiates account creation request with an existing email.
+2. Server receives the request and attempts to create a new user account.
+3. Database detects duplicate email.
+4. Server returns an error.
+5. Client receives an error message.","Client receives an error message indicating the email is already in use."
+"TC-PreferredSeller-001","Mark Seller as Preferred","Preferred Seller","1","User is logged in and has a seller to mark as preferred.","Valid seller details.","1. User selects a seller.
+2. User marks the seller as preferred.
+3. System updates the preferred seller information.","Seller is marked as preferred successfully."
+"TC-PreferredSeller-002","Unmark Seller as Preferred","Preferred Seller","1","User is logged in and has a seller marked as preferred.","Valid seller details.","1. User selects a seller.
+2. User unmarks the seller as preferred.
+3. System updates the preferred seller information.","Seller is unmarked as preferred successfully."
+"TC-NotificationType-001","Set Notification Type","Notification Type","1","User is logged in and has a client.","Valid notification type.","1. User sets a notification type for a client.
+2. System updates the notification type.","Notification type is updated successfully."
+"TC-NotificationType-002","Get Notification Type","Notification Type","1","User is logged in and has a client.","Valid client details.","1. User requests the notification type for a client.
+2. System retrieves the notification type.
+3. System returns the notification type.","Notification type is retrieved successfully."
+"TC-VendorRating-001","Set Vendor Rating","Vendor Rating","1","User is logged in and has a vendor.","Valid rating value.","1. User sets a rating for a vendor.
+2. System updates the vendor's rating.","Vendor rating is updated successfully."
+"TC-VendorRating-002","Get Vendor Rating","Vendor Rating","1","User is logged in and has a vendor.","Valid vendor details.","1. User requests the rating for a vendor.
+2. System retrieves the vendor's rating.
+3. System returns the rating.","Vendor rating is retrieved successfully."
+"TC-UserDetails-001","Update User Details","User Details","1","User is logged in.","Valid user details.","1. User updates their details.
+2. System validates the details.
+3. System updates the user's details.","User details are updated successfully."
+"TC-UserDetails-002","Retrieve User Details","User Details","1","User is logged in.","Valid user details.","1. User requests their details.
+2. System retrieves the user's details.
+3. System returns the details.","User details are retrieved successfully."
+"TC-UserType-001","Set User Type","User Type","1","User is logged in.","Valid user type.","1. User sets their type (seller/client).
+2. System updates the user type.","User type is updated successfully."
+"TC-UserType-002","Get User Type","User Type","1","User is logged in.","Valid user details.","1. User requests their type (seller/client).
+2. System retrieves the user type.
+3. System returns the user type.","User type is retrieved successfully."
+"TC-UserImage-001","Set User Image","User Image","1","User is logged in.","Valid image file.","1. User uploads an image.
+2. System validates the image.
+3. System updates the user's image.","User image is updated successfully."
+"TC-UserImage-002","Retrieve User Image","User Image","1","User is logged in.","Valid user details.","1. User requests their image.
+2. System retrieves the user's image.
+3. System returns the image.","User image is retrieved successfully."
+"TC-UserPassword-001","Change User Password","User Password","1","User is logged in.","Valid old password, valid new password.","1. User changes their password.
+2. System validates the old password.
+3. System updates the user's password.","User password is changed successfully."
+"TC-UserPassword-002","Retrieve User Password","User Password","1","User is logged in.","Valid user details.","1. User requests their password.
+2. System retrieves the user's password.
+3. System returns the password.","User password is retrieved successfully."
+"TC-UserEmail-001","Change User Email","User Email","1","User is logged in.","Valid old email, valid new email.","1. User changes their email.
+2. System validates the old email.
+3. System updates the user's email.","User email is changed successfully."
+"TC-UserEmail-002","Retrieve User Email","User Email","1","User is logged in.","Valid user details.","1. User requests their email.
+2. System retrieves the user's email.
+3. System returns the email.","User email is retrieved successfully."
+"TC-UserVendorStatus-001","Set User as Vendor","User Vendor Status","1","User is logged in.","Valid vendor status.","1. User sets themselves as a vendor.
+2. System updates the user's vendor status.","User vendor status is updated successfully."
+"TC-UserVendorStatus-002","Get User Vendor Status","User Vendor Status","1","User is logged in.","Valid user details.","1. User requests their vendor status.
+2. System retrieves the user's vendor status.
+3. System returns the vendor status.","User vendor status is retrieved successfully."

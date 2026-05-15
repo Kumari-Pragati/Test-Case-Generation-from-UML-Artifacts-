@@ -1,0 +1,241 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-CalendarioUtente-001,Test adding an event to a user's calendar,CalendarioUtente,1,User is logged in and has a valid calendar,"- Event with valid data (eventID: ""event1"", titolo: ""Test Event"", dataOraInizio: ""2023-01-01T12:00:00"", dataOraFine: ""2023-01-01T13:00:00"", descrizione: ""Test Description"", luogo: ""Test Location"")","1. Log in as a valid user
+2. Navigate to the calendar page
+3. Click the ""Add Event"" button
+4. Enter the test event data
+5. Click the ""Save"" button
+6. Verify that the event is displayed in the user's calendar","The event is added to the user's calendar
+
+Test Steps:
+1. Log in as a valid user
+2. Navigate to the calendar page
+3. Click the ""Add Event"" button
+4. Enter the test event data
+5. Click the ""Save"" button
+6. Verify that the event is displayed in the user's calendar"
+TC-CalendarioUtente-002,Test modifying an event in a user's calendar,CalendarioUtente,1,User is logged in and has a valid calendar with an existing event,"- Updated event with valid data (eventID: ""event1"", titolo: ""Updated Test Event"", dataOraInizio: ""2023-01-02T12:00:00"", dataOraFine: ""2023-01-02T13:00:00"", descrizione: ""Updated Test Description"", luogo: ""Updated Test Location"")","1. Log in as a valid user
+2. Navigate to the calendar page
+3. Find the existing event in the user's calendar
+4. Click the ""Edit"" button for the event
+5. Enter the updated event data
+6. Click the ""Save"" button
+7. Verify that the event is updated in the user's calendar","The event is updated in the user's calendar
+
+Test Steps:
+1. Log in as a valid user
+2. Navigate to the calendar page
+3. Find the existing event in the user's calendar
+4. Click the ""Edit"" button for the event
+5. Enter the updated event data
+6. Click the ""Save"" button
+7. Verify that the event is updated in the user's calendar"
+TC-CalendarioUtente-003,Test deleting an event from a user's calendar,CalendarioUtente,1,User is logged in and has a valid calendar with an existing event,,"1. Log in as a valid user
+2. Navigate to the calendar page
+3. Find the existing event in the user's calendar
+4. Click the ""Delete"" button for the event
+5. Verify that the event is no longer displayed in the user's calendar","The event is deleted from the user's calendar
+
+Test Steps:
+1. Log in as a valid user
+2. Navigate to the calendar page
+3. Find the existing event in the user's calendar
+4. Click the ""Delete"" button for the event
+5. Verify that the event is no longer displayed in the user's calendar"
+TC-CalendarioUtente-004,Test retrieving events for a specific date,CalendarioUtente,1,User is logged in and has events in their calendar,"- Specific date: ""2023-01-01""","1. Log in as a valid user
+2. Navigate to the calendar page
+3. Click the ""Show Events for Date"" button
+4. Enter the specific date
+5. Click the ""Search"" button
+6. Verify that the events for the specified date are displayed","The events for the specified date are returned
+
+Test Steps:
+1. Log in as a valid user
+2. Navigate to the calendar page
+3. Click the ""Show Events for Date"" button
+4. Enter the specific date
+5. Click the ""Search"" button
+6. Verify that the events for the specified date are displayed"
+TC-CalendarioUtente-005,Test database connection and query execution,CalendarioUtente,1,User is logged in and has a valid calendar,,"1. Log in as a valid user
+2. Navigate to the calendar page
+3. Verify that the database is connected by checking for any errors or exceptions
+4. Execute a query to retrieve events from the database
+5. Verify that the query is executed successfully and returns the expected results","The database is connected and queries are executed successfully
+
+Test Steps:
+1. Log in as a valid user
+2. Navigate to the calendar page
+3. Verify that the database is connected by checking for any errors or exceptions
+4. Execute a query to retrieve events from the database
+5. Verify that the query is executed successfully and returns the expected results"
+TC-Evento-001,Test event retrieval,Evento,1,Event exists in the database,,"1. Connect to the database
+2. Execute a query to retrieve the event by its ID
+3. Verify that the event is returned with the expected data","The event is retrieved successfully
+
+Test Steps:
+1. Connect to the database
+2. Execute a query to retrieve the event by its ID
+3. Verify that the event is returned with the expected data"
+TC-Evento-002,Test invalid event retrieval,Evento,1,Event does not exist in the database,,"1. Connect to the database
+2. Execute a query to retrieve an invalid event by its ID
+3. Verify that an error is returned","An error is returned
+
+Test Steps:
+1. Connect to the database
+2. Execute a query to retrieve an invalid event by its ID
+3. Verify that an error is returned"
+TC-Stagione-001,Test season retrieval,Stagione,1,Season exists in the database,,"1. Connect to the database
+2. Execute a query to retrieve the season by its name
+3. Verify that the season is returned with the expected data","The season is retrieved successfully
+
+Test Steps:
+1. Connect to the database
+2. Execute a query to retrieve the season by its name
+3. Verify that the season is returned with the expected data"
+TC-Stagione-002,Test invalid season retrieval,Stagione,1,Season does not exist in the database,,"1. Connect to the database
+2. Execute a query to retrieve an invalid season by its name
+3. Verify that an error is returned","An error is returned
+
+Test Steps:
+1. Connect to the database
+2. Execute a query to retrieve an invalid season by its name
+3. Verify that an error is returned"
+TC-Regolazione-001,Test regulation retrieval,Regolazione,1,Regulation exists in the database,,"1. Connect to the database
+2. Execute a query to retrieve the regulation by its ID
+3. Verify that the regulation is returned with the expected data","The regulation is retrieved successfully
+
+Test Steps:
+1. Connect to the database
+2. Execute a query to retrieve the regulation by its ID
+3. Verify that the regulation is returned with the expected data"
+TC-Regolazione-002,Test invalid regulation retrieval,Regolazione,1,Regulation does not exist in the database,,,An error is returned
+TC-Database-001,Test database connection,Database,1,None,,"1. Connect to the database
+2. Verify that the connection is successful by checking for any errors or exceptions","The database is connected successfully
+
+Test Steps:
+1. Connect to the database
+2. Verify that the connection is successful by checking for any errors or exceptions"
+TC-Database-002,Test query execution,Database,1,None,,"1. Connect to the database
+2. Execute a query to retrieve data from the database
+3. Verify that the query is executed successfully and returns the expected results","Queries are executed successfully
+
+Test Steps:
+1. Connect to the database
+2. Execute a query to retrieve data from the database
+3. Verify that the query is executed successfully and returns the expected results"
+TC-Database-003,Test invalid query execution,Database,1,Invalid query,,"1. Connect to the database
+2. Execute an invalid query
+3. Verify that an error is returned","An error is returned
+
+Test Steps:
+1. Connect to the database
+2. Execute an invalid query
+3. Verify that an error is returned"
+TC-FirebaseAuth-001,Test user login,Firebase Auth,2,User exists in the database,,"1. Initialize Firebase Auth
+2. Request the current user
+3. Verify that the user exists in the database
+4. Log in the user using email and password
+5. Verify that the user is logged in successfully","The user is logged in successfully
+
+Test Steps:
+1. Initialize Firebase Auth
+2. Request the current user
+3. Verify that the user exists in the database
+4. Log in the user using email and password
+5. Verify that the user is logged in successfully"
+TC-FirebaseAuth-002,Test user registration and login,Firebase Auth,2,User does not exist in the database,,"1. Initialize Firebase Auth
+2. Request the current user
+3. Verify that the user does not exist in the database
+4. Register a new user using email and password
+5. Log in the user using email and password
+6. Verify that the user is registered and logged in successfully","The user is registered and logged in successfully
+
+Test Steps:
+1. Initialize Firebase Auth
+2. Request the current user
+3. Verify that the user does not exist in the database
+4. Register a new user using email and password
+5. Log in the user using email and password
+6. Verify that the user is registered and logged in successfully"
+TC-FirebaseAuth-003,Test user login with invalid credentials,Firebase Auth,2,User exists in the database,,"1. Initialize Firebase Auth
+2. Request the current user
+3. Verify that the user exists in the database
+4. Attempt to log in with invalid credentials
+5. Verify that the login fails with an error","Login fails with an error
+
+Test Steps:
+1. Initialize Firebase Auth
+2. Request the current user
+3. Verify that the user exists in the database
+4. Attempt to log in with invalid credentials
+5. Verify that the login fails with an error"
+TC-FirebaseAuth-004,Test user registration with existing email,Firebase Auth,2,User with the same email already exists in the database,,"1. Initialize Firebase Auth
+2. Attempt to register a new user with an email that already exists in the database
+3. Verify that the registration fails with an error","Registration fails with an error
+
+Test Steps:
+1. Initialize Firebase Auth
+2. Attempt to register a new user with an email that already exists in the database
+3. Verify that the registration fails with an error"
+TC-Segnalazioni-001,Test retrieving signals,Sistema di segnalazioni,3,Signals exist in the database,,"1. Request the list of signals from the signaling system
+2. Verify that the signals are retrieved from the database and displayed","The signals are retrieved successfully
+
+Test Steps:
+1. Request the list of signals from the signaling system
+2. Verify that the signals are retrieved from the database and displayed"
+TC-Segnalazioni-002,Test retrieving empty signals,Sistema di segnalazioni,3,No signals exist in the database,,"1. Request the list of signals from the signaling system
+2. Verify that an empty list is returned","An empty list is returned
+
+Test Steps:
+1. Request the list of signals from the signaling system
+2. Verify that an empty list is returned"
+TC-TrenitaliaAPI-001,Test retrieving train variations,API Trenitalia,4,Train variations exist,,"1. Request train variations from the API
+2. Verify that the train variations are returned","The train variations are retrieved successfully
+
+Test Steps:
+1. Request train variations from the API
+2. Verify that the train variations are returned"
+TC-TrenitaliaAPI-002,Test retrieving empty train variations,API Trenitalia,4,No train variations exist,,"1. Request train variations from the API
+2. Verify that an empty list is returned","An empty list is returned
+
+Test Steps:
+1. Request train variations from the API
+2. Verify that an empty list is returned"
+TC-TrenitaliaAPI-003,Test train cancellation,API Trenitalia,5,Train exists in the database,,"1. Request the list of trains for a specific calendar
+2. Verify that the train exists in the database
+3. Cancel the train
+4. Verify that the train is no longer displayed in the calendar","The train is cancelled successfully
+
+Test Steps:
+1. Request the list of trains for a specific calendar
+2. Verify that the train exists in the database
+3. Cancel the train
+4. Verify that the train is no longer displayed in the calendar"
+TC-TrenitaliaAPI-004,Test train cancellation with invalid train,API Trenitalia,5,Invalid train,,"1. Request the list of trains for a specific calendar
+2. Verify that the train does not exist in the database
+3. Attempt to cancel the train
+4. Verify that an error is returned","An error is returned
+
+Test Steps:
+1. Request the list of trains for a specific calendar
+2. Verify that the train does not exist in the database
+3. Attempt to cancel the train
+4. Verify that an error is returned"
+TC-TrenitaliaAPI-005,Test train cancellation with non-existent calendar,API Trenitalia,5,Non-existent calendar,,"1. Request the list of trains for a non-existent calendar
+2. Verify that the calendar does not exist in the database
+3. Attempt to cancel a train
+4. Verify that an error is returned","An error is returned
+
+Test Steps:
+1. Request the list of trains for a non-existent calendar
+2. Verify that the calendar does not exist in the database
+3. Attempt to cancel a train
+4. Verify that an error is returned"
+TC-Notifica-001,Test notifications,Sistema di notifica,6,Train variations exist,,"1. Request train variations from the system
+2. Verify that the notifications are displayed","Notifications are displayed
+
+Test Steps:
+1. Request train variations from the system
+2. Verify that the notifications are displayed"
+TC-Notifica-002,Test no notifications,Sistema di notifica,6,No train variations exist,,,"No notifications are displayed
+
+Test Ste"

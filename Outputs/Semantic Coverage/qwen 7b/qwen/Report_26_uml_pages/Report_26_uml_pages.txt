@@ -1,0 +1,747 @@
+REPORT: Report_26_uml_pages.pdf
+======================================================================
+
+===== Report_26_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- START — kind=initial_node; role=start point
+- Utente loggato? — kind=decision_node; attributes=[Utente loggato?]; role=check user login status
+- NO — kind=final_node; role=end branch for 'Utente loggato?' decision
+- SI — kind=final_node; role=end branch for 'Utente loggato?' decision
+- HOME — kind=final_node; role=end point for logged-in user
+- Fragment richiesta Login / registrazione — kind=fragment; role=login/register request fragment
+- Fragment login — kind=fragment; role=login fragment
+- Fragment registrazione — kind=fragment; role=registration fragment
+- Utente loggato con successo? — kind=decision_node; attributes=[Utente loggato con successo?]; role=check successful login
+- Utente creato con successo? — kind=decision_node; attributes=[Utente creato con successo?]; role=check successful registration
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- START -> Utente loggato? — type=control_flow; label="->"; explanation="flow from start to check user login status"
+- Utente loggato? -> NO — type=control_flow; label="NO"; explanation="branch for non-logged-in user"
+- Utente loggato? -> SI — type=control_flow; label="SI"; explanation="branch for logged-in user"
+- NO -> Fragment richiesta Login / registrazione — type=control_flow; label="->"; explanation="flow to login/register request fragment"
+- SI -> HOME — type=control_flow; label="->"; explanation="flow to home page for logged-in user"
+- Fragment richiesta Login / registrazione -> Fragment login — type=control_flow; label="->"; explanation="flow to login fragment"
+- Fragment richiesta Login / registrazione -> Fragment registrazione — type=control_flow; label="->"; explanation="flow to registration fragment"
+- Fragment login -> Utente loggato con successo? — type=control_flow; label="->"; explanation="flow to check successful login"
+- Fragment registrazione -> Utente creato con successo? — type=control_flow; label="->"; explanation="flow to check successful registration"
+- Utente loggato con successo? -> SI — type=control_flow; label="SI"; explanation="branch for successful login"
+- Utente creato con successo? -> SI — type=control_flow; label="SI"; explanation="branch for successful registration"
+
+Main Flows (step by step):
+- Flow 1: START -> Utente loggato? -> SI -> HOME
+- Flow 2: START -> Utente loggato? -> NO -> Fragment richiesta Login / registrazione -> Fragment login -> Utente loggato con successo? -> SI -> HOME
+- Flow 3: START -> Utente loggato? -> NO -> Fragment richiesta Login / registrazione -> Fragment registrazione -> Utente creato con successo? -> SI -> HOME
+
+Conditions / Branches:
+- Utente loggato? — branches: NO, SI
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the flow of an application startup, checking user login status, and handling login and registration requests.
+- The main flow starts at the initial node "START," checks if the user is logged in, and proceeds to the home page if logged in or to the login/registration fragment if not.
+- If the user is not logged in, it prompts for login or registration, then checks if the login or registration was successful, leading back to the home page if successful.
+- Key edge cases include handling both successful login and successful registration, ensuring the user reaches the home page upon completion.
+
+===== Report_26_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial_node; role=Home page
+- Activity proposte di scambio — kind=activity_node; role=Activity for proposal exchange
+- Ho reperito i dati delle proposte? — kind=decision_node; role=Decision on data availability
+- Fragment elenco proposte ricevute — kind=fragment; role=Received proposals fragment
+- Fragment elenco proposte inoltrate — kind=fragment; role=Sent proposals fragment
+- Proposta accettata? — kind=decision_node; role=Decision on accepted proposal
+- Activity dettaglio proposta — kind=activity_node; role=Proposal detail activity
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Activity proposte di scambio — type=control_flow; label="->"; explanation="Start of proposal exchange activity"
+- Activity proposte di scambio -> Ho reperito i dati delle proposte? — type=control_flow; label="->"; explanation="Check if data available"
+- Ho reperito i dati delle proposte? -> NO — type=control_flow; label="NO"; explanation="No data found"
+- Ho reperito i dati delle proposte? -> SI — type=control_flow; label="SI"; explanation="Data found"
+- Ho reperito i dati delle proposte? -> Fragment elenco proposte ricevute — type=control_flow; label="->"; explanation="Show received proposals"
+- Ho reperito i dati delle proposte? -> Fragment elenco proposte inoltrate — type=control_flow; label="->"; explanation="Show sent proposals"
+- Fragment elenco proposte ricevute -> Proposta accettata? — type=control_flow; label="->"; explanation="Check if proposal accepted"
+- Fragment elenco proposte inoltrate -> Proposta accettata? — type=control_flow; label="->"; explanation="Check if proposal accepted"
+- Proposta accettata? -> NO / SI — type=control_flow; label="NO / SI"; explanation="Proposal accepted or not"
+- Proposta accettata? -> Activity dettaglio proposta — type=control_flow; label="->"; explanation="View proposal details"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Activity proposte di scambio -> Ho reperito i dati delle proposte? -> NO -> Fragment elenco proposte ricevute -> Proposta accettata? -> NO / SI -> Activity dettaglio proposta
+- Flow 2: HOME -> Activity proposte di scambio -> Ho reperito i dati delle proposte? -> SI -> Fragment elenco proposte inoltrate -> Proposta accettata? -> NO / SI -> Activity dettaglio proposta
+
+Conditions / Branches:
+- Ho reperito i dati delle proposte? — branches: NO, SI
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of managing proposals, starting from the home page. It checks if data about proposals is available, then shows either received or sent proposals. It further checks if a proposal has been accepted and allows viewing the details of the proposal. The diagram includes decision points to handle different scenarios such as when data is not available or when a proposal is accepted.
+
+===== Report_26_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial_node; role=Home page
+- Activity bacheca personale — kind=activity_node; role=Personal inbox activity
+- Ho reperito i dati dalle offerte? — kind=decision_node; role=Decision about data retrieval
+- Fragment inserimento — kind=fragment; role=Insertion fragment
+- Fragment elenco offerte — kind=fragment; role=List offers fragment
+- Fragment dettaglio offerta — kind=fragment; role=Offer details fragment
+- Fragment eliminazione — kind=fragment; role=Deletion fragment
+- Inserimento andato a buon fine? — kind=decision_node; role=Check insertion success
+- Eliminazione andata a buon fine? — kind=decision_node; role=Check deletion success
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Activity bacheca personale — type=control_flow; label="->"; explanation="Start of activity"
+- Activity bacheca personale -> Ho reperito i dati dalle offerte? — type=control_flow; label="->"; explanation="Check data retrieval"
+- Ho reperito i dati dalle offerte? -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Ho reperito i dati dalle offerte? -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+- SI -> Fragment inserimento — type=control_flow; label="->"; explanation="Proceed with insertion"
+- SI -> Fragment elenco offerte — type=control_flow; label="->"; explanation="Proceed with offer list"
+- SI -> Fragment dettaglio offerta — type=control_flow; label="->"; explanation="Proceed with offer details"
+- SI -> Fragment eliminazione — type=control_flow; label="->"; explanation="Proceed with deletion"
+- NO -> Fragment inserimento — type=control_flow; label="->"; explanation="Proceed with insertion"
+- NO -> Fragment elenco offerte — type=control_flow; label="->"; explanation="Proceed with offer list"
+- NO -> Fragment dettaglio offerta — type=control_flow; label="->"; explanation="Proceed with offer details"
+- NO -> Fragment eliminazione — type=control_flow; label="->"; explanation="Proceed with deletion"
+- Fragment inserimento -> Inserimento andato a buon fine? — type=control_flow; label="->"; explanation="Check insertion success"
+- Fragment inserimento -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Fragment inserimento -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+- Fragment elenco offerte -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Fragment elenco offerte -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+- Fragment dettaglio offerta -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Fragment dettaglio offerta -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+- Fragment eliminazione -> Eliminazione andata a buon fine? — type=control_flow; label="->"; explanation="Check deletion success"
+- Fragment eliminazione -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Fragment eliminazione -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+- Inserimento andato a buon fine? -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Inserimento andato a buon fine? -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+- Eliminazione andata a buon fine? -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Eliminazione andata a buon fine? -> NO — type=control_flow; label="NO"; explanation="No, proceed"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Activity bacheca personale -> Ho reperito i dati dalle offerte? -> SI -> Fragment inserimento -> Inserimento andato a buon
+
+===== Report_26_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial_node; role=home page
+- Ho reperito i dati delle offerte? — kind=decision_node; role=check data availability
+- Fragment elenco offerte — kind=activity_node; role=list offers fragment
+- Fragment filtri di ricerca — kind=activity_node; role=search filters fragment
+- Activity dettaglio offerta — kind=activity_node; role=offer detail activity
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Ho reperito i dati delle offerte? — type=control_flow; label="SI"; explanation="yes"
+- HOME -> Ho reperito i dati delle offerte? — type=control_flow; label="NO"; explanation="no"
+- Ho reperito i dati delle offerte? -> Fragment elenco offerte — type=control_flow; label="SI"; explanation="yes"
+- Ho reperito i dati delle offerte? -> Fragment filtri di ricerca — type=control_flow; label="NO"; explanation="no"
+- Fragment elenco offerte -> Activity dettaglio offerta — type=control_flow; label="->"; explanation="navigate to offer details"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Ho reperito i dati delle offerte? (SI) -> Fragment elenco offerte -> Activity dettaglio offerta
+- Flow 2: HOME -> Ho reperito i dati delle offerte? (NO) -> Fragment filtri di ricerca -> Fragment elenco offerte -> Activity dettaglio offerta
+
+Conditions / Branches:
+- Ho reperito i dati delle offerte? — SI: Fragment elenco offerte; NO: Fragment filtri di ricerca
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of listing and viewing job offers.
+- The main flow starts at the home page, checks for available offer data, and navigates to either the list of offers or the search filters fragment.
+- If data is available, it proceeds to the offer list fragment and then to the offer detail activity.
+- If data is not available, it goes through the search filters fragment before proceeding to the offer list fragment and then to the offer detail activity.
+- There are two distinct main flows depending on whether data is available or not.
+
+===== Report_26_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial_node; role=Home page
+- Activity visualizzazione profilo — kind=activity_node; role=Activity for viewing profile
+- Fragment modifica dati personali — kind=fragment; role=Fragment for modifying personal data
+- La modifica è andata a buon fine? — kind=decision_node; role=Decision about modification success
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Activity visualizzazione profilo — type=control_flow; label="->"; explanation="Flow to activity for viewing profile"
+- Activity visualizzazione profilo -> Fragment modifica dati personali — type=control_flow; label="->"; explanation="Flow to fragment for modifying personal data"
+- Fragment modifica dati personali -> SI — type=control_flow; label="SI"; explanation="Decision branch for 'Yes'"
+- SI -> La modifica è andata a buon fine? — type=control_flow; label="->"; explanation="Flow to decision node for modification success"
+- La modifica è andata a buon fine? -> NO — type=control_flow; label="NO"; explanation="Decision branch for 'No'"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Activity visualizzazione profilo -> Fragment modifica dati personali -> SI -> La modifica è andata a buon fine?
+
+Conditions / Branches:
+- La modifica è andata a buon fine? — branches: SI (Yes), NO (No)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of modifying personal data. The user starts at the home page, navigates to the activity for viewing their profile, then proceeds to the fragment for modifying personal data. After the modification, a decision is made about whether the change was successful. If successful, the process ends; if not, it returns to the fragment for further modifications.
+
+===== Report_26_uml_pages.pdf | Page 6 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial_node; role=Home page
+- Activity elementi salvati — kind=activity_node; role=Activity for saved elements
+- Ho reperito gli elementi salvati dell'utente? — kind=decision_node; role=Decision about user's saved elements
+- Fragment elenco offerte — kind=fragment; role=Offer list fragment
+- Fragment rimozione — kind=fragment; role=Removal fragment
+- Activity dettaglio offerta — kind=activity_node; role=Offer detail activity
+- Rimozione avvenuta? — kind=decision_node; role=Decision about removal completion
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Activity elementi salvati — type=control_flow; label="->"; explanation="Start of the activity"
+- Activity elementi salvati -> Ho reperito gli elementi salvati dell'utente? — type=control_flow; label="->"; explanation="Check if user has saved elements"
+- Ho reperito gli elementi salvati dell'utente? -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Ho reperito gli elementi salvati dell'utente? -> NO — type=control_flow; label="NO"; explanation="No, go back to home"
+- SI -> Fragment elenco offerte — type=control_flow; label="->"; explanation="Show offer list fragment"
+- Fragment elenco offerte -> Activity dettaglio offerta — type=control_flow; label="->"; explanation="Go to offer detail activity"
+- Fragment elenco offerte -> Fragment rimozione — type=control_flow; label="->"; explanation="Show removal fragment"
+- Fragment rimozione -> Rimozione avvenuta? — type=control_flow; label="->"; explanation="Check if removal completed"
+- Rimozione avvenuta? -> SI — type=control_flow; label="SI"; explanation="Yes, proceed"
+- Rimozione avvenuta? -> NO — type=control_flow; label="NO"; explanation="No, go back to offer list fragment"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Activity elementi salvati -> Ho reperito gli elementi salvati dell'utente? (SI) -> Fragment elenco offerte -> Activity dettaglio offerta
+- Flow 2: HOME -> Activity elementi salvati -> Ho reperito gli elementi salvati dell'utente? (NO) -> Fragment elenco offerte -> Fragment rimozione -> Rimozione avvenuta? (SI) -> Fragment elenco offerte -> Activity dettaglio offerta
+- Flow 3: HOME -> Activity elementi salvati -> Ho reperito gli elementi salvati dell'utente? (NO) -> Fragment elenco offerte -> Fragment rimozione -> Rimozione avvenuta? (NO) -> Fragment elenco offerte
+
+Conditions / Branches:
+- Ho reperito gli elementi salvati dell'utente? — branches: SI, NO
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram represents a flowchart for managing saved elements, offering details, and removing them.
+
+Observations:
+- The diagram starts at the Home page and navigates through activities related to saved elements.
+- Users can either view their saved offers or remove them.
+- If removal is successful, it returns to the offer list; otherwise, it stays in the removal fragment.
+- There are two main paths: viewing saved offers and removing them.
+
+===== Report_26_uml_pages.pdf | Page 7 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; attributes=[]; operations=[]; role=Client
+- User — kind=participant; attributes=[]; operations=[]; role=Actor
+- DataBase — kind=participant; attributes=[]; operations=[]; role=Server
+
+Actors / Lifelines:
+- Utente
+- User
+- DataBase
+
+Relationships / Links:
+- Utente -> User — type=message; label="Insert data and accept privacy document"; explanation="User receives data from client"
+- User -> DataBase — type=message; label="insertUserInDataBase()"; explanation="User sends data to server"
+- User -> Utente — type=message; label="Success or failure"; explanation="Server responds to user"
+
+Main Flows (step by step):
+- Flow 1: Utente -> User — "Insert data and accept privacy document"
+- Flow 2: User -> DataBase — "insertUserInDataBase()"
+- Flow 3: DataBase -> User — "Response"
+- Flow 4: User -> Utente — "Success or failure"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Registrazione dell'utente
+
+Observations:
+- This diagram models the registration process for a user.
+- The client (Utente) provides data and accepts a privacy document.
+- The actor (User) processes the data and inserts it into the database.
+- The server (DataBase) responds with either success or failure.
+- The main flow involves the client sending data, the actor processing it, and the server responding back.
+
+===== Report_26_uml_pages.pdf | Page 8 =====
+UML Type:
+- Sequence
+
+Components:
+- Utente — kind=Actor; role=User
+- User — kind=Actor; role=Application
+- DataBase — kind=Actor; role=Database
+- Main — kind=Actor; role=Main Page
+
+Actors / Lifelines:
+- Utente
+- User
+- DataBase
+- Main
+
+Relationships / Links:
+- Utente -> User — type=message; label="Insert username and password"; explanation="User requests login credentials"
+- User -> DataBase — type=message; label="signInWithEmailAndPassword()"; explanation="User attempts to sign in with email and password"
+- DataBase -> User — type=message; label="Response"; explanation="Database responds with success or failure"
+- User -> Main — type=message; label="If success go to main page"; explanation="User navigates to main page if login is successful"
+
+Main Flows (step by step):
+- Flow 1: Utente -> User -> DataBase -> User -> Main
+
+Conditions / Branches:
+- User -> Main — label="If success go to main page"; explanation="Navigates to main page upon successful login"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- Login dell'utente — stereotype="Login Sequence"
+
+Observations:
+- This diagram models a user login process.
+- The user inputs their credentials and attempts to sign in.
+- The application sends the credentials to the database for verification.
+- Upon successful authentication, the user is redirected to the main page.
+- There are no explicit error paths or conditions shown in the diagram.
+
+===== Report_26_uml_pages.pdf | Page 9 =====
+UML Type:
+- activity
+
+Components:
+- Utente — kind=actor; role=User
+- MyBoard — kind=action; role=MyBoardActivity
+- Database — kind=action; role=Retrieve user items
+
+Actors / Lifelines:
+- Utente
+- MyBoard
+- Database
+
+Relationships / Links:
+- Utente -> MyBoard — type=association; label="Move to MyBoardActivity"; explanation="User navigates to MyBoardActivity"
+- MyBoard -> Database — type=association; label="Retrieve user items"; explanation="MyBoard retrieves user items from database"
+- MyBoard -> Items — type=association; label="Items"; explanation="MyBoard receives items from database"
+- Items -> MyBoard — type=association; label="Show items list"; explanation="MyBoard displays items list"
+
+Main Flows (step by step):
+- Flow 1: Utente -> MyBoard -> Database -> Items -> MyBoard -> Show items list
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Visualizzazione della bacheca — title of the activity
+
+Observations:
+- This activity diagram models the process of displaying a user's inbox.
+- The user initiates the process by navigating to the MyBoardActivity.
+- The MyBoardActivity then retrieves the user's items from the database.
+- The retrieved items are sent back to the MyBoardActivity, which finally displays the items list to the user.
+- There are no conditions or branches in this diagram, indicating a straightforward linear flow.
+
+===== Report_26_uml_pages.pdf | Page 10 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; attributes=[]; operations=[]; role=User
+- InsertNewItem — kind=participant; attributes=[]; operations=[]; role=Insert New Item
+- Database — kind=participant; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- InsertNewItem
+- Database
+
+Relationships / Links:
+- Utente -> InsertNewItem — type=message; label="Click on insert item button"; explanation="User initiates insertion"
+- InsertNewItem -> Database — type=message; label="Request an image"; explanation="Request for image"
+- Database -> InsertNewItem — type=message; label="Take a picture of the object or not"; explanation="Decision point"
+- InsertNewItem -> Database — type=message; label="Request item info"; explanation="Request for item information"
+- Database -> InsertNewItem — type=message; label="Insert info"; explanation="Insert information"
+- InsertNewItem -> Database — type=message; label="Insert item in Database"; explanation="Insert item into database"
+- Database -> InsertNewItem — type=message; label="Response"; explanation="Response to insertion request"
+- InsertNewItem -> Utente — type=message; label="Show items list with the new one"; explanation="Display updated list"
+
+Main Flows (step by step):
+- Flow 1: Utente -> InsertNewItem — Click on insert item button -> InsertNewItem -> Database — Request an image -> Database -> InsertNewItem — Take a picture of the object or not -> InsertNewItem -> Database — Request item info -> Database -> InsertNewItem — Insert info -> InsertNewItem -> Database — Insert item in Database -> Database -> InsertNewItem — Response -> InsertNewItem -> Utente — Show items list with the new one
+
+Conditions / Branches:
+- Database -> InsertNewItem — Take a picture of the object or not — branches: "Yes" -> InsertNewItem -> Database — Insert info; "No" -> InsertNewItem -> Database — Insert info
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- "Inserimento oggetto/servizio nella bacheca" — title of the sequence diagram
+
+Observations:
+- This sequence diagram models the process of inserting an object/service into a bulletin board.
+- The user initiates the insertion by clicking a button.
+- The system requests an image, which can be taken or not.
+- Information about the object/service is then requested and inserted into the database.
+- The database responds, and the updated list of items is displayed to the user.
+- There is a conditional branch for taking a picture, leading to different paths depending on whether the picture is taken or not.
+
+===== Report_26_uml_pages.pdf | Page 11 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; attributes=[]; operations=[]; role=User
+- InsertNewItem — kind=participant; attributes=[]; operations=[]; role=Process
+- Database — kind=participant; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- InsertNewItem
+- Database
+
+Relationships / Links:
+- Utente -> InsertNewItem — type=message; label="Click on delete item button"; explanation="User initiates action"
+- InsertNewItem -> Database — type=message; label="delete item from Database"; explanation="Delete item from database"
+- Database -> InsertNewItem — type=message; label="Response"; explanation="Database responds"
+- InsertNewItem -> Utente — type=message; label="Show items list without the deleted one"; explanation="Display updated list to user"
+- InsertNewItem -> Utente — type=message; label="Requires confirmation"; explanation="Request confirmation from user"
+
+Main Flows (step by step):
+- Flow 1: Utente -> InsertNewItem — Click on delete item button -> InsertNewItem -> Database — delete item from Database -> Database -> InsertNewItem — Response -> InsertNewItem -> Utente — Show items list without the deleted one
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Eliminazione oggetto/servizio nella bacheca
+
+Observations:
+- This sequence diagram models the process of deleting an object/service from a folder.
+- The user initiates the deletion by clicking a delete button.
+- A confirmation request is sent to the user.
+- If confirmed, the item is deleted from the database.
+- The updated list of items is then displayed to the user.
+- The diagram captures the essential steps and interactions involved in the deletion process.
+
+===== Report_26_uml_pages.pdf | Page 12 =====
+UML Type:
+- activity
+
+Components:
+- Utente — kind=actor; role=User
+- Main — kind=action; role=Application
+- Database — kind=database; role=Data Store
+
+Actors / Lifelines:
+- Utente
+- Main
+- Database
+
+Relationships / Links:
+- Utente -> Main — type=control; label="Show items list"; explanation="User initiates action"
+- Main -> Database — type=control; label="Get items from Database"; explanation="Application retrieves data"
+- Database -> Main — type=control; label="Response"; explanation="Application receives response"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Main -> Database -> Main -> Utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Esplorazione delle offerte" — title of the activity
+
+Observations:
+- This activity diagram models the process of exploring offers.
+- The user initiates the process by showing a list of items.
+- The application retrieves items from the database.
+- The application then responds with the retrieved items.
+- The user sees the list of items.
+
+===== Report_26_uml_pages.pdf | Page 13 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; attributes=[]; operations=[]; role=User
+- Exchange — kind=participant; attributes=[]; operations=[]; role=Exchange Service
+- Database — kind=participant; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Exchange
+- Database
+
+Relationships / Links:
+- Utente -> Exchange — type=message; label="Propose new exchange"; explanation="User proposes a new exchange"
+- Exchange -> Database — type=message; label="Save exchange info in database"; explanation="Exchange saves information in the database"
+- Database -> Exchange — type=message; label="Response"; explanation="Database responds to the exchange service"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Exchange — "Propose new exchange" -> Exchange -> Database — "Save exchange info in database" -> Database -> Exchange — "Response" -> Exchange -> Utente — "Show exchange list"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Proposta di scambio" — title indicating the context of the sequence diagram
+
+Observations:
+- This sequence diagram models the process of a user proposing a new exchange.
+- The user initiates the process by proposing a new exchange to the exchange service.
+- The exchange service then saves the information about the proposed exchange into the database.
+- After saving the information, the exchange service sends a response back to the user.
+- Finally, the exchange service returns the list of exchanges to the user.
+- There are no conditions or branches in the diagram, indicating a straightforward linear process.
+
+===== Report_26_uml_pages.pdf | Page 14 =====
+UML Type:
+- activity
+
+Components:
+- Utente — kind=actor; role=User
+- Exchange — kind=actor; role=Exchange Service
+- Database — kind=actor; role=Database
+
+Actors / Lifelines:
+- Utente
+- Exchange
+- Database
+
+Relationships / Links:
+- Utente -> Exchange — type=association; label="Move to exchange page"; explanation="User navigates to exchange page"
+- Exchange -> Database — type=association; label="Get exchanges info from database"; explanation="Exchange retrieves data from database"
+- Database -> Exchange — type=response; label="Response"; explanation="Database sends response back to Exchange"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Exchange — "Move to exchange page" -> Exchange -> Database — "Get exchanges info from database" -> Database -> Exchange — "Response" -> Exchange -> Utente — "Show exchanges list"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Proposta di scambio" — title of the activity diagram
+
+Observations:
+- This activity diagram models the process of a user navigating to an exchange page, retrieving exchange information from a database, and displaying the list of exchanges.
+- The main flow involves the user initiating the process, which then moves to the exchange service, retrieves data from the database, receives a response, and finally displays the list of exchanges to the user.
+- There are no conditions or branches in the diagram, indicating a straightforward linear process without decision points.
+
+===== Report_26_uml_pages.pdf | Page 15 =====
+UML Type:
+- activity
+
+Components:
+- Utente — kind=participant; role=User
+- Exchange — kind=participant; role=Exchange Service
+- Database — kind=participant; role=Database
+
+Actors / Lifelines:
+- Utente
+- Exchange
+- Database
+
+Relationships / Links:
+- Utente -> Exchange — type=control; label="Move to exchange page"; explanation="User navigates to exchange page"
+- Exchange -> Database — type=control; label="Get exchanges info from database"; explanation="Exchange retrieves exchange information"
+- Database -> Exchange — type=response; label="Response"; explanation="Exchange receives response from database"
+- Exchange -> Utente — type=control; label="Show exchanges list"; explanation="Exchange displays exchange list to user"
+- Utente -> Exchange — type=control; label="Click on accept/reject button"; explanation="User clicks on accept/reject button"
+- Exchange -> Utente — type=control; label="Require confirmation"; explanation="Exchange requires user confirmation"
+- Utente -> Exchange — type=control; label="Confirm"; explanation="User confirms action"
+- Exchange -> Database — type=control; label="Update exchange status"; explanation="Exchange updates exchange status"
+- Database -> Exchange — type=response; label="Response"; explanation="Exchange receives response from database"
+- Exchange -> Utente — type=control; label="Show exchanges list"; explanation="Exchange displays updated exchange list to user"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Exchange -> Database -> Exchange -> Utente
+  - Utente moves to exchange page
+  - Exchange gets exchanges info from database
+  - Database responds to Exchange
+  - Exchange shows exchanges list to Utente
+  - Utente clicks on accept/reject button
+  - Exchange requires confirmation
+  - Utente confirms action
+  - Exchange updates exchange status
+  - Database responds to Exchange
+  - Exchange shows updated exchanges list to Utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Accettazione/rifiuto proposta di scambio" — title of the activity
+
+Observations:
+- This activity diagram models the process of accepting or rejecting an exchange proposal.
+- The main flow involves the user navigating to the exchange page, retrieving and displaying the exchange list, clicking on an accept/reject button, requiring confirmation, confirming the action, updating the exchange status, and finally showing the updated exchange list.
+- There are no conditions or branches in the diagram.
+- The process is linear and does not involve any loops or repetitions.
+
+===== Report_26_uml_pages.pdf | Page 16 =====
+UML Type:
+- Sequence
+
+Components:
+- Utente — kind=Actor; role=User
+- Main — kind=Component; role=Application
+- Database — kind=Component; role=Database
+
+Actors / Lifelines:
+- Utente
+- Main
+- Database
+
+Relationships / Links:
+- Utente -> Main — type=Message; label="Show items list"; explanation="User requests item list"
+- Main -> Database — type=Message; label="Get items from database"; explanation="Application retrieves items from database"
+- Database -> Main — type=Message; label="Response"; explanation="Database sends response back to application"
+- Main -> Utente — type=Message; label="Show filtered items list"; explanation="Application displays filtered items to user"
+- Main -> Database — type=Message; label="Insert new filter"; explanation="Application inserts new filter"
+- Database -> Main — type=Message; label="Get items from database according with the filter"; explanation="Database retrieves items based on filter"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Main — "Show items list" -> Main -> Database — "Get items from database" -> Database -> Main — "Response" -> Main -> Utente — "Show filtered items list"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Filtri" — stereotype="Filtering Process"
+
+Observations:
+- This diagram models a filtering process within an application.
+- The user initiates the process by requesting an item list.
+- The application retrieves items from the database.
+- The user can insert a new filter.
+- The application then retrieves items from the database based on the filter.
+- Finally, the application displays the filtered items to the user.
+- There are no conditions or branches in the diagram.
+
+===== Report_26_uml_pages.pdf | Page 17 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; attributes=[]; operations=[]; role=User
+- Profile — kind=participant; attributes=[]; operations=[]; role=Profile
+- Database — kind=participant; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Profile
+- Database
+
+Relationships / Links:
+- Utente -> Profile — type=message; label="Move to personal info"; explanation="User navigates to personal info"
+- Profile -> Database — type=message; label="Get info from database"; explanation="Profile retrieves data from database"
+- Database -> Profile — type=message; label="Response"; explanation="Profile receives response from database"
+- Profile -> Utente — type=message; label="Show info"; explanation="Profile displays information to user"
+- Utente -> Profile — type=message; label="Click on modify personal info"; explanation="User clicks to modify personal info"
+- Profile -> Profile — type=message; label="Request new info"; explanation="Profile requests new information"
+- Profile -> Utente — type=message; label="Insert new info"; explanation="Profile prompts user for new information"
+- Profile -> Database — type=message; label="Save new info in database"; explanation="Profile saves new information to database"
+- Database -> Profile — type=message; label="Response"; explanation="Profile receives confirmation from database"
+- Profile -> Utente — type=message; label="Show updated info"; explanation="Profile displays updated information to user"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Profile — Move to personal info
+- Flow 2: Profile -> Database — Get info from database
+- Flow 3: Database -> Profile — Response
+- Flow 4: Profile -> Utente — Show info
+- Flow 5: Utente -> Profile — Click on modify personal info
+- Flow 6: Profile -> Profile — Request new info
+- Flow 7: Profile -> Utente — Insert new info
+- Flow 8: Profile -> Database — Save new info in database
+- Flow 9: Database -> Profile — Response
+- Flow 10: Profile -> Utente — Show updated info
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Modifica dei dati personali — title="Modify personal data"
+
+Observations:
+- This sequence diagram models the process of modifying personal data.
+- The user initiates the process by navigating to their personal information.
+- The profile retrieves the current data from the database.
+- The user is then prompted to modify the information.
+- New information is entered by the user.
+- The profile saves the new information back to the database.
+- Finally, the updated information is displayed to the user.
+- There are no branching conditions or loops in this process.
+
+
+======================================================================

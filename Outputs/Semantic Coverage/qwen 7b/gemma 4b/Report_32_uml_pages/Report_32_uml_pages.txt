@@ -1,0 +1,354 @@
+REPORT: Report_32_uml_pages.pdf
+======================================================================
+
+===== Report_32_uml_pages.pdf | Page 1 =====
+UML Type: Activity
+- Main Program — kind=activity;
+
+Components:
+- Routine 1 — kind=activity;
+- Routine 2 — kind=activity;
+- Routine 3 — kind=activity;
+- Routine 1.1 — kind=activity;
+- Routine 1.2 — kind=activity;
+- Routine 3.1 — kind=activity;
+- Routine 3.2 — kind=activity;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Main Program -> Routine 1 — type=flow; label="Start"; explanation="Initiates the program flow";
+- Main Program -> Routine 2 — type=flow; label="Start"; explanation="Initiates the program flow";
+- Main Program -> Routine 3 — type=flow; label="Start"; explanation="Initiates the program flow";
+- Routine 1 -> Routine 1.1 — type=flow; label="Execute"; explanation="Executes Routine 1.1";
+- Routine 1 -> Routine 1.2 — type=flow; label="Execute"; explanation="Executes Routine 1.2";
+- Routine 2 -> Routine 3 — type=flow; label="Execute"; explanation="Executes Routine 3";
+- Routine 3 -> Routine 3.1 — type=flow; label="Execute"; explanation="Executes Routine 3.1";
+- Routine 3 -> Routine 3.2 — type=flow; label="Execute"; explanation="Executes Routine 3.2";
+
+Main Flows (step by step):
+- Flow 1: Start -> Routine 1 -> Routine 1.1 -> Routine 1.2 -> Main Program
+- Flow 2: Start -> Routine 2 -> Routine 3 -> Routine 3.1 -> Routine 3.2 -> Main Program
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram represents a hierarchical program flow, where the main program initiates three routines (1, 2, and 3).
+- Each routine is further divided into two sub-routines (1.1, 1.2, 3.1, 3.2).
+- The flow appears to be a sequential execution of these routines, with no branching or looping explicitly shown.
+
+===== Report_32_uml_pages.pdf | Page 2 =====
+UML Type: class
+- Utenti — kind=class; attributes=[id: <<PK>>; username: string; mail: string; password: string NOT NULL; name: string; cognome: string; posizione: string]; operations=[modifyUser()];
+- Oggetti — kind=class; attributes=[id: <<PK>>; name: string; description: string list; idU: int <<FK utenti>>; tipo: int; inUse: bool]; operations=[addOggetto(), deleteOggetto(), getOggettoById(), getAlloOggetto()];
+- Richiede_offre — kind=class; attributes=[id: int]; operations=[ ]; role=Mediator
+- Servizi — kind=class; attributes=[id: <<PK>>; name: string; idU: int <<FK utenti>>; descrizione: string list; tipo: int; inUse: bool]; operations=[addServizio(), deleteServizio(), getServizioById(), getAlServizi()];
+- Annunci — kind=class; attributes=[id: <<PK>>; idU: int <<FK utenti>>; idOggetti: int <<FK oggetti>>; titolo: string]; operations=[addAnnuncio(), deleteAnnuncio()];
+
+Actors / Lifelines:
+- Utente
+- Sistema
+
+Relationships / Links:
+- Utenti -> Richiede_offre — type=association; label="offre"; explanation="Utenti possono richiedere offerte";
+- Utenti -> Servizi — type=association; label="servizi"; explanation="Utenti possono richiedere servizi";
+- Utenti -> Annunci — type=association; label="annunci"; explanation="Utenti possono pubblicare annunci";
+- Richiede_offre -> Oggetti — type=association; label="oggetti richiesti"; explanation="Richieste di offerte si riferiscono a oggetti";
+- Oggetti -> Oggetti_richiesti — type=association; label="oggetti offerti"; explanation="Oggetti si riferiscono a oggetti richiesti";
+- Servizi -> Oggetti — type=association; label="oggetti"; explanation="Servizi possono essere associati a oggetti";
+- Annunci -> Oggetti — type=association; label="oggetti"; explanation="Annunci possono riferirsi a oggetti";
+
+Main Flows (step by step):
+- Utente -> Richiede_offre — type=association; label="offre";
+- Richiede_offre -> Oggetti_richiesti
+- Oggetti -> Oggetti_offerti
+- Sistema -> Oggetti_offerti
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- 4.1. Diagramma delle classi
+- 4.2. Diagramma delle attività
+
+Observations:
+- This diagram models a system for managing user requests for services and objects, and the publication of announcements related to those objects.
+- Users can request services and objects, and the system manages the relationships between them.
+- The system allows users to publish announcements about available objects.
+
+===== Report_32_uml_pages.pdf | Page 3 =====
+UML Type: state_machine
+- Login — kind=state;
+- Verifica correttezza informazioni — kind=decision;
+- Riprova — kind=state;
+- Messaggio di errore — kind=state;
+- Accesso — kind=state;
+
+Actors / Lifelines:
+- Login
+- Verifica correttezza informazioni
+- Riprova
+- Messaggio di errore
+- Accesso - None
+
+Relationships / Links:
+- Login -> Verifica correttezza informazioni — transition="Login"; explanation="Initiates the login process";
+- Verifica correttezza informazioni -> Riprova — transition="No" ; explanation="Incorrect login details";
+- Verifica correttezza informazioni -> Accesso — transition="Si" ; explanation="Correct login details";
+- Riprova -> Messaggio di errore — transition="No"; explanation="Displays an error message";
+- Accesso -> - None
+
+Conditions / Branches:
+- Verifica correttezza informazioni — condition="No"
+- Verifica correttezza informazioni — condition="Si"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the login process. It starts with a login attempt. If the credentials are incorrect, an error message is displayed. If the credentials are correct, access is granted.
+
+===== Report_32_uml_pages.pdf | Page 4 =====
+UML Type: activity
+- Inserimento input
+- Composizione query
+- La query è stata eseguita con successo?
+- Messaggio di errore
+- Riprova
+
+Components:
+- Inserimento input — kind=action;
+- Composizione query — kind=action;
+- La query è stata eseguita con successo? — kind=decision;
+- Messaggio di errore — kind=action;
+- Riprova — kind=action;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Inserimento input -> Composizione query — type=flow; label="Inserimento input"; explanation="Input is provided to the system";
+- Composizione query -> La query è stata eseguita con successo? — type=flow; label="Composizione query"; explanation="The query is composed";
+- La query è stata eseguita con successo? -> Messaggio di errore — type=flow; label="No"; explanation="If the query fails, an error message is displayed";
+- La query è stata eseguita con successo? -> Riprova — type=flow; label="Si"; explanation="If the query succeeds, the process continues";
+- Composizione query -> Inserimento input — type=flow; label="Riprova"; explanation="If the input is invalid, the process repeats";
+
+Main Flows (step by step):
+- Inserimento input -> Composizione query -> La query è stata eseguita con successo?
+- Se la risposta è "No", viene visualizzato un messaggio di errore e il processo si ripete.
+- Se la risposta è "Si", il processo termina.
+
+Conditions / Branches:
+- La query è stata eseguita con successo? — branch="No" -> Messaggio di errore, branch="Si" -> Riprova
+
+Loops / Repetitions:
+- Il processo si ripete se la query non viene eseguita con successo.
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models the basic flow of a search or service query process.
+- The process starts with user input, attempts to compose a query, and checks for success.
+- If the query fails, an error message is displayed, and the process loops back to request new input.
+- If the query is successful, the process completes.
+
+===== Report_32_uml_pages.pdf | Page 5 =====
+UML Type: state_machine
+- Creazione dell'oggetto da noleggiare — kind=action;
+- Query per inserire il dato nel database — kind=action;
+- La query è stata eseguita con successo? — kind=decision;
+- Messaggio di errore — kind=action;
+- Riprova — kind=action
+
+Actors / Lifelines:
+- Utente
+
+Relationships / Links:
+- Creazione dell'oggetto da noleggiare -> La query è stata eseguita con successo? — transition="Yes"; explanation="Success";
+- Creazione dell'oggetto da noleggiare -> Messaggio di errore — transition="No"; explanation="Failure";
+- La query è stata eseguita con successo? -> Query per inserire il dato nel database — transition="Yes"; explanation="Insert data";
+- La query è stata eseguita con successo? -> Riprova — transition="No"; explanation="Retry";
+- Query per inserire il dato nel database -> La query è stata eseguita con successo? — transition="Success"; explanation="Check success";
+
+Conditions / Branches:
+- La query è stata eseguita con successo? — Yes -> Query per inserire il dato nel database; No -> Messaggio di errore
+
+Loops / Repetitions:
+- Riprova -> Creazione dell'oggetto da noleggiare — transition="Retry"; explanation="Retry creation";
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of creating an object for rental and inserting it into a database.
+- The process starts with creating the object.
+- A query is sent to the database to insert the data.
+- The diagram checks if the query was successful.
+- If successful, the process continues.
+- If not successful, an error message is displayed and the process retries.
+
+===== Report_32_uml_pages.pdf | Page 6 =====
+UML Type: Activity
+- Creazione del servizio da offrire
+
+Components:
+- Creazione del servizio da offrire — kind=action
+- Query per inserire il dato nel database — kind=action
+- La query è stata eseguita con successo? — kind=decision
+- Messaggio di errore — kind=action
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Creazione del servizio da offrire -> Query per inserire il dato nel database — type=flow; label="Query per inserire il dato nel database"; explanation="Initiates the process"
+- Query per inserire il dato nel database -> La query è stata eseguita con successo? — type=transition; label="Si"; explanation="Success"
+- Query per inserire il dato nel database -> La query è stata eseguita con successo? — type=transition; label="No"; explanation="Failure"
+- La query è stata eseguita con successo? -> Messaggio di errore — type=transition; label="No"; explanation="Error"
+- La query è stata eseguita con successo? -> Messaggio di errore — type=transition; label="Si"; explanation="Success"
+- Messaggio di errore -> Creazione del servizio da offrire — type=loop; label="Riprova"; explanation="Retry"
+
+Conditions / Branches:
+- La query è stata eseguita con successo? — label="Si"
+- La query è stata eseguita con successo? — label="No"
+
+Loops / Repetitions:
+- Riprova — type=loop; explanation="Retry the query"
+
+Notes / Annotations:
+- None
+
+Observations:
+*   The diagram models the process of creating a service offer and attempting to insert data into a database.
+*   If the database insertion is successful, the process completes.
+*   If the database insertion fails, an error message is displayed, and the process retries.
+
+===== Report_32_uml_pages.pdf | Page 7 =====
+UML Type: Activity
+- Creazione annuncio — kind=activity;
+Components:
+- Creazione dell'annuncio — kind=activity;
+- Query per inserire il dato nel database — kind=activity;
+- La query è stata eseguita con successo? — kind=decision;
+- Messaggio di errore — kind=activity;
+- Riprova — kind=activity;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Creazione dell'annuncio -> Query per inserire il dato nel database — type=flow; label="Query per inserire il dato nel database"; explanation="Initiates the process of creating an announcement and querying the database."
+- Query per inserire il dato nel database -> La query è stata eseguita con successo? — type=decision; label="La query è stata eseguita con successo?"; explanation="Checks the success of the database query."
+- La query è stata eseguita con successo? -> Messaggio di errore — type=transition; label="No"; explanation="If the query fails, a message of error is displayed."
+- La query è stata eseguita con successo? -> Riprova — type=transition; label="Si"; explanation="If the query succeeds, the process continues."
+- Messaggio di errore -> Riprova — type=transition; label="Messaggio di errore"; explanation="Handles the error case."
+
+Conditions / Branches:
+- La query è stata eseguita con successo? — type=decision;
+  - label="No"
+  - label="Si"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models the process of creating an announcement and checking if the data insertion into the database is successful.
+- If the database query fails, the process is aborted and an error message is displayed.
+- If the database query is successful, the process continues.
+
+===== Report_32_uml_pages.pdf | Page 8 =====
+UML Type: Activity
+- Eliminazione dell'annuncio
+
+Components:
+- Selezione dell'annuncio da rimuovere — kind=action
+- Query per cancellare il dato dal database — kind=action
+- La query è stata eseguita con successo? — kind=decision
+- Messaggio di errore — kind=action
+- Riprova — kind=action
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Selezione dell'annuncio da rimuovere -> Query per cancellare il dato dal database — type=flow; label="Query"; explanation="Initiates the process"
+- Query per cancellare il dato dal database -> La query è stata eseguita con successo? — type=flow; label="Success"; explanation="Checks for successful query execution"
+- La query è stata eseguita con successo? -> Messaggio di errore — type=flow; label="No"; explanation="Handles query failure"
+- La query è stata eseguita con successo? -> Riprova — type=flow; label="Si"; explanation="Continues to removal"
+- Messaggio di errore -> Riprova — type=flow; label="Errore"; explanation="Returns to the beginning"
+
+Main Flows:
+- Selezione dell'annuncio da rimuovere -> Query per cancellare il dato dal database -> La query è stata eseguita con successo?
+  - La query è stata eseguita con successo? -> Messaggio di errore -> Riprova
+  - La query è stata eseguita con successo? -> Riprova
+
+Conditions / Branches:
+- La query è stata eseguita con successo? — type=decision
+  - Si: Query per cancellare il dato dal database
+  - No: Messaggio di errore
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- The diagram models the process of removing an announcement by querying a database and handling potential errors.
+
+Observations:
+- The process starts with selecting an announcement to remove.
+- It then attempts to delete the announcement data from the database.
+- If the query is successful, the process completes.
+- If the query fails, an error message is displayed, and the process restarts from the beginning.
+
+===== Report_32_uml_pages.pdf | Page 9 =====
+UML Type: state_machine
+- Elimination dell'oggetto oppure del servizio — kind=state_machine; attributes=[]; operations=[]; role=Processo di eliminazione
+
+Actors / Lifelines:
+- Utente
+- Sistema
+
+Relationships / Links:
+- Selezione dell'oggetto/servizio da rimuovere -> Query per cancellare il dato dal database — type=transition; label="Si"; explanation="Selezione dell'oggetto/servizio e richiesta di cancellazione"
+- Query per cancellare il dato dal database -> La query è stata eseguita con successo? — type=decision; label="Si"; explanation="Verifica del successo della query"
+- La query è stata eseguita con successo? —> Messaggio di errore — type=transition; label="No"; explanation="Se la query fallisce, viene visualizzato un messaggio di errore"
+- La query è stata eseguita con successo? —> Riprova — type=transition; label="No"; explanation="Se la query fallisce, si riprova"
+- La query è stata eseguita con successo? —> Riprova — type=transition; label="Si"; explanation="Se la query ha successo, si riprova"
+
+Conditions / Branches:
+- La query è stata eseguita con successo? —> Si (Riprova)
+- La query è stata eseguita con successo? —> No (Messaggio di errore)
+
+Loops / Repetitions:
+- Riprova -> Selezione dell'oggetto/servizio da rimuovere — type=transition; label="Riprova"; explanation="Ripetizione del processo se la query fallisce"
+
+Notes / Annotations:
+- None
+
+Observations:
+*   The diagram models a process for removing an object or service.
+*   The process starts with selecting the object/service to remove.
+*   It then attempts to delete the data associated with it from the database.
+*   A decision point checks if the deletion was successful.
+*   If successful, the process continues.
+*   If not successful, an error message is displayed, and the process repeats.
+
+
+======================================================================

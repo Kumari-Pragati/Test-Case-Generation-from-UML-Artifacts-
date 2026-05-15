@@ -1,0 +1,95 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a new user with valid credentials,User,"2,3",No existing user with the same email,"- email: test@example.com
+- password: StrongPassword123!","1. Call CreateUserWithEmailAndPassword with the provided email and password.
+2. Check if the response from the database is successful.
+3. Verify that the user is created in the database with the correct email and password.",The user is successfully registered and logged in.
+TC-User-002,Register a new user with an invalid email,User,3,No existing user with the same email,"- email: invalid-email
+- password: StrongPassword123!","1. Call CreateUserWithEmailAndPassword with the provided email and password.
+2. Check if the response from the database indicates an invalid email format.",Registration fails due to an invalid email format.
+TC-User-003,Register a new user with a weak password,User,3,No existing user with the same email,"- email: test@example.com
+- password: Weak","1. Call CreateUserWithEmailAndPassword with the provided email and password.
+2. Check if the response from the database indicates a weak password.",Registration fails due to a weak password.
+TC-User-004,Login with valid credentials,User,2,A user is already registered,"- email: test@example.com
+- password: StrongPassword123!","1. Call signInWithEmailAndPassword with the provided email and password.
+2. Check if the response from Firebase Authentication is successful.
+3. Verify that the returned FirebaseAuthUser contains the correct user information.",The user logs in successfully.
+TC-User-005,Login with incorrect password,User,2,A user is already registered,"- email: test@example.com
+- password: IncorrectPassword","1. Call signInWithEmailAndPassword with the provided email and password.
+2. Check if the response from Firebase Authentication indicates an authentication error.",Login fails due to incorrect password.
+TC-Ranking-006,User achieves a ranking,Ranking,1,A user exists,"- User: test@example.com
+- Ranking: id=1, Titolo=""Gold"", Superato=false","1. Update the Superato attribute of the Ranking to true for the given user.
+2. Verify that the user has been marked as having achieved the ranking.",The user is marked as having achieved the ranking.
+TC-Mission-007,Complete a mission using a tip,Mission,1,A user exists and a mission is available,"- User: test@example.com
+- Mission: id=1, Titolo=""Complete Task"", Superato=false, Descrizione=""Do something""
+- Tip: id=1, Titolo=""Useful Tip""","1. Update the Superato attribute of the Mission to true for the given user.
+2. Verify that the mission is marked as completed by the tip.",The mission is marked as completed by the tip.
+TC-RealtimeDatabase-008,Add a value event listener for missions,Realtime Database,5,A user is logged in,"- Mission: id=1, Titolo=""New Mission"", Superato=false, Descrizione=""New Description""","1. Call addValueEventListener for ""Mission"" through the Firebase SDK.
+2. Verify that the Realtime Database receives the request and checks the token.
+3. Ensure that the Realtime Database sends the updated mission data back to the Firebase SDK.
+4. Confirm that the Firebase SDK forwards the mission data to the main application.",The main application receives the updated mission data successfully.
+TC-RealtimeDatabase-009,Handle asynchronous response from Realtime Database,Realtime Database,4,A user is logged in,"- HashMap: {""key"": ""value""}","1. Send a HashMap to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-010,Retrieve mission data from Realtime Database,Realtime Database,5,A user is logged in and there are missions in the database,"- Mission: id=1, Titolo=""Existing Mission"", Superato=false, Descrizione=""Existing Description""","1. Call addValueEventListener for ""Mission"" through the Firebase SDK.
+2. Verify that the Realtime Database retrieves the mission data based on the token check.
+3. Ensure that the Realtime Database sends the mission data back to the Firebase SDK.
+4. Confirm that the Firebase SDK forwards the mission data to the main application.",The main application receives the mission data successfully.
+TC-RealtimeDatabase-011,Handle error response from Realtime Database,Realtime Database,4,A user is logged in,"- HashMap: {""key"": ""value""}","1. Send a HashMap to the Realtime Database.
+2. Verify that the Realtime Database encounters an error during conversion or retrieval.
+3. Ensure that the Realtime Database sends an error response back to the main application.
+4. Confirm that the main application handles the error response appropriately.",The main application processes the error response correctly.
+TC-RealtimeDatabase-012,Update user points after completing a mission,User,1,A user exists and a mission is completed,"- User: test@example.com
+- Mission: id=1, Titolo=""Completed Mission"", Superato=true, Descrizione=""Completed Task""","1. Update the Punti attribute of the User after completing the mission.
+2. Verify that the user's points have increased.",The user's points are updated correctly after completing the mission.
+TC-RealtimeDatabase-013,Retrieve user ranking data from Realtime Database,Realtime Database,5,A user is logged in and there are rankings in the database,"- Ranking: id=1, Titolo=""Bronze"", Superato=true","1. Call addValueEventListener for ""Ranking"" through the Firebase SDK.
+2. Verify that the Realtime Database retrieves the ranking data based on the token check.
+3. Ensure that the Realtime Database sends the ranking data back to the Firebase SDK.
+4. Confirm that the Firebase SDK forwards the ranking data to the main application.",The main application receives the ranking data successfully.
+TC-RealtimeDatabase-014,Handle user registration response asynchronously,Realtime Database,4,No existing user with the same email,"- email: test@example.com
+- password: StrongPassword123!","1. Send a HashMap containing user details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-015,Handle user login response asynchronously,Realtime Database,4,A user is registered,"- email: test@example.com
+- password: StrongPassword123!","1. Send a HashMap containing user credentials to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-016,Handle user logout response asynchronously,Realtime Database,4,A user is logged in,"- email: test@example.com
+- password: StrongPassword123!","1. Send a HashMap containing user logout details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-017,Handle user profile update response asynchronously,Realtime Database,4,A user is logged in,"- email: test@example.com
+- password: StrongPassword123!
+- New Username: NewUsername","1. Send a HashMap containing user profile update details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-018,Handle user point update response asynchronously,Realtime Database,4,A user is logged in,"- email: test@example.com
+- password: StrongPassword123!
+- New Points: 100","1. Send a HashMap containing user point update details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-019,Handle user mission completion response asynchronously,Realtime Database,4,A user is logged in and a mission is available,"- email: test@example.com
+- password: StrongPassword123!
+- Mission: id=1, Titolo=""Complete Task"", Superato=false, Descrizione=""Do something""","1. Send a HashMap containing user mission completion details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-020,Handle user tip usage response asynchronously,Realtime Database,4,A user is logged in and a tip is available,"- email: test@example.com
+- password: StrongPassword123!
+- Tip: id=1, Titolo=""Useful Tip""","1. Send a HashMap containing user tip usage details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-021,Handle user ranking achievement response asynchronously,Realtime Database,4,A user is logged in and a ranking is available,"- email: test@example.com
+- password: StrongPassword123!
+- Ranking: id=1, Titolo=""Gold"", Superato=false","1. Send a HashMap containing user ranking achievement details to the Realtime Database.
+2. Verify that the Realtime Database converts the HashMap to JSON.
+3. Ensure that the Realtime Database sends a response back to the main application.
+4. Confirm that the main application handles the response appropriately.",The main application processes the asynchronous response correctly.
+TC-RealtimeDatabase-022,Handle user tip creation response asynchronously,Realtime Database,4,A user is logged in,"- email: test@example.com
+- password: StrongPassword1",,

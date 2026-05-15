@@ -1,0 +1,124 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login Process","Login","1","User is not logged in.","Valid username: ""john_doe"", valid password: ""password123"".","1. User navigates to the login page.
+2. User enters valid username and password.
+3. User clicks the login button.
+4. System verifies the credentials against the database.
+5. System logs the user in successfully.","User is redirected to the HOME page."
+"TC-Login-002","Unsuccessful Login Process","Login","1","User is not logged in.","Invalid username: ""invalid_user"", invalid password: ""wrong_password"".","1. User navigates to the login page.
+2. User enters invalid username and password.
+3. User clicks the login button.
+4. System verifies the credentials against the database.
+5. System fails to log the user in.","User remains on the login page with an error message displayed."
+"TC-Registration-001","Successful Registration Process","Registration","1","User is not logged in.","Valid username: ""new_user"", valid password: ""password123"", valid email: ""new_user@example.com"".","1. User navigates to the registration page.
+2. User fills out the registration form with valid details.
+3. User clicks the register button.
+4. System verifies the input data.
+5. System creates a new user account in the database.
+6. System logs the user in.","User is redirected to the HOME page."
+"TC-Registration-002","Unsuccessful Registration Process","Registration","1","User is not logged in.","Invalid email: ""invalid_email"", valid password: ""password123"".","1. User navigates to the registration page.
+2. User fills out the registration form with invalid email.
+3. User clicks the register button.
+4. System verifies the input data.
+5. System fails to create a new user account in the database.","User remains on the registration page with an error message displayed."
+"TC-ProposalHandling-001","Handling Proposals - View Proposals","ProposalHandling","2","User is logged in.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Proposte di scambio"" option.
+3. System displays the list of received proposals.
+4. User selects a proposal.
+5. System displays the details of the selected proposal.","User sees the list of received proposals and can view the details of a selected proposal."
+"TC-ProposalHandling-002","Handling Proposals - Accept Proposal","ProposalHandling","2","User is logged in.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Proposte di scambio"" option.
+3. System displays the list of received proposals.
+4. User selects a proposal.
+5. User clicks the ""Accept"" button.
+6. System updates the proposal status to accepted.","Proposal status is updated to accepted and user sees a confirmation message."
+"TC-PersonalBoard-001","Viewing Personal Board","PersonalBoard","3","User is logged in.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Bachea personale"" option.
+3. System displays the personal board.
+4. User clicks on the ""Inserimento"" option.
+5. System allows user to add a new item.
+6. User adds a new item.
+7. System displays the list of items.","User sees the personal board with the added item listed."
+"TC-PersonalBoard-002","Deleting an Item from Personal Board","PersonalBoard","3","User is logged in and has items in the personal board.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Bachea personale"" option.
+3. System displays the personal board.
+4. User selects an item to delete.
+5. User confirms the deletion.
+6. System removes the selected item from the board.","Selected item is removed from the personal board."
+"TC-ItemManagement-001","Inserting a New Item","ItemManagement","9, 10","User is logged in.","Valid item name: ""New Item"", valid item description: ""This is a new item"".","1. User navigates to the HOME page.
+2. User clicks on the ""Insert new item"" button.
+3. System prompts user to provide item details.
+4. User provides valid item details.
+5. System inserts the new item into the database.
+6. System shows the updated list of items.","New item is added to the list of items."
+"TC-ItemManagement-002","Deleting an Existing Item","ItemManagement","10, 11","User is logged in and has items in the list.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Delete item"" button.
+3. System prompts user to confirm deletion.
+4. User confirms the deletion.
+5. System deletes the selected item from the database.
+6. System shows the updated list of items.","Selected item is removed from the list of items."
+"TC-ExchangeHandling-001","Proposing a New Exchange","ExchangeHandling","13","User is logged in.","Valid exchange details: ""Exchange Item A for Item B"".","1. User navigates to the HOME page.
+2. User clicks on the ""Propose new exchange"" option.
+3. System prompts user to provide exchange details.
+4. User provides valid exchange details.
+5. System saves the exchange information in the database.
+6. System shows the updated list of exchanges.","New exchange is added to the list of exchanges."
+"TC-ExchangeHandling-002","Accepting or Rejecting an Exchange","ExchangeHandling","15","User is logged in and has pending exchanges.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Exchanges"" option.
+3. System displays the list of pending exchanges.
+4. User selects an exchange to accept or reject.
+5. User clicks the ""Accept"" or ""Reject"" button.
+6. System updates the exchange status in the database.
+7. System shows the updated list of exchanges.","Selected exchange status is updated and user sees a confirmation message."
+"TC-ProfileManagement-001","Viewing Personal Information","ProfileManagement","17","User is logged in.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""View personal info"" option.
+3. System retrieves the user's information from the database.
+4. System displays the user's information.","User sees their personal information displayed."
+"TC-ProfileManagement-002","Updating Personal Information","ProfileManagement","17","User is logged in.","Updated email: ""updated_email@example.com"".","1. User navigates to the HOME page.
+2. User clicks on the ""Edit personal info"" option.
+3. System retrieves the user's current information from the database.
+4. User updates the email address.
+5. User submits the updated information.
+6. System saves the updated information in the database.
+7. System shows the updated personal information.","User's email is updated and displayed correctly."
+"TC-FilteringItems-001","Filtering Items","FilteringItems","16","User is logged in.","Filter criteria: ""Category: Electronics"".","1. User navigates to the HOME page.
+2. User clicks on the ""Filter items"" option.
+3. System prompts user to enter filter criteria.
+4. User enters valid filter criteria.
+5. System applies the filter and retrieves filtered items from the database.
+6. System displays the filtered list of items.","User sees the filtered list of items based on the entered criteria."
+"TC-FilteringItems-002","Removing Filters","FilteringItems","16","User is logged in and has applied filters.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Remove filters"" option.
+3. System clears all applied filters.
+4. System retrieves and displays the full list of items.","All filters are removed and the full list of items is displayed."
+"TC-DatabaseInteraction-001","Retrieving Items from Database","DatabaseInteraction","12","User is logged in.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Get items"" option.
+3. System sends a request to the database to retrieve items.
+4. Database responds with the requested items.
+5. System displays the retrieved items to the user.","User sees the list of items retrieved from the database."
+"TC-DatabaseInteraction-002","Saving New Item in Database","DatabaseInteraction","9, 10","User is logged in.","Valid item details: ""New Item"", ""This is a new item"".","1. User navigates to the HOME page.
+2. User clicks on the ""Insert new item"" button.
+3. System prompts user to provide item details.
+4. User provides valid item details.
+5. System sends a request to the database to save the new item.
+6. Database responds with the item ID.
+7. System shows the updated list of items.","New item is saved in the database and displayed in the list of items."
+"TC-DatabaseInteraction-003","Deleting Item from Database","DatabaseInteraction","10, 11","User is logged in and has items in the list.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Delete item"" button.
+3. System prompts user to confirm deletion.
+4. User confirms the deletion.
+5. System sends a request to the database to delete the selected item.
+6. Database responds with a success message.
+7. System shows the updated list of items.","Selected item is deleted from the database and removed from the list of items."
+"TC-PrivacyDocument-001","Accepting Privacy Document","PrivacyDocument","7","User is not logged in.","N/A.","1. User navigates to the registration/login page.
+2. System prompts user to accept the privacy document.
+3. User accepts the privacy document.
+4. System inserts the user's acceptance into the database.
+5. System proceeds with the registration/login process.","User's acceptance of the privacy document is recorded in the database and the registration/login process continues."
+"TC-PrivacyDocument-002","Declining Privacy Document","PrivacyDocument","7","User is not logged in.","N/A.","1. User navigates to the registration/login page.
+2. System prompts user to accept the privacy document.
+3. User declines the privacy document.
+4. System does not proceed with the registration/login process.","User is not allowed to proceed with registration/login until they accept the privacy document."
+"TC-UserInteraction-001","Moving to Exchange Page","UserInteraction","14","User is logged in.","N/A.","1. User navigates to the HOME page.
+2. User clicks on the ""Exchange"" option.
+3. System retrieves exchange information from the database.
+4. System displays the list of exchanges.","User sees the list of exchanges displayed on the exchange page."

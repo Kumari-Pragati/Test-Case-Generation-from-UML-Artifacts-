@@ -1,0 +1,85 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-DataManager-001,Insert Plant Record,DataManager,1,User is authenticated and logged in.,"- Valid plant record details (name, type, location)","1. User initiates the ""Inserimento/Modifica Piante"" use case.
+2. System sends plant record details to DataManager.
+3. DataManager processes the plant record and stores it.",Plant record is successfully inserted into the database.
+TC-DataManager-002,Retrieve Plant Record,DataManager,1,Plant record exists in the database.,- Valid plant record ID,"1. User initiates the ""Lettura Piante"" use case.
+2. System sends plant record ID to DataManager.
+3. DataManager retrieves the plant record from the database.",Plant record details are returned to the user.
+TC-DataManager-003,Update Plant Record,DataManager,1,Plant record exists in the database.,"- Valid plant record ID and updated details (name, type, location)","1. User initiates the ""Inserimento/Modifica Piante"" use case.
+2. System sends plant record ID and updated details to DataManager.
+3. DataManager updates the plant record in the database.",Plant record is successfully updated in the database.
+TC-DataManager-004,Delete Plant Record,DataManager,1,Plant record exists in the database.,- Valid plant record ID,"1. User initiates the ""Inserimento/Modifica Piante"" use case.
+2. System sends plant record ID to DataManager.
+3. DataManager deletes the plant record from the database.",Plant record is successfully deleted from the database.
+TC-DataManager-005,Insert Diary Entry,DataManager,1,User is authenticated and logged in.,"- Valid diary entry details (date, content)","1. User initiates the ""Inserimento/Modifica Diario"" use case.
+2. System sends diary entry details to DataManager.
+3. DataManager processes the diary entry and stores it.",Diary entry is successfully inserted into the database.
+TC-DataManager-006,Retrieve Diary Entry,DataManager,1,Diary entry exists in the database.,- Valid diary entry ID,"1. User initiates the ""Lettura Diario"" use case.
+2. System sends diary entry ID to DataManager.
+3. DataManager retrieves the diary entry from the database.",Diary entry details are returned to the user.
+TC-DataManager-007,Update Diary Entry,DataManager,1,Diary entry exists in the database.,- Valid diary entry ID and updated details (content),"1. User initiates the ""Inserimento/Modifica Diario"" use case.
+2. System sends diary entry ID and updated details to DataManager.
+3. DataManager updates the diary entry in the database.",Diary entry is successfully updated in the database.
+TC-DataManager-008,Delete Diary Entry,DataManager,1,Diary entry exists in the database.,- Valid diary entry ID,"1. User initiates the ""Inserimento/Modifica Diario"" use case.
+2. System sends diary entry ID to DataManager.
+3. DataManager deletes the diary entry from the database.",Diary entry is successfully deleted from the database.
+TC-Home-001,Navigate to Daily Curiosity,Home,2,User is authenticated and logged in.,- None,"1. User navigates to the Home screen.
+2. User selects the ""CuriositaDelGiorno"" option.
+3. Home navigates to the CuriositaDelGiorno page.",CuriositaDelGiorno page is displayed.
+TC-Home-002,Navigate to User Plants,Home,2,User is authenticated and logged in.,- None,"1. User navigates to the Home screen.
+2. User selects the ""LeMiePiante"" option.
+3. Home navigates to the LeMiePiante page.",LeMiePiante page is displayed.
+TC-Home-003,Navigate to Diary,Home,2,User is authenticated and logged in.,- None,"1. User navigates to the Home screen.
+2. User selects the ""Diario"" option.
+3. Home navigates to the Diario page.",Diario page is displayed.
+TC-Home-004,Navigate to Plant Analysis,Home,2,User is authenticated and logged in.,- None,"1. User navigates to the Home screen.
+2. User selects the ""AnalisiPianta"" option.
+3. Home navigates to the AnalisiPianta page.",AnalisiPianta page is displayed.
+TC-Home-005,Navigate to Disease Detector,Home,2,User is authenticated and logged in.,- None,"1. User navigates to the Home screen.
+2. User selects the ""RilevatoreMalattia"" option.
+3. Home navigates to the RilevatoreMalattia page.",RilevatoreMalattia page is displayed.
+TC-Fotocamera-001,Capture Photo and Associate with Plant,Fotocamera,2,User is authenticated and logged in.,- Valid plant record ID,"1. User captures a photo using the Fotocamera.
+2. User associates the captured photo with a specific plant record.
+3. Fotocamera interacts with LeMiePiante to store the photo.",Photo is successfully associated with the specified plant record.
+TC-Fotocamera-002,Identify Plant Species from Photo,Fotocamera,"2, 4",User is authenticated and logged in.,- Valid plant photo,"1. User captures a photo using the Fotocamera.
+2. Fotocamera sends the photo to the Gemini AI API for species identification.
+3. Gemini AI API identifies the plant species.
+4. Identified species information is stored in Firebase Storage.",Plant species is correctly identified and stored.
+TC-Authentication-001,Sign In with Email and Password,Authentication,"2, 3",None,- Valid email and password,"1. User attempts to sign in using the ""signInWithEmailAndPassword"" method.
+2. Authentication uses FirebaseAuthentication to verify credentials.
+3. If successful, a token is generated.
+4. User is redirected to the Home screen.",User is successfully signed in and redirected to the Home screen.
+TC-Authentication-002,Sign Out,Authentication,"2, 3",User is authenticated and logged in.,- None,"1. User initiates the ""signOut"" method.
+2. Authentication signs out the user.
+3. User is redirected to the sign-in screen.",User is successfully signed out and redirected to the sign-in screen.
+TC-Authentication-003,Change Password,Authentication,"2, 3",User is authenticated and logged in.,- Current valid password and new valid password,"1. User initiates the ""changePassword"" method.
+2. Authentication verifies the current password.
+3. If verified, the new password is set.
+4. User is redirected to the Home screen.",Password is successfully changed and user is redirected to the Home screen.
+TC-GeminiAIAPI-001,Request Plant Species Identification,GeminiAIAPI,4,User is authenticated and logged in.,- Valid plant photo,"1. User captures a photo using the Fotocamera.
+2. Fotocamera sends the photo to the Gemini AI API for species identification.
+3. Gemini AI API identifies the plant species.
+4. Identified species information is stored in Firebase Storage.",Plant species is correctly identified and stored.
+TC-FirebaseStorageManager-001,Upload Image to Personal Storage,FirebaseStorageManager,4,User is authenticated and logged in.,- Valid plant photo,"1. User captures a photo using the Fotocamera.
+2. Fotocamera uploads the photo to Firebase Storage.
+3. Firebase Storage returns the download URL of the uploaded photo.",Photo is successfully uploaded and the download URL is returned.
+TC-FirebaseStorageManager-002,Retrieve Personal Storage Path,FirebaseStorageManager,5,User is authenticated and logged in.,- None,"1. User requests personal storage path from Firebase Storage.
+2. Firebase Storage returns the personal storage path.",Personal storage path is successfully retrieved.
+TC-FirebaseStorageManager-003,Retrieve Photos of Each Species,FirebaseStorageManager,5,User is authenticated and logged in.,- List of species IDs,"1. User requests photos of each species from Firebase Storage.
+2. Firebase Storage retrieves and returns the URIs of the requested photos.",Photos of each species are successfully retrieved and their URIs are returned.
+TC-GeneraAI-001,Generate Text with Images,GeneraAI,2,User is authenticated and logged in.,- Valid text input and image references,"1. User provides text input and image references to GeneraAI.
+2. GeneraAI generates text based on the provided input and images.
+3. Generated text is stored in SharedPreference.",Text is successfully generated and stored in SharedPreference.
+TC-GeneraAI-002,Generate Text Only,GeneraAI,2,User is authenticated and logged in.,- Valid text input,"1. User provides text input to GeneraAI.
+2. GeneraAI generates text based on the provided input.
+3. Generated text is stored in SharedPreference.",Text is successfully generated and stored in SharedPreference.
+TC-SharedPreference-001,Store Generated Text,SharedPreference,2,User is authenticated and logged in.,- Valid generated text,"1. User generates text using GeneraAI.
+2. Generated text is stored in SharedPreference.",Generated text is successfully stored in SharedPreference.
+TC-SharedPreference-002,Retrieve Stored Text,SharedPreference,2,User is authenticated and logged in.,- Valid stored text,1. User retrieves stored text from SharedPreference.,Stored text is successfully retrieved from SharedPreference.
+TC-LoginProcess-001,Successful Login Process,Authentication,3,None,- Valid email and password,"1. User initiates the login process from the Main node.
+2. LocalUser requests a token from Authentication.
+3. If token is not null, requestToken() is executed.
+4. If token is null or status is OK, request dati utente is executed.
+5. New LocalUser is created and process ends.",User is successfully authenticated and redirected to the Home screen.
+TC-LoginProcess-002,Failed Login Process due to Invalid Credentials,Authentication,3,None,- Invalid email and password,"1. User initiates the login process from the Main node.
+2. Local",

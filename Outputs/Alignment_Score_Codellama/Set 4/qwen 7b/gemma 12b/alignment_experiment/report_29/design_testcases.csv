@@ -1,0 +1,155 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,User Registration Process,Registration,1,None,"- Username: testuser
+- Password: testpassword
+- Confirm Password: testpassword","1. Start the process
+2. Create a new user
+3. Check if the user is registered
+4. Navigate to the homepage",The user should be registered successfully and redirected to the homepage.
+TC-Registration-002,User Registration with Invalid Password,Registration,1,None,"- Username: testuser
+- Password: testpassword
+- Confirm Password: invalidpassword","1. Start the process
+2. Create a new user
+3. Check if the user is registered",The user should not be registered due to mismatched passwords and should remain on the registration page.
+TC-SideMenu-001,Side Menu Navigation - Select Homepage,SideMenu,2,User is logged in,None,"1. Click on the side menu
+2. Click on ""Homepage""
+3. Verify the homepage is displayed",The user should be redirected to the homepage.
+TC-SideMenu-002,Side Menu Navigation - Select My Reports,SideMenu,2,User is logged in,None,"1. Click on the side menu
+2. Click on ""Le mie segnalazioni""
+3. Verify the new screen is opened",The user should be redirected to the reports screen.
+TC-SideMenu-003,Side Menu Navigation - Select Settings,SideMenu,2,User is logged in,None,"1. Click on the side menu
+2. Click on ""Impostazioni""
+3. Verify the new screen is opened",The user should be redirected to the settings screen.
+TC-AlertAddition-001,Adding an Alert with Correct Fields,AlertAddition,3,User is logged in,"- Category: Entertainment
+- Description: Fun event
+- Date: 2023-10-10
+- Time: 18:00","1. Initiate alert addition
+2. Open category list
+3. Confirm alert insertion
+4. Verify the first 4 fields are filled correctly
+5. Proceed to save the alert",The alert should be added successfully.
+TC-AlertAddition-002,Adding an Alert with Incorrect Fields,AlertAddition,3,User is logged in,"- Category: Entertainment
+- Description: Fun event
+- Date: 2023-10-10
+- Time:","1. Initiate alert addition
+2. Open category list
+3. Confirm alert insertion
+4. Verify the first 4 fields are not filled correctly
+5. Return to add alert step",The alert should not be added and the user should be prompted to fill in the missing fields.
+TC-AlertView-001,View All Alerts,AlertView,4,User is logged in,None,"1. Click 'View Alerts' in the side menu
+2. Display all alerts
+3. Select a specific alert
+4. Verify the detailed information is displayed",The user should be able to view the detailed information of the selected alert.
+TC-ProfileManagement-001,Profile Management - Correctly Filled Fields,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 1234567890
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the fields are correctly filled
+4. Proceed to the accommodations screen
+5. Verify the fields are correctly filled again",The user should be able to save the profile with correctly filled fields.
+TC-ProfileManagement-002,Profile Management - Incorrectly Filled Fields,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the fields are not correctly filled
+4. Prompt to correct the data
+5. Correct the data and save again",The user should be able to correct the data and save the profile with correctly filled fields.
+TC-ProfileManagement-003,Profile Management - Discard Changes,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the fields are not correctly filled
+4. Prompt to discard changes
+5. Discard the changes",The user should be able to discard the changes and stay on the profile screen.
+TC-ProfileManagement-004,Profile Management - Loop Correction,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the fields are not correctly filled
+4. Prompt to correct the data
+5. Correct the data and save again
+6. Verify the fields are correctly filled",The user should be able to loop through the correction process until the fields are correctly filled.
+TC-ProfileManagement-005,Profile Management - No Changes,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 1234567890
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the fields are correctly filled
+4. Proceed to the accommodations screen
+5. Verify the fields are correctly filled again",The user should be able to save the profile without any changes.
+TC-ProfileManagement-006,Profile Management - Empty Fields,ProfileManagement,5,User is logged in,"- Name: 
+- Email: 
+- Phone: 
+- Address:","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the fields are not correctly filled
+4. Prompt to correct the data
+5. Correct the data and save again",The user should be able to correct the empty fields and save the profile.
+TC-ProfileManagement-007,Profile Management - Invalid Email,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: invalidemail
+- Phone: 1234567890
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the email is not correctly filled
+4. Prompt to correct the data
+5. Correct the email and save again",The user should be able to correct the invalid email and save the profile.
+TC-ProfileManagement-008,Profile Management - Invalid Phone Number,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 123456789
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the phone number is not correctly filled
+4. Prompt to correct the data
+5. Correct the phone number and save again",The user should be able to correct the invalid phone number and save the profile.
+TC-ProfileManagement-009,Profile Management - Invalid Address,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 1234567890
+- Address:","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the address is not correctly filled
+4. Prompt to correct the data
+5. Correct the address and save again",The user should be able to correct the invalid address and save the profile.
+TC-ProfileManagement-010,Profile Management - Invalid Name,ProfileManagement,5,User is logged in,"- Name: 
+- Email: johndoe@example.com
+- Phone: 1234567890
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify the name is not correctly filled
+4. Prompt to correct the data
+5. Correct the name and save again",The user should be able to correct the invalid name and save the profile.
+TC-ProfileManagement-011,Profile Management - Invalid All Fields,ProfileManagement,5,User is logged in,"- Name: 
+- Email: invalidemail
+- Phone: 123456789
+- Address:","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify all fields are not correctly filled
+4. Prompt to correct the data
+5. Correct all fields and save again",The user should be able to correct all invalid fields and save the profile.
+TC-ProfileManagement-012,Profile Management - Empty All Fields,ProfileManagement,5,User is logged in,"- Name: 
+- Email: 
+- Phone: 
+- Address:","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify all fields are not correctly filled
+4. Prompt to correct the data
+5. Correct all fields and save again",The user should be able to correct all empty fields and save the profile.
+TC-ProfileManagement-013,Profile Management - No Changes After Corrections,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 1234567890
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify all fields are correctly filled
+4. Proceed to the accommodations screen
+5. Verify all fields are correctly filled again",The user should be able to save the profile without any changes after corrections.
+TC-ProfileManagement-014,Profile Management - Discard Changes After Corrections,ProfileManagement,5,User is logged in,"- Name: John Doe
+- Email: johndoe@example.com
+- Phone: 1234567890
+- Address: 123 Main St","1. Click ""Profile"" in the side menu
+2. Save changes
+3. Verify all fields are correctly filled
+4. Prompt to discard changes
+5. Discard the changes",The user should be able to discard the changes and stay on the profile screen.
+TC-ProfileManagement-015,Profile Management - Loop Corrections After Discard,ProfileManagement,5,,,,

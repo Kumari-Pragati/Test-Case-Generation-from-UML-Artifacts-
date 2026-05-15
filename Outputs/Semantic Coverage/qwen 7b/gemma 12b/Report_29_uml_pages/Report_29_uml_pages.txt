@@ -1,0 +1,230 @@
+REPORT: Report_29_uml_pages.pdf
+======================================================================
+
+===== Report_29_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- Start — kind=initial_node; attributes=[]; operations=[]; role=start of the process
+- Utente registrato con successo — kind=action; attributes=[]; operations=[]; role=check if user is registered
+- Creazione di un utente — kind=action; attributes=[]; operations=[]; role=create a new user
+- Homepage — kind=action; attributes=[]; operations=[]; role=display the homepage
+- Utente registrato? — kind=decision; attributes=[]; operations=[]; role=decision point
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Start -> Utente registrato con successo — type=transition; label=""; explanation="flow from start"
+- Utente registrato con successo -> Utente registrato? — type=transition; label="no"; explanation="if user is not registered"
+- Utente registrato con successo -> Homepage — type=transition; label="si"; explanation="if user is registered"
+- Utente registrato? -> Creazione di un utente — type=transition; label="no"; explanation="if user is not registered"
+- Creazione di un utente -> Homepage — type=transition; label=""; explanation="flow after user creation"
+
+Main Flows:
+- Flow 1: Start -> Utente registrato con successo -> Utente registrato? (no) -> Creazione di un utente -> Homepage
+- Flow 2: Start -> Utente registrato con successo -> Utente registrato? (si) -> Homepage
+
+Conditions / Branches:
+- Utente registrato?:
+  - "no" -> Creazione di un utente
+  - "si" -> Homepage
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a user registration and login process.
+- The process starts at the "Start" node and checks if the user is already registered.
+- If the user is not registered, a new user is created, and then the homepage is displayed.
+- If the user is already registered, the homepage is displayed directly.
+- The diagram focuses on the initial flow of the application.
+
+===== Report_29_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=initial node; attributes=[]; operations=[]; role=start point
+- Click sul menu laterale — kind=action; attributes=[]; operations=[]; role=user action
+- Click "Homepage" — kind=action; attributes=[]; operations=[]; role=user action
+- Click "Le mie segnalazioni" — kind=action; attributes=[]; operations=[]; role=user action
+- Click "Impostazioni" — kind=action; attributes=[]; operations=[]; role=user action
+- Chiusura menu e apertura nuova schermata — kind=action; attributes=[]; operations=[]; role=result of action
+- No — kind=decision node; attributes=[]; operations=[]; role=decision point
+- Si — kind=decision node; attributes=[]; operations=[]; role=decision point
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- HOME -> Click sul menu laterale — type=control flow; label=""; explanation="Starts the process"
+- Click sul menu laterale -> Click "Homepage" — type=control flow; label="Si"; explanation="If the user clicks 'Homepage'"
+- Click sul menu laterale -> Click "Le mie segnalazioni" — type=control flow; label="No"; explanation="If the user does not click 'Homepage'"
+- Click "Le mie segnalazioni" -> Chiusura menu e apertura nuova schermata — type=control flow; label="Si"; explanation="If the user clicks 'Le mie segnalazioni'"
+- Click "Le mie segnalazioni" -> Click "Impostazioni" — type=control flow; label="No"; explanation="If the user does not click 'Le mie segnalazioni'"
+- Click "Impostazioni" -> Chiusura menu e apertura nuova schermata — type=control flow; label="Si"; explanation="If the user clicks 'Impostazioni'"
+- Click "Impostazioni" -> Click "Le mie segnalazioni" — type=control flow; label="No"; explanation="If the user does not click 'Impostazioni'"
+
+Main Flows:
+- Flow 1: HOME -> Click sul menu laterale -> (Si) Click "Homepage" -> Chiusura menu e apertura nuova schermata
+- Flow 2: HOME -> Click sul menu laterale -> (No) Click "Le mie segnalazioni" -> (Si) Chiusura menu e apertura nuova schermata
+- Flow 3: HOME -> Click sul menu laterale -> (No) Click "Le mie segnalazioni" -> (No) Click "Impostazioni" -> Chiusura menu e apertura nuova schermata
+- Flow 4: HOME -> Click sul menu laterale -> (No) Click "Impostazioni" -> (No) Click "Le mie segnalazioni" -> Chiusura menu e apertura nuova schermata
+
+Conditions / Branches:
+- Decision node "Click sul menu laterale":
+  - Si: Click "Homepage"
+  - No: Click "Le mie segnalazioni"
+- Decision node after "Click "Le mie segnalazioni"":
+  - Si: Chiusura menu e apertura nuova schermata
+  - No: Click "Impostazioni"
+- Decision node after "Click "Impostazioni"":
+  - Si: Chiusura menu e apertura nuova schermata
+  - No: Click "Le mie segnalazioni"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This diagram models the flow of actions after clicking on a side menu.
+- The main flow involves clicking on either "Homepage" or "Le mie segnalazioni" or "Impostazioni" which leads to closing the menu and opening a new screen.
+- The diagram shows a branching flow based on user choices within the side menu.
+- The diagram represents a simple user interaction flow within an application.
+
+===== Report_29_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Add Alert — kind=action; attributes=[]; operations=[]; role=Initiating alert addition
+- Add Alert — kind=action; attributes=[]; operations=[]; role=Adding alert
+- Apertura elenco categorie — kind=action; attributes=[]; operations=[]; role=Opening category list
+- Premere il tasto verde per inserire la segnalazione — kind=action; attributes=[]; operations=[]; role=Confirming alert insertion
+- I primi 4 campi compilati correttamente? — kind=decision; attributes=[]; operations=[]; role=Checking if the first 4 fields are filled correctly
+- Compilare i primi 4 campi correttamente — kind=action; attributes=[]; operations=[]; role=Filling the first 4 fields correctly
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Avvio — kind=initial_node; -> Add Alert — type=control_flow; label=""; explanation="Start of the process"
+- Add Alert -> Click 'Add Category' — type=control_flow; label=""; explanation="Navigating to category selection"
+- Add Alert -> Apertura elenco categorie — type=control_flow; label=""; explanation="Opening the category list"
+- Apertura elenco categorie -> Premere il tasto verde per inserire la segnalazione — type=control_flow; label=""; explanation="Confirming alert insertion"
+- Premere il tasto verde per inserire la segnalazione -> I primi 4 campi compilati correttamente? — type=control_flow; label=""; explanation="Checking if the first 4 fields are filled correctly"
+- I primi 4 campi compilati correttamente? -> Compilare i primi 4 campi correttamente — type=control_flow; label="SI"; explanation="If the first 4 fields are filled correctly"
+- I primi 4 campi compilati correttamente? -> Add Alert — type=control_flow; label="NO"; explanation="If the first 4 fields are not filled correctly, return to Add Alert"
+
+Main Flows:
+- Flow 1: Avvio -> Add Alert -> Click 'Add Category' -> Apertura elenco categorie -> Premere il tasto verde per inserire la segnalazione -> I primi 4 campi compilati correttamente? -> Compilare i primi 4 campi correttamente
+
+Conditions / Branches:
+- I primi 4 campi compilati correttamente?:
+  - SI -> Compilare i primi 4 campi correttamente
+  - NO -> Add Alert
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram outlines the process of adding an alert, starting from the initial action and proceeding through category selection and confirmation.
+- A decision point checks if the first four fields are correctly filled. If not, the process loops back to the "Add Alert" step.
+- The flow appears to be linear with a single conditional branch for error handling related to field completion.
+
+===== Report_29_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Click 'View Alerts' nel menù laterale — kind=action; attributes=[]; operations=[]; role=Initiates alert viewing
+- Visualizzazione di tutte le segnalazioni — kind=action; attributes=[]; operations=[]; role=Displays all alerts
+- Click su una segnalazione — kind=action; attributes=[]; operations=[]; role=Selects a specific alert
+- Visualizzazione dettagliata della segnalazione — kind=action; attributes=[]; operations=[]; role=Displays detailed information about the selected alert
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Click 'View Alerts' nel menù laterale -> Visualizzazione di tutte le segnalazioni — type=control_flow; label=""; explanation="Initiates the display of all alerts"
+- Visualizzazione di tutte le segnalazioni -> Click su una segnalazione — type=control_flow; label=""; explanation="Allows selection of a specific alert"
+- Click su una segnalazione -> Visualizzazione dettagliata della segnalazione — type=control_flow; label=""; explanation="Displays detailed information for the selected alert"
+
+Main Flows:
+- Flow 1: Click 'View Alerts' nel menù laterale -> Visualizzazione di tutte le segnalazioni -> Click su una segnalazione -> Visualizzazione dettagliata della segnalazione
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram illustrates a workflow for viewing alerts within a system.
+- The process begins by clicking 'View Alerts' which leads to a display of all alerts.
+- From there, a user can select a specific alert to view its detailed information.
+- The diagram represents a linear, sequential process with no branching or looping.
+
+===== Report_29_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Profile — kind=action; attributes=[]; operations=[]; role=Initial profile screen
+- Click "Profile" nel menu laterale — kind=action; attributes=[]; operations=[]; role=Action to open profile
+- Profile — kind=action; attributes=[]; operations=[]; role=Profile screen
+- Click su icona blu della casa — kind=action; attributes=[]; operations=[]; role=Action to save changes
+- Passa alla schermata delle abitazioni — kind=action; attributes=[]; operations=[]; role=Screen with accommodations
+- I campi sono correttamente compilati? — kind=decision; attributes=[]; operations=[]; role=Check if fields are correctly filled
+- Corregger i dati — kind=action; attributes=[]; operations=[]; role=Action to correct data
+- Salva le modifiche oppure scartale — kind=action; attributes=[]; operations=[]; role=Action to save or discard changes
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Profile -> Click "Profile" nel menu laterale — type=transition; label=""; explanation="Goes to the profile screen"
+- Click "Profile" nel menu laterale -> Profile — type=transition; label=""; explanation="Goes to the profile screen"
+- Profile -> Click su icona blu della casa — type=transition; label=""; explanation="Goes to the accommodation screen"
+- Click su icona blu della casa -> Passa alla schermata delle abitazioni — type=transition; label=""; explanation="Goes to the accommodation screen"
+- Passa alla schermata delle abitazioni -> I campi sono correttamente compilati? — type=transition; label=""; explanation="Check if fields are correctly filled"
+- I campi sono correttamente compilati? -> Corregger i dati — type=transition; label="No"; explanation="If fields are not correctly filled"
+- I campi sono correttamente compilati? -> Salva le modifiche oppure scartale — type=transition; label="Si"; explanation="If fields are correctly filled"
+- Corregger i dati -> I campi sono correttamente compilati? — type=transition; label=""; explanation="Returns to check if fields are correctly filled"
+- Salva le modifiche oppure scartale -> Profile — type=transition; label=""; explanation="Returns to the profile screen"
+
+Main Flows:
+- Flow 1: Profile -> Click "Profile" nel menu laterale -> Profile -> Click su icona blu della casa -> Passa alla schermata delle abitazioni -> I campi sono correttamente compilati? -> Salva le modifiche oppure scartale -> Profile
+
+Conditions / Branches:
+- I campi sono correttamente compilati?:
+    - No -> Corregger i dati
+    - Si -> Salva le modifiche oppure scartale
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram illustrates a user flow for managing a profile, specifically related to accommodations.
+- The flow starts at the profile screen, proceeds to the accommodation screen, and then checks if the fields are correctly filled.
+- If the fields are not correctly filled, the user is prompted to correct them, and the process loops back to the validation step.
+- If the fields are correctly filled, the user can save or discard the changes, returning to the profile screen.
+
+
+======================================================================

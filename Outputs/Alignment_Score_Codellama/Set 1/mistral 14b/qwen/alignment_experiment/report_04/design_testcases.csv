@@ -1,0 +1,86 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- Database contains a registered user (e.g., `Username: ecoUser1`, `Password: securePass123`).
+- Application is running and accessible.","- Username: `ecoUser1`
+- Password: `securePass123`","1. User enters `ecoUser1` and `securePass123` in the login form.
+2. Application sends credentials to the database for verification.
+3. Database confirms the user is registered.
+4. Application grants access and redirects to the homepage.",- User is successfully logged in and redirected to the homepage without errors.
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,2,"- Database contains no user with `Username: wrongUser`.
+- Application is running.","- Username: `wrongUser`
+- Password: `anyPassword`","1. User enters `wrongUser` and `anyPassword`.
+2. Application sends credentials to the database.
+3. Database returns ""not registered"" response.
+4. Application prompts user to register.","- User sees a registration prompt (e.g., ""User not found. Please register."") and is not granted access."
+TC-AUTHENTICATION-003,Login with empty credentials,Authentication,2,- Application is running.,"- Username: *(empty)*
+- Password: *(empty)*","1. User submits the login form without entering credentials.
+2. Application validates inputs.","- Application displays an error message: ""Username and password are required."""
+TC-DATA-MODIFICATION-001,Update user email successfully,User Profile Management,3,"- User `ecoUser1` is logged in.
+- Current email in the database: `old@email.com`.",- New email: `new@email.com`,"1. User requests to modify their email via the application.
+2. Application fetches current email (`old@email.com`) from the database.
+3. Application displays `old@email.com` for confirmation.
+4. User confirms and submits `new@email.com`.
+5. Application updates the database with `new@email.com`.
+6. Database confirms the update.","- User email is updated to `new@email.com` in the database.
+- Application displays: ""Email updated successfully."""
+TC-DATA-MODIFICATION-002,Update user password with invalid format,User Profile Management,3,- User `ecoUser1` is logged in.,"- New password: `weak` (does not meet complexity requirements: e.g., <8 chars, no special chars)","1. User attempts to update password to `weak`.
+2. Application validates the input.","- Application rejects the update and displays:
+  ""Password must be at least 8 characters and contain special characters."""
+TC-DATA-MODIFICATION-003,Update device footprint manually,Device Management,"1, 3","- User `ecoUser1` owns a device with `ID: 101`, `Footprint_produzione: ""50kgCO2""`.
+- User is logged in.","- New `Footprint_produzione`: `45kgCO2` (valid format: ""XkgCO2"")","1. User requests to update the device’s production footprint.
+2. Application fetches current value (`50kgCO2`).
+3. User submits `45kgCO2`.
+4. Application updates the database.
+5. Database confirms the update.","- Device’s `Footprint_produzione` is updated to `45kgCO2`.
+- Application displays: ""Device footprint updated."""
+TC-DEVICE-SCANNING-001,Scan a device with all functional components,Device Diagnostics,4,"- Device `ID: 101` is associated with user `ecoUser1`.
+- Database records show all components are functional.",- Device ID: `101`,"1. User initiates a device scan via the application.
+2. Application queries the database for hardware scan results.
+3. Database returns component names and their carbon footprints (e.g., `Battery: 10kgCO2`).
+4. Application calculates the impact of replacing each component (e.g., ""Replacing Battery: +5kgCO2"").
+5. Application returns results to the user.","- User sees a report listing all components, their current impact, and replacement impact.
+- No defective components are flagged."
+TC-DEVICE-SCANNING-002,Scan a device with defective components,Device Diagnostics,4,"- Device `ID: 102` has a defective `Screen` component (recorded in the database).
+- Database maps the `Screen` to `Formula_chimica: ""SiO2""` with `Carbon_footprint: ""8kgCO2""`.",- Device ID: `102`,"1. User scans device `102`.
+2. Application queries the database.
+3. Database identifies the defective `Screen` and its carbon footprint.
+4. Application calculates the impact of replacement (e.g., ""Replacing Screen: +8kgCO2"").
+5. Application flags the `Screen` as defective in the results.","- User sees a report highlighting the defective `Screen` and its replacement impact.
+- Application suggests: ""Consider replacing Screen to reduce long-term footprint."""
+TC-DEVICE-SCANNING-003,Scan a device with invalid ID,Device Diagnostics,4,- No device exists with `ID: 999`.,- Device ID: `999`,"1. User attempts to scan device `999`.
+2. Application queries the database.
+3. Database returns ""Device not found.""","- Application displays: ""Device not found. Please check the ID and try again."""
+TC-MATERIAL-TRACKING-001,Add a new material to a device,Material Composition,1,"- Device `ID: 101` exists and is associated with user `ecoUser1`.
+- No material with `Formula_chimica: ""LiCoO2""` exists for this device.","- Material: `Formula_chimica: ""LiCoO2""`, `Percentuale_presenza: 20`, `Carbon_footprint: ""15kgCO2""`","1. User adds a new material (`LiCoO2`) to device `101` via the application.
+2. Application validates the input (e.g., `Percentuale_presenza` is between 0–100).
+3. Application creates a new `Materiale` record linked to device `101`.","- Material `LiCoO2` is added to device `101` with the specified attributes.
+- Device’s `Footprint_totale` is recalculated to include the new material’s impact."
+TC-MATERIAL-TRACKING-002,Add material with invalid percentage,Material Composition,1,- Device `ID: 101` exists.,"- Material: `Formula_chimica: ""InvalidMat""`, `Percentuale_presenza: 105`, `Carbon_footprint: ""10kgCO2""`","1. User attempts to add the material.
+2. Application validates `Percentuale_presenza`.","- Application rejects the input and displays:
+  ""Percentage must be between 0 and 100."""
+TC-LIFECYCLE-ASSESSMENT-001,Calculate device component lifespan,Lifecycle Assessment,5,"- Device `ID: 101` has components with recorded usage data (e.g., `Battery` used for 2 years).
+- Database contains expected lifespan for components (e.g., `Battery: 5 years`).",- Device ID: `101`,"1. User requests a lifespan assessment for device `101`.
+2. Application queries the database for component health and usage history.
+3. Application calculates remaining lifespan (e.g., `Battery: 3 years remaining`).
+4. Application returns results.","- User sees a report with remaining lifespan for each component.
+- Application highlights components nearing end-of-life (e.g., ""Battery at 60% health"")."
+TC-ADMIN-FOOTPRINT-001,Admin updates user’s total footprint,Admin Functions,1,"- User `ecoUser1` has `Footprint_totale: ""100kgCO2""`.
+- Admin user is logged in.",- New `Footprint_totale`: `120kgCO2`,"1. Admin selects user `ecoUser1` and updates `Footprint_totale` to `120kgCO2`.
+2. Application validates the input (e.g., numeric value).
+3. Database updates the record.","- User’s `Footprint_totale` is updated to `120kgCO2`.
+- Application logs the change: ""Admin updated user footprint."""
+TC-DEVICE-ASSOCIATION-001,Associate a device to a user,Device Management,1,"- User `ecoUser1` exists.
+- Device `ID: 101` exists but is not associated with any user.","- Device ID: `101`
+- User: `ecoUser1`","1. Admin associates device `101` with user `ecoUser1`.
+2. Application updates the `Utente` field in the `Dispositivo` record.","- Device `101` is linked to user `ecoUser1`.
+- User’s device list now includes `101`."
+TC-DEVICE-ASSOCIATION-002,Associate device with non-existent user,Device Management,1,"- Device `ID: 101` exists.
+- No user exists with `Username: ""nonexistent""`.","- Device ID: `101`
+- User: `nonexistent`","1. Admin attempts to associate device `101` with `nonexistent`.
+2. Application validates the user.","- Application displays: ""User not found. Please select an existing user."""
+TC-INTEGRATION-001,End-to-end flow: Login → Scan Device → Update Footprint,System Integration,"2, 4, 3","- User `ecoUser1` is registered with a device `ID: 101`.
+- Device `101` has a defective `Screen` (`Formula_chimica: ""SiO2""`).",,"1. User logs in with valid credentials (`ecoUser1`, `securePass123`).
+2. User scans device `101`.
+3. Application identifies the defective `Screen` and calculates replacement impact (`+8kgCO2`).
+4. User updates the device’s `Footprint_totale` to include the new impact.","- User is logged in successfully.
+- Scan report highlights the defective `Screen`.
+- Device’s `Footprint_totale` is updated to reflect the replacement impact."

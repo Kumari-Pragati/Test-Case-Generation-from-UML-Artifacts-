@@ -1,0 +1,138 @@
+REPORT: Report_8_uml_pages.pdf
+======================================================================
+
+===== Report_8_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- Avvio applicazione — kind=initial_node; role=Start of the process
+- La configurazione iniziale è stata effettuata? — kind=decision_node; role=Check if initial configuration has been performed
+- Accesso lista distributori — kind=activity_final_node; role=End of accessing distributor list
+- Aggiungi veicolo — kind=activity_node; role=Add vehicle
+- Vuoi selezionare il tuo veicolo dal dataset? — kind=decision_node; role=Check if user wants to select vehicle from dataset
+- Inserisci il veicolo manualmente — kind=activity_node; role=Manually enter vehicle
+- Cerca il veicolo nel dataset — kind=activity_node; role=Search vehicle in dataset
+- Hai trovato il veicolo nel dataset? — kind=decision_node; role=Check if vehicle found in dataset
+- Seleziona e aggiungi il veicolo — kind=activity_node; role=Select and add vehicle
+- Vuoi aggiungere un altro veicolo? — kind=decision_node; role=Check if user wants to add another vehicle
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Avvio applicazione -> La configurazione iniziale è stata effettuata? — type=control_flow; label="No"; explanation="Check if initial configuration has been performed"
+- La configurazione iniziale è stata effettuata? -> Accesso lista distributori — type=control_flow; label="Si"; explanation="Access distributor list"
+- La configurazione iniziale è stata effettuata? -> Aggiungi veicolo — type=control_flow; label="No"; explanation="Add vehicle"
+- Aggiungi veicolo -> Vuoi selezionare il tuo veicolo dal dataset? — type=control_flow; label="No"; explanation="Check if user wants to select vehicle from dataset"
+- Aggiungi veicolo -> Inserisci il veicolo manualmente — type=control_flow; label="No"; explanation="Manually enter vehicle"
+- Vuoi selezionare il tuo veicolo dal dataset? -> Cerca il veicolo nel dataset — type=control_flow; label="Si"; explanation="Search vehicle in dataset"
+- Cerca il veicolo nel dataset -> Hai trovato il veicolo nel dataset? — type=control_flow; label="No"; explanation="Check if vehicle found in dataset"
+- Cerca il veicolo nel dataset -> Seleziona e aggiungi il veicolo — type=control_flow; label="Si"; explanation="Select and add vehicle"
+- Hai trovato il veicolo nel dataset? -> Seleziona e aggiungi il veicolo — type=control_flow; label="Si"; explanation="Select and add vehicle"
+- Seleziona e aggiungi il veicolo -> Vuoi aggiungere un altro veicolo? — type=control_flow; label="No"; explanation="Check if user wants to add another vehicle"
+- Vuoi aggiungere un altro veicolo? -> Aggiungi veicolo — type=control_flow; label="No"; explanation="Add vehicle"
+- Accesso lista distributori -> Vedi altri diagrammi — type=control_flow; label="Vedi altri diagrammi"; explanation="See other diagrams"
+
+Main Flows (step by step):
+- Flow 1: Avvio applicazione -> La configurazione iniziale è stata effettuata? -> No -> Aggiungi veicolo -> Vuoi selezionare il tuo veicolo dal dataset? -> No -> Inserisci il veicolo manualmente -> Vuoi aggiungere un altro veicolo? -> No -> Avvio applicazione
+- Flow 2: Avvio applicazione -> La configurazione iniziale è stata effettuata? -> Si -> Accesso lista distributori -> Vedi altri diagrammi
+
+Conditions / Branches:
+- La configurazione iniziale è stata effettuata? — branches=["No", "Si"]
+- Vuoi selezionare il tuo veicolo dal dataset? — branches=["No", "Si"]
+- Hai trovato il veicolo
+
+===== Report_8_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Accesso lista distributori — kind=action; attributes=[]; operations=[]; role=Access distributor list
+- Visualizza lista dei distributori — kind=action; attributes=[]; operations=[]; role=Display distributor list
+- Vuoi modificare i parametri di ordinamento della lista di distributori? — kind=decision; attributes=[]; operations=[]; role=Modify sorting parameters?
+- Personalizza i parametri di ordinamento — kind=action; attributes=[]; operations=[]; role=Customize sorting parameters
+- Visualizza lista dei distributori aggiornata secondo i parametri aggiornati — kind=action; attributes=[]; operations=[]; role=Display updated distributor list
+- Seleziona il distributore — kind=action; attributes=[]; operations=[]; role=Select distributor
+- Apertura automatica dell'app di navigazione — kind=action; attributes=[]; operations=[]; role=Open navigation app automatically
+- Navigazione terminata, raggiunto distributore — kind=action; attributes=[]; operations=[]; role=Navigation complete, reached distributor
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Accesso lista distributori -> Vuoi modificare i parametri di ordinamento della lista di distributori? — type=association; label="No"; explanation="No"
+- Accesso lista distributori -> Visualizza lista dei distributori — type=association; label="No"; explanation="No"
+- Accesso lista distributori -> Personalizza i parametri di ordinamento — type=association; label="No"; explanation="No"
+- Accesso lista distributori -> Visualizza lista dei distributori aggiornata secondo i parametri aggiornati — type=association; label="No"; explanation="No"
+- Accesso lista distributori -> Seleziona il distributore — type=association; label="No"; explanation="No"
+- Accesso lista distributori -> Apertura automatica dell'app di navigazione — type=association; label="No"; explanation="No"
+- Accesso lista distributori -> Navigazione terminata, raggiunto distributore — type=association; label="No"; explanation="No"
+- Vuoi modificare i parametri di ordinamento della lista di distributori? -> Personalizza i parametri di ordinamento — type=association; label="Si"; explanation="Yes"
+- Vuoi modificare i parametri di ordinamento della lista di distributori? -> Visualizza lista dei distributori aggiornata secondo i parametri aggiornati — type=association; label="No"; explanation="No"
+- Vuoi cambiare schermata? -> Accesso pagina statistiche tramite barra di navigazione? — type=association; label="Si"; explanation="Yes"
+- Vuoi cambiare schermata? -> Accesso pagina impostazioni tramite barra di navigazione? — type=association; label="No"; explanation="No"
+- Accesso pagina statistiche tramite barra di navigazione? -> Accesso pagina statistiche — type=association; label="Si"; explanation="Yes"
+- Accesso pagina impostazioni tramite barra di navigazione? -> Accesso pagina impostazioni — type=association; label="Si"; explanation="Yes"
+
+Main Flows (step by step):
+- Flow 1: Accesso lista distributori -> Vuoi modificare i parametri di ordinamento della lista di distributori? -> No -> Visualizza lista dei distributori -> No -> Seleziona il distributore -> Apertura automatica dell'app di navigazione -> Navigazione terminata, raggiunto distributore
+- Flow 2: Accesso lista distributori -> Vuoi modificare i parametri di ordinamento della lista di distributori? -> Si -> Personalizza i parametri di ordinamento -> Visualizza lista dei distributori aggiornata secondo i parametri aggiornati -> No -> Seleziona il distributore -> Apertura automatica dell'app di navigazione -> Navigazione terminata, raggiunto distributore
+
+Conditions / Branches:
+- Vuoi modificare i parametri di ordinamento della lista di distributori? — branches: No, Si
+- Vuoi cambiare schermata? — branches: Si, No
+
+===== Report_8_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Accesso pagina impostazioni — kind=action; role=initial action
+- Visualizza le impostazioni — kind=action; role=display settings
+- Vuoi cambiare schermata? — kind=decision; role=check screen change
+- Click sull'accesso pagina lista distributori, tramite la barra di navigazione? — kind=decision; role=check access to distributor list page
+- Accesso lista distributori — kind=action; role=access distributor list
+- Vedi altri diagrammi — kind=action; role=see other diagrams
+- Vuoi modificare i tuoi veicoli? — kind=decision; role=check vehicle modification
+- Modifica lista dei veicoli — kind=action; role=modify vehicle list
+- Visualizza pop-up "modifica effettuata" — kind=action; role=display confirmation pop-up
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Accesso pagina impostazioni -> Visualizza le impostazioni — type=control-flow; label="Si"; explanation="display settings"
+- Accesso pagina impostazioni -> Vuoi cambiare schermata? — type=control-flow; label="No"; explanation="check screen change"
+- Accesso pagina impostazioni -> Click sull'accesso pagina lista distributori, tramite la barra di navigazione? — type=control-flow; label="Si"; explanation="check access to distributor list page"
+- Accesso pagina impostazioni -> Accesso lista distributori — type=control-flow; label="Si"; explanation="access distributor list"
+- Accesso pagina impostazioni -> Vedi altri diagrammi — type=control-flow; label="Si"; explanation="see other diagrams"
+- Accesso pagina impostazioni -> Vuoi modificare i tuoi veicoli? — type=control-flow; label="No"; explanation="check vehicle modification"
+- Accesso pagina impostazioni -> Modifica lista dei veicoli — type=control-flow; label="Si"; explanation="modify vehicle list"
+- Accesso pagina impostazioni -> Visualizza pop-up "modifica effettuata" — type=control-flow; label="Si"; explanation="display confirmation pop-up"
+
+Main Flows (step by step):
+- Flow 1: Accesso pagina impostazioni -> Visualizza le impostazioni -> No -> Accesso pagina impostazioni
+- Flow 2: Accesso pagina impostazioni -> Vuoi cambiare schermata? -> Si -> Click sull'accesso pagina lista distributori, tramite la barra di navigazione? -> Si -> Accesso lista distributori -> Vedi altri diagrammi
+- Flow 3: Accesso pagina impostazioni -> Vuoi cambiare schermata? -> No -> Accesso pagina impostazioni
+- Flow 4: Accesso pagina impostazioni -> Vuoi modificare i tuoi veicoli? -> No -> Accesso pagina impostazioni
+- Flow 5: Accesso pagina impostazioni -> Vuoi modificare i tuoi veicoli? -> Si -> Modifica lista dei veicoli -> Visualizza pop-up "modifica effettuata" -> Accesso pagina impostazioni
+
+Conditions / Branches:
+- Vuoi cambiare schermata? — branches=["No", "Si"]
+- Click sull'accesso pagina lista distributori, tramite la barra di navigazione? — branches=["No", "Si"]
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This activity diagram models the process of accessing the settings page and navigating through different options such as changing the screen, accessing the distributor list, modifying vehicle lists, and viewing statistical pages.
+- The main flows involve checking for changes in the screen, accessing the distributor list, modifying vehicle lists, and viewing confirmation pop-ups.
+- There are conditional branches for checking whether to change the screen and modify vehicle lists.
+- The diagram includes a loop back to the initial action "Accesso pagina impostazioni" when certain conditions are not met.
+
+
+======================================================================

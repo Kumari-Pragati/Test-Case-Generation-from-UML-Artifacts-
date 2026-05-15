@@ -1,0 +1,287 @@
+REPORT: Report_5_uml_pages.pdf
+======================================================================
+
+===== Report_5_uml_pages.pdf | Page 1 =====
+**UML Model**
+
+**UML Type:** Class Diagram
+
+**Components:**
+
+* **User**
+	+ Kind: Class
+	+ Attributes: [Username: String, Password: String, Name: String, Email: String]
+	+ Operations: [SetName(newUserName: String), GetUserName(), GetPassword(), GetName(), GetName(newName: String), SetEmail(newEmail: String), GetEmail()]
+	+ Role: User
+* **Trip**
+	+ Kind: Class
+	+ Attributes: [Id: int, City: String, Country: String, BeginningDate: Date, FinishDate: Date, Author: User]
+	+ Operations: [SetCityName: String, GetCityName(), SetCountryName: String, GetCountryName(), SetBeginningDate: Date, GetBeginningDate(), SetFinishDate: Date, GetFinishDate(), SetAuthor: User, GetAuthor()]
+	+ Role: Trip
+* **PlaceToVisit**
+	+ Kind: Class
+	+ Attributes: [Id: int, Name: String, Category: String, IdTrip: int]
+	+ Operations: [SetName: String, GetCategory: String, SetCategory: String, GetIdTrip: int, GetTrip: int]
+	+ Role: Place to Visit
+* **Category**
+	+ Kind: Class
+	+ Attributes: [Id: int, Name: String, Icon: String]
+	+ Operations: [SetId: int, GetName: String, GetIcon: String]
+	+ Role: Category
+* **DailyPlan**
+	+ Kind: Class
+	+ Attributes: [Id: int, PlanId: int, Day: Date, Weather: Weather]
+	+ Operations: [SetPlanId: int, GetDay: Date, GetWeather: Weather]
+	+ Role: Daily Plan
+* **Weather**
+	+ Kind: Class
+	+ Attributes: [Id: int, High: double, Low: double, Icon: String]
+	+ Operations: [SetHigh: double, GetHigh: double, SetLow: double, GetLow: double, SetIcon: String, GetIcon: String]
+	+ Role: Weather
+
+**Actors / Lifelines:**
+
+* User
+* Trip
+* PlaceToVisit
+* Category
+* DailyPlan
+* Weather
+
+**Relationships / Links:**
+
+* User -> Trip — type=association; label="User"; explanation="User creates a trip"
+* Trip -> PlaceToVisit — type=association; label="Trip"; explanation="Trip has a place to visit"
+* PlaceToVisit -> Category — type=association; label="Category"; explanation="Place to visit has a category"
+* DailyPlan -> Weather — type=association; label="Weather"; explanation="Daily plan has weather"
+* User -> DailyPlan — type=association; label="User"; explanation="User has a daily plan"
+* Trip -> DailyPlan — type=association; label="Trip"; explanation="Trip has a daily plan"
+
+**Main Flows:**
+
+* User -> Trip -> PlaceToVisit -> Category -> DailyPlan -> Weather -> User
+* User -> DailyPlan -> Weather -> User
+
+**Conditions / Branches:**
+
+* SetCityName: String -> SetCountryName: String
+* SetBeginningDate: Date -> SetFinishDate: Date
+* SetAuthor: User -> SetFinishDate: Date
+* SetCategory: String -> SetCategory: String
+* SetIdTrip: int -> GetTrip: int
+
+**Loops / Repetitions:**
+
+* SetHigh: double -> GetHigh: double
+* SetLow: double -> GetLow: double
+* SetIcon: String -> GetIcon: String
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a user's interaction with a trip planning system.
+* The user can create a trip, which has a place to visit, category, and daily plan.
+* The daily plan has weather information.
+* The user can view their daily plan and weather.
+* The system has a user-friendly interface with categories and icons.
+
+===== Report_5_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence Diagram
+
+**Components:**
+
+* User: kind=Actor; attributes=[user_id: string]; operations=[registerUser(): void; verifyValidData(): boolean; saveUserData(): void]; role="User"
+* Main: kind=Main; attributes=[]; operations=[getValidData(): string; saveUserData(): void]; role="Main"
+* Users Database: kind=Database; attributes=[]; operations=[verifyValidData(): boolean; saveUserData(): void]; role="Database"
+
+**Actors / Lifelines:**
+
+* User
+* Main
+* Users Database
+
+**Relationships / Links:**
+
+* User -> Main — type=Message; label="registerUser()"; explanation="User registration"
+* Main -> Users Database — type=Message; label="getValidData()"; explanation="Get valid data from database"
+* Users Database -> Main — type=Message; label="verifyValidData()"; explanation="Verify valid data"
+* Main -> Users Database — type=Message; label="saveUserData()"; explanation="Save user data"
+
+**Main Flows:**
+
+* Flow 1: User -> Main -> Users Database -> Main -> Users Database -> User
+	+ User -> Main: registerUser()
+	+ Main -> Users Database: getValidData()
+	+ Users Database -> Main: verifyValidData()
+	+ Main -> Users Database: saveUserData()
+	+ Users Database -> User: saveUserData()
+
+**Conditions / Branches:**
+
+* [y = true] -> [registerUser: "ok"]
+* [y = false] -> [registerUser: "error"]
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the user registration process, where the user registers, the main process verifies the data, and the user data is saved in the database.
+* The main flow is a sequence of messages between the user, main, and database.
+* The error path is taken when the user data is not valid.
+
+===== Report_5_uml_pages.pdf | Page 3 =====
+**UML Type:** 
+Sequence
+
+**Components:**
+
+* User
+  - kind: User; attributes=[email, password]; operations=[login(email, password): void]; role=Main
+* Main
+  - kind: Main; attributes=[]; operations=[login(email, password): void]; role=Main
+* Users Database
+  - kind: Users Database; attributes=[]; operations=[validateUser(email, password): boolean]; role=Users Database
+
+**Actors / Lifelines:**
+
+* User
+* Main
+* Users Database
+
+**Relationships / Links:**
+
+* User -> Main — type=association; label="User Login"; explanation="User logs in"
+* Main -> Users Database — type=association; label="User Login"; explanation="User logs in"
+* Main -> User — type=association; label="User Login"; explanation="User logs in"
+* Main -> Users Database — type=association; label="User Login"; explanation="User logs in"
+
+**Main Flows:**
+
+* Flow 1: User -> Main -> Users Database -> User -> Main
+* Flow 2: Main -> Users Database -> User -> Main
+
+**Conditions / Branches:**
+
+* alt [x = true] -> userLogin: "ok"
+* alt [x = false] -> userLogin: "error"
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the user login process, where the user logs in with their email and password, which is validated by the Users Database.
+* The main flow involves the user logging in, which is then validated by the Users Database.
+* The user can either be logged in successfully or encounter an error.
+* The diagram does not show any loops or repeated behavior.
+
+===== Report_5_uml_pages.pdf | Page 4 =====
+**UML Type**
+* sd
+
+**Components**
+* User — kind=Main; attributes=[updateTrip(): void; getNewData(): getNewData(); listTrip(): listTrip();]; operations=[updateTrip(): void; getNewData(): getNewData(); listTrip(): listTrip();]; role=Main
+* Main — kind=Main; attributes=[updateTrip(): void; getNewData(): getNewData(); listTrip(): listTrip();]; operations=[updateTrip(): void; getNewData(): getNewData(); listTrip(): listTrip();]; role=Main
+* Trips Database — kind=Trips Database; attributes=[updateTripData(x): updateTripData(x);]; operations=[updateTripData(x): updateTripData(x);]; role=Trips Database
+
+**Actors / Lifelines**
+* User
+* Main
+* Trips Database
+
+**Relationships / Links**
+* User -> Main — type=sd; label=sd Update Trip Data; explanation=sd Update Trip Data
+* Main -> Trips Database — type=sd; label=sd Update Trip Data; explanation=sd Update Trip Data
+* User -> Main — type=sd; label=sd Update Trip Data; explanation=sd Update Trip Data
+* Main -> User — type=sd; label=sd Update Trip Data; explanation=sd Update Trip Data
+* Main -> Trips Database — type=sd; label=sd Update Trip Data; explanation=sd Update Trip Data
+* Trips Database -> Main — type=sd; label=sd Update Trip Data; explanation=sd Update Trip Data
+
+**Main Flows**
+* Flow 1: User -> Main -> Trips Database -> Main -> User
+
+**Conditions / Branches**
+* 1: updateTrip()
+* 2: getNewData()
+* 3: x = getNewData()
+* 5: listTrip()
+
+**Loops / Repetitions**
+* None
+
+**Notes / Annotations**
+* None
+
+**Observations**
+* The diagram models the process of updating trip data, which involves the user, main, and trips database.
+* The main flow starts with the user updating trip data, which is then sent to the main, which updates the trips database.
+* The main then sends the updated data back to the user.
+* The process is repeated for each new data update.
+
+===== Report_5_uml_pages.pdf | Page 5 =====
+**UML Type:** 
+Activity
+
+**Components:**
+
+* User: kind=Actor; attributes=[changeProfile(): void]; operations=[getNewData(): void, updateUserData(x): void]; role=Main
+* Main: kind=Actor; attributes=[changeProfile(): void]; operations=[getNewData(): void, updateUserData(x): void]; role=Main
+* Users Database: kind=Database; attributes=[verifyValidData(x): void]; operations=[verifyValidData(x): void]; role=Users Database
+
+**Actors / Lifelines:**
+
+* User
+* Main
+* Users Database
+
+**Relationships / Links:**
+
+* User -> Main — type=association; label="changeProfile()"; explanation="User initiates the change profile process"
+* Main -> Users Database — type=association; label="verifyValidData(x)"; explanation="Main verifies the user's data with the database"
+* Main -> User — type=association; label="getNewData()"; explanation="Main gets new data from the user"
+* Main -> Users Database — type=association; label="updateUserData(x)"; explanation="Main updates the user's data in the database"
+
+**Main Flows:**
+
+* Flow 1: User -> Main -> Users Database -> Main -> User
+	+ User initiates the change profile process by calling changeProfile()
+	+ Main verifies the user's data with the database using verifyValidData(x)
+	+ Main gets new data from the user using getNewData()
+	+ Main updates the user's data in the database using updateUserData(x)
+
+**Conditions / Branches:**
+
+* getNewData(): if x = getNewData() then getNewData()
+* verifyValidData(x): if y = verifyValidData(x) then verifyValidData(x)
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of changing a user's profile, which involves verifying the user's data with the database and updating it if necessary.
+* The main flow involves the user initiating the process, the main component verifying the data, and the database updating the user's data.
+* There are two decision points: one for getting new data and another for verifying valid data.
+* There are no loops or repetitions in the process.
+
+
+======================================================================

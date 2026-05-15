@@ -1,0 +1,92 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,User Creation,Utente,1,None,"- ID: ""user123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call createUser(""user123"", ""John Doe"", ""john.doe@example.com"")
+2. Verify that the function returns true",createUser should return true and the user should be created successfully.
+TC-Utente-002,User Login,Utente,1,"User ""user123"" has been created","- ID: ""user123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call checkUser(""user123"", ""john.doe@example.com"")
+2. Verify that the function returns true",checkUser should return true and the user should be logged in successfully.
+TC-Utente-003,User Password Reset,Utente,1,"User ""user123"" is logged in","- ID: ""user123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call resetPassword(""user123"", ""john.doe@example.com"")
+2. Verify that the function returns true",resetPassword should return true and the user's password should be reset successfully.
+TC-Utente-004,User Device Addition,Utente,1,"User ""user123"" is logged in","- ID: ""device123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call addDevices(""device123"")
+2. Verify that the function returns true",addDevices should return true and the device should be added to the user successfully.
+TC-Device-001,Device Information Retrieval,Devices,1,"Device ""device123"" is associated with user ""user123""",None,"1. Call getDeviceInfo()
+2. Verify that the function returns a non-empty list of strings",getDeviceInfo should return a non-empty list of strings containing device information.
+TC-Config-001,Configuration Retrieval,Config,1,"Device ""device123"" is associated with user ""user123""",None,"1. Call getConfig()
+2. Verify that the function returns a non-empty list of strings",getConfig should return a non-empty list of strings containing configuration details.
+TC-Config-002,Light Configuration Update,Config,1,"Device ""device123"" is associated with user ""user123""",- New value: true,"1. Call setLight(true)
+2. Verify that the function returns true",setLight should return true and the light setting should be updated successfully.
+TC-History-001,History Update,History,1,"Device ""device123"" is associated with user ""user123""","- Date: ""2023-10-01""
+- Air Humidity: 60.0
+- Soil Humidity: 70.0
+- Air Temperature: 25.0
+- Luminosity: 800.0","1. Call updateHistory(""2023-10-01"", 60.0, 70.0, 25.0)
+2. Verify that the function returns true",updateHistory should return true and the history should be updated successfully.
+TC-Alert-001,Alert Message Update,Alert,1,"Device ""device123"" is associated with user ""user123""","- New message: ""Low soil humidity detected""","1. Call updateMessage(""Low soil humidity detected"")
+2. Verify that the function returns true",updateMessage should return true and the alert message should be updated successfully.
+TC-Access-001,Access Initiated - No Greenhouses Associated,Accesso eseguito,2,"User ""user123"" is logged in",None,"1. Click ""Serre""
+2. Verify that the default message is displayed
+3. Verify that the process ends without displaying the list of greenhouses",The default message should be displayed and the process should end without showing the list of greenhouses.
+TC-Access-002,Access Initiated - At Least One Greenhouse Associated,Accesso eseguito,2,"User ""user123"" is logged in and has at least one associated greenhouse",None,"1. Click ""Serre""
+2. Verify that the list of greenhouses is displayed",The list of associated greenhouses should be displayed.
+TC-AddDevices-001,Device Addition - Valid Input,Add Devices,3,"User ""user123"" is logged in","- ID: ""device123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Click ""Add Devices""
+2. Verify that the fields are inserted correctly
+3. Verify that the operation is executed",The device should be added successfully and the operation should be executed.
+TC-AddDevices-002,Device Addition - Invalid Input,Add Devices,3,"User ""user123"" is logged in","- ID: ""device123""
+- nomeCognome: ""John Doe""
+- email: ""invalidemail""","1. Click ""Add Devices""
+2. Verify that the fields are inserted incorrectly
+3. Verify that the process loops back to the field check",The process should loop back to the field check and not execute the operation.
+TC-Configuration-001,Configuration - Valid Input,Configuration,4,"User ""user123"" is logged in and has at least one associated greenhouse",- New value: true,"1. Click ""Configuration""
+2. Verify that the fields are inserted correctly
+3. Verify that the operation is executed",The configuration should be updated successfully and the operation should be executed.
+TC-Configuration-002,Configuration - Invalid Input,Configuration,4,"User ""user123"" is logged in and has at least one associated greenhouse","- New value: ""invalid_value""","1. Click ""Configuration""
+2. Verify that the fields are inserted incorrectly
+3. Verify that the process loops back to the field check","The process should loop back to the field check and not execute the operation. 
+
+Note: For simplicity, invalid values are assumed to be strings that do not match expected formats. <|assistant|>
+PROJECT OVERVIEW:
+The system manages user interactions with devices, including adding devices, configuring settings, and tracking history. Alerts are generated based on device status. The user can view a list of associated devices and modify their configurations.
+
+----------------------------
+TEST CASES
+----------------------------"
+TC-Utente-001,User Creation,Utente,1,None,"- ID: ""user123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call createUser(""user123"", ""John Doe"", ""john.doe@example.com"")
+2. Verify that the function returns true",createUser should return true and the user should be created successfully.
+TC-Utente-002,User Login,Utente,1,"User ""user123"" has been created","- ID: ""user123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call checkUser(""user123"", ""john.doe@example.com"")
+2. Verify that the function returns true",checkUser should return true and the user should be logged in successfully.
+TC-Utente-003,User Password Reset,Utente,1,"User ""user123"" is logged in","- ID: ""user123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call resetPassword(""user123"", ""john.doe@example.com"")
+2. Verify that the function returns true",resetPassword should return true and the user's password should be reset successfully.
+TC-Utente-004,User Device Addition,Utente,1,"User ""user123"" is logged in","- ID: ""device123""
+- nomeCognome: ""John Doe""
+- email: ""john.doe@example.com""","1. Call addDevices(""device123"")
+2. Verify that the function returns true",addDevices should return true and the device should be added to the user successfully.
+TC-Device-001,Device Information Retrieval,Devices,1,"Device ""device123"" is associated with user ""user123""",None,"1. Call getDeviceInfo()
+2. Verify that the function returns a non-empty list of strings",getDeviceInfo should return a non-empty list of strings containing device information.
+TC-Config-001,Configuration Retrieval,Config,1,"Device ""device123"" is associated with user ""user123""",None,"1. Call getConfig()
+2. Verify that the function returns a non-empty list of strings",getConfig should return a non-empty list of strings containing configuration details.
+TC-Config-002,Light Configuration Update,Config,1,"Device ""device123"" is associated with user ""user123""",- New value: true,"1. Call setLight(true)
+2. Verify that the function returns true",setLight should return true and the light setting should be updated successfully.
+TC-History-001,History Update,History,1,"Device ""device123"" is associated with user ""user123""","- Date: ""2023-10-01""
+- Air Humidity: 60.0
+- Soil Humidity: 70.0
+- Air Temperature: 25.0
+- Luminosity: 800.0","1. Call updateHistory(""2023-10-01"", 60.0, 70.0, 25.0)
+2. Verify that the function returns true",updateHistory should return true and the history should be updated successfully.
+TC-Alert-001,Alert Message Update,Alert,1,"Device ""device123"" is associated with user ""user123""","- New message: ""Low soil humidity detected""","1. Call updateMessage(""Low soil humidity detected"")
+2. Verify that the function returns true",updateMessage should return true and the alert message should be updated successfully.
+TC-Access-001,Access Initiated - No Greenhouses Associated,Accesso eseguito,2,"User ""user123"" is logged in",None,"1. Click ""Serre""
+2",

@@ -1,0 +1,130 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOGIN-001,Successful login with valid credentials,Authentication,3,"- User account exists in the database with valid credentials (e.g., `username=""testuser""`, `password=""SecurePass123""`).
+- System is online and database connection is active.","- Username: `testuser`
+- Password: `SecurePass123`","1. User enters `testuser` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- System transitions to the **Accesso (Access)** state (Page 3).
+- No error messages are displayed.
+- User is granted access to the platform."
+TC-LOGIN-002,Failed login with incorrect password,Authentication,3,"- User account exists in the database (`username=""testuser""`, `password=""SecurePass123""`).
+- System is online.","- Username: `testuser`
+- Password: `wrongpassword`","1. User enters `testuser` in the username field.
+2. User enters `wrongpassword` in the password field.
+3. User clicks the ""Login"" button.","- System transitions to the **Messaggio di errore (Error Message)** state.
+- User is prompted to **Riprova (Retry)**.
+- User is **not** granted access."
+TC-LOGIN-003,Failed login with non-existent username,Authentication,3,"- No user account exists with the provided username.
+- System is online.","- Username: `nonexistentuser`
+- Password: `anything`","1. User enters `nonexistentuser` in the username field.
+2. User enters `anything` in the password field.
+3. User clicks the ""Login"" button.","- System transitions to the **Messaggio di errore (Error Message)** state.
+- User is prompted to **Riprova (Retry)**.
+- User is **not** granted access."
+TC-LOGIN-004,Multiple failed login attempts trigger persistent error,Authentication,3,"- User account exists (`username=""testuser""`, `password=""SecurePass123""`).
+- System is online.","- Username: `testuser`
+- Password: `wrongpassword` (3 attempts)","1. User enters `testuser` and `wrongpassword`, clicks ""Login"" (1st attempt).
+2. System shows error; user retries with same credentials (2nd attempt).
+3. System shows error; user retries with same credentials (3rd attempt).","- After each attempt, the **Messaggio di errore** state is displayed.
+- User is **not** locked out (no explicit lockout mechanism described).
+- User can retry indefinitely (as per UML, no loop limit)."
+TC-OBJECT-CREATION-001,Successful creation of a rental object,Object Management,5,"- User is logged in.
+- Database connection is active.","- Object name: `Laptop Pro`
+- Description: `High-performance laptop for rent`
+- User ID: `1` (logged-in user)
+- Type: `1` (e.g., ""Electronics"")
+- `inUse`: `false`","1. User navigates to ""Create Rental Object"" (Page 5).
+2. User fills in:
+   - Name: `Laptop Pro`
+   - Description: `High-performance laptop for rent`
+   - Selects type: `1` (Electronics)
+   - Sets `inUse` to `false`.
+3. User submits the form.
+4. System executes the **Query per inserire il dato nel database**.","- Query succeeds (**La query è stata eseguita con successo?** = ""Si"").
+- Object is inserted into the `Oggetti` table with `idU=1`.
+- No error message is displayed.
+- User sees confirmation (e.g., ""Object created successfully"")."
+TC-OBJECT-CREATION-002,Failed object creation due to database error,Object Management,5,"- User is logged in.
+- Database is **temporarily unavailable** (simulated error).","- Object name: `Laptop Pro`
+- Description: `High-performance laptop for rent`
+- User ID: `1`
+- Type: `1`","1. User navigates to ""Create Rental Object.""
+2. User fills in the form and submits.
+3. System attempts **Query per inserire il dato nel database** but fails (e.g., timeout).","- System transitions to **Messaggio di errore** state.
+- User is prompted to **Riprova (Retry)**.
+- Object is **not** created in the database."
+TC-OBJECT-CREATION-003,Object creation with invalid type,Object Management,"5, 2","- User is logged in.
+- Database contains valid types: `1` (Electronics), `2` (Furniture).","- Object name: `Laptop Pro`
+- Description: `High-performance laptop for rent`
+- User ID: `1`
+- Type: `99` (invalid)","1. User navigates to ""Create Rental Object.""
+2. User fills in the form with `type=99` and submits.
+3. System validates input before querying the database.","- System displays a **validation error** (not covered in UML, but assumed for invalid data).
+- **No database query is executed**.
+- User is prompted to correct the input."
+TC-SERVICE-CREATION-001,Successful creation of a service offer,Service Management,6,"- User is logged in.
+- Database connection is active.","- Service name: `IT Support`
+- Description: `On-site technical assistance`
+- User ID: `1`
+- Type: `1` (e.g., ""Technical"")
+- `inUse`: `false`","1. User navigates to ""Create Service Offer.""
+2. User fills in:
+   - Name: `IT Support`
+   - Description: `On-site technical assistance`
+   - Selects type: `1`
+   - Sets `inUse` to `false`.
+3. User submits the form.
+4. System executes **Query per inserire il dato nel database**.","- Query succeeds (**La query è stata eseguita con successo?** = ""Si"").
+- Service is inserted into the `Servizi` table with `idU=1`.
+- No error message is displayed.
+- User sees confirmation."
+TC-SERVICE-CREATION-002,Service creation with duplicate name,Service Management,"6, 2","- User is logged in.
+- A service with `name=""IT Support""` already exists in the `Servizi` table.","- Service name: `IT Support` (duplicate)
+- Description: `New description`
+- User ID: `1`","1. User navigates to ""Create Service Offer.""
+2. User fills in the form with `name=""IT Support""` and submits.
+3. System checks for duplicates before querying the database.","- System displays an error: **""Service name already exists.""**
+- **No database query is executed**.
+- User is prompted to choose a different name."
+TC-ANNOUNCEMENT-CREATION-001,Successful creation of an announcement linked to an object,Announcement Management,"7, 2","- User is logged in.
+- An object with `id=101` exists in the `Oggetti` table.
+- Database connection is active.","- Title: `Laptop for Rent - $50/day`
+- User ID: `1`
+- Object ID: `101`","1. User navigates to ""Create Announcement.""
+2. User fills in:
+   - Title: `Laptop for Rent - $50/day`
+   - Selects object: `101` (e.g., ""Laptop Pro"").
+3. User submits the form.
+4. System executes **Query per inserire il dato nel database**.","- Query succeeds (**La query è stata eseguita con successo?** = ""Si"").
+- Announcement is inserted into the `Annunci` table with `idU=1` and `idOggetti=101`.
+- No error message is displayed.
+- User sees confirmation."
+TC-ANNOUNCEMENT-CREATION-002,Announcement creation with non-existent object,Announcement Management,"7, 2","- User is logged in.
+- No object exists with `id=999`.","- Title: `Fake Item for Rent`
+- Object ID: `999` (invalid)","1. User navigates to ""Create Announcement.""
+2. User fills in the form with `idOggetti=999` and submits.
+3. System validates the object ID before querying the database.","- System displays an error: **""Object not found.""**
+- **No database query is executed**.
+- User is prompted to select a valid object."
+TC-ANNOUNCEMENT-DELETION-001,Successful deletion of an announcement,Announcement Management,"8, 9","- User is logged in.
+- An announcement with `id=201` exists in the `Annunci` table.
+- Database connection is active.",- Announcement ID: `201`,"1. User navigates to ""Delete Announcement.""
+2. User selects announcement `201`.
+3. User confirms deletion.
+4. System executes **Query per cancellare il dato dal database**.","- Query succeeds (**La query è stata eseguita con successo?** = ""Si"").
+- Announcement with `id=201` is deleted from the `Annunci` table.
+- User sees confirmation: ""Announcement deleted successfully."""
+TC-ANNOUNCEMENT-DELETION-002,Failed deletion due to database error,Announcement Management,"8, 9","- User is logged in.
+- Database is **temporarily unavailable** (simulated error).",- Announcement ID: `201`,"1. User navigates to ""Delete Announcement.""
+2. User selects announcement `201` and confirms.
+3. System attempts **Query per cancellare il dato dal database** but fails.","- System transitions to **Messaggio di errore** state.
+- User is prompted to **Riprova (Retry)**.
+- Announcement remains in the database."
+TC-OBJECT-SERVICE-DELETION-001,Successful deletion of an object,Object/Service Management,9,"- User is logged in.
+- An object with `id=101` exists in the `Oggetti` table and is **not in use** (`inUse=false`).
+- Database connection is active.",- Object ID: `101`,"1. User navigates to ""Delete Object/Service.""
+2. User selects **object** and enters `id=101`.
+3. User confirms deletion.
+4. System executes **Query per cancellare il dato dal database**.","- Query succeeds (**La query è stata eseguita con successo?** = ""Si"").
+- Object with `id=101` is deleted from the `Oggetti` table.
+- User sees confirmation: ""Object deleted successfully."""
+TC-OBJECT-SERVICE-DELETION-002,Deletion of,,,,,,

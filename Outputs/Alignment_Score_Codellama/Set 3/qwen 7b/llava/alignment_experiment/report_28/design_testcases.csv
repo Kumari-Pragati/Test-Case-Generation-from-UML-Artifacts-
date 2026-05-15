@@ -1,0 +1,166 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Login,"2,3,4",User has a valid username and password.,"- Username: valid_user
+- Password: valid_password","1. User enters valid username and password.
+2. User clicks login button.
+3. API Manager receives login request.
+4. API Manager verifies credentials.
+5. API Manager sends response back to User.",User receives a successful login response.
+TC-Login-002,Invalid Username,Login,"2,3,4",User has an invalid username but a valid password.,"- Username: invalid_user
+- Password: valid_password","1. User enters invalid username and valid password.
+2. User clicks login button.
+3. API Manager receives login request.
+4. API Manager verifies credentials.
+5. API Manager sends response back to User.",User receives an unsuccessful login response.
+TC-Login-003,Invalid Password,Login,"2,3,4",User has a valid username but an invalid password.,"- Username: valid_user
+- Password: invalid_password","1. User enters valid username and invalid password.
+2. User clicks login button.
+3. API Manager receives login request.
+4. API Manager verifies credentials.
+5. API Manager sends response back to User.",User receives an unsuccessful login response.
+TC-Login-004,Empty Username,Login,"2,3,4",User leaves the username field empty.,"- Username: 
+- Password: valid_password","1. User leaves the username field empty.
+2. User enters valid password.
+3. User clicks login button.
+4. API Manager receives login request.
+5. API Manager verifies credentials.
+6. API Manager sends response back to User.",User receives an unsuccessful login response due to empty username.
+TC-Login-005,Empty Password,Login,"2,3,4",User leaves the password field empty.,"- Username: valid_user
+- Password:","1. User enters valid username.
+2. User leaves the password field empty.
+3. User clicks login button.
+4. API Manager receives login request.
+5. API Manager verifies credentials.
+6. API Manager sends response back to User.",User receives an unsuccessful login response due to empty password.
+TC-APIManager-001,Create API,API Management,4,User is logged in.,"- API Name: api1
+- Version: v1","1. User clicks create API button.
+2. User enters API name and version.
+3. User clicks submit button.
+4. API Manager receives create API request.
+5. API Manager creates the API.
+6. API Manager sends response back to User.",User receives a successful API creation response.
+TC-APIManager-002,Delete API,API Management,4,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User clicks delete API button.
+2. User enters API name and version.
+3. User clicks submit button.
+4. API Manager receives delete API request.
+5. API Manager deletes the API.
+6. API Manager sends response back to User.",User receives a successful API deletion response.
+TC-Service-001,Handle Request,Service,4,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service processes the request.
+4. Service sends response back to User.",User receives a successful request handling response.
+TC-Report-001,Generate Report,Reporting,4,User is logged in and an API exists.,- Report Name: report1,"1. User clicks generate report button.
+2. User enters report name.
+3. User clicks submit button.
+4. API Manager receives generate report request.
+5. API Manager generates the report.
+6. API Manager sends response back to User.",User receives a successful report generation response.
+TC-DataManagement-001,Data Interaction,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager processes the data.
+4. DataManager sends response back to User.",User receives a successful data interaction response.
+TC-DataManagement-002,Data Interaction Failure,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager fails to process the data.
+4. DataManager sends failure response back to User.",User receives a failure response from the DataManager.
+TC-Service-002,Service Request Handling Failure,Service,4,User is logged in and an API exists.,"- API Name: non_existent_api
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service attempts to process the request.
+4. Service encounters an error.
+5. Service sends error response back to User.",User receives an error response from the Service.
+TC-Report-002,Report Generation Failure,Reporting,4,User is logged in and an API exists.,- Report Name: non_existent_report,"1. User clicks generate report button.
+2. User enters non-existent report name.
+3. User clicks submit button.
+4. API Manager receives generate report request.
+5. API Manager attempts to generate the report.
+6. API Manager encounters an error.
+7. API Manager sends error response back to User.",User receives an error response from the API Manager.
+TC-Service-003,Service Loop,Service,5,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service processes the request.
+4. Service sends response back to User.
+5. User sends another request to the Service.
+6. Service receives the request.
+7. Service processes the request.
+8. Service sends response back to User.",User receives a successful request handling response for both requests.
+TC-DataManagement-003,Data Interaction Loop,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager processes the data.
+4. DataManager sends response back to User.
+5. User sends another data interaction request to the DataManager.
+6. DataManager receives the request.
+7. DataManager processes the data.
+8. DataManager sends response back to User.",User receives a successful data interaction response for both requests.
+TC-Service-004,Service Request Handling Edge Case,Service,4,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service processes the request.
+4. Service sends response back to User.
+5. User sends a request with invalid data to the Service.
+6. Service receives the request.
+7. Service attempts to process the request.
+8. Service encounters an error.
+9. Service sends error response back to User.",User receives an error response from the Service.
+TC-DataManagement-004,Data Interaction Edge Case,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager processes the data.
+4. DataManager sends response back to User.
+5. User sends a request with invalid data to the DataManager.
+6. DataManager receives the request.
+7. DataManager attempts to process the data.
+8. DataManager encounters an error.
+9. DataManager sends error response back to User.",User receives an error response from the DataManager.
+TC-Service-005,Service Request Handling Negative Case,Service,4,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service processes the request.
+4. Service sends response back to User.
+5. User sends a request with missing required fields to the Service.
+6. Service receives the request.
+7. Service attempts to process the request.
+8. Service encounters an error.
+9. Service sends error response back to User.",User receives an error response from the Service.
+TC-DataManagement-005,Data Interaction Negative Case,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager processes the data.
+4. DataManager sends response back to User.
+5. User sends a request with missing required fields to the DataManager.
+6. DataManager receives the request.
+7. DataManager attempts to process the data.
+8. DataManager encounters an error.
+9. DataManager sends error response back to User.",User receives an error response from the DataManager.
+TC-Service-006,Service Request Handling Timeout,Service,4,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service processes the request.
+4. Service sends response back to User.
+5. Service takes more than the expected time to process the request.
+6. Service sends a timeout response back to User.",User receives a timeout response from the Service.
+TC-DataManagement-006,Data Interaction Timeout,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager processes the data.
+4. DataManager sends response back to User.
+5. DataManager takes more than the expected time to process the data.
+6. DataManager sends a timeout response back to User.",User receives a timeout response from the DataManager.
+TC-Service-007,Service Request Handling Rate Limiting,Service,4,User is logged in and an API exists.,"- API Name: api1
+- Version: v1","1. User sends a request to the Service.
+2. Service receives the request.
+3. Service processes the request.
+4. Service sends response back to User.
+5. User sends multiple requests to the Service within a short period.
+6. Service receives the requests.
+7. Service implements rate limiting.
+8. Service sends a rate limit exceeded response back to User.",User receives a rate limit exceeded response from the Service.
+TC-DataManagement-007,Data Interaction Rate Limiting,Data Management,5,User is logged in.,"- Data Attribute: attribute1
+- Data Value: value1","1. User sends a data interaction request to the DataManager.
+2. DataManager receives the request.
+3. DataManager",

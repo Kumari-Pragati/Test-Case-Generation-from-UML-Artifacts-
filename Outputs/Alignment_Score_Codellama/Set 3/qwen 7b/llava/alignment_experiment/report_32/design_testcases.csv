@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User logs in successfully,User,"6,7,8",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters ""testuser"" as the username.
+2. User enters ""testpassword"" as the password.
+3. User clicks on the login button.
+4. Server handles the login request.
+5. Server verifies the credentials.
+6. Server returns a success message to the user.",User is logged in successfully and sees a success message.
+TC-User-002,User logs in with invalid credentials,User,"6,7,8",User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters ""wronguser"" as the username.
+2. User enters ""wrongpassword"" as the password.
+3. User clicks on the login button.
+4. Server handles the login request.
+5. Server verifies the credentials.
+6. Server returns an error message to the user.",User sees an error message indicating incorrect credentials.
+TC-User-003,User logs out successfully,User,"6,7,8",User is logged in.,- No specific data required.,"1. User clicks on the logout button.
+2. Server handles the logout request.
+3. Server returns a success message to the user.",User is logged out successfully and sees a success message.
+TC-User-004,User attempts to log in without entering a username,User,"6,7,8",User has a valid password.,"- Username: (empty)
+- Password: testpassword","1. User leaves the username field empty.
+2. User enters ""testpassword"" as the password.
+3. User clicks on the login button.
+4. Server handles the login request.
+5. Server returns an error message to the user.",User sees an error message indicating that the username cannot be empty.
+TC-User-005,User attempts to log in without entering a password,User,"6,7,8",User has a valid username.,"- Username: testuser
+- Password: (empty)","1. User enters ""testuser"" as the username.
+2. User leaves the password field empty.
+3. User clicks on the login button.
+4. Server handles the login request.
+5. Server returns an error message to the user.",User sees an error message indicating that the password cannot be empty.
+TC-User-006,User views the menu,User,"1,6,7",User is logged in.,- No specific data required.,"1. User clicks on the menu option.
+2. Server sends the menu details to the user.",User sees the menu details.
+TC-User-007,User places an order,User,"1,6,7",User is logged in and the menu is available.,"- Item: Pizza
+- Quantity: 2","1. User selects ""Pizza"" from the menu.
+2. User enters ""2"" as the quantity.
+3. User clicks on the order button.
+4. Server processes the order.
+5. Server sends an order confirmation to the user.",User sees an order confirmation message.
+TC-User-008,User places an order with invalid item,User,"1,6,7",User is logged in and the menu is available.,"- Item: NonExistentItem
+- Quantity: 2","1. User selects ""NonExistentItem"" from the menu.
+2. User enters ""2"" as the quantity.
+3. User clicks on the order button.
+4. Server processes the order.
+5. Server returns an error message to the user.",User sees an error message indicating that the item does not exist.
+TC-User-009,User places an order with invalid quantity,User,"1,6,7",User is logged in and the menu is available.,"- Item: Pizza
+- Quantity: -1","1. User selects ""Pizza"" from the menu.
+2. User enters ""-1"" as the quantity.
+3. User clicks on the order button.
+4. Server processes the order.
+5. Server returns an error message to the user.",User sees an error message indicating that the quantity must be a positive number.
+TC-User-010,User places an order with zero quantity,User,"1,6,7",User is logged in and the menu is available.,"- Item: Pizza
+- Quantity: 0","1. User selects ""Pizza"" from the menu.
+2. User enters ""0"" as the quantity.
+3. User clicks on the order button.
+4. Server processes the order.
+5. Server returns an error message to the user.",User sees an error message indicating that the quantity must be greater than zero.
+TC-Restaurant-001,Restaurant views the menu,Restaurant,"1,6,7",Restaurant is logged in.,- No specific data required.,"1. Restaurant clicks on the menu option.
+2. Server sends the menu details to the restaurant.",Restaurant sees the menu details.
+TC-Restaurant-002,Restaurant processes payment,Restaurant,"1,6,7",Restaurant is logged in and an order is placed.,"- Payment Method: Credit Card
+- Card Number: 1234567890123456
+- Expiry Date: 12/23
+- CVV: 123","1. Restaurant clicks on the payment option.
+2. Server processes the payment.
+3. Server sends a payment confirmation to the restaurant.",Restaurant sees a payment confirmation message.
+TC-Restaurant-003,Restaurant processes payment with invalid card number,Restaurant,"1,6,7",Restaurant is logged in and an order is placed.,"- Payment Method: Credit Card
+- Card Number: 1234567890123457
+- Expiry Date: 12/23
+- CVV: 123","1. Restaurant clicks on the payment option.
+2. Server processes the payment.
+3. Server returns an error message to the restaurant.",Restaurant sees an error message indicating that the card number is invalid.
+TC-Restaurant-004,Restaurant processes payment with expired card,Restaurant,"1,6,7",Restaurant is logged in and an order is placed.,"- Payment Method: Credit Card
+- Card Number: 1234567890123456
+- Expiry Date: 01/22
+- CVV: 123","1. Restaurant clicks on the payment option.
+2. Server processes the payment.
+3. Server returns an error message to the restaurant.",Restaurant sees an error message indicating that the card has expired.
+TC-Restaurant-005,Restaurant processes payment with invalid CVV,Restaurant,"1,6,7",Restaurant is logged in and an order is placed.,"- Payment Method: Credit Card
+- Card Number: 1234567890123456
+- Expiry Date: 12/23
+- CVV: 1234","1. Restaurant clicks on the payment option.
+2. Server processes the payment.
+3. Server returns an error message to the restaurant.",Restaurant sees an error message indicating that the CVV is invalid.
+TC-Verification-001,Verification process succeeds,Verification,3,Information is correct.,- Information: Correct,"1. Verifier checks the information.
+2. Verifier grants access.
+3. Access is granted to the user.
+4. Reward is offered to the user.
+5. User accesses the marketplace.",User is granted access to the marketplace.
+TC-Verification-002,Verification process fails,Verification,3,Information is incorrect.,- Information: Incorrect,"1. Verifier checks the information.
+2. Verifier denies access.
+3. User is denied access.",User is denied access.
+TC-SearchInstrument-001,Search instrument performs a successful search,Search Instrument,4,Search instrument is initialized.,"- Search Query: ""Laptop""","1. Search instrument is initialized.
+2. Search instrument executes the search.
+3. Search instrument receives the search results.
+4. Search instrument prints the search results.",Search instrument prints the search results.
+TC-SearchInstrument-002,Search instrument performs an unsuccessful search,Search Instrument,4,Search instrument is initialized.,"- Search Query: ""NonExistentItem""","1. Search instrument is initialized.
+2. Search instrument executes the search.
+3. Search instrument returns an error message.",Search instrument returns an error message.
+TC-Database-001,Database handles a successful login request,Database,6,User has valid credentials.,"- Username: testuser
+- Password: testpassword","1. User sends a login request to the server.
+2. Server forwards the request to the database.
+3. Database verifies the credentials.
+4. Database returns a success message to the server.
+5. Server returns a success message to the user.",User is logged in successfully.
+TC-Database-002,Database handles an unsuccessful login request,Database,6,User has invalid credentials.,"- Username: wronguser
+- Password: wrongpassword","1. User sends a login request to the server.
+2. Server forwards the request to the database.
+3. Database verifies the credentials.
+4. Database returns an error message to the server.
+5. Server returns an error message to the user.",User sees an error message indicating incorrect credentials.
+TC-Database-003,Database handles a successful query request,Database,6,User has a valid query.,"- Query: ""SELECT * FROM orders""","1. User sends a query request to the server.
+2. Server forwards the request to the database.
+3. Database processes the query.
+4. Database returns the query results to the server.
+5. Server returns the query results to the user.",User receives the query results.
+TC-Database-004,Database handles an unsuccessful query request,Database,6,User has an invalid query.,"- Query: ""SELECT * FROM non_existent_table""","1. User sends a query request to the server.
+2. Server forwards the request to the database.
+3. Database processes the query.
+4. Database returns an error message to the server.
+5. Server returns an error message to the user.",User sees an error message indicating that the table does not exist.
+TC-Database-005,Database handles a successful insert request,Database,6,User has valid data to insert.,"- Data: ""INSERT INTO orders (item, quantity) VALUES ('Pizza', 2)""","1. User sends an insert request to the server.
+2. Server forwards the request to the database.
+3. Database processes the insert request.
+4. Database returns a success message to the server.
+5. Server returns a success message to the user.",User sees a success message indicating that the data was inserted.

@@ -1,0 +1,49 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UTENTE-001,Test user creation,Utente,1,None,"- Valid email: user@example.com
+  - Valid password: password123
+  - False password confirmation: password124","1. Call Utente.creaUtente(""John"", ""Doe"", true)
+  2. Check that the user is created
+  3. Call Utente.checkPassword(""password123"", ""password123"", true)
+  4. Call Utente.checkPassword(""password123"", ""password124"", false)","- The user is created
+  - The password check returns true for the correct password
+  - The password check returns false for an incorrect password"
+TC-UTENTE-002,Test user password reset,Utente,1,User exists,- Valid email: user@example.com,"1. Call Utente.resetPassword(""user@example.com"", true)
+  2. Check that the user's password is reset",- The user's password is reset
+TC-UTENTE-003,Test user information retrieval,Utente,1,User exists,None,"1. Call Utente.getUtenteInfo()
+  2. Check that the user's information is returned",- The user's information is returned
+TC-DEVICE-001,Test device configuration,Devices,1,Device exists,"- Valid device configuration:
+    - id: device1
+    - titolo: My Device
+    - isConnected: true
+    - Config:
+      - light: true
+      - water: false
+      - max_temp: 30.0
+      - min_temp: 10.0
+      - max_soil_hum: 50.0
+      - min_soil_hum: 20.0
+      - max_air_hum: 60.0
+      - min_air_hum: 30.0
+      - max_lum: 1000.0
+      - min_lum: 0.0
+      - max_jum: 100.0
+      - min_jum: 0.0","1. Call Devices.getDeviceInfo()
+  2. Check that the device's information is returned
+  3. Call Devices.configura(Config)
+  4. Check that the device's configuration is updated","- The device's information is returned
+  - The device's configuration is updated"
+TC-DEVICE-002,Test device event signaling,Devices,1,Device exists,"- Valid alert message: ""Device error""","1. Call Devices.segnala(Alert)
+  2. Check that the alert is recorded in History",- The alert is recorded in History
+TC-ALERT-001,Test alert message retrieval,Alert,1,Alert exists,None,"1. Call Alert.getMessage()
+  2. Check that the alert message is returned",- The alert message is returned
+TC-HISTORY-001,Test history record retrieval,History,1,History exists,None,"1. Call History.getHistory()
+  2. Check that the history records are returned",- The history records are returned
+TC-ACCESSO-001,Test user access to serre,Accesso,2,User exists and at least one serre is associated,None,"1. Execute the access flow
+  2. Check that the user is shown the list of serre",- The user is shown the list of serre
+TC-ACCESSO-002,Test user access to default message,Accesso,2,User exists but no serre is associated,None,"1. Execute the access flow
+  2. Check that the default message is displayed",- The default message is displayed
+TC-DEVICE-003,Test adding a device,Device,3,User is logged in,"- Incorrect device title: ""My Device""
+  - Correct device title: ""My Device 1""","1. Execute the add device flow
+  2. Check that the device is added if the title is correct
+  3. Check that the device is not added if the title is incorrect","- The device is added if the title is correct
+  - The device is not added if the title is incorrect"

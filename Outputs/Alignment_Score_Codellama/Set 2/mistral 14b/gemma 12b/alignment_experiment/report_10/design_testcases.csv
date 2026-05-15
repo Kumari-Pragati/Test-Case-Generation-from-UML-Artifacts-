@@ -1,0 +1,105 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login,Authentication,2,"- App is launched.
+- No existing user account for test credentials.","- Username: `testuser123`
+- Email: `testuser@example.com`
+- Password: `SecurePass123!`","1. Launch the app.
+2. Attempt to log in with the provided credentials.
+3. System detects no registered account and redirects to registration.
+4. Enter username, email, and password in the registration form.
+5. Submit the form.
+6. System validates inputs and confirms successful registration.
+7. Attempt to log in again with the same credentials.","- User is successfully registered and logged in.
+- Homepage is displayed after login."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,2,"- App is launched.
+- User account exists (`username: validuser`, `password: ValidPass123!`).","- Invalid username: `wronguser`
+- Valid username but wrong password: `validuser` / `WrongPass123!`","1. Launch the app.
+2. Attempt to log in with `wronguser` and any password.
+3. Attempt to log in with `validuser` and `WrongPass123!`.","- Both attempts fail; system shows error message (e.g., ""Invalid credentials"").
+- User is not redirected to the homepage."
+TC-AUTHENTICATION-003,Registration with invalid email format,Authentication,2,"- App is launched.
+- No existing user account.","- Username: `testuser456`
+- Invalid email: `invalid.email` (missing `@` or domain)
+- Password: `ValidPass456!`","1. Launch the app.
+2. Attempt to register with the invalid email.
+3. Submit the form.","- System rejects registration due to invalid email format.
+- Error message appears (e.g., ""Please enter a valid email address"").
+- User remains in registration flow."
+TC-EVENT-CREATION-001,Successful event creation with valid inputs,Event Management,3,"- User is logged in.
+- User is on a city view screen (e.g., ""Rome"").","- Event title: `Tech Conference 2023`
+- Date: `2023-12-15`
+- Type: `Conference`
+- Creator: `testuser123` (auto-filled from user session)
+- City: `Rome`
+- Description: `Annual tech conference with keynote speakers.`","1. Scroll to the bottom of the city view and press `+` to add an event.
+2. Fill all fields with the provided data.
+3. Submit the form.","- Event is created successfully.
+- System displays confirmation (e.g., ""Event created!"").
+- Event appears in the city’s event list."
+TC-EVENT-CREATION-002,Event creation with missing required field,Event Management,3,- User is logged in and on a city view screen.,"- Event title: (left blank)
+- Date: `2023-12-15`
+- Type: `Conference`
+- City: `Rome`
+- Description: `Annual tech conference.`","1. Scroll to the bottom and press `+` to add an event.
+2. Leave the **title** field blank and fill the rest.
+3. Submit the form.","- System rejects submission due to missing title.
+- Error message appears (e.g., ""Title is required"").
+- User is prompted to re-enter the title."
+TC-EVENT-CREATION-003,Event creation with invalid date format,Event Management,3,- User is logged in and on a city view screen.,"- Event title: `Invalid Date Event`
+- Date: `31-02-2023` (non-existent date)
+- Type: `Workshop`
+- City: `Milan`
+- Description: `Test event with invalid date.`","1. Scroll to the bottom and press `+` to add an event.
+2. Enter the invalid date and fill other fields.
+3. Submit the form.","- System rejects submission due to invalid date.
+- Error message appears (e.g., ""Please enter a valid date"").
+- User is prompted to correct the date."
+TC-EVENT-MODIFICATION-001,Successful event modification,Event Management,4,"- User is logged in and on a city view screen.
+- An existing event is listed (e.g., `Old Event`).","- Original event title: `Old Event`
+- Modified title: `Updated Event Name`
+- Modified description: `This event has been updated.`","1. Scroll to the event list and press the **pencil icon** to modify the event.
+2. Update the title and description.
+3. Submit the form.","- Event is updated successfully.
+- System displays confirmation (e.g., ""Event updated!"").
+- Event list reflects the changes."
+TC-EVENT-MODIFICATION-002,Event modification with invalid city selection,Event Management,4,"- User is logged in and on the `Rome` city view.
+- An existing event is listed (created in `Milan`).","- Original city: `Milan`
+- Attempted city change: `Paris` (user is not on `Paris` view).","1. Scroll to the event list and press the **pencil icon** to modify the event.
+2. Attempt to change the city to `Paris` (not currently selected).
+3. Submit the form.","- System rejects the change or restricts city selection to the current view (`Rome`).
+- Error message appears (e.g., ""City must match the current view"").
+- Event remains unchanged."
+TC-EVENT-DELETION-001,Successful event deletion,Event Management,4,"- User is logged in and on a city view screen.
+- An existing event is listed (e.g., `Test Event`).",,"1. Scroll to the event list and press `>` to delete the event.
+2. Confirm deletion in the prompt.","- Event is deleted successfully.
+- System displays confirmation (e.g., ""Event removed!"").
+- Event no longer appears in the city’s event list."
+TC-EVENT-DELETION-002,Attempt to delete non-existent event,Event Management,4,"- User is logged in and on a city view screen.
+- No events are listed.",,"1. Scroll to the bottom of the event list (empty).
+2. Attempt to press `>` to delete an event.","- System prevents deletion (e.g., no `>` button appears or shows ""No events to delete"").
+- No error occurs; user remains on the city view."
+TC-CITY-NAVIGATION-001,Navigation to city view without login,City Navigation,4,"- App is launched.
+- User is not logged in.",,"1. Attempt to navigate directly to a city view (e.g., via URL or search).","- System redirects to login/registration screen.
+- User cannot access city view without authentication."
+TC-CITY-NAVIGATION-002,Search for non-existent city,City Navigation,4,- User is logged in.,- Search query: `ZzzCity999` (non-existent).,"1. Perform a city search with `ZzzCity999`.
+2. Submit the search.","- System returns no results or displays ""No cities found.""
+- User remains on the search screen with an option to retry."
+TC-POI-VALIDATION-001,POI association with city (implicit validation),City Management,1,- System is running (no UI interaction needed; logical validation).,"- POI: `Colosseum`
+- City: `Rome`
+- Province: `RM`","1. (Logical) Assume a POI is created with `city = ""Rome""` and `provincia = ""RM""`.
+2. Verify the POI is stored with the correct city association.","- POI is correctly linked to `Rome` in the database.
+- No validation errors occur during creation."
+TC-POI-VALIDATION-002,POI with missing city,City Management,1,- System is running.,"- POI: `Unknown Location`
+- City: (left blank)
+- Province: `XX`",1. (Logical) Attempt to create a POI without specifying a city.,"- System rejects the POI creation due to missing city.
+- Error logged (e.g., ""City is required for POI"")."
+TC-USER-ATTRIBUTES-001,User email update,User Profile,1,"- User is logged in (`username: testuser123`, `email: old@example.com`).",- New email: `newemail@example.com`,"1. Navigate to user profile settings.
+2. Update email to `newemail@example.com`.
+3. Submit changes.","- Email is updated successfully.
+- System sends confirmation (e.g., ""Email updated!"").
+- `getMail()` returns `newemail@example.com`."
+TC-USER-ATTRIBUTES-002,User password update with weak password,User Profile,1,- User is logged in.,"- Current password: `OldPass123!`
+- New password: `weak` (does not meet complexity rules).","1. Navigate to user profile settings.
+2. Enter current password and new weak password.
+3. Submit changes.","- System rejects the update due to weak password.
+- Error message appears (e.g., ""Password must be at least 8 characters with special characters"").
+- Password remains unchanged."

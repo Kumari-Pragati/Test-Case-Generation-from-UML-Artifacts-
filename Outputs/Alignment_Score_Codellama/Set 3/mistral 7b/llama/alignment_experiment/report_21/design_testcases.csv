@@ -1,0 +1,43 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Test user creation and retrieval,User,1,Database is initialized,"- Valid username: testuser1
+- Valid password: testpassword1
+- Valid email: testuser1@example.com
+- Invalid username: testuser
+- Invalid password: test
+- Invalid email: testuser1@example","1. Create a new user with valid data
+2. Retrieve the user from the database
+3. Create a new user with invalid data (invalid username)
+4. Retrieve the user from the database
+5. Create a new user with invalid data (invalid password)
+6. Retrieve the user from the database
+7. Create a new user with invalid data (invalid email)
+8. Retrieve the user from the database","- User with valid data is created and retrieved successfully
+- User with invalid username is not created and not retrieved
+- User with invalid password is not created and not retrieved
+- User with invalid email is not created and not retrieved"
+TC-User-002,Test user modification,User,1,Database contains a user with valid data,"- Valid username: testuser1
+- Valid password: testpassword1
+- Valid email: testuser1@example.com
+- New valid username: testuser2
+- New valid password: testpassword2
+- New valid email: testuser2@example.com","1. Retrieve the user from the database
+2. Modify the user's data with valid new data
+3. Retrieve the modified user from the database",- The user's data is modified successfully
+TC-Database-001,Test user retrieval from database,Database,1,Database contains users,"- Valid username: testuser1
+- Valid password: testpassword1
+- Valid email: testuser1@example.com",1. Retrieve a user from the database with valid data,- The user is retrieved successfully
+TC-SignalManagementSystem-001,Test signalization retrieval,Signal Management System,2,Database contains signalizations,- Valid query: select * from Segnalazioni,1. Send a query to retrieve all signalizations from the database,- All signalizations are retrieved successfully
+TC-SignalManagementSystem-002,Test signalization retrieval with invalid query,Signal Management System,2,Database contains signalizations,- Invalid query: select * from InvalidTable,1. Send a query to retrieve signalizations from an invalid table,- An error is thrown
+TC-API-001,Test API Trenitalia interaction,API Trenitalia,4,Database contains train information,- Valid train code: IT123,1. Request train information from API Trenitalia with a valid train code,- The train information is returned successfully
+TC-API-002,Test API Trenitalia interaction with invalid train code,API Trenitalia,4,Database contains train information,- Invalid train code: IT12,1. Request train information from API Trenitalia with an invalid train code,- An error is thrown
+TC-CalendarManagementSystem-001,Test calendar setting,Calendar Management System,5,Database is initialized,"- Valid calendar: [date1, date2, date3]",1. Set a new calendar in the database,- The new calendar is set successfully
+TC-CalendarManagementSystem-002,Test calendar retrieval,Calendar Management System,6,Database contains a calendar,- None,1. Retrieve the calendar from the database,- The calendar is retrieved successfully
+TC-TrainManagementSystem-001,Test train retrieval,Train Management System,7,Database contains trains,- Valid query: select * from Treno,1. Send a query to retrieve all trains from the database,- All trains are retrieved successfully
+TC-TrainManagementSystem-002,Test train retrieval with invalid query,Train Management System,7,Database contains trains,- Invalid query: select * from InvalidTable,1. Send a query to retrieve trains from an invalid table,- An error is thrown
+TC-TrainManagementSystem-003,Test preferred train setting,Train Management System,7,Database contains trains,"- Valid train ID: 1
+- Valid train information: [name, departure, arrival]",1. Set a preferred train in the database,- The preferred train is set successfully
+TC-TrainManagementSystem-004,Test preferred train deletion,Train Management System,8,Database contains a preferred train,- Valid train ID: 1,1. Delete the preferred train from the database,- The preferred train is deleted successfully
+TC-NotificationSystem-001,Test train variation notifications,Notification System,9,Database contains train variations,"- Valid train variations: [variation1, variation2]",1. Show notifications for train variations,- Notifications are shown successfully for the train variations
+TC-NotificationSystem-002,Test train variation notifications with no variations,Notification System,9,Database contains no train variations,- None,1. Show notifications for train variations,- No notifications are shown
+TC-NotificationSystem-003,Test train variation notifications with empty variations,Notification System,9,Database contains train variations,- Empty train variations: [],1. Show notifications for train variations,- No notifications are shown
+TC-NotificationSystem-004,Test train variation notifications with invalid variations,Notification System,9,Database contains train variations,"- Invalid train variations: [invalid1, invalid2]",1. Show notifications for train variations,- An error is thrown

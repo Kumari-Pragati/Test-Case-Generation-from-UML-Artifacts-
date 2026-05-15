@@ -1,0 +1,136 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful User Registration with Valid Data,User Registration,"2, 6","- User is on the registration page.
+- Network connection is stable.","- Name: ""John Doe""
+- Cognome: ""Smith""
+- Email: ""john.smith@example.com""
+- Password: ""SecurePass123!""
+- Photo: Valid URI (e.g., ""https://example.com/photo.jpg"")
+- Neighborhood: ""NYC123"" (valid Google code)","1. Enter all test data into the registration form.
+2. Submit the form.
+3. System redirects to authentication step.
+4. Verify email confirmation (if applicable).
+5. Authenticate with the provided credentials.
+6. Verify localization procedure runs (e.g., GPS/geocode validation).","- User account is created successfully.
+- User is authenticated and localized to the correct neighborhood.
+- Home screen loads with profile, notifications, and dashboard sections."
+TC-USER-REGISTRATION-002,User Registration with Invalid Email Format,User Registration,"2, 6",- User is on the registration page.,"- Name: ""Jane Doe""
+- Cognome: ""Johnson""
+- Email: ""invalid.email"" (missing @ and domain)
+- Password: ""Pass123""
+- Photo: Valid URI
+- Neighborhood: ""LA456""","1. Enter all test data into the registration form.
+2. Submit the form.","- System displays error: ""Invalid email format.""
+- User remains on the registration page.
+- No account is created."
+TC-USER-REGISTRATION-003,User Registration with Duplicate Email,User Registration,"2, 6","- A user with email ""duplicate@example.com"" already exists.","- Name: ""Duplicate User""
+- Cognome: ""Tester""
+- Email: ""duplicate@example.com""
+- Password: ""Pass123""
+- Photo: Valid URI
+- Neighborhood: ""SF789""","1. Enter test data into the registration form.
+2. Submit the form.","- System displays error: ""Email already registered.""
+- User remains on the registration page.
+- No duplicate account is created."
+TC-AUTHENTICATION-004,Successful User Authentication,Authentication,2,- User is registered and verified.,"- Email: ""john.smith@example.com""
+- Password: ""SecurePass123!""","1. Enter credentials on the login page.
+2. Submit the form.
+3. System verifies credentials.","- User is authenticated successfully.
+- System proceeds to localization verification.
+- Home screen loads with profile, notifications, and dashboard."
+TC-AUTHENTICATION-005,Failed Authentication with Incorrect Password,Authentication,2,- User is registered.,"- Email: ""john.smith@example.com""
+- Password: ""WrongPass123""","1. Enter credentials on the login page.
+2. Submit the form.","- System displays error: ""Invalid email or password.""
+- User remains on the login page.
+- No authentication occurs."
+TC-LOCALIZATION-006,Successful Neighborhood Localization,Localization Verification,2,"- User is authenticated.
+- Device GPS/geolocation is enabled.","- User’s current location: ""NYC123"" (matches registered neighborhood).","1. User authenticates.
+2. System triggers localization verification.
+3. GPS/geocode confirms ""NYC123"".","- User is localized to ""NYC123"" neighborhood.
+- Home screen loads with neighborhood-specific content.
+- No errors are displayed."
+TC-LOCALIZATION-007,Localization Failure Due to Invalid Geocode,Localization Verification,2,"- User is authenticated.
+- Device GPS is disabled or returns invalid geocode.","- Simulated geocode: ""INVALID123"" (non-existent).","1. User authenticates.
+2. System triggers localization verification.
+3. Geocode returns ""INVALID123"".","- System displays error: ""Unable to verify your location. Please enable GPS or check your connection.""
+- User is prompted to manually select a neighborhood.
+- Home screen loads with a generic neighborhood or error state."
+TC-PROFILE-008,Access User Profile from Home Screen,Profile Navigation,3,- User is authenticated and on the Home screen.,,"1. User clicks the ""Profile"" icon in the navigation menu.
+2. System navigates to the Profile section.","- Profile screen loads with:
+  - User’s name, cognome, photo, and email.
+  - Linked ChatList (empty or with contacts).
+  - Neighborhood association (""NYC123"").
+- No errors occur."
+TC-PROFILE-009,Access Chat Section from Profile,Chat Navigation,3,"- User is on the Profile screen.
+- User has at least one chat in ChatList.",,"1. User clicks the ""Chat"" section in the Profile screen.
+2. System navigates to the ChatSection.","- ChatSection loads with:
+  - List of chatted users (e.g., [""Alice"", ""Bob""]).
+  - Option to start a new chat.
+- No errors occur."
+TC-POST-CREATION-010,Create a New Post as a User,Post Management,"1, 4",- User is authenticated and on the GeneralDashboard.,"- Post type: ""Announcement""
+- Content: ""Neighborhood meeting tomorrow at 5 PM.""
+- Neighborhood: ""NYC123"" (auto-assigned).","1. User clicks the ""Create Post"" button on GeneralDashboard.
+2. User selects post type (""Announcement"") and enters content.
+3. User submits the post.","- Post is created with:
+  - `author`: Current user.
+  - `postType`: ""Announcement"".
+  - `creationDate`: Current timestamp.
+  - `neighborhood`: ""NYC123"".
+- Post appears in the user’s profile and neighborhood feed.
+- `lastUpdateDate` is set to `creationDate`."
+TC-POST-CREATION-011,Create a Post with Empty Content,Post Management,"1, 4",- User is authenticated.,"- Post type: ""Announcement""
+- Content: """" (empty).","1. User clicks ""Create Post.""
+2. User selects post type but leaves content empty.
+3. User submits the post.","- System displays error: ""Post content cannot be empty.""
+- Post is not created.
+- User remains on the post creation screen."
+TC-COMMENT-012,Add a Comment to a Post,Comment Management,"1, 4","- A post exists with ID `123`.
+- User is authenticated.","- Comment content: ""Great announcement!""","1. User navigates to the post (ID `123`) in FullScreenPost.
+2. User clicks ""LeaveComment.""
+3. User enters comment content and submits.
+4. System shows ""Attendi salvataggio"" (saving) state.","- Comment is created with:
+  - `id`: Auto-generated (e.g., `456`).
+  - `content`: ""Great announcement!"".
+  - `author`: Current user.
+  - `creationDate`: Current timestamp.
+  - `postReference`: Post with ID `123`.
+- Comment appears under the post.
+- ""Attendi salvataggio"" state disappears after saving."
+TC-COMMENT-013,Add a Comment with Special Characters,Comment Management,"1, 4","- A post exists.
+- User is authenticated.","- Comment content: ""Hello! 😊 This is a test: 123 #tag @user.""","1. User navigates to the post.
+2. User enters comment with special characters and submits.","- Comment is saved successfully.
+- Special characters (emojis, symbols, hashtags) are preserved.
+- No error or truncation occurs."
+TC-COMMENT-014,Add a Comment as a Business User,Comment Management,"1, 4","- A post exists.
+- Business user is authenticated with:
+  - `brandName`: ""Acme Corp""
+  - `companyName`: ""Acme Inc.""","- Comment content: ""Thanks for your support! Visit us at Acme Corp.""","1. Business user navigates to the post.
+2. Business user adds a comment.","- Comment is created with:
+  - `author`: BusinessUser object (linked to User).
+  - `content`: Includes brand/company info (if system auto-appends).
+- Comment appears with business user’s brand photo (if available)."
+TC-BUSINESS-PROFILE-015,Access Business Profile Features,Business Profile,5,- Business user is authenticated.,,"1. Business user navigates to their profile.
+2. User clicks ""ViewPromotions.""
+3. User clicks ""ViewUnSold"" (items for sale).
+4. User clicks ""Prenota appuntamento"" (schedule appointment).","- Promotions section loads with business-specific promotions.
+- Unsold items section loads with inventory.
+- Calendar integration opens for appointment scheduling.
+- No errors occur during navigation."
+TC-BUSINESS-APPPOINTMENT-016,Schedule an Appointment via Business Profile,Appointment Scheduling,5,"- Business user has a Calendar integrated.
+- Appointment slots are available.","- Appointment type: ""Consultation""
+- Date: ""2023-12-15""
+- Time: ""14:00""","1. Business user clicks ""Prenota appuntamento.""
+2. User selects date/time from the Calendar.
+3. User confirms the appointment.","- Appointment is scheduled in the Calendar.
+- Business profile updates with confirmed appointment.
+- User receives a confirmation (e.g., email or in-app notification)."
+TC-CHAT-017,Start a Chat with Another User,Chat Functionality,"1, 3","- User A and User B are authenticated.
+- User A’s ChatList contains User B.",,"1. User A navigates to ChatSection.
+2. User A selects User B from the chattedWith list.
+3. User A sends a message: ""Hello!""","- Chat window opens between User A and User B.
+- Message ""Hello!"" is displayed in the chat.
+- User B’s ChatList updates to include User A (if not already present)."
+TC-CHAT-018,Chat with Non-Existent User,Chat Functionality,"1, 3","- User A is authenticated.
+- User B does not exist in the system.",,"1. User A searches for User B in the ChatSection.
+2. User A attempts to start a chat with User B.","- System displays error: ""User not found.""
+- Chat is not initiated.
+- User A remains in the"

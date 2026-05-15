@@ -1,0 +1,155 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a new user with valid data,User Registration,2,None,"- username: john_doe
+- password: securepassword
+- name: John Doe
+- email: johndoe@example.com","1. User enters valid username, password, name, and email.
+2. User clicks on the ""Register"" button.
+3. Main component verifies the data.
+4. Users Database saves the user data.",User receives a success message indicating registration was successful.
+TC-User-002,Register a new user with invalid data,User Registration,2,None,"- username: john_doe
+- password: short
+- name: John Doe
+- email: johndoe@example.com","1. User enters an invalid password (less than 8 characters).
+2. User clicks on the ""Register"" button.
+3. Main component verifies the data.
+4. Users Database does not save the user data.",User receives an error message indicating registration failed due to invalid data.
+TC-User-003,Login with valid credentials,User Login,3,A user has been registered.,"- email: johndoe@example.com
+- password: securepassword","1. User enters valid email and password.
+2. User clicks on the ""Login"" button.
+3. Main component sends the credentials to the Users Database.
+4. Users Database verifies the credentials.
+5. Users Database returns a success message.",User receives a success message indicating login was successful.
+TC-User-004,Login with invalid credentials,User Login,3,A user has been registered.,"- email: johndoe@example.com
+- password: wrongpassword","1. User enters an incorrect password.
+2. User clicks on the ""Login"" button.
+3. Main component sends the credentials to the Users Database.
+4. Users Database verifies the credentials.
+5. Users Database returns an error message.",User receives an error message indicating login failed due to invalid credentials.
+TC-Trip-001,Create a new trip with valid data,Trip Creation,"1, 4",A user is logged in.,"- city: New York
+- country: USA
+- beginDate: 2023-10-01
+- endDate: 2023-10-07
+- author: John Doe","1. User logs in.
+2. User navigates to the trip creation page.
+3. User enters valid trip details.
+4. User clicks on the ""Create Trip"" button.
+5. Main component creates the trip.
+6. Main component associates the trip with a plan.
+7. Main component saves the trip data to the Trips Database.",User receives a success message indicating the trip was created successfully.
+TC-Trip-002,Create a new trip with invalid data,Trip Creation,"1, 4",A user is logged in.,"- city: 
+- country: USA
+- beginDate: 2023-10-01
+- endDate: 2023-10-07
+- author: John Doe","1. User logs in.
+2. User navigates to the trip creation page.
+3. User enters invalid city (empty string).
+4. User clicks on the ""Create Trip"" button.
+5. Main component attempts to create the trip.
+6. Main component fails to create the trip due to invalid data.",User receives an error message indicating the trip could not be created due to invalid data.
+TC-DailyPlan-001,Add a daily plan with valid data,Daily Plan Management,"1, 4",A trip exists.,"- day: 2023-10-01
+- date: 2023-10-01
+- weather: Sunny","1. User navigates to the daily plan management page.
+2. User selects the trip.
+3. User enters valid daily plan details.
+4. User clicks on the ""Add Daily Plan"" button.
+5. Main component adds the daily plan to the selected trip.
+6. Main component saves the daily plan data to the Trips Database.",User receives a success message indicating the daily plan was added successfully.
+TC-DailyPlan-002,Add a daily plan with invalid data,Daily Plan Management,"1, 4",A trip exists.,"- day: 2023-10-01
+- date: 2023-10-01
+- weather:","1. User navigates to the daily plan management page.
+2. User selects the trip.
+3. User enters invalid weather (empty string).
+4. User clicks on the ""Add Daily Plan"" button.
+5. Main component attempts to add the daily plan.
+6. Main component fails to add the daily plan due to invalid data.",User receives an error message indicating the daily plan could not be added due to invalid data.
+TC-UpdateTrip-001,Update trip data with valid data,Trip Data Update,4,A trip exists.,"- city: Los Angeles
+- country: USA
+- beginDate: 2023-10-05
+- endDate: 2023-10-11
+- author: John Doe","1. User navigates to the trip data update page.
+2. User selects the trip.
+3. User enters valid updated trip details.
+4. User clicks on the ""Update Trip"" button.
+5. Main component updates the trip data.
+6. Main component saves the updated trip data to the Trips Database.",User receives a success message indicating the trip data was updated successfully.
+TC-UpdateTrip-002,Update trip data with invalid data,Trip Data Update,4,A trip exists.,"- city: 
+- country: USA
+- beginDate: 2023-10-05
+- endDate: 2023-10-11
+- author: John Doe","1. User navigates to the trip data update page.
+2. User selects the trip.
+3. User enters invalid city (empty string).
+4. User clicks on the ""Update Trip"" button.
+5. Main component attempts to update the trip data.
+6. Main component fails to update the trip data due to invalid data.",User receives an error message indicating the trip data could not be updated due to invalid data.
+TC-ChangeUserProfile-001,Change user profile with valid data,User Profile Management,5,A user is logged in.,"- username: john_doe_new
+- password: newsecurepassword
+- name: John Doe New
+- email: johndoenew@example.com","1. User logs in.
+2. User navigates to the user profile management page.
+3. User enters valid new profile data.
+4. User clicks on the ""Save Changes"" button.
+5. Main component retrieves the new data.
+6. Main component verifies the data.
+7. Main component updates the user data in the Users Database.
+8. Main component returns a success message.",User receives a success message indicating the profile was updated successfully.
+TC-ChangeUserProfile-002,Change user profile with invalid data,User Profile Management,5,A user is logged in.,"- username: 
+- password: newsecurepassword
+- name: John Doe New
+- email: johndoenew@example.com","1. User logs in.
+2. User navigates to the user profile management page.
+3. User enters invalid username (empty string).
+4. User clicks on the ""Save Changes"" button.
+5. Main component retrieves the new data.
+6. Main component verifies the data.
+7. Main component returns an error message.",User receives an error message indicating the profile could not be updated due to invalid data.
+TC-PlaceToVisit-001,Add a place to visit with valid data,Place To Visit Management,1,A trip exists.,"- name: Statue of Liberty
+- category: Landmark
+- city: New York
+- icon: icon_statue_of_liberty.png","1. User navigates to the place to visit management page.
+2. User selects the trip.
+3. User enters valid place to visit details.
+4. User clicks on the ""Add Place To Visit"" button.
+5. Main component adds the place to visit to the selected trip.
+6. Main component saves the place to visit data to the Trips Database.",User receives a success message indicating the place to visit was added successfully.
+TC-PlaceToVisit-002,Add a place to visit with invalid data,Place To Visit Management,1,A trip exists.,"- name: 
+- category: Landmark
+- city: New York
+- icon: icon_statue_of_liberty.png","1. User navigates to the place to visit management page.
+2. User selects the trip.
+3. User enters invalid name (empty string).
+4. User clicks on the ""Add Place To Visit"" button.
+5. Main component attempts to add the place to visit.
+6. Main component fails to add the place to visit due to invalid data.",User receives an error message indicating the place to visit could not be added due to invalid data.
+TC-Weather-001,Reference weather with valid data,Daily Plan Weather Reference,1,A daily plan exists.,"- day: 2023-10-01
+- date: 2023-10-01
+- weather: Sunny","1. User navigates to the daily plan management page.
+2. User selects the daily plan.
+3. User references valid weather data.
+4. User clicks on the ""Save Weather"" button.
+5. Main component saves the weather data to the DailyPlan object.
+6. Main component saves the weather data to the Trips Database.",User receives a success message indicating the weather was referenced successfully.
+TC-Weather-002,Reference weather with invalid data,Daily Plan Weather Reference,1,A daily plan exists.,"- day: 2023-10-01
+- date: 2023-10-01
+- weather:","1. User navigates to the daily plan management page.
+2. User selects the daily plan.
+3. User references invalid weather (empty string).
+4. User clicks on the ""Save Weather"" button.
+5. Main component attempts to save the weather data.
+6. Main component fails to save the weather data due to invalid data.",User receives an error message indicating the weather could not be referenced due to invalid data.
+TC-Category-001,Include a category with valid data,Trip Category Management,1,A trip exists.,"- name: Landmark
+- id: 1
+- icon: icon_landmark.png","1. User navigates to the trip category management page.
+2. User selects the trip.
+3. User includes valid category data.
+4. User clicks on the ""Include Category"" button.
+5. Main component includes the category in the selected trip.
+6. Main component saves the category data to the Trips Database.",User receives a success message indicating the category was included successfully.
+TC-Category-002,Include a category with invalid data,Trip Category Management,1,A trip exists.,"- name: 
+- id: 1
+- icon: icon_landmark.png","1. User navigates to the trip category management page.
+2. User selects the trip.
+3. User includes invalid category data (empty name).
+4. User clicks on the ""Include Category"" button.
+5. Main component attempts to include the category.
+6. Main component fails to include the category due to invalid data.",User receives an error message indicating the category could not be

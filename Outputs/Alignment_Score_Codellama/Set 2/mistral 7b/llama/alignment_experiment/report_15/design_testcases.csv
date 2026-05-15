@@ -1,0 +1,110 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-DataManager-001,"Test DataManager Create, Read, Update, Delete Operations",DataManager,1,System is initialized with a DataManager instance,"- id: 1, name: ""Test Plant 1""
+  - id: 2, name: ""Test Plant 2""
+  - id: 3, name: ""Test Plant 3""
+  - id: 4, name: ""Test Diary 1""
+  - id: 5, name: ""Test Diary 2""","1. Call the create() method on DataManager for Plant 1 with valid data
+  2. Call the create() method on DataManager for Plant 2 with valid data
+  3. Call the create() method on DataManager for Plant 3 with valid data
+  4. Call the create() method on DataManager for Diary 1 with valid data
+  5. Call the create() method on DataManager for Diary 2 with valid data
+  6. Call the read() method on DataManager to get all created plants
+  7. Call the read() method on DataManager to get all created diaries
+  8. Call the update() method on DataManager for Plant 1 with updated name ""Test Plant 1 Updated""
+  9. Call the update() method on DataManager for Plant 2 with updated name ""Test Plant 2 Updated""
+  10. Call the update() method on DataManager for Plant 3 with updated name ""Test Plant 3 Updated""
+  11. Call the read() method on DataManager to verify the updated names for Plants 1, 2, and 3
+  12. Call the delete() method on DataManager for Plant 1
+  13. Call the delete() method on DataManager for Plant 2
+  14. Call the delete() method on DataManager for Plant 3
+  15. Call the read() method on DataManager to verify that Plants 1, 2, and 3 are no longer present
+  16. Call the read() method on DataManager to verify that Diaries 1 and 2 are still present","- All create() calls should be successful
+- All read() calls should return the created plants and diaries
+- All update() calls should be successful and update the names accordingly
+- All delete() calls should remove the plants from the DataManager
+- The read() call after deleting the plants should not return them
+- The read() call after deleting the plants should still return the diaries"
+TC-DataManager-002,Test DataManager Invalid Inputs,DataManager,1,System is initialized with a DataManager instance,"- id: -1, name: ""Invalid Plant""
+  - id: """", name: ""Empty Plant""
+  - id: 1, name: """"
+  - id: 1, name: ""Test Plant 1""","1. Call the create() method on DataManager for Invalid Plant with invalid id
+  2. Call the create() method on DataManager for Empty Plant with empty name
+  3. Call the create() method on DataManager for Plant with empty id
+  4. Call the create() method on DataManager for Plant with valid data
+  5. Call the read() method on DataManager to verify that no new plants were created
+  6. Call the update() method on DataManager for Plant with valid data
+  7. Call the delete() method on DataManager for Plant with valid data
+  8. Call the read() method on DataManager to verify that no plants were deleted or updated","- The create() call for Invalid Plant should fail
+- The create() call for Empty Plant should fail
+- The create() call for Plant with empty id should fail
+- The create() call for Plant with valid data should be successful
+- The read() call after creating a valid plant should return the created plant
+- The update() call and delete() call for a valid plant should fail, as no such plant exists yet
+- The read() call after creating a valid plant should still not return the plant, as it was not deleted or updated"
+TC-DataManager-003,Test DataManager Access Operations,DataManager,1,System is initialized with a DataManager instance and valid plants and diaries,"- id: 1, name: ""Test Plant 1""
+  - id: 2, name: ""Test Plant 2""
+  - id: 3, name: ""Test Diary 1""
+  - id: 4, name: ""Test Diary 2""","1. Call the execute() method on DataManager with a valid access operation for Plant 1
+  2. Call the execute() method on DataManager with a valid access operation for Plant 2
+  3. Call the execute() method on DataManager with a valid access operation for Diary 1
+  4. Call the execute() method on DataManager with a valid access operation for Diary 2
+  5. Call the read() method on DataManager to verify that the access operations were executed successfully","- The execute() call for each valid access operation should be successful
+- The read() call after executing valid access operations should return the executed operations"
+TC-DataManager-004,Test DataManager Invalid Access Operations,DataManager,1,System is initialized with a DataManager instance and valid plants and diaries,"- id: -1, name: ""Invalid Plant""
+  - id: """", name: ""Empty Plant""
+  - id: 1, name: """"
+  - id: 1, name: ""Test Plant 1""","1. Call the execute() method on DataManager with an invalid access operation for Plant 1
+  2. Call the execute() method on DataManager with an invalid access operation for Plant 2
+  3. Call the execute() method on DataManager with an invalid access operation for Diary 1
+  4. Call the execute() method on DataManager with an invalid access operation for Diary 2
+  5. Call the read() method on DataManager to verify that no access operations were executed","- The execute() call for each invalid access operation should fail
+- The read() call after executing invalid access operations should return no executed operations"
+TC-DataManager-005,Test DataManager Read Operations,DataManager,1,System is initialized with a DataManager instance and valid plants and diaries,"- id: 1, name: ""Test Plant 1""
+  - id: 2, name: ""Test Plant 2""
+  - id: 3, name: ""Test Diary 1""
+  - id: 4, name: ""Test Diary 2""","1. Call the read() method on DataManager for Plant 1
+  2. Call the read() method on DataManager for Plant 2
+  3. Call the read() method on DataManager for Diary 1
+  4. Call the read() method on DataManager for Diary 2
+  5. Call the read() method on DataManager for an invalid plant or diary
+  6. Call the read() method on DataManager for a plant or diary that does not exist
+  7. Call the read() method on DataManager for all plants and diaries
+  8. Call the read() method on DataManager for a specific plant or diary with a specific id","- The read() call for each valid plant or diary should return the corresponding data
+- The read() call for an invalid plant or diary should return an error message
+- The read() call for a plant or diary that does not exist should return an error message
+- The read() call for all plants and diaries should return all existing plants and diaries
+- The read() call for a specific plant or diary with a specific id should return the corresponding data"
+TC-DataManager-006,Test DataManager Insert/Modify Plants and Diaries,DataManager,"1, 2",System is initialized with a DataManager instance,"- id: 1, plantName: ""Test Plant 1"", plantType: ""Test Type 1""
+  - id: 2, plantName: ""Test Plant 2"", plantType: ""Test Type 2""
+  - id: 3, plantName: ""Test Plant 3"", plantType: ""Test Type 3""
+  - id: 4, diaryName: ""Test Diary 1"", diaryType: ""Test Type 1""
+  - id: 5, diaryName: ""Test Diary 2"", diaryType: ""Test Type 2""","1. Call the insert() method on Inserimento/Modifica Piante for Plant 1 with valid data
+  2. Call the insert() method on Inserimento/Modifica Piante for Plant 2 with valid data
+  3. Call the insert() method on Inserimento/Modifica Piante for Plant 3 with valid data
+  4. Call the modify() method on Inserimento/Modifica Piante for Plant 1 with updated plantName ""Test Plant 1 Updated"" and plantType ""Test Type 1 Updated""
+  5. Call the modify() method on Inserimento/Modifica Piante for Plant 2 with updated plantName ""Test Plant 2 Updated"" and plantType ""Test Type 2 Updated""
+  6. Call the modify() method on Inserimento/Modifica Piante for Plant 3 with updated plantName ""Test Plant 3 Updated"" and plantType ""Test Type 3 Updated""
+  7. Call the read() method on Lettura Piante to verify the inserted and updated plants
+  8. Call the insert() method on Inserimento/Modifica Diario for Diary 1 with valid data
+  9. Call the insert() method on Inserimento/Modifica Diario for Diary 2 with valid data
+  10. Call the modify() method on Inserimento/Modifica Diario for Diary 1 with updated diaryName ""Test Diary 1 Updated"" and diaryType ""Test Type 1 Updated""
+  11. Call the modify() method on Inserimento/Modifica Diario for Diary 2 with updated diaryName ""Test Diary 2 Updated"" and diaryType ""Test Type 2 Updated""
+  12. Call the read() method on Lettura Diario to verify the inserted and updated diaries","- The insert() call for each valid plant should be successful and insert the plant into the DataManager
+- The modify() call for each valid plant should be successful and update the plant data accordingly
+- The read() call after inserting and modifying plants should return the inserted and updated plants
+- The insert() call for each valid diary should be successful and insert the diary into the DataManager
+- The modify() call for each valid diary should be successful and update the diary data accordingly
+- The read() call after inserting and modifying diaries should return the inserted and updated diaries"
+TC-DataManager-007,Test DataManager Invalid Inputs for Insert/Modify Plants and Diaries,DataManager,"1, 2",System is initialized with a DataManager instance,"- id: -1, plantName: ""Invalid Plant"", plantType: ""Test Type 1""
+  - id: """", plantName: ""Empty Plant"", plantType: ""Test Type 1""
+  - id: 1, plantName: ""Test Plant 1"", plantType: """"
+  - id: 1, plantName: ""Test Plant 1"", plantType: ""Test Type 1""
+  - id: 1, plantName: ""Test Plant 1"", plantType: ""Test Type 1""
+  - id: 4, diaryName: ""Test Diary 1"", diaryType: ""Test Type 1""
+  - id: 5, diaryName: ""Test Diary 2"", diaryType: ""Test Type 2""","1. Call the insert() method on Inserimento/Modifica Piante for Invalid Plant with invalid id
+  2. Call the insert() method on Inserimento/Modifica Piante for Empty Plant with empty plantName
+  3. Call the insert() method on Inserimento/Modifica Piante for Plant with empty id
+  4. Call the insert() method on Inserimento/Modifica Piante for Plant with valid data
+  5. Call the modify() method on Inserimento/Modifica Piante for Plant with valid data
+  6. Call the insert() method on Inserimento/Modifica Diario for Diary with invalid id
+  7. Call the insert() method on Inserimento/Modifica Diario for Diary with empty diaryName",

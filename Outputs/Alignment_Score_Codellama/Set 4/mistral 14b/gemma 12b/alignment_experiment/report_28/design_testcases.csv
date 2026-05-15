@@ -1,0 +1,146 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid token,Authentication,2,"- User has a valid account with registered credentials (email/password).
+- `LocalUser` has a non-null token stored.","- Valid email: `user@example.com`
+- Valid password: `SecurePass123!`
+- Non-null token: `abc123xyz456`","1. User enters credentials in the login UI.
+2. `Main` calls `LocalUser.getToken()`.
+3. `LocalUser` validates credentials and returns a non-null token (`abc123xyz456`).
+4. `Main` sends `request(token)` to `LocalUser`.
+5. `LocalUser` forwards the request to `API_Manager` with the token.
+6. `API_Manager` processes the request and returns a `LocalUser` object with status `""OK""`.","- User is authenticated successfully.
+- `Main` receives status `""OK""` and proceeds to the dashboard.
+- No error messages or redirects."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,2,"- User attempts to log in with incorrect credentials.
+- `LocalUser` has no valid token.","- Invalid email: `wrong@example.com`
+- Valid password: `SecurePass123!`
+- Null token: `null`","1. User enters invalid credentials in the login UI.
+2. `Main` calls `LocalUser.getToken()`.
+3. `LocalUser` returns `null` (no valid token).
+4. `Main` skips `request(token)` due to `[token != null]` condition.
+5. `LocalUser` returns status `""FAILED""`.","- User sees an error message: *""Invalid email or password.""*
+- No token is generated or stored.
+- System remains in login state."
+TC-AUTHENTICATION-003,Token expiration handling,Authentication,2,"- User has a valid but expired token (`token = ""expired_abc123""`).
+- Server rejects expired tokens.","- Valid email: `user@example.com`
+- Valid password: `SecurePass123!`
+- Expired token: `expired_abc123`","1. User enters credentials.
+2. `Main` calls `LocalUser.getToken()` → returns expired token.
+3. `Main` sends `request(expired_abc123)` to `API_Manager`.
+4. `API_Manager` detects expiration and returns status `""TOKEN_EXPIRED""`.
+5. `LocalUser` invalidates the token and prompts re-login.","- User sees: *""Session expired. Please log in again.""*
+- Token is cleared from `LocalUser`.
+- System redirects to login screen."
+TC-DATA-LISTING-001,Successful retrieval of report/need list,Data Listing,3,"- User is authenticated (`token != null`).
+- `Service/Need/Report` contains 3 sample entries.","- Valid token: `abc123xyz456`
+- Sample listJSON:
+  ```json
+  [
+    {""title"": ""Broken Streetlight"", ""priority"": 1, ""category"": ""Infrastructure""},
+    {""title"": ""Food Assistance Needed"", ""priority"": 2, ""category"": ""Social""}
+  ]
+  ```","1. `Main` calls `API_Manager.request(listJSON)`.
+2. `API_Manager` forwards request to `Service/Need/Report`.
+3. `Service/Need/Report` processes each entry in `listJSON` and returns results.
+4. `API_Manager` aggregates results and sends to `Main`.
+5. `Main` calls `displayList()`.","- UI displays a list of 2 entries with titles, priorities, and categories.
+- No errors or loading timeouts.
+- Data matches the sample `listJSON`."
+TC-DATA-LISTING-002,Empty list handling,Data Listing,3,"- User is authenticated.
+- `Service/Need/Report` returns an empty list.","- Valid token: `abc123xyz456`
+- Empty listJSON: `[]`","1. `Main` requests `listJSON` from `API_Manager`.
+2. `API_Manager` receives empty response from `Service/Need/Report`.
+3. `Main` calls `displayList()` with empty data.","- UI shows: *""No reports or needs found. Create one to get started!""*
+- No errors or crashes.
+- ""Create New"" button is visible."
+TC-DATA-LISTING-003,Malformed JSON response handling,Data Listing,"3
+**Title:** Malformed JSON response handling","- User is authenticated.
+- `Service/Need/Report` returns malformed JSON.","- Valid token: `abc123xyz456`
+- Malformed listJSON: `""{title: 'Invalid', priority: 1}""` (missing quotes/structure)","1. `Main` requests `listJSON`.
+2. `API_Manager` receives malformed JSON from `Service/Need/Report`.
+3. `API_Manager` validates and detects malformed data.
+4. `API_Manager` returns error status `""INVALID_JSON""` to `Main`.","- UI displays: *""Error loading data. Please try again later.""*
+- Log entry records: `""JSON Parsing Error: [malformed JSON]""`
+- System remains functional for other operations."
+TC-ENTRY-CREATION-001,Successful creation of a new report,Report/Need Creation,4,"- User is authenticated.
+- `Service/Report` is operational.","- Valid token: `abc123xyz456`
+- New report data:
+  ```json
+  {
+    ""title"": ""Pothole on Maple Ave"",
+    ""priority"": 3,
+    ""category"": ""Infrastructure"",
+    ""address"": ""123 Maple Ave"",
+    ""creator"": ""user@example.com""
+  }
+  ```","1. `Main` sends `new` message to `API_Manager`.
+2. `API_Manager` converts data to JSON (`newEntry=to.JSON()`).
+3. `API_Manager` sends `request(newEntry)` to `Service/Report`.
+4. `Service/Report` validates and saves the entry.
+5. `API_Manager` returns `done` to `Main`.","- New report appears in the list with the provided details.
+- UI shows confirmation: *""Report created successfully!""*
+- `Report.createDate` is set to current timestamp."
+TC-ENTRY-CREATION-002,Failed creation due to missing required field,Report/Need Creation,4,"- User is authenticated.
+- `Service/Report` enforces `title` as required.","- Valid token: `abc123xyz456`
+- Incomplete report data (missing `title`):
+  ```json
+  {
+    ""priority"": 2,
+    ""category"": ""Social"",
+    ""address"": ""456 Oak St""
+  }
+  ```","1. `Main` sends `new` message with incomplete data.
+2. `API_Manager` forwards to `Service/Report`.
+3. `Service/Report` detects missing `title` and returns error.
+4. `API_Manager` returns status `""MISSING_FIELD""`.","- UI shows: *""Title is required. Please provide a title for your report.""*
+- No new entry is created.
+- Form highlights the `title` field in red."
+TC-ENTRY-CREATION-003,Creation with invalid priority value,Report/Need Creation,"4, 1","- User is authenticated.
+- `Report.priority` must be 1–3 (from `Configuration.MIN_PASSWORD` logic, assumed similar validation).","- Valid token: `abc123xyz456`
+- Invalid priority: `5` (outside 1–3 range)","1. `Main` submits report with `priority: 5`.
+2. `API_Manager` forwards to `Service/Report`.
+3. `Service/Report` validates `priority` and rejects it.
+4. `API_Manager` returns status `""INVALID_PRIORITY""`.","- UI shows: *""Priority must be between 1 and 3.""*
+- Priority field is reset to default (e.g., `1`).
+- No entry is created."
+TC-DATA-UPDATE-001,Successful update of an existing report,Data Update,5,"- User is authenticated.
+- Existing report with ID `rep123` has `priority: 1`.","- Valid token: `abc123xyz456`
+- Updated data:
+  ```json
+  {
+    ""id"": ""rep123"",
+    ""priority"": 2,
+    ""status"": ""In Progress""
+  }
+  ```","1. `Main` calls `leggiDatiInseriti()` to fetch `datiAggiornati`.
+2. `API_Manager` iterates through `datiAggiornati` and sets `updateEntry` for `rep123`.
+3. `Service/Report` processes `updateEntry` and returns `updateEntry->toJSON()`.
+4. `API_Manager` sends `request(updateEntry)` to `Main`.
+5. `Main` confirms with `done`.","- Report `rep123` now shows `priority: 2` and `status: ""In Progress""`.
+- UI reflects changes without reload.
+- No errors in console logs."
+TC-DATA-UPDATE-002,Update with unauthorized access attempt,Data Update,"5, 1","- User is authenticated but not the creator of `rep123` (creator: `admin@example.com`).
+- `Service/Report` enforces creator-based access.","- Valid token: `abc123xyz456` (user: `user@example.com`)
+- Report ID: `rep123` (creator: `admin@example.com`)
+- Updated data:
+  ```json
+  {
+    ""id"": ""rep123"",
+    ""priority"": 3
+  }
+  ```","1. `Main` attempts to update `rep123`.
+2. `API_Manager` forwards to `Service/Report`.
+3. `Service/Report` checks `creatorID()` and rejects due to mismatch.
+4. `API_Manager` returns status `""UNAUTHORIZED""`.","- UI shows: *""You do not have permission to edit this report.""*
+- Report remains unchanged.
+- No update is logged in the system."
+TC-SERVER-INTEGRATION-001,Successful user signup with valid data,Server Integration,1,- `Server.signup()` endpoint is available.,"- New user data:
+  - Email: `newuser@example.com`
+  - Password: `NewPass123!` (meets `MIN_PASSWORD` length)
+  - Name: `John`
+  - Lastname: `Doe`","1. `Main` calls `Server.signup()` with user data.
+2. `Server` validates `MIN_PASSWORD` (assumed ≥ 8 chars) and `usernameExists()` (returns `false`).
+3. `Server` creates user and returns success.","- New user account is created.
+- `Server` returns confirmation: `""User registered successfully.""`
+- `LocalUser` stores token for future requests."
+TC-SERVER-INTEGRATION-002,Signup with existing username,Server Integration,1,- User `existing@example.com` already exists.,"- Duplicate email: `existing@example.com`
+- Password: `Pass123!",,

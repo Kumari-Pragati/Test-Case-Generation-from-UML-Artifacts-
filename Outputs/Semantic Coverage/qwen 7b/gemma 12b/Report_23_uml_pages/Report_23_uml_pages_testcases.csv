@@ -1,0 +1,123 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User registration as Customer,User,1,None,"- Nome: John Doe
+- Cognome: Smith
+- Email: john.doe@example.com
+- Password: password123
+- IsVenditore: false
+- Immagine: ""default.jpg""","1. Navigate to the registration page.
+2. Enter the provided data.
+3. Submit the form.",A new customer record is created with the provided details. The user should be logged in as a customer.
+TC-User-002,User registration as Seller,User,1,None,"- Nome: Jane Doe
+- Cognome: Smith
+- Email: jane.doe@example.com
+- Password: password123
+- IsVenditore: true
+- NomeNegozio: My Store
+- Indirizzo: 123 Main St","1. Navigate to the registration page.
+2. Enter the provided data.
+3. Submit the form.",A new seller record is created with the provided details. The user should be logged in as a seller.
+TC-User-003,Customer creates a report,Report,"1, 5",User is logged in as a customer.,"- Titolo: Broken Product
+- Descrizione: The product is not working as expected.","1. Navigate to the report section.
+2. Enter the provided title and description.
+3. Submit the report.",A new report is created with the provided details. The report should be associated with the current customer.
+TC-User-004,Customer writes a review,Review,"1, 5",User is logged in as a customer.,"- Titolo: Great Product
+- Descrizione: Highly recommend this product.
+- Voto: 5","1. Navigate to the review section.
+2. Enter the provided title, description, and vote.
+3. Submit the review.",A new review is created with the provided details. The review should be associated with the current customer and a specific product.
+TC-User-005,Seller modifies a product,Product,"1, 3",User is logged in as a seller.,"- Nome: Updated Product Name
+- Categoria: Electronics
+- Prezzo: 99.99
+- Descrizione: Updated product description.
+- Scadenza: 2023-12-31","1. Navigate to the product management section.
+2. Select the product to modify.
+3. Enter the updated details.
+4. Click ""Modifica"".
+5. Confirm the fields are correct.
+6. Click ""Applica modifiche"".",The selected product is updated with the provided details. The changes should be reflected in the product database.
+TC-User-006,Seller adds a new product,Product,"1, 4",User is logged in as a seller.,"- Nome: New Product
+- Categoria: Clothing
+- Prezzo: 49.99
+- Descrizione: New product description.
+- Scadenza: 2023-12-31","1. Navigate to the product addition section.
+2. Enter the provided details.
+3. Click ""Aggiungi"".
+4. Confirm the fields are correct.
+5. Click ""Aggiungi prodotto"".",A new product is added with the provided details. The product should be associated with the current seller.
+TC-User-007,Check user position accessibility,Position,2,User has granted location permissions.,None,"1. Navigate to the map section.
+2. Check if the user's position is accessible.","The system should display the user's position if accessible. If not, an error message should be shown."
+TC-User-008,Create list based on user position,List,2,User's position is accessible.,None,"1. Navigate to the map section.
+2. Ensure the user's position is accessible.
+3. Create a list based on the user's position.",A list of nearby products or services should be generated based on the user's position.
+TC-User-009,Validate product modification fields,Validation,3,User is logged in as a seller.,"- Nome: Empty
+- Categoria: Electronics
+- Prezzo: 99.99
+- Descrizione: Updated product description.
+- Scadenza: 2023-12-31","1. Navigate to the product modification section.
+2. Enter the provided details.
+3. Click ""Modifica"".
+4. Confirm the fields are incorrect.
+5. Click ""Segnala errore"".",An error message should be displayed indicating that the name field is empty.
+TC-User-010,Validate product addition fields,Validation,4,User is logged in as a seller.,"- Nome: Empty
+- Categoria: Electronics
+- Prezzo: 99.99
+- Descrizione: New product description.
+- Scadenza: 2023-12-31","1. Navigate to the product addition section.
+2. Enter the provided details.
+3. Click ""Aggiungi"".
+4. Confirm the fields are incorrect.
+5. Click ""Segnala errore"".",An error message should be displayed indicating that the name field is empty.
+TC-User-011,Send push notifications,Notification,5,User has granted permission for push notifications.,None,"1. Navigate to the notification management section.
+2. Click ""push notification"".
+3. Confirm the push notification is sent.",A push notification should be sent to the user.
+TC-User-012,Send in-app notifications,Notification,5,User has granted permission for in-app notifications.,None,"1. Navigate to the notification management section.
+2. Click ""In App Notification"".
+3. Confirm the in-app notification is sent.",An in-app notification should be displayed to the user.
+TC-User-013,Manage notifications,Notification,"5, 6",User is logged in.,None,"1. Navigate to the notification management section.
+2. Toggle the push notification and in-app notification options.
+3. Confirm the toggles reflect the user's preferences.",The push notification and in-app notification options should reflect the user's preferences. The toggles should update accordingly.
+TC-User-014,Invalid user position,Position,2,User has not granted location permissions.,None,"1. Navigate to the map section.
+2. Check if the user's position is accessible.",An error message should be displayed indicating that the user's position is not accessible due to lack of permissions.
+TC-User-015,Edge case - User position inaccessible,Position,2,User has not granted location permissions.,None,"1. Navigate to the map section.
+2. Attempt to create a list based on the user's position.",An error message should be displayed indicating that the user's position is not accessible due to lack of permissions.
+TC-User-016,Edge case - Invalid product modification,Validation,3,User is logged in as a seller.,"- Nome: Empty
+- Categoria: Electronics
+- Prezzo: 99.99
+- Descrizione: Updated product description.
+- Scadenza: 2023-12-31","1. Navigate to the product modification section.
+2. Enter the provided details.
+3. Click ""Modifica"".
+4. Confirm the fields are incorrect.
+5. Click ""Segnala errore"".",An error message should be displayed indicating that the name field is empty. The product should not be modified.
+TC-User-017,Edge case - Invalid product addition,Validation,4,User is logged in as a seller.,"- Nome: Empty
+- Categoria: Electronics
+- Prezzo: 99.99
+- Descrizione: New product description.
+- Scadenza: 2023-12-31","1. Navigate to the product addition section.
+2. Enter the provided details.
+3. Click ""Aggiungi"".
+4. Confirm the fields are incorrect.
+5. Click ""Segnala errore"".",An error message should be displayed indicating that the name field is empty. The product should not be added.
+TC-User-018,Edge case - Invalid report creation,Report,"1, 5",User is logged in as a customer.,"- Titolo: Empty
+- Descrizione: The product is not working as expected.","1. Navigate to the report section.
+2. Enter the provided title and description.
+3. Submit the report.",An error message should be displayed indicating that the title field is empty. The report should not be created.
+TC-User-019,Edge case - Invalid review creation,Review,"1, 5",User is logged in as a customer.,"- Titolo: Empty
+- Descrizione: Highly recommend this product.
+- Voto: 5","1. Navigate to the review section.
+2. Enter the provided title, description, and vote.
+3. Submit the review.",An error message should be displayed indicating that the title field is empty. The review should not be created.
+TC-User-020,Edge case - Invalid product listing,List,2,User's position is not accessible.,None,"1. Navigate to the map section.
+2. Ensure the user's position is not accessible.
+3. Attempt to create a list based on the user's position.",An error message should be displayed indicating that the user's position is not accessible. The list should not be created.
+TC-User-021,Negative case - User position accessible but no products nearby,List,2,User's position is accessible.,None,"1. Navigate to the map section.
+2. Ensure the user's position is accessible.
+3. Attempt to create a list based on the user's position.",A message should indicate that there are no products nearby. The list should be empty.
+TC-User-022,Negative case - User position accessible but no notifications,Notification,"5, 6",User's position is accessible.,None,"1. Navigate to the notification management section.
+2. Ensure the user's position is accessible.
+3. Check if any notifications are available.",A message should indicate that there are no notifications available. The notification list should be empty.
+TC-User-023,Negative case - User position accessible but no products to add,Product,"1, 4",User's position is accessible.,None,"1. Navigate to the product addition section.
+2. Ensure the user's position is accessible.
+3. Attempt to add a new product.",A message should indicate that there are no products to add. The product should not be added.
+TC-User-024,Negative case - User position accessible but no products to modify,Product,"1, 3",User's position is accessible.,"None
+Test",,

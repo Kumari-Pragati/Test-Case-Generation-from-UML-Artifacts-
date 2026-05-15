@@ -1,0 +1,194 @@
+REPORT: Report_28_uml_pages.pdf
+======================================================================
+
+===== Report_28_uml_pages.pdf | Page 1 =====
+UML Type:
+- Class
+
+Components:
+- Configuration — kind=class; attributes=[MIN_AGE: int, MIN_PASSWORD: int, API_key: String]; operations=[start(): void, downloadReport(): void, showNotification(): void, sendNotification(): void]; role=Configuration settings
+- NotificationSystem — kind=class; attributes=[]; operations=[start(): void, downloadReport(): void, showNotification(): void, sendNotification(): void]; role=Notification system
+- Server — kind=class; attributes=[signup: String, login: String, logout: String, usernameExists: String, renameUserName: String, profile_weight:String, profile_height:String, profile_date: String, profile_city: String, get_access_token: String, reset: String]; operations=[signup(): String, login(): String, logout(): String, usernameExists(): String, renameUserName(): String, profile_weight():String, profile_height():String, profile_date(): String, profile_city(): String, get_access_token(): String, reset(): String]; role=Server functionalities
+- Service — kind=class; attributes=[oldDate: Date, newDate: Date, creatorID: String, getReport: String, getCategory: String, getIcon: String, getAddress: String, getLatitude: String, getLongitude: String, get_access_token: String]; operations=[oldDate(): Date, newDate(): Date, creatorID(): String, getReport(): String, getCategory(): String, getIcon(): String, getAddress(): String, getLatitude(): String, getLongitude(): String, get_access_token(): String]; role=Service functionalities
+- API_Manager — kind=class; attributes=[]; operations=[sendRequest(Request String): Response String]; role=API manager
+- Report — kind=class; attributes=[createDate: Date, title: String, priority: int, category: String, address: String, creator: String]; operations=[createDate(): Date, title(): String, priority(): int, category(): String, address(): String, creator(): String]; role=Report data
+- Need — kind=class; attributes=[createDate: Date, title: String, description: String, assistant: int, priority: int, address: String, latitude: String, longitude: String, get_access_token: String, getReport: String, getCategory: String, getIcon: String, getAddress: String, getLatitude: String, getLongitude: String]; operations=[createDate(): Date, title(): String, description(): String, assistant(): int, priority(): int, address(): String, latitude(): String, longitude(): String, get_access_token(): String, getReport(): String, getCategory(): String, getIcon(): String, getAddress(): String, getLatitude(): String, getLongitude(): String]; role=Need data
+- Locator — kind=class; attributes=[email: String, password: String, name: String, lastname: String, createDate: Date, family: int, houseType: String, token: String, getEmail: String, getLisename: String, getLastName: String, getCreateDate: Date, getFamily: String, getAnniversary: String, getAddress: String]; operations=[email(): String, password(): String, name(): String, lastname(): String, createDate(): Date, family(): int, houseType(): String, token(): String, getEmail(): String, getLisename(): String, getLastName(): String, getCreateDate(): Date, getFamily(): String, getAnniversary(): String, getAddress(): String]; role=Locator data
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Configuration -> NotificationSystem — type=association; label=""; explanation="Configuration is used by NotificationSystem"
+- Server -> NotificationSystem — type=association; label=""; explanation="Server is used by NotificationSystem"
+- Service -> API_Manager — type=association; label=""; explanation="Service uses API_Manager"
+- API_Manager -> Service — type=association; label=""; explanation="API_Manager provides service to Service"
+- Service -> Report — type=association; label=""; explanation="Service creates Report"
+- Service -> Need — type=association; label=""; explanation="
+
+===== Report_28_uml_pages.pdf | Page 2 =====
+UML Type:
+- Sequence
+
+Components:
+- Main — kind=lifeline; attributes=[]; operations=[]; role=Initiator
+- LocalUser — kind=lifeline; attributes=[]; operations=[]; role=User data handling
+- API_Manager — kind=lifeline; attributes=[]; operations=[]; role=API interaction
+
+Actors / Lifelines:
+- Main
+- LocalUser
+- API_Manager
+
+Relationships / Links:
+- Main -> LocalUser — type=message; label="token = getToken()"; explanation="Request token from LocalUser"
+- LocalUser -> API_Manager — type=message; label="request(dati utente)"; explanation="Request user data from API_Manager"
+- API_Manager -> LocalUser — type=message; label="new LocalUser"; explanation="Return new LocalUser object"
+- Main -> LocalUser — type=message; label="[token ! = null] request(token)"; explanation="Request token from LocalUser"
+- LocalUser -> Main — type=message; label="return status | = OK"; explanation="Return status to Main"
+
+Main Flows:
+- Flow 1: Main -> LocalUser (token = getToken()) -> LocalUser -> API_Manager (request(dati utente)) -> LocalUser -> Main (new LocalUser)
+- Flow 2: Main -> LocalUser (token = getToken()) -> LocalUser -> Main ([token != null] request(token)) -> LocalUser -> Main (return status | = OK)
+
+Conditions / Branches:
+- Decision node: "[token ! = null]"
+  - Branch "SI": request(token)
+  - Branch "NO": status | = OK
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "La funzione request restituisce una stringa in formato JSON con un campo status"
+
+Observations:
+- The diagram models a login sequence involving Main, LocalUser, and API_Manager.
+- The initial flow involves obtaining a token from LocalUser, then requesting user data from API_Manager, and finally receiving a new LocalUser object.
+- A conditional branch exists based on whether a token is null. If not null, a request with the token is made. Otherwise, a status is returned.
+- The API_Manager appears to be responsible for handling user data requests and returning a new LocalUser object.
+
+===== Report_28_uml_pages.pdf | Page 3 =====
+UML Type:
+- Activity
+
+Components:
+- Main — kind=component; attributes=[]; operations=[request(listJSON): ]; role=Initiator
+- API_Manager — kind=component; attributes=[]; operations=[]; role=API Manager
+- Service/Need/Report — kind=component; attributes=[]; operations=[]; role=Service Endpoint
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> API_Manager — type=message; label="listJSON=request()"; explanation="Request listJSON from API_Manager"
+- API_Manager -> Service/Need/Report — type=message; label=""; explanation="Pass request to Service/Need/Report"
+- Main -> Main — type=message; label="displayList()"; explanation="Display the list"
+- API_Manager -> Main — type=message; label=""; explanation="Return result to Main"
+- Service/Need/Report -> API_Manager — type=message; label=""; explanation="Return result to API_Manager"
+- API_Manager -> Main — type=message; label=""; explanation="Return result to Main"
+- API_Manager -> Service/Need/Report — type=message; label="[for each entry in listJSON]; new"; explanation="Iterate through listJSON"
+
+Main Flows:
+- Flow 1: Main -> API_Manager (listJSON=request()) -> Service/Need/Report -> API_Manager -> Main -> Main (displayList())
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- The message "for each entry in listJSON; new" indicates a loop where the API_Manager sends a request to the Service/Need/Report for each entry in the listJSON.
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a process where the Main component requests a list of data (listJSON) from the API_Manager.
+- The API_Manager then forwards this request to the Service/Need/Report component.
+- The Service/Need/Report processes the request and returns a result to the API_Manager.
+- The API_Manager then returns the result to the Main component, which displays the list.
+- The loop iterates through each entry in the listJSON, suggesting that the Service/Need/Report is called multiple times to process each entry.
+
+===== Report_28_uml_pages.pdf | Page 4 =====
+UML Type:
+- Sequence
+
+Components:
+- Main — kind=lifeline; attributes=[]; operations=[]; role=Initiator
+- API_Manager — kind=lifeline; attributes=[]; operations=[]; role=Manager
+- Service/Need/Report — kind=lifeline; attributes=[]; operations=[]; role=Service
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager — type=message; label="new"; explanation="Request to create a new entry"
+- API_Manager -> Service/Need/Report — type=message; label="newEntry=to.JSON()"; explanation="Passes the new entry data to the service"
+- Service/Need/Report -> API_Manager — type=message; label="request(newEntry)"; explanation="Requests the service to process the entry"
+- API_Manager -> Main — type=message; label="done"; explanation="Indicates completion of the process"
+
+Main Flows:
+- Flow 1: Main -> API_Manager (new) -> Service/Need/Report (newEntry=to.JSON()) -> API_Manager (request(newEntry)) -> Main (done)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a sequence of interactions for creating a new entry.
+- The Main component initiates the process by sending a "new" message to the API_Manager.
+- The API_Manager then transforms the new entry into JSON format and sends it to the Service/Need/Report component.
+- The Service/Need/Report component processes the request and sends a confirmation back to the API_Manager.
+- Finally, the API_Manager informs the Main component that the process is complete.
+- The diagram does not show any error handling or alternative flows.
+
+===== Report_28_uml_pages.pdf | Page 5 =====
+UML Type:
+- Sequence
+
+Components:
+- Main — kind=component; attributes=[]; operations=[]; role=Main Component
+- API_Manager — kind=component; attributes=[]; operations=[]; role=API Manager Component
+- Service/Need/Report — kind=component; attributes=[]; operations=[]; role=Service/Need/Report Component
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager — type=message; label="stampa dati a schermo"; explanation="Main requests to print data to screen"
+- API_Manager -> Main — type=message; label="done"; explanation="API_Manager confirms printing is done"
+- Main -> API_Manager — type=message; label="datiAggiornati = leggiDatiInseriti()"; explanation="Main requests to read inserted data"
+- API_Manager -> Service/Need/Report — type=message; label="[for each dato in datiAggiornati] : set(dato)"; explanation="API_Manager iterates through data and sets it"
+- Service/Need/Report -> API_Manager — type=message; label="updateEntry->toJSON()"; explanation="Service/Need/Report converts data to JSON"
+- API_Manager -> Main — type=message; label="request(updateEntry)"; explanation="API_Manager requests update entry"
+- Main -> Main — type=message; label="done"; explanation="Main confirms request is done"
+
+Main Flows:
+- Flow 1: Main calls API_Manager to print data to screen. API_Manager confirms. Main then requests to read inserted data from API_Manager. API_Manager iterates through the data and sets it, then converts the data to JSON. API_Manager requests an update entry to Main, and Main confirms.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- [for each dato in datiAggiornati] indicates a loop where the message "set(dato)" is repeated for each element in the datiAggiornati list.
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a sequence of interactions between three components: Main, API_Manager, and Service/Need/Report.
+- The Main component initiates the process by requesting data printing and data reading.
+- The API_Manager acts as an intermediary, handling data processing and communication with the Service/Need/Report component.
+- The Service/Need/Report component is responsible for setting data and converting it to JSON format.
+- The loop indicates that the data processing involves iterating through a collection of data elements.
+
+
+======================================================================

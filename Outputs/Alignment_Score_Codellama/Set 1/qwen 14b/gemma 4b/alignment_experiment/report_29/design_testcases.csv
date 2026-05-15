@@ -1,0 +1,150 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,Verify registration process for a new user,Registration,1,User is not registered,"- Username: newUser
+- Password: password123
+- Email: newUser@example.com","1. Navigate to the application start page.
+2. Check if the user is registered.
+3. Since the user is not registered, initiate the user creation process.
+4. Complete the user creation process with valid credentials.","- The user is successfully registered.
+- The application redirects the user to the homepage."
+TC-Homepage-002,Verify navigation from homepage to menu and back,Homepage,2,User is logged in,N/A,"1. Start at the HOME screen.
+2. Click on the ""Menu Laterale"".
+3. Click on ""Homepage"" to return to the homepage.",- The user navigates to the menu and returns to the homepage successfully.
+TC-Homepage-003,Verify navigation from menu to settings screen,Homepage,2,User is logged in,N/A,"1. Start at the HOME screen.
+2. Click on the ""Menu Laterale"".
+3. Click on ""Impostazioni"" to open a new screen.",- The menu closes and the user is redirected to a new screen.
+TC-AddAlert-004,Verify adding a report with valid fields,AddAlert,3,User is logged in,"- Field1: ValidValue1
+- Field2: ValidValue2
+- Field3: ValidValue3
+- Field4: ValidValue4","1. Click 'Add Alert' in the menu.
+2. Fill in the first four fields with valid data.
+3. Click 'Add Category'.
+4. Open the category list.
+5. Press the green button to submit the report.",- The report is added successfully.
+TC-AddAlert-005,Verify adding a report with invalid fields,AddAlert,3,User is logged in,"- Field1: InvalidValue1
+- Field2: InvalidValue2
+- Field3: InvalidValue3
+- Field4: InvalidValue4","1. Click 'Add Alert' in the menu.
+2. Fill in the first four fields with invalid data.
+3. Attempt to click 'Add Category'.","- An error message appears indicating that the fields are not filled correctly.
+- The user is prompted to correct the fields."
+TC-ViewAlerts-006,Verify viewing all alerts and selecting one,ViewAlerts,4,User is logged in and has alerts,N/A,"1. Click 'View Alerts' in the menu.
+2. View all alerts.
+3. Click on a specific alert.
+4. View the detailed information of the selected alert.","- All alerts are displayed.
+- Detailed information of the selected alert is shown."
+TC-Profile-007,Verify profile update with valid data,Profile,5,User is logged in,"- Name: John Doe
+- Address: 123 Main St
+- Phone: 123-456-7890","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with valid data.
+3. Confirm that the fields are correctly filled.
+4. Save the changes.
+5. Click on the blue house icon to navigate to the apartments screen.","- The profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-008,Verify profile update with invalid data,Profile,5,User is logged in,"- Name: InvalidName
+- Address: InvalidAddress
+- Phone: InvalidPhone","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with invalid data.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the fields are not filled correctly.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-009,Verify discarding profile changes,Profile,5,User is logged in,"- Name: John Doe
+- Address: 123 Main St
+- Phone: 123-456-7890","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with valid data.
+3. Confirm that the fields are correctly filled.
+4. Discard the changes.
+5. Click on the blue house icon to navigate to the apartments screen.","- The profile changes are discarded.
+- The user is redirected to the apartments screen without saving any changes."
+TC-Profile-010,Verify navigating directly to apartments screen,Profile,5,User is logged in,N/A,"1. Click ""Profile"" in the menu.
+2. Without making any changes, click on the blue house icon to navigate to the apartments screen.",- The user is redirected to the apartments screen without any changes made to the profile.
+TC-Profile-011,Verify profile update with partially filled fields,Profile,5,User is logged in,"- Name: John Doe
+- Address: 123 Main St
+- Phone: (empty)","1. Click ""Profile"" in the menu.
+2. Fill in the name and address fields with valid data.
+3. Leave the phone field empty.
+4. Confirm that the fields are not correctly filled.
+5. Correct the data.
+6. Save the changes.
+7. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the fields are not filled correctly.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-012,Verify profile update with special characters in fields,Profile,5,User is logged in,"- Name: John@Doe
+- Address: 123 Main St!
+- Phone: 123-456-7890#","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with special characters.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the fields are not filled correctly.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-013,Verify profile update with very long fields,Profile,5,User is logged in,"- Name: A very long name that exceeds the maximum allowed length
+- Address: A very long address that exceeds the maximum allowed length
+- Phone: A very long phone number that exceeds the maximum allowed length","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with very long data.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the fields are not filled correctly.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-014,Verify profile update with minimum required fields,Profile,5,User is logged in,"- Name: John
+- Address: 123 Main
+- Phone: 123","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with minimum required data.
+3. Confirm that the fields are correctly filled.
+4. Save the changes.
+5. Click on the blue house icon to navigate to the apartments screen.","- The profile is updated successfully with the minimum required fields.
+- The user is redirected to the apartments screen."
+TC-Profile-015,Verify profile update with maximum allowed fields,Profile,5,User is logged in,"- Name: A name that uses the maximum allowed characters
+- Address: An address that uses the maximum allowed characters
+- Phone: A phone number that uses the maximum allowed characters","1. Click ""Profile"" in the menu.
+2. Fill in the profile fields with maximum allowed data.
+3. Confirm that the fields are correctly filled.
+4. Save the changes.
+5. Click on the blue house icon to navigate to the apartments screen.","- The profile is updated successfully with the maximum allowed fields.
+- The user is redirected to the apartments screen."
+TC-Profile-016,Verify profile update with invalid email format,Profile,5,User is logged in,- Email: invalidemail,"1. Click ""Profile"" in the menu.
+2. Fill in the email field with an invalid format.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the email format is incorrect.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-017,Verify profile update with existing email,Profile,5,User is logged in,- Email: existinguser@example.com,"1. Click ""Profile"" in the menu.
+2. Fill in the email field with an existing email.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the email already exists.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-018,Verify profile update with non-alphanumeric characters in name,Profile,5,User is logged in,- Name: John!Doe,"1. Click ""Profile"" in the menu.
+2. Fill in the name field with non-alphanumeric characters.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the name contains invalid characters.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-019,Verify profile update with non-numeric characters in phone,Profile,5,User is logged in,- Phone: 123-456-789a,"1. Click ""Profile"" in the menu.
+2. Fill in the phone field with non-numeric characters.
+3. Confirm that the fields are not correctly filled.
+4. Correct the data.
+5. Save the changes.
+6. Click on the blue house icon to navigate to the apartments screen.","- An error message appears indicating that the phone number contains invalid characters.
+- The user is prompted to correct the data.
+- After correction, the profile is updated successfully.
+- The user is redirected to the apartments screen."
+TC-Profile-020,Verify profile update with non-alphanumeric characters in address,Profile,5,User is logged in,- Address: 123 Main St!,"1. Click """,

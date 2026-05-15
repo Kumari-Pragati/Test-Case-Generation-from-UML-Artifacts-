@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration,User Registration,3,"- System is running.
+- No user with the provided email exists.","- Email: `volunteer1@example.com`
+- Password: `SecurePass123!`
+- Name: `John`
+- Surname: `Doe`
+- Region: `Lombardia`
+- Province: `Milano`
+- City: `Milano`","1. Navigate to the registration page.
+2. Enter all required fields with valid data.
+3. Submit the registration form.","- User account is created in the database.
+- System redirects to the login page with a success message."
+TC-AUTHENTICATION-002,Failed user registration due to missing required field,User Registration,3,- System is running.,"- Email: `volunteer2@example.com`
+- Password: `WeakPass` (no special character)
+- Name: `Jane`
+- Surname: `Smith`
+- Region: `Lombardia`
+- Province: `Milano`
+- City: *(left empty)*","1. Navigate to the registration page.
+2. Enter all fields except `City`.
+3. Submit the registration form.","- System displays an error message: ""City is required.""
+- No new user is created in the database."
+TC-AUTHENTICATION-003,Successful user login with valid credentials,User Login,"3, 6","- User `volunteer1@example.com` exists with password `SecurePass123!`.
+- System is running.","- Email: `volunteer1@example.com`
+- Password: `SecurePass123!`","1. Navigate to the login page.
+2. Enter valid email and password.
+3. Submit the login form.","- System generates a token and stores it in the database.
+- User is redirected to the home page with a valid token in the response.
+- `Token.revoked` is set to `false` for the new token."
+TC-AUTHENTICATION-004,Failed user login with invalid password,User Login,"3, 6","- User `volunteer1@example.com` exists with password `SecurePass123!`.
+- System is running.","- Email: `volunteer1@example.com`
+- Password: `WrongPass123!`","1. Navigate to the login page.
+2. Enter valid email and incorrect password.
+3. Submit the login form.","- System returns an error response (e.g., HTTP 401).
+- No token is generated.
+- User remains on the login page with an error message: ""Invalid credentials."""
+TC-AUTHENTICATION-005,Token revocation during login,User Login,"1, 6","- User `volunteer1@example.com` has an active token with `revoked = false`.
+- System is running.","- Email: `volunteer1@example.com`
+- Password: `SecurePass123!`","1. User logs in successfully (token `T1` is generated with `revoked = false`).
+2. Manually revoke token `T1` in the database (`UPDATE Tokens SET revoked = true WHERE id = T1`).
+3. User attempts to log in again with the same credentials.","- Old token `T1` is marked as revoked.
+- New token `T2` is generated with `revoked = false`.
+- User is successfully authenticated with `T2`."
+TC-EMERGENCY-001,Successful emergency creation by authenticated coordinator,Emergency Management,"1, 4","- Coordinator `coordinator1@example.com` is logged in with a valid token.
+- System is running.","- Description: `Flood in Milano`
+- Region: `Lombardia`
+- Province: `Milano`
+- Start Date: `2023-10-01`
+- End Date: `2023-10-07`","1. Coordinator clicks ""Inserisci emergenza.""
+2. System verifies coordinator authentication (token validation).
+3. Coordinator enters all emergency details.
+4. Submits the form.","- Emergency is created in the database with `stato = ""attivo""`.
+- Coordinator receives a success message: ""Emergency created.""
+- Emergency is visible in the ""Visualizza emergenze"" list."
+TC-EMERGENCY-002,Failed emergency creation due to incomplete data,Emergency Management,"1, 4","- Coordinator `coordinator1@example.com` is logged in.
+- System is running.","- Description: `Flood in Milano`
+- Region: `Lombardia`
+- Province: *(left empty)*
+- Start Date: `2023-10-01`
+- End Date: `2023-10-07`","1. Coordinator clicks ""Inserisci emergenza.""
+2. System verifies authentication.
+3. Coordinator enters incomplete data (missing `Province`).
+4. Submits the form.","- System displays an error: ""Province is required.""
+- Emergency is **not** created in the database.
+- Coordinator is prompted to update the details."
+TC-EMERGENCY-003,View emergencies as unauthenticated user,Emergency Viewing,2,"- No user is logged in.
+- System is running.",,"1. User clicks ""Visualizza emergenze.""
+2. System checks authentication status.","- User is redirected to the login page.
+- No emergencies are displayed."
+TC-EMERGENCY-004,View emergencies as authenticated user with no emergencies,Emergency Viewing,"1, 2","- User `volunteer1@example.com` is logged in.
+- No emergencies exist in the database.
+- System is running.",,"1. User clicks ""Visualizza emergenze.""
+2. System verifies authentication.
+3. System checks for available emergencies.","- System displays: ""Nessuna emergenza"" (No emergencies).
+- User remains on the emergencies page."
+TC-EMERGENCY-005,View emergencies as authenticated user with active emergencies,Emergency Viewing,"1, 2","- User `volunteer1@example.com` is logged in.
+- Emergency `E1` (Flood in Milano) exists with `stato = ""attivo""`.
+- System is running.",,"1. User clicks ""Visualizza emergenze.""
+2. System verifies authentication.
+3. System retrieves and displays emergencies.","- Emergency `E1` is displayed with details (description, region, dates).
+- User can interact with the list (e.g., select an emergency)."
+TC-TASK-001,Successful task creation by authenticated user,Task Management,"1, 7","- User `coordinator1@example.com` is logged in with a valid token.
+- Emergency `E1` exists.
+- System is running.","- Task Name: `Distribute food supplies`
+- Description: `Deliver food to affected areas`
+- Region: `Lombardia`
+- Province: `Milano`
+- Start Date: `2023-10-02`
+- End Date: `2023-10-05`","1. User sends `POST /nuovoCompito` with valid token and task data.
+2. Server verifies token.
+3. Server inserts task into the database.","- Task is created with `stato = ""in corso""`.
+- Response: `HTTP 200` with task details.
+- Task is linked to emergency `E1` via `Compito -> Assegnazione`."
+TC-TASK-002,Failed task creation due to invalid token,Task Management,"1, 7","- No user is logged in.
+- System is running.","- Task Name: `Distribute food supplies`
+- Token: `invalid_token_123`","1. User sends `POST /nuovoCompito` with invalid token.
+2. Server attempts token verification.","- Server logs error: `Invalid token`.
+- Response: `HTTP 401 Unauthorized`.
+- No task is created in the database."
+TC-TASK-003,Assign task to volunteer and verify relationships,Task Assignment,"1, 5","- Task `T1` exists with `stato = ""in corso""`.
+- Volunteer `volunteer1@example.com` is logged in.
+- Coordinator `coordinator1@example.com` is logged in.
+- System is running.",,"1. Coordinator selects emergency `E1` and task `T1`.
+2. Coordinator assigns `T1` to `volunteer1@example.com`.
+3. System creates:
+   - `Assegnazione` record (linking `T1` to `volunteer1`).
+   - `UtenteCompito` record (user-task relationship).","- `Assegnazione` table has a record with:
+  - `compitoId = T1`
+  - `utenteId = volunteer1`
+  - `stato = ""assegnato""`
+- `UtenteCompito` table has a record with:
+  - `dataInizio = current_date`
+  - `stato = ""attivo""`
+- Volunteer sees `T1` in their assigned tasks list."
+TC-TASK-004,Remove volunteer from task,Task Assignment,"1, 5","- Task `T1` is assigned to `volunteer1@example.com` via `Assegnazione` and `UtenteCompito`.
+- Coordinator `coordinator1@example.com` is logged in.
+- System is running.",,"1. Coordinator clicks ""Visualizza emergenza"" for `E1`.
+2. Coordinator selects task `T1`.
+3. System checks if volunteer is assigned (`Volontario assegnato?`).
+4. Coordinator confirms removal.","- `Assegnazione` record for `T1` and `volunteer1` is deleted.
+- `UtenteCompito` record is deleted.
+- Volunteer no longer sees `T1` in their list.
+- Coordinator receives confirmation: ""Voluntary removed from task."""
+TC-TASK-005,Terminate emergency and verify task status,Emergency Termination,"1, 8","- Emergency `E1` exists with 2 tasks (`T1`, `T2`).
+- Tasks are assigned to volunteers.
+- Coordinator `coordinator1@example.com` is logged in.
+- System is running.",,"1. Coordinator sends `POST /terminaEmergenza` with valid token.
+2. Server updates `E1.stato = ""terminato""`.
+3. Server updates all related tasks (`T1`, `T2`) to `stato = ""completato""`.","- Database returns `result = 2` (2 tasks terminated).
+- Response: `HTTP 200` with message: ""2 emergenza terminata.""
+- Volunteers no longer see `T1` and `T2` as active tasks.
+- `Assegnazione` and `UtenteCompito` records for `T1` and `T2` are marked as inactive."
+TC-TASK-006,Terminate emergency with no tasks,Emergency Termination,"1, 8","- Emergency `E2` exists with no tasks.
+- Coordinator `coordinator1@example.com` is logged in",,,

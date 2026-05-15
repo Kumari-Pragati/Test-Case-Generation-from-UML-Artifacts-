@@ -1,0 +1,223 @@
+REPORT: Report_29_uml_pages.pdf
+======================================================================
+
+===== Report_29_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- Utente registrato con successo — kind=decision; attributes=[]; operations=[]; role=registration success check
+- Start — kind=initial_node; attributes=[]; operations=[]; role=start point
+- Utente registrato? — kind=decision; attributes=[]; operations=[]; role=user registration check
+- Homepage — kind=final_node; attributes=[]; operations=[]; role=home page access
+- Creazione di un nuovo utente — kind=activity_final_node; attributes=[]; operations=[]; role=new user creation
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente registrato con successo -> Start — type=transition; label="SI"; explanation="success"
+- Utente registrato con successo -> Utente registrato? — type=transition; label="NO"; explanation="failure"
+- Utente registrato? -> Start — type=transition; label="SI"; explanation="registered"
+- Utente registrato? -> Creazione di un nuovo utente — type=transition; label="NO"; explanation="not registered"
+
+Main Flows (step by step):
+- Flow 1: Start -> Utente registrato con successo -> Homepage
+- Flow 2: Start -> Utente registrato? -> Homepage
+
+Conditions / Branches:
+- Utente registrato con successo: SI -> Start; NO -> Utente registrato?
+- Utente registrato?: SI -> Homepage; NO -> Creazione di un nuovo utente
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of user registration within an application.
+- The main flow starts at the "Start" node, checks for successful registration, and proceeds to the homepage if successful.
+- If registration fails, it prompts the creation of a new user.
+- There are two distinct flows: one for successfully registered users and one for those who need to create a new account.
+- The diagram captures the conditional logic for user registration and navigation to the homepage.
+
+===== Report_29_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=action; attributes=[]; operations=[]; role=Start point
+- Click sul menù laterale — kind=action; attributes=[]; operations=[]; role=Click action
+- Click 'Homepage' — kind=decision; attributes=[]; operations=[]; role=Decision point
+- Click 'Le mie segnalazioni' — kind=decision; attributes=[]; operations=[]; role=Decision point
+- Click 'Impostazioni' — kind=decision; attributes=[]; operations=[]; role=Decision point
+- Chiusura menù e apertura nuova schermata — kind=action; attributes=[]; operations=[]; role=End point
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Click sul menù laterale — type=association; label=""; explanation="Flow from HOME to Click sul menù laterale"
+- Click sul menù laterale -> Click 'Homepage' — type=association; label=""; explanation="Click action leading to decision"
+- Click 'Homepage' -> Si — type=association; label="Si"; explanation="Yes branch from decision"
+- Click 'Homepage' -> No — type=association; label="No"; explanation="No branch from decision"
+- Click 'Le mie segnalazioni' -> Si — type=association; label="Si"; explanation="Yes branch from decision"
+- Click 'Le mie segnalazioni' -> No — type=association; label="No"; explanation="No branch from decision"
+- Click 'Impostazioni' -> Si — type=association; label="Si"; explanation="Yes branch from decision"
+- Click 'Impostazioni' -> No — type=association; label="No"; explanation="No branch from decision"
+- Si -> Chiusura menù e apertura nuova schermata — type=association; label=""; explanation="Flow from Yes branch to end point"
+- No -> Chiusura menù e apertura nuova schermata — type=association; label=""; explanation="Flow from No branch to end point"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Click sul menù laterale -> Click 'Homepage' -> Si -> Chiusura menù e apertura nuova schermata
+- Flow 2: HOME -> Click sul menù laterale -> Click 'Homepage' -> No -> Chiusura menù e apertura nuova schermata
+- Flow 3: HOME -> Click sul menù laterale -> Click 'Le mie segnalazioni' -> Si -> Chiusura menù e apertura nuova schermata
+- Flow 4: HOME -> Click sul menù laterale -> Click 'Le mie segnalazioni' -> No -> Chiusura menù e apertura nuova schermata
+- Flow 5: HOME -> Click sul menù laterale -> Click 'Impostazioni' -> Si -> Chiusura menù e apertura nuova schermata
+- Flow 6: HOME -> Click sul menù laterale -> Click 'Impostazioni' -> No -> Chiusura menù e apertura nuova schermata
+
+Conditions / Branches:
+- Click 'Homepage': Si (Yes) -> Chiusura menù e apertura nuova schermata
+- Click 'Homepage': No (No) -> Chiusura menù e apertura nuova schermata
+- Click 'Le mie segnalazioni': Si (Yes) -> Chiusura menù e apertura nuova schermata
+- Click 'Le mie segnalazioni': No (No) -> Chiusura menù e apertura nuova schermata
+- Click 'Impostazioni': Si (Yes) -> Chiusura menù e apertura nuova schermata
+- Click 'Impostazioni': No (No) -> Chiusura menù e apertura nuova schermata
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram represents a flowchart for interacting with a menu lateral in a web application.
+- The user starts at the HOME action and clicks on the side menu.
+- Depending on the choice made in the side menu, the user navigates to different sections ('Homepage', 'Le mie segnalazioni', 'Impostazioni').
+- Each decision point ('
+
+===== Report_29_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Click 'Add Alert' nel menù laterale — kind=action; role=initial action
+- Add Alert — kind=action; role=main action
+- Click 'Add Category' — kind=action; role=secondary action
+- Apertura elenco categorie — kind=action; role=final action
+- I primi 4 campi sono stati compilati correttamente? — kind=decision; role=branch decision
+- Compilare i primi 4 campi correttamente — kind=action; role=correct action
+- Premere il tasto verde per inserire la segnalazione — kind=action; role=confirmation action
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Click 'Add Alert' nel menù laterale -> Add Alert — type=control; label="->"; explanation="Click 'Add Alert'"
+- Add Alert -> Click 'Add Category' — type=control; label="->"; explanation="Click 'Add Category'"
+- Add Alert -> I primi 4 campi sono stati compilati correttamente? — type=control; label="->"; explanation="Check form fields"
+- I primi 4 campi sono stati compilati correttamente? -> Compilare i primi 4 campi correttamente — type=control; label="->"; explanation="Correct form fields"
+- I primi 4 campi sono stati compilati correttamente? -> Premere il tasto verde per inserire la segnalazione — type=control; label="->"; explanation="Press green button"
+
+Main Flows (step by step):
+- Flow 1: Click 'Add Alert' nel menù laterale -> Add Alert -> Click 'Add Category' -> Apertura elenco categorie
+- Flow 2: Click 'Add Alert' nel menù laterale -> Add Alert -> I primi 4 campi sono stati compilati correttamente? -> Compilare i primi 4 campi correttamente -> Premere il tasto verde per inserire la segnalazione
+
+Conditions / Branches:
+- I primi 4 campi sono stati compilati correttamente? — branches: "Yes" -> Premere il tasto verde per inserire la segnalazione; "No" -> Compilare i primi 4 campi correttamente
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- AGGIUNGI SEGNALAZIONE
+
+Observations:
+- This activity diagram outlines the process of adding a report in a system.
+- The user starts by clicking 'Add Alert' in the sidebar menu.
+- They then click 'Add Category', opening a list of categories.
+- The system checks if the first four fields have been filled correctly.
+- If correct, the user presses the green button to submit the report.
+- If incorrect, the user needs to fill out the first four fields correctly before pressing the green button.
+- The process ensures that the report is submitted only when all necessary fields are filled accurately.
+
+===== Report_29_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Click 'View Alerts' nel menù laterale — kind=action; role=click action
+- Visualizzazione di tutte le segnalazioni — kind=action; role=display action
+- Click su una segnalazione — kind=action; role=click action
+- Visualizzazione dettagliata della segnalazione — kind=action; role=display action
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Click 'View Alerts' nel menù laterale -> Visualizzazione di tutte le segnalazioni — type=transition; label="->"; explanation="Click action leads to display action"
+- Visualizzazione di tutte le segnalazioni -> Click su una segnalazione — type=transition; label="->"; explanation="Display action leads to click action"
+- Click su una segnalazione -> Visualizzazione dettagliata della segnalazione — type=transition; label="->"; explanation="Click action leads to display action"
+
+Main Flows (step by step):
+- Flow 1: Click 'View Alerts' nel menù laterale -> Visualizzazione di tutte le segnalazioni -> Click su una segnalazione -> Visualizzazione dettagliata della segnalazione
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- ELenco segnalazioni
+
+Observations:
+- This activity diagram models the process of viewing alerts and their details.
+- The user starts by clicking 'View Alerts' in the sidebar menu.
+- This action leads to displaying all notifications.
+- The user then clicks on one notification to view its detailed information.
+- There are no conditions, branches, or loops visible in the diagram.
+
+===== Report_29_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Click 'Profile' nel menù laterale — kind=action; role=Start point
+- Profile — kind=action; role=Profile page
+- Click su icona blu della casa — kind=action; role=Home icon click
+- Passa alla schermata delle abitazioni — kind=action; role=Move to dwellings screen
+- I campi sono correttamente compilati? — kind=decision; role=Validation check
+- Correggere i dati — kind=action; role=Data correction
+- Salva le modifiche oppure scartale — kind=action; role=Save changes or discard
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Click 'Profile' nel menù laterale -> Profile — type=transition; label="->"; explanation="Click action"
+- Profile -> Click su icona blu della casa — type=transition; label="->"; explanation="Click action"
+- Click su icona blu della casa -> Passa alla schermata delle abitazioni — type=transition; label="->"; explanation="Click action"
+- Profile -> I campi sono correttamente compilati? — type=transition; label="->"; explanation="Validation check"
+- I campi sono correttamente compilati? -> No — type=transition; label="No"; explanation="Validation failure"
+- I campi sono correttamente compilati? -> Si — type=transition; label="Si"; explanation="Validation success"
+- No -> Correggere i dati — type=transition; label="->"; explanation="Data correction required"
+- Si -> Salva le modifiche oppure scartale — type=transition; label="->"; explanation="Save changes or discard"
+
+Main Flows (step by step):
+- Flow 1: Click 'Profile' nel menù laterale -> Profile -> Click su icona blu della casa -> Passa alla schermata delle abitazioni
+- Flow 2: Click 'Profile' nel menù laterale -> Profile -> Click su icona blu della casa -> Passa alla schermata delle abitazioni -> I campi sono correttamente compilati? -> Si -> Salva le modifiche oppure scartale
+- Flow 3: Click 'Profile' nel menù laterale -> Profile -> Click su icona blu della casa -> Passa alla schermata delle abitazioni -> I campi sono correttamente compilati? -> No -> Correggere i dati
+
+Conditions / Branches:
+- I campi sono correttamente compilati? — branches: No, Si
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of navigating through a profile section, specifically focusing on the home icon click and validation of fields. If fields are correctly filled, the user can save changes or discard them. If fields are not correctly filled, the user needs to correct the data before proceeding. The diagram also includes a loop for data correction if necessary.
+
+
+======================================================================

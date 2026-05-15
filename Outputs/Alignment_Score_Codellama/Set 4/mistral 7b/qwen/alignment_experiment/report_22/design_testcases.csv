@@ -1,0 +1,75 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Create User,User,1,None,"- ID: user1
+- NomeCognome: John Doe
+- email: john.doe@example.com","1. Call the createUser(String, String, String) method with the provided data.
+2. Verify that the method returns true.
+3. Call the getUserInfo() method to retrieve the user information.
+4. Verify that the retrieved information matches the provided data.","The user is created successfully, and the provided data is correctly stored and retrieved."
+TC-User-002,Check User Existence,User,1,A user has been created.,"- ID: user1
+- NomeCognome: John Doe
+- email: john.doe@example.com","1. Call the checkUser(String, String) method with the provided data.
+2. Verify that the method returns true.","The user exists in the system, and the method returns true."
+TC-User-003,Reset Password,User,1,A user has been created.,"- ID: user1
+- email: john.doe@example.com","1. Call the resetPassword(String, String) method with the provided data.
+2. Verify that the method returns true.","The user's password is successfully reset, and the method returns true."
+TC-User-004,Add Devices,User,"1, 2",A user has been created.,"- ID: user1
+- Device ID: device1","1. Call the addDevices(String) method with the provided data.
+2. Verify that the method returns true.
+3. Retrieve the list of devices associated with the user.
+4. Verify that the list contains the added device.","The device is successfully added to the user's account, and the method returns true."
+TC-Device-001,Get Device Info,Device,1,A device has been added to a user's account.,- Device ID: device1,"1. Retrieve the device information using the getDeviceInfo() method.
+2. Verify that the retrieved information matches the expected device information.",The device information is correctly retrieved.
+TC-Config-001,Get Config,Config,1,A device has been added to a user's account.,,"1. Retrieve the device configuration using the getConfig() method.
+2. Verify that the retrieved configuration matches the expected configuration.",The device configuration is correctly retrieved.
+TC-Config-002,Set Config,Config,1,A device has been added to a user's account.,"- isConnected: true
+- light: false
+- water: true
+- max_temp: 30.0
+- min_temp: 10.0
+- max_soil_hum: 70.0
+- min_soil_hum: 50.0
+- max_air_hum: 60.0
+- min_air_hum: 30.0
+- max_lum: 1000.0
+- min_lum: 500.0","1. Set the device configuration using the setLight(bool), setWater(bool), setMinTemp(float), setMaxTemp(float), setMinSoilHum(float), setMaxSoilHum(float), setMinAirHum(float), setMaxAirHum(float), setMinLum(float), setMaxLum(float) methods with the provided data.
+2. Verify that the methods return true.
+3. Retrieve the device configuration using the getConfig() method.
+4. Verify that the retrieved configuration matches the provided data.",The device configuration is successfully set and correctly retrieved.
+TC-History-001,Get History,History,1,A device has been added to a user's account.,,"1. Retrieve the device history using the getHistory() method.
+2. Verify that the retrieved history contains at least one entry.",The device history is correctly retrieved.
+TC-History-002,Update History,History,1,A device has been added to a user's account.,"- date: 2023-03-01
+- air_humidity: 40.0
+- soil_humidity: 60.0
+- air_temperature: 25.0
+- luminosity: 800.0","1. Update the device history using the updateHistory(String, float, float, float, float) method with the provided data.
+2. Verify that the method returns true.
+3. Retrieve the device history using the getHistory() method.
+4. Verify that the retrieved history contains the updated entry.",The device history is successfully updated and correctly retrieved.
+TC-Alert-001,Get Message,Alert,1,A device has been added to a user's account.,,"1. Retrieve the alert message using the getMessage() method.
+2. Verify that the retrieved message is empty or a default message.",The alert message is correctly retrieved.
+TC-Access-001,Access Greenhouse List,Access,3,A user has been created and logged in.,,"1. Click the ""Serre"" button.
+2. Verify that the greenhouse list is displayed.",The greenhouse list is correctly displayed.
+TC-Access-002,Add Devices to Greenhouse,Access,"3, 4","A user has been created and logged in, and a greenhouse is connected.",- Device ID: device1,"1. Click the ""Add Devices"" button.
+2. Enter the device ID.
+3. Verify that the entered value is valid.
+4. If the value is valid, click the ""Add"" button.
+5. Verify that the device is added to the greenhouse.",The device is successfully added to the greenhouse.
+TC-Config-003,Modify Greenhouse Configuration,Access,"3, 4","A user has been created and logged in, and a greenhouse is connected.","- isConnected: false
+- light: true
+- water: false
+- max_temp: 25.0
+- min_temp: 15.0
+- max_soil_hum: 60.0
+- min_soil_hum: 40.0
+- max_air_hum: 50.0
+- min_air_hum: 30.0
+- max_lum: 900.0
+- min_lum: 600.0","1. Click the ""Configuration"" button.
+2. Modify the greenhouse configuration using the provided data.
+3. Verify that the entered values are valid.
+4. If the values are valid, click the ""Save"" button.
+5. Verify that the greenhouse configuration is successfully modified.",The greenhouse configuration is successfully modified.
+TC-History-003,View Greenhouse History,Access,"3, 4","A user has been created and logged in, and a greenhouse is connected.",,"1. Click the ""History"" button.
+2. Verify that the greenhouse history is displayed.",The greenhouse history is correctly displayed.
+TC-Alert-002,View Alert Messages,Access,"3, 4","A user has been created and logged in, and a greenhouse is connected.",,"1. Click the ""Alert"" button.
+2. Verify that the alert messages are displayed.",The alert messages are correctly displayed.

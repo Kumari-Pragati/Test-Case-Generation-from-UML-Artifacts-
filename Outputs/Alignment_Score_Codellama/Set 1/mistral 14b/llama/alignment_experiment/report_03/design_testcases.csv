@@ -1,0 +1,80 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user sign-in flow,Authentication,1,"- App is installed and launched.
+- User has a valid account (e.g., email: `testuser@example.com`, password: `SecurePass123`).
+- Network connectivity is available.","- Valid credentials: `testuser@example.com` / `SecurePass123`
+- Invalid credentials: `wronguser@example.com` / `WrongPass123`","1. Launch the app and tap **SignInActivity** from the **MainActivity**.
+2. Enter valid credentials (`testuser@example.com` / `SecurePass123`) and tap ""Sign In.""
+3. Verify redirection to **MainActivity** (or **DashboardActivity**).
+4. Tap the back button to return to **SignInActivity**.
+5. Enter invalid credentials (`wronguser@example.com` / `WrongPass123`) and tap ""Sign In.""
+6. Observe error message: ""Invalid credentials. Please try again.""","- Step 2: User is successfully authenticated and redirected to **MainActivity**.
+- Step 5: Error message appears; user remains on **SignInActivity**."
+TC-AUTHENTICATION-002,User list display after sign-in,User Management,1,- User is signed in (from TC-AUTHENTICATION-001).,"- Mock user data: `[{id: 1, name: ""Alice""}, {id: 2, name: ""Bob""}]`
+- Empty user list: `[]`","1. From **MainActivity**, tap **UserListActivity**.
+2. Verify the **RecyclerView** displays the list of users (e.g., Alice, Bob).
+3. Swipe down to refresh the list (if applicable).
+4. Simulate network failure (e.g., via Charles Proxy) and refresh again.","- Step 1–2: List populates correctly with user data.
+- Step 4: Error toast appears: ""Failed to load users. Check connection."""
+TC-WEATHER-001,"Local weather display on ""Weather"" button click",Weather,"2, 4","- App is launched (no sign-in required).
+- Device location services are enabled (simulated GPS: `40.7128° N, 74.0060° W`).","- Valid location: `New York, USA` (mock API response: `{""temp"": 22, ""condition"": ""Sunny""}`)
+- Invalid location: `Mars` (mock API response: `{""error"": ""Location not found""}`)","1. Tap the **""weather""** button on the **Home** screen.
+2. Verify local weather (e.g., ""New York: 22°C, Sunny"") is displayed.
+3. Tap the **magnifying glass (zoom/search)** icon.
+4. Enter ""Mars"" in the search bar and submit.
+5. Observe error message: ""Weather data unavailable for Mars.""","- Step 1–2: Weather for the current location is displayed.
+- Step 4–5: Error message appears; no weather data is shown."
+TC-WEATHER-002,Weather search for other locations,Weather,2,- Weather screen is open (from TC-WEATHER-001).,"- Valid search: `London, UK` (mock response: `{""temp"": 18, ""condition"": ""Rainy""}`)
+- Empty search: (no input)
+- Special characters: `New Y@rk`","1. Tap the **magnifying glass** icon.
+2. Enter ""London, UK"" and submit.
+3. Verify weather for London is displayed.
+4. Clear the search bar and submit (empty input).
+5. Enter `New Y@rk` and submit.","- Step 2–3: Weather for London is displayed.
+- Step 4: Toast appears: ""Please enter a location.""
+- Step 5: Toast appears: ""Invalid location format."""
+TC-TREKKING-001,Province list retrieval and selection,Trekking,3,"- User taps **""Trekking""** from the **Home** screen.
+- Network connectivity is available.","- Mock province list: `[{id: 1, name: ""Trento""}, {id: 2, name: ""Bolzano""}]`
+- Empty province list: `[]`
+- Slow server response (30s delay)","1. Tap **""Trekking""** on the **Home** screen.
+2. Verify the province list (Trento, Bolzano) is displayed.
+3. Tap **Trento**.
+4. Simulate a slow server response (30s delay) and tap **Bolzano**.
+5. Cancel the request (if applicable) after 10s.","- Step 1–2: Province list loads within 2s.
+- Step 3: Route list for Trento is requested.
+- Step 4: Progress spinner appears; user can cancel.
+- Step 5: Request is canceled; no route list is loaded."
+TC-TREKKING-002,Route selection within a province,Trekking,3,"- Province list is loaded (from TC-TREKKING-001).
+- User selected **Trento**.","- Mock route list for Trento: `[{id: 101, name: ""Paganella Trail""}, {id: 102, name: ""Adamello Route""}]`
+- Invalid route ID: `999` (mock response: `{""error"": ""Route not found""}`)","1. From the province list, tap **Trento**.
+2. Verify the route list (Paganella Trail, Adamello Route) is displayed.
+3. Tap **Paganella Trail**.
+4. Simulate an invalid route selection (e.g., route ID `999`).","- Step 1–2: Route list loads within 2s.
+- Step 3: Route details (e.g., map, description) are displayed.
+- Step 4: Error toast appears: ""Route not found."""
+TC-HEALTH-001,Past training data retrieval,Health,5,"- User taps **""Health""** from the **Home** screen.
+- User has past training data (e.g., 3 workouts).
+- Network connectivity is available.","- Mock training data: `[{id: 1, type: ""Run"", distance: ""5km""}, {id: 2, type: ""Swim"", distance: ""1km""}]`
+- Empty training data: `[]`
+- Server error: `500 Internal Server Error`","1. Tap **""Health""** on the **Home** screen.
+2. Verify the list of past trainings (Run: 5km, Swim: 1km) is displayed.
+3. Simulate an empty training list.
+4. Simulate a server error (500) and retry.","- Step 1–2: Training list populates correctly.
+- Step 3: Message appears: ""No past trainings found.""
+- Step 4: Error toast appears: ""Failed to load data. Retry?""; retry button works."
+TC-INTEGRATION-001,End-to-end flow: Sign-in → Weather → Trekking,Integration,"1, 2, 3, 4",- App is fresh install (no cached data).,,"1. Launch the app and sign in (valid credentials).
+2. From **MainActivity**, tap **""Weather""** → view local weather.
+3. Tap the **magnifying glass** → search for ""London.""
+4. Return to **Home** and tap **""Trekking""** → select a province → select a route.
+5. Force close the app and relaunch.","- Step 1: User is authenticated and redirected to **MainActivity**.
+- Step 2–3: Weather for London is displayed.
+- Step 4: Route details are shown without errors.
+- Step 5: App retains signed-in state (no re-authentication prompt)."
+TC-EDGE-001,Offline behavior for all modules,Offline Handling,"1, 2, 3, 5",- Device is in **Airplane Mode** (no network).,,"1. Launch the app and attempt to sign in.
+2. Tap **""Weather""** → attempt to load local weather.
+3. Tap **""Trekking""** → attempt to load provinces.
+4. Tap **""Health""** → attempt to load training data.
+5. Re-enable network and retry steps 1–4.","- Step 1: Toast appears: ""No internet. Sign in offline not supported.""
+- Step 2: Toast appears: ""Offline. Using cached location data (if any).""
+- Step 3: Toast appears: ""Offline. No province data available.""
+- Step 4: Toast appears: ""Offline. No training data available.""
+- Step 5: All actions complete successfully after network is restored."

@@ -1,0 +1,135 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login,Authentication,2,"- App is launched.
+- User is not registered.","- Valid email: `testuser@example.com`
+- Valid username: `testuser123`
+- Valid password: `SecurePass123!`","1. Launch the app.
+2. System checks if user is registered → **NO**.
+3. Navigate to ""Creazione di un nuovo utente"" (user creation).
+4. Enter valid email, username, and password.
+5. Submit registration.
+6. System confirms registration success.
+7. System prompts for login.
+8. Enter the same credentials.
+9. System verifies login → **SI**.
+10. Redirect to **HOMEPAGE**.","- User is successfully registered and logged in.
+- Homepage loads without errors."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,2,"- App is launched.
+- User is registered but not logged in.","- Registered email: `testuser@example.com`
+- Invalid password: `wrongpass`","1. Launch the app.
+2. System checks if user is registered → **SI**.
+3. Attempt login with valid email but invalid password.
+4. System verifies login → **NO**.
+5. Redirect to ""Creazione di un nuovo utente"" (registration prompt).","- Login fails.
+- User is prompted to register (even though already registered) or retry login."
+TC-AUTHENTICATION-003,Registration with invalid email format,Authentication,2,"- App is launched.
+- User is not registered.","- Invalid email: `invalid-email`
+- Valid username: `testuser`
+- Valid password: `SecurePass123!`","1. Launch the app.
+2. System checks if user is registered → **NO**.
+3. Navigate to registration.
+4. Enter invalid email, valid username, and password.
+5. Submit registration.","- Registration fails due to invalid email format.
+- System displays error message (e.g., ""Invalid email format"")."
+TC-EVENT-CREATION-001,Successful event creation in a city,Event Management,3,"- User is logged in.
+- User is on a city’s detail screen (e.g., ""Roma"").","- Event title: `Tech Conference 2023`
+- Date: `2023-12-15`
+- Type: `Conference`
+- Creator: `testuser123` (auto-filled)
+- City: `Roma` (auto-filled)
+- Description: `Annual tech conference with keynote speakers.`","1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen (e.g., ""Roma"") → **SI**.
+3. Scroll down and tap ""+"" to add an event.
+4. Fill all form fields with valid data.
+5. Submit form.
+6. System validates fields → **SI**.
+7. Event is created → **Evento creato**.","- Event is successfully created and linked to the city.
+- User sees confirmation (e.g., toast message: ""Event created!"")."
+TC-EVENT-CREATION-002,Event creation with missing required field,Event Management,3,- User is logged in and on a city’s detail screen.,"- Event title: (empty)
+- Date: `2023-12-15`
+- Type: `Conference`
+- Description: `Annual tech conference.`","1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down and tap ""+"" to add an event.
+4. Leave **title field empty**, fill other fields.
+5. Submit form.
+6. System validates fields → **NO** (missing title).
+7. Redirect back to form with error highlight.","- Event creation fails.
+- System displays error: ""Title is required."""
+TC-EVENT-CREATION-003,Event creation with invalid date format,Event Management,3,- User is logged in and on a city’s detail screen.,"- Event title: `Tech Conference`
+- Date: `15-12-2023` (invalid format; system expects `YYYY-MM-DD`)
+- Type: `Conference`
+- Description: `Annual tech conference.`","1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down and tap ""+"" to add an event.
+4. Fill all fields, including invalid date.
+5. Submit form.
+6. System validates fields → **NO** (invalid date).
+7. Redirect back to form with error.","- Event creation fails.
+- System displays error: ""Invalid date format. Use YYYY-MM-DD."""
+TC-EVENT-EDIT-001,Successful event modification,Event Management,4,"- User is logged in and on a city’s detail screen.
+- An event exists (e.g., `Tech Conference 2023`).","- Original title: `Tech Conference 2023`
+- Modified title: `Tech Conference 2024`
+- Original date: `2023-12-15`
+- Modified date: `2024-01-20`","1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down, tap the **pencil icon** to edit the event.
+4. Modify title and date fields.
+5. Submit changes.
+6. System validates fields → **SI**.
+7. Event is updated → **Evento modificato**.","- Event details are updated successfully.
+- User sees confirmation (e.g., toast message: ""Event updated!"")."
+TC-EVENT-EDIT-002,Event modification with invalid data,Event Management,4,"- User is logged in and on a city’s detail screen.
+- An event exists.","- Original title: `Tech Conference 2023`
+- Modified title: (empty)
+- Original date: `2023-12-15`
+- Modified date: `2023-13-01` (invalid month)","1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down, tap the **pencil icon** to edit the event.
+4. Clear the title field and enter invalid date.
+5. Submit changes.
+6. System validates fields → **NO**.
+7. Redirect back to form with errors.","- Event modification fails.
+- System displays errors: ""Title is required"" and ""Invalid date."""
+TC-EVENT-DELETE-001,Successful event deletion,Event Management,4,"- User is logged in and on a city’s detail screen.
+- An event exists (e.g., `Tech Conference 2023`).",,"1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down, tap **""-""** to delete the event.
+4. Confirm deletion in the prompt.
+5. Event is deleted → **Evento cancellato**.","- Event is removed from the city’s event list.
+- User sees confirmation (e.g., toast message: ""Event deleted"")."
+TC-EVENT-DELETE-002,Accidental event deletion cancellation,Event Management,4,"- User is logged in and on a city’s detail screen.
+- An event exists.",,"1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down, tap **""-""** to delete the event.
+4. **Cancel** the deletion prompt.
+5. No action is taken.","- Event remains unchanged.
+- User sees cancellation confirmation (e.g., toast message: ""Deletion cancelled"")."
+TC-NAVIGATION-001,User not logged in → forced to login/register,Navigation,"3, 4","- App is launched.
+- User is **not logged in**.",,"1. Launch the app.
+2. System checks if user is logged in → **NO**.
+3. Attempt to navigate to city detail screen or add/edit/delete event.
+4. System redirects to **Fase di Login/Registrazione**.","- User cannot access event-related actions without logging in.
+- Login/registration screen appears."
+TC-NAVIGATION-002,User not on city screen → forced to search for a city,Navigation,"3, 4",- User is logged in but on the homepage (not on a city screen).,,"1. Launch the app → user is logged in → **SI**.
+2. Attempt to add/edit/delete an event (e.g., tap ""+"" or ""-"").
+3. System checks if user is on a city screen → **NO**.
+4. Redirect to **Svolgi i passaggi per ricercare una città** (search city).","- User cannot perform event actions without being on a city screen.
+- City search screen appears."
+TC-DATA-INTEGRITY-001,Event creator field auto-filled with user’s username,Data Integrity,"1, 3","- User is logged in as `testuser123`.
+- User is on a city screen (e.g., ""Roma"").",,"1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down and tap ""+"" to add an event.
+4. Check the **creatore (creator)** field.","- Creator field is pre-filled with `testuser123` (current user’s username).
+- User cannot manually edit this field (read-only)."
+TC-DATA-INTEGRITY-002,Event city field auto-linked to current city screen,Data Integrity,"1, 3","- User is logged in and on the ""Roma"" city screen.",,"1. Launch the app → user is logged in → **SI**.
+2. Navigate to ""Roma"" city detail screen → **SI**.
+3. Scroll down and tap ""+"" to add an event.
+4. Check the **città (city)** field.","- City field is pre-filled with `Roma` (current city).
+- User cannot manually edit this field (read-only)."
+TC-EDGE-CASE-001,Event creation with maximum allowed characters in description,Edge Cases,"1, 3",- User is logged in and on a city screen.,- Description: A string of **500 characters** (assuming max limit is 500).,"1. Launch the app → user is logged in → **SI**.
+2. Navigate to city detail screen → **SI**.
+3. Scroll down and tap ""+"" to add an event.
+4. Enter a 500-character description.
+5. Submit form.","- Event is created successfully.
+- No truncation or error occurs."
+TC-EDGE-CASE-002,Event creation with empty description (optional field),Edge Cases,"1, 3",- User is logged in and on a city screen.,- Description: (empty),1. Launch the app,

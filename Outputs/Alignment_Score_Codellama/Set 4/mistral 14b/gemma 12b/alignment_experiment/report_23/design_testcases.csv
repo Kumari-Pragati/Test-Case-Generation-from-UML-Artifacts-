@@ -1,0 +1,122 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Verify successful registration as a Customer,User Registration,1,"- User is on the registration page.
+- System is online and accepting new registrations.","- First Name: ""Mario""
+- Last Name: ""Rossi""
+- Email: ""mario.rossi@example.com""
+- Password: ""SecurePass123!""
+- Confirm Password: ""SecurePass123!""
+- Is Seller: Unchecked (default: false)","1. Enter the provided test data into the registration form.
+2. Click the ""Register"" button.
+3. Verify the system redirects to the login page or dashboard.","- User account is created with `isVenditore = false`.
+- Email field is validated as unique (no duplicate allowed).
+- Password is hashed and stored securely.
+- `getNome()`, `getCognome()`, and `getEmail()` return correct values."
+TC-USER-REGISTRATION-002,Verify registration failure with invalid email format,User Registration,1,- User is on the registration page.,"- First Name: ""Luigi""
+- Last Name: ""Bianchi""
+- Email: ""invalid-email"" (missing @ and domain)
+- Password: ""Pass123""","1. Enter the provided test data.
+2. Click the ""Register"" button.","- System displays an error message: ""Invalid email format.""
+- User account is **not** created.
+- Form fields remain populated for correction."
+TC-USER-LOGIN-003,Verify successful login as a Seller,User Authentication,1,"- A seller account exists (e.g., `isVenditore = true`).","- Email: ""venditore@negozio.it""
+- Password: ""ShopPass456""","1. Enter credentials on the login page.
+2. Click the ""Login"" button.","- User is redirected to the **seller dashboard**.
+- `getNomeNegozio()` and `getIndirizzo()` are accessible (if set).
+- Session is created with `isVenditore = true`."
+TC-PRODUCT-MANAGEMENT-004,Verify successful product addition by a Seller,Product Management,4,"- Seller is logged in (`isVenditore = true`).
+- ""+"" button is visible on the seller dashboard.","- Product Name: ""Organic Apples""
+- Category: ""Fruits""
+- Price: 2.99
+- Description: ""Freshly harvested, no pesticides.""
+- Expiry Date: 2023-12-31","1. Click the ""+"" button to add a product.
+2. Fill in all fields with the provided test data.
+3. Click the ""Aggiungi"" (Add) button.","- Product is added to the system.
+- `getNome()`, `getPrezzo()`, and `getScadenza()` return correct values.
+- Notification is sent to customers subscribed to the seller (if applicable)."
+TC-PRODUCT-MANAGEMENT-005,Verify error handling for missing product fields,Product Management,4,- Seller is logged in.,"- Product Name: """" (empty)
+- Category: ""Vegetables""
+- Price: 1.50
+- Description: ""Fresh carrots.""","1. Click the ""+"" button.
+2. Leave the **Product Name** field empty but fill others.
+3. Click the ""Aggiungi"" button.","- System displays: ""Product name is required.""
+- Product is **not** added.
+- Form highlights the empty field."
+TC-PRODUCT-MANAGEMENT-006,Verify successful product modification,Product Management,3,"- A product exists (e.g., ""Organic Apples"" with price 2.99).
+- Seller is logged in and clicks on the product.","- New Price: 3.49
+- New Description: ""Organic Apples - Limited Stock""","1. Click the ""Modifica"" (Edit) button.
+2. Update the **Price** and **Description** fields.
+3. Click ""Salva"" (Save).","- Product is updated in the system.
+- `getPrezzo()` returns 3.49.
+- `getDescrizione()` returns the new description.
+- No error messages are displayed."
+TC-PRODUCT-MANAGEMENT-007,Verify error handling for invalid product expiry date,Product Management,3,- Seller is editing a product.,"- Expiry Date: ""2020-01-01"" (past date)","1. Click ""Modifica"" on an existing product.
+2. Set the expiry date to a past date.
+3. Click ""Salva.""","- System displays: ""Expiry date must be in the future.""
+- Product is **not** updated.
+- Original expiry date remains unchanged."
+TC-REVIEW-008,Verify successful review submission by a Customer,Review System,1,"- Customer is logged in.
+- A product exists (e.g., ""Organic Apples"").","- Title: ""Great Quality""
+- Description: ""Tastes amazing!""
+- Rating: 5","1. Navigate to the product page.
+2. Click ""Leave a Review.""
+3. Fill in the review fields.
+4. Submit the review.","- Review is associated with the **customer** and **product**.
+- `getTitolo()` returns ""Great Quality.""
+- `getVoto()` returns 5.
+- Notification is sent to the seller (if enabled)."
+TC-REVIEW-009,Verify error handling for invalid review rating,Review System,1,- Customer is on the review submission page.,"- Rating: 7 (invalid, must be 1–5)","1. Enter a title and description.
+2. Set the rating to 7.
+3. Submit the review.","- System displays: ""Rating must be between 1 and 5.""
+- Review is **not** submitted.
+- Rating field is reset to default (e.g., 3)."
+TC-REPORT-010,Verify successful report submission by a Customer,Report System,1,"- Customer is logged in.
+- A seller/product exists to report.","- Title: ""Suspicious Activity""
+- Description: ""Seller is selling expired products.""","1. Navigate to the report submission page.
+2. Select the seller/product.
+3. Fill in the report fields.
+4. Submit the report.","- Report is associated with the **customer** and **seller**.
+- `getTitolo()` returns ""Suspicious Activity.""
+- Seller receives a notification (via `setNotifica()`).
+- Report is logged in the system for moderation."
+TC-GEOLOCATION-011,Verify product list generation based on user position,Geolocation,2,"- Customer is logged in.
+- GPS permissions are enabled.",,"1. System displays a map.
+2. User’s location is accessible (e.g., ""Rome, Italy"").
+3. System checks position accessibility.","- List of nearby products is generated.
+- Products are filtered by proximity (e.g., within 5 km).
+- No error messages are displayed."
+TC-GEOLOCATION-012,Verify error handling for inaccessible user position,Geolocation,2,"- Customer is logged in.
+- GPS permissions are **disabled**.",,"1. System attempts to access user location.
+2. Location is inaccessible (e.g., GPS off or denied).","- System displays: ""Unable to access your location. Please enable GPS.""
+- No product list is generated.
+- Error is logged (e.g., `Segnalazione errore`)."
+TC-NOTIFICATION-013,Verify push notification toggle functionality,Notification Management,"5, 6","- Customer is on the notification settings screen.
+- Push notifications are currently **enabled**.",,"1. Toggle the **Push Notification** switch to **off**.
+2. Click ""Save.""","- Push notifications are disabled for the user.
+- `getNotifica()` for the user returns `false` for push.
+- No push notifications are sent afterward (until re-enabled)."
+TC-NOTIFICATION-014,Verify in-app notification delivery,Notification Management,"5, 6","- Customer has enabled in-app notifications.
+- A seller adds a new product.",,"1. Seller adds a product (e.g., ""New Seasonal Fruits"").
+2. System checks if the customer has subscribed to the seller.
+3. In-app notification is triggered.","- Notification appears in the customer’s app (e.g., banner or toast).
+- Notification content includes: ""New product from [Seller Name].""
+- Notification is stored in `getNotifica()` as `NotificationType.IN_APP`."
+TC-FAVORITE-SELLER-015,Verify adding a seller to favorites,Favorite Sellers,1,"- Customer is browsing sellers.
+- A seller (e.g., ""GreenGrocer"") is selected.",,"1. Customer clicks the ""Add to Favorites"" button for ""GreenGrocer.""","- Seller is added to `VenditorePreferito` list for the customer.
+- Customer receives a confirmation (e.g., ""Added to favorites!"").
+- Future notifications from this seller are prioritized."
+TC-INHERITANCE-016,Verify shared attributes between Customer and Seller,User Inheritance,1,- Both customer and seller accounts exist.,,"1. Retrieve `getEmail()` for a customer.
+2. Retrieve `getEmail()` for a seller.
+3. Attempt to call `setPassword()` on both.","- Both return the correct email (shared attribute).
+- `setPassword()` works for both roles.
+- `isVenditore` is `false` for customer and `true` for seller."
+TC-EDGE-CASE-017,Verify system behavior with expired product,Product Lifecycle,"1, 3","- A product exists with expiry date: ""2023-01-01"" (past).",,"1. Seller attempts to modify the product.
+2. Customer attempts to purchase the product.","- Seller sees a warning: ""This product is expired. Remove or update?""
+- Product is **not** displayed in customer searches.
+- System logs the expiry status for auditing."
+TC-SECURITY-018,Verify password update functionality,User Security,1,"- User is logged in.
+- Current password: ""OldPass123""","- New Password: ""NewSecurePass456""
+- Confirm Password: ""NewSecurePass456""","1. Navigate to ""Change Password.""
+2. Enter current password, new password, and confirmation.
+3. Submit changes.","- Password is updated.
+- `getPassword()` returns the hashed new password.
+- User is logged out (security best practice)."

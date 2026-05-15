@@ -1,0 +1,73 @@
+REPORT: Report_13_uml_pages.pdf
+======================================================================
+
+===== Report_13_uml_pages.pdf | Page 1 =====
+UML Type:
+- Activity
+
+Components:
+- Login — kind=Activity; attributes=[a: Username, Password]; operations=[op(args): Authenticate, ...]; role=User
+- Signup — kind=Activity; attributes=[a: Email, Password]; operations=[op(args): Register, ...]; role=User
+- Profile — kind=Activity; attributes=[a: Username, ProfileData]; operations=[op(args): UpdateProfile, ...]; role=User
+- Exit — kind=Activity; attributes=[a: ExitReason]; operations=[op(args): Exit, ...]; role=User
+
+Actors / Lifelines:
+- User
+
+Relationships / Links:
+- Login -> Authenticate — type=Message; label="Authenticate"; explanation="User sends username and password to server for authentication"
+- Signup -> Register — type=Message; label="Register"; explanation="User sends email and password to server to register account"
+- Profile -> UpdateProfile — type=Message; label="UpdateProfile"; explanation="User sends username and profile data to server to update profile"
+- Exit -> Exit — type=Message; label="Exit"; explanation="User sends exit reason to server to end session"
+
+Main Flows (step by step):
+- Flow 1: User enters username and password -> Login -> Authenticate -> User is authenticated
+- Flow 2: User enters email and password -> Signup -> Register -> User is registered
+- Flow 3: User navigates to profile page -> Profile -> UpdateProfile -> User's profile is updated
+- Flow 4: User decides to exit -> Exit -> Exit
+
+Conditions / Branches:
+- Login -> Authenticate:
+  - If username and password are correct, Authenticate returns "Authenticated"
+  - If username and password are incorrect, Authenticate returns "Unauthorized"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This activity diagram models the login, signup, profile update, and exit processes for a user.
+- The main flows represent the user's interactions with the system, starting with login, then signup, profile update, and finally exit.
+- The diagram does not show any loops or repetitions.
+- There are no notes or annotations visible in the diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture the interactions between use cases and actors.
+  * Main Flows should be explicit sequences like:
+    "Avvv" -> "Utente effettu" -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For STATE-MACHARTS:
+  * Components are states.
+  * Relationships capture the interactions between states.
+  * Conditions / Branches summarize the interactions.
+
+- For COMPON
+  * None
+
+- For OBloom
+
+
+======================================================================

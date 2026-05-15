@@ -1,0 +1,79 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USERCREATION-001,Verify user creation flow when user does not exist,User Creation,1,"- System is initialized with no existing user.
+- User creation form is accessible.","- Valid user credentials: `username=testuser123`, `password=SecurePass123!`, `email=user@example.com`","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""NO"" (user not created).
+3. Proceed to ""creazione utente"" activity.
+4. Enter valid user credentials.
+5. System attempts user creation.
+6. Decision ""creazione corretta?"" evaluates to ""SI"" (creation successful).","- User is created successfully.
+- System transitions to ""Home"" node without errors."
+TC-USERCREATION-002,Verify user creation retry on failure,User Creation,1,"- System is initialized with no existing user.
+- User creation form is accessible.","- Invalid user credentials (e.g., `username=testuser123`, `password=weak`, `email=invalid-email`).","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""NO"".
+3. Proceed to ""creazione utente"" activity.
+4. Enter invalid credentials.
+5. System detects failure at ""creazione corretta?"" (evaluates to ""NO"").
+6. System loops back to ""creazione utente"" for retry.
+7. Enter valid credentials on retry.
+8. Decision ""creazione corretta?"" evaluates to ""SI"".","- User is created successfully after retry.
+- System transitions to ""Home"" node."
+TC-USERCREATION-003,Verify direct home access when user exists,User Creation,1,"- System is initialized with an existing user (e.g., `username=existinguser`).",- N/A (no input required).,"1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""SI"" (user exists).
+3. System skips ""creazione utente"" and transitions directly to ""Home"".","- User is redirected to ""Home"" without creation steps."
+TC-COMMISSIONOFFER-001,Verify commission creation flow with success,Commission/Offer Creation,2,"- User is logged in at ""Home"" node.
+- User has permission to access creation tools.","- Valid commission details: `name=CommissionA`, `description=TestCommission`, `amount=1000`.","1. At ""Home"", decision ""accesso alla creazione?"" evaluates to ""SI"".
+2. Decision ""creazione commissione?"" evaluates to ""SI"".
+3. Proceed to ""creazione commissione"" activity.
+4. Enter valid commission details.
+5. Decision ""creazione corretta?"" evaluates to ""SI"" (first check).
+6. System loops back to ""creazione corretta?"" (second check).
+7. Decision ""creazione corretta?"" evaluates to ""SI"" (final confirmation).","- Commission is created successfully.
+- System remains in a stable state (no errors or retries)."
+TC-COMMISSIONOFFER-002,Verify offer creation flow with failure and retry,Commission/Offer Creation,2,"- User is logged in at ""Home"" node.
+- User has permission to access creation tools.","- Invalid offer details (e.g., `name=`, `description=`, `amount=-500`).","1. At ""Home"", decision ""accesso alla creazione?"" evaluates to ""SI"".
+2. Decision ""creazione commissione?"" evaluates to ""NO"".
+3. Decision ""creazione offerta?"" evaluates to ""SI"".
+4. Proceed to ""creazione offerta"" activity.
+5. Enter invalid offer details.
+6. Decision ""creazione corretta?"" evaluates to ""NO"" (first check).
+7. System loops back to ""creazione corretta?"" for retry.
+8. Enter valid details on retry.
+9. Decision ""creazione corretta?"" evaluates to ""SI"".","- Offer is created successfully after retry.
+- System confirms creation without errors."
+TC-COMMISSIONOFFER-003,Verify no creation access from home,Commission/Offer Creation,2,"- User is logged in at ""Home"" node.
+- User lacks permission to access creation tools.",- N/A (no input required).,"1. At ""Home"", decision ""accesso alla creazione?"" evaluates to ""NO"".
+2. System skips all creation activities.","- User is denied access to commission/offer creation.
+- System remains at ""Home"" without errors."
+TC-MENUNAVIGATION-001,Verify profile access from home with menu enabled,Menu Navigation,3,"- User is at ""Home"" node.
+- Menu access is enabled.",- N/A (no input required).,"1. At ""Home"", decision ""accesso ad 'menu'?"" evaluates to ""SI"".
+2. Decision ""accesso a profilo?"" evaluates to ""SI"".
+3. Proceed to ""informazioni profilo"" action.",- User profile information is displayed correctly.
+TC-MENUNAVIGATION-002,Verify guide access when profile access is denied,Menu Navigation,3,"- User is at ""Home"" node.
+- Menu access is enabled.",- N/A (no input required).,"1. At ""Home"", decision ""accesso ad 'menu'?"" evaluates to ""SI"".
+2. Decision ""accesso a profilo?"" evaluates to ""NO"".
+3. Decision ""accesso a guida?"" evaluates to ""SI"".
+4. Proceed to ""Guida"" action.",- Guide content is displayed correctly.
+TC-MENUNAVIGATION-003,Verify no menu access from home,Menu Navigation,3,"- User is at ""Home"" node.
+- Menu access is disabled.",- N/A (no input required).,"1. At ""Home"", decision ""accesso ad 'menu'?"" evaluates to ""NO"".
+2. System skips all subsequent decisions/actions.","- User remains at ""Home"" without access to profile/guide.
+- No errors or unexpected transitions occur."
+TC-EDGECASE-001,Verify system behavior with empty user credentials,User Creation,1,- System is initialized with no existing user.,"- Empty credentials: `username=`, `password=`, `email=`.","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""NO"".
+3. Proceed to ""creazione utente"" activity.
+4. Enter empty credentials.
+5. System detects failure at ""creazione corretta?"" (evaluates to ""NO"").
+6. System loops back to ""creazione utente"" for retry.
+7. User cancels retry (no valid input).","- System handles empty input gracefully (e.g., displays error message).
+- User is not created; system remains in a stable state (no crash or infinite loop)."
+TC-EDGECASE-002,Verify system behavior with duplicate user creation,User Creation,1,"- System has an existing user (e.g., `username=testuser`).","- Duplicate credentials: `username=testuser`, `password=NewPass123!`, `email=user@example.com`.","1. System starts at ""Start"" node.
+2. Decision ""Utente creato?"" evaluates to ""SI"" (user exists).
+3. System skips ""creazione utente"" and transitions to ""Home"".
+4. User attempts to create a duplicate user at ""Home"" (via manual retry).","- System detects duplicate and either:
+  - Rejects creation with an error, or
+  - Overwrites existing user (document behavior).
+- User is redirected to ""Home"" without errors."
+TC-EDGECASE-003,Verify infinite loop prevention in creation checks,Commission/Offer Creation,2,"- User is at ""Home"" node.
+- System is configured to allow creation attempts.","- Consistently invalid input (e.g., `amount=0` for commission).","1. At ""Home"", user selects commission/offer creation.
+2. Enter invalid input repeatedly (e.g., 5 attempts).
+3. System evaluates ""creazione corretta?"" as ""NO"" each time.","- System prevents infinite loops (e.g., after 3–5 retries, displays error: ""Max retries exceeded"").
+- User is notified to contact support or correct input manually."

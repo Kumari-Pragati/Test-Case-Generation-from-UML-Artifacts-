@@ -1,0 +1,126 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,"1, 3","- User has a registered account with email/password.
+- Network connection is active.","- Valid email: `user@example.com`
+- Valid password: `SecurePass123!`","1. User enters `user@example.com` and `SecurePass123!` in the login screen.
+2. System calls `signInWithEmailAndPassword()` via `FirebaseAuthentication`.
+3. Authentication activity checks token status (assume token is null initially).
+4. System executes `requestToken()` and receives a valid token.
+5. System calls `request dati utente` to fetch user data.
+6. New `LocalUser` object is created.","- User is logged in successfully.
+- `currentuser()` returns the authenticated user object.
+- `done` status is reached in the activity flow."
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,"1, 3","- User exists but password is incorrect.
+- Network connection is active.","- Valid email: `user@example.com`
+- Invalid password: `WrongPass456`","1. User enters `user@example.com` and `WrongPass456`.
+2. System calls `signInWithEmailAndPassword()`.
+3. Authentication activity detects invalid credentials (no token generated).
+4. System does **not** proceed to `request dati utente`.","- Error message: ""Invalid email or password"" is displayed.
+- User remains logged out.
+- `done status` is **not** reached."
+TC-AUTHENTICATION-003,User sign-out functionality,Authentication,2,- User is currently logged in (`currentuser()` returns a valid user).,,"1. User clicks the ""Sign Out"" button.
+2. System calls `signOut()` via `FirebaseAuthentication`.
+3. `currentuser()` is called post-sign-out.","- User is logged out successfully.
+- `currentuser()` returns `null`.
+- Home screen redirects to login or shows unauthenticated state."
+TC-AUTHENTICATION-004,Password change with current password validation,Authentication,2,"- User is logged in.
+- Current password is `OldPass123`.","- Current password: `OldPass123`
+- New password: `NewPass789!`
+- Confirm new password: `NewPass789!`","1. User enters `OldPass123`, `NewPass789!`, and confirms.
+2. System calls `changePassword()` with current and new passwords.
+3. System validates current password.","- Password is updated successfully.
+- User is prompted to re-login (or stays logged in with new credentials).
+- No error messages appear."
+TC-AUTHENTICATION-005,Password change with incorrect current password,Authentication,2,User is logged in.,"- Incorrect current password: `WrongPass`
+- New password: `NewPass789!`","1. User enters `WrongPass`, `NewPass789!`, and confirms.
+2. System calls `changePassword()`.
+3. System rejects due to invalid current password.","- Error message: ""Current password is incorrect"" is displayed.
+- Password remains unchanged."
+TC-PLANT-MANAGEMENT-001,Add a new plant via camera and AI identification,Plant Management (Camera + AI),"2, 4","- User is logged in.
+- Camera permission is granted.
+- Network connection is active.",,"1. User navigates to `LeMiePiante` and clicks ""Add Plant.""
+2. Camera opens; user takes a photo of a plant.
+3. `scattaFoto()` captures the image and passes it to `VereSpecieDellePianteFotografate`.
+4. System sends the photo to **Gemini AI API** for species identification.
+5. AI returns response: `Species: ""Rosa canina""`.
+6. System stores species in **Firebase Storage** under user’s personal folder.
+7. System uploads the photo to Firebase Storage and retrieves the download URL.","- Plant is added to `LeMiePiante` with:
+  - Name: `Rosa canina` (auto-filled from AI).
+  - Photo URL: Valid Firebase Storage URL.
+- Confirmation message: ""Plant added successfully."""
+TC-PLANT-MANAGEMENT-002,Failed plant addition due to AI API failure,Plant Management (AI),4,"- User is logged in.
+- Camera permission is granted.
+- Network connection is **unavailable**.",,"1. User takes a photo and submits for identification.
+2. System attempts to call **Gemini AI API** but fails (no response).
+3. System retries once (assumed from missing retry logic; proceed with timeout).","- Error message: ""Could not identify plant. Please try again later.""
+- Plant is **not** added to `LeMiePiante`.
+- User can retry or cancel."
+TC-PLANT-MANAGEMENT-003,View user’s plants and their photos,Plant Reading,"1, 2, 5","- User has 3 plants saved in `LeMiePiante` (e.g., ""Rosa canina,"" ""Lavandula,"" ""Ficus elastica"").
+- User is logged in.",,"1. User navigates to `LeMiePiante`.
+2. System calls `FirebaseStorageManager.getPersonalFolders()`.
+3. System retrieves folder path for user’s plants.
+4. System calls `getImagesOfFolder()` for each plant species.
+5. System downloads URIs for all 3 plants’ photos.
+6. UI displays a list of plants with thumbnails.","- All 3 plants are listed with:
+  - Names: ""Rosa canina,"" ""Lavandula,"" ""Ficus elastica.""
+  - Thumbnails: Loaded from Firebase Storage URLs.
+- User can tap a plant to view details (e.g., full photo, notes)."
+TC-PLANT-MANAGEMENT-004,Edit plant details (name/notes),Plant Modification,"1, 2","- User has a plant named ""Rosa canina"" in `LeMiePiante`.
+- User is logged in.","- New name: ""Rosa selvatica""
+- New notes: ""Blooms in May""","1. User taps ""Rosa canina"" and selects ""Edit.""
+2. User changes name to ""Rosa selvatica"" and adds notes.
+3. System updates the plant record in `DataManager`.
+4. System calls `FirebaseStorageManager` to update metadata (if applicable).","- Plant name changes to ""Rosa selvatica"" in the list.
+- Notes field displays ""Blooms in May.""
+- Confirmation message: ""Plant updated successfully."""
+TC-DIARY-001,Add a new diary entry with text and optional AI-generated content,Diary Management,"1, 2","- User is logged in.
+- `GeneraAi` module is available.","- Entry title: ""Pruning Session""
+- Entry text: ""Pruned the roses today.""
+- AI prompt: ""Suggest care tips for roses after pruning.""","1. User navigates to `Diario` and clicks ""Add Entry.""
+2. User enters title ""Pruning Session"" and text ""Pruned the roses today.""
+3. User clicks ""AI Suggestions"" and inputs prompt.
+4. `GeneraAi.askTextWithImages()` sends prompt to AI.
+5. AI returns: ""Water lightly for 3 days. Fertilize in 2 weeks.""
+6. User appends AI text to the entry.
+7. System saves entry to `DataManager`.","- Entry is added to the diary with:
+  - Title: ""Pruning Session""
+  - Content: ""Pruned the roses today. Water lightly for 3 days...""
+- Confirmation message: ""Diary entry saved."""
+TC-DIARY-002,View diary entries in chronological order,Diary Reading,"1, 2, 5","- User has 2 diary entries:
+  - Entry 1 (older): ""Planted seeds"" (2023-10-01)
+  - Entry 2 (newer): ""First blooms"" (2023-10-15)
+- User is logged in.",,"1. User navigates to `Diario`.
+2. System retrieves entries from `DataManager` sorted by date (newest first).
+3. UI displays:
+   - Entry 2: ""First blooms"" (top)
+   - Entry 1: ""Planted seeds"" (below)","- Entries are listed in reverse chronological order.
+- User can tap an entry to view full details."
+TC-DIARY-003,Delete a diary entry,Diary Management,1,"- User has an entry titled ""Test Entry"" in the diary.
+- User is logged in.",,"1. User navigates to `Diario` and taps ""Test Entry.""
+2. User selects ""Delete.""
+3. System prompts: ""Are you sure?""
+4. User confirms deletion.
+5. System removes entry from `DataManager`.","- ""Test Entry"" is removed from the diary list.
+- Confirmation message: ""Entry deleted successfully."""
+TC-DISEASE-DETECTION-001,Disease detection from plant photo,Disease Detector,"2, 4","- User is logged in.
+- Camera permission is granted.
+- A plant with **powdery mildew** is photographed.",,"1. User navigates to `RilevatoreMalattia` and takes a photo of the affected plant.
+2. `scattaFoto()` captures the image.
+3. System sends photo to **Gemini AI API** with prompt: ""Detect plant disease.""
+4. AI returns: ""Powdery mildew detected. Treat with sulfur spray.""
+5. System displays result to the user.","- UI shows:
+  - Disease: ""Powdery mildew""
+  - Treatment: ""Sulfur spray""
+- Option to save diagnosis to `Diario` or `LeMiePiante`."
+TC-DISEASE-DETECTION-002,Disease detection with unclear photo (AI failure),Disease Detector,4,"- User takes a **blurry photo** of a plant.
+- Network connection is active.",,"1. User submits the blurry photo for analysis.
+2. System sends photo to **Gemini AI API**.
+3. AI returns: ""Insufficient clarity for diagnosis.""","- Error message: ""Could not analyze photo. Please retake with better lighting.""
+- No diagnosis is provided."
+TC-HOME-NAVIGATION-001,Navigate from Home to LeMiePiante and back,Home Screen,2,User is logged in.,,"1. User taps `LeMiePiante` on the Home screen.
+2. System calls `Navigate(LeMiePiante)`.
+3. `LeMiePiante` screen loads and displays user’s plants.
+4. User taps the back button (or ""Home"" icon).
+5. System returns to Home screen.","- `LeMiePiante` screen renders correctly with plant list.
+- Navigation back to Home is smooth (no crashes)."
+TC-HOME-NAVIGATION-002,Access CuriositaDelGiorno on Home screen,"Home Screen
+**Source",,,,,

@@ -1,0 +1,213 @@
+REPORT: Report_4_uml_pages.pdf
+======================================================================
+
+===== Report_4_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[Username: string, Password: string, Email: string, Admin: bool, Footprint_totale: string]; operations=[getUsername(): string, getUsernameAndEmail: string: void, setPassword(newPassword: string): void, getEmail(): string, setAdmin(isAdmin: bool): void, getFootprint_totale(): string]
+- Id — kind=class; attributes=[ID: int]; operations=[getID(): int, setID(newID: int): int: void]
+- Materiale — kind=class; attributes=[Formula chimica: string, Deposizione: int, Percentuale Presenza: int, Carbon footprint: string]; operations=[getFormulaChimica(): string, setFormulaChimica(newFormulaChimica: string): void, getDeposizione(): int, setDeposizione(newDeposizione: int): void, getPercentuale Presenza(): int, setPercentuale Presenza(newPercentuale Presenza: int): void, getCarbon footprint(): string, setCarbon footprint(newCarbon footprint: string): void]
+- Formula Chimica — kind=class; attributes=[formulaChimica: string]; operations=[getFormulaChimica(): string, setFormulaChimica(newFormulaChimica: string): void]
+- Deposizione — kind=class; attributes=[deposizione: int]; operations=[getDeposizione(): int, setDeposizione(newDeposizione: int): void]
+- Percentuale Presenza — kind=class; attributes=[percentualePresenza: int]; operations=[getPercentualePresenza(): int, setPercentualePresenza(newPercentuale Presenza: int): void]
+- Carbon Footprint — kind=class; attributes=[carbonFootprint: string]; operations=[getCarbonFootprint(): string, setCarbonFootprint(newCarbonFootprint: string): void]
+- Produzione — kind=class; attributes=[ID: int, Utente: string, Modello: string, Footprint produzione: string, Footprint totale: string]; operations=[getID(): int, setID(newID: int): int: void, getUtente(): string, setUtente(newUtente: string): void, getModello(): string, setModello(newModello: string): void, getFootprint produzione(): string, setFootprint produzione(newFootprint produzione: string): void, getFootprint totale(): string, setFootprint totale(newFootprint totale: string): void]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Produzione — type=association; label=""; explanation="Utente is associated with Produzione"
+- Id -> Produzione — type=association; label=""; explanation="Id is associated with Produzione"
+- Materiale -> Formula Chimica — type=association; label=""; explanation="Materiale is associated with Formula Chimica"
+- Materiale -> Deposizione — type=association; label=""; explanation="Materiale is associated with Deposizione"
+- Materiale -> Percentuale Presenza — type=association; label=""; explanation="Materiale is associated with Percentuale Presenza"
+- Materiale -> Carbon Footprint — type=association; label=""; explanation="Materiale is associated with Carbon Footprint"
+- Produzione -> Utente — type=association; label=""; explanation="Produzione is associated with Utente"
+- Produzione -> Modello — type=association; label=""; explanation="Produzione is associated with Modello"
+- Produzione -> Footprint produzione — type=association; label=""; explanation="Produzione is associated with Footprint produzione"
+- Produzione -> Footprint totale — type=association; label=""; explanation="Produzione is associated with Footprint totale"
+
+Main Flows:
+- Flow 1: Utente -> Produzione -> Utente; Produzione -> Id; Produzione -> Materiale; Materiale -> Formula Chimica; Materiale -> Deposizione; Materiale -> Percentuale Presenza; Materiale -> Carbon Footprint
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system for tracking production
+
+===== Report_4_uml_pages.pdf | Page 2 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; attributes=[]; operations=[]; role=User
+- Applicazione — kind=component; attributes=[]; operations=[]; role=Application
+- Database — kind=component; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Applicazione
+- Database
+
+Relationships / Links:
+- Utente -> Applicazione — type=message; label="Inizio Login"; explanation="User initiates login"
+- Applicazione -> Applicazione — type=message; label="Verifica se l'utente è registrato"; explanation="Application checks user registration"
+- Applicazione -> Database — type=message; label="Richiedi registrazione"; explanation="Application requests registration from the database"
+- Database -> Applicazione — type=message; label="Registrato?"; explanation="Database responds with registration status"
+- Applicazione -> Utente — type=message; label="Homepage"; explanation="Application sends homepage to the user"
+
+Main Flows:
+- Flow 1: Utente -> Applicazione (Inizio Login) -> Applicazione -> Applicazione (Verifica se l'utente è registrato) -> Applicazione -> Database (Richiedi registrazione) -> Database -> Applicazione (Registrato?) -> Applicazione -> Utente (Homepage)
+
+Conditions / Branches:
+- Registrato? — condition=Registrato?; branches=[yes, no]
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a login sequence where a user initiates a login, the application verifies registration status, and interacts with the database to check registration.
+- The flow branches based on whether the user is registered or not.
+- If the user is registered, the application sends the homepage.
+- The diagram does not show what happens if the user is not registered.
+
+===== Report_4_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=initial node; attributes=[]; operations=[]; role=start of process
+- Applicazione — kind=activity; attributes=[]; operations=[]; role=application component
+- Database — kind=activity; attributes=[]; operations=[]; role=database component
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Applicazione — type=control flow; label="Richiede modifica dati"; explanation="Request to modify data"
+- Applicazione -> Database — type=control flow; label="Richiedi dati attuali"; explanation="Request current data"
+- Database -> Applicazione — type=control flow; label="Fornisce dati attuali"; explanation="Provides current data"
+- Applicazione -> Main — type=control flow; label="Mostra dati attuali"; explanation="Shows current data"
+- Applicazione -> Main — type=control flow; label="Invia nuovi dati"; explanation="Sends new data"
+- Main -> Database — type=control flow; label="Aggiorna dati utente"; explanation="Updates user data"
+- Database -> Main — type=control flow; label="Conferma aggiornamento"; explanation="Confirms update"
+- Main -> Applicazione — type=control flow; label="Aggiornamento effettuato"; explanation="Update completed"
+
+Main Flows:
+- Flow 1: Main -> Applicazione -> Database -> Applicazione -> Main -> Applicazione -> Main -> Database -> Main -> Applicazione
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a data modification process involving a Main component, an Application component, and a Database component.
+- The process begins with a request for data modification from Main to Application.
+- Application retrieves current data from the Database, displays it, and then receives new data from Main.
+- The Application then sends the new data to the Database for updating.
+- The Database confirms the update, and the Application informs Main that the update is complete.
+- The diagram represents a linear, sequential flow without any branching or looping.
+
+===== Report_4_uml_pages.pdf | Page 4 =====
+UML Type:
+- Activity
+
+Components:
+- Main — kind=activity; attributes=[]; operations=[]; role=Starting point
+- Applicazione — kind=activity; attributes=[]; operations=[]; role=Application processing
+- Database — kind=activity; attributes=[]; operations=[]; role=Data storage
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Applicazione — type=control_flow; label="Esegue scansione dispositivo"; explanation="Initiates device scanning"
+- Applicazione -> Database — type=control_flow; label="Esegui scansione hardware"; explanation="Performs hardware scan"
+- Database -> Applicazione — type=control_flow; label="Nome e Impatto componente"; explanation="Returns component name and impact"
+- Applicazione -> Main — type=control_flow; label="return result"; explanation="Returns the result to the main component"
+- Applicazione -> Main — type=control_flow; label="return nome, impatto componente, diagnostica dispositivo"; explanation="Returns component name, impact, and device diagnostics"
+- Database -> Applicazione — type=control_flow; label="Si, ricavo impatto sostituzione componente"; explanation="Retrieves impact of component replacement"
+- Applicazione -> Database — type=control_flow; label="Se ci sono componenti difettosi si calcola quanto ha cambiarlo"; explanation="Calculates the cost of replacement if components are defective"
+
+Main Flows:
+- Flow 1: Main -> Applicazione -> Database -> Applicazione -> Main (return result) -> Applicazione -> Main (return nome, impatto componente, diagnostica dispositivo)
+- Flow 2: Applicazione -> Database -> Applicazione -> Database (Si, ricavo impatto sostituzione componente) -> Applicazione
+
+Conditions / Branches:
+- Applicazione: "Componenti funzionanti?"
+  - no -> Database (Si, ricavo impatto sostituzione componente)
+  - yes -> Main (return result)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a device scanning process.
+- The process starts with the Main component initiating a device scan through the Applicazione component.
+- The Applicazione component interacts with the Database to perform a hardware scan and retrieve component information.
+- A decision point checks if components are functioning. If not, the impact of replacement is calculated.
+- The process returns results, including component names, impact, and device diagnostics, back to the Main component.
+
+===== Report_4_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=initial node; attributes=[]; operations=[]; role=start of the process
+- Applicazione — kind=activity; attributes=[]; operations=[]; role=application
+- Esegui scansione hardware — kind=activity; attributes=[]; operations=[]; role=hardware scan
+- Scansione velocità e salute componenti — kind=activity; attributes=[]; operations=[]; role=component health and speed scan
+- Calcolo aspettativa di vita — kind=activity; attributes=[]; operations=[]; role=life expectancy calculation
+- return result — kind=final node; attributes=[]; operations=[]; role=end of the process
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Main -> Esegui scansione hardware — type=control flow; label=""; explanation="Starts the process"
+- Esegui scansione hardware -> Scansione velocità e salute componenti — type=control flow; label=""; explanation="Performs hardware scan"
+- Scansione velocità e salute componenti -> Calcolo aspettativa di vita — type=control flow; label=""; explanation="Calculates life expectancy"
+- Calcolo aspettativa di vita -> return result — type=control flow; label=""; explanation="Returns the result"
+
+Main Flows:
+- Flow 1: Main -> Esegui scansione hardware -> Scansione velocità e salute componenti -> Calcolo aspettativa di vita -> return result
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts a process for calculating life expectancy.
+- The process begins with the "Main" node, which initiates the "Esegui scansione hardware" activity.
+- Following the hardware scan, the "Scansione velocità e salute componenti" activity is performed.
+- Finally, the "Calcolo aspettativa di vita" activity calculates the life expectancy, and the result is returned.
+- The diagram represents a linear, sequential flow of activities.
+
+
+======================================================================

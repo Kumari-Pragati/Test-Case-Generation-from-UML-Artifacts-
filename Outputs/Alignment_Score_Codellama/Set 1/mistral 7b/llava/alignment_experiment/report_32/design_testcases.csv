@@ -1,0 +1,76 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-User-001","User can log in","User","1","User has a valid username and password","Valid username and password","1. Navigate to the login page
+2. Enter the valid username and password
+3. Click the login button","User is logged in successfully"
+"TC-User-002","User can view the menu","User","1","User is logged in","None","1. Navigate to the menu page
+2. Verify that the menu is displayed","Menu is displayed"
+"TC-User-003","User can place an order","User","1","User is logged in and the menu is displayed","Menu item(s) to order","1. Navigate to the menu page
+2. Select the desired menu item(s)
+3. Click the ""Add to Order"" button
+4. Verify that the selected item(s) are added to the order
+5. Click the ""Place Order"" button","Order is placed successfully"
+"TC-User-004","User can view their order","User","1","User is logged in and has placed an order","None","1. Navigate to the order page
+2. Verify that the order is displayed","Order is displayed"
+"TC-User-005","User can process payment","User","1","User is logged in, has placed an order, and the order is displayed","Valid payment information","1. Navigate to the order page
+2. Click the ""Process Payment"" button
+3. Enter the payment information
+4. Click the ""Submit Payment"" button","Payment is processed successfully"
+"TC-User-006","User cannot log in with invalid credentials","User","1","User enters invalid username or password","Invalid username or password","1. Navigate to the login page
+2. Enter the invalid username or password
+3. Click the login button","Login fails"
+"TC-User-007","User cannot place an order without logging in","User","1","User is not logged in","None","1. Navigate to the menu page
+2. Attempt to place an order","Login required"
+"TC-User-008","User cannot view their order without logging in","User","1","User is not logged in","None","1. Navigate to the order page","Login required"
+"TC-User-009","User cannot process payment without placing an order","User","1","User is logged in but has not placed an order","None","1. Navigate to the order page
+2. Attempt to process payment","Order required"
+"TC-User-010","User can cancel an order","User","1","User is logged in and has placed an order","None","1. Navigate to the order page
+2. Click the ""Cancel Order"" button","Order is cancelled successfully"
+"TC-User-011","User cannot cancel an order that has already been processed","User","1","User is logged in, has placed an order, and the order has been processed","None","1. Navigate to the order page
+2. Attempt to cancel the order","Order cannot be cancelled"
+"TC-Restaurant-001","Restaurant can view the menu","Restaurant","1","Restaurant is operational","None","1. Navigate to the menu page
+2. Verify that the menu is displayed","Menu is displayed"
+"TC-Restaurant-002","Restaurant can process payment","Restaurant","1","Restaurant is operational and has received an order","Valid payment information","1. Receive the order
+2. Process the payment","Payment is processed successfully"
+"TC-Restaurant-003","Restaurant cannot process payment without receiving an order","Restaurant","1","Restaurant is operational but has not received an order","None","1. Attempt to process payment","Order required"
+"TC-Menu-001","Menu can be viewed by users and restaurants","Menu","1","User or restaurant is operational","None","1. Navigate to the menu page
+2. Verify that the menu is displayed","Menu is displayed"
+"TC-Order-001","Order can be placed by users","Order","1","User is logged in and the menu is displayed","Menu item(s) to order","1. Navigate to the menu page
+2. Select the desired menu item(s)
+3. Click the ""Add to Order"" button
+4. Verify that the selected item(s) are added to the order
+5. Click the ""Place Order"" button","Order is placed successfully"
+"TC-Order-002","Order cannot be placed without selecting any menu items","Order","1","User is logged in and the menu is displayed","None","1. Navigate to the menu page
+2. Attempt to place an order","Menu item(s) required"
+"TC-Payment-001","Payment can be processed by users","Payment","1","User is logged in, has placed an order, and the order is displayed","Valid payment information","1. Navigate to the order page
+2. Click the ""Process Payment"" button
+3. Enter the payment information
+4. Click the ""Submit Payment"" button","Payment is processed successfully"
+"TC-Payment-002","Payment cannot be processed with invalid payment information","Payment","1","User is logged in, has placed an order, and the order is displayed","Invalid payment information","1. Navigate to the order page
+2. Click the ""Process Payment"" button
+3. Enter the invalid payment information
+4. Click the ""Submit Payment"" button","Payment cannot be processed"
+"TC-Payment-003","Payment cannot be processed without placing an order","Payment","1","User is logged in but has not placed an order","None","1. Navigate to the order page
+2. Attempt to process payment","Order required"
+"TC-Order-003","Order can be cancelled by users","Order","1","User is logged in and has placed an order","None","1. Navigate to the order page
+2. Click the ""Cancel Order"" button","Order is cancelled successfully"
+"TC-Order-004","Order cannot be cancelled after it has been processed","Order","1","User is logged in, has placed an order, and the order has been processed","None","1. Navigate to the order page
+2. Attempt to cancel the order","Order cannot be cancelled"
+"TC-Order-005","Order can be viewed by users","Order","1","User is logged in and has placed an order","None","1. Navigate to the order page
+2. Verify that the order is displayed","Order is displayed"
+"TC-Order-006","Order cannot be viewed by users who have not placed an order","Order","1","User is not logged in or has not placed an order","None","1. Navigate to the order page","Order cannot be viewed"
+"TC-Order-007","Order can be viewed by restaurants","Order","1","Restaurant is operational and has received an order","None","1. Receive the order
+2. Verify that the order is displayed","Order is displayed"
+"TC-Order-008","Order cannot be viewed by restaurants who have not received an order","Order","1","Restaurant is operational but has not received an order","None","1. Attempt to view an order","Order cannot be viewed"
+"TC-Menu-002","Menu can be updated by restaurants","Menu","1","Restaurant is operational","Updated menu items","1. Navigate to the menu page
+2. Update the menu items
+3. Save the changes","Menu is updated successfully"
+"TC-Menu-003","Menu cannot be updated without restaurant access","Menu","1","User is not a restaurant","None","1. Attempt to update the menu","Access denied"
+"TC-Menu-004","Menu cannot be updated without valid menu items","Menu","1","Restaurant is operational","Invalid menu items","1. Navigate to the menu page
+2. Attempt to update the menu with invalid items","Invalid menu items"
+"TC-Menu-005","Menu can be viewed by users and restaurants","Menu","1","User or restaurant is operational","None","1. Navigate to the menu page
+2. Verify that the menu is displayed","Menu is displayed"
+"TC-Restaurant-004","Restaurant can view orders","Restaurant","1","Restaurant is operational","None","1. Receive the order
+2. Verify that the order is displayed","Order is displayed"
+"TC-Restaurant-005","Restaurant cannot view orders without receiving them","Restaurant","1","Restaurant is operational but has not received an order","None","1. Attempt to view an order","Order cannot be viewed"
+"TC-Restaurant-006","Restaurant can process multiple orders","Restaurant","1","Restaurant is operational and has received multiple orders","Multiple orders","1. Receive the orders
+2. Process the payments for each order","Payments are processed successfully for each order"

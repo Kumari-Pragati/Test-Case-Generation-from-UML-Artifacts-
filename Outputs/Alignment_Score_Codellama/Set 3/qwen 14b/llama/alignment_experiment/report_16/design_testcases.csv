@@ -1,0 +1,66 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user,Utente,1,None,"- Id: 1
+- Password: ""password123""
+- Email: ""test@example.com""
+- Nome: ""John""
+- Cognome: ""Doe""",1. Call the constructor to create a new Utente object with the provided data.,- A new Utente object is created with the specified attributes.
+TC-Utente-002,Set password for an existing user,Utente,1,A Utente object exists with Id = 1,"- New Password: ""newpassword456""",1. Call the setPassword method on the existing Utente object with the new password.,"- The password attribute of the Utente object is updated to ""newpassword456""."
+TC-Utente-003,Get email for an existing user,Utente,1,A Utente object exists with Id = 1,None,1. Call the getEmail method on the existing Utente object.,"- The method returns the email ""test@example.com""."
+TC-Prodotto-001,Create a new product,Prodotto,1,A Utente object exists with Id = 1,"- Nome: ""Product A""
+- Luogo: ""Italy""
+- Descrizione: ""A great product""
+- Immagine: ""product_a.jpg""
+- Prezzo: 99.99
+- Proprietario: Utente with Id = 1",1. Call the constructor to create a new Prodotto object with the provided data.,- A new Prodotto object is created with the specified attributes and associated with the given Utente object.
+TC-Prodotto-002,Set product name,Prodotto,1,"A Prodotto object exists with Nome = ""Product A""","- New Nome: ""Product B""",1. Call the setNome method on the existing Prodotto object with the new name.,"- The nome attribute of the Prodotto object is updated to ""Product B""."
+TC-Prodotto-003,Get product price,Prodotto,1,A Prodotto object exists with Prezzo = 99.99,None,1. Call the getPrezzo method on the existing Prodotto object.,- The method returns the prezzo value 99.99.
+TC-Segnalazione-001,Create a new signal,Segnalazione,1,A Utente object exists with Id = 1 and another Utente object exists with Id = 2,"- Tipo: True
+- Titolo: ""Inappropriate Content""
+- Descrizione: ""This product contains inappropriate content.""
+- Utente Segnalato: Utente with Id = 2
+- Autore: Utente with Id = 1",1. Call the constructor to create a new Segnalazione object with the provided data.,- A new Segnalazione object is created with the specified attributes and associated with the given Utente objects.
+TC-Segnalazione-002,Set signal title,Segnalazione,1,"A Segnalazione object exists with Titolo = ""Inappropriate Content""","- New Titolo: ""Spam Product""",1. Call the setTitolo method on the existing Segnalazione object with the new title.,"- The titolo attribute of the Segnalazione object is updated to ""Spam Product""."
+TC-Segnalazione-003,Get signal author,Segnalazione,1,A Segnalazione object exists with Autore Id = 1,None,1. Call the getAutore method on the existing Segnalazione object.,- The method returns the Utente object with Id = 1.
+TC-Utente-004,Invalid email format,Utente,1,None,"- Id: 2
+- Password: ""password123""
+- Email: ""invalidemail""
+- Nome: ""Jane""
+- Cognome: ""Smith""",1. Attempt to call the constructor to create a new Utente object with the invalid email.,- An error occurs due to the invalid email format.
+TC-Prodotto-004,Negative product price,Prodotto,1,A Utente object exists with Id = 1,"- Nome: ""Product C""
+- Luogo: ""Spain""
+- Descrizione: ""A bad product""
+- Immagine: ""product_c.jpg""
+- Prezzo: -10.00
+- Proprietario: Utente with Id = 1",1. Attempt to call the constructor to create a new Prodotto object with a negative price.,- An error occurs due to the negative price value.
+TC-Segnalazione-004,Null signal description,Segnalazione,1,A Utente object exists with Id = 1 and another Utente object exists with Id = 2,"- Tipo: False
+- Titolo: ""Invalid Description""
+- Descrizione: null
+- Utente Segnalato: Utente with Id = 2
+- Autore: Utente with Id = 1",1. Attempt to call the constructor to create a new Segnalazione object with a null description.,- An error occurs due to the null description.
+TC-Utente-005,Empty password,Utente,1,None,"- Id: 3
+- Password: """"
+- Email: ""empty_password@example.com""
+- Nome: ""Alice""
+- Cognome: ""Johnson""",1. Attempt to call the constructor to create a new Utente object with an empty password.,- An error occurs due to the empty password.
+TC-Prodotto-005,Empty product name,Prodotto,1,A Utente object exists with Id = 1,"- Nome: """"
+- Luogo: ""France""
+- Descrizione: ""An empty product""
+- Immagine: ""product_d.jpg""
+- Prezzo: 50.00
+- Proprietario: Utente with Id = 1",1. Attempt to call the constructor to create a new Prodotto object with an empty name.,- An error occurs due to the empty product name.
+TC-Segnalazione-005,Empty signal title,Segnalazione,1,A Utente object exists with Id = 1 and another Utente object exists with Id = 2,"- Tipo: True
+- Titolo: """"
+- Descrizione: ""Empty Title Signal""
+- Utente Segnalato: Utente with Id = 2
+- Autore: Utente with Id = 1",1. Attempt to call the constructor to create a new Segnalazione object with an empty title.,- An error occurs due to the empty signal title.
+TC-Utente-006,Update user name,Utente,1,"A Utente object exists with Id = 1 and Nome = ""John""","- New Nome: ""Johnny""",1. Call the setNome method on the existing Utente object with the new name.,"- The nome attribute of the Utente object is updated to ""Johnny""."
+TC-Prodotto-006,Update product location,Prodotto,1,"A Prodotto object exists with Luogo = ""Italy""","- New Luogo: ""Germany""",1. Call the setLuogo method on the existing Prodotto object with the new location.,"- The luogo attribute of the Prodotto object is updated to ""Germany""."
+TC-Segnalazione-006,Update signal type,Segnalazione,1,A Segnalazione object exists with Tipo = True,- New Tipo: False,1. Call the setTipo method on the existing Segnalazione object with the new type.,- The tipo attribute of the Segnalazione object is updated to False.
+TC-Utente-007,Update user surname,Utente,1,"A Utente object exists with Id = 1 and Cognome = ""Doe""","- New Cognome: ""Smith""",1. Call the setCognome method on the existing Utente object with the new surname.,"- The cognome attribute of the Utente object is updated to ""Smith""."
+TC-Prodotto-007,Update product description,Prodotto,1,"A Prodotto object exists with Descrizione = ""A great product""","- New Descrizione: ""A fantastic product""",1. Call the setDescrizione method on the existing Prodotto object with the new description.,"- The descrizione attribute of the Prodotto object is updated to ""A fantastic product""."
+TC-Segnalazione-007,Update signal description,Segnalazione,1,"A Segnalazione object exists with Descrizione = ""This product contains inappropriate content.""","- New Descrizione: ""This product is spam.""",1. Call the setDescrizione method on the existing Segnalazione object with the new description.,"- The descrizione attribute of the Segnalazione object is updated to ""This product is spam."""
+TC-Utente-008,Update user email,Utente,1,"A Utente object exists with Id = 1 and Email = ""test@example.com""","- New Email: ""john.doe@example.com""",1. Call the setEmail method on the existing Utente object with the new email.,"- The email attribute of the Utente object is updated to ""john.doe@example.com""."
+TC-Prodotto-008,Update product image,Prodotto,1,"A Prodotto object exists with Immagine = ""product_a.jpg""","- New Immagine: ""product_b.jpg""",1. Call the setImmagine method on the existing Prodotto object with the new image.,"- The immagine attribute of the Prodotto object is updated to ""product_b.jpg""."
+TC-Segnalazione-008,Update signal author,Segnalazione,1,A Segnalazione object exists with Autore Id = 1,- New Autore: Utente with Id = 2,1. Call the setAutore method on the existing Segnalazione object with the new author.,- The autore attribute of the Segnalazione object is updated to the Utente object with Id = 2.
+TC-Utente-009,Update user password with special characters,Utente,1,A Utente object exists with Id = 1,"- New Password: ""P@ssw0rd!""",1. Call the setPassword method on the existing Utente object with the new password containing special characters.,"- The password attribute of the Utente object is updated to ""P@ssw0rd!""."
+TC-Prodotto-009,Update product price with decimal precision,,,,,,

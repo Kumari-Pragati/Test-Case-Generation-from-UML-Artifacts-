@@ -1,0 +1,85 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Verify successful user registration with valid credentials,User Management,1,System is running; no existing user with ID 1001,"- ID: 1001
+- Name: ""John""
+- Cognome: ""Doe""
+- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""","1. Call `newId()` to generate a new user ID (assume returns 1001).
+2. Create a new `Utente` object with provided attributes.
+3. Call `setPassword(""SecurePass123!"")`.
+4. Call `setEmail(""john.doe@example.com"")`.
+5. Call `setNome(""John"")` and `setCognome(""Doe"")`.
+6. Verify `getName()` returns ""John"" and `getCognome()` returns ""Doe"".","- User object is created successfully with all attributes set.
+- No errors during method calls.
+- Retrieved name and surname match input."
+TC-USER-002,Verify password update with valid and invalid inputs,User Management,1,"Existing user with ID 1001 and password ""SecurePass123!""","- Valid new password: ""NewSecurePass456!""
+- Invalid new password: ""weak"" (too short), ""123456"" (no special char), ""NoUppercase123!"" (no uppercase)","1. Call `setPassword(""NewSecurePass456!"")` on user with ID 1001.
+2. Verify password is updated (assume system validates internally).
+3. Attempt to call `setPassword(""weak"")` and log any errors.
+4. Attempt to call `setPassword(""123456"")` and log any errors.
+5. Attempt to call `setPassword(""NoUppercase123!"")` and log any errors.","- Step 1: Password updates successfully.
+- Steps 3–5: System rejects invalid passwords (e.g., throws exception or returns false).
+- No partial updates (password remains unchanged for invalid attempts)."
+TC-USER-003,Verify email update with valid and invalid formats,User Management,1,"Existing user with ID 1001 and email ""john.doe@example.com""","- Valid new email: ""john.doe.new@example.org""
+- Invalid emails: ""invalid.email"", ""john@.com"", ""missing@domain"", ""john.doe@example""","1. Call `setEmail(""john.doe.new@example.org"")` on user with ID 1001.
+2. Verify email is updated (assume system validates format).
+3. Attempt to call `setEmail(""invalid.email"")` and log any errors.
+4. Attempt to call `setEmail(""john@.com"")` and log any errors.
+5. Attempt to call `setEmail(""missing@domain"")` and log any errors.
+6. Attempt to call `setEmail(""john.doe@example"")` and log any errors.","- Step 1: Email updates successfully.
+- Steps 3–6: System rejects invalid emails (e.g., throws exception or returns false).
+- No partial updates (email remains unchanged for invalid attempts)."
+TC-PRODUCT-001,Verify successful product creation with valid attributes,Product Management,1,Existing user with ID 1001; system allows product creation,"- Product name: ""Vintage Chair""
+- Location: ""Milan, Italy""
+- Image: ""chair_vintage.jpg"" (assume file path or URL)
+- Price: 199.99
+- Proprietario: User with ID 1001","1. Create a new `Prodotto` object using `new()`.
+2. Set attributes:
+   - Name: ""Vintage Chair""
+   - Luogo: ""Milan, Italy""
+   - Immagine: ""chair_vintage.jpg""
+   - Prezzo: 199.99
+   - Proprietario: User object with ID 1001
+3. Verify all attributes are stored correctly.","- Product object is created successfully with all attributes set.
+- No errors during object creation or attribute assignment.
+- Proprietario field correctly references the user with ID 1001."
+TC-PRODUCT-002,Verify product creation with invalid price (negative/zero),Product Management,1,System enforces positive price validation,"- Invalid prices: -100.00, 0.00
+- Valid price: 50.00","1. Attempt to create a `Prodotto` with `Prezzo = -100.00`.
+2. Log any errors or exceptions.
+3. Attempt to create a `Prodotto` with `Prezzo = 0.00`.
+4. Log any errors or exceptions.
+5. Create a `Prodotto` with `Prezzo = 50.00` and verify success.","- Steps 1–2: System rejects negative/zero prices (e.g., throws exception or returns false).
+- Step 5: Product is created successfully with valid price."
+TC-RELATIONSHIP-001,Verify one-to-many relationship: user owns multiple products,User-Product Association,1,Existing user with ID 1001; no existing products,"- User: ID 1001
+- Products:
+  1. Name: ""Antique Lamp"", Price: 299.99
+  2. Name: ""Wooden Table"", Price: 450.50","1. Create `Prodotto` object 1 with proprietario = User(1001).
+2. Create `Prodotto` object 2 with proprietario = User(1001).
+3. Verify both products are associated with the same user (ID 1001).
+4. Attempt to create a third product with `Proprietario = null` and log behavior.","- Steps 1–2: Both products are successfully linked to User(1001).
+- Step 4: System either rejects `null` proprietario or assigns a default user (document behavior)."
+TC-RELATIONSHIP-002,Verify product ownership transfer between users,User-Product Association,1,"- User1 (ID 1001) owns Product1 (""Vintage Chair"").
+- User2 (ID 1002) exists but does not own Product1.",,"1. Retrieve Product1 owned by User1.
+2. Change `Proprietario` of Product1 to User2.
+3. Verify Product1 is now associated with User2.
+4. Verify User1 no longer ""has"" Product1 (if system tracks this bidirectionally).","- Step 2: Ownership transfer succeeds.
+- Step 3: Product1’s `Proprietario` attribute reflects User2.
+- Step 4: User1’s product list excludes Product1 (if applicable)."
+TC-EDGE-001,Verify system behavior with empty/missing product attributes,Product Management,1,System may enforce mandatory fields,"- Missing attributes:
+  - Name: (empty string)
+  - Price: (not set)
+  - Proprietario: (not set)","1. Attempt to create `Prodotto` with `Name = """"` (empty string).
+2. Log any errors or exceptions.
+3. Attempt to create `Prodotto` with `Prezzo` unset.
+4. Log any errors or exceptions.
+5. Attempt to create `Prodotto` with `Proprietario = null`.
+6. Log any errors or exceptions.","- Steps 1–3: System rejects products with missing mandatory fields (e.g., throws exception or returns false).
+- Step 5: System either rejects `null` proprietario or assigns a default user (document behavior)."
+TC-EDGE-002,Verify user attribute updates with edge-case inputs,User Management,1,Existing user with ID 1001,"- Name: ""A"" (single character), ""John Doe Smith"" (long name)
+- Cognome: ""X"" (single character), ""DoeJohnsonWilliams"" (long surname)
+- Email: ""a@a.a"" (minimal valid), ""john.doe+test@example.com"" (with +)","1. Call `setNome(""A"")` and verify no errors.
+2. Call `setNome(""John Doe Smith"")` and verify no errors.
+3. Call `setCognome(""X"")` and verify no errors.
+4. Call `setCognome(""DoeJohnsonWilliams"")` and verify no errors.
+5. Call `setEmail(""a@a.a"")` and verify no errors.
+6. Call `setEmail(""john.doe+test@example.com"")` and verify no errors.","- All steps succeed; system accepts edge-case inputs within defined limits.
+- No truncation or silent failures for valid but minimal/maximal inputs."

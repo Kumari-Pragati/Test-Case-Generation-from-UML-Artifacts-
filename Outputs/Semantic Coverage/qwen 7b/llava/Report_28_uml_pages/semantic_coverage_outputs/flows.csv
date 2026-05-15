@@ -1,0 +1,99 @@
+flow
+"<source> -> <target> — type=<association/message/transition/etc>; label=""<edge label if visible>""; explanation=""<short explanation using only visible text>"""
+flow 1: <step-by-step description from start to end using only component names and edge labels>
+flow 2: <only if another distinct flow is clearly visible>
+"(you can add flow 3, flow 4 if they clearly exist; otherwise stop at flow 1)"
+"<2–6 bullets giving an overall high-level description of what this diagram models,"
+"how the main flows behave, and any key edge cases or error paths, using only"
+information from labels in the diagram.>
+guidelines by diagram type (keep it generic):
+for sequence diagrams:
+"* components are actions, decisions, merges, initial nodes, final nodes, etc."
+* relationships / links correspond to control-flow arrows.
+* main flows should be explicit sequences like:
+"""avvio app"" -> ""utente registrato con successo al servizio?"" (si) -> ..."
+* conditions / branches summarize each decision node and its labeled exits.
+for use-case diagrams:
+* actors are external users or systems.
+* components include use cases (ellipses) and actors.
+"* relationships / links capture ""includes"", ""extends"", associations, etc."
+for state_machine diagrams:
+* components are states and initial/final markers.
+* relationships / links are transitions with event/guard labels.
+for component / deployment / object / package diagrams:
+"* components are components, nodes, objects, or packages respectively."
+"* relationships / links describe connections, dependencies, containment, etc."
+general rules (very important):
+use only text that is visible in the diagram.
+do not repeat these instructions.
+be as detailed as possible.
+do not invent new names.
+do not repeat existing names.
+do not repeat existing names
+"user -> apimanager — type=association; label=""login""; explanation=""user sends login request to apimanager"""
+"flow 1: user -> apimanager -> apimanager (login(username: string, password: string))"
+the diagram represents a login process where a user sends a login request to an apimanager.
+the apimanager verifies the user's credentials and returns a boolean indicating whether the login was successful.
+"the main flow is the login process, which starts with the user and ends with the apimanager."
+for class diagrams:
+"* treat each class box as a component with kind=""class""."
+"* in the component bullet, list all attributes and operations exactly as written, including type and return type if visible."
+"* in relationships / links, list associations, aggregations, compositions, and inheritances between classes (use ""association"", ""inheritance"", etc.)."
+* main flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+for activity diagrams:
+"* actors / lifelines should list all participants (client, server, database, logger, etc.)."
+"* components can repeat these lifelines plus important fragments (alt, loop, etc.)."
+* relationships / links must capture each message with its order and arrow direction.
+* main flows should narrate the interaction from top to bottom.
+for component / deployment diagrams:
+"* components are components, nodes, and deployments."
+"* relationships / links are connections, dependencies, etc."
+general rules:
+use the visible text to describe the diagram.
+use the diagram.
+use
+"main -> apimanager: type=association; label=""apimanager""; explanation=""apimanager is a service that manages apis."""
+"apimanager -> service: type=association; label=""service""; explanation=""service is a component that provides functionality."""
+flow 1: main -> apimanager -> service
+this diagram models a system with a main component that interacts with an apimanager and a service.
+"the main component initiates a request to the apimanager, which then interacts with the service."
+the service is the primary component that provides the functionality of the system.
+the apimanager acts as an intermediary between the main component and the service.
+the diagram does not show any decision points or error paths.
+"* main flows can describe likely collaboration between classes based only on visible methods and relationships (use ""association"", ""inheritance"", etc.)."
+* components include use cases (ellipses).
+* relationships / links correspond to the sequence of actions.
+* main flows describe the interaction from top to bottom.
+* components are states.
+* relationships / links correspond to the state transitions.
+for compon
+"user -> api manager — type=association; label=""login""; explanation=""user logs in to api manager"""
+"user -> service — type=association; label=""handlerequest""; explanation=""api manager sends request to service"""
+"api manager -> report — type=association; label=""generatereport""; explanation=""api manager generates report"""
+flow 1: user -> api manager -> service -> report
+"the diagram represents a system where a user logs in to an api manager, which then handles requests to a service that generates reports."
+"the user interacts with the api manager through a login operation, which is the starting point of the main flow."
+"the api manager then sends a request to the service, which generates a report."
+"the user, api manager, service, and report are the main components involved in this system."
+"the user is the external actor, while the api manager and service are internal components that interact with each other."
+the report is a result of the service's operation.
+* components can repeat these lifelines plus repeat these lifelines.
+"""avvio app"" -> ""utente al servizio?"" (si) -> ..."
+for use cases:
+* none
+guidelines:
+"main -> apimanager: type=association; label=""apimanager""; explanation=""apimanager is a service that manages api requests."""
+"apimanager -> service: type=association; label=""service""; explanation=""service is a component that provides a service to the apimanager."""
+"apimanager -> datamanager: type=association; label=""datamanager""; explanation=""datamanager is a component that manages data for the apimanager."""
+flow 1: main -> apimanager -> service -> datamanager -> service -> apimanager -> main
+"the diagram represents a class diagram with three classes: main, apimanager, and service."
+"the main class is the entry point for the system, and it interacts with the apimanager and datamanager classes."
+the apimanager class is responsible for managing api requests and interacts with the service and datamanager classes.
+the service class provides a service to the apimanager and interacts with the datamanager class.
+the datamanager class manages data for the apimanager and interacts with the service class.
+"the diagram does not show any decision points or loops, indicating a straightforward flow of operations."
+"* actors / lifelines should list all participants (client, server, database)."
+* main flows should describe the interaction from top to bottom.
+for use_case diagrams:
+"* components are actions, decisions, decisions, conditions, branches, conditions, branches, conditions, decisions, conditions, decisions, branches, conditions, decisions, conditions, decisions, conditions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, decisions, dec"
+======================================================================

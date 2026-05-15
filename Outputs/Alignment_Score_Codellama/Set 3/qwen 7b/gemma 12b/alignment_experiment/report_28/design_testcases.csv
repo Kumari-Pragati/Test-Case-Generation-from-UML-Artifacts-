@@ -1,0 +1,167 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Configuration-001","Verify Configuration Settings Initialization","Configuration","1","None","None","1. Call start() method
+2. Check if MIN_AGE, MIN_PASSWORD, and API_key attributes are initialized","MIN_AGE, MIN_PASSWORD, and API_key should be properly initialized."
+"TC-Configuration-002","Validate Configuration Settings Update","Configuration","1","Configuration has been initialized","New values for MIN_AGE, MIN_PASSWORD, and API_key","1. Call start() method
+2. Set new values for MIN_AGE, MIN_PASSWORD, and API_key
+3. Call start() method again","MIN_AGE, MIN_PASSWORD, and API_key should be updated with the new values."
+"TC-NotificationSystem-001","Verify Notification System Initialization","NotificationSystem","1","None","None","1. Call start() method
+2. Check if all methods (downloadReport(), showNotification(), sendNotification()) are callable","All methods should be callable without errors."
+"TC-Server-001","Verify Server Functionality Initialization","Server","1","None","None","1. Call signup() method
+2. Check if signup functionality works
+3. Call login() method
+4. Check if login functionality works
+5. Call logout() method
+6. Check if logout functionality works
+7. Call usernameExists() method
+8. Check if usernameExists functionality works
+9. Call renameUserName() method
+10. Check if renameUserName functionality works
+11. Call profile_weight(), profile_height(), profile_date(), and profile_city() methods
+12. Check if these functionalities work
+13. Call get_access_token() method
+14. Check if get_access_token functionality works
+15. Call reset() method
+16. Check if reset functionality works","All methods should return expected results without errors."
+"TC-Service-001","Verify Service Functionality Initialization","Service","1","None","None","1. Call oldDate() method
+2. Check if oldDate functionality works
+3. Call newDate() method
+4. Check if newDate functionality works
+5. Call creatorID() method
+6. Check if creatorID functionality works
+7. Call getReport() method
+8. Check if getReport functionality works
+9. Call getCategory() method
+10. Check if getCategory functionality works
+11. Call getIcon() method
+12. Check if getIcon functionality works
+13. Call getAddress() method
+14. Check if getAddress functionality works
+15. Call getLatitude() method
+15. Check if getLatitude functionality works
+16. Call getLongitude() method
+17. Check if getLongitude functionality works
+18. Call get_access_token() method
+18. Check if get_access_token functionality works","All methods should return expected results without errors."
+"TC-Report-001","Verify Report Data Initialization","Report","1","None","None","1. Call createDate() method
+2. Check if createDate functionality works
+3. Call title() method
+4. Check if title functionality works
+5. Call priority() method
+6. Check if priority functionality works
+7. Call category() method
+7. Check if category functionality works
+8. Call address() method
+9. Check if address functionality works
+10. Call creator() method
+10. Check if creator functionality works","All methods should return expected results without errors."
+"TC-Need-001","Verify Need Data Initialization","Need","1","None","None","1. Call createDate() method
+2. Check if createDate functionality works
+3. Call title() method
+4. Check if title functionality works
+5. Call description() method
+6. Check if description functionality works
+7. Call assistant() method
+8. Check if assistant functionality works
+9. Call priority() method
+10. Check if priority functionality works
+11. Call address() method
+12. Check if address functionality works
+13. Call latitude() method
+13. Check if latitude functionality works
+14. Call longitude() method
+15. Check if longitude functionality works
+16. Call get_access_token() method
+17. Check if get_access_token functionality works
+18. Call getReport() method
+19. Check if getReport functionality works
+20. Call getCategory() method
+21. Check if getCategory functionality works
+22. Call getIcon() method
+23. Check if getIcon functionality works
+24. Call getAddress() method
+25. Check if getAddress functionality works
+26. Call getLatitude() method
+27. Check if getLatitude functionality works
+28. Call getLongitude() method
+29. Check if getLongitude functionality works","All methods should return expected results without errors."
+"TC-Locator-001","Verify Locator Data Initialization","Locator","1","None","None","1. Call email() method
+2. Check if email functionality works
+3. Call password() method
+4. Check if password functionality works
+5. Call name() method
+6. Check if name functionality works
+7. Call lastname() method
+8. Check if lastname functionality works
+9. Call createDate() method
+10. Check if createDate functionality works
+11. Call family() method
+12. Check if family functionality works
+13. Call houseType() method
+14. Check if houseType functionality works
+15. Call token() method
+16. Check if token functionality works
+17. Call getEmail() method
+17. Check if getEmail functionality works
+18. Call getLisename() method
+19. Check if getLisename functionality works
+20. Call getLastName() method
+21. Check if getLastName functionality works
+22. Call getCreateDate() method
+23. Check if getCreateDate functionality works
+24. Call getFamily() method
+25. Check if getFamily functionality works
+26. Call getAnniversary() method
+27. Check if getAnniversary functionality works
+28. Call getAddress() method
+29. Check if getAddress functionality works","All methods should return expected results without errors."
+"TC-LoginSequence-001","Verify Login Sequence","Authentication","2","User is registered and has a valid token","Valid token","1. Call getToken() method in Main
+2. Check if token is obtained
+3. Call request(token) method in Main
+4. Check if status is returned","Status should be returned as ""OK""."
+"TC-LoginSequence-002","Verify Login Sequence with Invalid Token","Authentication","2","User is registered but has an invalid token","Invalid token","1. Call getToken() method in Main
+2. Check if token is obtained
+3. Call request(token) method in Main
+4. Check if status is returned","Status should be returned as ""NOT_OK""."
+"TC-DataRequest-001","Verify Data Request Process","Data Retrieval","3,4,5","API_Manager is initialized","List of JSON data","1. Call request(listJSON) method in Main
+2. Check if listJSON is requested from API_Manager
+3. Check if API_Manager passes the request to Service/Need/Report
+4. Check if Service/Need/Report processes the request
+5. Check if API_Manager returns the result to Main
+6. Check if Main displays the list","Main should display the processed list."
+"TC-NewEntryCreation-001","Verify New Entry Creation Process","Data Management","4","API_Manager is initialized","New entry data","1. Call new method in Main
+2. Check if new entry data is sent to API_Manager
+3. Check if API_Manager passes the new entry data to Service/Need/Report
+4. Check if Service/Need/Report processes the new entry
+5. Check if API_Manager confirms the process completion","API_Manager should confirm the process completion."
+"TC-DataUpdate-001","Verify Data Update Process","Data Management","5","API_Manager is initialized and data is available","Updated data","1. Call leggiDatiInseriti() method in Main
+2. Check if data is read from API_Manager
+3. Check if API_Manager iterates through the data and sets it
+4. Check if Service/Need/Report converts the data to JSON
+5. Check if API_Manager requests an update entry
+6. Check if Main confirms the request","Main should confirm the request and API_Manager should indicate completion."
+"TC-PrintData-001","Verify Data Printing Process","Data Display","5","API_Manager is initialized and data is available","Data to be printed","1. Call stampaDatiASchermo() method in Main
+2. Check if API_Manager confirms printing is done
+3. Check if Main reads the updated data
+4. Check if API_Manager iterates through the data and sets it
+5. Check if Service/Need/Report converts the data to JSON
+6. Check if API_Manager requests an update entry
+7. Check if Main confirms the request","Main should confirm the request and API_Manager should indicate completion."
+"TC-ErrorHandling-001","Verify Error Handling in Data Retrieval","Error Handling","3,4,5","API_Manager is initialized and data retrieval fails","Failing data retrieval scenario","1. Simulate a failing data retrieval scenario
+2. Check if appropriate error messages are logged
+3. Check if Main handles the error gracefully","Appropriate error messages should be logged and Main should handle the error gracefully."
+"TC-ErrorHandling-002","Verify Error Handling in New Entry Creation","Error Handling","4","API_Manager is initialized and new entry creation fails","Failing new entry creation scenario","1. Simulate a failing new entry creation scenario
+2. Check if appropriate error messages are logged
+3. Check if Main handles the error gracefully","Appropriate error messages should be logged and Main should handle the error gracefully."
+"TC-ErrorHandling-003","Verify Error Handling in Data Update","Error Handling","5","API_Manager is initialized and data update fails","Failing data update scenario","1. Simulate a failing data update scenario
+2. Check if appropriate error messages are logged
+3. Check if Main handles the error gracefully","Appropriate error messages should be logged and Main should handle the error gracefully."
+"TC-EdgeCase-001","Verify Edge Case - Empty Data List","Data Retrieval","3,4,5","API_Manager is initialized and data list is empty","Empty data list","1. Call request(listJSON) method in Main
+2. Check if listJSON is requested from API_Manager
+3. Check if API_Manager passes the request to Service/Need/Report
+4. Check if Service/Need/Report processes the request
+5. Check if API_Manager returns an empty list to Main
+6. Check if Main handles the empty list gracefully","Main should handle the empty list gracefully and display an appropriate message."
+"TC-EdgeCase-002","Verify Edge Case - Null Token","Authentication","2","User is registered but has no token","Null token","1. Call getToken() method in Main
+2. Check if token is obtained
+3. Call request(token) method in Main
+4. Check if status is returned","Status should be"

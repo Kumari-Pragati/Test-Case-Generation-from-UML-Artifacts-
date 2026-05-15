@@ -1,0 +1,133 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AddVehicle-001,Add Vehicle Manually,AddVehicle,1,Application is running.,"- Vehicle type: Car
+- Number of doors: 4
+- Color: Red
+- Registration number: ABC123","1. Launch the application.
+2. Click on ""Aggiungere veicolo"".
+3. Click on ""Inserisci il veicolo manuale/porte"".
+4. Enter ""Car"" as the vehicle type.
+5. Enter ""4"" as the number of doors.
+6. Enter ""Red"" as the color.
+7. Enter ""ABC123"" as the registration number.
+8. Click on ""Cerca il veicolo del dataset"".
+9. Verify that the vehicle is not found in the dataset.
+10. Click on ""Selezione e aggiungere il veicolo"".",The vehicle should be added successfully and displayed in the list.
+TC-AddVehicle-002,Add Vehicle from Dataset,AddVehicle,1,Application is running.,"- Vehicle type: Car
+- Number of doors: 4
+- Color: Red
+- Registration number: ABC123","1. Launch the application.
+2. Click on ""Aggiungere veicolo"".
+3. Click on ""Cerca il veicolo del dataset"".
+4. Enter ""ABC123"" as the registration number.
+5. Verify that the vehicle is found in the dataset.
+6. Click on ""Selezione e aggiungere il veicolo"".",The vehicle should be selected and added to the list.
+TC-AddVehicle-003,Add Vehicle with Invalid Registration Number,AddVehicle,1,Application is running.,"- Vehicle type: Car
+- Number of doors: 4
+- Color: Red
+- Registration number: ABC123456","1. Launch the application.
+2. Click on ""Aggiungere veicolo"".
+3. Click on ""Inserisci il veicolo manuale/porte"".
+4. Enter ""Car"" as the vehicle type.
+5. Enter ""4"" as the number of doors.
+6. Enter ""Red"" as the color.
+7. Enter ""ABC123456"" as the registration number.
+8. Click on ""Cerca il veicolo del dataset"".
+9. Verify that the vehicle is not found in the dataset.
+10. Click on ""Selezione e aggiungere il veicolo"".",The system should display an error message indicating that the registration number is invalid.
+TC-UserRegistration-001,Successful User Registration,UserRegistration,2,Application is running.,"- Username: testuser
+- Password: testpassword
+- Confirm password: testpassword","1. Launch the application.
+2. Click on ""Utente non registrato"".
+3. Enter ""testuser"" as the username.
+4. Enter ""testpassword"" as the password.
+5. Enter ""testpassword"" again as the confirm password.
+6. Click on ""Utente registrato con successo al servizio?"".",The user should be registered successfully and redirected to the main application screen.
+TC-UserRegistration-002,Failed User Registration (Password Mismatch),UserRegistration,2,Application is running.,"- Username: testuser
+- Password: testpassword
+- Confirm password: wrongpassword","1. Launch the application.
+2. Click on ""Utente non registrato"".
+3. Enter ""testuser"" as the username.
+4. Enter ""testpassword"" as the password.
+5. Enter ""wrongpassword"" as the confirm password.
+6. Click on ""Utente registrato con successo al servizio?"".",The system should display an error message indicating that the passwords do not match.
+TC-Settings-001,Access and Modify Settings,Settings,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U, Y.
+6. Click on ""Accesso pagina statistiche"".",The list of vowels should be modified successfully and the user should be able to access the statistical pages.
+TC-Settings-002,Access and Modify Settings with Empty List,Settings,3,Application is running.,- List of vowels:,"1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: .
+6. Click on ""Accesso pagina statistiche"".",The system should display an error message indicating that the list of vowels cannot be empty.
+TC-Statistics-001,Access Statistical Pages,Statistics,3,Application is running.,- None,"1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages without any issues.
+TC-Statistics-002,Access Statistical Pages After Modifying Settings,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U, Y.
+6. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages after modifying the settings.
+TC-Statistics-003,Access Statistical Pages with Empty List,Statistics,3,Application is running.,- List of vowels:,"1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: .
+6. Click on ""Accesso pagina statistiche"".",The system should display an error message indicating that the list of vowels cannot be empty.
+TC-Statistics-004,Access Statistical Pages with Invalid Input,Statistics,3,Application is running.,"- List of vowels: A, B, C, D, E","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, B, C, D, E.
+6. Click on ""Accesso pagina statistiche"".",The system should display an error message indicating that the list of vowels contains invalid characters.
+TC-Statistics-005,Access Statistical Pages with Valid Input,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U.
+6. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages after modifying the settings with valid input.
+TC-Statistics-006,Access Statistical Pages with No Changes,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Do not change the list of vowels.
+6. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages without any changes being made to the list of vowels.
+TC-Statistics-007,Access Statistical Pages with Multiple Changes,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U, Y.
+6. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages after making multiple changes to the list of vowels.
+TC-Statistics-008,Access Statistical Pages with No Changes to Vowels,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Do not change the list of vowels.
+6. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages without any changes being made to the list of vowels.
+TC-Statistics-009,Access Statistical Pages with Invalid Characters in Vowels,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U, 1.
+6. Click on ""Accesso pagina statistiche"".",The system should display an error message indicating that the list of vowels contains invalid characters.
+TC-Statistics-010,Access Statistical Pages with Valid Characters in Vowels,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U.
+6. Click on ""Accesso pagina statistiche"".",The user should be able to access the statistical pages after making valid changes to the list of vowels.
+TC-Statistics-011,Access Statistical Pages with Empty Vowel List,Statistics,3,Application is running.,- List of vowels:,"1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: .
+6. Click on ""Accesso pagina statistiche"".",The system should display an error message indicating that the list of vowels cannot be empty.
+TC-Statistics-012,Access Statistical Pages with Valid Vowel List,Statistics,3,Application is running.,"- List of vowels: A, E, I, O, U","1. Launch the application.
+2. Click on ""Accesso pagina impostazioni"".
+3. Click on ""Visualizza le impostazioni"".
+4. Click on ""Modifica lista dei vocali"".
+5. Change the list of vowels to: A, E, I, O, U.
+6. Click on ""Accesso pagina statistiche"".",The user should be

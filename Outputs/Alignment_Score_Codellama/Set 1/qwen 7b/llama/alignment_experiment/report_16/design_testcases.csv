@@ -1,0 +1,131 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Verify User Registration,User,1,None,"- Id: 12345
+- Password: testpassword
+- Email: test@example.com
+- Nome: John
+- Cognome: Doe","1. Call the constructor with the provided data.
+2. Verify that all attributes are correctly set.",All attributes should be set correctly.
+TC-User-002,Verify User Update Email,User,1,User is registered with an email.,New email: newemail@example.com,"1. Call the setEmail method with the new email.
+2. Verify that the email attribute is updated.",The email attribute should be updated to the new value.
+TC-User-003,Verify User Update Name,User,1,User is registered with a name.,New name: Jane,"1. Call the setNome method with the new name.
+2. Verify that the nome attribute is updated.",The nome attribute should be updated to the new value.
+TC-Product-001,Verify Product Creation,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: Milan
+- Descrizione: This is a product description.
+- Immagine: product.jpg
+- Prezzo: 19.99
+- Proprietario: User with ID 12345","1. Call the constructor with the provided data.
+2. Verify that all attributes are correctly set.",All attributes should be set correctly.
+TC-Product-002,Verify Product Update Name,Product,1,Product is created.,New name: Product B,"1. Call the setNome method with the new name.
+2. Verify that the nome attribute is updated.",The nome attribute should be updated to the new value.
+TC-Product-003,Verify Product Update Location,Product,1,Product is created.,New location: Rome,"1. Call the setLuogo method with the new location.
+2. Verify that the luogo attribute is updated.",The luogo attribute should be updated to the new value.
+TC-Signal-001,Verify Signal Creation,Segnalazione,1,"User is registered and logged in, and a product exists.","- Tipo: True
+- Titolo: Signal Title
+- Descrizione: Signal Description
+- Utente: User with ID 12345
+- Autore: User with ID 12345","1. Call the constructor with the provided data.
+2. Verify that all attributes are correctly set.",All attributes should be set correctly.
+TC-Signal-002,Verify Signal Update Title,Segnalazione,1,Signal is created.,New title: New Signal Title,"1. Call the setTitolo method with the new title.
+2. Verify that the titolo attribute is updated.",The titolo attribute should be updated to the new value.
+TC-Signal-003,Verify Signal Update Description,Segnalazione,1,Signal is created.,New description: New Signal Description,"1. Call the setDescrizione method with the new description.
+2. Verify that the descrizione attribute is updated.",The descrizione attribute should be updated to the new value.
+TC-Invalid-001,Verify Invalid User Registration,User,1,None,"- Id: 12345
+- Password: short
+- Email: invalid_email
+- Nome: John
+- Cognome: Doe","1. Attempt to call the constructor with the provided data.
+2. Verify that the registration fails due to invalid password and email.",Registration should fail with appropriate error messages.
+TC-Invalid-002,Verify Invalid Product Creation,Product,1,User is registered and logged in.,"- Nome: 
+- Luogo: 
+- Descrizione: This is a product description.
+- Immagine: product.jpg
+- Prezzo: -10.00
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to missing name, location, and negative price.",Creation should fail with appropriate error messages.
+TC-Edge-001,Verify Edge Case - Empty User Details,User,1,None,"- Id: 12345
+- Password: testpassword
+- Email: 
+- Nome: 
+- Cognome:","1. Attempt to call the constructor with the provided data.
+2. Verify that the registration fails due to missing email and name.",Registration should fail with appropriate error messages.
+TC-Edge-002,Verify Edge Case - Empty Product Details,Product,1,User is registered and logged in.,"- Nome: 
+- Luogo: 
+- Descrizione: 
+- Immagine: 
+- Prezzo: 19.99
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to missing name, location, and description.",Creation should fail with appropriate error messages.
+TC-Edge-003,Verify Edge Case - Negative Price,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: Milan
+- Descrizione: This is a product description.
+- Immagine: product.jpg
+- Prezzo: -10.00
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to negative price.",Creation should fail with appropriate error messages.
+TC-Edge-004,Verify Edge Case - Null Owner,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: Milan
+- Descrizione: This is a product description.
+- Immagine: product.jpg
+- Prezzo: 19.99
+- Proprietario: null","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null owner.",Creation should fail with appropriate error messages.
+TC-Edge-005,Verify Edge Case - Null User in Signal,Segnalazione,1,"User is registered and logged in, and a product exists.","- Tipo: True
+- Titolo: Signal Title
+- Descrizione: Signal Description
+- Utente: null
+- Autore: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null user.",Creation should fail with appropriate error messages.
+TC-Edge-006,Verify Edge Case - Null Autore in Signal,Segnalazione,1,"User is registered and logged in, and a product exists.","- Tipo: True
+- Titolo: Signal Title
+- Descrizione: Signal Description
+- Utente: User with ID 12345
+- Autore: null","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null autore.",Creation should fail with appropriate error messages.
+TC-Edge-007,Verify Edge Case - Null Product in Signal,Segnalazione,1,User is registered and logged in.,"- Tipo: True
+- Titolo: Signal Title
+- Descrizione: Signal Description
+- Utente: User with ID 12345
+- Autore: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null product.",Creation should fail with appropriate error messages.
+TC-Edge-008,Verify Edge Case - Null Email in User,User,1,None,"- Id: 12345
+- Password: testpassword
+- Email: null
+- Nome: John
+- Cognome: Doe","1. Attempt to call the constructor with the provided data.
+2. Verify that the registration fails due to null email.",Registration should fail with appropriate error messages.
+TC-Edge-009,Verify Edge Case - Null Name in User,User,1,None,"- Id: 12345
+- Password: testpassword
+- Email: test@example.com
+- Nome: null
+- Cognome: Doe","1. Attempt to call the constructor with the provided data.
+2. Verify that the registration fails due to null name.",Registration should fail with appropriate error messages.
+TC-Edge-010,Verify Edge Case - Null Location in Product,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: null
+- Descrizione: This is a product description.
+- Immagine: product.jpg
+- Prezzo: 19.99
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null location.",Creation should fail with appropriate error messages.
+TC-Edge-011,Verify Edge Case - Null Description in Product,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: Milan
+- Descrizione: null
+- Immagine: product.jpg
+- Prezzo: 19.99
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null description.",Creation should fail with appropriate error messages.
+TC-Edge-012,Verify Edge Case - Null Image in Product,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: Milan
+- Descrizione: This is a product description.
+- Immagine: null
+- Prezzo: 19.99
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null image.",Creation should fail with appropriate error messages.
+TC-Edge-013,Verify Edge Case - Null Price in Product,Product,1,User is registered and logged in.,"- Nome: Product A
+- Luogo: Milan
+- Descrizione: This is a product description.
+- Immagine: product.jpg
+- Prezzo: null
+- Proprietario: User with ID 12345","1. Attempt to call the constructor with the provided data.
+2. Verify that the creation fails due to null price.",Creation should fail with appropriate error messages.
+TC-Edge-014,Verify Edge Case - Null Product in Signal,,,,,,

@@ -1,0 +1,86 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-INITIAL-CONFIG-001,Launch application with no existing configuration,Initial Configuration,1,"- Application is closed.
+- No prior configuration file exists.",- User action: Launch application.,"1. User starts the application.
+2. System detects no existing configuration.
+3. System prompts: *""Configuration already exists?""* with **""No""** selected by default.
+4. User confirms **""Sì""** (Yes).","- System transitions to **Configurazione iniziale** state.
+- User is presented with options: *""Aggiungi veicolo""*, *""Accesso lista distributori""*, *""Inserisci il veicolo manualmente""*, or *""Seleziona e aggiungi il veicolo""*."
+TC-INITIAL-CONFIG-002,Launch application with existing configuration,Initial Configuration,1,"- Application is closed.
+- A valid configuration file exists.",- User action: Launch application.,"1. User starts the application.
+2. System detects existing configuration.
+3. System prompts: *""Configuration already exists?""* with **""Sì""** (Yes) selected by default.
+4. User confirms **""Sì""** (Yes).","- System skips initial configuration and transitions directly to **Accesso lista distributori** (or another default state, per business logic)."
+TC-INITIAL-CONFIG-003,User declines to add a vehicle after manual input,Initial Configuration,1,"- Application launched with no configuration.
+- User selected *""Inserisci il veicolo manualmente""*.","- User inputs: Vehicle ID = `VEH-12345`, License Plate = `AB123CD`.","1. User manually enters vehicle details.
+2. System confirms: *""Aggiungere veicolo VEH-12345 (AB123CD)?""* with **""Sì""** (Yes) selected.
+3. User changes selection to **""No""**.
+4. System prompts: *""Non aggiungere un altro veicolo?""* with **""Sì""** (Yes) selected.
+5. User confirms **""Sì""** (Yes).","- System returns to **Configurazione iniziale** state.
+- No new vehicle is added.
+- User sees options to add another vehicle or proceed to distributor list."
+TC-INITIAL-CONFIG-004,User adds a vehicle via selection and declines further additions,Initial Configuration,1,"- Application launched with no configuration.
+- User selected *""Seleziona e aggiungi il veicolo""*.","- Available vehicles in system: `VEH-12345 (AB123CD)`, `VEH-67890 (XY987Z)`.","1. User selects `VEH-12345` from the list.
+2. System confirms: *""Aggiungere veicolo VEH-12345 (AB123CD)?""* with **""Sì""** (Yes) selected.
+3. User confirms **""Sì""** (Yes).
+4. System prompts: *""Non aggiungere un altro veicolo?""* with **""Sì""** (Yes) selected.
+5. User confirms **""No""**.
+6. User selects `VEH-67890` and confirms addition.
+7. System prompts again: *""Non aggiungere un altro veicolo?""* with **""Sì""** (Yes) selected.
+8. User confirms **""Sì""** (Yes).","- Both vehicles (`VEH-12345`, `VEH-67890`) are added to the configuration.
+- System returns to **Configurazione iniziale** state.
+- User sees option to *""Accesso lista distributori""*."
+TC-DISTRIBUTOR-WEBSITE-001,Access distributor list when distributors are available,Distributor Website Access,2,"- User is on the distributor list page.
+- System has 3 available distributors: `DIST-001`, `DIST-002`, `DIST-003`.",- None.,"1. User accesses the website (triggers `Accesso sito web`).
+2. System checks distributor availability and returns **""Sì""** (Yes).
+3. System displays `Visualizza lista distributori` with `DIST-001`, `DIST-002`, `DIST-003`.
+4. User selects `DIST-002`.","- System transitions to `Visualizza informazioni distributore` for `DIST-002`.
+- Distributor details (e.g., name, location, contact) are displayed."
+TC-DISTRIBUTOR-WEBSITE-002,Access distributor list when no distributors are available,Distributor Website Access,2,"- User is on the distributor list page.
+- System has no available distributors.",- None.,"1. User accesses the website (triggers `Accesso sito web`).
+2. System checks distributor availability and returns **""No""** (No).
+3. System displays `Visualizza lista distributori non disponibili` with message: *""No distributors available. Try again later.""*.
+4. User attempts to select a distributor from the empty list.","- System prevents selection (no options are clickable).
+- User sees a **""Back""** button to return to `Accesso sito web`."
+TC-DISTRIBUTOR-WEBSITE-003,Cancel opening distributor detail window,Distributor Website Access,2,"- User is on `Visualizza lista distributori` with available distributors.
+- User selects `DIST-001` but changes mind.",- Distributor selected: `DIST-001`.,"1. User selects `DIST-001` from the list.
+2. System loads `Visualizza informazioni distributore` for `DIST-001`.
+3. Before details fully load, user clicks **""Annulla""** (Cancel).","- System cancels transition to `Aprire finestra applicativa del dettaglio del distributore`.
+- User returns to `Visualizza lista distributori` with `DIST-001` still selected (or deselected, per UI design).
+- No parameters are saved."
+TC-DISTRIBUTOR-WEBSITE-004,Save distributor parameters and open detail window,Distributor Website Access,2,"- User is on `Visualizza informazioni distributore` for `DIST-001`.
+- Distributor details: Name = ""Alpha Distributors"", Location = ""Milan"".",- User action: Save parameters.,"1. User views `DIST-001` details.
+2. User clicks **""Salva parametri""** (Save Parameters).
+3. System saves: `{""distributor_id"": ""DIST-001"", ""name"": ""Alpha Distributors"", ""location"": ""Milan""}`.
+4. User clicks **""Apri finestra dettaglio""** (Open Detail Window).","- System transitions to `Aprire finestra applicativa del dettaglio del distributore`.
+- Detail window opens with saved parameters pre-filled.
+- Confirmation popup appears: *""Parametri salvati per DIST-001""*."
+TC-SETTINGS-001,Access settings page and evaluate settings,Settings Management,3,- User is logged in and on the home screen.,- None.,"1. User navigates to **""Impostazioni""** (Settings).
+2. System enters `Accesso pagina impostazioni` state.
+3. User selects **""Valuta impostazioni""** (Evaluate Settings).","- System transitions to `Valutazione le impostazioni`.
+- User sees a form with current settings (e.g., vehicle thresholds, distributor filters).
+- Option to **""Salva""** (Save) or **""Annulla""** (Cancel) is displayed."
+TC-SETTINGS-002,Skip settings evaluation and view distributor data,Settings Management,3,- User is on `Accesso pagina impostazioni`.,- None.,"1. User navigates to **""Impostazioni""** (Settings).
+2. System enters `Accesso pagina impostazioni` state.
+3. User selects **""Visualizza dati distributori""** (View Distributor Data) without evaluating settings.","- System skips `Valutazione le impostazioni` and transitions directly to `Mostra i dati dei distributori`.
+- User sees a table/list of distributors with columns: ID, Name, Status, Last Updated."
+TC-SETTINGS-003,"Evaluate settings, then view statistics",Settings Management,3,- User is on `Valutazione le impostazioni` with unsaved changes.,"- Current setting: Vehicle threshold = `10`.
+- User changes threshold to `15`.","1. User modifies vehicle threshold from `10` to `15`.
+2. User clicks **""Salva e visualizza statistiche""** (Save and View Statistics).
+3. System saves the change and transitions to `Mostra i dati statistiche`.","- System displays statistics for the updated threshold (e.g., *""12 vehicles over threshold limit""*).
+- User sees a **""Torna a impostazioni""** (Back to Settings) button."
+TC-SETTINGS-004,Add vehicle list from settings and confirm via popup,Settings Management,3,- User is on `Mostra i dati dei distributori` or `Mostra i dati statistiche`.,"- Vehicle list to add: `VEH-12345`, `VEH-67890`.","1. User clicks **""Aggiungi lista veicoli""** (Add Vehicle List).
+2. System opens a modal to confirm: *""Aggiungere veicoli VEH-12345, VEH-67890?""* with **""Sì""** (Yes) selected.
+3. User confirms **""Sì""** (Yes).","- System transitions to `Visualizza popup con informazioni effettuate`.
+- Popup displays: *""Veicoli aggiunti con successo: VEH-12345, VEH-67890""*.
+- User sees an **""OK""** button to dismiss the popup."
+TC-SETTINGS-005,Cancel adding vehicle list from settings,Settings Management,3,- User is on `Mostra i dati dei distributori`.,"- Vehicle list selected: `VEH-12345`, `VEH-67890`.","1. User clicks **""Aggiungi lista veicoli""** (Add Vehicle List).
+2. System opens confirmation modal: *""Aggiungere veicoli VEH-12345, VEH-67890?""* with **""Sì""** (Yes) selected.
+3. User changes selection to **""No""**.
+4. User clicks **""Annulla""** (Cancel).","- System cancels the addition.
+- User returns to `Mostra i dati dei distributori` without changes.
+- No popup is displayed."
+TC-EDGE-CASE-001,Network failure during distributor availability check,Distributor Website Access,2,"- User is on `Accesso sito web`.
+- Network connection drops during `Verificare se sono disponibili distributori`.",- Simulated network error: Timeout after 5 seconds.,"1. User accesses the website.
+2. System starts checking distributor availability.
+3. Network connection fails (simulated).
+4. User waits 10 seconds for response.","- System displays an error message: *""Impossibile connetters"

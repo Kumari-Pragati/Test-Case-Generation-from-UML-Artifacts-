@@ -1,0 +1,93 @@
+flow
+"compito -> emergenza — type=association; label=""ha assegnazione""; explanation=""the compito is associated with an emergenza."""
+"emergenza -> utente — type=association; label=""ha assegnazione""; explanation=""the emergenza is associated with a user."""
+"appartiene a -> compito -> emergenza -> utente — type=association; label=""appartiene a""; explanation=""a compito is part of an emergenza, which is associated with a user."""
+"risguarda -> utente — type=association; label=""risguarda""; explanation=""a risguarda is associated with a user."""
+"coordinate -> utente — type=association; label=""coordinate""; explanation=""a coordinate is associated with a user."""
+"svolto da -> svolto -> utente — type=association; label=""svolto da""; explanation=""a svolto is performed by a user."""
+flow 1: compito -> emergenza -> utente -> appartiene a -> compito -> emergenza -> utente -> risguarda -> utente -> coordinate -> utente -> svolto da -> svolto -> utente
+"this diagram models a system for managing emergency responses, where a compito (task) is associated with an emergenza (emergency), which is associated with a"
+start -> login — type: transition
+login -> utente autenticato? — type: transition
+"utente autenticato? -> click ""visualizza emergenze"" — type: transition"
+"click ""visualizza emergenze"" -> messaggio ""nessuna emergenza"" — type: transition"
+"messaggio ""nessuna emergenza"" -> visualizza emergenze — type: transition"
+"flow 1: start -> login -> utente autenticato? -> click ""visualizza emergenze"" -> messaggio ""nessuna emergenza"" -> visualizza emergenze"
+"the diagram models a process that starts with a login, checks if the user is authenticated, and then allows them to view emergencies if they are."
+the process ends with a message indicating no emergency and then allows the user to view emergencies.
+there are no loops or repetitions in the process.
+start -> login — type=start; label=start; explanation=start
+login -> inserisci dati login — type=yes; label=yes; explanation=yes
+inserisci dati login -> dati corretti? — type=yes; label=yes; explanation=yes
+dati corretti? -> home — type=yes; label=yes; explanation=yes
+flow 1: start -> login -> inserisci dati login -> dati corretti? -> home
+the diagram models a user login process.
+the main flow starts with the user's login attempt and ends with the user being directed to the home page if the login is successful.
+the user is prompted to insert their login data if they are not already registered.
+"if the user's data is correct, they are directed to the home page; otherwise, they are prompted to login again."
+"click ""inserisci emergenza"" -> coordinatore autenticato? — type=association; label=""""; explanation=""click to start"""
+"coordinatore autenticato? -> errore — type=association; label=""""; explanation=""if error"""
+"coordinatore autenticato? -> inserisci dettagli — type=association; label=""""; explanation=""if authenticated"""
+"inserisci dettagli -> informazioni complete? — type=association; label=""""; explanation=""if details inserted"""
+"informazioni complete? -> aggiorna dettagli — type=association; label=""""; explanation=""if information complete"""
+"aggiorna dettagli -> crea emergenza — type=association; label=""""; explanation=""if details updated"""
+"click ""inserisci emergenza"" -> coordinatore autenticato? -> inserisci dettagli -> informazioni complete? -> crea emergenza"
+"this flowchart represents the process of creating an emergency, starting with a button click, followed by a decision to authenticate the coordinator, then a decision to insert details, and finally a decision to create the emergency."
+the flowchart has two main branches: one for handling errors and another for creating the emergency.
+the decision to create the emergency is based on the completion of the information.
+the flowchart does not have any loops or repetitions.
+"click ""visualizza emergenza"" -> coordinatore autenticato? - type: yes/no"
+coordinatore autenticato? -> seleziona emergenza - type: yes/no
+seleziona emergenza -> seleziona compito - type: yes/no
+seleziona compito -> volontario assegnato? - type: yes/no
+volontario assegnato? -> rimuovi volontario - type: yes/no
+"flow 1: click ""visualizza emergenza"" -> coordinatore autenticato? -> seleziona emergenza -> seleziona compito -> volontario assegnato? -> rimuovi volontario"
+the flowchart represents a process for handling emergency visualization and volunteer assignment.
+"the process starts with a button click, followed by a series of decisions and selections."
+the flowchart ends with the removal of a volunteer.
+the process involves several conditional branches and error handling.
+client -> server — type: message; label: post /login; explanation: login request
+server -> database — type: message; label: select * from utenti where email =?; explanation: database query
+database -> server — type: message; label: user; explanation: user data
+server -> client — type: message; label: user length = 0; explanation: user length check
+"server -> client — type: message; label: bcrypt comparesync(password, user password); explanation: password comparison"
+client -> server — type: message; label: genera jti e token jwt; explanation: token generation
+server -> client — type: message; label: update tokens set revoked = true where id =?; explanation: token revocation
+client -> server — type: message; label: risposta (token o errore); explanation: response or error
+flow 1: client -> server -> database -> server -> client -> server -> client
+client sends a login request to the server
+server queries the database for user data
+server checks user length and password
+server generates a token jwt
+server updates tokens and revokes the old one
+server sends a response or error to the client
+"the diagram models a login process where the client sends a login request to the server, which then queries the database for user data."
+"the server checks the user length and password, generates a token jwt, and updates tokens."
+the server sends a response or error to the client.
+the diagram does not show any loops or repetitions.
+"client -> server — type=post; label=""post /nuovocompito""; explanation=""post request to verify token"""
+"server -> database — type=verifytoken(); label=""verifytoken()""; explanation=""verify token"""
+"database -> server — type=insertintocompito(); label=""insertintocompito()""; explanation=""insert into compito"""
+"server -> logger — type=result; label=""result""; explanation=""result"""
+"logger -> server — type=log error(error); label=""log error(error)""; explanation=""log error"""
+flow 1: client -> server -> database -> server -> logger -> server
+client sends a post request to the server to verify the token
+server verifies the token and inserts it into the compito
+server logs the result
+server logs the error
+"the diagram models a sequence of events where the client sends a post request to the server to verify a token, which then inserts it into the compito and logs the result."
+the server also logs any errors that occur during the process.
+"the flow is straightforward, with no loops or repetitions."
+the diagram does not show any complex logic or branching.
+client -> server — type=post; label=post /terminaemergenza; explanation=post request to terminate emergency
+server -> database — type=verifytoken; label=verifytoken; explanation=verify token
+database -> server — type=esegui update; label=esegui update; explanation=update result
+server -> client — type=result (numero emergenze terminate); label=result (numero emergenze terminate); explanation=result with number of terminated emergencies
+flow 1: client -> server -> database -> server -> client
+client sends post /terminaemergenza to server
+server verifies token
+server updates database
+server sends result with number of terminated emergencies to client
+"the diagram models a sequence of events where a client sends a request to terminate an emergency, the server verifies the token, updates the database, and returns a result with the number of terminated emergencies."
+the client receives the result and takes action based on the number of terminated emergencies.
+the diagram does not show any error handling or alternative paths.

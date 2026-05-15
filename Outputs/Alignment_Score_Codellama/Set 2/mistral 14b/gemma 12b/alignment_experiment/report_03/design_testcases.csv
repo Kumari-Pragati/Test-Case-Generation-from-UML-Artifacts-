@@ -1,0 +1,89 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Verify SignUpActivity lifecycle and basic input validation,Authentication,1,"- Device has internet connectivity.
+- User is not already signed up.","- Valid: `username=""trekker123""`, `password=""SecurePass123!""`, `email=""user@example.com""`
+- Invalid: `username=""""`, `password=""123""`, `email=""invalid-email""`","1. Launch `SignUpActivity` from `MainActivity`.
+2. Enter valid credentials and submit.
+3. Enter invalid credentials (empty username) and submit.
+4. Enter invalid credentials (weak password) and submit.
+5. Enter invalid credentials (malformed email) and submit.
+6. Close `SignUpActivity` via back button and verify `onPause()` is called.
+7. Reopen `SignUpActivity` and verify `onResume()` is called.","- Step 2: User is redirected to `UserListActivity`; no errors.
+- Step 3: Error message ""Username required"" appears.
+- Step 4: Error message ""Password must be 8+ chars with special char"" appears.
+- Step 5: Error message ""Invalid email format"" appears.
+- Step 6: `onPause()` logs activity pause event.
+- Step 7: `onResume()` logs activity resume event; fields retain focus."
+TC-AUTHENTICATION-002,Verify UserListActivity lifecycle and RecyclerView rendering,User Management,1,- User is signed in (from `SignUpActivity`).,,"1. Launch `UserListActivity` from `MainActivity`.
+2. Verify `recyclerView` displays a list of users (mock data).
+3. Scroll to the bottom of the list and verify no crashes.
+4. Close `UserListActivity` via back button and verify `onPause()` is called.
+5. Reopen `UserListActivity` and verify `onResume()` is called.
+6. Simulate `onConnected(User)` event with a new user object.","- Step 1: List loads successfully; no empty state.
+- Step 2: All user items are visible with correct data (name, ID).
+- Step 3: No crashes; smooth scrolling.
+- Step 4: `onPause()` logs activity pause event.
+- Step 5: `onResume()` logs resume event; list retains scroll position.
+- Step 6: New user appears at the top of the list."
+TC-WEATHER-001,Verify weather flow from Home to current location display,Weather,"2, 4","- Device has location permissions enabled.
+- Internet connectivity is available.",,"1. Start at `Home` screen.
+2. Click ""weather"" button.
+3. Verify `Visualizzazione meteo della località attuale` displays (e.g., ""22°C, Sunny"").
+4. Click the back button to return to `Home`.
+5. Click ""weather"" again and immediately click the magnifying glass icon (SI branch).","- Step 2: Transition to weather screen completes in <2s.
+- Step 3: Current weather data matches device location (e.g., Rome: ""22°C"").
+- Step 4: No crashes; UI returns to `Home`.
+- Step 5: Transition to `Ricerca meteo di altre località` (search screen) without errors."
+TC-WEATHER-002,Verify weather search flow with invalid location input,Weather,2,- User is on `Ricerca meteo di altre località` screen.,"- Valid: `location=""Paris""`
+- Invalid: `location=""""`, `location=""!@#""`","1. Enter valid location (""Paris"") and submit.
+2. Enter invalid location (empty) and submit.
+3. Enter invalid location (""!@#"") and submit.
+4. Force-close the app during search and relaunch.","- Step 1: Weather for Paris displays in <3s.
+- Step 2: Error message ""Location required"" appears.
+- Step 3: Error message ""Invalid location format"" appears.
+- Step 4: App relaunches to `Home`; no data corruption."
+TC-TREKKING-001,Verify trekking province selection flow,Trekking,3,"- User clicks ""Trekking"" in the app.
+- Internet connectivity is available.",,"1. User clicks ""Trekking"" → app requests provinces from server.
+2. Server responds with province list (e.g., [""Rome"", ""Milan"", ""Florence""]).
+3. User selects ""Rome"" → app requests paths for Rome.
+4. Server responds with paths (e.g., [""Appian Way"", ""Villa Borghese""]).
+5. User selects ""Appian Way"" → app navigates to path details.
+6. Simulate network failure during province request.","- Step 1–2: Province list displays in <2s; no duplicates.
+- Step 3–4: Path list for Rome displays; correct province is highlighted.
+- Step 5: Path details screen loads with correct data.
+- Step 6: Error toast ""Network error"" appears; user can retry."
+TC-TREKKING-002,Verify trekking path selection with empty data,Trekking,3,"- User has selected a province with no paths (e.g., ""Naples"").",,"1. User selects ""Naples"" → app requests paths.
+2. Server responds with empty list.
+3. User clicks back to province list.
+4. User selects a province with paths (e.g., ""Rome"").","- Step 1–2: Empty state message ""No paths available"" displays.
+- Step 3: No crashes; UI returns to province list.
+- Step 4: Path list for Rome displays correctly."
+TC-HEALTH-001,Verify past training data retrieval,Health,5,"- User clicks ""Health"" in the app.
+- Server has training data for the user.",,"1. User clicks ""Health"" → app requests past trainings.
+2. Server responds with 3 training sessions (e.g., [""Run 5km"", ""Yoga"", ""Swim""]).
+3. User clicks on ""Run 5km"" → app shows training details.
+4. Simulate server timeout during data fetch.","- Step 1–2: Training list displays in <2s; sessions are sorted by date.
+- Step 3: Details screen loads with correct data (distance, duration).
+- Step 4: Error toast ""Server timeout"" appears; user can retry."
+TC-HEALTH-002,Verify health module with no past trainings,Health,5,- User has no past training data.,,"1. User clicks ""Health"" → app requests trainings.
+2. Server responds with empty list.
+3. User clicks back to home screen.","- Step 1–2: Empty state message ""No past trainings"" displays.
+- Step 3: No crashes; UI returns to home."
+TC-INTEGRATION-001,Verify activity transitions between modules,Navigation,"1, 2, 3, 4, 5",- User is on `MainActivity`.,,"1. Navigate: `MainActivity` → `DashboardActivity` → `SignUpActivity` → `UserListActivity`.
+2. From `UserListActivity`, click ""Weather"" → verify `Visualizzazione meteo` loads.
+3. From `UserListActivity`, click ""Trekking"" → verify province list loads.
+4. From `UserListActivity`, click ""Health"" → verify training list loads.
+5. Force-close app during `UserListActivity` → relaunch and verify state retention.","- Step 1: All transitions complete without crashes; back button works.
+- Step 2–4: Correct module screens load; data is consistent.
+- Step 5: App relaunches to `MainActivity`; no data loss."
+TC-EDGE-001,Verify app behavior with no internet connectivity,Offline,"1, 3, 4, 5",- Device is in airplane mode (no internet).,,"1. Launch `SignUpActivity` → submit form.
+2. Launch `UserListActivity` → verify cached data (if any) displays.
+3. Click ""Weather"" → verify offline error message.
+4. Click ""Trekking"" → verify offline error message.
+5. Click ""Health"" → verify offline error message.","- Step 1: Error toast ""No internet"" appears; user can retry.
+- Step 2: Cached data (if available) displays; otherwise, empty state.
+- Steps 3–5: Offline error messages appear; retry buttons work."
+TC-EDGE-002,Verify rapid activity lifecycle changes,Performance,1,- Device has stable internet.,,"1. Rapidly switch between `MainActivity`, `SignUpActivity`, and `UserListActivity` (3x each).
+2. During `onPause()` of `MainActivity`, launch `DashboardActivity`.
+3. Verify no memory leaks or ANRs.","- Step 1: All activities launch/resume in <1s; no crashes.
+- Step 2: No memory leaks detected (via Android Profiler).
+- Step 3: App remains responsive; no ANRs."

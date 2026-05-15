@@ -1,0 +1,214 @@
+REPORT: Report_6_uml_pages.pdf
+======================================================================
+
+===== Report_6_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+* **User**
+  - kind=class; attributes=[id: int, name: string, email: string, password: string, role: string]; operations=[login(): void, register(): void, logout(): void]; role=User
+
+* **Area**
+  - kind=class; attributes=[id: int, description: string, location: string]; operations=[create(): void, delete(): void]; role=Area
+
+* **Categories**
+  - kind=class; attributes=[id: int, description: string, name: string]; operations=[create(): void, delete(): void]; role=Category
+
+* **Reports**
+  - kind=class; attributes=[id: int, description: string, reportId: int]; operations=[create(): void, delete(): void]; role=Report
+
+* **Influencer**
+  - kind=class; attributes=[id: int, name: string, email: string, password: string, role: string]; operations=[login(): void, register(): void, logout(): void]; role=Influencer
+
+**Actors / Lifelines:**
+
+* User
+* Area
+* Categories
+* Reports
+* Influencer
+
+**Relationships / Links:**
+
+* User -> Area — type=association; label="User has an Area"; explanation="A user can have multiple areas"
+* Area -> Categories — type=association; label="Area has Categories"; explanation="An area can have multiple categories"
+* Categories -> Reports — type=association; label="Category has Reports"; explanation="A category can have multiple reports"
+* User -> Reports — type=association; label="User has Reports"; explanation="A user can have multiple reports"
+* Influencer -> User — type=association; label="Influencer has User"; explanation="An influencer can have multiple users"
+
+**Main Flows:**
+
+* Flow 1: User -> Area -> Categories -> Reports -> User
+* Flow 2: User -> Reports
+
+**Conditions / Branches:**
+
+* If user is logged in, then go to area; else, go to login page
+* If area is selected, then go to categories; else, go to home page
+* If category is selected, then go to reports; else, go to category list
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The system allows users to create and manage areas, categories, and reports.
+* Users can view and manage their own reports.
+* The system has a login and registration feature.
+* The system has a home page and a category list page.
+
+===== Report_6_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Login**
+    *   kind: class
+    *   attributes: [email, password]
+    *   operations: [login, validate]
+    *   role: User login system
+
+**Actors / Lifelines:**
+
+*   User
+*   System
+
+**Relationships / Links:**
+
+*   User -> Login - type: association; label: "User logs in"; explanation: "User initiates login process"
+*   Login -> System - type: association; label: "Login request"; explanation: "Login request sent to system"
+*   System -> Login - type: association; label: "Login response"; explanation: "System responds with login result"
+*   Login -> User - type: association; label: "Login success"; explanation: "User is logged in successfully"
+*   Login -> User - type: association; label: "Login failure"; explanation: "Login fails"
+
+**Main Flows:**
+
+*   Flow 1: User -> Login -> System -> Login -> User - "User logs in, system processes, and returns login result"
+*   Flow 2: None
+
+**Conditions / Branches:**
+
+*   If login is successful, then User is logged in; otherwise, show error message
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models the login process, where the user initiates the login, the system processes the request, and returns a login result.
+*   The system checks the user's credentials and returns a success or failure message.
+*   The user is either logged in successfully or shown an error message.
+
+===== Report_6_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Utente**: kind=actor; attributes=[username: string, password: string]; operations=[login(username, password): void]; role=the user who interacts with the system
+*   **UI**: kind=component; attributes=[username: string, password: string]; operations=[createAccount(email, password): void, validateToken(token: string): void]; role=user interface for registration and validation
+*   **FirebaseAuthentication**: kind=component; attributes=[email: string, password: string]; operations=[createAccount(email, password): void, validateToken(token: string): void]; role=Firebase authentication system
+*   **FirebaseRestore**: kind=component; attributes=[token: string]; operations=[validateToken(token: string): void]; role=Firebase restore system
+
+**Actors / Lifelines:**
+
+*   **Utente**
+*   **UI**
+*   **FirebaseAuthentication**
+*   **FirebaseRestore**
+
+**Relationships / Links:**
+
+*   **Utente** -> **UI** — type=association; label="Inserisci dati registrazione"; explanation=the user inserts registration data
+*   **UI** -> **FirebaseAuthentication** — type=association; label="creaAccount(email, password)"; explanation=create a new account with email and password
+*   **FirebaseAuthentication** -> **FirebaseRestore** — type=association; label="validateToken(token: string)"; explanation=validate a token
+*   **UI** -> **FirebaseAuthentication** — type=association; label="validateToken(token: string)"; explanation=validate a token
+*   **FirebaseAuthentication** -> **FirebaseRestore** — type=association; label="validateToken(token: string)"; explanation=validate a token
+
+**Main Flows:**
+
+*   **Flow 1:** Utente -> UI -> FirebaseAuthentication -> FirebaseRestore -> Utente -> UI -> FirebaseAuthentication -> FirebaseRestore -> Utente -> UI -> FirebaseAuthentication -> FirebaseRestore
+    *   The user inserts registration data, creates a new account with email and password, validates the token, and then validates the token again.
+*   **Flow 2:** None
+
+**Conditions / Branches:**
+
+*   **Conferma registrazione avenuta e errore:** If the registration is successful, the system confirms it; otherwise, it shows an error message.
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models the registration process of a new user in a system.
+*   The main flows involve the user, the user interface, the Firebase authentication system, and the Firebase restore system.
+*   The system checks for errors and provides feedback to the user.
+*   The user can create a new account with email and password and then validate the token.
+
+===== Report_6_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Utente**: kind=actor; attributes=[none]; operations=[none]; role=the user
+*   **UI**: kind=component; attributes=[none]; operations=[none]; role=user interface
+*   **Firebase/Firestore**: kind=component; attributes=[none]; operations=[none]; role=database
+*   **Firebase/Storage**: kind=component; attributes=[none]; operations=[none]; role=storage
+
+**Actors / Lifelines:**
+
+*   **Utente**
+*   **UI**
+*   **Firebase/Firestore**
+*   **Firebase/Storage**
+
+**Relationships / Links:**
+
+*   **Utente** -> **UI** — type=association; label="Inserisci segnalazione"; explanation=insert signal
+*   **UI** -> **Firebase/Firestore** — type=association; label="Dati incompleti o errati"; explanation=incomplete or incorrect data
+*   **Firebase/Firestore** -> **Firebase/Storage** — type=association; label="Carica immagine"; explanation=upload image
+*   **Firebase/Storage** -> **Firebase/Firestore** — type=association; label="Conferma invio segnalazione con ente assegnato"; explanation=confirm signal with assigned entity
+
+**Main Flows:**
+
+*   **Flow 1:** Utente -> Inserisci segnalazione -> Dati incompleti o errati -> Carica immagine -> Conferma invio segnalazione con ente assegnato
+
+**Conditions / Branches:**
+
+*   **Dati incompleti o errati** -> **Dati incompleti o errati** (repeated)
+*   **Carica immagine** -> **Carica immagine** (repeated)
+
+**Loops / Repetitions:**
+
+*   **Dati incompleti o errati** -> **Dati incompleti o errati** (loop)
+
+**Notes / Annotations:**
+
+*   **Inserisci segnalazione**: insert signal
+*   **Dati incompleti o errati**: incomplete or incorrect data
+*   **Carica immagine**: upload image
+*   **Conferma invio segnalazione con ente assegnato**: confirm signal with assigned entity
+
+**Observations:**
+
+*   The diagram models a sequence of events where the user inserts a signal, which may be incomplete or incorrect, leading to a loop of re-trying the insertion.
+*   The user's action is followed by the upload of an image, which is then confirmed with an assigned entity.
+*   The system uses Firebase/Firestore and Firebase/Storage for data storage and management.
+
+
+======================================================================

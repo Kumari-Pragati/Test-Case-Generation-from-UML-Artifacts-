@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 10, 12","- User account exists in the system.
+- Valid username and password are known.","- Username: `testuser`
+- Password: `SecurePass123`","1. User enters `testuser` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- User is successfully logged in.
+- System redirects to the `MenuLaterale` (Page 3).
+- No error messages are displayed."
+TC-AUTHENTICATION-002,Failed Login with Invalid Credentials,Authentication,"1, 10, 12",- User account exists in the system.,"- Username: `testuser`
+- Password: `WrongPass123`","1. User enters `testuser` in the username field.
+2. User enters `WrongPass123` in the password field.
+3. User clicks the ""Login"" button.","- System displays an error message: ""Invalid username or password.""
+- User remains on the login screen.
+- No redirection occurs."
+TC-AUTHENTICATION-003,Admin Login as User,Authentication,1,"- User account exists.
+- Admin credentials are known.","- Username: `adminuser`
+- Password: `AdminPass123`","1. User enters `adminuser` in the username field.
+2. User enters `AdminPass123` in the password field.
+3. User clicks the ""Login"" button.","- User logs in as an admin (Page 1: ""User logs in as Admin"").
+- System grants admin privileges (e.g., access to admin-only features).
+- No error messages are displayed."
+TC-AUTHENTICATION-004,Logout Functionality,Authentication,"1, 3",- User is currently logged in.,,"1. User navigates to `MyProfile` (Page 3).
+2. User clicks the ""Logout"" button.","- User is successfully logged out.
+- System redirects to the login screen.
+- Session is terminated (no active user state)."
+TC-USER-REGISTRATION-001,Successful User Registration,User Management,"2, 10",- System is accessible for new registrations.,"- Name: `John Doe`
+- Email: `john.doe@example.com`
+- Password: `NewPass123`","1. User clicks ""Create User"" (Page 10: `Main -> User -> DB`).
+2. User enters `John Doe` in the name field.
+3. User enters `john.doe@example.com` in the email field.
+4. User enters `NewPass123` in the password field.
+5. User clicks ""Submit.""","- User account is created successfully.
+- System confirms registration: ""User created successfully.""
+- User is redirected to the login screen (Page 2: `creaUtente() -> login()`)."
+TC-USER-REGISTRATION-002,Failed Registration with Duplicate Email,User Management,"2, 10",- Email `john.doe@example.com` already exists in the system.,"- Name: `John Doe`
+- Email: `john.doe@example.com`
+- Password: `NewPass123`","1. User clicks ""Create User.""
+2. User enters `John Doe` in the name field.
+3. User enters `john.doe@example.com` in the email field.
+4. User enters `NewPass123` in the password field.
+5. User clicks ""Submit.""","- System displays an error: ""Email already registered.""
+- User remains on the registration screen.
+- No new account is created."
+TC-USER-REGISTRATION-003,Registration with Invalid Email Format,User Management,"2, 10",- System enforces email format validation.,"- Name: `John Doe`
+- Email: `invalid.email`
+- Password: `NewPass123`","1. User clicks ""Create User.""
+2. User enters `John Doe` in the name field.
+3. User enters `invalid.email` in the email field.
+4. User enters `NewPass123` in the password field.
+5. User clicks ""Submit.""","- System displays an error: ""Invalid email format.""
+- User remains on the registration screen.
+- No new account is created."
+TC-NAVIGATION-001,User Navigation Flow: Login → Menu → Profile → Logout,Navigation,"3, 8",- User is logged in.,,"1. User logs in successfully (TC-AUTHENTICATION-001).
+2. User navigates to `MenuLaterale` (Page 3).
+3. User clicks ""MyProfile"" (Page 8: `Menu -> MyProfile`).
+4. User clicks ""Logout"" (Page 3: `MyProfile -> Logout`).","- User sees the `MenuLaterale` after login.
+- User views their profile details.
+- User is logged out successfully (TC-AUTHENTICATION-004)."
+TC-NAVIGATION-002,Navigation to Activities from Menu,Navigation,"3, 7",- User is logged in.,,"1. User logs in successfully.
+2. User navigates to `MenuLaterale`.
+3. User clicks ""MyActivities"" (Page 3: `MenuLaterale -> MyActivities`).","- User is redirected to the `MyActivities` screen.
+- User sees their activity history or list.
+- No errors occur."
+TC-NOTICEBOARD-001,View Noticeboard with Filter,Noticeboard,5,"- User is logged in.
+- Noticeboard contains data.",,"1. User navigates to `ViewNoticeboard` (Page 5).
+2. User selects ""ListWithFilter.""
+3. User applies a filter (e.g., ""Announcements from 2023"").","- System displays filtered noticeboard items.
+- Filtered results match the applied criteria.
+- No errors occur."
+TC-NOTICEBOARD-002,View Noticeboard Details Without Filter,Noticeboard,5,"- User is logged in.
+- Noticeboard contains data.",,"1. User navigates to `ViewNoticeboard`.
+2. User selects ""ListNoFilter.""
+3. User clicks on a noticeboard item to view details (Page 5: `ListNoFilter -> ListNoFilterDetails`).","- System displays unfiltered noticeboard items.
+- User sees detailed information for the selected item.
+- No errors occur."
+TC-NOTICEBOARD-003,Switch from No-Filter to Filtered Details,Noticeboard,5,- User is viewing `ListNoFilterDetails`.,,"1. User is on `ListNoFilterDetails`.
+2. User clicks to view filtered details (Page 5: `ListNoFilterDetails -> ListWithFilterDetails`).","- System displays filtered details for the selected noticeboard item.
+- Filtered details match the applied criteria.
+- No errors occur."
+TC-ANNOUNCEMENT-001,Create a New Announcement,Announcement Management,9,- User has admin privileges.,,"1. User navigates to the announcement creation screen.
+2. User clicks ""Create"" (Page 9: `Annucio -> create`).
+3. User fills in announcement details (title, content, etc.).
+4. User clicks ""Submit.""","- Announcement is created successfully.
+- System confirms creation: ""Announcement created.""
+- New announcement appears in the noticeboard."
+TC-ANNOUNCEMENT-002,Modify an Existing Announcement,Announcement Management,9,"- User has admin privileges.
+- An announcement exists.",,"1. User selects an existing announcement.
+2. User clicks ""Modified"" (Page 9: `Annucio -> modified`).
+3. User updates the announcement details.
+4. User clicks ""Save.""","- Announcement is updated successfully.
+- System confirms modification: ""Announcement updated.""
+- Updated details reflect in the noticeboard."
+TC-ANNOUNCEMENT-003,Remove an Announcement,Announcement Management,9,"- User has admin privileges.
+- An announcement exists.",,"1. User selects an existing announcement.
+2. User clicks ""Removed"" (Page 9: `Annucio -> removed`).
+3. User confirms deletion.","- Announcement is removed successfully.
+- System confirms deletion: ""Announcement removed.""
+- Announcement no longer appears in the noticeboard."
+TC-PROFILE-001,Modify User Account Details,Profile Management,8,- User is logged in.,,"1. User navigates to `MyProfile` (Page 8: `Menu -> MyProfile`).
+2. User clicks ""ModifyAccount"" (Page 8: `MyProfile -> ModifyAccount`).
+3. User updates name/email/password fields.
+4. User clicks ""Save.""","- Account details are updated successfully.
+- System confirms update: ""Profile updated.""
+- Changes reflect in the profile screen."
+TC-PROFILE-002,Donate Points from Profile,Profile Management,8,- User has points to donate.,,"1. User navigates to `MyProfile`.
+2. User clicks ""PointsDonation"" (Page 8: `ModifyAccount -> PointsDonation`).
+3. User selects points to donate (e.g., 10 points).
+4. User clicks ""Confirm.""","- Points are donated successfully.
+- System confirms donation: ""Points donated.""
+- User's remaining points are updated."
+TC-DATABASE-001,Save User Data to Database,Data Persistence,"10, 14",- User registration is initiated.,,"1. User creates a new account (TC-USER-REGISTRATION-001).
+2. System saves data to `DB` (Page 10: `User -> DB`).","- User data is saved to the database.
+- No errors occur during persistence.
+- Data is retrievable for future sessions."
+TC-DATABASE-002,Insert Data into Database,Data Persistence,14,- System is ready to insert data.,,1. `Main` component inserts data into `DB` (Page 14: `Main -> DB`).,"- Data is inserted successfully.
+- No errors occur.
+- Data is retrievable for future operations."
+TC-NOTIFICATION-001,Create and Save Notification,Notification System,11,- User has permission to create notifications.,,"1. User creates a notification (`CreateNotifica`).
+2. Notification is added to `NotificaBoard`.
+3. `NotificaBoard` saves data to `DB` (Page 11: `Notifica -> Not",

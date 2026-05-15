@@ -1,0 +1,117 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Test User Creation,Utente,1,None,"- id: 1
+- Password: password123
+- Email: user@example.com
+- Nome: John
+- Cognome: Doe","1. Navigate to the User registration page.
+2. Enter the test data.
+3. Click the ""Register"" button.",The user is successfully created and displayed in the Users list.
+TC-Utente-002,Test User Login,Utente,1,A user has been created.,"- id: 1
+- Password: password123","1. Navigate to the User login page.
+2. Enter the test data.
+3. Click the ""Login"" button.",The user is successfully logged in and redirected to the dashboard.
+TC-Utente-003,Test User Update,Utente,1,A user has been created and is logged in.,"- New Password: newPassword123
+- New Email: user_updated@example.com
+- New Nome: Jane
+- New Cognome: Doe","1. Navigate to the User profile page.
+2. Update the test data.
+3. Click the ""Update"" button.","The user's information is successfully updated, and the updated information is displayed in the User profile page."
+TC-Prodotto-001,Test Product Creation,Prodotto,1,A user has been created and is logged in.,"- Nome: Product1
+- Luogo: Location1
+- Descrizione: Description1
+- Immagine: image1.jpg
+- Prezzo: 10.00","1. Navigate to the Product creation page.
+2. Enter the test data.
+3. Select the user as the proprietario.
+4. Click the ""Create"" button.",The product is successfully created and displayed in the Products list.
+TC-Segnalazione-001,Test Report Creation,Segnalazione,1,A user has been created and is logged in.,"- Tipo: true
+- Titolo: Report1
+- Descrizione: Description1
+- UtenteSegnalato: User1 (created in TC-Utente-001)
+- Autore: User2 (created in TC-Utente-001)","1. Navigate to the Report creation page.
+2. Enter the test data.
+3. Click the ""Create"" button.",The report is successfully created and displayed in the Reports list.
+TC-Segnalazione-002,Test Report Update,Segnalazione,1,A report has been created.,"- New Titolo: Report1_updated
+- New Descrizione: Description1_updated","1. Navigate to the Report edit page.
+2. Update the test data.
+3. Click the ""Update"" button.","The report's information is successfully updated, and the updated information is displayed in the Reports list."
+TC-Segnalazione-003,Test Report Deletion,Segnalazione,1,A report has been created.,,"1. Navigate to the Report edit page.
+2. Click the ""Delete"" button.",The report is successfully deleted and no longer displayed in the Reports list.
+TC-Utente-004,Test User Login with Invalid Password,Utente,1,A user has been created.,"- id: 1
+- Password: invalidPassword","1. Navigate to the User login page.
+2. Enter the test data.
+3. Click the ""Login"" button.","The user is not logged in, and an error message is displayed."
+TC-Utente-005,Test User Login with Empty Password,Utente,1,A user has been created.,"- id: 1
+- Password:","1. Navigate to the User login page.
+2. Enter the test data.
+3. Click the ""Login"" button.","The user is not logged in, and an error message is displayed."
+TC-Utente-006,Test User Login with Empty Email,Utente,1,A user has been created.,"- id: 1
+- Email:","1. Navigate to the User login page.
+2. Enter the test data.
+3. Click the ""Login"" button.","The user is not logged in, and an error message is displayed."
+TC-Prodotto-002,Test Product Creation with Invalid Price,Prodotto,1,A user has been created and is logged in.,"- Nome: Product2
+- Luogo: Location2
+- Descrizione: Description2
+- Immagine: image2.jpg
+- Prezzo: -1.00","1. Navigate to the Product creation page.
+2. Enter the test data.
+3. Select the user as the proprietario.
+4. Click the ""Create"" button.","An error message is displayed, and the product is not created."
+TC-Prodotto-003,Test Product Creation with Empty Name,Prodotto,1,A user has been created and is logged in.,"- Nome:
+- Luogo: Location3
+- Descrizione: Description3
+- Immagine: image3.jpg
+- Prezzo: 20.00","1. Navigate to the Product creation page.
+2. Enter the test data.
+3. Select the user as the proprietario.
+4. Click the ""Create"" button.","An error message is displayed, and the product is not created."
+TC-Segnalazione-004,Test Report Creation with Empty Title,Segnalazione,1,A user has been created and is logged in.,"- Tipo: true
+- Titolo:
+- Descrizione: Description4
+- UtenteSegnalato: User1
+- Autore: User2","1. Navigate to the Report creation page.
+2. Enter the test data.
+3. Click the ""Create"" button.","An error message is displayed, and the report is not created."
+TC-Segnalazione-005,Test Report Creation with Empty Description,Segnalazione,1,A user has been created and is logged in.,"- Tipo: true
+- Titolo: Report5
+- Descrizione:
+- UtenteSegnalato: User1
+- Autore: User2","1. Navigate to the Report creation page.
+2. Enter the test data.
+3. Click the ""Create"" button.","An error message is displayed, and the report is not created."
+TC-Segnalazione-006,Test Report Creation with Empty UserSegnalato,Segnalazione,1,A user has been created and is logged in.,"- Tipo: true
+- Titolo: Report6
+- Descrizione: Description6
+- UtenteSegnalato:
+- Autore: User2","1. Navigate to the Report creation page.
+2. Enter the test data.
+3. Click the ""Create"" button.","An error message is displayed, and the report is not created."
+TC-Segnalazione-007,Test Report Creation with Empty Autore,Segnalazione,1,A user has been created and is logged in.,"- Tipo: true
+- Titolo: Report7
+- Descrizione: Description7
+- UtenteSegnalato: User1
+- Autore:","1. Navigate to the Report creation page.
+2. Enter the test data.
+3. Click the ""Create"" button.","An error message is displayed, and the report is not created."
+TC-Segnalazione-008,Test Report Update with Empty Title,Segnalazione,1,A report has been created.,"- New Titolo:
+- New Descrizione: Description8_updated","1. Navigate to the Report edit page.
+2. Update the test data.
+3. Click the ""Update"" button.","An error message is displayed, and the report's information is not updated."
+TC-Segnalazione-009,Test Report Update with Empty Description,Segnalazione,1,A report has been created.,"- New Titolo: Report9_updated
+- New Descrizione:","1. Navigate to the Report edit page.
+2. Update the test data.
+3. Click the ""Update"" button.","An error message is displayed, and the report's information is not updated."
+TC-Segnalazione-010,Test Report Update with Empty UtenteSegnalato,Segnalazione,1,A report has been created.,"- New Titolo: Report10_updated
+- New Descrizione: Description10_updated
+- New UtenteSegnalato:","1. Navigate to the Report edit page.
+2. Update the test data.
+3. Click the ""Update"" button.","An error message is displayed, and the report's information is not updated."
+TC-Segnalazione-011,Test Report Update with Empty Autore,Segnalazione,1,A report has been created.,"- New Titolo: Report11_updated
+- New Descrizione: Description11_updated
+- New Autore:","1. Navigate to the Report edit page.
+2. Update the test data.
+3. Click the ""Update"" button.","An error message is displayed, and the report's information is not updated."
+TC-Segnalazione-012,Test Report Deletion with Non-Existent Report,Segnalazione,1,No reports have been created.,,"1. Navigate to the Report edit page.
+2. Click the ""Delete"" button.","An error message is displayed, and the report is not deleted."
+TC-Segnalazione-013,Test Report Deletion with Deleting Another User's Report,Segnalazione,1,Another user has created a report.,,"1. Navigate to the Report edit page of the other user's report.
+2. Click the",

@@ -1,0 +1,104 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration with valid credentials,User Registration,"2, 5","- UserRegistration and UsersDatabase services are available.
+- No duplicate username exists in the system.","- Username: `john_doe_123`
+- Password: `SecurePass123!`
+- Email: `john.doe@example.com`","1. User navigates to the registration page.
+2. User enters `john_doe_123` as username, `SecurePass123!` as password, and `john.doe@example.com` as email.
+3. User clicks the ""Register"" button.
+4. System calls `registerUser()` with the provided credentials.
+5. UserRegistration validates input and calls `saveUserData()` on UsersDatabase.
+6. UsersDatabase persists the user data (username, password, email).","- User receives a success message: ""Registration successful. Please log in.""
+- User data is stored in UsersDatabase with hashed password.
+- UserProfile is created with `id` auto-generated, `name` and `email` populated."
+TC-USER-REGISTRATION-002,Registration failure with duplicate username,User Registration,"2, 5",- User `john_doe_123` already exists in UsersDatabase.,"- Username: `john_doe_123` (duplicate)
+- Password: `NewPass456!`
+- Email: `john.doe.duplicate@example.com`","1. User attempts to register with existing username.
+2. System calls `registerUser()`.
+3. UserRegistration detects duplicate username and rejects the request.","- Error message: ""Username already exists. Please choose another.""
+- No new user or profile is created in UsersDatabase."
+TC-USER-REGISTRATION-003,Registration failure with invalid password format,User Registration,"2, 5","- Password policy requires: 8+ chars, 1 uppercase, 1 number, 1 special char.","- Username: `new_user_789`
+- Password: `weak` (invalid)
+- Email: `new.user@example.com`","1. User enters invalid password.
+2. UserRegistration validates input and rejects the request.","- Error message: ""Password must be 8+ characters with uppercase, number, and special character.""
+- No user data is saved."
+TC-USER-LOGIN-001,Successful login with valid credentials,User Authentication,"1, 3, 5",- User `john_doe_123` exists in UsersDatabase with password `SecurePass123!`.,"- Username: `john_doe_123`
+- Password: `SecurePass123!`","1. User enters credentials on the login page.
+2. System calls `login(username, password)` on User class.
+3. User class verifies credentials with UsersDatabase.
+4. UsersDatabase returns `true` for valid credentials.","- User is logged in successfully.
+- System returns `true` and redirects to the dashboard.
+- User session is created (e.g., JWT token issued)."
+TC-USER-LOGIN-002,Login failure with incorrect password,User Authentication,"1, 3, 5",- User `john_doe_123` exists with password `SecurePass123!`.,"- Username: `john_doe_123`
+- Password: `WrongPass123!`","1. User enters incorrect password.
+2. System calls `login()` and verifies credentials.
+3. UsersDatabase returns `false`.","- Error message: ""Invalid username or password.""
+- User remains on login page.
+- No session is created."
+TC-USER-LOGIN-003,Login failure with non-existent username,User Authentication,"1, 3, 5",- No user exists with username `nonexistent_user`.,"- Username: `nonexistent_user`
+- Password: `AnyPassword123!`","1. User enters non-existent username.
+2. System calls `login()` and checks UsersDatabase.
+3. UsersDatabase returns `false`.","- Error message: ""Invalid username or password.""
+- No session is created."
+TC-USER-LOGOUT-001,Successful user logout,User Authentication,"1, 3, 5",- User `john_doe_123` is logged in with an active session.,,"1. User clicks the ""Logout"" button.
+2. System calls `logout()` on the User class.
+3. User session is terminated (e.g., JWT token invalidated).","- User is redirected to the login page.
+- Session data is cleared.
+- User must re-authenticate to access protected features."
+TC-TRIP-CREATION-001,Successful trip creation with valid data,Trip Management,"1, 4","- User `john_doe_123` is logged in.
+- TripDatabase is accessible.","- Trip name: `Paris Vacation 2023`
+- Date: `2023-12-15`
+- Category: `Adventure`","1. User navigates to the ""Create Trip"" page.
+2. User enters trip details and clicks ""Save.""
+3. System calls `createTrip(name, date, category)` on the Trip class.
+4. TripDatabase persists the new trip with auto-generated `id`.","- Success message: ""Trip created successfully.""
+- New trip appears in the user's trip list.
+- Trip is associated with the logged-in user (`User -> Trip` relationship)."
+TC-TRIP-CREATION-002,Trip creation failure with invalid date format,Trip Management,"1, 4",- User is logged in.,"- Trip name: `Invalid Trip`
+- Date: `15-12-2023` (invalid format; expected: `YYYY-MM-DD`)
+- Category: `Relaxation`","1. User enters invalid date format.
+2. System validates input and rejects the request.","- Error message: ""Date must be in YYYY-MM-DD format.""
+- No trip is created."
+TC-TRIP-DELETION-001,Successful trip deletion,Trip Management,"1, 4","- User `john_doe_123` has a trip with `id = 101`.
+- User is logged in and owns the trip.",,"1. User navigates to their trips list.
+2. User selects trip `id = 101` and clicks ""Delete.""
+3. System calls `deleteTrip(id)` on the Trip class.
+4. TripDatabase removes the trip and all associated plans/daily plans.","- Success message: ""Trip deleted successfully.""
+- Trip no longer appears in the user's list.
+- All associated `Plan` and `DailyPlan` records are cascaded-deleted (if applicable)."
+TC-TRIP-DELETION-002,Trip deletion failure (non-existent trip ID),Trip Management,"1, 4","- User is logged in.
+- No trip exists with `id = 999`.",,"1. User attempts to delete trip `id = 999`.
+2. System calls `deleteTrip(999)`.
+3. TripDatabase returns `false` (trip not found).","- Error message: ""Trip not found or you do not have permission to delete it.""
+- No changes are made to the database."
+TC-PLAN-CREATION-001,Successful plan creation linked to a trip,Plan Management,1,"- User `john_doe_123` has a trip with `id = 101`.
+- User is logged in.","- Plan name: `Day 1 Itinerary`
+- Date: `2023-12-15`
+- Category: `Adventure`","1. User selects trip `id = 101` and navigates to ""Create Plan.""
+2. User enters plan details and clicks ""Save.""
+3. System calls `createPlan(name, date, category)` on the Plan class.
+4. Plan is associated with the selected trip (`Trip -> Plan`).","- Success message: ""Plan created successfully.""
+- Plan appears under the trip in the user's dashboard.
+- Plan `id` is auto-generated and linked to the trip."
+TC-DAILY-PLAN-CREATION-001,"Successful daily plan creation linking user, plan, and date",Daily Plan Management,1,"- User `john_doe_123` is logged in.
+- User has a plan with `id = 201` (linked to trip `id = 101`).",- Date: `2023-12-15`,"1. User selects plan `id = 201` and navigates to ""Create Daily Plan.""
+2. User enters date `2023-12-15` and clicks ""Save.""
+3. System calls `createDailyPlan(user, plan, date)`.
+4. DailyPlan is created with associations to `User`, `Plan`, and `date`.","- Success message: ""Daily plan created for 2023-12-15.""
+- DailyPlan appears in the user's calendar for the selected date.
+- `DailyPlan.id` is auto-generated and linked to the user and plan."
+TC-DAILY-PLAN-DELETION-001,Successful daily plan deletion,Daily Plan Management,1,"- User `john_doe_123` has a daily plan with `id = 301` for `2023-12-15`.
+- User is logged in and owns the daily plan.",,"1. User views their daily plans and selects `id = 301`.
+2. User clicks ""Delete.""
+3. System calls `deleteDailyPlan(id)`.","- Success message: ""Daily plan deleted.""
+- Daily plan no longer appears in the user's calendar.
+- Association between `User`, `Plan`, and `date` is removed."
+TC-PROFILE-UPDATE-001,Successful user profile update,User Profile Management,5,"- User `john_doe_123` is logged in with profile `id = ""UP101""`.
+- Current profile: `name = ""John Doe""`, `email = ""john.doe@example.com""`.","- New name: `Johnathan Doe`
+- New email: `johnathan.doe@example.com`","1. User navigates to ""Edit Profile.""
+2. User updates name and email, then clicks ""Save.""
+3. System calls `updateProfile(name, email)` on UserProfile.
+4. UsersDatabase updates the profile record.","- Success message: ""Profile updated successfully.""
+- UserProfile reflects new `name` and `email`.
+- Changes are visible when user calls `getProfile()`."
+TC-PROFILE-UPDATE-002,Profile update failure with invalid email format,User Profile Management,5,- User is logged in.,"- New name: `John Doe`
+- New email: `invalid.email` (missing `@",,

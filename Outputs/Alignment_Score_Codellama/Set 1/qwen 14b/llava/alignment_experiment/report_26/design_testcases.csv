@@ -1,0 +1,92 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in successfully,Login,1,User exists in the system with valid credentials,"- Username: ""john_doe""
+- Password: ""password123""","1. User navigates to the login page.
+2. User enters the username ""john_doe"".
+3. User enters the password ""password123"".
+4. User clicks the login button.","- User is logged in successfully.
+- A success message is displayed."
+TC-Login-002,User logs in with invalid credentials,Login,1,User exists in the system with invalid credentials,"- Username: ""john_doe""
+- Password: ""wrong_password""","1. User navigates to the login page.
+2. User enters the username ""john_doe"".
+3. User enters the password ""wrong_password"".
+4. User clicks the login button.","- User is not logged in.
+- An error message is displayed indicating incorrect credentials."
+TC-Login-003,User logs out successfully,Login,1,User is logged in,None,1. User clicks the logout button.,"- User is logged out successfully.
+- A success message is displayed."
+TC-Login-004,Admin logs in successfully,Login,1,Admin exists in the system with valid credentials,"- Username: ""admin_user""
+- Password: ""admin_password""","1. Admin navigates to the login page.
+2. Admin enters the username ""admin_user"".
+3. Admin enters the password ""admin_password"".
+4. Admin clicks the login button.","- Admin is logged in successfully.
+- A success message is displayed."
+TC-Login-005,Admin logs in with invalid credentials,Login,1,Admin exists in the system with invalid credentials,"- Username: ""admin_user""
+- Password: ""wrong_password""","1. Admin navigates to the login page.
+2. Admin enters the username ""admin_user"".
+3. Admin enters the password ""wrong_password"".
+4. Admin clicks the login button.","- Admin is not logged in.
+- An error message is displayed indicating incorrect credentials."
+TC-Login-006,Admin logs out successfully,Login,1,Admin is logged in,None,1. Admin clicks the logout button.,"- Admin is logged out successfully.
+- A success message is displayed."
+TC-Activity-001,User starts an activity successfully,Activity,4,User is logged in,None,"1. User navigates to the home page.
+2. User initiates the activity.","- User is directed to the fragments page.
+- User completes the activity successfully."
+TC-Activity-002,User performs intermediate processing successfully,Activity,4,User is logged in and initiated the activity,None,1. User performs the intermediate processing.,"- Intermediate processing is completed successfully.
+- User is directed to the end point."
+TC-Activity-003,User completes the activity successfully,Activity,4,User is logged in and performed intermediate processing,None,1. User reaches the end point.,"- Activity is completed successfully.
+- A success message is displayed."
+TC-Sequence-001,User inserts a new item successfully,Sequence,11,User is logged in,"- New item details: ""item_name"", ""item_description""","1. User initiates the insertion process.
+2. User provides the new item details.
+3. User submits the new item.","- Item is inserted successfully into the database.
+- A success message is displayed."
+TC-Sequence-002,User retrieves items from the database successfully,Sequence,12,User is logged in,None,1. User requests to retrieve items from the database.,"- Items are retrieved successfully from the database.
+- Items are displayed to the user."
+TC-Sequence-003,User exchanges data with the database successfully,Sequence,14,User is logged in,"- Exchange details: ""exchange_data""","1. User sends exchange data to the Exchange.
+2. Exchange retrieves exchanges from the Database.","- Exchange data is processed successfully.
+- Exchanges are retrieved and displayed to the user."
+TC-Sequence-004,User applies a filter successfully,Filter,16,User is logged in,"- Filter criteria: ""filter_criteria""","1. User inserts a filter criterion.
+2. User views the filtered results.
+3. User inserts a new filter criterion.
+4. User views the new filtered results.","- Filtered results are displayed successfully.
+- User can view and apply multiple filters."
+TC-Sequence-005,User inserts new information successfully,Information Insertion,17,User is logged in,"- New information: ""new_info""",1. User inserts new information into the database.,"- New information is inserted successfully into the database.
+- A success message is displayed."
+TC-Sequence-006,User shows updated information successfully,Information Update,17,User is logged in and has updated information,"- Updated information: ""updated_info""",1. User sends updated information to another user.,"- Updated information is sent successfully to another user.
+- A success message is displayed."
+TC-Sequence-007,User inserts invalid information,Information Insertion,17,User is logged in,"- Invalid information: ""invalid_info""",1. User attempts to insert invalid information into the database.,"- Invalid information is not inserted into the database.
+- An error message is displayed indicating invalid information."
+TC-Sequence-008,User shows invalid updated information,Information Update,17,User is logged in and has invalid updated information,"- Invalid updated information: ""invalid_updated_info""",1. User attempts to send invalid updated information to another user.,"- Invalid updated information is not sent to another user.
+- An error message is displayed indicating invalid information."
+TC-Sequence-009,User retrieves non-existent items from the database,Information Retrieval,12,User is logged in,None,1. User requests to retrieve non-existent items from the database.,"- No items are retrieved from the database.
+- An appropriate message is displayed indicating no items found."
+TC-Sequence-010,User exchanges non-existent data with the database,Data Exchange,14,User is logged in,"- Non-existent exchange details: ""non_existent_exchange_data""","1. User sends non-existent exchange data to the Exchange.
+2. Exchange attempts to retrieve exchanges from the Database.","- Non-existent exchange data is not processed.
+- An appropriate message is displayed indicating no exchanges found."
+TC-Sequence-011,User applies an invalid filter,Filter,16,User is logged in,"- Invalid filter criteria: ""invalid_filter_criteria""","1. User inserts an invalid filter criterion.
+2. User views the filtered results.","- Invalid filter criteria are not applied.
+- An appropriate message is displayed indicating invalid filter criteria."
+TC-Sequence-012,User inserts duplicate information,Information Insertion,17,User is logged in,"- Duplicate information: ""duplicate_info""",1. User attempts to insert duplicate information into the database.,"- Duplicate information is not inserted into the database.
+- An appropriate message is displayed indicating duplicate entry."
+TC-Sequence-013,User shows duplicate updated information,Information Update,17,User is logged in and has duplicate updated information,"- Duplicate updated information: ""duplicate_updated_info""",1. User attempts to send duplicate updated information to another user.,"- Duplicate updated information is not sent to another user.
+- An appropriate message is displayed indicating duplicate entry."
+TC-Sequence-014,User retrieves empty items from the database,Information Retrieval,12,User is logged in,None,1. User requests to retrieve empty items from the database.,"- No items are retrieved from the database.
+- An appropriate message is displayed indicating no items found."
+TC-Sequence-015,User exchanges empty data with the database,Data Exchange,14,User is logged in,"- Empty exchange details: ""empty_exchange_data""","1. User sends empty exchange data to the Exchange.
+2. Exchange attempts to retrieve exchanges from the Database.","- Empty exchange data is not processed.
+- An appropriate message is displayed indicating no exchanges found."
+TC-Sequence-016,User applies an empty filter,Filter,16,User is logged in,"- Empty filter criteria: """"","1. User inserts an empty filter criterion.
+2. User views the filtered results.","- Empty filter criteria are not applied.
+- An appropriate message is displayed indicating invalid filter criteria."
+TC-Sequence-017,User inserts null information,Information Insertion,17,User is logged in,- Null information: null,1. User attempts to insert null information into the database.,"- Null information is not inserted into the database.
+- An appropriate message is displayed indicating invalid information."
+TC-Sequence-018,User shows null updated information,Information Update,17,User is logged in and has null updated information,- Null updated information: null,1. User attempts to send null updated information to another user.,"- Null updated information is not sent to another user.
+- An appropriate message is displayed indicating invalid information."
+TC-Sequence-019,User retrieves null items from the database,Information Retrieval,12,User is logged in,None,1. User requests to retrieve null items from the database.,"- No items are retrieved from the database.
+- An appropriate message is displayed indicating no items found."
+TC-Sequence-020,User exchanges null data with the database,Data Exchange,14,User is logged in,- Null exchange details: null,"1. User sends null exchange data to the Exchange.
+2. Exchange attempts to retrieve exchanges from the Database.","- Null exchange data is not processed.
+- An appropriate message is displayed indicating no exchanges found."
+TC-Sequence-021,User applies a null filter,Filter,16,User is logged in,- Null filter criteria: null,"1. User inserts a null filter criterion.
+2. User views the filtered results.","- Null filter criteria are not applied.
+- An appropriate message is displayed indicating invalid filter criteria."
+TC-Sequence-022,User inserts a large amount of information,"Information Insertion
+Source U",,,,,

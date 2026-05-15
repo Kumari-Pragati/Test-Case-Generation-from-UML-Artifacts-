@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Verify User Registration with Valid Credentials,User,3,None,"- email: test@example.com
+- password: StrongPassword123!","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.
+3. Call CreateUserWithEmailAndPassword with valid email and password.
+4. Check the response from Firebase Authentication.
+5. Store user data in the database.
+6. Log in the user.","- User registration is successful.
+- User data is stored in the database.
+- User is logged in successfully."
+TC-USER-002,Verify User Registration with Empty Email,User,3,None,"- email: """"
+- password: StrongPassword123!","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.
+3. Expect the validation to fail due to an empty email.",- Registration fails due to an invalid email.
+TC-USER-003,Verify User Registration with Short Password,User,3,None,"- email: test@example.com
+- password: Pass1","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.
+3. Expect the validation to fail due to a short password.",- Registration fails due to an invalid password.
+TC-USER-004,Verify User Login with Valid Credentials,User,2,User registered and logged out,"- email: test@example.com
+- password: StrongPassword123!","1. Call signInWithEmailAndPassword with valid email and password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is not an error.
+4. Return FirebaseUser.
+5. Create a token to identify the device.","- User logs in successfully.
+- Device token is created."
+TC-USER-005,Verify User Login with Invalid Email,User,2,User registered and logged out,"- email: invalid@example.com
+- password: StrongPassword123!","1. Call signInWithEmailAndPassword with invalid email and valid password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is an error.",- User login fails due to invalid email.
+TC-USER-006,Verify User Login with Invalid Password,User,2,User registered and logged out,"- email: test@example.com
+- password: WrongPassword123!","1. Call signInWithEmailAndPassword with valid email and invalid password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is an error.",- User login fails due to invalid password.
+TC-RANKING-001,Verify User Completes a Ranking,Ranking,1,User logged in,"- User: test@example.com
+- Ranking: id=1, Titolo=""Ranking 1"", Superato=false","1. User attempts to complete the ranking.
+2. Update the ranking status to true.","- Ranking status is updated to true.
+- User's ranking is marked as completed."
+TC-MISSION-001,Verify User Completes a Mission,Mission,1,User logged in,"- User: test@example.com
+- Mission: id=1, Titolo=""Mission 1"", Superato=false, Descrizione=""Complete task 1""","1. User attempts to complete the mission.
+2. Update the mission status to true.","- Mission status is updated to true.
+- User's mission is marked as completed."
+TC-DATABASE-001,Verify Asynchronous Data Update,Database,4,User logged in,"- User: test@example.com
+- Data: {""username"": ""testuser"", ""email"": ""test@example.com""}","1. Convert the data to JSON format.
+2. Send a REST/HTTP/2 request to the Realtime Database.
+3. Receive an asynchronous response from the database.","- Data is successfully updated in the database.
+- Asynchronous response is received indicating success."
+TC-DATABASE-002,Verify Data Retrieval for Mission,Database,5,User logged in,"- Mission: id=1, Titolo=""Mission 1"", Superato=false, Descrizione=""Complete task 1""","1. Add a value event listener for the mission in the Firebase SDK.
+2. Forward the request to the Realtime Database.
+3. Receive the requested data from the Realtime Database.
+4. Notify the main application of the data change.","- Mission data is retrieved successfully.
+- onDataChange() is triggered in the main application."
+TC-DATABASE-003,Verify Data Retrieval for Trophy,Database,5,User logged in,"- Trophy: id=1, Titolo=""Trophy 1"", Superato=false, Descrizione=""Complete task 1""","1. Add a value event listener for the trophy in the Firebase SDK.
+2. Forward the request to the Realtime Database.
+3. Receive the requested data from the Realtime Database.
+4. Notify the main application of the data change.","- Trophy data is retrieved successfully.
+- onDataChange() is triggered in the main application."
+TC-VALIDATION-001,Verify Validation Checks During Registration,Validation,3,None,"- email: test@example.com
+- password: StrongPassword123!","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.",- Validation passes successfully.
+TC-VALIDATION-002,Verify Validation Fails with Empty Email,Validation,3,None,"- email: """"
+- password: StrongPassword123!","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.",- Validation fails due to an empty email.
+TC-VALIDATION-003,Verify Validation Fails with Short Password,Validation,3,None,"- email: test@example.com
+- password: Pass1","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.",- Validation fails due to a short password.
+TC-RESPONSE-001,Verify Successful Response Handling During Registration,Response,3,None,"- email: test@example.com
+- password: StrongPassword123!","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.
+3. Call CreateUserWithEmailAndPassword with valid email and password.
+4. Check the response from Firebase Authentication.
+5. Store user data in the database.
+6. Log in the user.","- Registration is successful.
+- User data is stored in the database.
+- User is logged in successfully."
+TC-RESPONSE-002,Verify Error Response Handling During Registration,Response,3,None,"- email: test@example.com
+- password: StrongPassword123!","1. Start the registration process.
+2. Validate that the email is not empty and the password length is greater than 7 characters.
+3. Call CreateUserWithEmailAndPassword with valid email and password.
+4. Check the response from Firebase Authentication.
+5. Expect an error response.",- Registration fails due to an error response.
+TC-RESPONSE-003,Verify Successful Response Handling During Login,Response,2,User registered and logged out,"- email: test@example.com
+- password: StrongPassword123!","1. Call signInWithEmailAndPassword with valid email and password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is not an error.
+4. Return FirebaseUser.
+5. Create a token to identify the device.","- User logs in successfully.
+- Device token is created."
+TC-RESPONSE-004,Verify Error Response Handling During Login,Response,2,User registered and logged out,"- email: test@example.com
+- password: StrongPassword123!","1. Call signInWithEmailAndPassword with valid email and password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is an error.",- User login fails due to an error response.
+TC-TOKEN-001,Verify Token Creation After Successful Login,Token,2,User registered and logged out,"- email: test@example.com
+- password: StrongPassword123!","1. Call signInWithEmailAndPassword with valid email and password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is not an error.
+4. Return FirebaseUser.
+5. Create a token to identify the device.","- User logs in successfully.
+- Device token is created."
+TC-TOKEN-002,Verify No Token Created After Failed Login,Token,2,User registered and logged out,"- email: test@example.com
+- password: WrongPassword123!","1. Call signInWithEmailAndPassword with valid email and invalid password.
+2. Receive a response from Firebase Authentication.
+3. Check if the response is an error.","- User login fails due to invalid password.
+- No device token is created."
+TC-UPDATE-001,Verify User Data Update After Completion of Ranking,Update,"1, 4",User logged in,"- User: test@example.com
+- Ranking: id=1, Titolo=""Ranking 1"", Superato=false","1. User completes the ranking.
+2. Update the ranking status to true.
+3. Send a REST/HTTP/2 request to the Realtime Database to update the ranking status.
+4. Receive an asynchronous response from the database.","- Ranking status is updated to true.
+- User's ranking is marked as completed.
+- Database update is successful."
+TC-UPDATE-002,Verify User Data Update After Completion of Mission,Update,"1, 4",User logged in,"- User: test@example.com
+- Mission: id=1, Titolo=""Mission 1"", Superato=false, Descrizione=""Complete task 1""","1. User completes the mission.
+2. Update the mission status to true.
+3. Send a REST/HTTP/2 request to the Realtime Database to update the mission status.
+4. Receive an asynchronous response from the database.","- Mission status is updated to true.
+- User's mission is marked as completed.
+- Database update is successful."
+TC-UPDATE-003,Verify User Data Update After Completion of Trophy,Update,"1, 4",User logged in,"- User: test@example.com
+- Trophy: id=1, Titolo=""Trophy 1"", Superato=false, Descrizione=""Complete task 1""","1. User completes the trophy.
+2. Update the trophy status to true.
+3. Send a REST/HTTP/2 request to the Realtime Database to update the trophy status.
+4. Receive an asynchronous response from the database.","- Trophy status is updated to true.
+- User's trophy is marked as completed.
+- Database update is successful."
+TC-LOGIN-001,Verify User Login with Correct Credentials,Login,2,User registered and logged out,,,

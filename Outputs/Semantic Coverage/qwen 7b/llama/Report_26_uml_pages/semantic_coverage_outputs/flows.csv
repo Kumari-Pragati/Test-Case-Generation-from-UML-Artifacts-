@@ -1,0 +1,182 @@
+flow
+start -> utente loggato? — type=start; label=start; explanation=start
+utente loggato? -> fragment richiesta login/registrazione — type=yes; label=yes; explanation=yes
+utente loggato? -> home — type=no; label=no; explanation=no
+fragment richiesta login/registrazione -> fragment login — type=fragment; label=fragment; explanation=fragment
+fragment login -> fragment registratone — type=fragment; label=fragment; explanation=fragment
+fragment richiesta login/registrazione -> fragment registratone — type=fragment; label=fragment; explanation=fragment
+fragment login -> utente loggato con successo? — type=fragment; label=fragment; explanation=fragment
+utente loggato con successo? -> utente creatto con successo? — type=yes; label=yes; explanation=yes
+utente loggato con successo? -> home — type=no; label=no; explanation=no
+utente creatto con successo? -> home — type=no; label=no; explanation=no
+flow 1: start -> utente loggato? -> fragment richiesta login/registrazione -> fragment login -> fragment registratone -> utente loggato con successo? -> utente creatto con successo? -> home
+the diagram models a user's login and registration process.
+the main flows are the normal login and registration processes.
+the decision nodes are used to determine whether the user is logged in or has successfully created an account.
+the fragment nodes are used to represent the login and registration fragments.
+the diagram does not show any loops or repeated behavior.
+home -> activity proposte di scambio — type: no
+activity proposte di scambio -> fragment elenco proposte ricevute — type: no / si
+fragment elenco proposte ricevute -> fragment elenco proposte inoltrate — type: si
+fragment elenco proposte inoltrate -> activity dettaglio proposta — type: proposta accettata?
+flow 1: home -> activity proposte di scambio -> fragment elenco proposte ricevute -> fragment elenco proposte inoltrate -> activity dettaglio proposta
+"the diagram models a process for handling proposals, starting with the home activity and ending with the activity for detailed proposal."
+the process involves two main flows: one for handling the proposal fragments and another for accepting or rejecting the proposal.
+the decision to accept or reject the proposal is based on the fragment of the proposed proposal.
+home -> activity bachea personale — type: start
+activity bachea personale -> fragment inserimento — type: flow
+fragment inserimento -> fragment elenco offerte — type: fragment
+fragment elenco offerte -> fragment dettaglio offerta — type: fragment
+fragment dettaglio offerta -> fragment eliminazione — type: fragment
+fragment eliminazione -> eliminazione andata a buon fine — type: fragment
+eliminazione andata a buon fine -> si — type: decision
+si -> fragment inserimento — type: yes
+no -> inserimento andato a buon fine? — type: question
+inserimento andato a buon fine? -> fragment elenco offerte — type: fragment
+eliminazione andata a buon fine -> no — type: no
+no -> fragment eliminazione — type: fragment
+flow 1: home -> activity bachea personale -> fragment inserimento -> fragment elenco offerte -> fragment dettaglio offerta -> fragment eliminazione -> eliminazione andata a buon fine
+the diagram models a personal activity with a series of fragments and decisions.
+the main flow starts at home and ends at eliminazione andata a buon fine.
+"the diagram has several decision points and fragments, indicating a complex process."
+the use of fragments and decisions suggests a dynamic and adaptive process.
+"home -> no — type=transition; label=""no""; explanation=""no"""
+"no -> si — type=transition; label=""si""; explanation=""yes"""
+"si -> fragment elenco offerte — type=transition; label=""fragment elenco offerte""; explanation=""fragment of the offer list"""
+"fragment elenco offerte -> fragment filtri di ricerca — type=transition; label=""fragment filtri di ricerca""; explanation=""filter fragment of the search"""
+"fragment filtri di ricerca -> activity dettaglio offerta — type=transition; label=""activity dettaglio offerta""; explanation=""detailed activity of the offer"""
+flow 1: home -> no -> si -> fragment elenco offerte -> fragment filtri di ricerca -> activity dettaglio offerta
+"the diagram models the process of handling an offer, starting from the home page and ending with a detailed activity of the offer."
+"the process involves a decision to reperito i dati delle offerte, which determines whether to proceed with the fragment of the offer list or the filter fragment of the search."
+the detailed activity of the offer is the final step in the process.
+home -> activity visualizzazione profilo - type=start; label=; explanation=
+activity visualizzazione profilo -> fragment modifica dati personali - type=sequence; label=; explanation=
+fragment modifica dati personali -> la modifica è andata a buon fine? - type=decision; label=; explanation=
+la modifica è andata a buon fine? -> no - type=sequence; label=; explanation=
+la modifica è andata a buon fine? -> si - type=sequence; label=; explanation=
+flow 1: home -> activity visualizzazione profilo -> fragment modifica dati personali -> la modifica è andata a buon fine? -> no
+the diagram models a personal data modification process.
+"the main flow involves a profile visualization activity, a personal data modification fragment, and a decision to check if the modification was successful."
+"the process ends with a ""no"" branch, indicating an unsuccessful modification."
+"the ""si"" branch is not explicitly shown, but it is implied as the successful path."
+home -> activity elementi salvati — type=association; label=no; explanation=home
+activity elementi salvati -> no reperto di elementi salvati defutente? — type=association; label=no; explanation=activity elementi salvati
+no reperto di elementi salvati defutente? -> fragment elenco offerte — type=association; label=si; explanation=no reperto di elementi salvati defutente?
+fragment elenco offerte -> fragment rimozione — type=association; label=si; explanation=fragment elenco offerte
+fragment rimozione -> rimozione invermuta? — type=association; label=no; explanation=fragment rimozione
+rimozione invermuta? -> si — type=association; label=si; explanation=rimozione invermuta?
+flow 1: home -> activity elementi salvati -> no reperto di elementi salvati defutente? -> fragment elenco offerte -> fragment rimozione -> rimozione invermuta?
+"the diagram models a process for handling saved elements, starting from the home activity and ending with the decision to remove the fragments."
+"the process involves checking if there are any saved elements, then either offering a fragment or removing it."
+the decision to remove the fragment is based on whether it has been offered or not.
+the process ends with a question about removing the fragments again.
+utente -> user — type=message; label=insert data and accept privacy document; explanation=insert data and accept privacy document
+user -> database — type=message; label=insertuserindatabase(); explanation=insertuserindatabase()
+utente -> utente — type=success or failure; label=success or failure; explanation=success or failure
+flow 1: utente -> user -> database -> utente
+"the diagram models a sequence of events where the user inserts data and accepts a privacy document, which is then inserted into the database."
+"the success or failure of the process is indicated by the ""success or failure"" label."
+"the user is the primary actor in this sequence, interacting with the database to insert the data."
+"utente -> user — type=association; label=""insert username and password"""
+"user -> database — type=association; label=""signinwithemailandpassword()"""
+"database -> main — type=association; label=""response"""
+"main -> utente — type=association; label=""success or failure"""
+"main -> user — type=association; label=""if success go to main page"""
+flow 1: utente -> user -> database -> main -> utente
+flow 2: none
+"the diagram models a login process where a user inserts their username and password, which is then sent to the database for verification."
+"the response from the database is then sent to the main page, which either shows success or failure."
+the user can go to the main page if the login is successful.
+"utente -> myboard — type=association; label=""move to myboardactivity""; explanation=""move to myboardactivity"""
+"myboard -> database — type=association; label=""retrieve user items""; explanation=""retrieve user items"""
+"myboard -> myboard — type=self-association; label=""show items list""; explanation=""show items list"""
+flow 1: utente -> myboard -> myboard -> database -> myboard -> utente
+"the diagram models a user's interaction with a myboard activity, which retrieves user items from a database and displays them."
+the user can move to the myboard activity and retrieve user items.
+the myboard activity shows a list of items.
+the user can show the items list.
+the myboard activity retrieves user items from the database.
+utente -> insertnewitem — type=message; label=click on insert item button
+insertnewitem -> database — type=message; label=insert item in database
+utente -> insertnewitem — type=message; label=request an image
+insertnewitem -> utente — type=message; label=take a picture of the object or not
+utente -> insertnewitem — type=message; label=request item info
+insertnewitem -> utente — type=message; label=insert info
+utente -> insertnewitem — type=message; label=show items list with the new one
+flow 1: utente -> insertnewitem -> database -> utente -> insertnewitem -> database -> utente
+the diagram models a user interacting with a database through an insert new item service.
+"the user can request an image, take a picture of the object or not, request item information, and show items list with the new one."
+the database responds to each action with an insert item in database message.
+"the user can take a picture of the object or not, and then request item information or show items list with the new one."
+utente -> insertnewitem — type=call; label=click on delete item button; explanation=delete item from database
+insertnewitem -> database — type=call; label=delete item from database; explanation=response
+utente -> database — type=call; label=show items list without the deleted one; explanation=response
+flow 1: utente -> insertnewitem -> database -> utente
+flow 2: utente -> insertnewitem -> database -> utente
+"the diagram models a sequence of actions between the user, the database, and the insertion of a new item."
+"the user clicks on the delete item button, which triggers the deletion of the item from the database."
+the response from the database is then shown to the user without the deleted item.
+the process repeats for each item in the list.
+utente -> main — type=message; label=get items from database; explanation=get items from database
+main -> database — type=message; label=response; explanation=response from database
+main -> utente — type=message; label=show items list; explanation=show items list
+flow 1: utente -> main -> database -> utente -> main -> utente
+"the diagram models a simple interaction between a user, a main process, and a database."
+"the user requests items from the database, receives a response, and then shows the items list."
+there are no loops or repeated behavior in the flow.
+the main flow is a straightforward sequence of events.
+utente -> exchange — type=message; label=propose new exchange; explanation=propose new exchange
+exchange -> database — type=message; label=save exchange info in database; explanation=save exchange info in database
+utente -> exchange — type=message; label=show exchange list; explanation=show exchange list
+flow 1: utente -> exchange -> database -> utente
+"the diagram models a sequence of interactions between the user, exchange, and database."
+"the user proposes a new exchange, which is then saved in the database."
+the exchange list is shown to the user.
+the response from the database is saved in the exchange information.
+the process is a simple sequence of interactions without any loops or repetitions.
+utente -> exchange — type=message; label=move to exchange page
+exchange -> database — type=message; label=get exchanges info from database
+exchange -> utente — type=message; label=response
+utente -> exchange — type=message; label=show exchanges list
+flow 1: utente -> exchange -> database -> utente -> exchange
+the diagram models a user interacting with an exchange system to get information from a database.
+"the user moves to the exchange page, gets exchange information, and shows the list of exchanges."
+the exchange system responds to the user's request.
+the user can show the exchanges list after moving to the exchange page.
+exchange -> utente — type=message; label=show exchanges list
+utente -> exchange — type=message; label=click on accept/reject button
+exchange -> utente — type=message; label=require confirmation
+database -> exchange — type=message; label=response
+exchange -> utente — type=message; label=update exchange status
+utente -> exchange — type=message; label=response
+flow 1: utente -> exchange -> database -> exchange -> utente -> exchange -> utente
+flow 2: exchange -> utente -> exchange -> utente
+"the diagram models a sequence of interactions between the user, exchange service, and database."
+"the user moves to the exchange page, shows exchanges, and then either accepts or rejects them."
+the exchange service gets information from the database and updates the exchange status.
+the user is shown a list of exchanges and can update their status.
+the exchange service responds to the user's actions.
+utente -> main — type=association; label=get items from database; explanation=get items from database
+main -> database — type=association; label=response; explanation=response
+main -> utente — type=association; label=show items list; explanation=show items list
+main -> filter — type=association; label=insert new filter; explanation=insert new filter
+main -> filter — type=association; label=show filtered items list; explanation=show filtered items list
+flow 1: utente -> main -> database -> utente -> main -> filter -> utente
+"the diagram models a sequence of interactions between the user, the main flow, and the database."
+the main flow gets items from the database and shows them to the user.
+"the user can insert a new filter, which is then used to show filtered items."
+the response from the database is handled by the main flow.
+utente -> profile — type=message; label=move to personal info; explanation=move to personal info
+profile -> database — type=message; label=get info from database; explanation=get info from database
+profile -> utente — type=message; label=show info; explanation=show info
+utente -> profile — type=message; label=request new info; explanation=request new info
+profile -> database — type=message; label=save new info in database; explanation=save new info in database
+profile -> utente — type=message; label=insert new info; explanation=insert new info
+utente -> profile — type=message; label=show updated info; explanation=show updated info
+flow 1: utente -> profile -> database -> utente -> profile -> database -> utente
+the diagram models a user's interaction with their profile and database.
+"the user moves to their personal info, requests new info, and saves it in the database."
+the profile gets info from the database and shows it to the user.
+the user can show updated info and insert new info.
+the database saves new info and responds to requests.
+======================================================================

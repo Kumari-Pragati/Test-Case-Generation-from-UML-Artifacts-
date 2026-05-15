@@ -1,0 +1,64 @@
+flow
+"utente registrato con successo -> start — type=transition; label=""si""; explanation=""success"""
+"utente registrato con successo -> utente registrato? — type=transition; label=""no""; explanation=""failure"""
+"utente registrato? -> start — type=transition; label=""si""; explanation=""registered"""
+"utente registrato? -> creazione di un nuovo utente — type=transition; label=""no""; explanation=""not registered"""
+flow 1: start -> utente registrato con successo -> homepage
+flow 2: start -> utente registrato? -> homepage
+this activity diagram models the process of user registration within an application.
+"the main flow starts at the ""start"" node, checks for successful registration, and proceeds to the homepage if successful."
+"if registration fails, it prompts the creation of a new user."
+there are two distinct flows: one for successfully registered users and one for those who need to create a new account.
+the diagram captures the conditional logic for user registration and navigation to the homepage.
+"home -> click sul menù laterale — type=association; label=""""; explanation=""flow from home to click sul menù laterale"""
+"click sul menù laterale -> click 'homepage' — type=association; label=""""; explanation=""click action leading to decision"""
+"click 'homepage' -> si — type=association; label=""si""; explanation=""yes branch from decision"""
+"click 'homepage' -> no — type=association; label=""no""; explanation=""no branch from decision"""
+"click 'le mie segnalazioni' -> si — type=association; label=""si""; explanation=""yes branch from decision"""
+"click 'le mie segnalazioni' -> no — type=association; label=""no""; explanation=""no branch from decision"""
+"click 'impostazioni' -> si — type=association; label=""si""; explanation=""yes branch from decision"""
+"click 'impostazioni' -> no — type=association; label=""no""; explanation=""no branch from decision"""
+"si -> chiusura menù e apertura nuova schermata — type=association; label=""""; explanation=""flow from yes branch to end point"""
+"no -> chiusura menù e apertura nuova schermata — type=association; label=""""; explanation=""flow from no branch to end point"""
+flow 1: home -> click sul menù laterale -> click 'homepage' -> si -> chiusura menù e apertura nuova schermata
+flow 2: home -> click sul menù laterale -> click 'homepage' -> no -> chiusura menù e apertura nuova schermata
+flow 3: home -> click sul menù laterale -> click 'le mie segnalazioni' -> si -> chiusura menù e apertura nuova schermata
+flow 4: home -> click sul menù laterale -> click 'le mie segnalazioni' -> no -> chiusura menù e apertura nuova schermata
+flow 5: home -> click sul menù laterale -> click 'impostazioni' -> si -> chiusura menù e apertura nuova schermata
+flow 6: home -> click sul menù laterale -> click 'impostazioni' -> no -> chiusura menù e apertura nuova schermata
+"click 'add alert' nel menù laterale -> add alert — type=control; label=""->""; explanation=""click 'add alert'"""
+"add alert -> click 'add category' — type=control; label=""->""; explanation=""click 'add category'"""
+"add alert -> i primi 4 campi sono stati compilati correttamente? — type=control; label=""->""; explanation=""check form fields"""
+"i primi 4 campi sono stati compilati correttamente? -> compilare i primi 4 campi correttamente — type=control; label=""->""; explanation=""correct form fields"""
+"i primi 4 campi sono stati compilati correttamente? -> premere il tasto verde per inserire la segnalazione — type=control; label=""->""; explanation=""press green button"""
+flow 1: click 'add alert' nel menù laterale -> add alert -> click 'add category' -> apertura elenco categorie
+flow 2: click 'add alert' nel menù laterale -> add alert -> i primi 4 campi sono stati compilati correttamente? -> compilare i primi 4 campi correttamente -> premere il tasto verde per inserire la segnalazione
+this activity diagram outlines the process of adding a report in a system.
+the user starts by clicking 'add alert' in the sidebar menu.
+"they then click 'add category', opening a list of categories."
+the system checks if the first four fields have been filled correctly.
+"if correct, the user presses the green button to submit the report."
+"if incorrect, the user needs to fill out the first four fields correctly before pressing the green button."
+the process ensures that the report is submitted only when all necessary fields are filled accurately.
+"click 'view alerts' nel menù laterale -> visualizzazione di tutte le segnalazioni — type=transition; label=""->""; explanation=""click action leads to display action"""
+"visualizzazione di tutte le segnalazioni -> click su una segnalazione — type=transition; label=""->""; explanation=""display action leads to click action"""
+"click su una segnalazione -> visualizzazione dettagliata della segnalazione — type=transition; label=""->""; explanation=""click action leads to display action"""
+flow 1: click 'view alerts' nel menù laterale -> visualizzazione di tutte le segnalazioni -> click su una segnalazione -> visualizzazione dettagliata della segnalazione
+this activity diagram models the process of viewing alerts and their details.
+the user starts by clicking 'view alerts' in the sidebar menu.
+this action leads to displaying all notifications.
+the user then clicks on one notification to view its detailed information.
+"there are no conditions, branches, or loops visible in the diagram."
+"click 'profile' nel menù laterale -> profile — type=transition; label=""->""; explanation=""click action"""
+"profile -> click su icona blu della casa — type=transition; label=""->""; explanation=""click action"""
+"click su icona blu della casa -> passa alla schermata delle abitazioni — type=transition; label=""->""; explanation=""click action"""
+"profile -> i campi sono correttamente compilati? — type=transition; label=""->""; explanation=""validation check"""
+"i campi sono correttamente compilati? -> no — type=transition; label=""no""; explanation=""validation failure"""
+"i campi sono correttamente compilati? -> si — type=transition; label=""si""; explanation=""validation success"""
+"no -> correggere i dati — type=transition; label=""->""; explanation=""data correction required"""
+"si -> salva le modifiche oppure scartale — type=transition; label=""->""; explanation=""save changes or discard"""
+flow 1: click 'profile' nel menù laterale -> profile -> click su icona blu della casa -> passa alla schermata delle abitazioni
+flow 2: click 'profile' nel menù laterale -> profile -> click su icona blu della casa -> passa alla schermata delle abitazioni -> i campi sono correttamente compilati? -> si -> salva le modifiche oppure scartale
+flow 3: click 'profile' nel menù laterale -> profile -> click su icona blu della casa -> passa alla schermata delle abitazioni -> i campi sono correttamente compilati? -> no -> correggere i dati
+"this activity diagram models the process of navigating through a profile section, specifically focusing on the home icon click and validation of fields. if fields are correctly filled, the user can save changes or discard them. if fields are not correctly filled, the user needs to correct the data before proceeding. the diagram also includes a loop for data correction if necessary."
+======================================================================

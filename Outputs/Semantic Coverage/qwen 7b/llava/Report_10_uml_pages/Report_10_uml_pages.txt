@@ -1,0 +1,238 @@
+REPORT: Report_10_uml_pages.pdf
+======================================================================
+===== Report_10_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Admin — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Product — kind=class; attributes=[name: String, description: String]; operations=[view(username: String): Ret, edit(username: String): Ret]
+- Cart — kind=class; attributes=[product: Product, quantity: int]; operations=[add(product: Product, quantity: int): Ret, remove(product: Product): Ret]
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=association; label="login"; explanation="User logs in to Admin system"
+- User -> Product — type=association; label="view"; explanation="User views Product details"
+- User -> Cart — type=association; label="add"; explanation="User adds Product to Cart"
+- Admin -> Product — type=association; label="edit"; explanation="Admin edits Product details"
+- Admin -> Cart — type=association; label="remove"; explanation="Admin removes Product from Cart"
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> Cart
+  - User logs in
+  - Admin logs in
+  - User views Product
+  - User adds Product to Cart
+  - Admin edits Product
+  - Admin removes Product from Cart
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This UML class diagram represents a simple e-commerce system where users (Admin and User) can log in, view and edit products, and add products to a shopping cart.
+- The User and Admin can interact with the system, but only the Admin can edit products.
+- The Product and Cart classes are used to represent the items and the shopping cart, respectively.
+- The login operation is the primary way to interact with the system, and it is used by both the User and Admin.
+- The view operation allows the User to see the details of a Product, while the Admin can edit those details.
+- The add operation allows the User to add a Product to their Cart, and the Admin can remove Products from the Cart.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, etc.
+  * In Relationships / Links, list control-flows between activities (use-cases (use-cases).
+  * Main Flows (step-by-step).
+
+- For SEQUENCE diagrams:
+  * None
+
+- For SEQUENCE diagrams:
+  * None
+
+- For STATEMENT
+
+===== Report_10_uml_pages.pdf | Page 2 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=User
+- Servizio — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Service
+- Database — kind=class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Servizio — type=association; label=""; explanation="User interacts with Service";
+- Servizio -> Database — type=association; label=""; explanation="Service interacts with Database";
+
+Main Flows (step by step):
+- Flow 1: Utente -> Servizio -> Database
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a user interacting with a service, which in turn interacts with a database.
+- The main flow shows the user initiating an interaction with the service, which then interacts with the database.
+- There are no decision points, loops, or repetitions visible in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links must capture each message with its order and arrow direction.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", "generalizes", "generalizes", etc.
+  * Main Flows should describe the interaction from the user's perspective.
+
+- For STATE_MACHINE diagrams:
+  * Components are states and transitions.
+  * Relationships / Links capture state transitions.
+  * Main Flows describe the state machine's behavior.
+
+- For COMPON
+
+===== Report_10_uml_pages.pdf | Page 3 =====
+UML Type:
+- Activity
+
+Components:
+- Login — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- SignIn — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- SignUp — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- ForgotPassword — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- ResetPassword — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Logout — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Dashboard — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Profile — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Settings — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Notifications — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Events — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- News — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- About — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- ContactUs — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- TermsOfService — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- PrivacyPolicy — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Help — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Support — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FAQ — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Feedback — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackForm — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackSubmission — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackResponse — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackResolution — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackResolutionForm — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackResolutionForm — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedbackResolutionForm — kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- FeedLogo
+- FeedLogo
+- FeedLog
+
+===== Report_10_uml_pages.pdf | Page 4 =====
+UML Type:
+- Activity
+
+Components:
+- Login: kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Registration: kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+- Cancellation: kind=Activity; attributes=[a: String, ...]; operations=[op(args): String, ...]; role=User
+
+Actors / Lifelines:
+- User
+
+Relationships / Links:
+- Login -> Registration: type=Message; label="Login -> Registration"; explanation="User initiates registration after successful login"
+- Registration -> Cancellation: type=Message; label="Registration -> Cancellation"; explanation="User initiates cancellation after registration"
+
+Main Flows (step by step):
+- Flow 1: Login -> Registration -> Cancellation
+
+Conditions / Branches:
+- Registration:
+  - Condition: User input is valid
+    - Yes: Registration -> Cancellation
+    - No: Registration -> Login
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The activity diagram models the interaction between a user and a system for login, registration, and cancellation.
+- The main flow starts with a successful login, followed by registration, and then cancellation.
+- The user initiates each action, and the system responds with either a successful registration or a cancellation request.
+- There are no loops or repetitions in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", associations, etc.
+
+- For STATE_MACHINE diagrams:
+  * Components are states and initial/final markers.
+  * Relationships / Links are transitions with event/guard labels.
+
+- For COMPONENT / DEPLOYMENT / OBJECT / PACKAGE diagrams:
+  * Components are components, nodes, objects, or packages respectively.
+  * Relationships / Links describe connections, dependencies, deployments, or containment.
+
+GENERAL RULES (VERY IMPORTANT):
+- Use ONLY text that is visible in the diagram. Do NOT invent new names.
+- If something is not present, write "- None" or use an empty [] in that bullet.
+- For components, always try to include: name, kind, attributes (if visible), operations (if visible), and a short role/meaning in plain language.
+- Be as detailed and explicit as possible.
+- For relationships / links, always try to capture the type, label, and explanation (if visible), and a short explanation (if visible), and a short explanation (if visible), and a short explanation (if visible), and a short role/meaning (if visible), and a short role/meaning (if visible), and a short explanation (if visible), and a short explanation (if visible), and a short explanation (if visible), and a short explanation (if visible), and a short explanation (if visible), and a short explanation (ifvisible), and a short explanation (ifvisible), and a short explanation (ifvisible), and a short explanation (ifvisible), and a short explanation (ifvisible), and a short explanation (ifvisible
+
+
+======================================================================

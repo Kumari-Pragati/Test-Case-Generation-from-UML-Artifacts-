@@ -1,0 +1,168 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,User Registration and Login,Utente,2,None,"- Username: testuser
+- Password: testpassword
+- Email: test@example.com
+- Admin: false
+- Footprint_totale: ""0 kg CO2""
+- New password: newpassword
+- New email: newemail@example.com
+- New admin status: true
+- New footprint: ""10 kg CO2""
+- User is not registered in the database","1. User enters username, password, email, and sets admin status to false.
+2. User submits the form to register.
+3. Application sends a request to the database to verify registration.
+4. Database responds with ""not registered"".
+5. Application sends the homepage to the user.
+6. User logs out.
+7. User attempts to log in with the same credentials.
+8. Application sends a request to the database to verify registration.
+9. Database responds with ""registered"".
+10. Application sends the homepage to the user.","- User is successfully registered and logged in.
+- User can change their details and log out."
+TC-Utente-002,User Login with Invalid Credentials,Utente,2,None,"- Username: invaliduser
+- Password: wrongpassword","1. User enters an invalid username and password.
+2. User submits the form to log in.
+3. Application sends a request to the database to verify registration.
+4. Database responds with ""not registered"".",- User is not logged in and sees an error message.
+TC-Produzione-001,Production Data Modification,Produzione,"2, 3",User is logged in and has access to production data.,"- ID: 1
+- Utente: testuser
+- Modello: model1
+- Footprint produzione: ""5 kg CO2""
+- Footprint totale: ""10 kg CO2""
+- New footprint produzione: ""7 kg CO2""
+- New footprint totale: ""12 kg CO2""","1. User navigates to the production data modification page.
+2. User selects the production entry with ID 1.
+3. User updates the footprint produzione to ""7 kg CO2"".
+4. User updates the footprint totale to ""12 kg CO2"".
+5. User saves the changes.
+6. Application sends a request to the database to update the data.
+7. Database confirms the update.
+8. Application sends a confirmation message to the user.","- Production data is updated successfully.
+- User receives a confirmation message."
+TC-Produzione-002,Attempt to Modify Non-Existent Production Data,Produzione,"2, 3",User is logged in and has access to production data.,"- ID: 999
+- Utente: testuser
+- Modello: nonexistentmodel
+- Footprint produzione: ""5 kg CO2""
+- Footprint totale: ""10 kg CO2""
+- New footprint produzione: ""7 kg CO2""
+- New footprint totale: ""12 kg CO2""","1. User navigates to the production data modification page.
+2. User selects the production entry with ID 999.
+3. User tries to update the footprint produzione to ""7 kg CO2"".
+4. User tries to update the footprint totale to ""12 kg CO2"".
+5. User saves the changes.
+6. Application sends a request to the database to update the data.
+7. Database responds with an error indicating the data does not exist.","- User is informed that the production data does not exist.
+- No changes are made to the database."
+TC-DeviceScan-001,Device Scan with Functional Components,Esegui scansione hardware,"4, 5",User is logged in and has access to device scanning.,"- Component name: ComponentA
+- Impact: Low
+- Diagnostics: Healthy","1. User initiates the device scan.
+2. Application performs the hardware scan.
+3. Database returns the component name, impact, and diagnostics.
+4. Application displays the results to the user.","- User receives a report with the component name, impact, and diagnostics.
+- The component is marked as functional."
+TC-DeviceScan-002,Device Scan with Defective Components,Esegui scansione hardware,"4, 5",User is logged in and has access to device scanning.,"- Component name: ComponentB
+- Impact: High
+- Diagnostics: Defective","1. User initiates the device scan.
+2. Application performs the hardware scan.
+3. Database returns the component name, impact, and diagnostics.
+4. Application calculates the cost of replacement.
+5. Application displays the results to the user.","- User receives a report with the component name, impact, and diagnostics.
+- The component is marked as defective, and the cost of replacement is calculated."
+TC-LifeExpectancyCalculation-001,Life Expectancy Calculation,Calcolo aspettativa di vita,5,User is logged in and has access to life expectancy calculation.,"- Component name: ComponentC
+- Health status: Good
+- Speed status: Fast","1. User initiates the life expectancy calculation.
+2. Application performs the health and speed scan.
+3. Application calculates the life expectancy.
+4. Application displays the results to the user.","- User receives a report with the life expectancy of the component.
+- The component's life expectancy is calculated based on its health and speed status."
+TC-LifeExpectancyCalculation-002,Life Expectancy Calculation with Degraded Component,Calcolo aspettativa di vita,5,User is logged in and has access to life expectancy calculation.,"- Component name: ComponentD
+- Health status: Poor
+- Speed status: Slow","1. User initiates the life expectancy calculation.
+2. Application performs the health and speed scan.
+3. Application calculates the life expectancy.
+4. Application displays the results to the user.","- User receives a report with the life expectancy of the component.
+- The component's life expectancy is calculated based on its degraded health and slow speed status. 
+
+Note: For simplicity, placeholder values have been used for demonstration purposes. Actual values should be derived from the specific requirements and context of the project. <|assistant|> PROJECT OVERVIEW:
+The system tracks production and manages user data, including user authentication, data modification, device scanning, and life expectancy calculations. It involves interactions between users, an application, and a database.
+
+----------------------------
+TEST CASES
+----------------------------"
+TC-Utente-001,User Registration and Login,Utente,2,None,"- Username: testuser
+- Password: testpassword
+- Email: test@example.com
+- Admin: false
+- Footprint_totale: ""0 kg CO2""
+- New password: newpassword
+- New email: newemail@example.com
+- New admin status: true
+- New footprint: ""10 kg CO2""
+- User is not registered in the database","1. User enters username, password, email, and sets admin status to false.
+2. User submits the form to register.
+3. Application sends a request to the database to verify registration.
+4. Database responds with ""not registered"".
+5. Application sends the homepage to the user.
+6. User logs out.
+7. User attempts to log in with the same credentials.
+8. Application sends a request to the database to verify registration.
+9. Database responds with ""registered"".
+10. Application sends the homepage to the user.","- User is successfully registered and logged in.
+- User can change their details and log out."
+TC-Utente-002,User Login with Invalid Credentials,Utente,2,None,"- Username: invaliduser
+- Password: wrongpassword","1. User enters an invalid username and password.
+2. User submits the form to log in.
+3. Application sends a request to the database to verify registration.
+4. Database responds with ""not registered"".",- User is not logged in and sees an error message.
+TC-Produzione-001,Production Data Modification,Produzione,"2, 3",User is logged in and has access to production data.,"- ID: 1
+- Utente: testuser
+- Modello: model1
+- Footprint produzione: ""5 kg CO2""
+- Footprint totale: ""10 kg CO2""
+- New footprint produzione: ""7 kg CO2""
+- New footprint totale: ""12 kg CO2""","1. User navigates to the production data modification page.
+2. User selects the production entry with ID 1.
+3. User updates the footprint produzione to ""7 kg CO2"".
+4. User updates the footprint totale to ""12 kg CO2"".
+5. User saves the changes.
+6. Application sends a request to the database to update the data.
+7. Database confirms the update.
+8. Application sends a confirmation message to the user.","- Production data is updated successfully.
+- User receives a confirmation message."
+TC-Produzione-002,Attempt to Modify Non-Existent Production Data,Produzione,"2, 3",User is logged in and has access to production data.,"- ID: 999
+- Utente: testuser
+- Modello: nonexistentmodel
+- Footprint produzione: ""5 kg CO2""
+- Footprint totale: ""10 kg CO2""
+- New footprint produzione: ""7 kg CO2""
+- New footprint totale: ""12 kg CO2""","1. User navigates to the production data modification page.
+2. User selects the production entry with ID 999.
+3. User tries to update the footprint produzione to ""7 kg CO2"".
+4. User tries to update the footprint totale to ""12 kg CO2"".
+5. User saves the changes.
+6. Application sends a request to the database to update the data.
+7. Database responds with an error indicating the data does not exist.","- User is informed that the production data does not exist.
+- No changes are made to the database."
+TC-DeviceScan-001,Device Scan with Functional Components,Esegui scansione hardware,"4, 5",User is logged in and has access to device scanning.,"- Component name: ComponentA
+- Impact: Low
+- Diagnostics: Healthy","1. User initiates the device scan.
+2. Application performs the hardware scan.
+3. Database returns the component name, impact, and diagnostics.
+4. Application displays the results to the user.","- User receives a report with the component name, impact, and diagnostics.
+- The component is marked as functional."
+TC-DeviceScan-002,Device Scan with Defective Components,Esegui scansione hardware,"4, 5",User is logged in and has access to device scanning.,"- Component name: ComponentB
+- Impact: High
+- Diagnostics: Defective","1. User initiates the device scan.
+2. Application performs the hardware scan.
+3. Database returns the component name, impact, and diagnostics.
+4. Application calculates the cost of replacement.
+5. Application displays the results to the user.","- User receives a report with the component name, impact, and diagnostics.
+- The component is marked as defective, and the cost of replacement is calculated."
+TC-LifeExpectancyCalculation-001,Life Expectancy Calculation,Calcolo aspettativa di vita,5,User is logged in and has access to life expectancy calculation.,"- Component name: ComponentC
+- Health status: Good
+- Speed status: Fast","1. User initiates the life expectancy calculation.
+2. Application performs the health and speed scan.
+3. Application calculates the life expectancy.
+4. Application displays the results to the user.","- User receives a report with the life expectancy of the component.
+- The component's life expectancy is calculated based on its health and speed status."
+TC-LifeExpectancyCalculation-002,Life Expectancy Calculation with Degraded Component,Calcolo aspettativa di vita,5,,,,

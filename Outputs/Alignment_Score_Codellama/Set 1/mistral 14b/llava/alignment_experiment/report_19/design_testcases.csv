@@ -1,0 +1,89 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful login with valid credentials,Authentication,1,"- User account exists with username ""testuser"" and password ""SecurePass123"".
+- System is online and accessible.","- Username: ""testuser""
+- Password: ""SecurePass123""","1. User navigates to the login page.
+2. User enters ""testuser"" in the username field.
+3. User enters ""SecurePass123"" in the password field.
+4. User clicks the ""Login"" button.","- System authenticates the user and returns ""Authenticated"".
+- User is redirected to the profile page or dashboard."
+TC-AUTHENTICATION-002,Failed login with incorrect password,Authentication,1,"- User account exists with username ""testuser"" and password ""SecurePass123"".","- Username: ""testuser""
+- Password: ""wrongpassword""","1. User navigates to the login page.
+2. User enters ""testuser"" in the username field.
+3. User enters ""wrongpassword"" in the password field.
+4. User clicks the ""Login"" button.","- System returns ""Unauthorized"".
+- User remains on the login page with an error message (e.g., ""Invalid credentials"")."
+TC-AUTHENTICATION-003,Failed login with non-existent username,Authentication,1,"- No user account exists with username ""nonexistentuser"".","- Username: ""nonexistentuser""
+- Password: ""anything""","1. User navigates to the login page.
+2. User enters ""nonexistentuser"" in the username field.
+3. User enters ""anything"" in the password field.
+4. User clicks the ""Login"" button.","- System returns ""Unauthorized"".
+- User remains on the login page with an error message (e.g., ""Invalid credentials"")."
+TC-AUTHENTICATION-004,Login with empty username field,Authentication,1,- System is online.,"- Username: """" (empty)
+- Password: ""SecurePass123""","1. User navigates to the login page.
+2. User leaves the username field empty.
+3. User enters ""SecurePass123"" in the password field.
+4. User clicks the ""Login"" button.","- System validates input and returns an error (e.g., ""Username is required"").
+- User remains on the login page."
+TC-AUTHENTICATION-005,Login with empty password field,Authentication,1,- System is online.,"- Username: ""testuser""
+- Password: """" (empty)","1. User navigates to the login page.
+2. User enters ""testuser"" in the username field.
+3. User leaves the password field empty.
+4. User clicks the ""Login"" button.","- System validates input and returns an error (e.g., ""Password is required"").
+- User remains on the login page."
+TC-REGISTRATION-001,Successful user registration with valid email and password,Registration,1,"- System allows new registrations.
+- Email ""newuser@example.com"" is not already registered.","- Email: ""newuser@example.com""
+- Password: ""NewPass456""","1. User navigates to the signup page.
+2. User enters ""newuser@example.com"" in the email field.
+3. User enters ""NewPass456"" in the password field.
+4. User clicks the ""Register"" button.","- System registers the user and returns ""User registered successfully"".
+- User is redirected to the login page or profile setup."
+TC-REGISTRATION-002,Registration with already existing email,Registration,1,"- User ""existinguser@example.com"" is already registered.","- Email: ""existinguser@example.com""
+- Password: ""NewPass456""","1. User navigates to the signup page.
+2. User enters ""existinguser@example.com"" in the email field.
+3. User enters ""NewPass456"" in the password field.
+4. User clicks the ""Register"" button.","- System returns an error (e.g., ""Email already in use"").
+- User remains on the signup page."
+TC-REGISTRATION-003,Registration with invalid email format,Registration,1,- System is online.,"- Email: ""invalid.email""
+- Password: ""NewPass456""","1. User navigates to the signup page.
+2. User enters ""invalid.email"" in the email field.
+3. User enters ""NewPass456"" in the password field.
+4. User clicks the ""Register"" button.","- System validates input and returns an error (e.g., ""Please enter a valid email"").
+- User remains on the signup page."
+TC-REGISTRATION-004,Registration with empty password field,Registration,1,- System is online.,"- Email: ""newuser@example.com""
+- Password: """" (empty)","1. User navigates to the signup page.
+2. User enters ""newuser@example.com"" in the email field.
+3. User leaves the password field empty.
+4. User clicks the ""Register"" button.","- System validates input and returns an error (e.g., ""Password is required"").
+- User remains on the signup page."
+TC-PROFILE-001,Successful profile update with valid data,Profile Management,1,"- User is logged in as ""testuser"".
+- User’s current profile data is stored.","- Username: ""testuser"" (unchanged)
+- ProfileData: {""name"": ""John Doe"", ""bio"": ""Software Tester"", ""location"": ""New York""}","1. User navigates to the profile page.
+2. User enters updated profile data (name, bio, location).
+3. User clicks the ""Update Profile"" button.","- System updates the profile and returns ""Profile updated successfully"".
+- Updated data is reflected on the profile page."
+TC-PROFILE-002,Profile update with empty profile data,Profile Management,1,"- User is logged in as ""testuser"".","- Username: ""testuser"" (unchanged)
+- ProfileData: {} (all fields empty)","1. User navigates to the profile page.
+2. User leaves all profile fields empty.
+3. User clicks the ""Update Profile"" button.","- System validates input and returns an error (e.g., ""Profile data cannot be empty"").
+- User remains on the profile page with existing data intact."
+TC-PROFILE-003,Profile update with invalid username format,Profile Management,1,"- User is logged in as ""testuser"".","- Username: ""invalid user"" (contains space)
+- ProfileData: {""name"": ""John Doe""}","1. User navigates to the profile page.
+2. User attempts to change username to ""invalid user"".
+3. User enters other profile data.
+4. User clicks the ""Update Profile"" button.","- System validates input and returns an error (e.g., ""Username must be alphanumeric"").
+- User remains on the profile page with existing data intact."
+TC-EXIT-001,Successful session exit with valid reason,Session Management,1,"- User is logged in as ""testuser"".","- ExitReason: ""Completed tasks""","1. User navigates to the exit page.
+2. User selects ""Completed tasks"" as the exit reason.
+3. User clicks the ""Exit"" button.","- System logs the exit reason and terminates the session.
+- User is redirected to the login page with a confirmation message (e.g., ""You have exited successfully"")."
+TC-EXIT-002,Session exit with empty reason,Session Management,1,"- User is logged in as ""testuser"".","- ExitReason: """" (empty)","1. User navigates to the exit page.
+2. User leaves the exit reason field empty.
+3. User clicks the ""Exit"" button.","- System validates input and returns an error (e.g., ""Please select an exit reason"").
+- User remains on the exit page."
+TC-EXIT-003,Session exit without logging out (edge case),Session Management,1,"- User is logged in as ""testuser"".
+- System does not enforce immediate session termination (assumed from lack of UML constraints).","- ExitReason: ""Technical issue""","1. User navigates to the exit page.
+2. User selects ""Technical issue"" as the exit reason.
+3. User clicks the ""Exit"" button.
+4. User refreshes the browser (simulating a forced disconnect).","- System logs the exit reason but does not enforce session termination.
+- User remains logged in (or is logged out gracefully; clarify with stakeholders if critical).
+- No error occurs during refresh."

@@ -1,0 +1,56 @@
+flow
+"user -> ranking — type=«is superato» ; label=""ha superato"" ; explanation=""a user can be superated by a ranking"""
+"mission -> tip — type=«è completata» ; label=""ha completata"" ; explanation=""a mission can be completed by a tip"""
+"user -> ranking — type=«is superato» ; label=""ha superato"""
+"this diagram models a system where users can be ranked, missions can be completed by tips."
+"the ""ha superato"" relationship indicates a user is ranked."
+"the ""ha completata"" relationship indicates a mission is completed by a tip."
+"main -> firebase authentication — type=synchronous message; label=""signinwithemailandpassword(string, string)""; explanation=""main calls firebase authentication's signinwithemailandpassword method"""
+"firebase authentication -> main — type=return message; label=""response""; explanation=""firebase authentication returns a response"""
+"main -> main — type=synchronous message; label=""if (response != error) { return firebaseauthuser }""; explanation=""main checks the response and returns firebaseauthuser if no error"""
+"main calls firebase authentication with signinwithemailandpassword(string, string)."
+firebase authentication returns a response.
+main checks if response != error.
+"if response != error, main returns firebaseauthuser."
+* the diagram models the login process between a main application and firebase authentication.
+* the main flow involves the main application initiating the login process with firebase authentication.
+"* the success path returns a user object, while an error results in no return value (implicitly)."
+"main -> createuserwithemailandpassword — type=message; label=""createuserwithemailandpassword""; explanation=""calls the createuserwithemailandpassword activity"";"
+"createuserwithemailandpassword -> db.child(userid) — type=message; label=""setvalue(hashmap<string, object>)""; explanation=""sets the userid in the database"";"
+"createuserwithemailandpassword -> login — type=message; label=""login""; explanation=""calls the login activity"";"
+"createuserwithemailandpassword -> main — type=message; label=""return firebaseuser, userid""; explanation=""returns firebaseuser and userid"";"
+"db.child(userid) -> createuserwithemailandpassword — type=message; label=""response""; explanation=""checks the response from the login activity"";"
+"db.child(userid) -> crea response — type=message; label=""crea response""; explanation=""sends the response to the crea response activity"";"
+"login -> crea response — type=message; label=""crea response""; explanation=""sends the response to the crea response activity"";"
+flow 1: email.isempty() -> createuserwithemailandpassword
+flow 2: password.length() < 8 -> createuserwithemailandpassword
+"flow 3: createuserwithemailandpassword -> db.child(userid).setvalue(hashmap<string, object>)"
+"flow 4: db.child(userid).setvalue(hashmap<string, object>) -> login"
+flow 5: login -> crea response
+"the diagram models the registration process, specifically the steps involved in creating a new user in firebase authentication."
+the process checks for empty email and minimum password length.
+it involves creating a user in the database and then attempting to log in.
+the diagram shows a potential error path where the login fails.
+"main -> realtime database — message=""hashmap<string, object>""; explanation=""sends hashmap"";"
+"realtime database -> main — message=""conversione da hashmap a json""; explanation=""converts to json"";"
+"realtime database -> main — message=""crea response""; explanation=""creates response"";"
+"main -> main — message=""gestisce la risposta""; explanation=""handles response"";"
+main sends a hashmap to the realtime database.
+the realtime database converts the hashmap to a json.
+the realtime database sends a response to the main.
+main handles the response.
+the main component initiates the process by sending a hashmap to the realtime database.
+the realtime database transforms the data into json format.
+the process concludes with the main component handling the received response.
+the diagram highlights an asynchronous communication pattern between the main and realtime database components.
+"main -> firebase sdk: addvalueeventlistener(""mission"");"
+"firebase sdk -> realtime database: addvalueeventlistener(""mission"");"
+realtime database -> firebase sdk: controllo il token e raccoglie i dati richiesti;
+firebase sdk -> realtime database: manda la risposta con i dati richiesti
+realtime database -> firebase sdk: controllo il token e raccoglie i dati richiesti
+"the diagram models a sequence of operations between a main application, a firebase sdk, and a realtime database."
+"the main application initiates a listener for ""mission"" events."
+the firebase sdk then adds a listener to the realtime database to receive data related to those missions.
+the realtime database checks a token and collects the requested data.
+"finally, the firebase sdk sends the collected data back to the main application."
+======================================================================

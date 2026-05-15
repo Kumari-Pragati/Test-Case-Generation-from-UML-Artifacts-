@@ -1,0 +1,118 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Configuration-001,Verify Configuration Initialization,Configuration,1,Configuration class is instantiated.,"- `MIN_AGE`: 18
+- `MIN_LENGTH_PASSWORD`: 8
+- `API_link`: ""https://api.example.com""","1. Instantiate the Configuration object.
+2. Call the `start()` method.",Configuration initializes with the provided attributes and no errors occur.
+TC-NotificationSystem-002,Verify Notification System Initialization,NotificationSystem,1,NotificationSystem class is instantiated.,"- `id`: 1
+- `postDate`: ""2023-10-01""
+- `title`: ""New Update Available""
+- `priority`: 2
+- `category`: ""System""
+- `address`: ""example@example.com""
+- `creator`: ""Admin""","1. Instantiate the NotificationSystem object.
+2. Call the `start()` method.
+3. Call the `downloadReports()` method.
+4. Call the `elaborateData()` method with a list of reports.
+5. Call the `sendNotificationReport()` method with a report.
+6. Call the `showNotificationWithDefaultSound()` method with a title, message, and sound flag.","NotificationSystem initializes correctly, downloads reports, elaborates data, sends a notification report, and shows a notification with default sound."
+TC-Report-003,Verify Report Initialization and Methods,Report,1,Report class is instantiated.,"- `id`: 1
+- `postDate`: ""2023-10-01""
+- `title`: ""Monthly Report""
+- `priority`: 2
+- `category`: ""Finance""
+- `address`: ""example@example.com""
+- `creator`: ""Admin""","1. Instantiate the Report object.
+2. Call the `getId()`, `getPostDate()`, `getTitle()`, `getPriority()`, `getCategory()`, `getAddress()`, and `getCreator()` methods.
+3. Call the `toJSON()` method.","All getter methods return the correct values, and the `toJSON()` method returns a valid JSON string."
+TC-LocalUser-004,Verify Local User Initialization and Methods,LocalUser,1,LocalUser class is instantiated.,"- `email`: ""user@example.com""
+- `username`: ""user123""
+- `name`: ""John""
+- `lastname`: ""Doe""
+- `birthdate`: ""1990-01-01""
+- `address`: ""123 Main St""
+- `family`: 4
+- `houseType`: ""Apartment""
+- `neighborhood`: ""Central Park""
+- `token`: ""abc123""","1. Instantiate the LocalUser object.
+2. Call the `getEmail()`, `getUsername()`, `getName()`, `getLastname()`, `getBirthdate()`, `getAddress()`, `getFamily()`, `getHouseType()`, and `getNeighborhood()` methods.
+3. Call the `setEmail()`, `setUsername()`, `setName()`, `setLastname()`, `setBirthdate()`, `setAddress()`, `setFamily()`, `setHouseType()`, and `setNeighborhood()` methods with valid data.
+4. Call the `toJSON()` method.","All getter methods return the correct values, setter methods update the attributes correctly, and the `toJSON()` method returns a valid JSON string."
+TC-Service-005,Verify Service Initialization and Methods,Service,1,Service class is instantiated.,"- `id`: 1
+- `postDate`: ""2023-10-01""
+- `title`: ""New Service""
+- `link`: ""https://service.example.com""
+- `description`: ""A new service""
+- `creator`: ""Admin""","1. Instantiate the Service object.
+2. Call the `getId()`, `getPostDate()`, `getTitle()`, `getLink()`, `getDescription()`, and `getCreator()` methods.
+3. Call the `setTitle()`, `setLink()`, `setDescription()` methods with valid data.
+4. Call the `toJSON()` method.","All getter methods return the correct values, setter methods update the attributes correctly, and the `toJSON()` method returns a valid JSON string."
+TC-Need-006,Verify Need Initialization and Methods,Need,1,Need class is instantiated.,"- `id`: 1
+- `postDate`: ""2023-10-01""
+- `title`: ""New Need""
+- `address`: ""123 Main St""
+- `description`: ""A new need""
+- `assistant`: ""John Doe""
+- `idAssistant`: 1
+- `creator`: ""Admin""","1. Instantiate the Need object.
+2. Call the `getId()`, `getPostDate()`, `getTitle()`, `getAddress()`, `getDesc()`, `getAssistant()`, `getCreator()`, `setIdAssistant()` methods.
+3. Call the `setTitle()`, `setAddress()`, `setDesc()` methods with valid data.
+4. Call the `toJSON()` method.","All getter methods return the correct values, setter methods update the attributes correctly, and the `toJSON()` method returns a valid JSON string."
+TC-APIManager-007,Verify Token Retrieval and Data Request,APIManager,2,"Main process is running, LocalUser is authenticated.","- `token`: ""abc123""
+- `status`: ""OK""","1. Main retrieves the token using `getToken()`.
+2. LocalUser requests data using the token.
+3. API Manager returns the status.
+4. If token is valid (`token != null`), LocalUser requests data again.
+5. If token is invalid or status is not OK (`token == null OR status != OK`), LocalUser requests user data.
+6. Main requests user data.
+7. LocalUser creates a new instance.
+8. API Manager completes the action.","Token retrieval and data request succeed if token is valid and status is OK. Otherwise, user data is requested and processed accordingly."
+TC-APIManager-008,Verify List Reading and Displaying Process,APIManager,3,Main process is running.,"- `listJSON`: [{""id"": 1, ""title"": ""Service 1""}, {""id"": 2, ""title"": ""Service 2""}]","1. Main requests a JSON list from API Manager.
+2. API Manager processes the request and creates new Service/Need/Report objects for each entry.
+3. Service/Need/Report objects send back a display list to Main.
+4. Main displays the list of services/needs/reports.",Main receives and displays the list of services/needs/reports correctly.
+TC-APIManager-009,Verify Insertion Process,APIManager,4,Main process is running.,"- `newEntry`: {""id"": 1, ""title"": ""New Service""}","1. Main initiates a request to API Manager.
+2. Main converts data to JSON format.
+3. API Manager sends the JSON data for processing.
+4. Service/Need/Report processes the data and returns a completion status.","Data is inserted successfully, and the completion status is returned."
+TC-APIManager-010,Verify Data Modification Process,APIManager,5,Main process is running.,"- `datiAggiornati`: [{""id"": 1, ""title"": ""Updated Service""}, {""id"": 2, ""title"": ""Updated Need""}]
+- `updateEntry`: {""id"": 1, ""title"": ""Updated Service""}","1. Main prints data to the screen.
+2. Main retrieves updated data.
+3. Main sets each updated data item.
+4. Main converts the entry to JSON format.
+5. Main requests the update entry.
+6. API Manager processes the update request and returns a completion status.","Updated data is processed and displayed correctly, and the completion status is returned."
+TC-APIManager-011,Verify Edge Cases for Token Retrieval and Data Request,APIManager,2,"Main process is running, LocalUser is authenticated.","- `token`: null
+- `status`: ""ERROR""","1. Main retrieves the token using `getToken()`.
+2. LocalUser requests data using the token.
+3. API Manager returns the status.
+4. If token is invalid (`token == null`) or status is not OK (`status != OK`), LocalUser requests user data.
+5. Main requests user data.
+6. LocalUser creates a new instance.
+7. API Manager completes the action.","Token retrieval fails, and user data is requested and processed accordingly."
+TC-APIManager-012,Verify Edge Cases for List Reading and Displaying Process,APIManager,3,Main process is running.,- `listJSON`: [],"1. Main requests a JSON list from API Manager.
+2. API Manager processes the request and creates new Service/Need/Report objects for each entry.
+3. Service/Need/Report objects send back a display list to Main.
+4. Main displays the list of services/needs/reports.",Main receives and displays an empty list of services/needs/reports correctly.
+TC-APIManager-013,Verify Edge Cases for Insertion Process,APIManager,4,Main process is running.,- `newEntry`: {},"1. Main initiates a request to API Manager.
+2. Main converts data to JSON format.
+3. API Manager sends the JSON data for processing.
+4. Service/Need/Report processes the data and returns a completion status.","Data insertion fails due to invalid input, and the completion status reflects the failure."
+TC-APIManager-014,Verify Edge Cases for Data Modification Process,APIManager,5,Main process is running.,"- `datiAggiornati`: []
+- `updateEntry`: {}","1. Main prints data to the screen.
+2. Main retrieves updated data.
+3. Main sets each updated data item.
+4. Main converts the entry to JSON format.
+5. Main requests the update entry.
+6. API Manager processes the update request and returns a completion status.","Data modification fails due to invalid input, and the completion status reflects the failure."
+TC-APIManager-015,Verify Negative Cases for Token Retrieval and Data Request,APIManager,2,"Main process is running, LocalUser is authenticated.","- `token`: ""invalid_token""
+- `status`: ""ERROR""","1. Main retrieves the token using `getToken()`.
+2. LocalUser requests data using the token.
+3. API Manager returns the status.
+4. If token is invalid (`token == ""invalid_token""`) or status is not OK (`status != OK`), LocalUser requests user data.
+5. Main requests user data.
+6. LocalUser creates a new instance.
+7. API Manager completes the action.","Token retrieval fails, and user data is requested and processed accordingly."
+TC-APIManager-016,Verify Negative Cases for List Reading and Displaying Process,APIManager,3,Main process is running.,"- `listJSON`: [{""id"": 1, ""title"": ""Invalid Service""}]","1. Main requests a JSON list from API Manager.
+2. API Manager processes the request and creates new Service/Need/Report objects for each entry.
+3. Service/Need/Report objects send back a display list to Main.
+4.",

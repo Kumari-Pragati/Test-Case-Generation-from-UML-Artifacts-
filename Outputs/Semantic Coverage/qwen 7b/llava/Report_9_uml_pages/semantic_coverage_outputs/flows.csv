@@ -1,0 +1,167 @@
+flow
+"user -> admin — type=association; label=""login""; explanation=""user logs in as admin"""
+"user -> product — type=association; label=""addtocart""; explanation=""user adds a product to their cart"""
+"user -> cart — type=association; label=""addproduct""; explanation=""user adds a product to their cart"""
+"admin -> product — type=association; label=""removefromcart""; explanation=""admin removes a product from their cart"""
+"admin -> cart — type=association; label=""removeproduct""; explanation=""admin removes a product from their cart"""
+"admin -> checkout — type=association; label=""proceedtopayment""; explanation=""admin proceeds to payment"""
+flow 1: user -> admin -> checkout
+flow 2: admin -> user -> product -> cart -> user -> admin -> checkout
+"the diagram represents a simple e-commerce system where users (admin and user) can log in, add and remove products from their carts, and proceed to payment."
+"the user and admin can interact with products and carts, but only the admin can proceed to payment."
+"the user and admin can add and remove products from their carts, but the admin can also remove products from the cart."
+"the user and admin can interact with the checkout, but only the admin can calculate the total and proceed to payment."
+guidelines by diagram type (keep it generic):
+for class diagrams:
+"* treat each class box as a component with kind=""class""."
+"* in the component bullet, list all attributes and operations exactly as written, including type and return type if visible."
+"* in relationships / links, list associations, aggregations, compositions, and inheritances between classes (use ""association"", ""inheritance"", etc.)."
+"* main flows can describe likely collaboration between classes (use ""association"", ""inheritance"", etc.)."
+for activity diagrams:
+"* components are actions, decisions, merges, etc."
+"* in relationships / links, list control-flows, etc."
+"* main flows can describe the main flows, etc."
+for sequence diagrams:
+* none
+for state diagrams:
+for oblo
+"user -> server: association; label=""login""; explanation=""user sends login request to server"""
+"user -> database: association; label=""query""; explanation=""user sends query to database"""
+"user -> logger: association; label=""log""; explanation=""user sends log message to logger"""
+"server -> database: association; label=""process query""; explanation=""server processes query from database"""
+"server -> logger: association; label=""log response""; explanation=""server logs response to logger"""
+flow 1: user -> server -> database -> server -> user
+user sends login request to server
+server processes login request
+server sends query to database
+database processes query
+database sends response to server
+server logs response
+server sends response to user
+"the diagram models a simple client-server interaction where a user logs in, sends a query to a server, and receives a response."
+the server processes the query and logs the response.
+the database is involved in processing the query.
+"the user sends a login request, which is processed by the server."
+the server sends a response to the user after processing the query.
+* components are classes.
+"* main flows can describe likely collaboration between classes based only on visible methods and relationships (use ""association"", ""inheritance"", etc.)."
+"* components are actions, decisions, merges, initial nodes, final nodes, etc."
+* relationships / links correspond to control-flow arrows.
+* main flows should be explicit sequences like:
+"""avvio app"" -> ""utente registrato con successo al servizio?"" (si) -> ..."
+* conditions / branches summarize each decision node and its outgoing labeled branches.
+"* components are actions, decisions, merges, initial nodes, etc."
+* main flows should describe the sequence of activities.
+for statement diagrams:
+"* components are states, decisions, decisions, etc."
+for usement diagram:
+* diagram:
+flow 1: utente -> registra -> login -> inseriscedati -> none
+"this diagram models a simple login/registration system where an utente (user) can register, log in, and input data."
+"the main flow starts with the utente registering, then logging in, and finally inputting data."
+there are no decision points or loops visible in this diagram.
+* main flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+* conditions / branches summarize each decision node and its labeled exits.
+"* actors / lifelines should list all participants (client, server, database, logger, etc.)."
+"* components can repeat these lifelines plus important fragments (alt, loop, etc.)."
+* relationships / links must capture each message with its order and arrow direction.
+* main flows should narrate the interaction from top to bottom.
+for use-case diagrams:
+* actors are external users or systems.
+* components include use cases (ellipses) and actors.
+"* relationships / links capture ""includes"", ""extends"", associations, etc."
+for state_machine diagrams:
+* components are states and initial/final markers.
+* relationships / links are transitions with event/guard labels.
+for component / deployment / object / package diagrams:
+"* components are components, nodes, objects, or packages respectively."
+"* relationships / links describe connections, dependencies, containment, etc."
+general rules:
+use only text that is visible in the diagram.
+do not invent new names or types.
+do not repeat the same text that is visible in the diagram.
+do not invent new names or types that is visible in the diagram.
+do not inventnew names or types that is visible in the diagram.
+do not inventnew
+"utente -> sistema — type=association; label=""""; explanation=""user interacts with system"""
+flow 1: utente -> sistema -> utente
+flow 1:
+no operation is visible in the diagram.
+"this diagram models a class named ""rimovoltorio"" which is a voltage regulator."
+"the class has a single operation ""op(args): void"" which is the main flow of the class."
+"the class has a single attribute ""a: string"" and no other attributes are visible."
+the class has no other operations or relationships with other classes or objects.
+"the diagram does not show any actors or lifelines, indicating that the class does not interact with external entities."
+"the diagram does not show any decision points or branches, indicating that the class does not make decisions or have conditional behavior."
+"the diagram does not show any loops or repetitions, indicating that the class does not have any cyclical behavior."
+"the diagram does not show any notes or annotations, indicating that there are no additional explanations or constraints for this class."
+"* main flows can describe likely collaboration between classes based only on visible methods and relationships (use ""sequence"", ""parallel"", etc.)."
+* components include use cases (ellipses).
+"* relationships / links capture ""includes"", ""extends"", ""generalizes"", etc."
+* main flows should describe the interaction from top to bottom.
+* components are states.
+* main flows describe the interaction from top to bottom.
+for componvolt volt volt volontvolunt volt volt volt voluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvoluntvol
+"user -> login: type=message; label=""login request""; explanation=""user sends login request to the server."""
+"login -> server: type=message; label=""login request""; explanation=""server receives login request from the user."""
+"server -> database: type=message; label=""check user credentials""; explanation=""server sends a request to the database to check the user's credentials."""
+"server -> user: type=message; label=""login response""; explanation=""server sends a response to the user indicating whether the login was successful."""
+flow 1: user -> login -> server -> database -> server -> user
+user initiates login request.
+login sends login request to the server.
+server receives login request.
+server sends a request to the database to check the user's credentials.
+database checks the user's credentials.
+database sends a response to the server indicating whether the login was successful.
+server sends a response to the user indicating whether the login was successful.
+"the sequence diagram captures the interaction between the user, login, server, and database during the login process."
+"the main flow of the sequence diagram is the login process, which includes the user initiating the login, the login request being sent to the server, the server checking the user's credentials, and the server sending a response to the user indicating whether the login was successful."
+"the decision point in the sequence diagram is the check for user credentials by the server, which can result in either a successful login or a login denial."
+the sequence diagram does not depict any loops or repetitions.
+the diagram does not contain any notes or annotations.
+guidelines by diagram type:
+"* components are actions, decisions, decisions, or messages."
+"* in relations / links, list associations, aggregations, and compositions, and inheritances."
+"* main flows describe likely sequences, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and transitions, and trans"
+"user -> service: type=association; label=""request""; explanation=""user sends a request to the service."""
+"user -> database: type=association; label=""query""; explanation=""user sends a query to the database."""
+"service -> database: type=association; label=""process""; explanation=""service processes the request."""
+"service -> logger: type=association; label=""log""; explanation=""service logs the request."""
+flow 1: user -> service -> database -> service -> user
+user sends a request to the service.
+service processes the request.
+service queries the database.
+service sends the result back to the user.
+service logs the request.
+"the diagram models a simple client-server interaction where a user sends a request to a service, which processes the request and logs it."
+the main flow is a straightforward request-response cycle.
+there are no decision points or error paths visible in the diagram.
+the diagram does not show any loops or repetitions.
+* components are classes with their attributes and operations.
+* relationships are associations between classes.
+* main flows describe the interactions between classes.
+* components are activities with their attributes and operations.
+* relationships are control-flow arrows between activities.
+* main flows describe the sequence of activities.
+* relationships are control-flow arrows between components.
+* main flows describe the sequence of actions and decisions.
+* components are use cases with their attributes and operations.
+* relationships are associations between use cases and actors.
+* main flows describe the sequence of use cases and their interactions.
+* components are states with their attributes and transitions between states.
+* relationships are transitions between states.
+* main flows describe the state transitions between states.
+none (no specific rules are visible.
+"user -> service: type=association; label=""submit request""; explanation=""user sends a request to the service."""
+"service -> database: type=association; label=""query database""; explanation=""service queries the database."""
+flow 1: user submits a request to the service.
+flow 2: service queries the database.
+"this diagram models a simple client-server interaction where a user sends a request to a service, which in turn queries a database."
+"the main flows represent the interaction between the user, service, and database."
+the service acts as an intermediary between the user and the database.
+the service and database are the key components that handle the data processing.
+"the user initiates the interaction, and the service processes the request, which may result in a database query."
+the database is the persistent storage for the data.
+* components include use cases (si).
+* relationships / links must capture each use case (si).
+for statement

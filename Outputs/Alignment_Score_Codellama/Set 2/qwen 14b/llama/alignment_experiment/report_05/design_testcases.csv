@@ -1,0 +1,72 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-User-001","Register a New User","User Registration","1, 2","No existing user with the same username or email.","Username: newUser, Password: newPass, Name: John Doe, Email: john@example.com","1. User invokes registerUser().
+2. Main invokes getValidData() on Users Database.
+3. Users Database verifies valid data and returns true.
+4. Main invokes saveUserData() on Users Database.
+5. Users Database saves user data and returns success message.","User is registered successfully with the provided details."
+"TC-User-002","Register a User with Invalid Data","User Registration","1, 2","No existing user with the same username or email.","Username: newUser, Password: short, Name: John Doe, Email: invalid-email","1. User invokes registerUser().
+2. Main invokes getValidData() on Users Database.
+3. Users Database verifies valid data and returns false.
+4. Users Database returns error message.","User registration fails due to invalid data."
+"TC-User-003","Log In with Valid Credentials","User Login","3","User is registered.","Email: john@example.com, Password: newPass","1. User invokes login(email, password).
+2. Main invokes validateUser(email, password) on Users Database.
+3. Users Database validates user credentials and returns true.
+4. Main confirms successful login.","User logs in successfully."
+"TC-User-004","Log In with Invalid Credentials","User Login","3","User is registered.","Email: john@example.com, Password: wrongPass","1. User invokes login(email, password).
+2. Main invokes validateUser(email, password) on Users Database.
+3. Users Database validates user credentials and returns false.
+4. Main confirms failed login.","User login fails due to incorrect password."
+"TC-Trip-001","Create a New Trip","Trip Creation","1","User is logged in.","City: Paris, Country: France, BeginningDate: 2023-10-01, FinishDate: 2023-10-07, Author: User","1. User sets city name to Paris.
+2. User sets country name to France.
+3. User sets beginning date to 2023-10-01.
+4. User sets finish date to 2023-10-07.
+5. User sets author to themselves.","Trip is created successfully with specified details."
+"TC-Trip-002","Add a Place to Visit to a Trip","Place to Visit Addition","1","Trip is created.","Name: Eiffel Tower, Category: Landmark, IdTrip: 1","1. User adds a place to visit named Eiffel Tower.
+2. User assigns category Landmark to the place.
+3. User associates the place with trip Id 1.","Place to visit is added successfully to the trip."
+"TC-Trip-003","Update Trip Data","Trip Data Update","4","User is logged in and has a trip.","New City: London, New FinishDate: 2023-10-10","1. User invokes updateTrip().
+2. Main retrieves new data from the user.
+3. Main updates trip data in the Trips Database.
+4. Main sends updated data back to the user.","Trip data is updated successfully with new city and finish date."
+"TC-Category-001","Assign a Category to a Place to Visit","Category Assignment","1","Place to visit is created.","Category Name: Museum, Icon: museum_icon.png","1. User sets category name to Museum.
+2. User sets icon to museum_icon.png.","Category is assigned successfully to the place to visit."
+"TC-DailyPlan-001","Create a Daily Plan for a Trip","Daily Plan Creation","1","Trip is created.","PlanId: 1, Day: 2023-10-02, Weather: Sunny","1. User creates a daily plan with plan id 1.
+2. User sets day to 2023-10-02.
+3. User associates weather condition Sunny with the daily plan.","Daily plan is created successfully with specified details."
+"TC-DailyPlan-002","Retrieve Weather Information for a Daily Plan","Weather Retrieval","1","Daily plan is created.","Weather: Sunny","1. User retrieves weather information for the daily plan.
+2. System returns weather details including high temperature, low temperature, and icon.","Weather information is retrieved successfully."
+"TC-User-005","Change Profile Information","Profile Update","5","User is logged in.","New Name: Jane Doe, New Email: jane@example.com","1. User initiates change profile process by invoking changeProfile().
+2. Main verifies user's data with the database.
+3. Main retrieves new data from the user.
+4. Main updates user's data in the database.","User's profile is updated successfully with new name and email."
+"TC-User-006","Change Profile with Invalid Data","Profile Update","5","User is logged in.","New Email: invalid-email","1. User initiates change profile process by invoking changeProfile().
+2. Main verifies user's data with the database and finds invalid email format.
+3. Main prompts user to enter valid data.","Profile update fails due to invalid email format. User is prompted to provide valid data."
+"TC-User-007","Delete a User Account","User Deletion","1, 2","User is logged in.","Username: newUser","1. User initiates account deletion process.
+2. Main verifies user's data with the database.
+3. Main deletes user's data from the database.","User account is deleted successfully."
+"TC-User-008","Attempt to Log In After Deleting Account","User Deletion","3","User account is deleted.","Email: john@example.com, Password: newPass","1. User attempts to log in with deleted account credentials.
+2. Main invokes validateUser(email, password) on Users Database.
+3. Users Database returns false as user does not exist.","User login fails due to non-existent account."
+"TC-Trip-007","Add Multiple Places to Visit to a Trip","Place to Visit Addition","1","Trip is created.","Place 1: Louvre, Category: Museum, Place 2: Notre Dame, Category: Church","1. User adds Louvre as a place to visit with category Museum.
+2. User adds Notre Dame as a place to visit with category Church.","Both places to visit are added successfully to the trip."
+"TC-Trip-008","Add a Daily Plan with Invalid Weather Information","Daily Plan Creation","1","Trip is created.","PlanId: 1, Day: 2023-10-02, Weather: Invalid","1. User creates a daily plan with plan id 1.
+2. User sets day to 2023-10-02.
+3. User attempts to associate invalid weather condition with the daily plan.
+4. System rejects invalid weather condition.","Daily plan creation fails due to invalid weather information. User is prompted to provide valid weather details."
+"TC-User-009","Change Profile with Existing Email","Profile Update","5","User is logged in.","New Email: john@example.com","1. User initiates change profile process by invoking changeProfile().
+2. Main verifies user's data with the database and finds duplicate email.
+3. Main prompts user to enter unique email.","Profile update fails due to duplicate email. User is prompted to provide unique email."
+"TC-Trip-010","Add a Daily Plan with Duplicate ID","Daily Plan Creation","1","Trip is created.","PlanId: 1, Day: 2023-10-02, Weather: Sunny","1. User creates a daily plan with plan id 1.
+2. User sets day to 2023-10-02.
+3. User associates weather condition Sunny with the daily plan.
+4. System detects duplicate plan id.","Daily plan creation fails due to duplicate plan id. User is prompted to provide unique plan id."
+"TC-User-010","Change Profile with Existing Username","Profile Update","5","User is logged in.","New Username: newUser","1. User initiates change profile process by invoking changeProfile().
+2. Main verifies user's data with the database and finds duplicate username.
+3. Main prompts user to enter unique username.","Profile update fails due to duplicate username. User is prompted to provide unique username."
+"TC-Trip-011","Add a Place to Visit with Invalid Category","Place to Visit Addition","1","Trip is created.","Name: Eiffel Tower, Category: Invalid, IdTrip: 1","1. User adds a place to visit named Eiffel Tower.
+2. User attempts to assign invalid category to the place.
+3. System rejects invalid category.","Place to visit addition fails due to invalid category. User is prompted to provide valid category."
+"TC-Trip-012","Add a Daily Plan with Invalid Day Format","Daily Plan Creation","1","Trip is created.","PlanId: 1, Day: 2023-10-02T12:00:00Z, Weather: Sunny","1. User creates a daily plan with plan id 1.
+2. User sets day to 2023-10-02T12:00:00Z.
+3. System detects invalid day format.","Daily plan creation fails due to invalid day format. User is prompted to provide valid day format."

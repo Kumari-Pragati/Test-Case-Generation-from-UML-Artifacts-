@@ -1,0 +1,147 @@
+REPORT: Report_30_uml_pages.pdf
+======================================================================
+
+===== Report_30_uml_pages.pdf | Page 1 =====
+UML Type: Activity
+- Activity Diagram
+
+Components:
+- Homepage — kind=activity;
+- Click impostazioni — kind=action;
+- Visualizzazione nuovo luogo — kind=action;
+- Click Pathfinder — kind=action;
+- Swipe verso l'alto — kind=action;
+- Apertura pagina impostazioni — kind=action;
+- Apertura pagina luogo dettagliata — kind=action;
+- Apertura pagina Pathfinder — kind=action
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Homepage -> Click impostazioni — type=transition; label="si"; explanation="User clicks impostazioni";
+- Homepage -> Visualizzazione nuovo luogo — type=transition; label="no"; explanation="User selects 'Visualizzazione nuovo luogo'";
+- Visualizzazione nuovo luogo -> Click Pathfinder — type=transition; label="si"; explanation="User clicks Pathfinder";
+- Visualizzazione nuovo luogo -> Swipe verso l'alto — type=transition; label="no"; explanation="User swipes to the right";
+- Click Pathfinder -> Apertura pagina Pathfinder — type=transition; label="si"; explanation="User clicks Pathfinder";
+- Click Pathfinder -> Apertura pagina Pathfinder — type=transition; label="no"; explanation="User does not click Pathfinder";
+
+Main Flows (step by step):
+- Flow 1: Homepage -> Click impostazioni (si) -> Apertura pagina impostazioni
+- Flow 2: Homepage -> Visualizzazione nuovo luogo (no) -> Click Pathfinder (si) -> Apertura pagina Pathfinder
+- Flow 3: Homepage -> Visualizzazione nuovo luogo (no) -> Swipe verso l'alto
+
+Conditions / Branches:
+- Click impostazioni: si/no
+- Visualizzazione nuovo luogo: si/no
+- Click Pathfinder: si/no
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- Ingegneria del Software 2023/24 – docente: prof. Agostino Cortesi
+
+Observations:
+- The diagram models the user flow through a homepage, allowing the user to either access settings or view a new location.
+- If the user clicks "impostazioni", they are directed to the settings page.
+- If the user selects "Visualizzazione nuovo luogo", they are directed to the Pathfinder page.
+- If the user swipes to the right, the behavior is not explicitly defined in the diagram.
+- The diagram shows a decision point for whether to click Pathfinder or swipe.
+
+===== Report_30_uml_pages.pdf | Page 2 =====
+UML Type: State_machine
+
+Components:
+- Pagina dettagliata — kind=state;
+- Apertura mappa di sistema — kind=state;
+- Apertura sito Yelp sul browser — kind=state;
+- Avvio chiamata al business — kind=state;
+- Ritorno ad Homepage — kind=state;
+- Modifica preferenze — kind=state;
+
+Actors / Lifelines:
+- User — role=User;
+
+Relationships / Links:
+- Pagina dettagliata -> Apertura mappa di sistema — transition="Click 'Navigate'"; explanation="User clicks 'Navigate'";
+- Pagina dettagliata -> Apertura sito Yelp sul browser — transition="Click 'Open in Browser'"; explanation="User clicks 'Open in Browser'";
+- Pagina dettagliata -> Avvio chiamata al business — transition="Click 'Call Business'"; explanation="User clicks 'Call Business'";
+- Pagina dettagliata -> Ritorno ad Homepage — transition="Click 'Indietro'"; explanation="User clicks 'Indietro'";
+- Apertura mappa di sistema -> Pagina dettagliata — transition="si"; explanation="User navigates to the page";
+- Apertura sito Yelp sul browser -> Pagina dettagliata — transition="si"; explanation="User navigates to the page";
+- Avvio chiamata al business -> Pagina dettagliata — transition="si"; explanation="User navigates to the page";
+- Ritorno ad Homepage -> Pagina dettagliata — transition="si"; explanation="User navigates to the page";
+- Apertura mappa di sistema -> Modifica preferenze — transition="no"; explanation="User does not modify preferences";
+- Apertura sito Yelp sul browser -> Modifica preferenze — transition="no"; explanation="User does not modify preferences";
+- Avvio chiamata al business -> Modifica preferenze — transition="no"; explanation="User does not modify preferences";
+- Ritorno ad Homepage -> Modifica preferenze — transition="no"; explanation="User does not modify preferences";
+- Modifica preferenze -> Apertura mappa di sistema — transition="si"; explanation="User navigates to the page after modifying preferences";
+- Modifica preferenze -> Apertura sito Yelp sul browser — transition="si"; explanation="User navigates to the page after modifying preferences";
+- Modifica preferenze -> Avvio chiamata al business — transition="si"; explanation="User navigates to the page after modifying preferences";
+- Modifica preferenze -> Ritorno ad Homepage — transition="si"; explanation="User navigates to the page after modifying preferences";
+
+Conditions / Branches:
+- Click 'Navigate' -> Apertura mappa di sistema — condition="si"; explanation="If 'Navigate' is clicked";
+- Click 'Open in Browser' -> Apertura sito Yelp sul browser — condition="si"; explanation="If 'Open in Browser' is clicked";
+- Click 'Call Business' -> Avvio chiamata al business — condition="si"; explanation="If 'Call Business' is clicked";
+- Click 'Indietro' -> Ritorno ad Homepage — condition="si"; explanation="If 'Indietro' is clicked";
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Ingegneria del Software 2023/24 – docente: prof. Agostino Cortesi
+
+Observations:
+- The diagram models the navigation flow of a user through a detailed page.
+- The user can navigate to a map, open Yelp in a browser, initiate a business call, return to the homepage, or modify preferences.
+- The diagram shows a branching flow based on user clicks, leading to different destinations within the application.
+- The "Indietro" button leads back to the homepage, and subsequent clicks can lead to the map, Yelp, or business call.
+
+===== Report_30_uml_pages.pdf | Page 3 =====
+UML Type: state_machine
+
+Components:
+- Apertura pagina Pathfinder — kind=action;
+- Click "Indietro" — kind=action;
+- Visualizzazione domanda — kind=action;
+- Scelta risposta — kind=action;
+- Suggerimento disponibile — kind=condition;
+- Visualizzazione luogo suggerito — kind=action;
+- Ritorno ad Homepage — kind=action;
+- Suggerimento non disponibile — kind=condition;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Apertura pagina Pathfinder -> Click "Indietro" — type=transition; label="si"; explanation="If 'Click 'Indietro' is clicked";
+- Apertura pagina Pathfinder -> Visualizzazione domanda — type=transition; label="no"; explanation="If 'Click 'Indietro' is not clicked";
+- Visualizzazione domanda -> Scelta risposta — type=transition; explanation="Proceed to select an answer";
+- Visualizzazione domanda -> Suggerimento disponibile — type=transition; label="Suggerimento disponibile"; explanation="If a suggestion is available";
+- Visualizzazione domanda -> Visualizzazione luogo suggerito — type=transition; label="Visualizzazione luogo suggerito"; explanation="If a suggestion is not available";
+- Suggerimento disponibile -> Ritorno ad Homepage — type=transition; label="Ritorno ad Homepage"; explanation="If suggestion is available";
+- Suggerimento non disponibile -> Ritorno ad Homepage — type=transition; label="Ritorno ad Homepage"; explanation="If suggestion is not available";
+
+Conditions / Branches:
+- Suggerimento disponibile — type=decision;
+  - si -> Visualizzazione luogo suggerito
+  - no -> Ritorno ad Homepage
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- The diagram models the flow of a Pathfinder application, specifically the handling of a question and a potential suggestion.
+
+Observations:
+- The diagram represents a state machine that guides the user through a question and potential suggestion.
+- The flow starts with opening the Pathfinder page.
+- If the user clicks "Indietro", the flow returns to the homepage.
+- If the user doesn't click "Indietro", the question is displayed.
+- If a suggestion is available, it's displayed and the user can return to the homepage.
+- If no suggestion is available, the user is returned to the homepage.
+
+
+======================================================================

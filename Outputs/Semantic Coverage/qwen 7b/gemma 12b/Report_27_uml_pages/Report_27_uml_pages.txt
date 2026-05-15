@@ -1,0 +1,143 @@
+REPORT: Report_27_uml_pages.pdf
+======================================================================
+
+===== Report_27_uml_pages.pdf | Page 1 =====
+UML Type:
+- Other
+
+Components:
+- User — kind=object; attributes=[114975230764666666]; operations=[]; role=User
+- Arriva raccolta — kind=object; attributes=[]; operations=[]; role=Arriva raccolta
+- Aggiungi documento — kind=object; attributes=[]; operations=[]; role=Aggiungi documento
+- Aggiungi campo — kind=object; attributes=[email: String, FamilyCode: String, Nome: String, pictureurl: String]; operations=[]; role=Aggiungi campo
+- Allattamento — kind=object; attributes=[0001]; operations=[]; role=Allattamento
+- Famiglia — kind=object; attributes=[]; operations=[]; role=Famiglia
+- Shqjuh095 — kind=object; attributes=[]; operations=[]; role=Shqjuh095
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- User -> Arriva raccolta — type=association; label=""; explanation="User navigates to Arriva raccolta"
+- Arriva raccolta -> Aggiungi documento — type=association; label=""; explanation="Arriva raccolta navigates to Aggiungi documento"
+- Aggiungi documento -> Aggiungi campo — type=association; label=""; explanation="Aggiungi documento navigates to Aggiungi campo"
+- Aggiungi campo -> Allattamento — type=association; label=""; explanation="Aggiungi campo navigates to Allattamento"
+- Famiglia -> Shqjuh095 — type=association; label=""; explanation="Famiglia navigates to Shqjuh095"
+- Shqjuh095 -> Allattamento — type=association; label=""; explanation="Shqjuh095 navigates to Allattamento"
+
+Main Flows:
+- Flow 1: User -> Arriva raccolta -> Aggiungi documento -> Aggiungi campo -> Allattamento
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram depicts a navigation flow within a web application or system.
+- The flow starts from the "User" and progresses through several components: "Arriva raccolta", "Aggiungi documento", "Aggiungi campo", and finally "Allattamento".
+- The "Famiglia" and "Shqjuh095" components are also present, suggesting a hierarchical structure or relationship within the system.
+- The "Aggiungi campo" component appears to be responsible for collecting and displaying data, as it has attributes like "email", "FamilyCode", "Nome", and "pictureurl".
+
+===== Report_27_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Accesso al menu a fondo — kind=action; attributes=[]; operations=[]; role=Initiation of the footer menu
+- Sezione di monitoraggio — kind=action; attributes=[]; operations=[]; role=Monitoring section
+- Note — kind=action; attributes=[]; operations=[]; role=Taking notes
+- Ritorno alla home — kind=action; attributes=[]; operations=[]; role=Returning to the home page
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Accesso al menu a fondo -> Sezione di monitoraggio — type=transition; label="SI"; explanation="Access to the footer menu leads to the monitoring section"
+- Sezione di monitoraggio -> Note — type=transition; label="NO"; explanation="From the monitoring section, if the condition is NO, go to Note"
+- Note -> Ritorno alla home — type=transition; label="NO"; explanation="From Note, if the condition is NO, return to the home page"
+- Ritorno alla home -> Accesso al menu a fondo — type=transition; label="NO"; explanation="From the home page, return to the access of the footer menu"
+
+Main Flows:
+- Flow 1: Accesso al menu a fondo -> Sezione di monitoraggio -> Note -> Ritorno alla home -> Accesso al menu a fondo
+
+Conditions / Branches:
+- Decision 1: At Sezione di monitoraggio, the condition is "NO". If "SI", the flow continues to Note. If "NO", the flow continues to Note.
+- Decision 2: At Note, the condition is "NO". If "NO", the flow continues to Ritorno alla home.
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the flow of actions related to a footer menu on a webpage.
+- The flow starts with accessing the footer menu and can lead to either the monitoring section or a return to the home page.
+- A "Note" action is present, which is reached after the monitoring section and before a potential return to the home page.
+- The diagram shows a cyclical flow, where the process can repeat from the footer menu access.
+
+===== Report_27_uml_pages.pdf | Page 3 =====
+UML Type:
+- Class
+
+Components:
+- LoginActivity — kind=class; attributes=[]; operations=[handleSignInTask(Task<GoogleSignInAccount>)]; role=Login screen
+- JoinFamilyActivity — kind=class; attributes=[]; operations=[createFamily(String, String, String, String, int, int)]; role=Family creation
+- FamilyActivity — kind=class; attributes=[]; operations=[generateCode()]; role=Family management
+- HomeActivity — kind=class; attributes=[]; operations=[replaceFragment(Fragment)]; role=Home screen
+- HomeFragment — kind=class; attributes=[]; operations=[]; role=Home screen fragment
+- MonitorFragment — kind=class; attributes=[]; operations=[]; role=Monitor screen fragment
+- NoteFragment — kind=class; attributes=[]; operations=[]; role=Note screen fragment
+- EditNoteFragment — kind=class; attributes=[]; operations=[]; role=Edit note screen fragment
+- MenuNoteFragment — kind=class; attributes=[]; operations=[]; role=Menu note fragment
+- ProfiloActivity — kind=class; attributes=[]; operations=[abbandona(String, Userid, GoogleSignInClient)]; role=Profile screen
+- GraphSonnoFragment — kind=class; attributes=[]; operations=[graphSonno(View)]; role=Sleep graph
+- GraphAlimentazioneFragment — kind=class; attributes=[]; operations=[graphAlimentazione(View)]; role=Nutrition graph
+- GraphCrescitaFragment — kind=class; attributes=[]; operations=[graphCrescita(View)]; role=Growth graph
+- SonnoFragment — kind=class; attributes=[]; operations=[]; role=Sleep fragment
+- CrescitaFragment — kind=class; attributes=[]; operations=[]; role=Growth fragment
+- CreateFamilyActivity — kind=class; attributes=[]; operations=[createFamily(String, String, String, String, int, int), initDataOfFamily(String, String, int), generateRandom(int), get(Date)]; role=Family creation activity
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- LoginActivity -> JoinFamilyActivity — type=association; label=""; explanation="Login leads to Family creation"
+- JoinFamilyActivity -> FamilyActivity — type=association; label=""; explanation="Family creation leads to Family management"
+- FamilyActivity -> CreateFamilyActivity — type=association; label=""; explanation="Family management leads to Family creation"
+- HomeActivity -> HomeFragment — type=association; label=""; explanation="Home activity contains Home fragment"
+- HomeActivity -> MonitorFragment — type=association; label=""; explanation="Home activity contains Monitor fragment"
+- HomeActivity -> NoteFragment — type=association; label=""; explanation="Home activity contains Note fragment"
+- NoteFragment -> EditNoteFragment — type=association; label=""; explanation="Note fragment leads to Edit note fragment"
+- NoteFragment -> MenuNoteFragment — type=association; label=""; explanation="Note fragment leads to Menu note fragment"
+- ProfiloActivity -> GraphSonnoFragment — type=association; label=""; explanation="Profile activity contains Sleep graph"
+- ProfiloActivity -> GraphAlimentazioneFragment — type=association; label=""; explanation="Profile activity contains Nutrition graph"
+- ProfiloActivity -> GraphCrescitaFragment — type=association; label=""; explanation="Profile activity contains Growth graph"
+- SonnoFragment -> GraphSonnoFragment — type=association; label=""; explanation="Sleep fragment contains Sleep graph"
+- CrescitaFragment -> GraphCrescitaFragment — type=association; label=""; explanation="Growth fragment contains Growth graph"
+
+Main Flows:
+- Flow 1: LoginActivity -> JoinFamilyActivity -> FamilyActivity -> CreateFamilyActivity
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a class diagram for a family management application.
+- The main flow involves user login, family creation, and family management.
+- The application includes screens for home, monitoring, notes, profile, and graphs related to sleep, nutrition, and growth.
+- The diagram shows a hierarchical structure with activities and fragments related to different functionalities.
+
+
+======================================================================

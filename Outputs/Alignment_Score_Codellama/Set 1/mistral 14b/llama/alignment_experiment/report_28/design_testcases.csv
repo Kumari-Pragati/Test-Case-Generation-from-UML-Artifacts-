@@ -1,0 +1,111 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,1,"- Server and User components are active.
+- Valid username/password pair exists in the system.","- Username: `john_doe`
+- Password: `SecurePass123!`","1. User calls `login(username, password)` with valid credentials.
+2. Server validates credentials.
+3. Server returns success status (e.g., `status: ""OK""`).","- User receives a valid token.
+- Token is stored in `LocalUser` for subsequent requests.
+- No error messages."
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,1,"- Server and User components are active.
+- Valid username exists, but incorrect password is provided.","- Username: `john_doe`
+- Password: `WrongPass456`","1. User calls `login(username, password)` with invalid password.
+2. Server validates credentials.
+3. Server returns failure status (e.g., `status: ""ERROR""`).","- User does **not** receive a token.
+- `LocalUser` retains `token = null`.
+- Error message displayed (e.g., ""Invalid credentials"")."
+TC-AUTHENTICATION-003,Token acquisition flow with null token,Token Management,2,"- `LocalUser` has `token = null`.
+- `API_Manager` is available.",- None (simulate null token state).,"1. `Main` calls `getToken()` on `LocalUser`.
+2. `LocalUser` detects `token = null` and sends request to `API_Manager` with `token = null`.
+3. `API_Manager` returns `status = ""OK""` (simulated).
+4. `LocalUser` requests user data.","- `LocalUser` acquires a valid token.
+- `Main` receives the token.
+- User data is fetched successfully."
+TC-AUTHENTICATION-004,Token acquisition flow with invalid API status,Token Management,2,"- `LocalUser` has `token = null`.
+- `API_Manager` returns `status = ""ERROR""`.","- Simulated API error response: `{""status"": ""ERROR"", ""message"": ""Server unavailable""}`.","1. `Main` calls `getToken()` on `LocalUser`.
+2. `LocalUser` sends request to `API_Manager` with `token = null`.
+3. `API_Manager` returns `status = ""ERROR""`.
+4. `LocalUser` retries or notifies `Main` of failure.","- `LocalUser` does **not** update token.
+- `Main` receives error status.
+- User data request is **not** processed."
+TC-SERVICE-RETRIEVAL-001,Retrieve all Service/Need/Report entries,Data Retrieval,3,"- `API_Manager` has processed entries.
+- Valid token exists for `Main`.",- Token: `abc123xyz`,"1. `Main` sends `request()` to `API_Manager` with valid token.
+2. `API_Manager` processes request and returns `listJSON`.
+3. `Main` iterates over `listJSON` and calls `displayList()` for each entry.","- `Main` receives a JSON array of entries (e.g., `[{id: ""1"", title: ""Fix leak""}, ...]`).
+- All entries are displayed without errors."
+TC-SERVICE-RETRIEVAL-002,Retrieve specific Service/Need/Report entry by ID,Data Retrieval,1 (Service operations),"- Entry with `id = ""123""` exists in the system.
+- Valid token exists.","- Token: `abc123xyz`
+- Entry ID: `123`","1. `Main` calls `getPost(id)` on `Service` with `id = ""123""`.
+2. `Service` validates ID and returns entry data.","- `Main` receives entry details (e.g., `{id: ""123"", title: ""Repair roof"", description: ""...""}`).
+- No errors or missing fields."
+TC-SERVICE-CREATION-001,Create a new Service/Need/Report entry,Entry Creation,4,"- Valid token exists.
+- `API_Manager` is available.","- New entry:
+  ```json
+  {
+    ""title"": ""Install new software"",
+    ""description"": ""Upgrade to v2.0"",
+    ""creator"": ""john_doe""
+  }
+  ```","1. `Main` creates new entry object.
+2. `Main` converts entry to JSON (`toJSON()`).
+3. `Main` sends `request(newEntry)` to `API_Manager`.
+4. `API_Manager` processes and returns `Service/Need/Report` confirmation.","- Entry is saved with auto-generated `id` and `postDate`.
+- `Main` receives confirmation (e.g., `{""status"": ""DONE"", ""id"": ""456""}`)."
+TC-SERVICE-CREATION-002,Create entry with missing required field,Entry Creation,4,- Valid token exists.,"- Incomplete entry (missing `title`):
+  ```json
+  {
+    ""description"": ""Upgrade to v2.0"",
+    ""creator"": ""john_doe""
+  }
+  ```","1. `Main` attempts to create entry with missing `title`.
+2. `API_Manager` validates and rejects request.","- `Main` receives error (e.g., `{""status"": ""ERROR"", ""message"": ""Title is required""}`).
+- Entry is **not** saved."
+TC-SERVICE-UPDATE-001,Update an existing Service/Need/Report entry,Entry Update,5,"- Entry with `id = ""123""` exists.
+- Valid token exists.","- Updated entry:
+  ```json
+  {
+    ""id"": ""123"",
+    ""title"": ""Updated: Install new software"",
+    ""description"": ""Upgrade to v2.1 (critical)"",
+    ""creator"": ""john_doe""
+  }
+  ```","1. `Main` reads existing data (`datiAggiornati`).
+2. `Main` updates fields and calls `toJSON()` to create `updateEntry`.
+3. `Main` sends `request(updateEntry)` to `API_Manager`.
+4. `API_Manager` processes update and returns confirmation.","- Entry is updated in the system.
+- `Main` receives success status (e.g., `{""status"": ""DONE""}`)."
+TC-SERVICE-UPDATE-002,Update entry with invalid ID,Entry Update,5,"- No entry exists with `id = ""999""`.","- Update request with non-existent ID:
+  ```json
+  {
+    ""id"": ""999"",
+    ""title"": ""Fake update""
+  }
+  ```","1. `Main` attempts to update non-existent entry.
+2. `API_Manager` validates ID and rejects request.","- `Main` receives error (e.g., `{""status"": ""ERROR"", ""message"": ""Entry not found""}`).
+- No changes are made."
+TC-COMMENTS-LIKES-001,Retrieve comments for a Service/Need/Report,Comments/Likes,1 (Service operations),"- Entry with `id = ""123""` has 2 comments.
+- Valid token exists.",- Entry ID: `123`,"1. `Main` calls `getComments(id)` on `Service`.
+2. `Service` returns comments for the entry.","- `Main` receives comments array (e.g., `[{user: ""alice"", text: ""Great!""}, ...]`).
+- No errors."
+TC-COMMENTS-LIKES-002,Retrieve likes for a Service/Need/Report by user,Comments/Likes,1 (Service operations),"- Entry with `id = ""123""` has 3 likes (including `user = ""bob""`).","- Entry ID: `123`
+- User: `bob`","1. `Main` calls `getLikes(id, user)` on `Service`.
+2. `Service` validates and returns likes data.","- `Main` receives likes data (e.g., `true` if user liked the entry).
+- No errors for valid user/entry."
+TC-EDGE-CASE-001,Empty token handling in API request,Token Management,2,"- `LocalUser` has `token = null`.
+- `API_Manager` enforces token validation.",- None (simulate empty token).,"1. `Main` sends request to `API_Manager` with `token = null`.
+2. `API_Manager` rejects request due to missing token.","- `API_Manager` returns `status = ""ERROR""` with message (e.g., ""Token required"").
+- Request is **not** processed."
+TC-EDGE-CASE-002,Malformed JSON entry creation,Entry Creation,4,- Valid token exists.,"- Malformed JSON:
+  ```json
+  {
+    ""title"": ""Broken entry"",
+    ""description"": ""Missing closing brace""
+  }
+  ```","1. `Main` attempts to send malformed JSON to `API_Manager`.
+2. `API_Manager` detects syntax error.","- `Main` receives error (e.g., `{""status"": ""ERROR"", ""message"": ""Invalid JSON""}`).
+- Entry is **not** saved."
+TC-EDGE-CASE-003,Concurrent updates to same entry,Entry Update,5,"- Entry with `id = ""123""` exists.
+- Two users attempt to update simultaneously.","- User 1: Updates `title` to ""Update A"".
+- User 2: Updates `description` to ""Update B"" (conflict).","1. User 1 sends update request.
+2. User 2 sends conflicting update request.
+3. `API_Manager` processes requests (last-write-wins or rejects).","- One update succeeds; the other fails with conflict message (e.g., `{""status"": ""ERROR"", ""message"": ""Entry modified by another user""}`).
+- System maintains data consistency."

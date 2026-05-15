@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOCATION-SELECTION-001,Verify location selection via state/region/city,Location Selection,"2, 5","- Application is launched.
+- User has network connectivity.","- Valid country: ""Italy""
+- Valid region: ""Lombardy""
+- Valid city: ""Milan""","1. User taps ""Selezioniamo lo stato, la regione e la città"" on the initial screen.
+2. User selects ""Italy"" from the country dropdown.
+3. User selects ""Lombardy"" from the region dropdown.
+4. User selects ""Milan"" from the city dropdown.
+5. System sends request to server.","- Server returns air quality data for Milan.
+- Data is displayed on the map with pins (`Puntina della Mappa`) categorized by air quality (e.g., ""Moderata"").
+- No errors or crashes occur."
+TC-LOCATION-SELECTION-002,Verify location selection via current position,Location Selection,"2, 5","- Application is launched.
+- Device GPS is enabled.
+- User has network connectivity.","- Simulated current location: Latitude 45.4644, Longitude 9.1900 (Milan)","1. User taps ""Seleziona la tua posizione attuale"" on the initial screen.
+2. System retrieves current GPS coordinates.
+3. System sends request to server with coordinates.","- Server returns air quality data for the current location.
+- Map displays pins with accurate coordinates and air quality category.
+- No permission errors or crashes."
+TC-LOCATION-SELECTION-003,Verify invalid location selection (negative),Location Selection,"2, 5","- Application is launched.
+- User has network connectivity.","- Invalid country: ""Zzz"" (non-existent)","1. User taps ""Selezioniamo lo stato, la regione e la città.""
+2. User enters ""Zzz"" in the country field and submits.","- System displays an error message: ""Country not found.""
+- No data is fetched or displayed.
+- User can retry with valid input."
+TC-MAP-DISPLAY-001,Verify initial map load with air quality pins,Map Display,"1, 3, 8","- Location data (e.g., Milan) is loaded.
+- Network connectivity is available.","- Simulated API response for Milan:
+  - Longitude: 9.1900, Latitude: 45.4644
+  - Qualità Aria: 50 (Moderata)
+  - Temperatura: 22°C","1. System loads map with initial data.
+2. Pins (`Puntina della Mappa`) appear on the map for Milan.
+3. User taps a pin.","- Pin displays attributes: coordinates, air quality category (""Moderata""), temperature, etc.
+- No missing or corrupted data.
+- Map renders correctly without lag."
+TC-MAP-DISPLAY-002,Verify dynamic map update via scrolling,Map Display,"3, 8","- Map is loaded with initial data.
+- Network connectivity is available.",,"1. User scrolls down to trigger data reload.
+2. System sends request to server for new data.
+3. Server returns updated data (e.g., new pin for Rome).","- Map updates with new pins and removes old ones if out of view.
+- No duplicate or missing pins.
+- Update occurs within 3 seconds."
+TC-MAP-DISPLAY-003,Verify map update failure (negative),Map Display,"3, 8","- Map is loaded.
+- Network connectivity is lost.",,"1. User scrolls down to trigger data reload.
+2. System fails to connect to the server (simulated offline mode).","- System displays a toast/error message: ""Impossibile caricare i dati. Controlla la connessione.""
+- Map retains last known data without crashing.
+- User can retry when online."
+TC-SUGGESTIONS-001,Verify tip display for a selected air quality category,Suggestions,"1, 4, 9","- Map pin with ""Insalubre"" category is selected.
+- Network connectivity is available.","- Pin attributes:
+  - Categoria: ""Insalubre""
+  - AQI: 150","1. User taps a pin with ""Insalubre"" category.
+2. User taps the ""Suggerimenti"" button.
+3. System fetches tips for AQI 150.","- Suggestions screen displays:
+  - Titolo: ""Riduzione dell'esposizione""
+  - Testo: ""Evita attività all'aperto. Usa purificatori d'aria.""
+  - Immagine: ""warning_icon.png""
+  - Categoria: ""Insalubre""
+- No errors or missing fields."
+TC-SUGGESTIONS-002,Verify tip retrieval for edge-case AQI (negative),Suggestions,"1, 9","- Pin with invalid AQI (e.g., 999) is selected.","- Pin attributes:
+  - Qualità Aria: 999 (invalid)","1. User taps a pin with invalid AQI.
+2. System attempts to fetch tips.","- System displays a default tip:
+  - Titolo: ""Dati non disponibili""
+  - Testo: ""Contatta il supporto tecnico.""
+  - Categoria: ""Buona"" (default)
+- No crashes or infinite loading."
+TC-SUGGESTIONS-003,Verify tip button press on map,Suggestions,4,- Map is loaded with pins.,,"1. User is on the initial map.
+2. User taps the ""Suggerimenti"" button (if visible).","- Suggestions screen opens with tips for the last selected location.
+- If no location is selected, screen shows: ""Seleziona una posizione sulla mappa."""
+TC-API-INTEGRATION-001,Verify API data retrieval for location,API Integration,"5, 6, 7, 8","- Application is launched.
+- Network connectivity is available.","- Valid API endpoint: `https://api.airvisual.com/v2/nearest_city?key=API_KEY`
+- Mock response: JSON with AQI, coordinates, weather data.","1. User selects a location (e.g., Milan).
+2. System calls `getHTTPData()` via AirVisual API.
+3. API returns data.
+4. System parses and displays data on the map.","- Data is correctly parsed into `Puntina della Mappa` objects.
+- All attributes (longitude, latitude, AQI, etc.) are populated.
+- No API timeouts or malformed responses."
+TC-API-INTEGRATION-002,Verify API failure handling (negative),API Integration,"5, 6","- Application is launched.
+- Network connectivity is available, but API returns 500 error.",,"1. User selects a location.
+2. System calls API, which returns HTTP 500.","- System displays: ""Errore del server. Riprova più tardi.""
+- Map retains last valid data.
+- User can retry without data loss."
+TC-WIDGET-001,Verify widget data update,Widget,7,"- Widget is enabled on home screen.
+- Network connectivity is available.",,"1. User enables the widget.
+2. Widget calls `onUpdate()` and `updateAppWidget()`.
+3. AirVisual API returns updated AQI data.","- Widget displays:
+  - Current AQI value (e.g., 45).
+  - Category (e.g., ""Moderata"").
+  - Last updated timestamp.
+- No crashes or frozen UI."
+TC-WIDGET-002,Verify widget offline behavior (negative),Widget,7,"- Widget is enabled.
+- Device is offline.",,"1. User enables the widget.
+2. Widget attempts to update but has no connectivity.","- Widget displays cached data with a warning: ""Dati non aggiornati.""
+- No crashes or errors."
+TC-DATA-VALIDATION-001,Verify `Puntina della Mappa` attribute validation,Data Model,1,- N/A,"- Valid inputs:
+  - Longitudine: 9.1900
+  - Latitudine: 45.4644
+  - Qualità Aria: 30 (valid AQI)
+  - Categoria: ""Buona""
+- Invalid inputs:
+  - Longitudine: 200.0 (invalid)
+  - Qualità Aria: -5 (invalid)
+  - Categoria: ""Invalid"" (not in enum)","1. Set valid attributes via `SetLongitudine()`, `SetQualitàAria()`, etc.
+2. Retrieve attributes via getters.
+3. Attempt to set invalid attributes.","- Valid attributes are stored and retrieved correctly.
+- Invalid attributes (e.g., negative AQI) throw an exception or are rejected with a message: ""Valore non valido.""
+- Enum `Categoria` only accepts predefined values."
+TC-DATA-VALIDATION-002,Verify `Suggerimento` attribute validation,Data Model,1,- N/A,"- Valid inputs:
+  - Titolo: ""Consiglio""
+  - Testo: ""Testo lungo...""
+  - Categoria: ""Moderata""
+- Invalid inputs:
+  - Titolo: """" (empty)
+  - Categoria: ""Nessuna"" (not in enum)","1. Set valid attributes via setters.
+2. Attempt to set empty/invalid attributes.","- Valid attributes are stored and retrieved.
+- Empty `Titolo` throws: ""Il titolo non può essere vuoto.""
+- Invalid `Categoria` throws: ""Categoria non valida."""
+TC-EDGE-CASES-001,Verify map pin at boundary coordinates,Map Display,"1, 3",- N/A,"- Boundary coordinates:
+  - Longitude: -180.0 (minimum)
+  - Latitude: 90.0 (maximum)","1. Create a `Puntina della Mappa` with boundary coordinates.
+2. Add pin to map.","- Pin is displayed at the edge of the map.
+- No coordinate overflow errors.
+- Map adjusts view to include the pin."
+TC-EDGE-CASES-002,Verify extreme air quality values,Data Model,"1, 9",- N/A,"- Extreme AQI values:
+  - Min: 0 (best)
+  - Max: 500 (worst)","1. Set `Qualità Aria` to 0 and 500.
+2. System categorizes and displays tips.","- AQI 0 → Categoria: ""Buona""
+- AQI 500 → Categoria: ""Pericolosa"" (or clamped to max enum value)
+- Tips are fetched and displayed for extreme values."

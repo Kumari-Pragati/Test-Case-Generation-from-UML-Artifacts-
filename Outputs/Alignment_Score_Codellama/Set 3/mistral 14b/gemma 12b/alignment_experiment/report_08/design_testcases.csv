@@ -1,0 +1,87 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Verify user registration check for vehicle addition,User Authentication & Vehicle Addition,"1, 2","- Application is launched.
+- User is either registered or unregistered.","- Registered user credentials (e.g., `user@example.com`, `password123`).
+- Unregistered user credentials (e.g., `guest@example.com`, `wrongpass`).","1. Launch the application.
+2. Navigate to **""Aggiungi veicolo""** (Add Vehicle).
+3. Enter **registered user credentials** and submit.
+4. System checks **""Utente registrato con successo al servizio?""**.
+5. Verify flow proceeds to **""Cerca il veicolo nel dataset""**.","- Registered user bypasses distributor list and proceeds to vehicle search.
+- Unregistered user is redirected to **""Accesso lista distributori""**."
+TC-AUTHENTICATION-002,Verify unregistered user redirection,User Authentication,"1, 2","- Application is launched.
+- User is unregistered.","- Invalid/unregistered credentials (e.g., `newuser@test.com`, `invalidpass`).","1. Launch the application.
+2. Navigate to **""Aggiungi veicolo""**.
+3. Enter **unregistered credentials** and submit.
+4. System checks **""Utente registrato con successo al servizio?""**.
+5. Verify redirection to **""Accesso lista distributori""**.",- User is redirected to distributor list without vehicle addition access.
+TC-VEHICLE-SEARCH-001,Verify successful vehicle search and addition,Vehicle Search & Addition,1,"- User is registered and authenticated.
+- Vehicle exists in the dataset (e.g., `Truck-12345`).","- Valid vehicle identifier (e.g., `Truck-12345`).","1. Launch application and authenticate as registered user.
+2. Navigate to **""Aggiungi veicolo""**.
+3. System searches for vehicle in dataset.
+4. Enter **valid vehicle identifier** (`Truck-12345`).
+5. System checks **""Hai trovato il veicolo?""**.
+6. Select **""Seleziona e aggiungi il veicolo""**.","- Vehicle is found and added successfully.
+- Process ends at **""Fine""**."
+TC-VEHICLE-SEARCH-002,Verify manual vehicle insertion for non-existent vehicle,Vehicle Search & Manual Entry,1,"- User is registered and authenticated.
+- Vehicle does **not** exist in the dataset (e.g., `Truck-99999`).","- Invalid vehicle identifier (e.g., `Truck-99999`).","1. Launch application and authenticate as registered user.
+2. Navigate to **""Aggiungi veicolo""**.
+3. System searches for vehicle in dataset.
+4. Enter **invalid vehicle identifier** (`Truck-99999`).
+5. System checks **""Hai trovato il veicolo?""** → returns **NO**.
+6. Proceed to **""Inserisci il veicolo manualmente""**.
+7. Enter manual vehicle details (e.g., `Truck-99999`, `Toyota`, `2023`).
+8. Submit manual entry.","- Vehicle is manually added successfully.
+- Process ends at **""Fine""**."
+TC-VEHICLE-SEARCH-003,Verify edge case: No other vehicles after failed search,Vehicle Search,1,"- User is registered and authenticated.
+- Dataset contains **no matching vehicles** for search query.","- Non-existent vehicle identifier (e.g., `Car-XYZ123`).","1. Launch application and authenticate as registered user.
+2. Navigate to **""Aggiungi veicolo""**.
+3. System searches for vehicle in dataset.
+4. Enter **non-existent identifier** (`Car-XYZ123`).
+5. System checks **""Hai trovato il veicolo?""** → returns **NO**.
+6. System checks **""Non esiste un altro veicolo?""** → returns **YES** (no other vehicles).
+7. Proceed to **""Inserisci il veicolo manualmente""**.","- User is prompted for manual entry without additional search options.
+- Manual insertion flow proceeds as expected."
+TC-DISTRIBUTOR-LIST-001,Verify registered user access to distributor list,Distributor List Navigation,"1, 2","- Application is launched.
+- User is registered.","- Registered user credentials (e.g., `admin@test.com`, `admin123`).","1. Launch the application.
+2. Authenticate as **registered user**.
+3. Navigate to **""Accesso lista distributori""**.
+4. Verify display of **""Visualizza lista distributori""**.",- User successfully accesses and views distributor list.
+TC-DISTRIBUTOR-LIST-002,Verify unregistered user redirection to distributor list,Distributor List Navigation,"1, 2","- Application is launched.
+- User is unregistered.","- Invalid credentials (e.g., `guest@test.com`, `wrongpass`).","1. Launch the application.
+2. Attempt to navigate to **""Aggiungi veicolo""** with unregistered credentials.
+3. System redirects to **""Accesso lista distributori""**.
+4. Verify display of **""Visualizza lista distributori""**.",- Unregistered user is redirected and can view distributor list.
+TC-CONFIGURATION-001,Verify configuration parameter modification and save,Configuration Management,2,- User is registered and on the distributor main page.,"- Valid configuration parameters (e.g., `max_orders=100`, `delivery_radius=50km`).","1. Launch application and authenticate as registered user.
+2. Navigate to **""Accesso pagina distributori (schermata principale)""**.
+3. Select **""Visualizza parametri di configurazione""**.
+4. Modify parameters (e.g., `max_orders=100`).
+5. Select **""Salva parametri di configurazione""**.
+6. Verify popup **""Impostazioni effettuate""** appears.","- Parameters are saved successfully.
+- Popup confirms configuration update."
+TC-CONFIGURATION-002,Verify configuration validation without changes,Configuration Management,"2, 3","- User is registered and on the distributor main page.
+- No pending configuration changes.",- No modifications to existing parameters.,"1. Launch application and authenticate as registered user.
+2. Navigate to **""Accesso pagina impostazioni""**.
+3. System checks **""Hai modifiche da visualizzare?""** → returns **NO**.
+4. Verify popup **""Impostazioni effettuate""** appears (no changes).",- Popup confirms no changes were made.
+TC-NAVIGATION-001,Verify navigation from distributor list to statistics,Page Navigation,"2, 3",- User is registered and on the distributor main page.,,"1. Launch application and authenticate as registered user.
+2. Navigate to **""Accesso pagina distributori (schermata principale)""**.
+3. Select **""Accesso pagina statistiche""**.
+4. Verify display of statistics page.",- User successfully navigates to statistics page.
+TC-NAVIGATION-002,Verify navigation from statistics to settings,Page Navigation,"2, 3",- User is registered and on the statistics page.,,"1. Launch application and authenticate as registered user.
+2. Navigate to **""Accesso pagina statistiche""**.
+3. Select **""Accesso pagina impostazioni""**.
+4. Verify display of settings page.",- User successfully navigates to settings page.
+TC-ORDER-MANAGEMENT-001,Verify manual order opening from distributor page,Order Management,2,- User is registered and on the distributor main page.,,"1. Launch application and authenticate as registered user.
+2. Navigate to **""Accesso pagina distributori (schermata principale)""**.
+3. Select **""Apertura manuale dell'ordine""**.
+4. Verify order creation interface appears.",- User can manually open an order.
+TC-ORDER-MANAGEMENT-002,Verify pending orders list display,Order Management,2,"- User is registered and on the distributor main page.
+- System has pending orders (e.g., `Order-123`).",,"1. Launch application and authenticate as registered user.
+2. Navigate to **""Accesso pagina distributori (schermata principale)""**.
+3. Select **""Visualizza lista ordini in sospeso""**.
+4. Verify display of pending orders list (e.g., `Order-123`).",- Pending orders list is displayed correctly.
+TC-EDGE-CASE-001,Verify system behavior with invalid configuration input,Configuration Validation,"2, 3",- User is registered and on the configuration page.,"- Invalid configuration input (e.g., `delivery_radius=-10km`).","1. Launch application and authenticate as registered user.
+2. Navigate to **""Visualizza parametri di configurazione""**.
+3. Enter **invalid input** (`delivery_radius=-10km`).
+4. Attempt to save.
+5. Verify validation error message appears.","- System rejects invalid input and displays error.
+- User cannot save invalid configuration."

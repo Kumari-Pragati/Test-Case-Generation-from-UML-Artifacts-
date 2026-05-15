@@ -1,0 +1,81 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-PuntinaMappa-001","Create a PuntinaMappa object with valid parameters","PuntinaMappa","1","None","longitudine = 45.46, latitudine = 9.18, qualitaAria = 50, temperatura = 22, statoMeteo = ""Sole"", umidita = 60.5, vento = 10.2, pressione = 1013, categoria = ""Buona""","1. Call PuntinaMappa(longitudine, latitudine)
+2. Set qualitaAria, temperatura, statoMeteo, umidita, vento, pressione, and categoria
+3. Verify that all attributes are set correctly","All attributes should be set to the provided values."
+"TC-PuntinaMappa-002","Set invalid values for PuntinaMappa attributes","PuntinaMappa","1","A PuntinaMappa object has been created","longitudine = -100, latitudine = 1000, qualitaAria = -1, temperatura = -50, statoMeteo = ""InvalidState"", umidita = -100.5, vento = -20, pressione = -1000, categoria = ""InvalidCategory""","1. Attempt to set each attribute with invalid values
+2. Verify that setting invalid values fails","Setting invalid values should result in an error or no change in the attribute value."
+"TC-Suggerimento-001","Create a Suggerimento object with valid parameters","Suggerimento","1","None","titolo = ""Reduce Indoor Pollution"", testo = ""Use air purifiers and keep windows closed."", immagine = ""air_purifier.jpg"", categoria = ""Moderata""","1. Call Suggerimento(titolo, testo, immagine)
+2. Set categoria
+3. Verify that all attributes are set correctly","All attributes should be set to the provided values."
+"TC-Suggerimento-002","Set invalid values for Suggerimento attributes","Suggerimento","1","A Suggerimento object has been created","titolo = """", testo = ""InvalidText"", immagine = ""invalid_image.jpg"", categoria = ""InvalidCategory""","1. Attempt to set each attribute with invalid values
+2. Verify that setting invalid values fails","Setting invalid values should result in an error or no change in the attribute value."
+"TC-Activity-001","Navigate from initial map to suggestions screen","Activity","4, 5","Application is running","None","1. Open the initial map screen
+2. Click on the button to show suggestions
+3. Verify that the suggestions screen is displayed","The suggestions screen should be displayed with relevant suggestions based on the current air quality."
+"TC-Activity-002","Refresh map data","Activity","3, 5","Initial map screen is loaded","None","1. Scroll down to initiate data refresh
+2. Verify that the map is refreshed with updated data","The map should be refreshed with the latest data from the server."
+"TC-Sequence-001","User starts the application and retrieves countries","Sequence","5, 6","User has granted necessary permissions","None","1. User starts the application
+2. AirQualityActivity sends a request to AirVisual API to load countries
+3. MainActivity receives the response and processes the data
+4. Verify that the list of countries is displayed","The list of countries should be displayed in the application."
+"TC-Sequence-002","User navigates to states and cities","Sequence","5, 6","Countries have been loaded","None","1. From the list of countries, select a country
+2. MainActivity sends a request to AirVisual API to load states
+3. AirVisual API responds with the list of states
+4. MainActivity sends a request to AirVisual API to load cities
+5. AirVisual API responds with the list of cities
+6. Verify that the lists of states and cities are displayed","The lists of states and cities should be displayed in the application."
+"TC-Sequence-003","User enables widget and retrieves data","Sequence","5, 7","User has enabled the widget","None","1. User enables the widget
+2. Widget Provider requests data from AirVisual API
+3. AirVisual API retrieves the data
+4. Widget Provider presents the data to the user
+5. Verify that the widget displays the correct data","The widget should display the correct air quality data."
+"TC-Sequence-004","User views map and refreshes data","Sequence","5, 6, 8","Map is loaded","None","1. User opens the map screen
+2. Map Activity requests data from AirVisual API
+3. AirVisual API retrieves the data
+4. Web View displays the updated data
+5. Verify that the map is refreshed with the latest data","The map should be refreshed with the latest data from the server."
+"TC-ActivityTips-001","Retrieve and display tips based on air quality","ActivityTips","9","User selects a location","AQI = 75","1. User selects a location
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips
+4. Verify that the tips are displayed to the user","Relevant tips based on the air quality should be displayed to the user."
+"TC-ActivityTips-002","Handle invalid AQI value","ActivityTips","9","User selects a location","AQI = -10","1. User selects a location with an invalid AQI value
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. Verify that an error is handled appropriately","An error should be handled and appropriate feedback should be provided to the user."
+"TC-ActivityTips-003","No tips available for certain AQI levels","ActivityTips","9","User selects a location","AQI = 100","1. User selects a location with an AQI of 100
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. Verify that no tips are displayed if none are available","No tips should be displayed if there are no relevant tips for the given AQI level."
+"TC-ActivityTips-004","Display tips for extreme AQI levels","ActivityTips","9","User selects a location","AQI = 200","1. User selects a location with an AQI of 200
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for extreme AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for extreme AQI levels should be displayed to the user."
+"TC-ActivityTips-005","Display tips for moderate AQI levels","ActivityTips","9","User selects a location","AQI = 50","1. User selects a location with an AQI of 50
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for moderate AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for moderate AQI levels should be displayed to the user."
+"TC-ActivityTips-006","Display tips for good AQI levels","ActivityTips","9","User selects a location","AQI = 30","1. User selects a location with an AQI of 30
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for good AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for good AQI levels should be displayed to the user."
+"TC-ActivityTips-007","Display tips for poor AQI levels","ActivityTips","9","User selects a location","AQI = 150","1. User selects a location with an AQI of 150
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for poor AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for poor AQI levels should be displayed to the user."
+"TC-ActivityTips-008","Display tips for very poor AQI levels","ActivityTips","9","User selects a location","AQI = 250","1. User selects a location with an AQI of 250
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for very poor AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for very poor AQI levels should be displayed to the user."
+"TC-ActivityTips-009","Display tips for severe AQI levels","ActivityTips","9","User selects a location","AQI = 350","1. User selects a location with an AQI of 350
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for severe AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for severe AQI levels should be displayed to the user."
+"TC-ActivityTips-010","Display tips for hazardous AQI levels","ActivityTips","9","User selects a location","AQI = 450","1. User selects a location with an AQI of 450
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for hazardous AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for hazardous AQI levels should be displayed to the user."
+"TC-ActivityTips-011","Display tips for extremely hazardous AQI levels","ActivityTips","9","User selects a location","AQI = 500","1. User selects a location with an AQI of 500
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. getConsigliPerFAQ returns relevant tips for extremely hazardous AQI levels
+4. Verify that the tips are displayed to the user","Relevant tips for extremely hazardous AQI levels should be displayed to the user."
+"TC-ActivityTips-012","Display tips for unknown AQI levels","ActivityTips","9","User selects a location","AQI = -1","1. User selects a location with an unknown AQI value
+2. Posizione calls getConsigliPerFAQ(AQI)
+3. Verify that an error is handled appropriately","An error should be handled and appropriate feedback should be provided to the user."

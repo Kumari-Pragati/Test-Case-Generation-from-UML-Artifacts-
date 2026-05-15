@@ -1,0 +1,75 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration,User Registration,3,- System is running; no user with provided email exists.,"- Email: `volunteer1@example.com`
+- Password: `SecurePass123!`
+- Name: `John`
+- Surname: `Doe`
+- Cell: `+393331234567`
+- DoB: `1990-05-15`","1. Navigate to registration page.
+2. Enter all test data.
+3. Submit registration form.","- User account created in `Utente` table with `isActive=1`, `isVolontario=1`, `isCoordinatore=0`.
+- No errors; confirmation message displayed."
+TC-AUTHENTICATION-002,Failed registration with duplicate email,User Registration,3,- User `volunteer1@example.com` already exists.,"- Email: `volunteer1@example.com` (duplicate)
+- Password: `SecurePass123!`","1. Navigate to registration page.
+2. Enter duplicate email and valid password.
+3. Submit form.","- Error message: ""Email already registered.""
+- No new user created in database."
+TC-AUTHENTICATION-003,Successful login with valid credentials,User Login,"3, 6",- User `volunteer1@example.com` exists with password `SecurePass123!`.,"- Email: `volunteer1@example.com`
+- Password: `SecurePass123!`","1. Navigate to login page.
+2. Enter credentials.
+3. Submit login.","- JWT token generated and stored in `Token` table with `revoked=false`.
+- User redirected to home page; `isActive=1` in `Utente` table."
+TC-AUTHENTICATION-004,Failed login with incorrect password,User Login,"3, 6",- User `volunteer1@example.com` exists with password `SecurePass123!`.,"- Email: `volunteer1@example.com`
+- Password: `WrongPass123!`","1. Navigate to login page.
+2. Enter email and incorrect password.
+3. Submit login.","- Error message: ""Invalid credentials.""
+- No token generated; user remains on login page."
+TC-EMERGENCY-001,Create emergency as authenticated coordinator,Emergency Creation,4,- User `coordinator1@example.com` is logged in with `isCoordinatore=1`.,"- Name: `Flood in Milan`
+- Description: `River overflow; evacuate zone A`
+- Region: `Lombardia`
+- Province: `Milano`
+- Start Date: `2023-10-01`
+- End Date: `2023-10-03`","1. Click ""Inserisci emergenza.""
+2. Enter all test data.
+3. Submit form.","- Emergency record created in `Emergenza` table with `isActive=1`.
+- Message: ""Emergenza creata con successo."""
+TC-EMERGENCY-002,Create emergency with incomplete data,Emergency Creation,4,- User `coordinator1@example.com` is logged in.,"- Name: `Flood in Milan` (missing description, dates)","1. Click ""Inserisci emergenza.""
+2. Enter only name; leave other fields blank.
+3. Submit form.","- Error message: ""Compila tutti i campi obbligatori.""
+- No record created in `Emergenza` table."
+TC-EMERGENCY-003,View emergencies as unauthenticated user,Emergency Viewing,2,- No user is logged in.,,"1. Click ""Visualizza emergenze.""","- Redirect to login page with message: ""Autenticazione richiesta."""
+TC-EMERGENCY-004,View emergencies with no active emergencies,Emergency Viewing,2,- User `volunteer1@example.com` is logged in; no active emergencies exist.,,"1. Click ""Visualizza emergenze.""","- Message: ""Nessuna emergenza attiva."""
+TC-TASK-001,Create task as authenticated user,Task Management,"1, 7",- User `coordinator1@example.com` is logged in; emergency `idEmergenza=1` exists.,"- Name: `Distribute food supplies`
+- Description: `Deliver to shelter X`
+- Requested Users: `volunteer1@example.com`
+- Region: `Lombardia`","1. Click ""Crea nuovo compito.""
+2. Enter test data.
+3. Submit form.","- Task record created in `Compito` with `isActive=1`, `terminato=0`.
+- Assignment record created in `Assegnazione` with `utentiRichiesti=""volunteer1@example.com""`."
+TC-TASK-002,Assign task to volunteer (auto-assignment),Task Assignment,1,"- Task `id=1` exists with `utentiRichiesti=""volunteer1@example.com""`.
+- User `volunteer1@example.com` is logged in.",,"1. Volunteer clicks ""Accetta compito"" for task `id=1`.","- Record created in `UtenteCompito` with `dataInizio=current_timestamp`, `isActive=1`.
+- `Assegnazione` record updated with `accetta=1`, `terminata=0`."
+TC-TASK-003,Terminate task as coordinator,Task Termination,1,"- Task `id=1` exists with `terminato=0`.
+- User `coordinator1@example.com` is logged in.",,"1. Coordinator clicks ""Termina compito"" for task `id=1`.","- `Compito` record updated with `terminato=1`, `isActive=0`.
+- `Assegnazione` record updated with `terminata=1`."
+TC-TASK-004,Remove volunteer from task (edge case: no volunteer assigned),Volunteer Removal,5,"- Task `id=1` exists but has no assigned volunteer (`UtenteCompito` empty).
+- User `coordinator1@example.com` is logged in.",,"1. Click ""Visualizza emergenza"" → select task `id=1`.
+2. Attempt to remove volunteer.","- Error message: ""Nessun volontario assegnato a questo compito."""
+TC-TASK-005,Terminate emergency with assigned tasks,Emergency Termination,8,"- Emergency `idEmergenza=1` exists with 2 active tasks (`terminato=0`).
+- User `coordinator1@example.com` is logged in.",,"1. Click ""Termina emergenza"" for `idEmergenza=1`.","- `Emergenza` record updated with `isActive=0`, `dataFine=current_timestamp`.
+- Message: ""2 emergenze terminate"" (or similar, based on actual count)."
+TC-ROLE-001,Promote volunteer to coordinator,Role Management,1,"- User `volunteer1@example.com` exists with `isVolontario=1`, `isCoordinatore=0`.
+- User `admin@example.com` is logged in as admin.",,"1. Admin clicks ""Promote"" for `volunteer1@example.com`.","- `Utente` record updated: `isVolontario=1`, `isCoordinatore=1`.
+- Message: ""Ruolo aggiornato."""
+TC-ROLE-002,Demote coordinator to volunteer,Role Management,1,"- User `coordinator1@example.com` exists with `isCoordinatore=1`.
+- User `admin@example.com` is logged in as admin.",,"1. Admin clicks ""Demote"" for `coordinator1@example.com`.","- `Utente` record updated: `isCoordinatore=0`.
+- Message: ""Ruolo aggiornato."" (No change to `isVolontario` if not explicitly set.)"
+TC-ERROR-001,Invalid token for task creation,API Security,7,- No valid token exists for user.,,1. Send `POST /nuovoCompito` with expired/invalid JWT token.,"- HTTP 401 error response.
+- Log entry in `Logger` with error details."
+TC-ERROR-002,Database failure during task creation,Database Integrity,7,- Database connection is temporarily unavailable.,,1. User attempts to create a task.,"- HTTP 500 error response.
+- Log entry in `Logger` with database error details."
+TC-EDGE-001,Terminate emergency with no tasks,Emergency Termination,8,- Emergency `idEmergenza=1` exists but has no tasks.,,"1. Click ""Termina emergenza"" for `idEmergenza=1`.","- `Emergenza` record updated with `isActive=0`.
+- Message: ""Nessuna emergenza terminata"" or ""Emergenza terminata senza compiti."""
+TC-EDGE-002,User updates personal info with invalid email format,User Profile,1,- User `volunteer1@example.com` is logged in.,- New Email: `invalid-email` (no @ symbol),"1. Navigate to profile settings.
+2. Update email to `invalid-email`.
+3. Submit changes.","- Error message: ""Formato email non valido.""
+- No changes saved to `Utente` table."

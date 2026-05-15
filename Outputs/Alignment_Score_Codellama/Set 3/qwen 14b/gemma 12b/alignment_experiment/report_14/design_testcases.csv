@@ -1,0 +1,157 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Create a new user,User,"1, 6",None,"- Valid user details (name, surname, email, neighborhood)
+- Invalid user details (missing fields, invalid email format)","1. Request user creation with valid details.
+2. Check if the user creation process is initiated.
+3. Verify that the user is created successfully.
+4. Request user creation with invalid details.
+5. Verify that the user creation fails due to invalid input.","- A new user is created with valid details.
+- An error message is displayed for invalid user details."
+TC-Authentication-002,Authenticate a user,Authentication,"1, 6",User is created,"- Valid credentials (email, password)
+- Invalid credentials (wrong email, wrong password)","1. Attempt to authenticate with valid credentials.
+2. Verify that the authentication process is successful.
+3. Attempt to authenticate with invalid credentials.
+4. Verify that the authentication fails.","- Successful authentication with valid credentials.
+- Failed authentication with invalid credentials."
+TC-Localization-003,Verify user localization,Localization,2,User is authenticated,"- Valid location data
+- Invalid location data","1. Proceed to localization verification with valid location data.
+2. Verify that the localization process completes successfully.
+3. Proceed to localization verification with invalid location data.
+4. Verify that the localization process fails and repeats until valid data is provided.","- Successful localization with valid location data.
+- Repeated localization verification with invalid location data until valid data is entered."
+TC-HomeNavigation-004,Navigate from home screen,Navigation,3,User is logged in,"- Clicking on profile photo
+- Clicking on notification icon
+- Interacting with the map
+- Interacting with the menu","1. Click on the profile photo from the home screen.
+2. Verify navigation to the profile page.
+3. Click on the notification icon from the home screen.
+4. Verify navigation to the notification section.
+5. Interact with the map from the home screen.
+6. Verify navigation to the full screen map.
+7. Interact with the menu from the home screen.
+8. Verify navigation to the menu interaction.
+9. Click on the home icon from the menu interaction.
+10. Verify navigation back to the home screen.
+11. Click on the personal profile icon from the menu interaction.
+12. Verify navigation to the profile page.
+13. Click on the chat icon from the menu interaction.
+14. Verify navigation to the chat section.
+15. Click on the general access icon from the chat section.
+16. Verify navigation to the general dashboard.",- Correct navigation based on user actions from the home screen.
+TC-PostInteraction-005,Interact with a post,Post,4,User is logged in,"- Specific post selection
+- Comment submission","1. Navigate to the general dashboard.
+2. Select a specific post.
+3. Load related comments.
+4. Open the full screen view of the post.
+5. Add a comment to the post.
+6. Save the comment.
+7. Verify that the comment is saved and displayed in the full screen post view.","- Successful loading and display of comments.
+- Successful addition and saving of a comment."
+TC-ProfileSearch-006,Search and interact with profiles,ProfileSearch,5,User is logged in,"- Resident profile search
+- Business profile search
+- Adding to contacts
+- Viewing unsold items
+- Booking an appointment","1. Perform a search for a resident profile.
+2. Verify navigation to the resident profile.
+3. Attempt to add the resident to contacts.
+4. Verify navigation to the chat interface.
+5. Perform a search for a business profile.
+6. Verify navigation to the business profile.
+7. View unsold items from the business profile.
+8. Verify navigation to the view unsold items section.
+9. View promotions from the business profile.
+10. Verify navigation to the view promotions section.
+11. Book an appointment from the business profile.
+12. Verify navigation to the calendar interface.
+13. Confirm the booking operation.
+14. Verify successful confirmation of the booking.",- Correct navigation and interaction based on the type of profile searched.
+TC-CommentAssociation-007,Associate a comment with a post,CommentAssociation,1,User is logged in,"- Valid comment details (content)
+- Invalid comment details (empty content)","1. Create a new comment with valid details.
+2. Verify that the comment is associated with the correct post.
+3. Attempt to create a comment with invalid details.
+4. Verify that the comment creation fails due to invalid input.","- Successful association of a valid comment with a post.
+- Failure to associate an invalid comment with a post."
+TC-UserInheritance-008,Inherit properties from User to BusinessUser,UserInheritance,1,User is logged in,"- BusinessUser details (companyName, companyDescription)
+- Regular User details (name, surname, email)","1. Create a BusinessUser with valid details.
+2. Verify that the BusinessUser inherits all properties from the User class.
+3. Create a regular User with valid details.
+4. Verify that the regular User does not inherit additional properties from the BusinessUser class.","- BusinessUser inherits all properties from the User class.
+- Regular User does not inherit additional properties from the BusinessUser class."
+TC-ChatListAssociation-009,Associate a chat list with a user,ChatListAssociation,1,User is logged in,"- Valid chat list details (chatList)
+- Invalid chat list details (empty chatList)","1. Create a new chat list with valid details.
+2. Verify that the chat list is associated with the correct user.
+3. Attempt to create a chat list with invalid details.
+4. Verify that the chat list creation fails due to invalid input.","- Successful association of a valid chat list with a user.
+- Failure to associate an invalid chat list with a user."
+TC-NeighborhoodAssociation-010,Associate a neighborhood with a user,NeighborhoodAssociation,1,User is logged in,"- Valid neighborhood details (googleCode)
+- Invalid neighborhood details (empty googleCode)","1. Create a new neighborhood association with valid details.
+2. Verify that the neighborhood is associated with the correct user.
+3. Attempt to create a neighborhood association with invalid details.
+4. Verify that the neighborhood association fails due to invalid input.","- Successful association of a valid neighborhood with a user.
+- Failure to associate an invalid neighborhood with a user."
+TC-MapInteraction-011,Interact with the map,MapInteraction,3,User is logged in,- Map interaction,"1. Interact with the map from the home screen.
+2. Verify navigation to the full screen map.
+3. Interact with the map again.
+4. Verify navigation back to the home screen.",- Correct navigation based on map interaction.
+TC-MenuInteraction-012,Interact with the menu,MenuInteraction,3,User is logged in,- Menu interaction,"1. Interact with the menu from the home screen.
+2. Verify navigation to the menu interaction.
+3. Click on the home icon from the menu interaction.
+4. Verify navigation back to the home screen.
+5. Click on the personal profile icon from the menu interaction.
+6. Verify navigation to the profile page.
+7. Click on the chat icon from the menu interaction.
+8. Verify navigation to the chat section.
+9. Click on the general access icon from the chat section.
+10. Verify navigation to the general dashboard.",- Correct navigation based on menu interaction.
+TC-CommentSaving-013,Save a comment,CommentSaving,4,User is logged in,"- Valid comment details (content)
+- Invalid comment details (empty content)","1. Navigate to the general dashboard.
+2. Select a specific post.
+3. Load related comments.
+4. Open the full screen view of the post.
+5. Add a comment with valid details.
+6. Save the comment.
+7. Verify that the comment is saved and displayed in the full screen post view.
+8. Add a comment with invalid details.
+9. Save the comment.
+10. Verify that the comment saving fails due to invalid input.","- Successful saving of a valid comment.
+- Failure to save an invalid comment."
+TC-AppointmentBooking-014,Book an appointment,AppointmentBooking,5,User is logged in,"- Valid appointment details (date, time)
+- Invalid appointment details (incorrect date format)","1. Search for a business profile.
+2. Navigate to the business profile.
+3. Book an appointment with valid details.
+4. Verify that the appointment is booked successfully.
+5. Book an appointment with invalid details.
+6. Verify that the appointment booking fails due to invalid input.","- Successful booking of a valid appointment.
+- Failure to book an invalid appointment."
+TC-PromotionViewing-015,View promotions,PromotionViewing,5,User is logged in,- Valid promotion details,"1. Search for a business profile.
+2. Navigate to the business profile.
+3. View promotions from the business profile.
+4. Verify that the promotions are displayed correctly.",- Successful viewing of promotions.
+TC-UnsoldItemsViewing-016,View unsold items,UnsoldItemsViewing,5,User is logged in,- Valid unsold item details,"1. Search for a business profile.
+2. Navigate to the business profile.
+3. View unsold items from the business profile.
+4. Verify that the unsold items are displayed correctly.",- Successful viewing of unsold items.
+TC-DatabaseWriteOperation-017,Write operation to the database,DatabaseWriteOperation,5,User is logged in,"- Valid booking details (date, time)","1. Search for a business profile.
+2. Navigate to the business profile.
+3. Book an appointment with valid details.
+4. Wait for the database write operation to complete.
+5. Verify that the booking is confirmed successfully.",- Successful database write operation and confirmation of the booking.
+TC-UserCreationFlow-018,Complete user creation flow,UserCreationFlow,"2, 6",None,"- Valid user details (name, surname, email, neighborhood)
+- Invalid user details (missing fields, invalid email format)","1. Start the user creation process.
+2. Provide valid user details.
+3. Verify that the user is created successfully.
+4. Provide invalid user details.
+5. Verify that the user creation fails due to invalid input.
+6. Attempt to authenticate with valid credentials.
+7. Verify that the authentication process is successful.
+8. Attempt to authenticate with invalid credentials.
+9. Verify that the authentication fails.","- Successful user creation and authentication with valid details.
+- Failure in user creation and authentication with invalid details."
+TC-ProfileNavigation-019,Navigate between profile sections,ProfileNavigation,3,User is logged in,"- Clicking on different icons (home, profile, chat)","1. Click on the home icon from the profile page.
+2. Verify navigation back to the home screen.
+3. Click on the personal profile icon from the home screen.
+4. Verify navigation to the profile page.
+5. Click on the chat icon from the home screen.
+6. Verify navigation to the chat section.
+7. Click on the general access icon from the chat section.
+8. Verify navigation to the general dashboard.",- Correct navigation based on user actions from the profile page.
+TC-PostComments-020,Manage post comments,PostComments,4,User is logged in,,,

@@ -1,0 +1,121 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-InserimentoModificaPiante-001,Insert New Plant Record,Inserimento/Modifica Piante,1,User is authenticated and logged in.,"- Valid plant name: ""Rose""
+- Valid plant description: ""A beautiful flowering shrub.""","1. Navigate to the plant insertion page.
+2. Enter the plant name ""Rose"".
+3. Enter the plant description ""A beautiful flowering shrub."".
+4. Submit the form.","- The plant record is successfully inserted into the database.
+- Confirmation message is displayed to the user."
+TC-LetturaPiante-002,Read Plant Records,Lettura Piante,1,User is authenticated and logged in.,"- Existing plant name: ""Rose""","1. Navigate to the plant reading page.
+2. Search for the plant name ""Rose"".
+3. Click on the search result.","- The details of the plant ""Rose"" are displayed.
+- No errors occur during the read operation."
+TC-InserimentoModificaDiario-003,Insert New Diary Entry,Inserimento/Modifica Diario,1,User is authenticated and logged in.,"- Valid diary entry title: ""Today's Activities""
+- Valid diary entry content: ""Watered the plants and took pictures.""","1. Navigate to the diary insertion page.
+2. Enter the diary entry title ""Today's Activities"".
+3. Enter the diary entry content ""Watered the plants and took pictures."".
+4. Submit the form.","- The diary entry is successfully inserted into the database.
+- Confirmation message is displayed to the user."
+TC-LetturaDiario-004,Read Diary Entries,Lettura Diario,1,User is authenticated and logged in.,"- Existing diary entry title: ""Today's Activities""","1. Navigate to the diary reading page.
+2. Search for the diary entry title ""Today's Activities"".
+3. Click on the search result.","- The details of the diary entry ""Today's Activities"" are displayed.
+- No errors occur during the read operation."
+TC-OperazioniAccesso-005,Perform Access Operations,Operazioni di Accesso,1,User is authenticated and logged in.,"- Valid user credentials: email=""test@example.com"", password=""password123""","1. Navigate to the access operations page.
+2. Click on the sign-out button.","- The user is signed out successfully.
+- Confirmation message is displayed to the user."
+TC-Home-006,Navigate to Home Page,Home,2,User is authenticated and logged in.,None,"1. Open the application.
+2. Navigate to the home page.","- The home page is displayed.
+- Curiosities of the day and function pages are visible."
+TC-Diario-007,Navigate to Diary Page,Diario,2,User is authenticated and logged in.,None,"1. Navigate to the home page.
+2. Click on the diary navigation link.","- The diary page is displayed.
+- Diary entries are listed."
+TC-AnalisiPianta-008,Navigate to Plant Analysis Page,Analisi Pianta,2,User is authenticated and logged in.,None,"1. Navigate to the home page.
+2. Click on the plant analysis navigation link.","- The plant analysis page is displayed.
+- Options for analyzing plants are available."
+TC-RilevatoreMalattia-009,Navigate to Disease Detector Page,Rilevatore Malattia,2,User is authenticated and logged in.,None,"1. Navigate to the home page.
+2. Click on the disease detector navigation link.","- The disease detector page is displayed.
+- Options for detecting diseases are available."
+TC-Fotocamera-010,Navigate to Camera Page,Fotocamera,2,User is authenticated and logged in.,None,"1. Navigate to the home page.
+2. Click on the camera navigation link.","- The camera page is displayed.
+- Camera functionality is available."
+TC-Authentication-011,Sign Out User,Authentication,"2, 3",User is authenticated and logged in.,None,"1. Navigate to the home page.
+2. Click on the sign-out button.","- The user is signed out successfully.
+- Confirmation message is displayed to the user."
+TC-Authentication-012,Sign In User,Authentication,"2, 3",User account exists.,"- Valid email: ""test@example.com""
+- Valid password: ""password123""","1. Navigate to the authentication page.
+2. Enter the email ""test@example.com"".
+3. Enter the password ""password123"".
+4. Click on the sign-in button.","- The user is signed in successfully.
+- Confirmation message is displayed to the user."
+TC-Authentication-013,Sign Up New User,Authentication,"2, 3",User account does not exist.,"- Valid email: ""newuser@example.com""
+- Valid password: ""password123""
+- Confirm password: ""password123""","1. Navigate to the authentication page.
+2. Click on the sign-up button.
+3. Enter the email ""newuser@example.com"".
+4. Enter the password ""password123"".
+5. Confirm the password ""password123"".
+6. Click on the create account button.","- The new user account is created successfully.
+- Confirmation message is displayed to the user."
+TC-GeminiAIService-014,Identify Plant Species Using AI,Gemini AI API,4,User is authenticated and logged in.,"- Valid plant photo file: ""rose.jpg""","1. Navigate to the camera page.
+2. Take a photo of a plant.
+3. Upload the photo ""rose.jpg"".
+4. Request plant species identification from Gemini AI API.","- The plant species is identified correctly.
+- The identified species is stored in Firebase Storage.
+- Confirmation message is displayed to the user."
+TC-FirebaseStorage-015,Retrieve Personal Storage Path,Firebase Storage,5,User is authenticated and logged in.,None,"1. Navigate to the main application page.
+2. Request personal storage path from Firebase Storage.","- The personal storage path is retrieved successfully.
+- Confirmation message is displayed to the user."
+TC-FirebaseStorage-016,Download Photos for Each Species,Firebase Storage,5,User is authenticated and logged in.,None,"1. Navigate to the main application page.
+2. Request photos for each species present from Firebase Storage.","- The download URLs for each requested photo are provided.
+- Confirmation message is displayed to the user."
+TC-Authentication-017,Update Password,Authentication,"2, 3",User is authenticated and logged in.,"- Current password: ""oldpassword""
+- New password: ""newpassword123""
+- Confirm new password: ""newpassword123""","1. Navigate to the authentication page.
+2. Click on the change password button.
+3. Enter the current password ""oldpassword"".
+4. Enter the new password ""newpassword123"".
+5. Confirm the new password ""newpassword123"".
+6. Click on the update password button.","- The password is updated successfully.
+- Confirmation message is displayed to the user."
+TC-Authentication-018,Invalid Token Authentication,Authentication,3,User is not authenticated.,"- Invalid token: ""invalidtoken""","1. Main process requests token from LocalUser.
+2. LocalUser attempts to authenticate with invalid token.","- Authentication fails due to invalid token.
+- Error message is displayed to the user."
+TC-Authentication-019,Null Token Authentication,Authentication,3,User is not authenticated.,"- Null token: """"","1. Main process requests token from LocalUser.
+2. LocalUser attempts to authenticate with null token.","- Authentication fails due to null token.
+- Error message is displayed to the user."
+TC-GeminiAIService-020,Invalid Photo Upload,Gemini AI API,4,User is authenticated and logged in.,"- Invalid photo file: ""invalidfile.txt""","1. Navigate to the camera page.
+2. Attempt to upload an invalid photo file ""invalidfile.txt"".
+3. Request plant species identification from Gemini AI API.","- The upload fails due to invalid file format.
+- Error message is displayed to the user."
+TC-FirebaseStorage-021,Retrieve Nonexistent Personal Storage Path,Firebase Storage,5,User is authenticated and logged in.,None,"1. Navigate to the main application page.
+2. Request personal storage path from Firebase Storage.
+3. Assume the personal storage path does not exist.","- An error message is displayed indicating the personal storage path does not exist.
+- Confirmation message is displayed to the user."
+TC-FirebaseStorage-022,Download Nonexistent Photos,Firebase Storage,5,User is authenticated and logged in.,None,"1. Navigate to the main application page.
+2. Request photos for each species present from Firebase Storage.
+3. Assume no photos are present for any species.","- An error message is displayed indicating no photos are available.
+- Confirmation message is displayed to the user."
+TC-Authentication-023,Sign In with Incorrect Credentials,Authentication,"2, 3",User account exists.,"- Invalid email: ""wrong@example.com""
+- Invalid password: ""wrongpassword""","1. Navigate to the authentication page.
+2. Enter the email ""wrong@example.com"".
+3. Enter the password ""wrongpassword"".
+4. Click on the sign-in button.","- The sign-in attempt fails due to incorrect credentials.
+- Error message is displayed to the user."
+TC-Authentication-024,Sign Up with Existing Email,Authentication,"2, 3",User account already exists.,"- Existing email: ""existing@example.com""
+- Valid password: ""password123""
+- Confirm password: ""password123""","1. Navigate to the authentication page.
+2. Click on the sign-up button.
+3. Enter the email ""existing@example.com"".
+4. Enter the password ""password123"".
+5. Confirm the password ""password123"".
+6. Click on the create account button.","- The sign-up attempt fails due to existing email.
+- Error message is displayed to the user."
+TC-Authentication-025,Change Password with Incorrect Current Password,Authentication,"2, 3",User is authenticated and logged in.,"- Incorrect current password: ""wrongpassword""
+- New password: ""newpassword123""
+- Confirm new password: ""newpassword123""","1. Navigate to the authentication page.
+2. Click on the change password button.
+3. Enter the incorrect current password ""wrongpassword"".
+4. Enter the new password ""newpassword123"".
+5. Confirm the new password ""newpassword123"".
+6. Click on the update password button.","- The password change attempt fails due to incorrect current password.
+- Error message is displayed to the user."
+TC-Authentication,,,,,,,

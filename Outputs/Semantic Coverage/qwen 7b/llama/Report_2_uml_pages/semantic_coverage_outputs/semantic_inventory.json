@@ -1,0 +1,250 @@
+{
+  "concepts": [
+    "accesso all'app",
+    "1° accesso",
+    "utente gia' registrato?",
+    "home",
+    "login",
+    "registrazione",
+    "user",
+    "tragitto in corso",
+    "avvia tragitto",
+    "tragitto terminato",
+    "calcolo emissioni",
+    "menu orrizontale",
+    "visualizza report settimanale",
+    "visualizza dati personali",
+    "inserisci nuovi dati",
+    "system",
+    "utente",
+    "applicazione",
+    "server",
+    "database"
+  ],
+  "flows": [
+    "accesso all'app -> 1° accesso — type=association; label=\"start\"; explanation=\"initial access\"",
+    "1° accesso -> utente gia' registrato? — type=decision; label=\"start\"; explanation=\"first access decision\"",
+    "utente gia' registrato? -> registrazione — type=association; label=\"no\"; explanation=\"no registration\"",
+    "utente gia' registrato? -> login — type=association; label=\"yes\"; explanation=\"already registered\"",
+    "login -> home — type=association; label=\"login\"; explanation=\"login to home\"",
+    "registrazione -> home — type=association; label=\"registration\"; explanation=\"registration to home\"",
+    "flow 1: accesso all'app -> 1° accesso -> utente gia' registrato? -> (no) -> registrazione -> home",
+    "flow 2: accesso all'app -> 1° accesso -> utente gia' registrato? -> (yes) -> login -> home",
+    "this sequence diagram models the flow of a user accessing an application, with a decision point for registration status.",
+    "the user can either register or login if already registered.",
+    "the main flows show the two possible paths: registration or login.",
+    "the decision point is based on the user's registration status.",
+    "tragitto in corso -> avvia tragitto — type=transition; label=si; explanation=starts the course",
+    "avvia tragitto -> tragitto terminato — type=transition; label=si; explanation=ends the course",
+    "tragitto terminato -> calcolo emissioni — type=transition; label=si; explanation=calculate emissions",
+    "tragitto in corso -> vuoi cambiare sezione? — type=decision; label=no; explanation=do not change section",
+    "vuoi cambiare sezione? -> menu orrizontale — type=transition; label=si; explanation=change section",
+    "flow 1: avvia tragitto -> tragitto terminato -> calcolo emissioni",
+    "this sequence diagram models the flow of a course with a start, end, and calculation of emissions.",
+    "the user can choose to change sections or not, and the system will either end the course or calculate emissions.",
+    "the diagram does not show any loops or repeated behavior.",
+    "visualizza report settimanale -> menu orrizontale — type=transition; label=si; explanation=if the user chooses to view the report, they are taken to the horizontal menu",
+    "menu orrizontale -> visualizza report settimanale — type=transition; label=si; explanation=if the user selects an option from the menu, they are taken back to the report visualization",
+    "flow 1: the user views the report, then navigates to the menu, and finally returns to the report",
+    "flow 2: none",
+    "the diagram models the interaction between the user and the system for viewing reports and navigating the menu",
+    "the user can view the report and then navigate to the menu, or they can choose not to view the report and exit the system",
+    "the system provides a horizontal menu for the user to navigate and view reports",
+    "visualizza dati personali -> inserisci nuovi dati — type=association; label=\"si\"; explanation=\"insert new data\"",
+    "inserisci nuovi dati -> menu orrizontale — type=association; label=\"si\"; explanation=\"menu\"",
+    "menu orrizontale -> visualizza dati personali — type=association; label=\"no\"; explanation=\"no\"",
+    "flow 1: visualizza dati personali -> inserisci nuovi dati -> menu orrizontale -> visualizza dati personali",
+    "the diagram models a user's interaction with a profile, allowing them to view their personal data, insert new data, and access a menu.",
+    "the user can either view their personal data or insert new data, which leads to a menu.",
+    "if the user chooses to insert new data, they are presented with a menu.",
+    "the user can then return to viewing their personal data.",
+    "the system does not allow the user to view their personal data after inserting new data.",
+    "utente -> applicazione — type=association; label=\"dispatch\"; explanation=\"the user dispatches their credentials to the application\"",
+    "applicazione -> server — type=association; label=\"insert credentials\"; explanation=\"the application inserts the user's credentials into the server\"",
+    "server -> database — type=association; label=\"verify credentials\"; explanation=\"the server verifies the user's credentials against the database\"",
+    "database -> server — type=association; label=\"data trovati\"; explanation=\"the database returns the verified data to the server\"",
+    "server -> applicazione — type=association; label=\"confronto con quelli inseriti\"; explanation=\"the server confronts the verified data with the inserted data\"",
+    "applicazione -> utente — type=association; label=\"login avvenuto\"; explanation=\"the application logs in the user\"",
+    "flow 1: dispatch -> inserire credenziali -> invio credenziali -> confronto con quelli inseriti -> login avvenuto",
+    "the diagram models a sequence of events where the user dispatches their credentials, which are then inserted into the application, verified by the server, and finally logged in.",
+    "the user's credentials are verified against the database, and if they match, the user is logged in.",
+    "the system uses a sequence of associations to connect the user, application, server, and database.",
+    "utente -> applicazione — type=association; label=\"dispatch\"; explanation=\"utente dispatches to applicazione\"",
+    "applicazione -> server — type=association; label=\"avvio percorso\"; explanation=\"applicazione starts a new path to server\"",
+    "server -> database — type=association; label=\"aggiunta percorso\"; explanation=\"server adds a new path to database\"",
+    "database -> server — type=association; label=\"nuovo percorso\"; explanation=\"database receives a new path from server\"",
+    "flow 1: utente -> applicazione -> server -> database -> utente - utente dispatches to applicazione, which starts a new path to server, which adds a new path to database, which receives a new path from server, and returns to utente",
+    "the diagram models a sequence of events where utente dispatches to applicazione, which starts a new path to server, which adds a new path to database, which receives a new path from server, and returns to utente.",
+    "the main flows are sequential and do not involve any decisions or loops.",
+    "the diagram does not show any errors or exceptions.",
+    "======================================================================"
+  ],
+  "validations": [
+    "utente gia' registrato? (no) -> registrazione",
+    "utente gia' registrato? (yes) -> login",
+    "tragitto in corso has two branches: si (avvia tragitto) and no (vuoi cambiare sezione?)",
+    "tragitto terminato has one branch: si (calcolo emissioni)",
+    "visualizza report settimanale? — if the user chooses to view the report, they are taken to the menu; otherwise, they are not taken to the menu",
+    "visualizza dati personali -> inserisci nuovi dati — condition=si; explanation=\"insert new data\"",
+    "inserisci nuovi dati -> menu orrizontale — condition=si; explanation=\"menu\"",
+    "menu orrizontale -> visualizza dati personali — condition=no; explanation=\"no\"",
+    "inserire credenziali -> invio credenziali — if the user's credentials are inserted successfully",
+    "confronto con quelli inseriti -> login avvenuto — if the verified data matches the inserted data"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "Sequence",
+      "concepts": [
+        "accesso all'app",
+        "1° accesso",
+        "utente gia' registrato?",
+        "home",
+        "login",
+        "registrazione",
+        "user"
+      ],
+      "flows": [
+        "accesso all'app -> 1° accesso — type=association; label=\"start\"; explanation=\"initial access\"",
+        "1° accesso -> utente gia' registrato? — type=decision; label=\"start\"; explanation=\"first access decision\"",
+        "utente gia' registrato? -> registrazione — type=association; label=\"no\"; explanation=\"no registration\"",
+        "utente gia' registrato? -> login — type=association; label=\"yes\"; explanation=\"already registered\"",
+        "login -> home — type=association; label=\"login\"; explanation=\"login to home\"",
+        "registrazione -> home — type=association; label=\"registration\"; explanation=\"registration to home\"",
+        "flow 1: accesso all'app -> 1° accesso -> utente gia' registrato? -> (no) -> registrazione -> home",
+        "flow 2: accesso all'app -> 1° accesso -> utente gia' registrato? -> (yes) -> login -> home",
+        "this sequence diagram models the flow of a user accessing an application, with a decision point for registration status.",
+        "the user can either register or login if already registered.",
+        "the main flows show the two possible paths: registration or login.",
+        "the decision point is based on the user's registration status."
+      ],
+      "validations": [
+        "utente gia' registrato? (no) -> registrazione",
+        "utente gia' registrato? (yes) -> login"
+      ]
+    },
+    {
+      "page_no": 2,
+      "uml_type": "Sequence",
+      "concepts": [
+        "tragitto in corso",
+        "avvia tragitto",
+        "tragitto terminato",
+        "calcolo emissioni",
+        "home",
+        "menu orrizontale"
+      ],
+      "flows": [
+        "tragitto in corso -> avvia tragitto — type=transition; label=si; explanation=starts the course",
+        "avvia tragitto -> tragitto terminato — type=transition; label=si; explanation=ends the course",
+        "tragitto terminato -> calcolo emissioni — type=transition; label=si; explanation=calculate emissions",
+        "tragitto in corso -> vuoi cambiare sezione? — type=decision; label=no; explanation=do not change section",
+        "vuoi cambiare sezione? -> menu orrizontale — type=transition; label=si; explanation=change section",
+        "flow 1: avvia tragitto -> tragitto terminato -> calcolo emissioni",
+        "this sequence diagram models the flow of a course with a start, end, and calculation of emissions.",
+        "the user can choose to change sections or not, and the system will either end the course or calculate emissions.",
+        "the diagram does not show any loops or repeated behavior."
+      ],
+      "validations": [
+        "tragitto in corso has two branches: si (avvia tragitto) and no (vuoi cambiare sezione?)",
+        "tragitto terminato has one branch: si (calcolo emissioni)"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "Activity",
+      "concepts": [
+        "visualizza report settimanale",
+        "menu orrizontale",
+        "user"
+      ],
+      "flows": [
+        "visualizza report settimanale -> menu orrizontale — type=transition; label=si; explanation=if the user chooses to view the report, they are taken to the horizontal menu",
+        "menu orrizontale -> visualizza report settimanale — type=transition; label=si; explanation=if the user selects an option from the menu, they are taken back to the report visualization",
+        "flow 1: the user views the report, then navigates to the menu, and finally returns to the report",
+        "flow 2: none",
+        "the diagram models the interaction between the user and the system for viewing reports and navigating the menu",
+        "the user can view the report and then navigate to the menu, or they can choose not to view the report and exit the system",
+        "the system provides a horizontal menu for the user to navigate and view reports"
+      ],
+      "validations": [
+        "visualizza report settimanale? — if the user chooses to view the report, they are taken to the menu; otherwise, they are not taken to the menu"
+      ]
+    },
+    {
+      "page_no": 4,
+      "uml_type": "Sequence",
+      "concepts": [
+        "visualizza dati personali",
+        "inserisci nuovi dati",
+        "menu orrizontale",
+        "user",
+        "system"
+      ],
+      "flows": [
+        "visualizza dati personali -> inserisci nuovi dati — type=association; label=\"si\"; explanation=\"insert new data\"",
+        "inserisci nuovi dati -> menu orrizontale — type=association; label=\"si\"; explanation=\"menu\"",
+        "menu orrizontale -> visualizza dati personali — type=association; label=\"no\"; explanation=\"no\"",
+        "flow 1: visualizza dati personali -> inserisci nuovi dati -> menu orrizontale -> visualizza dati personali",
+        "the diagram models a user's interaction with a profile, allowing them to view their personal data, insert new data, and access a menu.",
+        "the user can either view their personal data or insert new data, which leads to a menu.",
+        "if the user chooses to insert new data, they are presented with a menu.",
+        "the user can then return to viewing their personal data.",
+        "the system does not allow the user to view their personal data after inserting new data."
+      ],
+      "validations": [
+        "visualizza dati personali -> inserisci nuovi dati — condition=si; explanation=\"insert new data\"",
+        "inserisci nuovi dati -> menu orrizontale — condition=si; explanation=\"menu\"",
+        "menu orrizontale -> visualizza dati personali — condition=no; explanation=\"no\""
+      ]
+    },
+    {
+      "page_no": 5,
+      "uml_type": "Sequence",
+      "concepts": [
+        "utente",
+        "applicazione",
+        "server",
+        "database"
+      ],
+      "flows": [
+        "utente -> applicazione — type=association; label=\"dispatch\"; explanation=\"the user dispatches their credentials to the application\"",
+        "applicazione -> server — type=association; label=\"insert credentials\"; explanation=\"the application inserts the user's credentials into the server\"",
+        "server -> database — type=association; label=\"verify credentials\"; explanation=\"the server verifies the user's credentials against the database\"",
+        "database -> server — type=association; label=\"data trovati\"; explanation=\"the database returns the verified data to the server\"",
+        "server -> applicazione — type=association; label=\"confronto con quelli inseriti\"; explanation=\"the server confronts the verified data with the inserted data\"",
+        "applicazione -> utente — type=association; label=\"login avvenuto\"; explanation=\"the application logs in the user\"",
+        "flow 1: dispatch -> inserire credenziali -> invio credenziali -> confronto con quelli inseriti -> login avvenuto",
+        "the diagram models a sequence of events where the user dispatches their credentials, which are then inserted into the application, verified by the server, and finally logged in.",
+        "the user's credentials are verified against the database, and if they match, the user is logged in.",
+        "the system uses a sequence of associations to connect the user, application, server, and database."
+      ],
+      "validations": [
+        "inserire credenziali -> invio credenziali — if the user's credentials are inserted successfully",
+        "confronto con quelli inseriti -> login avvenuto — if the verified data matches the inserted data"
+      ]
+    },
+    {
+      "page_no": 6,
+      "uml_type": "Sequence",
+      "concepts": [
+        "utente",
+        "applicazione",
+        "server",
+        "database"
+      ],
+      "flows": [
+        "utente -> applicazione — type=association; label=\"dispatch\"; explanation=\"utente dispatches to applicazione\"",
+        "applicazione -> server — type=association; label=\"avvio percorso\"; explanation=\"applicazione starts a new path to server\"",
+        "server -> database — type=association; label=\"aggiunta percorso\"; explanation=\"server adds a new path to database\"",
+        "database -> server — type=association; label=\"nuovo percorso\"; explanation=\"database receives a new path from server\"",
+        "flow 1: utente -> applicazione -> server -> database -> utente - utente dispatches to applicazione, which starts a new path to server, which adds a new path to database, which receives a new path from server, and returns to utente",
+        "the diagram models a sequence of events where utente dispatches to applicazione, which starts a new path to server, which adds a new path to database, which receives a new path from server, and returns to utente.",
+        "the main flows are sequential and do not involve any decisions or loops.",
+        "the diagram does not show any errors or exceptions.",
+        "======================================================================"
+      ],
+      "validations": []
+    }
+  ]
+}

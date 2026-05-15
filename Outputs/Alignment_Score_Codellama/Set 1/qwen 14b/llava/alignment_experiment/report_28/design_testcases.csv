@@ -1,0 +1,130 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,User,"2, 4",User exists in the system with valid credentials.,"- username: ""testuser""
+- password: ""password123""","1. User attempts to log in with valid credentials.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns true indicating a successful login.",User is logged in successfully.
+TC-Login-002,Failed Login - Invalid Username,User,"2, 4",User does not exist in the system.,"- username: ""nonexistentuser""
+- password: ""password123""","1. User attempts to log in with invalid username.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns false indicating a failed login.",User is not logged in due to invalid username.
+TC-Login-003,Failed Login - Invalid Password,User,"2, 4",User exists in the system but with incorrect password.,"- username: ""testuser""
+- password: ""wrongpassword""","1. User attempts to log in with correct username and incorrect password.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns false indicating a failed login.",User is not logged in due to incorrect password.
+TC-APIManager-001,Create API,API Manager,4,User is logged in and has permission to create APIs.,"- name: ""NewAPI""
+- version: ""1.0""","1. User logs in successfully.
+2. User requests creation of a new API.
+3. APIManager receives the request.
+4. APIManager creates the new API with specified name and version.",New API is created successfully.
+TC-APIManager-002,Delete API,API Manager,4,User is logged in and has permission to delete APIs.,"- name: ""ExistingAPI""
+- version: ""1.0""","1. User logs in successfully.
+2. User requests deletion of an existing API.
+3. APIManager receives the request.
+4. APIManager deletes the specified API.",Existing API is deleted successfully.
+TC-Service-001,Handle Request,Service,4,User is logged in and APIManager is operational.,"- name: ""RequestName""","1. User logs in successfully.
+2. APIManager sends a request to the Service.
+3. Service receives the request.
+4. Service processes the request.",Service successfully handles the request.
+TC-Report-001,Generate Report,Report,4,User is logged in and APIManager is operational.,"- name: ""ReportName""","1. User logs in successfully.
+2. APIManager generates a report.
+3. Report receives the request to generate a report.
+4. Report generates the specified report.",Report is generated successfully.
+TC-DataManager-001,Manage Data,DataManager,5,User is logged in and APIManager is operational.,"- data: ""SampleData""","1. User logs in successfully.
+2. APIManager interacts with the DataManager.
+3. DataManager manages the specified data.
+4. APIManager receives confirmation from DataManager.",Data is managed successfully.
+TC-Flow-001,Full Interaction Flow,Main,"2, 4, 5",User is logged in and all components are operational.,"- username: ""testuser""
+- password: ""password123""
+- name: ""RequestName""
+- name: ""ReportName""","1. User logs in successfully.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager sends a request to the Service.
+5. Service processes the request.
+6. APIManager generates a report.
+7. Report generates the specified report.
+8. APIManager interacts with the DataManager.
+9. DataManager manages the specified data.
+10. APIManager confirms data management with Main.",All components interact successfully following the full interaction flow.
+TC-Logout-001,Logout,User,4,User is logged in.,"- username: ""testuser""","1. User logs in successfully.
+2. User requests to log out.
+3. APIManager receives the logout request.
+4. APIManager logs out the user.",User is logged out successfully.
+TC-APIManager-003,Failed API Creation - Duplicate Name,API Manager,4,User is logged in and an API with the same name already exists.,"- name: ""ExistingAPI""
+- version: ""1.0""","1. User logs in successfully.
+2. User requests creation of an API with an existing name.
+3. APIManager receives the request.
+4. APIManager checks for duplicate API name.
+5. APIManager returns an error indicating the API name is already in use.",API creation fails due to duplicate name.
+TC-APIManager-004,Failed API Deletion - Nonexistent API,API Manager,4,User is logged in and the specified API does not exist.,"- name: ""NonexistentAPI""
+- version: ""1.0""","1. User logs in successfully.
+2. User requests deletion of a non-existent API.
+3. APIManager receives the request.
+4. APIManager checks for the existence of the API.
+5. APIManager returns an error indicating the API does not exist.",API deletion fails due to non-existent API.
+TC-Service-002,Failed Request Handling - Invalid Request,Service,4,User is logged in and APIManager is operational.,"- name: ""InvalidRequest""","1. User logs in successfully.
+2. APIManager sends an invalid request to the Service.
+3. Service receives the invalid request.
+4. Service returns an error indicating the request is invalid.",Service fails to handle the invalid request.
+TC-Report-002,Failed Report Generation - Invalid Name,Report,4,User is logged in and APIManager is operational.,"- name: ""InvalidReportName""","1. User logs in successfully.
+2. APIManager generates a report with an invalid name.
+3. Report receives the request to generate an invalid report.
+4. Report returns an error indicating the report name is invalid.",Report generation fails due to invalid name.
+TC-DataManager-002,Failed Data Management - Invalid Data,DataManager,5,User is logged in and APIManager is operational.,"- data: ""InvalidData""","1. User logs in successfully.
+2. APIManager interacts with the DataManager with invalid data.
+3. DataManager returns an error indicating the data is invalid.
+4. APIManager receives the error from DataManager.",Data management fails due to invalid data.
+TC-Flow-002,Error Handling in Full Interaction Flow,Main,"2, 4, 5",User is logged in and all components are operational.,"- username: ""testuser""
+- password: ""password123""
+- name: ""InvalidRequest""
+- name: ""InvalidReportName""
+- data: ""InvalidData""","1. User logs in successfully.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager sends an invalid request to the Service.
+5. Service returns an error indicating the request is invalid.
+6. APIManager generates a report with an invalid name.
+7. Report returns an error indicating the report name is invalid.
+8. APIManager interacts with the DataManager with invalid data.
+9. DataManager returns an error indicating the data is invalid.
+10. APIManager confirms errors with Main.",All components handle errors appropriately during the full interaction flow.
+TC-EdgeCase-001,Edge Case - Empty Username,User,"2, 4",User is attempting to log in.,"- username: """"
+- password: ""password123""","1. User attempts to log in with an empty username.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns false indicating a failed login.",User is not logged in due to empty username.
+TC-EdgeCase-002,Edge Case - Empty Password,User,"2, 4",User is attempting to log in.,"- username: ""testuser""
+- password: """"","1. User attempts to log in with an empty password.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns false indicating a failed login.",User is not logged in due to empty password.
+TC-EdgeCase-003,Edge Case - Long Username,User,"2, 4",User is attempting to log in.,"- username: ""averyveryverylongusername""
+- password: ""password123""","1. User attempts to log in with a very long username.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns false indicating a failed login.",User is not logged in due to username exceeding maximum length.
+TC-EdgeCase-004,Edge Case - Long Password,User,"2, 4",User is attempting to log in.,"- username: ""testuser""
+- password: ""averyveryverylongpassword""","1. User attempts to log in with a very long password.
+2. APIManager receives the login request.
+3. APIManager verifies the user's credentials.
+4. APIManager returns false indicating a failed login.",User is not logged in due to password exceeding maximum length.
+TC-EdgeCase-005,Edge Case - Empty API Name,API Manager,4,User is logged in and has permission to create APIs.,"- name: """"
+- version: ""1.0""","1. User logs in successfully.
+2. User requests creation of an API with an empty name.
+3. APIManager receives the request.
+4. APIManager returns an error indicating the API name cannot be empty.",API creation fails due to empty name.
+TC-EdgeCase-006,Edge Case - Empty API Version,API Manager,4,User is logged in and has permission to create APIs.,"- name: ""NewAPI""
+- version: """"","1. User logs in successfully.
+2. User requests creation of an API with an empty version.
+3. APIManager receives the request.
+4. APIManager returns an error indicating the API version cannot be empty.",API creation fails due to empty version.
+TC-EdgeCase-007,Edge Case - Empty Request Name,Service,4,User is logged in and APIManager is operational.,"- name: """"","1. User logs in successfully.
+2. APIManager sends an empty request name to the Service.
+3. Service receives the request.
+4. Service returns an error indicating the request name cannot be empty.",Service fails to handle the request due to empty name.
+TC-EdgeCase-008,Edge Case - Empty Report Name,Report,4,User is logged in and APIManager is operational.,"- name: """"","1. User logs in successfully.
+2. APIManager generates a report with an empty name.
+3. Report receives the request to generate an",

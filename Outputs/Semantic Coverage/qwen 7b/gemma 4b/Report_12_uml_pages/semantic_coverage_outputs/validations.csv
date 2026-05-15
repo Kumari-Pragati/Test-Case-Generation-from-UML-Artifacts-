@@ -1,0 +1,26 @@
+validation
+"utente creato? — type=decision; label=""si""; branches=[""login""]; label=""no""; branches=[""createuser""]"
+"visualizzare profilo? — branch=""no"" -> logout — branch=""si"";"
+"visualizzare i miei annunci? — branch=""no"" -> logout — branch=""si"";"
+"eseguire il logout? — branch=""si"" -> logout — branch=""si"";"
+createnoticeboard (si) -> noticeboardcreated (si)
+createnoticeboard (no) -> bacheca
+"seleziona filtri? — branch=""no"", target=listnofilter"
+"seleziona filtri? — branch=""si"", target=filter"
+"filtro corretto? — branch=""no"", target=listnofilter"
+"filtro corretto? — branch=""si"", target=listwithfilter"
+"visualizzare dettagli? — branch=""no"", target=listnofilter"
+"visualizzare dettagli? — branch=""si"", target=noticeboarddetails"
+decision: vuoi prenotarti?
+branch: si -> listwithfilter
+branch: no -> listnofilter
+"gestione propri annunci? — condition=""yes/no"";"
+yes -> mynoticeboard
+no -> mynoticeboard
+"myprofile -> modifyaccount — condition=""vuoi aggiornare dati?""; branches=[""si"", ""no""]"
+- none
+"""check if noticeboard exist"" — type=decision; label=""si""; explanation=""if a noticeboard exists"""
+"""check if noticeboard exist"" — type=decision; label=""no""; explanation=""if a noticeboard does not exist"""
+if noticeboard's period finished:
+si (yes) -> db -> delete noticeboard
+no (no) -> main -> noticeboard does not exist anymore

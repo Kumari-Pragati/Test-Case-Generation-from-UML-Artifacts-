@@ -1,0 +1,88 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user,Utente,1,None,"- Valid email: test@example.com
+- Valid name: John Doe
+- Valid password: Passw0rd!","1. Call createUser(""John Doe"", ""test@example.com"", ""Passw0rd!"") method.
+2. Verify the return value is true.",The createUser method returns true indicating successful creation of a new user.
+TC-Utente-002,Check existing user credentials,Utente,1,A user with email test@example.com and password Passw0rd! has been created.,"- Email: test@example.com
+- Password: Passw0rd!","1. Call checkUser(""test@example.com"", ""Passw0rd!"") method.
+2. Verify the return value is true.",The checkUser method returns true indicating the user credentials are valid.
+TC-Utente-003,Reset user password,Utente,1,A user with email test@example.com exists.,- New password: NewPassw0rd!,"1. Call resetPassword(""test@example.com"", ""NewPassw0rd!"") method.
+2. Verify the return value is true.",The resetPassword method returns true indicating the password was successfully reset.
+TC-Utente-004,Add devices to user account,Utente,1,A user with email test@example.com exists.,- Device ID: D123,"1. Call addDevices(""D123"") method.
+2. Verify the return value is true.",The addDevices method returns true indicating the device was successfully added to the user account.
+TC-Utente-005,Retrieve user information,Utente,1,A user with email test@example.com exists.,None,"1. Call getUserInfo() method.
+2. Verify the returned list contains the user's ID, name, and email.","The getUserInfo method returns a list containing the user's ID, name, and email."
+TC-Devices-006,Get device information,Devices,1,A device with ID D123 exists.,None,"1. Call getDeviceInfo() method.
+2. Verify the returned list contains the device's ID and title.",The getDeviceInfo method returns a list containing the device's ID and title.
+TC-Config-007,Set light configuration,Config,1,A device with ID D123 exists.,- Light setting: true,"1. Call setLight(true) method.
+2. Verify the return value is true.",The setLight method returns true indicating the light configuration was successfully set.
+TC-Config-008,Set water configuration,Config,1,A device with ID D123 exists.,- Water setting: false,"1. Call setWater(false) method.
+2. Verify the return value is true.",The setWater method returns true indicating the water configuration was successfully set.
+TC-Config-009,Set minimum temperature configuration,Config,1,A device with ID D123 exists.,- Minimum temperature: 15.5,"1. Call setMinTemp(15.5) method.
+2. Verify the return value is true.",The setMinTemp method returns true indicating the minimum temperature configuration was successfully set.
+TC-Config-010,Set maximum temperature configuration,Config,1,A device with ID D123 exists.,- Maximum temperature: 30.0,"1. Call setMaxTemp(30.0) method.
+2. Verify the return value is true.",The setMaxTemp method returns true indicating the maximum temperature configuration was successfully set.
+TC-Config-011,Set minimum soil humidity configuration,Config,1,A device with ID D123 exists.,- Minimum soil humidity: 20.0,"1. Call setMinSoilHum(20.0) method.
+2. Verify the return value is true.",The setMinSoilHum method returns true indicating the minimum soil humidity configuration was successfully set.
+TC-Config-012,Set maximum soil humidity configuration,Config,1,A device with ID D123 exists.,- Maximum soil humidity: 80.0,"1. Call setMaxSoilHum(80.0) method.
+2. Verify the return value is true.",The setMaxSoilHum method returns true indicating the maximum soil humidity configuration was successfully set.
+TC-Config-013,Set minimum air humidity configuration,Config,1,A device with ID D123 exists.,- Minimum air humidity: 30.0,"1. Call setMinAirHum(30.0) method.
+2. Verify the return value is true.",The setMinAirHum method returns true indicating the minimum air humidity configuration was successfully set.
+TC-Config-014,Set maximum air humidity configuration,Config,1,A device with ID D123 exists.,- Maximum air humidity: 70.0,"1. Call setMaxAirHum(70.0) method.
+2. Verify the return value is true.",The setMaxAirHum method returns true indicating the maximum air humidity configuration was successfully set.
+TC-Config-015,Set minimum luminosity configuration,Config,1,A device with ID D123 exists.,- Minimum luminosity: 50.0,"1. Call setMinLum(50.0) method.
+2. Verify the return value is true.",The setMinLum method returns true indicating the minimum luminosity configuration was successfully set.
+TC-Config-016,Set maximum luminosity configuration,Config,1,A device with ID D123 exists.,- Maximum luminosity: 100.0,"1. Call setMaxLum(100.0) method.
+2. Verify the return value is true.",The setMaxLum method returns true indicating the maximum luminosity configuration was successfully set.
+TC-History-017,Update history record,History,1,A device with ID D123 exists.,"- Date: 2023-10-01
+- Air humidity: 60.0
+- Soil humidity: 40.0
+- Air temperature: 25.0
+- Luminosity: 75.0","1. Call updateHistory(""2023-10-01"", 60.0, 40.0, 25.0) method.
+2. Verify the return value is true.",The updateHistory method returns true indicating the history record was successfully updated.
+TC-History-018,Retrieve history records,History,1,A device with ID D123 exists and has history records.,None,"1. Call getHistory() method.
+2. Verify the returned list contains the date, air humidity, soil humidity, air temperature, and luminosity.",The getHistory method returns a list containing the history records.
+TC-Alert-019,Retrieve alert message,Alert,1,An alert message exists.,None,"1. Call getMessage() method.
+2. Verify the returned string contains the alert message.",The getMessage method returns the alert message.
+TC-Access-020,"Access system and click ""Serre""",Access,2,System is accessible.,None,"1. Initiate access to the system.
+2. Click the ""Serre"" button.
+3. Verify the default message is displayed.
+4. Check if there is at least one associated greenhouse.
+5. If yes, display the list of greenhouses.
+6. If no, display a default message.",The system displays the appropriate message based on the presence of associated greenhouses.
+TC-AddDevices-021,Add devices with valid input,AddDevices,3,System is accessible.,- Valid device ID: D123,"1. Initiate access to the system.
+2. Click the ""Add Devices"" button.
+3. Enter a valid device ID.
+4. Verify the operation is executed successfully.",The system adds the device successfully.
+TC-AddDevices-022,Add devices with invalid input,AddDevices,3,System is accessible.,- Invalid device ID: ABC,"1. Initiate access to the system.
+2. Click the ""Add Devices"" button.
+3. Enter an invalid device ID.
+4. Verify the operation fails and prompts for correction.",The system detects the invalid input and prompts for correction.
+TC-Configuration-023,Modify configuration with valid input,Configuration,4,System is accessible and a greenhouse is connected.,- Valid configuration values,"1. Initiate access to the system.
+2. Connect to a greenhouse.
+3. Click the ""Configuration"" button.
+4. Enter valid configuration values.
+5. Verify the operation is executed successfully.",The system modifies the configuration successfully.
+TC-Configuration-024,Modify configuration with invalid input,Configuration,4,System is accessible and a greenhouse is connected.,- Invalid configuration values,"1. Initiate access to the system.
+2. Connect to a greenhouse.
+3. Click the ""Configuration"" button.
+4. Enter invalid configuration values.
+5. Verify the operation fails and prompts for correction.",The system detects the invalid input and prompts for correction.
+TC-Configuration-025,Loop back to configuration input after detecting value error,Configuration,4,System is accessible and a greenhouse is connected.,- Invalid configuration values,"1. Initiate access to the system.
+2. Connect to a greenhouse.
+3. Click the ""Configuration"" button.
+4. Enter invalid configuration values.
+5. Verify the system detects the value error.
+6. Prompt for correction.
+7. Re-enter valid configuration values.
+8. Verify the operation is executed successfully.","The system detects the initial invalid input, prompts for correction, and executes the operation successfully upon receiving valid input."
+TC-Configuration-026,Handle no associated greenhouses,Configuration,4,System is accessible but no greenhouses are connected.,None,"1. Initiate access to the system.
+2. Attempt to connect to a greenhouse.
+3. Verify the system does not allow configuration changes due to no associated greenhouses.",The system prevents configuration changes due to the absence of associated greenhouses.
+TC-Configuration-027,Handle valid configuration input in loop,Configuration,4,System is accessible and a greenhouse is connected.,- Valid configuration values,"1. Initiate access to the system.
+2. Connect to a greenhouse.
+3. Click the ""Configuration"" button.
+4. Enter valid configuration values.
+5. Verify the operation is executed successfully.
+6. Re-enter valid configuration values.
+7.",

@@ -1,0 +1,96 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Verify User Registration with Valid Credentials,Utente,"2,3",None,"- Email: user@example.com
+- Password: password123","1. Call CreateWithEmailAndPassword(email, password)
+2. Check if Response is not an error
+3. Verify that user data is stored in the database",User is registered successfully and data is stored in the database.
+TC-Utente-002,Verify User Registration with Invalid Email,Utente,"2,3",None,"- Email: invalid_email
+- Password: password123","1. Call CreateWithEmailAndPassword(email, password)
+2. Check if Response is an error",Registration fails due to invalid email.
+TC-Utente-003,Verify User Registration with Invalid Password,Utente,"2,3",None,"- Email: user@example.com
+- Password: short","1. Call CreateWithEmailAndPassword(email, password)
+2. Check if Response is an error",Registration fails due to invalid password length.
+TC-Utente-004,Verify User Login with Valid Credentials,Utente,"2,3",User is registered,"- Email: user@example.com
+- Password: password123","1. Call signInWithEmailAndPassword(email, password)
+2. Check if Response is not an error
+3. Verify that user is logged in",User is logged in successfully.
+TC-Utente-005,Verify User Login with Invalid Email,Utente,"2,3",User is registered,"- Email: invalid_email
+- Password: password123","1. Call signInWithEmailAndPassword(email, password)
+2. Check if Response is an error",Login fails due to invalid email.
+TC-Utente-006,Verify User Login with Invalid Password,Utente,"2,3",User is registered,"- Email: user@example.com
+- Password: wrong_password","1. Call signInWithEmailAndPassword(email, password)
+2. Check if Response is an error",Login fails due to incorrect password.
+TC-Mission-001,Verify Mission Completion by User,Mission,"1,5",User is logged in and has a mission,"- Mission ID: 1
+- New Status: true","1. Call SetSuperato(Mission ID, New Status)
+2. Check if Mission is marked as completed",Mission is marked as completed.
+TC-Mission-002,Verify Attempt to Complete Non-Existent Mission,Mission,"1,5",User is logged in,"- Mission ID: 999
+- New Status: true","1. Call SetSuperato(Mission ID, New Status)
+2. Check if Mission is not marked as completed",Mission is not marked as completed due to non-existent ID.
+TC-Mission-003,Verify Real-Time Data Change Handling,Realtime Database,"4,5",User is logged in and has a mission,"- Mission ID: 1
+- New Status: true","1. Update mission status in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the mission status is updated in the application",Mission status is updated in the application.
+TC-Mission-004,Verify Real-Time Data Change Handling with No Changes,Realtime Database,"4,5",User is logged in and has a mission,"- Mission ID: 1
+- New Status: false","1. Do not update mission status in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the mission status remains unchanged in the application",Mission status remains unchanged in the application.
+TC-Mission-005,Verify Real-Time Data Change Handling with Invalid Token,Realtime Database,"4,5",User is logged in and has a mission,"- Mission ID: 1
+- New Status: true","1. Simulate an invalid token in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the mission status is not updated in the application",Mission status is not updated in the application due to invalid token.
+TC-Mission-006,Verify Real-Time Data Change Handling with Network Error,Realtime Database,"4,5",User is logged in and has a mission,"- Mission ID: 1
+- New Status: true","1. Simulate network error in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the mission status is not updated in the application",Mission status is not updated in the application due to network error.
+TC-Mission-007,Verify Real-Time Data Change Handling with Multiple Missions,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: true","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that all mission statuses are updated in the application",All mission statuses are updated in the application.
+TC-Mission-008,Verify Real-Time Data Change Handling with No Missions,Realtime Database,"4,5",User is logged in,"- Mission IDs: []
+- New Status: true","1. Do not update any mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-009,Verify Real-Time Data Change Handling with Partial Missions,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: [true, false, true]","1. Update some mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that only updated mission statuses are reflected in the application",Only updated mission statuses are reflected in the application.
+TC-Mission-010,Verify Real-Time Data Change Handling with Duplicate Missions,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: [true, true, true]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that duplicate mission statuses are handled correctly in the application",Duplicate mission statuses are handled correctly in the application.
+TC-Mission-011,Verify Real-Time Data Change Handling with Missing Mission,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: [true, false, 4]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the missing mission is ignored in the application",The missing mission is ignored in the application.
+TC-Mission-012,Verify Real-Time Data Change Handling with Invalid Mission ID,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: [true, false, 999]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the invalid mission ID is ignored in the application",The invalid mission ID is ignored in the application.
+TC-Mission-013,Verify Real-Time Data Change Handling with Empty Mission List,Realtime Database,"4,5",User is logged in,"- Mission IDs: []
+- New Status: [true, false, true]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-014,Verify Real-Time Data Change Handling with Null Mission List,Realtime Database,"4,5",User is logged in,"- Mission IDs: null
+- New Status: [true, false, true]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-015,Verify Real-Time Data Change Handling with Null Mission Status,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: null","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-016,Verify Real-Time Data Change Handling with Null Mission ID,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [null, 2, 3]
+- New Status: [true, false, true]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that the null mission ID is ignored in the application",The null mission ID is ignored in the application.
+TC-Mission-017,Verify Real-Time Data Change Handling with Empty Mission Status List,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: [1, 2, 3]
+- New Status: []","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-018,Verify Real-Time Data Change Handling with Empty Mission ID List,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: []
+- New Status: [true, false, true]","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-019,Verify Real-Time Data Change Handling with Null Mission ID and Status List,Realtime Database,"4,5",User is logged in and has multiple missions,"- Mission IDs: null
+- New Status: null","1. Update mission statuses in the database
+2. Wait for onDataChange() to trigger
+3. Verify that no mission statuses are updated in the application",No mission statuses are updated in the application.
+TC-Mission-020,Verify Real-Time Data Change Handling with Empty Mission ID and Status List,Realtime Database,"4,5",User is logged in and has multiple missions,- Mission,,

@@ -1,0 +1,77 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Firebase-001","User Authenticates Successfully","Firebase","1","Firebase is set up with authentication enabled.","Valid email and password.","1. Enter valid email and password.
+2. Click on the login button.","User is authenticated successfully and redirected to the dashboard."
+"TC-Firebase-002","User Authenticates with Invalid Credentials","Firebase","1","Firebase is set up with authentication enabled.","Invalid email and password.","1. Enter invalid email and password.
+2. Click on the login button.","Authentication fails, and an error message is displayed."
+"TC-Firebase-003","User Displays Valid Data","Firebase","1","User is authenticated and data is stored in Firebase.","Valid data stored in Firebase.","1. User requests data display.
+2. Data organizer retrieves data from Firebase.
+3. Data is displayed to the user.","Valid data is displayed to the user."
+"TC-Firebase-004","User Attempts to Display Invalid Data","Firebase","1","User is authenticated but data is invalid or missing.","Invalid or missing data.","1. User requests data display.
+2. Data organizer attempts to retrieve data from Firebase.
+3. Data retrieval fails due to invalid or missing data.","An error message is displayed indicating invalid or missing data."
+"TC-Chat-001","User Creates a New Chat","Chat","2","User is authenticated.","Valid user details.","1. User initiates a new chat.
+2. System creates a new chat entry in the database.
+3. User is added as a participant in the chat.","New chat created successfully with user as a participant."
+"TC-Chat-002","User Sends a Message","Chat","2","User is authenticated and part of a chat.","Valid message text.","1. User composes a message.
+2. User sends the message.
+3. Message is stored in the database.","Message sent successfully and stored in the database."
+"TC-Chat-003","User Receives a Message","Chat","2","User is authenticated and part of a chat.","Valid message text.","1. Another user sends a message.
+2. System updates the chat with the new message.
+3. User receives the message.","User receives the message in their chat interface."
+"TC-Chat-004","User Interacts with Fridge","Chat","2","User is authenticated and has access to a fridge.","Valid fridge ID.","1. User selects a fridge.
+2. System retrieves fridge details from the database.
+3. User interacts with the fridge.","Fridge details are displayed, and user interactions are recorded."
+"TC-Chat-005","User Posts Content","Chat","2","User is authenticated and has access to a fridge.","Valid post content.","1. User composes a post.
+2. User associates the post with a fridge.
+3. Post is stored in the database.","Post is successfully stored and associated with the fridge."
+"TC-ChangeFragment-001","Change Fragment and Remove Product","ChangeFragment","3","User is authenticated and has access to a product.","Valid product ID.","1. User changes the current fragment.
+2. System triggers the removal of a product.
+3. Product is removed from the database.","Fragment change successful, and product is removed from the database."
+"TC-ChangeFragment-002","Attempt to Remove Nonexistent Product","ChangeFragment","3","User is authenticated and tries to remove a nonexistent product.","Invalid product ID.","1. User changes the current fragment.
+2. System attempts to remove a nonexistent product.
+3. Removal fails due to invalid product ID.","Error message indicating the product does not exist. Fragment change still occurs."
+"TC-ChangeFragment-003","Change Fragment Without Removing Product","ChangeFragment","3","User is authenticated and does not attempt to remove a product.","No product ID provided.","1. User changes the current fragment.
+2. System does not trigger product removal.
+3. Fragment change successful without any product removal.","Fragment change successful, and no product is removed from the database."
+"TC-ChangeFragment-004","Change Fragment and Remove Multiple Products","ChangeFragment","3","User is authenticated and has access to multiple products.","Multiple valid product IDs.","1. User changes the current fragment.
+2. System triggers the removal of multiple products.
+3. All specified products are removed from the database.","Fragment change successful, and all specified products are removed from the database."
+"TC-ChangeFragment-005","Change Fragment and Remove Product with Edge Cases","ChangeFragment","3","User is authenticated and has access to a product.","Edge case product ID (e.g., maximum integer value).","1. User changes the current fragment.
+2. System triggers the removal of a product with an edge case ID.
+3. Product is removed from the database.","Fragment change successful, and product with edge case ID is removed from the database."
+"TC-ChangeFragment-006","Change Fragment and Remove Product with Invalid ID","ChangeFragment","3","User is authenticated and tries to remove a product with an invalid ID.","Invalid product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with an invalid ID.
+3. Removal fails due to invalid product ID.","Error message indicating the product does not exist. Fragment change still occurs."
+"TC-ChangeFragment-007","Change Fragment and Remove Product with Empty ID","ChangeFragment","3","User is authenticated and tries to remove a product with an empty ID.","Empty product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with an empty ID.
+3. Removal fails due to empty product ID.","Error message indicating the product ID cannot be empty. Fragment change still occurs."
+"TC-ChangeFragment-008","Change Fragment and Remove Product with Null ID","ChangeFragment","3","User is authenticated and tries to remove a product with a null ID.","Null product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with a null ID.
+3. Removal fails due to null product ID.","Error message indicating the product ID cannot be null. Fragment change still occurs."
+"TC-ChangeFragment-009","Change Fragment and Remove Product with Special Characters in ID","ChangeFragment","3","User is authenticated and tries to remove a product with a special character in the ID.","Product ID containing special characters.","1. User changes the current fragment.
+2. System attempts to remove a product with a special character in the ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID contains invalid characters. Fragment change still occurs."
+"TC-ChangeFragment-010","Change Fragment and Remove Product with Large ID","ChangeFragment","3","User is authenticated and tries to remove a product with a large ID.","Large product ID (e.g., exceeding typical integer limits).","1. User changes the current fragment.
+2. System attempts to remove a product with a large ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID exceeds allowed limits. Fragment change still occurs."
+"TC-ChangeFragment-011","Change Fragment and Remove Product with Negative ID","ChangeFragment","3","User is authenticated and tries to remove a product with a negative ID.","Negative product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with a negative ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID cannot be negative. Fragment change still occurs."
+"TC-ChangeFragment-012","Change Fragment and Remove Product with Zero ID","ChangeFragment","3","User is authenticated and tries to remove a product with a zero ID.","Zero product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with a zero ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID cannot be zero. Fragment change still occurs."
+"TC-ChangeFragment-013","Change Fragment and Remove Product with Duplicate ID","ChangeFragment","3","User is authenticated and tries to remove a product with a duplicate ID.","Duplicate product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with a duplicate ID.
+3. Removal fails due to duplicate product ID.","Error message indicating the product ID already exists. Fragment change still occurs."
+"TC-ChangeFragment-014","Change Fragment and Remove Product with Non-Integer ID","ChangeFragment","3","User is authenticated and tries to remove a product with a non-integer ID.","Non-integer product ID.","1. User changes the current fragment.
+2. System attempts to remove a product with a non-integer ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID must be an integer. Fragment change still occurs."
+"TC-ChangeFragment-016","Change Fragment and Remove Product with Short ID","ChangeFragment","3","User is authenticated and tries to remove a product with a short ID.","Short product ID (e.g., minimum length).","1. User changes the current fragment.
+2. System attempts to remove a product with a short ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID is too short. Fragment change still occurs."
+"TC-ChangeFragment-017","Change Fragment and Remove Product with Leading Spaces in ID","ChangeFragment","3","User is authenticated and tries to remove a product with leading spaces in the ID.","Product ID with leading spaces.","1. User changes the current fragment.
+2. System attempts to remove a product with leading spaces in the ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID contains leading spaces. Fragment change still occurs."
+"TC-ChangeFragment-018","Change Fragment and Remove Product with Trailing Spaces in ID","ChangeFragment","3","User is authenticated and tries to remove a product with trailing spaces in the ID.","Product ID with trailing spaces.","1. User changes the current fragment.
+2. System attempts to remove a product with trailing spaces in the ID.
+3. Removal fails due to invalid product ID format.","Error message indicating the product ID contains trailing spaces. Fragment change still occurs."

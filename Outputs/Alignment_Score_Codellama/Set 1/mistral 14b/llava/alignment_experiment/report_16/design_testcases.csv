@@ -1,0 +1,73 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,1,"- System is running.
+- User account exists with valid credentials.","- Username: `john_doe`
+- Password: `SecurePass123`","1. User enters `john_doe` as username and `SecurePass123` as password.
+2. System processes the login request.","- Login operation returns `true`.
+- User is authenticated and can perform subsequent actions (e.g., add/remove items)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,1,"- System is running.
+- User account exists with valid username but incorrect password.","- Username: `john_doe`
+- Password: `WrongPass456`","1. User enters `john_doe` as username and `WrongPass456` as password.
+2. System processes the login request.","- Login operation returns `false`.
+- User remains unauthenticated; no further actions allowed."
+TC-AUTHENTICATION-003,Failed User Login (Non-Existent User),Authentication,1,"- System is running.
+- No user account exists with the provided username.","- Username: `nonexistent_user`
+- Password: `AnyPassword123`","1. User enters `nonexistent_user` as username and `AnyPassword123` as password.
+2. System processes the login request.","- Login operation returns `false`.
+- User remains unauthenticated; no further actions allowed."
+TC-AUTHENTICATION-004,User Logout After Successful Login,Authentication,1,- User is logged in (`login()` returned `true`).,- N/A (uses existing authenticated session).,"1. User calls `logout()`.
+2. System processes the logout request.","- Logout operation completes without errors.
+- User is no longer authenticated; subsequent actions (e.g., `add` to cart) fail."
+TC-PRODUCT-MANAGEMENT-001,Admin Adds a New Product,Product Management,1,"- Admin is logged in.
+- No product with the same name exists.","- Product name: `Wireless Headphones`
+- Description: `Noise-cancelling, 30-hour battery`","1. Admin calls `add(""Wireless Headphones"", ""Noise-cancelling, 30-hour battery"")`.
+2. System processes the request.","- Product is added to the system.
+- No errors; product is retrievable via system state (if applicable)."
+TC-PRODUCT-MANAGEMENT-002,Admin Removes an Existing Product,Product Management,1,"- Admin is logged in.
+- Product `Wireless Headphones` exists in the system.",- Product name: `Wireless Headphones`,"1. Admin calls `remove(""Wireless Headphones"")`.
+2. System processes the request.","- Product is removed from the system.
+- No errors; product is no longer retrievable."
+TC-PRODUCT-MANAGEMENT-003,Admin Attempts to Remove Non-Existent Product,Product Management,1,"- Admin is logged in.
+- No product named `NonExistentItem` exists.",- Product name: `NonExistentItem`,"1. Admin calls `remove(""NonExistentItem"")`.
+2. System processes the request.","- Operation completes without throwing an error (assumed silent failure per UML).
+- System state remains unchanged (no product is removed)."
+TC-CART-OPERATIONS-001,User Adds an Item to Cart,Cart Operations,1,"- User is logged in.
+- Product `Wireless Headphones` exists in the system.","- Item: `Item(name=""Wireless Headphones"", price=99.99)`","1. User calls `Cart.add(Item(""Wireless Headphones"", 99.99))`.
+2. System processes the request.","- Item is added to the cart’s `items` list.
+- Cart’s state reflects the addition (e.g., `items` list now contains the item)."
+TC-CART-OPERATIONS-002,User Removes an Item from Cart,Cart Operations,1,"- User is logged in.
+- Cart contains `Item(name=""Wireless Headphones"", price=99.99)`.","- Item: `Item(name=""Wireless Headphones"", price=99.99)`","1. User calls `Cart.remove(Item(""Wireless Headphones"", 99.99))`.
+2. System processes the request.","- Item is removed from the cart’s `items` list.
+- Cart’s state reflects the removal (e.g., `items` list is empty or updated)."
+TC-CART-OPERATIONS-003,User Attempts to Remove Non-Existent Item from Cart,Cart Operations,1,"- User is logged in.
+- Cart is empty or does not contain `Item(name=""NonExistentItem"", price=0.0)`.","- Item: `Item(name=""NonExistentItem"", price=0.0)`","1. User calls `Cart.remove(Item(""NonExistentItem"", 0.0))`.
+2. System processes the request.","- Operation completes without throwing an error (assumed silent failure per UML).
+- Cart’s state remains unchanged."
+TC-CART-OPERATIONS-004,Admin Adds an Item to User’s Cart (Edge Case),Cart Operations,1,"- Admin is logged in.
+- User is logged in (or not; UML is ambiguous; assume Admin can act on any cart).","- Item: `Item(name=""AdminAddedItem"", price=49.99)`","1. Admin calls `Cart.add(Item(""AdminAddedItem"", 49.99))` (targeting a user’s cart).
+2. System processes the request.","- Item is added to the targeted cart’s `items` list.
+- Cart’s state reflects the addition (if multi-user carts are supported; otherwise, assume error or ignored)."
+TC-CART-OPERATIONS-005,Empty Cart State After Multiple Add/Remove Operations,Cart Operations,1,"- User is logged in.
+- Cart is empty.","- Item 1: `Item(name=""Laptop"", price=999.99)`
+- Item 2: `Item(name=""Mouse"", price=19.99)`","1. User calls `Cart.add(Item(""Laptop"", 999.99))`.
+2. User calls `Cart.add(Item(""Mouse"", 19.99))`.
+3. User calls `Cart.remove(Item(""Laptop"", 999.99))`.
+4. User calls `Cart.remove(Item(""Mouse"", 19.99))`.","- Cart’s `items` list is empty after all operations.
+- No errors during any step."
+TC-ROLE-BASED-ACCESS-001,User Attempts Admin-Only Operation (Add Product),Role-Based Access,1,- User is logged in (not Admin).,"- Product name: `ForbiddenProduct`
+- Description: `Restricted item`","1. User calls `Product.add(""ForbiddenProduct"", ""Restricted item"")`.
+2. System processes the request.","- Operation fails (e.g., throws `UnauthorizedAccessError` or returns `false`).
+- Product is not added to the system."
+TC-ROLE-BASED-ACCESS-002,Admin Attempts User-Only Operation (Add to Cart),Role-Based Access,1,- Admin is logged in.,"- Item: `Item(name=""AdminCartItem"", price=29.99)`","1. Admin calls `Cart.add(Item(""AdminCartItem"", 29.99))` (assuming no explicit user context).
+2. System processes the request.","- Operation succeeds (UML does not restrict Admin from adding to carts).
+- Item is added to the cart (if cart is shared or Admin has access; otherwise, clarify requirements)."
+TC-EDGE-CASES-001,Add Item with Empty Name or Negative Price,Input Validation,1,- User is logged in.,"- Invalid Item 1: `Item(name="""", price=99.99)`
+- Invalid Item 2: `Item(name=""ValidName"", price=-99.99)`","1. User calls `Cart.add(Item("""", 99.99))`.
+2. User calls `Cart.add(Item(""ValidName"", -99.99))`.","- Both operations fail (e.g., throw `InvalidArgumentError` or return `false`).
+- Cart’s state remains unchanged.
+- System logs or handles invalid input gracefully."
+TC-EDGE-CASES-002,Concurrent Add/Remove Operations on Cart,Thread Safety (Assumed),1,"- User is logged in.
+- Cart is empty.","- Item: `Item(name=""ConcurrentTestItem"", price=14.99)`","1. **Thread 1:** Calls `Cart.add(Item(""ConcurrentTestItem"", 14.99))` repeatedly in a loop.
+2. **Thread 2:** Calls `Cart.remove(Item(""ConcurrentTestItem"", 14.99))` repeatedly in a loop.
+3. Run for 10 iterations.","- No crashes or deadlocks.
+- Cart’s `items` list remains consistent (e.g., no duplicate items, no negative counts).
+- Final state depends on operation order (assume last operation wins or FIFO)."

@@ -1,0 +1,57 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Verify user registration flow,Authentication,1,User is not registered; application is launched.,"Valid email (e.g., `test@example.com`), strong password (e.g., `Passw0rd!`), and required personal details.","1. Launch the application.
+2. System checks if the user is registered (decision node: ""Utente registrato?"").
+3. Since the user is not registered, the flow transitions to ""Creazione di un nuovo utente.""
+4. Fill in all required fields (email, password, name, etc.) correctly.
+5. Submit the registration form.
+6. System validates inputs and transitions to ""Utente registrato con successo.""
+7. User is redirected to the ""Homepage.""","User is successfully registered, redirected to the homepage, and receives a confirmation message (e.g., ""Utente registrato con successo"")."
+TC-AUTHENTICATION-002,Verify existing user login flow,Authentication,1,"User is already registered (e.g., `test@example.com` with password `Passw0rd!`).","Valid credentials (`test@example.com`, `Passw0rd!`).","1. Launch the application.
+2. System checks if the user is registered (decision node: ""Utente registrato?"").
+3. Since the user is registered, the flow transitions directly to ""Homepage.""",User is authenticated and redirected to the homepage without errors.
+TC-AUTHENTICATION-003,Verify invalid user registration (missing required fields),Authentication,1,User is not registered; application is launched.,"Incomplete registration (e.g., missing email or password).","1. Launch the application.
+2. System checks if the user is registered and transitions to ""Creazione di un nuovo utente.""
+3. Fill in only some required fields (e.g., skip email or password).
+4. Attempt to submit the form.","System displays validation errors (e.g., ""Campi obbligatori mancanti"") and does not proceed to ""Utente registrato con successo."""
+TC-NAVIGATION-001,Verify sidebar menu navigation from homepage,Navigation,2,"User is logged in and on the ""HOME"" screen.",N/A (UI interactions only).,"1. User clicks on the sidebar menu trigger (""Click nel menu laterale"").
+2. System transitions to the ""Menu Laterale"" state.
+3. User clicks the ""Homepage"" button in the menu.
+4. System transitions back to the ""HOME"" state.","Menu opens/closes smoothly, and clicking ""Homepage"" returns the user to the homepage without errors."
+TC-NAVIGATION-002,Verify navigation to settings screen from sidebar,Navigation,2,"User is logged in and on the ""HOME"" screen.",N/A.,"1. User clicks on the sidebar menu trigger (""Click nel menu laterale"").
+2. System transitions to the ""Menu Laterale"" state.
+3. User clicks the ""Impostazioni"" (Settings) button.
+4. System transitions to ""Chiusura menu e apertura nuova schermata"" (menu closes, new screen opens).","Menu closes, and the settings screen loads correctly."
+TC-ALERT-CREATION-001,Verify successful alert creation with valid inputs,Alert Management,3,"User is logged in and clicks ""Add Alert"" in the sidebar.","Valid inputs for the first 4 fields (e.g., title, description, location, category).","1. User clicks ""Add Alert"" in the sidebar.
+2. System transitions to the ""Add Alert"" form.
+3. User fills in the first 4 fields correctly (e.g., title=""Gas leak,"" description=""Smell detected,"" location=""Apt 5B,"" category=""Safety"").
+4. System validates inputs and transitions to ""Apertura elenco categorie"" (category list opens).
+5. User selects a category and clicks the green ""Submit"" button.","Alert is created successfully, and the user sees a confirmation message (e.g., ""Segnalazione aggiunta con successo"")."
+TC-ALERT-CREATION-002,Verify alert creation with invalid first 4 fields,Alert Management,3,"User is logged in and clicks ""Add Alert"" in the sidebar.","Invalid inputs for the first 4 fields (e.g., empty title, special characters in location).","1. User clicks ""Add Alert"" in the sidebar.
+2. System transitions to the ""Add Alert"" form.
+3. User leaves the first 4 fields blank or enters invalid data (e.g., title="""", location=""!@#"").
+4. User attempts to proceed to the category selection.","System displays validation errors (e.g., ""Inserire un titolo valido,"" ""Posizione non valida"") and does not proceed to the category list."
+TC-ALERT-CREATION-003,Verify alert creation with partially valid fields,Alert Management,3,"User is logged in and clicks ""Add Alert"" in the sidebar.","Valid inputs for 3 fields, invalid for 1 (e.g., valid title/description/location, empty category).","1. User clicks ""Add Alert"" in the sidebar.
+2. System transitions to the ""Add Alert"" form.
+3. User fills in 3 fields correctly (e.g., title, description, location) but leaves the 4th field (category) empty.
+4. User attempts to proceed to the category selection.","System highlights the missing field (e.g., ""Selezionare una categoria"") and prevents progression."
+TC-ALERT-VIEWING-001,Verify viewing all alerts and selecting one,Alert Management,4,User is logged in and has at least 1 alert in the system.,"N/A (assume 3 test alerts exist: ""Gas leak,"" ""Noise complaint,"" ""Broken elevator"").","1. User clicks ""View Alerts"" in the sidebar.
+2. System displays the list of all alerts (""Visualizzazione di tutte le segnalazioni"").
+3. User clicks on the ""Gas leak"" alert.
+4. System transitions to ""Visualizzazione dettagliata della segnalazione.""","All alerts are displayed, and clicking an alert shows its detailed information (e.g., title, description, status, date)."
+TC-PROFILE-001,Verify successful profile update with valid data,Profile Management,5,"User is logged in and clicks ""Profile"" in the sidebar.","Valid profile data (e.g., name=""John Doe,"" email=""john.doe@example.com,"" phone=""+123456789"").","1. User clicks ""Profile"" in the sidebar.
+2. System transitions to the profile screen.
+3. User edits all fields correctly (e.g., updates name/email/phone).
+4. System checks if fields are correctly compiled (""I campi sono correttamente compilati?"").
+5. Since all fields are valid, user clicks ""Salva le modifiche.""
+6. System saves changes and transitions to ""Passa alla schermata delle abitazioni"" (apartments screen).","Profile is updated successfully, and the user is redirected to the apartments screen with a confirmation message (e.g., ""Profilo aggiornato"")."
+TC-PROFILE-002,Verify profile update with invalid data,Profile Management,5,"User is logged in and clicks ""Profile"" in the sidebar.","Invalid profile data (e.g., empty name, invalid email format ""john@example"").","1. User clicks ""Profile"" in the sidebar.
+2. System transitions to the profile screen.
+3. User attempts to submit invalid data (e.g., leaves name empty or enters ""john@example"").
+4. System checks fields and detects errors (""I campi sono correttamente compilati?"" = No).
+5. User is prompted to ""Correggere i dati.""
+6. User corrects the invalid fields and resubmits.","System displays validation errors (e.g., ""Nome obbligatorio,"" ""Email non valida"") and prevents saving until corrected."
+TC-PROFILE-003,Verify discarding profile changes,Profile Management,5,"User is logged in, clicks ""Profile,"" and makes changes to the profile.","Partially edited profile (e.g., changes name but not email).","1. User clicks ""Profile"" in the sidebar.
+2. System transitions to the profile screen.
+3. User edits the name field (e.g., ""John Doe"" → ""John Smith"").
+4. System checks fields and confirms they are correctly compiled.
+5. User clicks ""Scarta le modifiche"" (Discard changes).","Changes are discarded, original profile data is restored, and the user is redirected to the apartments screen without errors."

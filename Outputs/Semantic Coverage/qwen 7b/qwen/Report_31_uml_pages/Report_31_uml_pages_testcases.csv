@@ -1,0 +1,118 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-System-001,Verify Data Synchronization Between Local User and Firebase,System,1,"- Local user is logged in.
+- Data organizer is initialized.
+- Firebase service is active.","- User ID: 12345
+- Data to be synchronized: User profile information.","1. Local user logs into the application.
+2. Data organizer retrieves user profile information.
+3. Data organizer sends the data to Firebase.
+4. Firebase processes the data and stores it.",- User profile information is successfully synchronized between the local user and Firebase.
+TC-System-002,Verify Data Retrieval from Data Organizer to Data Display,System,1,"- Local user is logged in.
+- Data organizer is initialized.
+- Firebase service is active.","- User ID: 12345
+- Data to be retrieved: User profile information.","1. Local user logs into the application.
+2. Data display requests user profile information from the data organizer.
+3. Data organizer retrieves the user profile information from Firebase.
+4. Data organizer sends the data to the data display.",- User profile information is successfully displayed on the data display.
+TC-Chat-001,Create a New Chat,Chat,2,"- Local user is logged in.
+- Chat component is initialized.","- User IDs: 12345, 67890","1. Local user initiates a new chat with another user.
+2. Chat component creates a new chat record.
+3. Chat component associates the chat with both users.",- A new chat record is created and associated with both users.
+TC-Chat-002,Send a Message in an Existing Chat,Chat,2,"- Local user is logged in.
+- Chat component is initialized.
+- Chat exists between two users.","- Message content: ""Hello, how are you?""
+- Sender user ID: 12345
+- Receiver user ID: 67890","1. Local user sends a message in the existing chat.
+2. Chat component creates a new message record.
+3. Chat component associates the message with the chat and sender/receiver users.",- A new message record is created and associated with the chat and users.
+TC-Chat-003,Verify Message Belongs to User,Chat,2,"- Local user is logged in.
+- Chat component is initialized.
+- Message is sent in an existing chat.","- Message ID: 1234
+- User ID: 12345","1. Local user checks if the message belongs to them.
+2. Chat component verifies the association between the message and the user.",- The message is correctly associated with the user.
+TC-Fridge-001,Add a Fridge to a User,Fridge,2,"- Local user is logged in.
+- Fridge component is initialized.","- Fridge name: ""Kitchen Fridge""
+- User ID: 12345","1. Local user adds a new fridge to their account.
+2. Fridge component creates a new fridge record.
+3. Fridge component associates the fridge with the user.",- A new fridge record is created and associated with the user.
+TC-Fridge-002,Remove a Product from a Fridge,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Fridge contains at least one product.","- Product ID: 12345
+- Fridge ID: 67890","1. Local user removes a product from the fridge.
+2. Fridge component sends a request to Firebase to remove the product.
+3. Firebase processes the request and updates the fridge inventory.",- The product is successfully removed from the fridge and the inventory is updated.
+TC-Fridge-003,Verify Product Removal from Firebase,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Product is removed from the fridge.","- Product ID: 12345
+- Fridge ID: 67890","1. Local user verifies if the product has been removed from the fridge.
+2. Fridge component checks the inventory in Firebase.",- The product is correctly removed from the fridge and the inventory is updated.
+TC-Post-001,Create a New Post,Post,2,"- Local user is logged in.
+- Post component is initialized.","- Post content: ""I need apples.""
+- User ID: 12345
+- Fridge ID: 67890","1. Local user creates a new post.
+2. Post component creates a new post record.
+3. Post component associates the post with the user and fridge.",- A new post record is created and associated with the user and fridge.
+TC-Post-002,Verify Post Association with User and Fridge,Post,2,"- Local user is logged in.
+- Post component is initialized.
+- Post is created.","- Post ID: 12345
+- User ID: 12345
+- Fridge ID: 67890","1. Local user verifies if the post is associated with them and the fridge.
+2. Post component checks the associations in the database.",- The post is correctly associated with the user and fridge.
+TC-User-001,Update User Profile Information,User,2,"- Local user is logged in.
+- User component is initialized.","- New nickname: ""JohnDoe""
+- New password: ""securepassword""
+- New position latitude: 40.7128
+- New position longitude: -74.0060
+- New token count: 100
+- New rating: 4.5","1. Local user updates their profile information.
+2. User component updates the user record in the database.
+3. User component sends the updated information to Firebase.",- The user profile information is successfully updated and stored in the database and Firebase.
+TC-User-002,Verify User Profile Information Update,User,2,"- Local user is logged in.
+- User component is initialized.
+- User profile information is updated.",- User ID: 12345,"1. Local user verifies if the profile information has been updated.
+2. User component checks the updated information in the database and Firebase.",- The user profile information is correctly updated and stored in the database and Firebase.
+TC-Relation-001,Create a Relation Between Two Users,Relation,2,"- Local user is logged in.
+- Relation component is initialized.","- User IDs: 12345, 67890","1. Local user creates a relation with another user.
+2. Relation component creates a new relation record.
+3. Relation component associates the relation with both users.",- A new relation record is created and associated with both users.
+TC-Relation-002,Verify Relation Between Two Users,Relation,2,"- Local user is logged in.
+- Relation component is initialized.
+- Relation exists between two users.","- Relation ID: 12345
+- User IDs: 12345, 67890","1. Local user verifies if the relation exists between them and another user.
+2. Relation component checks the association in the database.",- The relation is correctly associated with both users.
+TC-Sequence-001,Change Fragment to Fridge Management,Sequence,3,"- Main schema is active.
+- Fridge fragment is available.
+- Firebase database is active.",- No specific data required.,"1. Main schema changes the fragment to the fridge management fragment.
+2. Fridge fragment sends a request to remove a product to Firebase.","- The fragment change is successful, and the request to remove a product is sent to Firebase."
+TC-Sequence-002,Verify Product Removal Request Sent to Firebase,Sequence,3,"- Main schema is active.
+- Fridge fragment is available.
+- Firebase database is active.
+- Product exists in the fridge.","- Product ID: 12345
+- Fridge ID: 67890","1. Main schema changes the fragment to the fridge management fragment.
+2. Fridge fragment sends a request to remove the product to Firebase.
+3. Firebase processes the request and updates the fridge inventory.","- The product removal request is successfully sent to Firebase, and the inventory is updated."
+TC-Negative-001,Attempt to Remove Non-Existent Product from Fridge,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Product does not exist in the fridge.","- Product ID: 12345
+- Fridge ID: 67890","1. Local user attempts to remove a non-existent product from the fridge.
+2. Fridge component sends a request to Firebase to remove the product.
+3. Firebase processes the request and returns an error.","- The product removal request fails, and an appropriate error message is returned."
+TC-Edge-001,Verify Empty Fridge Inventory,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Fridge inventory is empty.",- Fridge ID: 67890,"1. Local user checks if the fridge inventory is empty.
+2. Fridge component checks the inventory in Firebase.",- The fridge inventory is correctly identified as empty.
+TC-Edge-002,Verify Full Fridge Inventory,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Fridge inventory is full.",- Fridge ID: 67890,"1. Local user checks if the fridge inventory is full.
+2. Fridge component checks the inventory in Firebase.",- The fridge inventory is correctly identified as full.
+TC-Edge-003,Verify Partially Filled Fridge Inventory,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Fridge inventory is partially filled.",- Fridge ID: 67890,"1. Local user checks if the fridge inventory is partially filled.
+2. Fridge component checks the inventory in Firebase.",- The fridge inventory is correctly identified as partially filled.
+TC-Edge-004,Verify Fridge Inventory with Multiple Products,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Fridge inventory contains multiple products.",- Fridge ID: 67890,"1. Local user checks the number of products in the fridge inventory.
+2. Fridge component checks the inventory in Firebase.",- The number of products in the fridge inventory is correctly counted.
+TC-Edge-005,Verify Fridge Inventory with Single Product,Fridge,3,"- Local user is logged in.
+- Fridge component is initialized.
+- Fridge inventory contains a single product.",- Fridge ID: 67890,"1. Local user checks if the fridge inventory contains a single product.
+2. Fridge component",

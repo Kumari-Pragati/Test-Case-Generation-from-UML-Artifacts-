@@ -1,0 +1,124 @@
+flow
+"authentication system -> notifysystem — type=association; label=""""; explanation=""communication"""
+"authentication system -> userprofile — type=association; label=""""; explanation=""communication"""
+"authentication system -> reporthandler — type=association; label=""""; explanation=""communication"""
+"notifysystem -> datamanager — type=association; label=""""; explanation=""data flow"""
+"userprofile -> datamanager — type=association; label=""""; explanation=""data flow"""
+"reporthandler -> datamanager — type=association; label=""""; explanation=""data flow"""
+"webserver -> database — type=association; label=""""; explanation=""data flow"""
+"reporthandler -> webserver — type=association; label=""""; explanation=""data flow"""
+flow 1: authentication system -> notifysystem; notifysystem -> datamanager; datamanager -> webserver; webserver -> database; database -> reporthandler; reporthandler -> webserver
+this diagram models a system architecture with multiple components interacting through data and control flows.
+"the main flow starts with the authentication system, which communicates with the notify system, userprofile, and report handler."
+"data is then passed to the datamanager, which interacts with the web server and database."
+the report handler also receives data from the datamanager and sends it back to the web server.
+"the system appears to have a circular flow involving the web server and database, indicating a continuous data exchange."
+"report — association — label=""consumitotali""; explanation=""list of consumptions"""
+"utenti — association — label=""consumi""; explanation=""list of consumptions"""
+"utenti — association — label=""gamification_points""; explanation=""gamification points"""
+"obbiettivi — association — label=""claim""; explanation=""claim status"""
+"gioco — association — label=""greenpoints""; explanation=""green points"""
+"flow 1: report -> utenti — association; explanation=""consumption data retrieval"""
+"flow 2: utenti -> obbiettivi — association; explanation=""achievement tracking"""
+"flow 3: gioco -> utenti — association; explanation=""green points management"""
+"this uml diagram represents a class model for a software application related to user consumption reports, user profiles, achievement tracking, and game mechanics."
+"the `report` class handles generating comments, calculating total consumption, and suggesting improvements."
+"the `utenti` class manages user details, consumption records, and gamification points."
+the `obbiettivi` class tracks achievement statuses.
+the `gioco` class manages green points for the game mechanic.
+"the main flows involve retrieving consumption data, tracking achievements, and managing green points."
+"main -> local user — type=message; label=""data_user = getdatafromuser()""; explanation=""retrieve user data"""
+"local user -> done — type=message; label=""done""; explanation=""completion signal"""
+"done -> checkdata(data_user) — type=message; label=""checkdata(data_user)""; explanation=""data validation"""
+"checkdata(data_user) -> richiesta di reinserire i dati — type=message; label=""richiesta di reinserire i dati""; explanation=""request to re-enter data"""
+"richiesta di reinserire i dati -> adduser(data_user) — type=message; label=""adduser(data_user)""; explanation=""add user with validated data"""
+"adduser(data_user) -> success — type=message; label=""success""; explanation=""user added successfully"""
+flow 1: main -> local user — retrieve user data
+flow 2: local user -> done — completion signal
+flow 3: done -> checkdata(data_user) — data validation
+flow 4: checkdata(data_user) -> richiesta di reinserire i dati — request to re-enter data
+flow 5: richiesta di reinserire i dati -> adduser(data_user) — add user with validated data
+flow 6: adduser(data_user) -> success — user added successfully
+this sequence diagram models the process of creating a user.
+the main flow starts with retrieving user data from the local user.
+"the data is then validated, and if invalid, the user is prompted to re-enter the data."
+"once the data is successfully validated, it is added to the system."
+the process ends with a success message indicating the user has been added.
+"key edge case: if the data is invalid, the user is prompted to re-enter the data, which could lead to multiple iterations until valid data is provided."
+"main -> checkauthenticated(currentuser) — type=control-flow; label=""checkauthenticated(currentuser)""; explanation=""checks user authentication"""
+"checkauthenticated(currentuser) -> l'utente deve prima autenticarsi — type=control-flow; label=""l'utente deve prima autenticarsi""; explanation=""user must authenticate first"""
+"checkauthenticated(currentuser) -> requestdatauser(currentuser) — type=control-flow; label=""requestdatauser(currentuser)""; explanation=""requests user data"""
+"requestdatauser(currentuser) -> data manager — type=control-flow; label=""requestdatauser(currentuser)""; explanation=""sends request to data manager"""
+"data manager -> success — type=control-flow; label=""success""; explanation=""returns success response"""
+flow 1: main -> checkauthenticated(currentuser) -> l'utente deve prima autenticarsi -> requestdatauser(currentuser) -> data manager -> success
+this activity diagram models the process of viewing a profile.
+"the main flow starts at the main action, checks if the user is authenticated, requests user data from the data manager, and returns a success response."
+there is a condition branch indicating that the user must authenticate before proceeding.
+the process ensures that the user is authenticated before requesting and receiving their data.
+"main -> checkauthenticated(currentuser) — type=message; label=""checkauthenticated(currentuser)""; explanation=""checks user authentication"""
+"checkauthenticated(currentuser) -> local user — type=message; label=""l'utente deve prima autenticarsi""; explanation=""user must authenticate first"""
+"local user -> requestdata() — type=message; label=""datamodified = requestdata()""; explanation=""requests data modification"""
+"requestdata() -> done — type=message; label=""done""; explanation=""data request completed"""
+"done -> updatedata(datamodified) — type=message; label=""updatedata(datamodified)""; explanation=""updates data with modified data"""
+"updatedata(datamodified) -> success — type=message; label=""success""; explanation=""update successful"""
+flow 1: main -> checkauthenticated(currentuser) -> local user -> requestdata() -> done -> updatedata(datamodified) -> success
+this diagram models a sequence of steps for modifying data in a system.
+the main flow starts with the main process checking user authentication.
+"if authenticated, it requests data modification from the local user."
+the data is then updated with the modified data.
+the process ends with a success message.
+there is a condition where the user must authenticate before proceeding.
+"main -> local user — type=message; label=""data = requestdata()""; explanation=""request data from local user"""
+"local user -> data manager — type=message; label=""addconsumo(data)""; explanation=""add consumption data to data manager"""
+"data manager -> main — type=message; label=""success""; explanation=""success response back to main process"""
+flow 1: main -> local user — data = requestdata()
+flow 2: local user -> data manager — addconsumo(data)
+flow 3: data manager -> main — success
+"this sequence diagram models a process involving a main process, a local user, and a data manager."
+the main process initiates by requesting data from the local user.
+the local user then adds the requested data to the data manager.
+"finally, the data manager sends a success response back to the main process."
+"there are no conditions or branches in the diagram, suggesting a straightforward linear flow without decision points."
+"main -> local user — type=message; label=""checkconsumi(currentuser)""; explanation=""user checks consumption"""
+"local user -> data manager — type=message; label=""requestdata()""; explanation=""user requests data"""
+"data manager -> local user — type=message; label=""done""; explanation=""data retrieval completed"""
+"local user -> data manager — type=message; label=""requestreport(report)""; explanation=""user requests report"""
+"data manager -> local user — type=message; label=""success""; explanation=""report retrieved successfully"""
+flow 1: main -> local user -> data manager -> local user -> data manager -> local user
+"this diagram models a sequence of interactions between a main process, a local user, and a data manager."
+the main process initiates by checking the user's consumption.
+"if the user has at least one consumption, the process requests data from the data manager."
+the data manager retrieves the data and sends it back to the local user.
+the local user then requests a report from the data manager.
+"the data manager sends the report back to the local user, indicating success."
+the diagram highlights a condition where the user must have at least one consumption to proceed with the data request.
+"main -> local user — type=message; label=""checkconsumi(currentuser)""; explanation=""request user consumption data"""
+"local user -> data manager — type=message; label=""report = requestdata()""; explanation=""send request for data"""
+"local user -> data manager — type=message; label=""new_data = requestdata()""; explanation=""request new data"""
+"data manager -> local user — type=message; label=""done""; explanation=""new data retrieval completed"""
+"local user -> main — type=message; label=""updatereport(report, new_data)""; explanation=""update report with new data"""
+"main -> local user — type=message; label=""success""; explanation=""report update successful"""
+flow 1: main -> local user -> data manager -> local user -> main
+main initiates the process by requesting user consumption data from local user.
+local user sends the request to data manager.
+data manager retrieves the data and sends it back to local user.
+local user updates the report with the retrieved data.
+main receives the updated report and confirms the success.
+this sequence diagram models a process where the main component interacts with the local user and data manager to retrieve and update user consumption data.
+the process starts with the main component requesting consumption data from the local user.
+the local user then requests data from the data manager.
+"after receiving the data, the local user updates the report."
+"finally, the main component confirms the success of the report update."
+a condition is specified that the user must have at least one consumption to proceed with the process.
+"main -> checkconsumi(currentuser) — type=control; label=""checkconsumi(currentuser)""; explanation=""check user consumption"""
+"checkconsumi(currentuser) -> report = requestdata() — type=control; label=""report = requestdata()""; explanation=""request data for report"""
+"report = requestdata() -> done — type=control; label=""done""; explanation=""data request completed"""
+"done -> deletereport(report) — type=control; label=""deletereport(report)""; explanation=""delete report"""
+"deletereport(report) -> success — type=control; label=""success""; explanation=""report deleted successfully"""
+flow 1: main -> checkconsumi(currentuser) -> report = requestdata() -> done -> deletereport(report) -> success
+this activity diagram models the process of deleting a report.
+the main flow starts with the main process checking the user's consumption.
+"if the user has at least one consumption, it requests data for the report."
+"after the data request is completed, the report is deleted."
+a condition ensures that the user must have at least one consumption before proceeding.
+======================================================================

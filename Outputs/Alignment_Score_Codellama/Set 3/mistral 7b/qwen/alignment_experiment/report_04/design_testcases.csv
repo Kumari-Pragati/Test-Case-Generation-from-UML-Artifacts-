@@ -1,0 +1,47 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UTENTE-001,Verify User Registration,Utente,1,User does not exist in the database.,"- Username: testuser
+- Password: testpassword
+- Email: testuser@example.com","1. Navigate to the registration page.
+2. Enter the test user credentials.
+3. Click the ""Register"" button.
+4. Check the database for the new user entry.",The new user is registered and stored in the database.
+TC-UTENTE-002,Verify User Login,Utente,"1, 2",User is registered in the database.,"- Username: testuser
+- Password: testpassword","1. Navigate to the login page.
+2. Enter the test user credentials.
+3. Click the ""Login"" button.
+4. Check if the user is redirected to the homepage.",The user is successfully logged in and redirected to the homepage.
+TC-UTENTE-003,Verify User Data Modification,Utente,3,User is logged in.,"- New username: newtestuser
+- New email: newtestuser@example.com","1. Navigate to the user data modification page.
+2. Enter the new user credentials.
+3. Click the ""Save"" button.
+4. Check the database for the updated user entry.",The user data is successfully updated in the database.
+TC-DISPOSITIVO-001,Verify Device Association with User,Dispositivo,1,User is registered in the database.,,"1. Associate a device with the test user.
+2. Check the database for the device association.",The device is associated with the test user in the database.
+TC-DISPOSITIVO-002,Verify Device Data Modification,Dispositivo,3,Device is associated with a user.,"- New device name: newdevice
+- New device model: newmodel","1. Navigate to the device data modification page.
+2. Enter the new device details.
+3. Click the ""Save"" button.
+4. Check the database for the updated device entry.",The device data is successfully updated in the database.
+TC-MATERIALE-001,Verify Material Association with Device,Materiale,1,Device is associated with a user.,,"1. Associate a material with the test device.
+2. Check the database for the material association.",The material is associated with the test device in the database.
+TC-MATERIALE-002,Verify Material Data Modification,Materiale,3,Material is associated with a device.,"- New chemical formula: newformula
+- New carbon footprint: newcarbonfootprint","1. Navigate to the material data modification page.
+2. Enter the new material details.
+3. Click the ""Save"" button.
+4. Check the database for the updated material entry.",The material data is successfully updated in the database.
+TC-LOGIN-001,Verify Invalid User Login,Login,2,User does not exist in the database.,"- Username: invaliduser
+- Password: invalidpassword","1. Navigate to the login page.
+2. Enter the invalid user credentials.
+3. Click the ""Login"" button.
+4. Check if an error message is displayed.",An error message is displayed indicating invalid credentials.
+TC-LOGIN-002,Verify Expired User Account,Login,2,User account is expired.,"- Username: testuser
+- Password: testpassword","1. Navigate to the login page.
+2. Enter the test user credentials.
+3. Click the ""Login"" button.
+4. Check if an error message is displayed.",An error message is displayed indicating the account is expired.
+TC-DEVICE-SCAN-001,Verify Device Scan,Device Scan,"4, 5",Device is connected.,,"1. Initiate the device scan.
+2. Check the scan results for correct component names and impacts.","The device scan is successful, and the correct component names and impacts are displayed."
+TC-DEVICE-SCAN-002,Verify Defective Component Scan,Device Scan,"4, 5",Device has defective components.,,"1. Initiate the device scan.
+2. Check the scan results for the impact of replacing defective components.",The impact of replacing defective components is calculated and displayed.
+TC-DEVICE-SCAN-003,Verify Healthy Component Scan,Device Scan,"4, 5",Device has healthy components.,,"1. Initiate the device scan.
+2. Check the scan results for the impact of replacing healthy components.","The impact of replacing healthy components is not calculated, and a message indicating no impact is displayed."

@@ -1,0 +1,140 @@
+REPORT: Report_8_uml_pages.pdf
+======================================================================
+
+===== Report_8_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- Avvio applicazione — kind=initial node; role=Start of the process
+- Accesso lista distributori — kind=action; role=Access the distributor list
+- Aggiungi veicolo — kind=action; role=Add a vehicle
+- Utente registrato con successo al servizio? — kind=decision; role=Check if the user is registered
+- Configurazione valida e attivata? — kind=decision; role=Check if the configuration is valid and activated
+- Cerca il veicolo nel dataset — kind=action; role=Search for the vehicle in the dataset
+- Seleziona e aggiungi il veicolo — kind=action; role=Select and add the vehicle
+- Inserisci il veicolo manualmente — kind=action; role=Manually insert the vehicle
+- Hai trovato il veicolo? — kind=decision; role=Check if the vehicle was found
+- Non esiste un altro veicolo? — kind=decision; role=Check if there is another vehicle
+- Vedi altri diagrammi — kind=action; role=View other diagrams
+- Fine — kind=final node; role=End of the process
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Avvio applicazione -> Accesso lista distributori — type=control flow; label=""; explanation="Process starts"
+- Avvio applicazione -> Aggiungi veicolo — type=control flow; label=""; explanation="Process starts"
+- Accesso lista distributori -> Vedi altri diagrammi — type=control flow; label=""; explanation="Go to other diagrams"
+- Aggiungi veicolo -> Utente registrato con successo al servizio? — type=control flow; label=""; explanation="Check user registration"
+- Utente registrato con successo al servizio? (SI) -> Cerca il veicolo nel dataset — type=control flow; label="SI"; explanation="If user is registered, search for the vehicle"
+- Utente registrato con successo al servizio? (NO) -> Accesso lista distributori — type=control flow; label="NO"; explanation="If user is not registered, go to distributor list"
+- Cerca il veicolo nel dataset -> Hai trovato il veicolo? — type=control flow; label=""; explanation="Search result"
+- Hai trovato il veicolo? (SI) -> Seleziona e aggiungi il veicolo — type=control flow; label="SI"; explanation="If vehicle is found, select and add it"
+- Hai trovato il veicolo? (NO) -> Inserisci il veicolo manualmente — type=control flow; label="NO"; explanation="If vehicle is not found, insert manually"
+- Seleziona e aggiungi il veicolo -> Fine — type=control flow; label=""; explanation="Vehicle added"
+- Inserisci il veicolo manualmente -> Fine — type=control flow; label=""; explanation="Vehicle manually inserted"
+- Cerca il veicolo nel dataset -> Non esiste un altro veicolo? — type=control flow; label=""; explanation="Check for other vehicles"
+
+Main Flows:
+- Flow 1: Avvio applicazione -> Accesso lista distributori -> Vedi altri diagrammi
+- Flow 2: Avvio applicazione -> Aggiungi veicolo -> Utente registrato con successo al servizio? (SI) -> Cerca il veicolo nel dataset -> Hai trovato il veicolo? (SI) -> Seleziona e aggiungi il veicolo -> Fine
+- Flow 3: Avvio applicazione -> Aggiungi veicolo -> Utente registrato con successo al servizio? (SI) -> Cerca il veicolo nel dataset -> Hai trovato il veicolo? (NO) -> Inserisci il veicolo manualmente -> Fine
+- Flow 4: Avvio applicazione -> Aggiungi veicolo -> Utente registrato con successo al servizio? (NO) -> Accesso lista distributori -> Vedi altri diagrammi
+
+Conditions / Branches:
+- Utente registrato con successo al servizio?: SI -> Cerca il veicolo nel dataset; NO -> Accesso lista distributori
+- Hai trovato il veicolo?: SI -> Seleziona e aggiungi il veicolo; NO -> Inserisci il veicolo manualmente
+
+===== Report_8_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Avvio app — kind=initial node; attributes=[]; operations=[]; role=start of the process
+- Utente registrato con successo al servizio? — kind=decision; attributes=[]; operations=[]; role=check user registration
+- SI — kind=action; attributes=[]; operations=[]; role=user registered successfully
+- NO — kind=action; attributes=[]; operations=[]; role=user not registered
+- Accesso pagina distributori (schermata principale) — kind=action; attributes=[]; operations=[]; role=main distributor page
+- Visualizza lista distributori — kind=action; attributes=[]; operations=[]; role=display distributor list
+- Accesso pagina statistiche — kind=action; attributes=[]; operations=[]; role=access statistics page
+- Vedi altri diagrammi — kind=action; attributes=[]; operations=[]; role=view other diagrams
+- Visualizza parametri di configurazione — kind=action; attributes=[]; operations=[]; role=display configuration parameters
+- Modifica parametri di configurazione — kind=action; attributes=[]; operations=[]; role=modify configuration parameters
+- Salva parametri di configurazione — kind=action; attributes=[]; operations=[]; role=save configuration parameters
+- Apertura manuale dell'ordine — kind=action; attributes=[]; operations=[]; role=manually open an order
+- Visualizza lista ordini in sospeso — kind=action; attributes=[]; operations=[]; role=display pending orders list
+- Accesso pagina ordini — kind=action; attributes=[]; operations=[]; role=access orders page
+- Vedi altri diagrammi — kind=action; attributes=[]; operations=[]; role=view other diagrams
+- Fine — kind=final node; attributes=[]; operations=[]; role=end of the process
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Avvio app -> Utente registrato con successo al servizio? — type=control flow; label=""; explanation="Start of the process"
+- Utente registrato con successo al servizio? -> SI — type=control flow; label="SI"; explanation="If user is registered"
+- Utente registrato con successo al servizio? -> NO — type=control flow; label="NO"; explanation="If user is not registered"
+- SI -> Accesso pagina distributori (schermata principale) — type=control flow; label=""; explanation="Go to main distributor page"
+- Accesso pagina distributori (schermata principale) -> Visualizza lista distributori — type=control flow; label=""; explanation="Display distributor list"
+- Accesso pagina distributori (schermata principale) -> Accesso pagina statistiche — type=control flow; label=""; explanation="Access statistics page"
+- Accesso pagina distributori (schermata principale) -> Vedi altri diagrammi — type=control flow; label=""; explanation="View other diagrams"
+- Accesso pagina distributori (schermata principale) -> Visualizza parametri di configurazione — type=control flow; label=""; explanation="Display configuration parameters"
+- Visualizza parametri di configurazione -> Modifica parametri di configurazione — type=control flow; label=""; explanation="Modify configuration parameters"
+- Modifica parametri di configurazione -> Salva parametri di configurazione — type=control flow; label=""; explanation="Save configuration parameters"
+- Accesso pagina distributori (schermata principale) -> Apertura manuale dell'ordine — type=control flow; label=""; explanation="Manually open an order"
+- Accesso pagina distributori (schermata principale) -> Visualizza lista ordini in sospeso — type=control flow; label=""; explanation="Display pending orders list"
+- Accesso pagina distributori (schermata principale) -> Accesso pagina ordini — type=control flow; label=""; explanation="Access orders page"
+- Accesso pagina ordini -> Vedi altri diagrammi — type=control flow; label=""; explanation="View other diagrams"
+
+Main Flows:
+- Flow 1: Avvio app -> Utente registrato con successo al servizio? (SI) -> Accesso pagina distributori (schermata principale) -> Visualizza lista distributori
+- Flow 2: Avvio app -> Utente registrato con successo al servizio? (SI) -> Accesso pagina distributori (schermata principale) -> Accesso pagina statistiche
+
+===== Report_8_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Accesso pagina impostazioni — kind=action; attributes=[]; operations=[]; role=Initial action
+- Visualizza popup "Impostazioni effettuate" — kind=action; attributes=[]; operations=[]; role=Final action
+- Valida le impostazioni — kind=action; attributes=[]; operations=[]; role=Validation step
+- Aggiungi lista di voci — kind=action; attributes=[]; operations=[]; role=Adding list of items
+- Accesso lista distributori — kind=action; attributes=[]; operations=[]; role=Accessing distributor list
+- Accesso pagina statistiche — kind=action; attributes=[]; operations=[]; role=Accessing statistics page
+- È un accesso alla pagina impostazioni? — kind=decision; attributes=[]; operations=[]; role=Decision point
+- Hai modifiche da visualizzare? — kind=decision; attributes=[]; operations=[]; role=Decision point
+- È un accesso alla pagina lista distributori? — kind=decision; attributes=[]; operations=[]; role=Decision point
+- È un accesso alla pagina statistiche? — kind=decision; attributes=[]; operations=[]; role=Decision point
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Accesso pagina impostazioni -> È un accesso alla pagina impostazioni? — type=control_flow; label=""; explanation="Flow control"
+- È un accesso alla pagina impostazioni? (SI) -> Valida le impostazioni — type=control_flow; label="SI"; explanation="Yes branch"
+- È un accesso alla pagina impostazioni? (NO) -> Accesso lista distributori — type=control_flow; label="NO"; explanation="No branch"
+- Valida le impostazioni -> Hai modifiche da visualizzare? — type=control_flow; label=""; explanation="Flow control"
+- Hai modifiche da visualizzare? (SI) -> Aggiungi lista di voci — type=control_flow; label="SI"; explanation="Yes branch"
+- Hai modifiche da visualizzare? (NO) -> Visualizza popup "Impostazioni effettuate" — type=control_flow; label="NO"; explanation="No branch"
+- Aggiungi lista di voci -> Visualizza popup "Impostazioni effettuate" — type=control_flow; label=""; explanation="Flow control"
+- Accesso lista distributori -> Accesso pagina statistiche — type=control_flow; label=""; explanation="Flow control"
+- Accesso pagina statistiche -> Accesso pagina impostazioni — type=control_flow; label=""; explanation="Flow control"
+- È un accesso alla pagina lista distributori? (SI) -> Accesso lista distributori — type=control_flow; label="SI"; explanation="Yes branch"
+- È un accesso alla pagina lista distributori? (NO) -> Accesso pagina statistiche — type=control_flow; label="NO"; explanation="No branch"
+- È un accesso alla pagina statistiche? (SI) -> Accesso pagina statistiche — type=control_flow; label="SI"; explanation="Yes branch"
+- È un accesso alla pagina statistiche? (NO) -> Accesso pagina impostazioni — type=control_flow; label="NO"; explanation="No branch"
+
+Main Flows:
+- Flow 1: Accesso pagina impostazioni -> È un accesso alla pagina impostazioni? (SI) -> Valida le impostazioni -> Hai modifiche da visualizzare? (SI) -> Aggiungi lista di voci -> Visualizza popup "Impostazioni effettuate"
+- Flow 2: Accesso pagina impostazioni -> È un accesso alla pagina impostazioni? (NO) -> Accesso lista distributori -> Accesso pagina statistiche -> Accesso pagina impostazioni
+- Flow 3: Accesso pagina impostazioni -> È un accesso alla pagina impostazioni? (SI) -> Valida le impostazioni -> Hai modifiche da visualizzare? (NO) -> Visualizza popup "Impostazioni effettuate"
+- Flow 4: Accesso lista distributori -> Accesso pagina statistiche -> Accesso pagina impostazioni
+- Flow 5: Accesso pagina statistiche -> Accesso pagina impostazioni
+
+Conditions / Branches:
+- È un accesso alla pagina impostazioni?: SI -> Valida le impostazioni
+- È un
+
+
+======================================================================

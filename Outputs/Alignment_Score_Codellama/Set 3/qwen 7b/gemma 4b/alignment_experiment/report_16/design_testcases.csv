@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new User,Utente,1,None,"- id: 1
+- Password: password123
+- Email: user@example.com
+- Name: John
+- Cognome: Doe","1. Call newId() method to generate a unique id.
+2. Set the password using setPassword(""password123"").
+3. Set the email using setEmail(""user@example.com"").
+4. Set the name using setName(""John"").
+5. Set the cognome using setNome(""Doe"").",A new user object with the provided data should be created.
+TC-Utente-002,Update User's Email,Utente,1,User already exists with an email.,- New Email: new.email@example.com,"1. Retrieve the existing user object.
+2. Call setEmail(""new.email@example.com"").","The user's email should be updated to ""new.email@example.com""."
+TC-Utente-003,Update User's Name,Utente,1,User already exists with a name.,- New Name: Jane,"1. Retrieve the existing user object.
+2. Call setName(""Jane"").","The user's name should be updated to ""Jane""."
+TC-Utente-004,Update User's Cognome,Utente,1,User already exists with a cognome.,- New Cognome: Smith,"1. Retrieve the existing user object.
+2. Call setNome(""Smith"").","The user's cognome should be updated to ""Smith""."
+TC-Utente-005,Get User's Cognome,Utente,1,User already exists with a cognome.,- None,"1. Retrieve the existing user object.
+2. Call getCognome().",The user's cognome should be returned.
+TC-Prodotto-001,Create a new Product,Prodotto,1,None,"- Name: iPhone
+- Luogo: USA
+- Immagine: img1.jpg
+- Prezzo: 999.99
+- Proprietario: User with id 1","1. Call new() method to create a product.
+2. Set the product's name to ""iPhone"".
+3. Set the product's location to ""USA"".
+4. Set the product's image to ""img1.jpg"".
+5. Set the product's price to 999.99.
+6. Set the product's owner to the user with id 1.",A new product object with the provided data should be created.
+TC-Prodotto-002,Update Product's Name,Prodotto,1,Product already exists with a name.,- New Name: Samsung Galaxy,"1. Retrieve the existing product object.
+2. Call setName(""Samsung Galaxy"").","The product's name should be updated to ""Samsung Galaxy""."
+TC-Prodotto-003,Update Product's Location,Prodotto,1,Product already exists with a location.,- New Location: UK,"1. Retrieve the existing product object.
+2. Call setLuogo(""UK"").","The product's location should be updated to ""UK""."
+TC-Prodotto-004,Update Product's Image,Prodotto,1,Product already exists with an image.,- New Image: img2.jpg,"1. Retrieve the existing product object.
+2. Call setImmagine(""img2.jpg"").","The product's image should be updated to ""img2.jpg""."
+TC-Prodotto-005,Update Product's Price,Prodotto,1,Product already exists with a price.,- New Price: 899.99,"1. Retrieve the existing product object.
+2. Call setPrezzo(899.99).",The product's price should be updated to 899.99.
+TC-Prodotto-006,Update Product's Owner,Prodotto,1,Product already exists with an owner.,- New Owner: User with id 2,"1. Retrieve the existing product object.
+2. Call setProprietario(User with id 2).",The product's owner should be updated to the user with id 2.
+TC-Association-001,Verify User Ownership of Product,Utente & Prodotto,1,User with id 1 owns a product.,- None,"1. Retrieve the user with id 1.
+2. Check if the user has any products associated with them.",The user with id 1 should have at least one product associated with them.
+TC-Invalid-001,Attempt to Set Invalid Email,Utente,1,User already exists with a valid email.,- Invalid Email: invalidemail,"1. Retrieve the existing user object.
+2. Call setEmail(""invalidemail"").",An error should be thrown indicating that the email is invalid.
+TC-Invalid-002,Attempt to Set Invalid Price,Prodotto,1,Product already exists with a valid price.,- Invalid Price: -100,"1. Retrieve the existing product object.
+2. Call setPrezzo(-100).",An error should be thrown indicating that the price is invalid.
+TC-Edge-001,Create a Product with Minimum Price,Prodotto,1,None,"- Name: Minimum Price Product
+- Luogo: Italy
+- Immagine: minprice.jpg
+- Prezzo: 0.01
+- Proprietario: User with id 1","1. Call new() method to create a product.
+2. Set the product's name to ""Minimum Price Product"".
+3. Set the product's location to ""Italy"".
+4. Set the product's image to ""minprice.jpg"".
+5. Set the product's price to 0.01.
+6. Set the product's owner to the user with id 1.",A new product object with the minimum allowed price should be created.
+TC-Edge-002,Create a User with Maximum ID,Utente,1,None,"- id: 999999999
+- Password: maxidpassword
+- Email: maxid@example.com
+- Name: Max
+- Cognome: ID","1. Call newId() method to generate a unique id.
+2. Set the password using setPassword(""maxidpassword"").
+3. Set the email using setEmail(""maxid@example.com"").
+4. Set the name using setName(""Max"").
+5. Set the cognome using setNome(""ID"").","A new user object with the maximum allowed id should be created. 
+
+Note: The exact maximum id value may vary based on the system's constraints. This is a hypothetical example."
+TC-Edge-003,Create a Product with Maximum Price,Prodotto,1,None,"- Name: Maximum Price Product
+- Luogo: USA
+- Immagine: maxprice.jpg
+- Prezzo: 999999999.99
+- Proprietario: User with id 1","1. Call new() method to create a product.
+2. Set the product's name to ""Maximum Price Product"".
+3. Set the product's location to ""USA"".
+4. Set the product's image to ""maxprice.jpg"".
+5. Set the product's price to 999999999.99.
+6. Set the product's owner to the user with id 1.","A new product object with the maximum allowed price should be created.
+
+Note: The exact maximum price value may vary based on the system's constraints. This is a hypothetical example."
+TC-Edge-004,Create a User with Maximum Length for Name and Cognome,Utente,1,None,"- id: 1
+- Password: maxlengthpassword
+- Email: maxlength@example.com
+- Name: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+- Cognome: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","1. Call newId() method to generate a unique id.
+2. Set the password using setPassword(""maxlengthpassword"").
+3. Set the email using setEmail(""maxlength@example.com"").
+4. Set the name using setName(""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"").
+5. Set the cognome using setNome(""bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"").","A new user object with the maximum length for name and cognome should be created.
+
+Note: The exact maximum length for name and cognome may vary based on the system's constraints. This is a hypothetical example."
+TC-Edge-005,Create a Product with Maximum Length for Name and Location,Prodotto,1,None,"- Name: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+- Luogo: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+- Immagine: maxname.jpg
+- Prezzo: 999.99
+- Proprietario: User with id 1","1. Call new() method to create a product.
+2. Set the product's name to ""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"".
+3. Set the product's location to ""bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"".
+4. Set the product's image to ""maxname.jpg"".
+5. Set the product's price to 999.99.
+6. Set the product's owner to the user with id 1.","A new product object with the maximum length for name and location should be created.
+
+Note: The exact maximum length for name and location may vary based on the system's constraints. This is a hypothetical example."
+TC-Edge-006,Create a Product with Maximum Length for Image,Prodotto,1,None,"- Name: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+- Luogo: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+- Immagine: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+- Prezzo: 999.99
+- Proprietario: User with id 1","1. Call new() method to create a product.
+2. Set the product's name to ""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"".
+3. Set the product's location to ""bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"".
+4. Set the product's image to ""aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"".
+5. Set the product's price to 999.99.
+6. Set the product's owner to the user with id 1.","A new product object with the maximum length for image should be created.
+
+Note: The exact maximum length for image may vary based on the system's constraints. This is a hypothetical example."
+TC-Edge-007,Create a User with Minimum Length for Name and Cognome,Utente,1,None,"- id: 1
+- Password: minlengthpassword
+- Email: minlength@example.com
+- Name: a
+- Cognome: b","1. Call newId() method to generate a unique id.
+2. Set the password using setPassword(""minlengthpassword"").
+3. Set the email using setEmail(""minlength@example.com"").
+4. Set the name using setName(""a"").
+5. Set the cognome using setNome(""b"").",A new user object with the minimum length for name and cognome should be created.
+TC-Edge-008,Create a Product with Minimum Length for Name and Location,Prodotto,1,None,"- Name: a
+- Luogo: b
+- Imm",,

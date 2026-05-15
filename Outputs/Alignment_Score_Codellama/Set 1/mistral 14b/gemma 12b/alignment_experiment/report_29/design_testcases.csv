@@ -1,0 +1,91 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and homepage redirection,Authentication,1,"- User is not registered in the system.
+- Network connectivity is available.","- Valid username: `testuser123`
+- Valid email: `testuser@example.com`
+- Valid password: `SecurePass123!`","1. Launch the application.
+2. Attempt to access the homepage (implicitly triggers registration check).
+3. Enter `testuser123` as username, `testuser@example.com` as email, and `SecurePass123!` as password in the registration form.
+4. Submit the registration form.","- User is registered successfully.
+- System redirects to the homepage without errors."
+TC-AUTHENTICATION-002,Existing user access to homepage,Authentication,1,- User `existinguser` is already registered in the system.,"- Username: `existinguser`
+- Password: `ExistingPass456!`","1. Launch the application.
+2. Enter `existinguser` as username and `ExistingPass456!` as password.
+3. Submit login credentials.","- System recognizes the user as registered.
+- User is redirected to the homepage without requiring registration."
+TC-AUTHENTICATION-003,Invalid registration due to missing fields,Authentication,1,- User is not registered.,"- Username: (empty)
+- Email: `invalidemail`
+- Password: `weak`","1. Launch the application.
+2. Attempt to register with missing/invalid fields (leave username empty, use `invalidemail` for email, and `weak` for password).
+3. Submit the registration form.","- System detects missing/invalid fields.
+- User is prompted to correct the errors before proceeding.
+- No new user account is created."
+TC-NAVIGATION-001,"Navigate to ""Homepage"" via side menu",Navigation,2,- User is logged in and on the homepage.,,"1. Click the side menu button.
+2. Select the ""Homepage"" option from the menu.","- Side menu closes.
+- Homepage content is displayed without errors."
+TC-NAVIGATION-002,"Navigate to ""Le mie segnalazioni"" via side menu",Navigation,2,- User is logged in and on the homepage.,,"1. Click the side menu button.
+2. Select the ""Le mie segnalazioni"" option.","- Side menu closes.
+- List of alerts (if any) is displayed."
+TC-NAVIGATION-003,"Navigate to ""Impostazioni"" via side menu",Navigation,2,- User is logged in and on the homepage.,,"1. Click the side menu button.
+2. Select the ""Impostazioni"" option.","- Side menu closes.
+- Settings page is displayed."
+TC-NAVIGATION-004,"Invalid navigation path (e.g., clicking ""Impostazioni"" after ""Le mie segnalazioni"")",Navigation,2,- User is logged in and on the homepage.,,"1. Click the side menu button.
+2. Select ""Le mie segnalazioni"" (side menu closes).
+3. Without returning to the homepage, attempt to click ""Impostazioni"" from the side menu (menu is closed).
+4. Reopen the side menu and select ""Impostazioni.""","- Side menu reopens if clicked again.
+- Settings page is displayed after valid selection."
+TC-ALERT-MANAGEMENT-001,Add a new alert with valid category and fields,Alert Management,3,"- User is on the ""Le mie segnalazioni"" page.","- Category: `Safety`
+- Field 1: `Noise disturbance`
+- Field 2: `Apartment 101`
+- Field 3: `2023-10-01`
+- Field 4: `14:30`","1. Click the ""Add Alert"" button.
+2. Select the ""Safety"" category from the list.
+3. Fill in the first four fields with the provided valid data.
+4. Click the green confirmation button to submit.","- System validates the fields as correct.
+- Alert is added successfully.
+- User is redirected to the alert list or confirmation screen."
+TC-ALERT-MANAGEMENT-002,Add a new alert with invalid fields (missing data),Alert Management,3,"- User is on the ""Le mie segnalazioni"" page.","- Category: `Safety`
+- Field 1: (empty)
+- Field 2: `Apartment 101`
+- Field 3: `2023-10-01`
+- Field 4: `14:30`","1. Click the ""Add Alert"" button.
+2. Select the ""Safety"" category.
+3. Leave Field 1 empty and fill in the other fields.
+4. Click the green confirmation button.","- System detects missing/invalid fields.
+- User is prompted to correct Field 1.
+- Alert is not added; process loops back to the ""Add Alert"" step."
+TC-ALERT-MANAGEMENT-003,View all alerts and select one for details,Alert Management,4,- User has at least one alert in the system.,,"1. Click ""View Alerts"" in the side menu.
+2. Verify the list of alerts is displayed.
+3. Click on the first alert in the list.",- Detailed view of the selected alert is displayed without errors.
+TC-ALERT-MANAGEMENT-004,View alerts list when no alerts exist,Alert Management,4,- User has no alerts in the system.,,"1. Click ""View Alerts"" in the side menu.","- Empty state or message indicating ""No alerts found"" is displayed."
+TC-PROFILE-001,Access profile screen and navigate to accommodations,Profile Management,5,- User is logged in.,,"1. Click ""Profile"" in the side menu.
+2. Click the blue house icon to navigate to accommodations.",- Accommodations screen is displayed with fields for editing.
+TC-PROFILE-002,Save valid profile accommodation data,Profile Management,5,- User is on the accommodations screen.,"- Address: `123 Main St`
+- City: `Springfield`
+- ZIP: `12345`
+- Country: `USA`","1. Fill in the accommodation fields with valid data.
+2. Click the save button (blue house icon).
+3. Confirm the save action.","- System validates all fields as correct.
+- Changes are saved successfully.
+- User is redirected to the profile screen."
+TC-PROFILE-003,Attempt to save profile with invalid fields,Profile Management,5,- User is on the accommodations screen.,"- Address: (empty)
+- City: `Springfield`
+- ZIP: `1234`
+- Country: `USA`","1. Leave the Address field empty and fill in the other fields.
+2. Click the save button.","- System detects invalid/missing fields.
+- User is prompted to correct the Address field.
+- Changes are not saved; process loops back to validation."
+TC-PROFILE-004,Discard profile changes,Profile Management,5,- User is on the accommodations screen with unsaved changes.,,"1. Click the discard button (if available) or navigate away without saving.
+2. Confirm the discard action (if prompted).","- Unsaved changes are discarded.
+- User is redirected to the profile screen with original data intact."
+TC-EDGE-001,Rapid side menu clicks (race condition),Navigation,2,- User is logged in.,,"1. Rapidly click the side menu button, then immediately select ""Le mie segnalazioni"" before the menu fully opens.","- System handles the rapid clicks gracefully.
+- Either:
+  - Menu opens and selection is registered, or
+  - Selection is ignored (no error), or
+  - Menu opens to the selected option without visual glitches."
+TC-EDGE-002,Back button navigation after alert addition,Alert Management,"3, 4","- User is on the ""Add Alert"" screen.",,"1. Partially fill the alert form (e.g., select category but leave fields empty).
+2. Press the browser's back button.","- User is redirected to the previous screen (e.g., ""Le mie segnalazioni"") without errors.
+- No unsaved data is retained in the alert form."
+TC-EDGE-003,Network failure during alert submission,Alert Management,3,"- User is on the ""Add Alert"" screen with filled fields.
+- Simulate network failure during submission.",,"1. Fill all alert fields correctly.
+2. Click the confirmation button while offline (or use a network simulator to block requests).","- System detects the failure and displays an error message (e.g., ""Network error. Please try again."").
+- User is not redirected; form data is preserved for resubmission."

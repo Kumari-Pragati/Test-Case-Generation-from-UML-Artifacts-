@@ -1,0 +1,143 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Creation and Authentication,User,"1,2",No active user session.,"- Username: testuser
+- Password: testpassword
+- Email: testuser@example.com
+- Neighborhood: TestNeighborhood
+- Photo: testphoto.jpg
+- CompanyName: TestCompany
+- CompanyDescription: TestDescription","1. Navigate to the user creation page.
+2. Enter username, password, email, neighborhood, photo, company name, and company description.
+3. Click on the ""Create User"" button.
+4. System checks if the user already exists.
+5. If the user does not exist, system creates a new user.
+6. System authenticates the user.
+7. If credentials are valid, user is redirected to the home page.
+8. If credentials are invalid, user is prompted to re-enter credentials.","- User is created and authenticated successfully, and redirected to the home page."
+TC-User-002,User Creation Failure (Duplicate User),User,"1,2",No active user session.,"- Username: testuser
+- Password: testpassword
+- Email: testuser@example.com
+- Neighborhood: TestNeighborhood
+- Photo: testphoto.jpg
+- CompanyName: TestCompany
+- CompanyDescription: TestDescription","1. Navigate to the user creation page.
+2. Enter username, password, email, neighborhood, photo, company name, and company description.
+3. Click on the ""Create User"" button.
+4. System checks if the user already exists.
+5. If the user already exists, system displays an error message.",- Error message displayed indicating that the user already exists.
+TC-User-003,User Authentication Failure (Invalid Credentials),User,"1,2",No active user session.,"- Username: testuser
+- Password: wrongpassword","1. Navigate to the login page.
+2. Enter username and password.
+3. Click on the ""Login"" button.
+4. System checks if the credentials are valid.
+5. If credentials are invalid, system displays an error message.",- Error message displayed indicating that the credentials are invalid.
+TC-User-004,User Navigation Through Home Page,User,"2,3",User is logged in.,- User clicks on different icons on the home page.,"1. User clicks on the profile photo.
+2. System navigates to the user profile.
+3. User clicks on the notification icon.
+4. System navigates to the notification section.
+5. User interacts with the map.
+6. System navigates to the full screen map.
+7. User clicks on the menu icon.
+8. System navigates to the menu interaction.
+9. User clicks on the home icon.
+10. System navigates back to the home page.
+11. User clicks on the personal profile icon.
+12. System navigates to the user profile.
+13. User clicks on the chat icon.
+14. System navigates to the chat section.
+15. User clicks on the general access icon.
+16. System navigates to the general dashboard.",- User is navigated to the correct sections based on the icon clicks.
+TC-Post-001,Posting a New Post,Post,"3,4",User is logged in.,"- Post content: ""Test post content""
+- Neighborhood: TestNeighborhood","1. User clicks on the post button.
+2. User enters post content and selects the neighborhood.
+3. User clicks on the ""Post"" button.
+4. System saves the post.
+5. System displays the post on the user's profile.",- Post is successfully posted and displayed on the user's profile.
+TC-Post-002,Posting a New Post with Invalid Content,Post,"3,4",User is logged in.,"- Post content: """"
+- Neighborhood: TestNeighborhood","1. User clicks on the post button.
+2. User enters empty post content and selects the neighborhood.
+3. User clicks on the ""Post"" button.
+4. System checks if the post content is valid.
+5. If the post content is invalid, system displays an error message.",- Error message displayed indicating that the post content is invalid.
+TC-Comment-001,Leaving a Comment on a Post,Comment,"3,4",User is logged in and a post exists.,"- Comment content: ""Test comment content""","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System saves the comment.
+6. System displays the comment under the post.",- Comment is successfully left and displayed under the post.
+TC-Comment-002,Leaving a Comment with Invalid Content,Comment,"3,4",User is logged in and a post exists.,"- Comment content: """"","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters empty comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System checks if the comment content is valid.
+6. If the comment content is invalid, system displays an error message.",- Error message displayed indicating that the comment content is invalid.
+TC-Search-001,Searching for a Resident Profile,Search,5,User is logged in.,"- Search term: ""testresident""","1. User clicks on the search bar.
+2. User enters the search term.
+3. System searches for the resident profile.
+4. System displays the resident profile.",- Resident profile is displayed based on the search term.
+TC-Search-002,Searching for a Business Profile,Search,5,User is logged in.,"- Search term: ""testbusiness""","1. User clicks on the search bar.
+2. User enters the search term.
+3. System searches for the business profile.
+4. System displays the business profile.",- Business profile is displayed based on the search term.
+TC-Search-003,Adding a Contact,Search,5,User is logged in and a profile exists.,- Profile: Resident or Business,"1. User clicks on the profile.
+2. User clicks on the ""Add to Contacts"" button.
+3. System adds the profile to the user's contact list.",- Profile is added to the user's contact list.
+TC-Search-004,Viewing Unsold Items,Search,5,User is logged in and a business profile exists.,- Business profile: TestBusiness,"1. User clicks on the business profile.
+2. User clicks on the ""View Unsold Items"" button.
+3. System displays the unsold items.",- Unsold items are displayed for the business profile.
+TC-Search-005,Viewing Promotions,Search,5,User is logged in and a business profile exists.,- Business profile: TestBusiness,"1. User clicks on the business profile.
+2. User clicks on the ""View Promotions"" button.
+3. System displays the promotions.",- Promotions are displayed for the business profile.
+TC-Search-006,Booking an Appointment,Search,5,User is logged in and a business profile exists.,- Business profile: TestBusiness,"1. User clicks on the business profile.
+2. User clicks on the ""Book Appointment"" button.
+3. System opens the calendar.
+4. User selects a date and time.
+5. System confirms the appointment.",- Appointment is booked and confirmed.
+TC-Database-001,Database Write Operation,Database,6,User is logged in and a post exists.,"- Post content: ""Test post content""
+- Neighborhood: TestNeighborhood","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System saves the comment.
+6. System waits for the database write operation.
+7. System confirms the successful write operation.",- Comment is successfully saved and the database write operation is confirmed.
+TC-Database-002,Database Write Operation Failure,Database,6,User is logged in and a post exists.,"- Post content: ""Test post content""
+- Neighborhood: TestNeighborhood","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System saves the comment.
+6. System fails to write to the database.",- Error message displayed indicating that the database write operation failed.
+TC-Database-003,Database Write Operation with Empty Content,Database,6,User is logged in and a post exists.,"- Post content: """"
+- Neighborhood: TestNeighborhood","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters empty comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System checks if the comment content is valid.
+6. If the comment content is invalid, system displays an error message.",- Error message displayed indicating that the comment content is invalid.
+TC-Database-004,Database Write Operation with Invalid Content,Database,6,User is logged in and a post exists.,"- Post content: ""Invalid content""
+- Neighborhood: TestNeighborhood","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters invalid comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System checks if the comment content is valid.
+6. If the comment content is invalid, system displays an error message.",- Error message displayed indicating that the comment content is invalid.
+TC-Database-005,Database Write Operation with Empty Post Content,Database,6,User is logged in and a post exists.,"- Post content: """"
+- Neighborhood: TestNeighborhood","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters empty post content.
+4. User clicks on the ""Leave Comment"" button.
+5. System checks if the post content is valid.
+6. If the post content is invalid, system displays an error message.",- Error message displayed indicating that the post content is invalid.
+TC-Database-006,Database Write Operation with Invalid Post Content,Database,6,User is logged in and a post exists.,"- Post content: ""Invalid post content""
+- Neighborhood: TestNeighborhood","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters invalid post content.
+4. User clicks on the ""Leave Comment"" button.
+5. System checks if the post content is valid.
+6. If the post content is invalid, system displays an error message.",- Error message displayed indicating that the post content is invalid.
+TC-Database-007,Database Write Operation with Empty Neighborhood,Database,6,User is logged in and a post exists.,"- Post content: ""Test post content""
+- Neighborhood: """"","1. User clicks on the post to view it.
+2. User clicks on the comment button.
+3. User enters comment content.
+4. User clicks on the ""Leave Comment"" button.
+5. System checks if the neighborhood is",

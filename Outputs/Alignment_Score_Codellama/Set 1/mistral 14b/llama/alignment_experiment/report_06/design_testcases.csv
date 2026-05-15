@@ -1,0 +1,119 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 2","- User account exists in the system with valid credentials.
+- Network connection is active.","- Email: `user@example.com`
+- Password: `SecurePass123!`","1. User navigates to the login page.
+2. User enters valid email (`user@example.com`) and password (`SecurePass123!`).
+3. User clicks the ""Login"" button.","- System validates credentials successfully.
+- User is redirected to the home page with a logged-in state.
+- No error messages are displayed."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,"1, 2","- User account exists with valid email but incorrect password.
+- Network connection is active.","- Email: `user@example.com`
+- Password: `WrongPass456!`","1. User navigates to the login page.
+2. User enters valid email (`user@example.com`) and incorrect password (`WrongPass456!`).
+3. User clicks the ""Login"" button.","- System rejects the login attempt.
+- Error message: **""Invalid email or password""** is displayed.
+- User remains on the login page."
+TC-AUTHENTICATION-003,Failed User Login (Non-Existent Email),Authentication,"1, 2","- No user account exists with the provided email.
+- Network connection is active.","- Email: `nonexistent@example.com`
+- Password: `AnyPassword123!`","1. User navigates to the login page.
+2. User enters non-existent email (`nonexistent@example.com`) and any password (`AnyPassword123!`).
+3. User clicks the ""Login"" button.","- System rejects the login attempt.
+- Error message: **""Invalid email or password""** is displayed.
+- User remains on the login page."
+TC-AUTHENTICATION-004,User Registration with Valid Data,Registration,3,"- No existing account with the provided email.
+- Network connection is active.","- Email: `newuser@example.com`
+- Password: `NewPass789!`
+- Confirm Password: `NewPass789!`","1. User navigates to the registration page.
+2. User enters email (`newuser@example.com`), password (`NewPass789!`), and confirms password.
+3. User clicks the ""Register"" button.
+4. System sends a verification token to the email.
+5. User validates the token via the link in the email.","- Account is created successfully in Firebase Authentication.
+- Confirmation message: **""Registration successful. Please validate your email.""** is displayed.
+- User is redirected to the login page.
+- Token validation via FirebaseRestore succeeds."
+TC-AUTHENTICATION-005,User Registration with Mismatched Passwords,Registration,3,- Network connection is active.,"- Email: `newuser@example.com`
+- Password: `Pass123!`
+- Confirm Password: `Pass456!`","1. User navigates to the registration page.
+2. User enters email (`newuser@example.com`), password (`Pass123!`), and mismatched confirm password (`Pass456!`).
+3. User clicks the ""Register"" button.","- System rejects the registration.
+- Error message: **""Passwords do not match""** is displayed.
+- User remains on the registration page."
+TC-AUTHENTICATION-006,User Registration with Invalid Email Format,Registration,3,- Network connection is active.,"- Email: `invalid.email`
+- Password: `ValidPass123!`","1. User navigates to the registration page.
+2. User enters invalid email (`invalid.email`) and password (`ValidPass123!`).
+3. User clicks the ""Register"" button.","- System rejects the registration.
+- Error message: **""Please enter a valid email address""** is displayed.
+- User remains on the registration page."
+TC-AREA-MANAGEMENT-001,Create New Area (Valid Data),Area Management,1,"- User is logged in with a valid session.
+- User has the permission to create areas.","- Description: `Downtown Safety Initiative`
+- Location: `123 Main St, City Center`","1. Logged-in user navigates to the ""Areas"" section.
+2. User clicks the ""Create Area"" button.
+3. User enters description (`Downtown Safety Initiative`) and location (`123 Main St, City Center`).
+4. User clicks the ""Save"" button.","- New area is created in the system with auto-generated `id`.
+- Success message: **""Area created successfully""** is displayed.
+- New area appears in the user's list of areas."
+TC-AREA-MANAGEMENT-002,Delete Existing Area,Area Management,1,"- User is logged in.
+- User owns an existing area (e.g., `id: 1`).",,"1. Logged-in user navigates to the ""Areas"" section.
+2. User selects the area with `id: 1` (`Downtown Safety Initiative`).
+3. User clicks the ""Delete"" button and confirms deletion.","- Area with `id: 1` is deleted from the system.
+- Success message: **""Area deleted successfully""** is displayed.
+- Area no longer appears in the user's list of areas.
+- All categories and reports under this area are also deleted (cascade delete)."
+TC-CATEGORY-MANAGEMENT-001,Create Category Under an Area,Category Management,1,"- User is logged in.
+- User has an existing area (e.g., `id: 1`).","- Name: `Traffic Violations`
+- Description: `Reports related to traffic rule breaches`","1. Logged-in user navigates to the ""Areas"" section and selects area `id: 1`.
+2. User clicks the ""Add Category"" button.
+3. User enters name (`Traffic Violations`) and description (`Reports related to traffic rule breaches`).
+4. User clicks the ""Save"" button.","- New category is created under area `id: 1` with auto-generated `id`.
+- Success message: **""Category created successfully""** is displayed.
+- New category appears in the list under the selected area."
+TC-CATEGORY-MANAGEMENT-002,Delete Category and Verify Reports Deletion,Category Management,1,"- User is logged in.
+- User has a category with existing reports (e.g., `id: 1` under area `id: 1`).",,"1. Logged-in user navigates to the ""Areas"" section, selects area `id: 1`, and then selects category `id: 1`.
+2. User clicks the ""Delete"" button and confirms deletion.","- Category with `id: 1` is deleted from the system.
+- Success message: **""Category deleted successfully""** is displayed.
+- All reports under this category are also deleted (cascade delete).
+- Category no longer appears in the area's list."
+TC-REPORT-MANAGEMENT-001,Create Report with Valid Data and Image,Report Submission,"1, 4","- User is logged in.
+- User has an existing category (e.g., `id: 1` under area `id: 1`).
+- Network connection is active.","- Description: `Illegal parking at 5th Ave`
+- Image: `parking_violation.jpg` (valid image file)","1. Logged-in user navigates to the ""Reports"" section under category `id: 1`.
+2. User clicks the ""Create Report"" button.
+3. User enters description (`Illegal parking at 5th Ave`).
+4. User uploads an image (`parking_violation.jpg`).
+5. User clicks the ""Submit"" button.","- Report is created with auto-generated `id` and `reportId`.
+- Image is uploaded to Firebase Storage.
+- Success message: **""Report submitted successfully""** is displayed.
+- Report appears in the user's list of reports and in the category's report list.
+- Report is assigned an entity (e.g., ""City Traffic Department"") for follow-up."
+TC-REPORT-MANAGEMENT-002,Submit Report with Incomplete Data (Loop Validation),Report Submission,"1, 4","- User is logged in.
+- User has an existing category.
+- Network connection is active.","- Description: (empty)
+- Image: (not uploaded)","1. Logged-in user navigates to the ""Reports"" section.
+2. User clicks the ""Create Report"" button.
+3. User leaves the description field empty and does not upload an image.
+4. User clicks the ""Submit"" button.
+5. System detects incomplete data and prompts the user to correct it.
+6. User enters description (`Test report`) and uploads an image (`test.jpg`).
+7. User clicks the ""Submit"" button again.","- First submission fails with error: **""Description and image are required""**.
+- User is prompted to correct the data.
+- After correction, report is submitted successfully.
+- Success message: **""Report submitted successfully""** is displayed."
+TC-REPORT-MANAGEMENT-003,Delete User's Own Report,Report Management,1,"- User is logged in.
+- User has an existing report (e.g., `id: 1`).",,"1. Logged-in user navigates to their list of reports.
+2. User selects report `id: 1`.
+3. User clicks the ""Delete"" button and confirms deletion.","- Report with `id: 1` is deleted from the system.
+- Success message: **""Report deleted successfully""** is displayed.
+- Report no longer appears in the user's list or the category's report list."
+TC-NAVIGATION-001,Navigate from Home to Area to Category to Report (Valid Flow),Navigation,1,"- User is logged in.
+- User has at least one area, category, and report.",,"1. Logged-in user is on the home page.
+2. User clicks an existing area (e.g., `Downtown Safety Initiative`).
+3. User clicks an existing category under the area (e.g., `Traffic Violations`).
+4. User clicks an existing report under the category (e.g., `Illegal parking at 5th Ave`).","- User is successfully navigated through the hierarchy:
+- Home → Area (`Downtown Safety Initiative`) → Category (`Traffic Violations`) → Report (`Illegal parking at 5th Ave`).
+- Report details are displayed without errors."
+TC-NAVIGATION-002,Attempt to Access Category Without Selecting Area,Navigation,1,"- User is logged in.
+- User is on the home page.",,"1. Logged-in user is on the home page.
+2. User attempts to navigate directly to a category (e.g., `Traffic Violations`) without selecting an area first.","- User is redirected to the home page with an error message: **""Please select an area first""**.
+- No category list is displayed."
+TC-NAVIGATION-003,"Attempt to Access Report Without Selecting Category
+**",,,,,,

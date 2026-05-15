@@ -1,0 +1,45 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User logs in successfully","Login","2, 8","User is not logged in.","Username: testuser, Password: testpassword","1. User enters ""testuser"" in the username field.
+2. User enters ""testpassword"" in the password field.
+3. User clicks the login button.","User is redirected to the main page."
+"TC-Login-002","User logs in with incorrect password","Login","2, 8","User is not logged in.","Username: testuser, Password: wrongpassword","1. User enters ""testuser"" in the username field.
+2. User enters ""wrongpassword"" in the password field.
+3. User clicks the login button.","User is shown an error message indicating incorrect password."
+"TC-Login-003","User logs in with empty fields","Login","2, 8","User is not logged in.","Username: , Password:","1. User leaves both fields empty.
+2. User clicks the login button.","User is shown an error message indicating required fields."
+"TC-Registration-001","User registers successfully","Registration","1, 7","User is not registered.","Username: testuser, Password: testpassword, PrivacyAccepted: Yes","1. User enters ""testuser"" in the username field.
+2. User enters ""testpassword"" in the password field.
+3. User accepts the privacy policy.
+4. User clicks the register button.","User is redirected to the main page and a success message is displayed."
+"TC-Registration-002","User registers with existing username","Registration","1, 7","Username ""testuser"" already exists.","Username: testuser, Password: testpassword, PrivacyAccepted: Yes","1. User enters ""testuser"" in the username field.
+2. User enters ""testpassword"" in the password field.
+3. User accepts the privacy policy.
+4. User clicks the register button.","User is shown an error message indicating the username is already taken."
+"TC-Profile-001","User modifies profile successfully","Profile","15, 17","User is logged in.","New Username: testuser2, New Email: testuser2@example.com","1. User clicks on the profile icon.
+2. User clicks on the ""Modify Info"" button.
+3. User enters ""testuser2"" in the username field.
+4. User enters ""testuser2@example.com"" in the email field.
+5. User clicks the save button.","User's profile is updated and a success message is displayed."
+"TC-Profile-002","User modifies profile with invalid email","Profile","15, 17","User is logged in.","New Username: testuser2, New Email: invalidemail","1. User clicks on the profile icon.
+2. User clicks on the ""Modify Info"" button.
+3. User enters ""testuser2"" in the username field.
+4. User enters ""invalidemail"" in the email field.
+5. User clicks the save button.","User is shown an error message indicating the email format is invalid."
+"TC-ItemManagement-001","User inserts a new item","Item Management","6, 10","User is logged in.","Item Name: TestItem, Item Description: This is a test item.","1. User clicks on the ""Insert Item"" button.
+2. User uploads an image for the item.
+3. User enters ""TestItem"" in the name field.
+4. User enters ""This is a test item"" in the description field.
+5. User clicks the save button.","Item is inserted into the database and a success message is displayed."
+"TC-ItemManagement-002","User deletes an item","Item Management","6, 11","User has an item in the list.","Item Name: TestItem","1. User clicks on the ""Delete Item"" button next to ""TestItem"".
+2. User confirms the deletion.","Item is removed from the list and a success message is displayed."
+"TC-ExchangeProposal-001","User proposes a new exchange","Exchange Proposal","13, 14, 15","User is logged in.","Item Name: TestItem, Exchange Partner: testpartner","1. User clicks on the ""Propose Exchange"" button.
+2. User selects ""TestItem"" as the item to exchange.
+3. User selects ""testpartner"" as the exchange partner.
+4. User clicks the submit button.","Exchange proposal is saved in the database and a success message is displayed."
+"TC-ExchangeProposal-002","User accepts an exchange proposal","Exchange Proposal","15","User has received an exchange proposal.","Exchange ID: 12345","1. User clicks on the ""Accept"" button next to the exchange proposal.
+2. User confirms the acceptance.","Exchange status is updated to accepted and a success message is displayed."
+"TC-ExchangeProposal-003","User rejects an exchange proposal","Exchange Proposal","15","User has received an exchange proposal.","Exchange ID: 12345","1. User clicks on the ""Reject"" button next to the exchange proposal.
+2. User confirms the rejection.","Exchange status is updated to rejected and a success message is displayed."
+"TC-Filtering-001","User filters items by category","Filtering","16","User is logged in.","Category: Electronics","1. User clicks on the ""Filter"" button.
+2. User selects ""Electronics"" from the category dropdown.
+3. User clicks the apply button.","Filtered list of items is displayed."

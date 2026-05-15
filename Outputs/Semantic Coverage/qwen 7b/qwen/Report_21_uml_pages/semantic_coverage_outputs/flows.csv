@@ -1,0 +1,164 @@
+flow
+"gestoresegnalazioni — association — label=""— usa —""; explanation=""uses segnalazione"""
+"gestoreutente — association — label=""— usa —""; explanation=""uses utente"""
+"gestorecalendario — association — label=""— usa —""; explanation=""uses calendario"""
+"gestoretreni — association — label=""— usa —""; explanation=""uses treno"""
+"gestorevariazioni — association — label=""— usa —""; explanation"
+"applicazione -> sistema gestione utente — type=message; label=""user=log_in()""; explanation=""user login request"""
+"sistema gestione utente -> sistema di gestione dei dati — type=message; label=""user=checkiflogin()""; explanation=""check user login status"""
+"sistema di gestione dei dati -> api firebaseauth — type=message; label=""mauth=firebaseauth.getinstance()""; explanation=""get firebase auth instance"""
+"api firebaseauth -> sistema di gestione dei dati — type=message; label=""user=mauth.getcurrentuser()""; explanation=""get current user"""
+"sistema di gestione dei dati -> sistema gestione utente — type=message; label=""[user==null] user=loggingin(email,password)""; explanation=""user not logged in, initiate login process"""
+"sistema gestione utente -> api firebaseauth — type=message; label=""mauth=firebaseauth.getinstance()""; explanation=""get firebase auth instance for login"""
+"api firebaseauth -> sistema gestione utente — type=message; label=""mauth.signinwithemailandpassword(email,password)""; explanation=""sign in user with email and password"""
+"sistema gestione utente -> sistema di gestione dei dati — type=message; label=""user=mauth.getcurrentuser()""; explanation=""get current user after successful login"""
+"sistema di gestione dei dati -> sistema gestione utente — type=message; label=""[user==null] user=registerandlogin(email,password)""; explanation=""user not logged in, initiate registration and login process"""
+"sistema gestione utente -> api firebaseauth — type=message; label=""mauth.createuserwithemailandpassword(email,password)""; explanation=""create user with email and password"""
+"api firebaseauth -> sistema gestione utente — type=message; label=""user=mauth.getcurrentuser()""; explanation=""get current user after successful registration and login"""
+flow 1: applicazione -> sistema gestione utente -> user=log_in()
+flow 2: sistema gestione utente -> sistema di gestione dei dati -> user=checkiflogin()
+flow 3: sistema di gestione dei dati -> api firebaseauth -> mauth=firebaseauth.getinstance()
+flow 4: api firebaseauth -> sistema di gestione dei dati -> user=mauth.getcurrentuser()
+"flow 5: sistema di gestione dei dati -> sistema gestione utente -> [user==null] user=loggingin(email,password)"
+flow 6: sistema gestione utente -> api firebaseauth -> mauth=firebaseauth.getinstance()
+"flow 7: api firebaseauth -> sistema gestione utente -> mauth.signinwithemailandpassword(email,password)"
+flow 8: sistema gestione utente -> sistema di gestione dei dati -> user=mauth.getcurrentuser()
+"flow 9: sistema di gestione dei dati -> sistema gestione utente -> [user==null] user=registerandlogin(email,password)"
+"flow 10: sistema gestione utente -> api firebaseauth -> mauth.createuserwithemailandpassword(email,password)"
+flow 11: api firebaseauth -> sistema gestione utente -> user=mauth.getcurrentuser()
+the diagram models the sequence of steps involved in authenticating a user within the unimove application.
+"it includes the flow of messages between the application, user management system, data management system, and firebase authentication api."
+key edge cases include checking if the user is already logged in and handling scenarios where the user needs to log in or register.
+the diagram highlights the use
+"applicazione -> sistema di gestione segnalazioni — type=message; label=""list = getsegnalazioni()""; explanation=""get signals"""
+"sistema di gestione segnalazioni -> sistema di gestione dei dati — type=message; label=""forward(getsegnalazioni())""; explanation=""forward signals"""
+"sistema di gestione dei dati -> database — type=message; label=""query(select segnalazioni(*))""; explanation=""query database for signals"""
+"database -> sistema di gestione dei dati — type=message; label=""payload""; explanation=""return payload"""
+"sistema di gestione segnalazioni -> applicazione — type=message; label=""forward(payload)""; explanation=""forward payload"""
+"applicazione -> sistema di gestione segnalazioni — type=message; label=""list = payload""; explanation=""set payload"""
+"sistema di gestione segnalazioni -> applicazione — type=message; label=""display(null)""; explanation=""display null"""
+"sistema di gestione segnalazioni -> applicazione — type=message; label=""display_list(list)""; explanation=""display list"""
+"flow 1: applicazione -> sistema di gestione segnalazioni — ""list = getsegnalazioni()"""
+"flow 2: sistema di gestione segnalazioni -> sistema di gestione dei dati — ""forward(getsegnalazioni())"""
+"flow 3: sistema di gestione dei dati -> database — ""query(select segnalazioni(*))"""
+"flow 4: database -> sistema di gestione dei dati — ""payload"""
+"flow 5: sistema di gestione segnalazioni -> applicazione — ""forward(payload)"""
+"flow 6: applicazione -> sistema di gestione segnalazioni — ""list = payload"""
+"flow 7: sistema di gestione segnalazioni -> applicazione — ""display(null)"""
+"flow 8: sistema di gestione segnalazioni -> applicazione — ""display_list(list)"""
+this diagram models the process of reading signals in a system.
+the application initiates the process by requesting signals from the signal management system.
+"the signal management system forwards the request to the data management system, which queries the database for signals."
+"the database returns the payload to the data management system, which then forwards it back to the signal management system."
+"finally, the signal management system displays either a null value or a list of signals to the application."
+"there is a conditional branch based on whether the list is null or not, leading to different display actions."
+"applicazione -> sistema gestione variazioni — type=control; label=""train_variations = getvariazioni()""; explanation=""retrieve train variations"""
+"sistema gestione variazioni -> sistema gestione dei dati — type=control; label=""list_pref_train = forward(getpreftreni())""; explanation=""forward preferred trains list"""
+"sistema gestione dei dati -> sistema gestione variazioni — type=control; label=""list_pref_train = forward(getpreftreni())""; explanation=""forward preferred trains list"""
+"sistema gestione variazioni -> sistema gestione dei dati — type=control; label=""old_trains_info = getinfotreni()""; explanation=""retrieve old trains information"""
+"sistema gestione dei dati -> sistema gestione variazioni — type=control; label=""train_info = forward(gettraininfo(train.code))""; explanation=""forward train information"""
+"sistema gestione variazioni -> sistema gestione dei dati — type=control; label=""train_info = forward(gettraininfo(train.code))""; explanation=""forward train information"""
+"sistema gestione variazioni -> sistema gestione dei dati — type=control; label=""train_info = forward(gettraininfo(train.code))"
+"applicazione -> sistema gestione calendario — type=message; label=""setcalendario(cal)""; explanation=""application sends calendar data to calendar management system"""
+"sistema gestione calendario -> sistema di gestione dei dati — type=message; label=""forward(setcalendario(cal))""; explanation=""calendar management system forwards calendar data to data management system"""
+"sistema di gestione dei dati -> database — type=message; label=""query(new calendario(cal))""; explanation=""data management system queries database for new calendar data"""
+"database -> sistema di gestione dei dati — type=message; label=""status code""; explanation=""database returns status code to data management system"""
+"sistema di gestione dei dati -> sistema gestione calendario — type=message; label=""forward(outcome)""; explanation=""data management system forwards outcome to calendar management system"""
+"sistema gestione calendario -> applicazione — type=message; label=""outcome""; explanation=""calendar management system sends outcome to application"""
+"applicazione -> applicazione — type=message; label=""display(outcome)""; explanation=""application displays outcome"""
+flow 1: applicazione -> sistema gestione calendario — setcalendario(cal)
+flow 2: sistema gestione calendario -> sistema di gestione dei dati — forward(setcalendario(cal))
+flow 3: sistema di gestione dei dati -> database — query(new calendario(cal))
+flow 4: database -> sistema di gestione dei dati — status code
+flow 5: sistema di gestione dei dati -> sistema gestione calendario — forward(outcome)
+flow 6: sistema gestione calendario -> applicazione — outcome
+flow 7: applicazione -> applicazione — display(outcome)
+this sequence diagram models the insertion and modification process of a calendar within a system.
+the application initiates the process by sending calendar data to the calendar management system.
+the calendar management system then forwards this data to the data management system for processing.
+the data management system queries the database for the new calendar data and returns a status code.
+the data management system then forwards the outcome back to the calendar management system.
+"finally, the calendar management system displays the outcome to the application."
+the process involves multiple components interacting through messages to ensure the calendar data is correctly managed and displayed.
+"applicazione -> sistema gestione calendario — type=message; label=""calendario = getcalendario()""; explanation=""get calendar data"""
+"sistema gestione calendario -> sistema di gestione dei dati — type=message; label=""forward(getcalendario())""; explanation=""forward calendar data"""
+"sistema di gestione dei dati -> database — type=message; label=""query(select calendario(*))""; explanation=""query database for calendar data"""
+"sistema di gestione dei dati -> sistema gestione calendario — type=message; label=""forward(payload)""; explanation=""forward payload"""
+"sistema gestione calendario -> applicazione — type=message; label=""calendario = payload""; explanation=""set calendar data"""
+"applicazione -> applicazione — type=message; label=""[calendario == null] display(null)""; explanation=""display null calendar"""
+"applicazione -> applicazione — type=message; label=""[calendario != null] display(calendario)""; explanation=""display calendar data"""
+"flow 1: applicazione -> sistema gestione calendario — ""calendario = getcalendario()"""
+"sistema gestione calendario -> sistema di gestione dei dati — ""forward(getcalendario())"""
+"sistema di gestione dei dati -> database — ""query(select calendario(*))"""
+"database -> sistema di gestione dei dati — ""payload"""
+"sistema di gestione dei dati -> sistema gestione calendario — ""forward(payload)"""
+"sistema gestione calendario -> applicazione — ""calendario = payload"""
+"applicazione -> applicazione — ""[calendario == null] display(null)"""
+"applicazione -> applicazione — ""[calendario != null] display(calendario)"""
+this diagram models the process of reading a calendar in a multi-component system.
+the application initiates the process by requesting calendar data from the calendar management system.
+"the calendar management system forwards the request to the data management system, which queries the database for the calendar data."
+"the database returns the payload, which is then forwarded back to the calendar management system."
+"finally, the calendar management system sets the calendar data in the application, which displays it if available or null if not."
+key edge cases include displaying null calendar data when no data is available.
+"applicazione -> sistema gestione calendario — type=message; label=""forward(gettrains(calendario))""; explanation=""get trains from calendar"""
+"sistema gestione calendario -> sistema di gestione dei dati — type=message; label=""forward(payload)""; explanation=""forward payload"""
+"sistema di gestione dei dati -> api trenitalia — type=message; label=""requesttrains(calendario)""; explanation=""request trains from trenitalia api"""
+"api trenitalia -> sistema di gestione dei dati — type=message; label=""payload""; explanation=""return payload"""
+"sistema di gestione dei dati -> database — type=message; label=""query(new treno(id, info))""; explanation=""query database for new train"""
+"database -> sistema di gestione dei dati — type=message; label=""status_code""; explanation=""return status code"""
+"sistema di gestione dei dati -> sistema gestione calendario — type=message; label=""forward(outcome)""; explanation=""forward outcome"""
+"sistema gestione calendario -> applicazione — type=message; label=""display(outcome)""; explanation=""display outcome to application"""
+flow 1: applicazione -> sistema gestione calendario — forward(gettrains(calendario))
+flow 2: sistema gestione calendario -> sistema di gestione dei dati — forward(payload)
+flow 3: sistema di gestione dei dati -> api trenitalia — requesttrains(calendario)
+flow 4: api trenitalia -> sistema di gestione dei dati — payload
+"flow 5: sistema di gestione dei dati -> database — query(new treno(id, info))"
+flow 6: database -> sistema di gestione dei dati — status_code
+flow 7: sistema di gestione dei dati -> sistema gestione calendario — forward(outcome)
+flow 8: sistema gestione calendario -> applicazione — display(outcome)
+this diagram models the insertion and cancellation of preferred means in a transportation system.
+the main flow starts with the application requesting a list of trains from the calendar management system.
+"the calendar management system forwards the request to the data management system, which then queries the trenitalia api for train information."
+the data management system processes the response and queries the database to insert or update the train information.
+the result is then forwarded back to the calendar management system and displayed to the application.
+there are conditional branches for handling null lists of trains.
+the system includes interactions with a database to store and retrieve train information.
+"applicazione -> sistema gestione calendario — type=message; label=""list_trains = gettrains(calendario)""; explanation=""get train list for calendar"""
+"sistema gestione calendario -> sistema di gestione dei dati — type=message; label=""forward(gettrains(calendario))""; explanation=""forward train list request"""
+"sistema di gestione dei dati -> api trenitalia — type=message; label=""requesttrains(calendario)""; explanation=""request train list from trenitalia api"""
+"api trenitalia -> sistema di gestione dei dati — type=message; label=""payload""; explanation=""return payload with train list"""
+"sistema di gestione dei dati -> sistema gestione calendario — type=message; label=""forward(payload)""; explanation=""forward payload with train list"""
+"sistema gestione calendario -> applicazione — type=message; label=""list_trains = payload""; explanation=""set train list variable"""
+"applicazione -> sistema gestione calendario — type=message; label=""[list_trains == null] display(null)""; explanation=""display null list if train list is null"""
+"applicazione -> sistema gestione calendario — type=message; label=""[list_trains != null] display_list(list_trains)""; explanation=""display train list if not null"""
+"sistema gestione calendario -> applicazione — type=message; label=""deletepreftrain(id)""; explanation=""delete preferred train"""
+"applicazione -> sistema gestione calendario — type=message; label=""forward(deletepreftrain(id))""; explanation=""forward delete train request"""
+"sistema gestione calendario -> api trenitalia — type=message; label=""query(delete treno(id))""; explanation=""query database to delete train"""
+"api trenitalia -> sistema gestione calendario — type=message; label=""status code""; explanation=""return status code for deletion"""
+"sistema gestione calendario -> applicazione — type=message; label=""forward(outcome)""; explanation=""forward outcome of deletion"""
+"applicazione -> sistema gestione calendario — type=message; label=""display(outcome)""; explanation=""display outcome to user"""
+"flow 1: applicazione -> sistema gestione calendario — ""list_trains = gettrains(calendario)"""
+"flow 2: sistema gestione calendario -> sistema di gestione dei dati — ""forward(gettrains(calendario))"""
+"flow 3: sistema di gestione dei dati -> api trenitalia — ""requesttrains(calendario)"""
+"flow 4: api trenitalia -> sistema di gestione dei dati — ""payload"""
+"flow 5: sistema di gestione dei dati -> sistema gestione calendario — ""forward(payload)"""
+"flow 6: sistema gestione calendario -> applicazione — ""list_trains = payload"""
+"flow 7: applicazione -> sistema gestione calendario — ""[list_trains == null] display(null)"""
+"flow 8: applicazione -> sistema gestione calendario — ""[list_trains != null] display_list(list_trains)"""
+"flow 9: sistema gestione calendario -> applicazione — ""deletepreftrain(id)"""
+"flow 10: applicazione -> sistema gestione calendario — ""forward(deletepreftrain(id))"""
+"flow 11: sistema gestione calendario -> api trenitalia — ""query(delete treno(id))"""
+flow 12: api trenitalia -> sistema gestione calend
+"applicazione -> sistema gestione variazioni — type=message; label=""train_variations = getvariazioni()""; explanation=""get variations"""
+"sistema gestione variazioni -> sistema di notifica — type=message; label=""start()""; explanation=""start notification process"""
+"sistema di notifica -> applicazione — type=message; label=""shownotifica(train_variations)""; explanation=""show notifications"""
+"flow 1: applicazione -> sistema gestione variazioni — ""train_variations = getvariazioni()"""
+"flow 2: sistema gestione variazioni -> sistema di notifica — ""start()"""
+"flow 3: sistema di notifica -> applicazione — ""shownotifica(train_variations)"""
+"this sequence diagram models the interaction between an application, a system for managing variations, and a notification system."
+the application initiates the process by requesting variations from the variation management system.
+the variation management system then starts the notification process.
+"finally, the notification system sends the notifications back to the application."
+"the diagram highlights the flow of data and control between the three systems, focusing on the notification process initiated by the variation management system."
+======================================================================

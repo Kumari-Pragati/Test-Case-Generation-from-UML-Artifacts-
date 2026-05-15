@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration with valid data,User Registration,2,"- User is not already registered in the system.
+- Database is accessible and empty (or contains no conflicting data).","- Username: `traveler123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `john.doe@example.com`","1. User calls `registerUser()` with valid credentials (username, password, name, email).
+2. System invokes `verifyValidData()` on the Users Database.
+3. Database validates data (e.g., checks for uniqueness of email/username, password strength).
+4. System receives `y = true` from the database.
+5. System calls `saveUserData()` to store the user.
+6. System returns `registerUser(""ok"")` to the user.","- User account is created successfully in the database.
+- User receives confirmation message: `""Registration successful!""`.
+- No errors are logged."
+TC-USER-REGISTRATION-002,Failed user registration with invalid email format,User Registration,2,"- User is not registered.
+- Database is accessible.","- Username: `traveler123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `johndoe@example` (invalid format)","1. User calls `registerUser()` with invalid email.
+2. System invokes `verifyValidData()`.
+3. Database detects invalid email format and returns `y = false`.
+4. System returns `registerUser(""error"")` to the user.","- User account is **not** created.
+- User receives error message: `""Invalid email format. Please use a valid email address.""`.
+- Error logged in system logs: `""Registration failed: Invalid email""`."
+TC-USER-REGISTRATION-003,Failed user registration with duplicate username,User Registration,2,- User `traveler123` already exists in the database.,"- Username: `traveler123` (duplicate)
+- Password: `NewPass456!`
+- Name: `Jane Smith`
+- Email: `jane.smith@example.com`","1. User calls `registerUser()` with existing username.
+2. System invokes `verifyValidData()`.
+3. Database detects duplicate username and returns `y = false`.
+4. System returns `registerUser(""error"")`.","- User account is **not** created.
+- User receives error: `""Username already taken. Choose another.""`.
+- Error logged: `""Registration failed: Duplicate username""`."
+TC-USER-LOGIN-001,Successful login with valid credentials,User Login,3,- User `john.doe@example.com` exists with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User calls `userLogin(email, password)`.
+2. System forwards credentials to `Main Login`.
+3. `Main Login` queries `Users Database` with `validUser(email, password)`.
+4. Database returns `x = true` (credentials match).
+5. System returns `userLogin(""ok"")`.","- User is authenticated and granted access to the system.
+- No error messages displayed.
+- Session is created for the user."
+TC-USER-LOGIN-002,Failed login with incorrect password,User Login,3,- User `john.doe@example.com` exists with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `WrongPass123!`","1. User calls `userLogin(email, password)`.
+2. System queries `Users Database`.
+3. Database returns `x = false` (password mismatch).
+4. System returns `userLogin(""error"")`.","- User is **not** authenticated.
+- User receives error: `""Invalid email or password.""`.
+- No session is created.
+- Error logged: `""Login failed: Invalid credentials""`."
+TC-USER-LOGIN-003,Failed login with non-existent email,User Login,3,- No user exists with email `nonexistent@example.com`.,"- Email: `nonexistent@example.com`
+- Password: `AnyPassword123!`","1. User calls `userLogin(email, password)`.
+2. System queries `Users Database`.
+3. Database returns `x = false` (email not found).
+4. System returns `userLogin(""error"")`.","- User is **not** authenticated.
+- User receives error: `""Invalid email or password.""`.
+- Error logged: `""Login failed: User not found""`."
+TC-TRIP-CREATION-001,Create a trip with valid data,Trip Management,"1, 4","- User is logged in (`john.doe@example.com`).
+- Database is accessible.","- City: `Paris`
+- Country: `France`
+- Begin Date: `2024-06-15`
+- End Date: `2024-06-22`
+- Author: `john.doe@example.com` (logged-in user)","1. User initiates trip creation via `updateTrip()`.
+2. System creates a `Trip` object with provided data.
+3. System assigns an auto-incremented `id` (e.g., `1`).
+4. System saves `Trip` to `Trips Database`.
+5. User calls `listTrip()` to verify.","- Trip is created with `id=1`, `city=Paris`, `country=France`, and correct dates.
+- Trip is linked to the user (`author` field).
+- `listTrip()` returns the newly created trip in the list.
+- No errors occur."
+TC-TRIP-CREATION-002,Create a trip with invalid end date (before start date),Trip Management,1,- User is logged in.,"- City: `London`
+- Country: `UK`
+- Begin Date: `2024-06-22`
+- End Date: `2024-06-15` (invalid: before start date)","1. User attempts to create a trip with `endDate < beginDate`.
+2. System validates dates during `setEndDate()`.
+3. System detects invalid date range.
+4. System rejects the trip creation.","- Trip is **not** created.
+- User receives error: `""End date must be after start date.""`.
+- No data is saved to the database.
+- Error logged: `""Trip creation failed: Invalid date range""`."
+TC-TRIP-UPDATE-001,Update trip details successfully,Trip Management,"1, 4","- Trip with `id=1` exists (`city=Paris`, `country=France`).
+- User is logged in as the trip author.","- New City: `Rome`
+- New Country: `Italy`","1. User calls `updateTrip()` with new city and country.
+2. System updates the `Trip` object in memory.
+3. System calls `updateTripData()` on `Trips Database`.
+4. Database confirms update success.
+5. User calls `listTrip()` to verify changes.","- Trip `id=1` now has `city=Rome` and `country=Italy`.
+- `listTrip()` reflects the updated details.
+- No errors occur."
+TC-TRIP-UPDATE-002,Update trip details as non-authorized user,Trip Management,"1, 4","- Trip with `id=1` exists (author: `john.doe@example.com`).
+- User `jane.smith@example.com` is logged in (not the author).",- New City: `Berlin`,"1. User `jane.smith@example.com` calls `updateTrip()` for `id=1`.
+2. System checks `author` field of the trip.
+3. System detects unauthorized update attempt.
+4. System rejects the update.","- Trip remains unchanged (`city=Paris`).
+- User receives error: `""You are not authorized to update this trip.""`.
+- Error logged: `""Unauthorized trip update attempt""`."
+TC-DAILY-PLAN-001,Add a daily plan to a trip with valid weather data,Daily Plan Management,1,"- Trip with `id=1` exists.
+- User is logged in as the author.","- Day: `2024-06-16` (within trip dates)
+- Weather: `id=100`, `high=25.5`, `low=18.0`, `icon=""sunny""`, `description=""Clear skies""`","1. User creates a `Plan` object linked to `Trip(id=1)`.
+2. User adds a `DailyPlan` with `day=2024-06-16`.
+3. User associates `Weather(id=100)` with the `DailyPlan`.
+4. System validates weather data (e.g., `high > low`).
+5. System saves `DailyPlan` to the `Plan`.","- `DailyPlan` is added to the `Plan` with correct weather reference.
+- `Plan` is linked to `Trip(id=1)`.
+- No validation errors occur."
+TC-DAILY-PLAN-002,Add a daily plan with invalid weather (high <= low),Daily Plan Management,1,- Trip with `id=1` exists.,"- Day: `2024-06-17`
+- Weather: `id=200`, `high=15.0`, `low=18.0` (invalid: high <= low)","1. User attempts to add `DailyPlan` with invalid weather.
+2. System validates `high` and `low` during `setWeather()`.
+3. System detects `high <= low`.
+4. System rejects the `DailyPlan`.","- `DailyPlan` is **not** added to the `Plan`.
+- User receives error: `""Invalid weather data: High temperature must be greater than low.""`.
+- No data is saved."
+TC-PLACE-TO-VISIT-001,Add a place to visit with valid category,Place Management,1,"- Category with `id=1` exists (`name=""Landmarks""`).
+- Trip with `id=1` includes `Category(id=1)`.","- Place Name: `Eiffel Tower`
+- City: `Paris`
+- Category: `id=1` (Landmarks)
+- Icon: `eiffel.png`","1. User creates a `PlaceToVisit` object.
+2. System links it to `Category(id=1)`.
+3. System saves the place to the trip’s categories.","- `PlaceToVisit` is created with correct associations.
+- Place is listed under `Category(id=1)` in the trip.
+- No errors occur."
+TC-PLACE-TO-VISIT-002,Add a place to visit with non-existent category,Place Management,1,- No category exists with `id=999`.,"- Place Name: `Big Ben`
+- City: `London`
+- Category: `id=999` (non-existent)","1. User attempts to create `PlaceToVisit` with invalid category.
+2. System queries the database for `Category(id=999)`.
+3. System detects category does not exist.
+4. System rejects the place creation.",- `PlaceToVisit` is **not**

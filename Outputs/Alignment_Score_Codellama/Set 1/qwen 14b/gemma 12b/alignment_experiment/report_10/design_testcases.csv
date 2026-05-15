@@ -1,0 +1,148 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,User Registration,User,"1, 2",Application is launched and no user is currently logged in.,"- Email: testuser@example.com
+- Password: P@ssw0rd
+- Username: TestUser","1. Launch the application.
+2. Navigate to the registration page.
+3. Enter the email, password, and username.
+4. Submit the registration form.","- A confirmation message appears indicating successful registration.
+- The user is redirected to the login page."
+TC-USER-002,User Login,User,"1, 2",User has been successfully registered.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and password.
+4. Submit the login form.","- The user is logged in successfully.
+- The user is redirected to the homepage."
+TC-USER-003,Invalid User Login,User,"1, 2",User has been successfully registered.,"- Email: testuser@example.com
+- Incorrect Password: wrongpassword","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and incorrect password.
+4. Submit the login form.","- An error message appears indicating invalid credentials.
+- The user remains on the login page."
+TC-EVENT-001,Create Event,Event,"1, 3",User is logged in.,"- Title: Test Event
+- Date: 2023-10-10
+- Type: Cultural
+- Creator: TestUser
+- City: Rome
+- Description: This is a test event.","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Scroll down and click the ""+"" button to add an event.
+5. Fill in the form with the provided details.
+6. Submit the form.","- The event is created successfully.
+- Confirmation message appears indicating successful event creation."
+TC-EVENT-002,Create Event with Missing Fields,Event,"1, 3",User is logged in.,"- Title: Test Event
+- Date: 2023-10-10
+- Type: Cultural
+- Creator: TestUser
+- City: Rome
+- Description: (empty)","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Scroll down and click the ""+"" button to add an event.
+5. Fill in the form with the provided details but leave the description field empty.
+6. Submit the form.","- Validation error message appears indicating missing required fields.
+- User is prompted to fill in the missing fields."
+TC-EVENT-003,Modify Event,Event,"1, 4",User is logged in and has created an event.,"- Original Event Details: Title: Test Event, Date: 2023-10-10, Type: Cultural, Creator: TestUser, City: Rome, Description: This is a test event.
+- Modified Event Details: Title: Updated Test Event, Date: 2023-10-11, Type: Social, Description: This is an updated test event.","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Scroll down and click the pen icon to modify an existing event.
+5. Fill in the form with the modified details.
+6. Submit the form.","- The event is modified successfully.
+- Confirmation message appears indicating successful event modification."
+TC-EVENT-004,Delete Event,Event,"1, 4",User is logged in and has created an event.,"- Event Details: Title: Test Event, Date: 2023-10-10, Type: Cultural, Creator: TestUser, City: Rome, Description: This is a test event.","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Scroll down and click the "">"" button to delete an existing event.
+5. Confirm the deletion.","- The event is deleted successfully.
+- Confirmation message appears indicating successful event deletion."
+TC-CITY-001,Search for a City,City,"1, 4",User is logged in.,- City Name: Rome,"1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Perform steps to search for the city.","- The city view screen displays information about Rome.
+- Associated points of interest are listed."
+TC-CITY-002,Search for a Nonexistent City,City,"1, 4",User is logged in.,- City Name: NonexistentCity,"1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Perform steps to search for the city.","- Error message appears indicating that the city does not exist.
+- User remains on the city view screen."
+TC-POI-001,Add Point of Interest,POI,"1, 4",User is logged in and has searched for a city.,"- POI Name: Test POI
+- City: Rome
+- Province: Lazio
+- Type: Historical
+- Description: This is a test point of interest.","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Perform steps to search for the city.
+5. Click the ""+"" button to add a new point of interest.
+6. Fill in the form with the provided details.
+7. Submit the form.","- The point of interest is added successfully.
+- Confirmation message appears indicating successful addition."
+TC-POI-002,Modify Point of Interest,POI,"1, 4",User is logged in and has added a point of interest.,"- Original POI Details: Name: Test POI, City: Rome, Province: Lazio, Type: Historical, Description: This is a test point of interest.
+- Modified POI Details: Name: Updated Test POI, City: Rome, Province: Lazio, Type: Cultural, Description: This is an updated test point of interest.","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Perform steps to search for the city.
+5. Click the pen icon to modify an existing point of interest.
+6. Fill in the form with the modified details.
+7. Submit the form.","- The point of interest is modified successfully.
+- Confirmation message appears indicating successful modification."
+TC-POI-003,Delete Point of Interest,POI,"1, 4",User is logged in and has added a point of interest.,"- POI Details: Name: Test POI, City: Rome, Province: Lazio, Type: Historical, Description: This is a test point of interest.","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the city view screen.
+4. Perform steps to search for the city.
+5. Click the "">"" button to delete an existing point of interest.
+6. Confirm the deletion.","- The point of interest is deleted successfully.
+- Confirmation message appears indicating successful deletion."
+TC-LOGIN-001,Unregistered User Attempting to Log In,User,2,Application is launched and no user is currently logged in.,"- Email: unregistereduser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and password.
+4. Submit the login form.","- An error message appears indicating that the user is not registered.
+- The user is prompted to register or try again."
+TC-LOGIN-002,User Logging Out,User,2,User is logged in.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Log in as a registered user.
+3. Navigate to the logout option.
+4. Confirm the logout action.","- The user is logged out successfully.
+- The user is redirected to the login page."
+TC-LOGIN-003,User Logging Out Without Being Logged In,User,2,No user is currently logged in.,,"1. Launch the application.
+2. Navigate to the logout option.","- An error message appears indicating that the user is not logged in.
+- The user remains on the login page."
+TC-LOGIN-004,User Logging In with Invalid Credentials,User,2,User is registered.,"- Email: testuser@example.com
+- Incorrect Password: wrongpassword","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and incorrect password.
+4. Submit the login form.","- An error message appears indicating invalid credentials.
+- The user remains on the login page."
+TC-LOGIN-005,User Logging In with Correct Credentials,User,2,User is registered.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and password.
+4. Submit the login form.","- The user is logged in successfully.
+- The user is redirected to the homepage."
+TC-LOGIN-006,User Logging In with Empty Credentials,User,2,Application is launched and no user is currently logged in.,"- Email: (empty)
+- Password: (empty)","1. Launch the application.
+2. Navigate to the login page.
+3. Leave both email and password fields empty.
+4. Submit the login form.","- Validation error messages appear indicating that both fields are required.
+- The user remains on the login page."
+TC-LOGIN-007,User Logging In with Valid Email and Empty Password,User,2,User is registered.,"- Email: testuser@example.com
+- Password: (empty)","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and leave the password field empty.
+4. Submit the login form.","- Validation error message appears indicating that the password field is required.
+- The user remains on the login page."
+TC-LOGIN-008,User Logging In with Empty Email and Valid Password,User,2,User is registered.,"- Email: (empty)
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Leave the email field empty and enter the password.
+4. Submit the login form.","- Validation error message appears indicating that the email field is required.
+- The user remains on the login page."
+TC-LOGIN-009,User Logging In with Special Characters in Email,User,2,User is registered.,"- Email: testuser!@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email with special characters and the password.
+4. Submit the login form.","- Validation error message appears indicating that the email format is invalid.
+- The user remains on the login page."
+TC-LOGIN-010,User,,,,,,

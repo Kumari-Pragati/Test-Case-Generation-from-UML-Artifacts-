@@ -1,0 +1,29 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User registration with valid data,User,"1, 2",None,"- Name: John Doe
+- Email: john.doe@example.com
+- Password: password123
+- Confirm Password: password123","1. Navigate to the registration page.
+2. Enter the required data.
+3. Click the ""Register"" button.","The user is successfully registered, and the system displays a confirmation message."
+TC-User-002,User registration with invalid email,User,"1, 2",None,"- Name: John Doe
+- Email: john.doe
+- Password: password123
+- Confirm Password: password123","1. Navigate to the registration page.
+2. Enter the required data with an invalid email.
+3. Click the ""Register"" button.",The system displays an error message indicating that the email is invalid.
+TC-User-003,User registration with mismatched passwords,User,"1, 2",None,"- Name: John Doe
+- Email: john.doe@example.com
+- Password: password123
+- Confirm Password: password124","1. Navigate to the registration page.
+2. Enter the required data with mismatched passwords.
+3. Click the ""Register"" button.",The system displays an error message indicating that the passwords do not match.
+TC-Book-001,Book reservation with available book,Book,3,A user is logged in.,- Book ID: 12345,"1. Navigate to the book details page.
+2. Select the ""Reserve"" button for the book.
+3. Confirm the reservation.","The book is reserved for the user, and the system displays a confirmation message."
+TC-Book-002,Book reservation with unavailable book,Book,3,A user is logged in.,- Book ID: 67890,"1. Navigate to the book details page.
+2. Select the ""Reserve"" button for the book.",The system displays an error message indicating that the book is not available for reservation.
+TC-Book-003,Book return with returned book,Book,4,A user is logged in and has a book reserved.,,"1. Navigate to the user's account page.
+2. Select the ""Return"" button for the reserved book.
+3. Confirm the return.","The book is returned, and the system displays a confirmation message."
+TC-Book-004,Book return with unreturned book,Book,4,A user is logged in but does not have a book reserved.,,"1. Navigate to the user's account page.
+2. Select the ""Return"" button for any book.",The system displays an error message indicating that the user does not have a book to return.

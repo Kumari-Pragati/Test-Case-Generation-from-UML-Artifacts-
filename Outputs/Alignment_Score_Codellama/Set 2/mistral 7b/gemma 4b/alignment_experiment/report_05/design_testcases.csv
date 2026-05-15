@@ -1,0 +1,121 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Test User Creation,User,1,None,"- username: valid_username
+- password: valid_password
+- name: valid_name
+- email: valid_email","1. Create a new User object with the provided test data.
+2. Call the `setUsername(username: String)` method with the provided username.
+3. Call the `setPassword(password: String)` method with the provided password.
+4. Call the `setName(name: String)` method with the provided name.
+5. Call the `setEmail(email: String)` method with the provided email.
+6. Call the `getUsername()` method and verify that the returned value is the provided username.
+7. Call the `getPassword()` method and verify that the returned value is the provided password.
+8. Call the `getName()` method and verify that the returned value is the provided name.
+9. Call the `getEmail()` method and verify that the returned value is the provided email.",The User object is created successfully with the provided test data.
+TC-Trip-001,Test Trip Creation,Trip,1,A User object exists.,"- city: valid_city
+- country: valid_country
+- beginDate: valid_date
+- endDate: valid_date
+- author: User object","1. Create a new Trip object with the provided test data and the User object as the author.
+2. Call the `setCity(city: String)` method with the provided city.
+3. Call the `setCountry(country: String)` method with the provided country.
+4. Call the `setBeginDate(beginDate: Date)` method with the provided begin date.
+5. Call the `setEndDate(endDate: Date)` method with the provided end date.
+6. Call the `setAuthor(author: User)` method with the User object.
+7. Call the `setId(id: int)` method with a generated ID.
+8. Call the `getCity()` method and verify that the returned value is the provided city.
+9. Call the `getCountry()` method and verify that the returned value is the provided country.
+10. Call the `getBeginDate()` method and verify that the returned value is the provided begin date.
+11. Call the `getEndDate()` method and verify that the returned value is the provided end date.
+12. Call the `getAuthor()` method and verify that the returned value is the User object.
+13. Call the `getId()` method and verify that the returned value is the generated ID.",The Trip object is created successfully with the provided test data.
+TC-Plan-001,Test Plan Creation,Plan,1,A Trip object exists.,- id: generated_id,"1. Create a new Plan object with the provided test data and the Trip object.
+2. Call the `setId(id: int)` method with a generated ID.
+3. Call the `setTrip(trip: Trip)` method with the Trip object.
+4. Call the `setDailyPlan(dailyPlan: DailyPlan)` method with a DailyPlan object.
+Test Steps (DailyPlan object creation):
+1. Create a new DailyPlan object with the following test data:
+   - day: valid_day
+   - date: valid_date
+   - weather: Weather object
+2. Call the `setDay(day: Date)` method with the provided day.
+3. Call the `setDate(date: Date)` method with the provided date.
+4. Call the `setWeather(weather: Weather)` method with the Weather object.
+Test Steps (Weather object creation):
+1. Create a new Weather object with the following test data:
+   - id: generated_id
+   - high: valid_temperature
+   - low: valid_temperature
+   - icon: valid_icon
+   - description: valid_description
+2. Call the `setId(id: int)` method with a generated ID.
+3. Call the `setHigh(high: double)` method with the provided high temperature.
+4. Call the `setLow(low: double)` method with the provided low temperature.
+5. Call the `setIcon(icon: String)` method with the provided icon.
+6. Call the `setDescription(description: String)` method with the provided description.
+Test Steps (continued):
+14. Call the `getDailyPlan()` method and verify that the returned value is the DailyPlan object.
+15. Call the `getTrip()` method and verify that the returned value is the Trip object.",The Plan object is created successfully with the provided test data and associated objects.
+TC-Category-001,Test Category Creation,Category,1,None,"- name: valid_category_name
+- id: generated_id
+- icon: valid_icon","1. Create a new Category object with the provided test data.
+2. Call the `setName(name: String)` method with the provided category name.
+3. Call the `setId(id: int)` method with a generated ID.
+4. Call the `setIcon(icon: String)` method with the provided icon.
+5. Call the `getName()` method and verify that the returned value is the provided category name.
+6. Call the `getId()` method and verify that the returned value is the generated ID.
+7. Call the `getIcon()` method and verify that the returned value is the provided icon.",The Category object is created successfully with the provided test data.
+TC-PlaceToVisit-001,Test PlaceToVisit Creation,PlaceToVisit,1,A Category object exists.,"- name: valid_place_name
+- id: generated_id
+- category: Category object
+- city: valid_city
+- icon: valid_icon","1. Create a new PlaceToVisit object with the provided test data and the Category object.
+2. Call the `setName(name: String)` method with the provided place name.
+3. Call the `setId(id: int)` method with a generated ID.
+4. Call the `setCategory(category: Category)` method with the Category object.
+5. Call the `setCity(city: String)` method with the provided city.
+6. Call the `setIcon(icon: String)` method with the provided icon.
+Test Steps (continued):
+7. Call the `getName()` method and verify that the returned value is the provided place name.
+8. Call the `getId()` method and verify that the returned value is the generated ID.
+9. Call the `getCategory()` method and verify that the returned value is the Category object.
+10. Call the `getCity()` method and verify that the returned value is the provided city.
+11. Call the `getIcon()` method and verify that the returned value is the provided icon.",The PlaceToVisit object is created successfully with the provided test data and associated objects.
+TC-User-002,Test User Login,User,"2,3",A User object exists in the database.,"- email: valid_email
+- password: valid_password","1. Call the `userLogin(email: String, password: String)` method with the provided email and password.
+Test Steps (Main Login):
+1. Call the `validUser(email: String, password: String)` method with the provided email and password.
+2. Verify that the returned value is true (indicating a valid user).
+Test Steps (continued):
+3. Call the `getUserData()` method and verify that the returned User object matches the one in the database.",The User object is successfully logged in with the provided email and password.
+TC-User-003,Test User Login with Invalid Credentials,User,"2,3",A User object exists in the database.,"- email: invalid_email
+- password: invalid_password","1. Call the `userLogin(email: String, password: String)` method with the provided email and password.
+Test Steps (Main Login):
+1. Call the `validUser(email: String, password: String)` method with the provided email and password.
+2. Verify that the returned value is false (indicating invalid credentials).",The User object is not logged in due to invalid credentials.
+TC-UpdateTripData-001,Test Updating Trip Data,Update Trip Data,4,A Trip object exists.,"- new_city: new_city_value
+- new_country: new_country_value
+- new_beginDate: new_begin_date
+- new_endDate: new_end_date","1. Call the `updateTripData(trip: Trip, new_city: String, new_country: String, new_beginDate: Date, new_endDate: Date)` method with the Trip object and the provided new data.
+Test Steps (Main):
+1. Call the `updateTripData(trip: Trip, new_city: String, new_country: String, new_beginDate: Date, new_endDate: Date)` method with the Trip object and the provided new data.
+2. Verify that the Trip object in the database has been updated with the new data.",The Trip object is successfully updated with the provided new data.
+TC-ChangeUserProfile-001,Test Changing User Profile,Change User Profile,5,A User object exists.,"- new_username: new_username_value
+- new_password: new_password_value
+- new_name: new_name_value
+- new_email: new_email_value","1. Call the `changeProfile(user: User, new_username: String, new_password: String, new_name: String, new_email: String)` method with the User object and the provided new data.
+Test Steps (Change User Profile):
+1. Call the `getNewData(user: User)` method with the User object.
+2. Verify that the returned data is the provided new data.
+3. Call the `verifyValidData(user: User, new_data: Map<String, String>)` method with the User object and the returned new data.
+4. Verify that the returned value is true (indicating valid data).
+5. Call the `updateUserData(user: User, new_data: Map<String, String>)` method with the User object and the returned new data.
+6. Verify that the User object in the database has been updated with the new data.",The User object is successfully updated with the provided new data.
+TC-ChangeUserProfile-002,Test Changing User Profile with Invalid Data,Change User Profile,5,A User object exists.,"- new_username: empty_string
+- new_password: empty_string
+- new_name: empty_string
+- new_email: empty_string","1. Call the `changeProfile(user: User, new_username: String, new_password: String, new_name: String, new_email: String)` method with the User object and the provided empty data.
+Test Steps (Change User Profile):
+1. Call the `getNewData(user: User)` method with the User object.
+2. Verify that the returned data is the provided empty data.
+3. Call the `verifyValidData(user: User, new_data: Map<String, String>)` method with the User object and the returned empty data.
+4. Verify that the returned value is false (indicating invalid data).",The User object is not updated due to invalid data.

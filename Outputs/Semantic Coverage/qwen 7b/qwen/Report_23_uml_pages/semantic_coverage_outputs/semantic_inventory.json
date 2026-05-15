@@ -1,0 +1,250 @@
+{
+  "concepts": [
+    "utente",
+    "cliente",
+    "segnalazione",
+    "recensione",
+    "prodotto",
+    "map",
+    "posizione dell'utente è accessibile?",
+    "crea la lista in base alla posizione dell'utente",
+    "segnalazione errore",
+    "click su un prodotto",
+    "modifica prodotto",
+    "premuto tasto \"modifica\"",
+    "i campi sono compilati correttamente?",
+    "segnala errore",
+    "applica modifiche prodotto",
+    "click su pulsante \"+\"",
+    "aggiungi prodotto",
+    "premuto tasto \"aggiungi\"",
+    "click su",
+    "gestione notifiche",
+    "premuto \"push notification\"",
+    "invia notifiche push",
+    "premuto \"in app notification\"",
+    "invia notifiche in app",
+    "manage notifications"
+  ],
+  "flows": [
+    "utente -> cliente — type=association; label=\"eredita from utente\"; explanation=\"inheritance relationship\"",
+    "cliente -> segnalazione — type=association; label=\"cliente cliente\"; explanation=\"association relationship\"",
+    "cliente -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+    "segnalazione -> cliente — type=association; label=\"cliente cliente\"; explanation=\"association relationship\"",
+    "segnalazione -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+    "recensione -> cliente — type=association; label=\"cliente cliente\"; explanation=\"association relationship\"",
+    "recensione -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+    "prodotto -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+    "flow 1: utente -> cliente (eredita from utente) -> segnalazione (cliente cliente) -> venditore (venditore venditore)",
+    "flow 2: utente -> cliente (eredita from utente) -> segnalazione (cliente cliente) -> venditore (venditore venditore)",
+    "flow 3: utente -> cliente (eredita from utente) -> segnalazione (cliente cliente) -> venditore (venditore venditore)",
+    "this diagram models a system with multiple classes representing entities such as user, client, report, review, and product. the user class inherits from the client class, indicating an inheritance relationship. clients can create reports and reviews, which are associated with both clients and vendors. products are associated with vendors. the diagram shows various attributes and operations for each class, detailing their functionalities. key edge cases might involve creating and managing reports and reviews, as well as interactions between clients, vendors, and products.",
+    "map -> posizione dell'utente è accessibile? — type=control-flow; label=\"->\"; explanation=\"flow to decision\"",
+    "posizione dell'utente è accessibile? -> crea la lista in base alla posizione dell'utente — type=control-flow; label=\"yes\"; explanation=\"flow to process if accessible\"",
+    "posizione dell'utente è accessibile? -> segnalazione errore — type=control-flow; label=\"no\"; explanation=\"flow to error if inaccessible\"",
+    "flow 1: map -> posizione dell'utente è accessibile? -> yes -> crea la lista in base alla posizione dell'utente",
+    "flow 2: map -> posizione dell'utente è accessibile? -> no -> segnalazione errore",
+    "this diagram models a process involving a map input, checking user position accessibility, and creating a list based on the user's position if accessible. if not accessible, it signals an error.",
+    "click su un prodotto -> modifica prodotto — type=control-flow; label=\"->\"; explanation=\"initiate modification\"",
+    "modifica prodotto -> premuto tasto \"modifica\" — type=control-flow; label=\"->\"; explanation=\"press modify button\"",
+    "premuto tasto \"modifica\" -> i campi sono compilati correttamente? — type=control-flow; label=\"->\"; explanation=\"validate form\"",
+    "i campi sono compilati correttamente? -> si — type=control-flow; label=\"si\"; explanation=\"fields validated correctly\"",
+    "si -> applica modifiche prodotto — type=control-flow; label=\"->\"; explanation=\"apply changes\"",
+    "i campi sono compilati correttamente? -> no — type=control-flow; label=\"no\"; explanation=\"fields not validated correctly\"",
+    "no -> segnala errore — type=control-flow; label=\"->\"; explanation=\"report error\"",
+    "flow 1: click su un prodotto -> modifica prodotto -> premuto tasto \"modifica\" -> i campi sono compilati correttamente? -> si -> applica modifiche prodotto",
+    "flow 2: click su un prodotto -> modifica prodotto -> premuto tasto \"modifica\" -> i campi sono compilati correttamente? -> no -> segnala errore",
+    "this activity diagram models the process of modifying a product.",
+    "the user initiates the modification by clicking on a product.",
+    "they then press the \"modify\" button.",
+    "the system validates the form fields.",
+    "if the fields are correctly filled, the modifications are applied.",
+    "if the fields are not correctly filled, an error is reported.",
+    "click su pulsante \"+\" -> aggiungi prodotto — type=control-flow; label=\"->\"; explanation=\"initiate product addition\"",
+    "aggiungi prodotto -> premuto tasto \"aggiungi\" — type=control-flow; label=\"->\"; explanation=\"button press\"",
+    "premuto tasto \"aggiungi\" -> i campi sono compilati correttamente? — type=control-flow; label=\"->\"; explanation=\"validate input\"",
+    "si -> aggiungi prodotto — type=control-flow; label=\"->\"; explanation=\"add product successfully\"",
+    "flow 1: click su pulsante \"+\" -> aggiungi prodotto -> premuto tasto \"aggiungi\" -> i campi sono compilati correttamente? -> si -> aggiungi prodotto",
+    "flow 2: click su pulsante \"+\" -> aggiungi prodotto -> premuto tasto \"aggiungi\" -> i campi sono compilati correttamente? -> no -> segnala errore",
+    "the diagram models the process of adding a product.",
+    "the user initiates the product addition by clicking a button.",
+    "the system checks if the fields are filled correctly.",
+    "if the fields are correct, the product is added successfully.",
+    "if the fields are not correct, an error is reported.",
+    "the process includes a decision point to validate the input fields.",
+    "click su -> gestione notifiche — type=control-flow; label=\"->\"; explanation=\"initiate action\"",
+    "gestione notifiche -> premuto \"push notification\" — type=control-flow; label=\"->\"; explanation=\"click push notification\"",
+    "premuto \"push notification\" -> invia notifiche push — type=control-flow; label=\"->\"; explanation=\"send push notifications\"",
+    "gestione notifiche -> premuto \"in app notification\" — type=control-flow; label=\"->\"; explanation=\"click in-app notification\"",
+    "premuto \"in app notification\" -> invia notifiche in app — type=control-flow; label=\"->\"; explanation=\"send in-app notifications\"",
+    "flow 1: click su -> gestione notifiche -> premuto \"push notification\" -> invia notifiche push",
+    "flow 2: click su -> gestione notifiche -> premuto \"in app notification\" -> invia notifiche in app",
+    "this activity diagram models the process of managing notifications.",
+    "the user initiates the process by clicking on a specific element.",
+    "depending on the choice made (\"push notification\" or \"in app notification\"), different actions are performed: sending push notifications or in-app notifications.",
+    "the diagram highlights the flow of actions and decisions involved in managing notifications.",
+    "flow 1: \"manage notifications\" -> \"push notification\" (on) -> \"in app notification\" (on)",
+    "this diagram models a use case for managing notifications related to new products and promotions from nearby stores.",
+    "the main flow involves enabling both push and in-app notifications for new product updates.",
+    "there are no conditions, branches, or loops visible in the diagram.",
+    "======================================================================"
+  ],
+  "validations": [
+    "posizione dell'utente è accessibile? — yes -> crea la lista in base alla posizione dell'utente; no -> segnalazione errore",
+    "i campi sono compilati correttamente? — si: si -> applica modifiche prodotto; no: no -> segnala errore",
+    "i campi sono compilati correttamente? — branches: si, no"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "- class",
+      "concepts": [
+        "utente",
+        "cliente",
+        "segnalazione",
+        "recensione",
+        "prodotto"
+      ],
+      "flows": [
+        "utente -> cliente — type=association; label=\"eredita from utente\"; explanation=\"inheritance relationship\"",
+        "cliente -> segnalazione — type=association; label=\"cliente cliente\"; explanation=\"association relationship\"",
+        "cliente -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+        "segnalazione -> cliente — type=association; label=\"cliente cliente\"; explanation=\"association relationship\"",
+        "segnalazione -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+        "recensione -> cliente — type=association; label=\"cliente cliente\"; explanation=\"association relationship\"",
+        "recensione -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+        "prodotto -> venditore — type=association; label=\"venditore venditore\"; explanation=\"association relationship\"",
+        "flow 1: utente -> cliente (eredita from utente) -> segnalazione (cliente cliente) -> venditore (venditore venditore)",
+        "flow 2: utente -> cliente (eredita from utente) -> segnalazione (cliente cliente) -> venditore (venditore venditore)",
+        "flow 3: utente -> cliente (eredita from utente) -> segnalazione (cliente cliente) -> venditore (venditore venditore)",
+        "this diagram models a system with multiple classes representing entities such as user, client, report, review, and product. the user class inherits from the client class, indicating an inheritance relationship. clients can create reports and reviews, which are associated with both clients and vendors. products are associated with vendors. the diagram shows various attributes and operations for each class, detailing their functionalities. key edge cases might involve creating and managing reports and reviews, as well as interactions between clients, vendors, and products."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 2,
+      "uml_type": "- activity",
+      "concepts": [
+        "map",
+        "posizione dell'utente è accessibile?",
+        "crea la lista in base alla posizione dell'utente",
+        "segnalazione errore"
+      ],
+      "flows": [
+        "map -> posizione dell'utente è accessibile? — type=control-flow; label=\"->\"; explanation=\"flow to decision\"",
+        "posizione dell'utente è accessibile? -> crea la lista in base alla posizione dell'utente — type=control-flow; label=\"yes\"; explanation=\"flow to process if accessible\"",
+        "posizione dell'utente è accessibile? -> segnalazione errore — type=control-flow; label=\"no\"; explanation=\"flow to error if inaccessible\"",
+        "flow 1: map -> posizione dell'utente è accessibile? -> yes -> crea la lista in base alla posizione dell'utente",
+        "flow 2: map -> posizione dell'utente è accessibile? -> no -> segnalazione errore",
+        "this diagram models a process involving a map input, checking user position accessibility, and creating a list based on the user's position if accessible. if not accessible, it signals an error."
+      ],
+      "validations": [
+        "posizione dell'utente è accessibile? — yes -> crea la lista in base alla posizione dell'utente; no -> segnalazione errore"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "- activity",
+      "concepts": [
+        "click su un prodotto",
+        "modifica prodotto",
+        "premuto tasto \"modifica\"",
+        "i campi sono compilati correttamente?",
+        "segnala errore",
+        "applica modifiche prodotto"
+      ],
+      "flows": [
+        "click su un prodotto -> modifica prodotto — type=control-flow; label=\"->\"; explanation=\"initiate modification\"",
+        "modifica prodotto -> premuto tasto \"modifica\" — type=control-flow; label=\"->\"; explanation=\"press modify button\"",
+        "premuto tasto \"modifica\" -> i campi sono compilati correttamente? — type=control-flow; label=\"->\"; explanation=\"validate form\"",
+        "i campi sono compilati correttamente? -> si — type=control-flow; label=\"si\"; explanation=\"fields validated correctly\"",
+        "si -> applica modifiche prodotto — type=control-flow; label=\"->\"; explanation=\"apply changes\"",
+        "i campi sono compilati correttamente? -> no — type=control-flow; label=\"no\"; explanation=\"fields not validated correctly\"",
+        "no -> segnala errore — type=control-flow; label=\"->\"; explanation=\"report error\"",
+        "flow 1: click su un prodotto -> modifica prodotto -> premuto tasto \"modifica\" -> i campi sono compilati correttamente? -> si -> applica modifiche prodotto",
+        "flow 2: click su un prodotto -> modifica prodotto -> premuto tasto \"modifica\" -> i campi sono compilati correttamente? -> no -> segnala errore",
+        "this activity diagram models the process of modifying a product.",
+        "the user initiates the modification by clicking on a product.",
+        "they then press the \"modify\" button.",
+        "the system validates the form fields.",
+        "if the fields are correctly filled, the modifications are applied.",
+        "if the fields are not correctly filled, an error is reported."
+      ],
+      "validations": [
+        "i campi sono compilati correttamente? — si: si -> applica modifiche prodotto; no: no -> segnala errore"
+      ]
+    },
+    {
+      "page_no": 4,
+      "uml_type": "- activity",
+      "concepts": [
+        "click su pulsante \"+\"",
+        "aggiungi prodotto",
+        "premuto tasto \"aggiungi\"",
+        "i campi sono compilati correttamente?",
+        "segnala errore"
+      ],
+      "flows": [
+        "click su pulsante \"+\" -> aggiungi prodotto — type=control-flow; label=\"->\"; explanation=\"initiate product addition\"",
+        "aggiungi prodotto -> premuto tasto \"aggiungi\" — type=control-flow; label=\"->\"; explanation=\"button press\"",
+        "premuto tasto \"aggiungi\" -> i campi sono compilati correttamente? — type=control-flow; label=\"->\"; explanation=\"validate input\"",
+        "i campi sono compilati correttamente? -> si — type=control-flow; label=\"si\"; explanation=\"fields validated correctly\"",
+        "i campi sono compilati correttamente? -> no — type=control-flow; label=\"no\"; explanation=\"fields not validated correctly\"",
+        "no -> segnala errore — type=control-flow; label=\"->\"; explanation=\"report error\"",
+        "si -> aggiungi prodotto — type=control-flow; label=\"->\"; explanation=\"add product successfully\"",
+        "flow 1: click su pulsante \"+\" -> aggiungi prodotto -> premuto tasto \"aggiungi\" -> i campi sono compilati correttamente? -> si -> aggiungi prodotto",
+        "flow 2: click su pulsante \"+\" -> aggiungi prodotto -> premuto tasto \"aggiungi\" -> i campi sono compilati correttamente? -> no -> segnala errore",
+        "the diagram models the process of adding a product.",
+        "the user initiates the product addition by clicking a button.",
+        "the system checks if the fields are filled correctly.",
+        "if the fields are correct, the product is added successfully.",
+        "if the fields are not correct, an error is reported.",
+        "the process includes a decision point to validate the input fields."
+      ],
+      "validations": [
+        "i campi sono compilati correttamente? — branches: si, no"
+      ]
+    },
+    {
+      "page_no": 5,
+      "uml_type": "- activity",
+      "concepts": [
+        "click su",
+        "gestione notifiche",
+        "premuto \"push notification\"",
+        "invia notifiche push",
+        "premuto \"in app notification\"",
+        "invia notifiche in app"
+      ],
+      "flows": [
+        "click su -> gestione notifiche — type=control-flow; label=\"->\"; explanation=\"initiate action\"",
+        "gestione notifiche -> premuto \"push notification\" — type=control-flow; label=\"->\"; explanation=\"click push notification\"",
+        "premuto \"push notification\" -> invia notifiche push — type=control-flow; label=\"->\"; explanation=\"send push notifications\"",
+        "gestione notifiche -> premuto \"in app notification\" — type=control-flow; label=\"->\"; explanation=\"click in-app notification\"",
+        "premuto \"in app notification\" -> invia notifiche in app — type=control-flow; label=\"->\"; explanation=\"send in-app notifications\"",
+        "flow 1: click su -> gestione notifiche -> premuto \"push notification\" -> invia notifiche push",
+        "flow 2: click su -> gestione notifiche -> premuto \"in app notification\" -> invia notifiche in app",
+        "this activity diagram models the process of managing notifications.",
+        "the user initiates the process by clicking on a specific element.",
+        "depending on the choice made (\"push notification\" or \"in app notification\"), different actions are performed: sending push notifications or in-app notifications.",
+        "the diagram highlights the flow of actions and decisions involved in managing notifications."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 6,
+      "uml_type": "- use_case",
+      "concepts": [
+        "manage notifications"
+      ],
+      "flows": [
+        "flow 1: \"manage notifications\" -> \"push notification\" (on) -> \"in app notification\" (on)",
+        "this diagram models a use case for managing notifications related to new products and promotions from nearby stores.",
+        "the main flow involves enabling both push and in-app notifications for new product updates.",
+        "there are no conditions, branches, or loops visible in the diagram.",
+        "======================================================================"
+      ],
+      "validations": []
+    }
+  ]
+}

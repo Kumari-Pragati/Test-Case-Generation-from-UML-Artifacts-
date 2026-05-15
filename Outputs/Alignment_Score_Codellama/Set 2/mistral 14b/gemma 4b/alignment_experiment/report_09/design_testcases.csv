@@ -1,0 +1,122 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,"3, 6","- User is registered in the system.
+- Database contains the user’s hashed password.","- Email: `volunteer1@example.com`
+- Password: `SecurePass123!`","1. User enters email and password in the login form.
+2. System sends `POST /login` request to the server.
+3. Server queries the database for the user with `email = ""volunteer1@example.com""`.
+4. Server verifies the password using `bcrypt.compareSync()`.
+5. Server generates a JWT token.
+6. Server updates the `Tokens` table to revoke old tokens and inserts a new one.
+7. Server sends a success response with the JWT token to the client.","- User is redirected to the home page.
+- JWT token is stored in the client (e.g., localStorage).
+- No error messages are displayed."
+TC-AUTHENTICATION-002,Failed login with incorrect password,Authentication,"3, 6",- User is registered in the system.,"- Email: `volunteer1@example.com`
+- Password: `WrongPass123!`","1. User enters email and password in the login form.
+2. System sends `POST /login` request to the server.
+3. Server queries the database for the user with `email = ""volunteer1@example.com""`.
+4. Server verifies the password using `bcrypt.compareSync()`.
+5. Password verification fails.
+6. Server sends an error response to the client.","- User sees an error message: *""Invalid email or password""*.
+- No token is generated or stored.
+- User remains on the login page."
+TC-AUTHENTICATION-003,Failed login with non-existent email,Authentication,"3, 6",- No user exists with the provided email.,"- Email: `nonexistent@example.com`
+- Password: `AnyPassword123!`","1. User enters email and password in the login form.
+2. System sends `POST /login` request to the server.
+3. Server queries the database for the user with `email = ""nonexistent@example.com""`.
+4. Database returns `user.length == 0`.
+5. Server sends an error response to the client.","- User sees an error message: *""Invalid email or password""*.
+- No token is generated or stored.
+- User remains on the login page."
+TC-REGISTRATION-001,Successful user registration with valid data,User Management,"1, 7","- System is operational.
+- No user exists with the provided email.","- Name: `John`
+- Surname: `Doe`
+- Email: `john.doe@example.com`
+- Password: `SecurePass123!`
+- Regione: `Lombardia`
+- Provincia: `Milano`","1. User clicks ""Registrati"" and fills out the registration form.
+2. System sends `POST /nuovoUtente` request to the server.
+3. Server validates input fields (non-empty, correct format).
+4. Server hashes the password using `bcrypt`.
+5. Server inserts the new user into the `Utenti` table.
+6. Server sends a success response to the client.","- User sees a success message: *""Registration successful. Please log in.""*.
+- User is redirected to the login page.
+- New user record exists in the database with hashed password."
+TC-REGISTRATION-002,Failed registration with duplicate email,User Management,"1, 7","- A user already exists with `email = ""john.doe@example.com""`.","- Name: `John`
+- Surname: `Doe`
+- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User clicks ""Registrati"" and fills out the registration form.
+2. System sends `POST /nuovoUtente` request to the server.
+3. Server detects duplicate email during database insertion.
+4. Server logs the error and sends an HTTP `400` response.","- User sees an error message: *""Email already registered.""*.
+- No new user record is created in the database."
+TC-EMERGENCY-VISUALIZATION-001,View emergencies as an authenticated user with available emergencies,Emergency Visualization,2,"- User is logged in (authenticated).
+- At least one emergency exists in the system.",,"1. User clicks ""Visualizza emergenze"" on the home page.
+2. System checks if the user is authenticated (`Utente autenticato?`).
+3. System checks if emergencies are available (`Emergenze disponibili?`).
+4. System displays a list of emergencies.","- User sees a list of emergencies with details (description, regione, provincia).
+- No ""Nessuna emergenza"" message is displayed."
+TC-EMERGENCY-VISUALIZATION-002,View emergencies as an unauthenticated user,Emergency Visualization,2,- User is not logged in.,,"1. User clicks ""Visualizza emergenze"" on the home page.
+2. System checks if the user is authenticated (`Utente autenticato?`).
+3. User is redirected to the login page.","- User is prompted to log in.
+- No emergency list is displayed."
+TC-EMERGENCY-VISUALIZATION-003,View emergencies as an authenticated user with no emergencies,Emergency Visualization,2,"- User is logged in (authenticated).
+- No emergencies exist in the system.",,"1. User clicks ""Visualizza emergenze"" on the home page.
+2. System checks if the user is authenticated (`Utente autenticato?`).
+3. System checks if emergencies are available (`Emergenze disponibili?`).
+4. System displays ""Nessuna emergenza"" message.","- User sees the message: *""No emergencies available.""*.
+- No list of emergencies is displayed."
+TC-EMERGENCY-CREATION-001,Successful emergency creation by an authenticated coordinator,Emergency Management,"1, 4","- Coordinator is logged in (authenticated).
+- Coordinator has permission to create emergencies.","- Descrizione: `Alluvione in via Roma`
+- Regione: `Lombardia`
+- Provincia: `Milano`","1. Coordinator clicks ""Inserisci emergenza"".
+2. System verifies coordinator authentication (`Coordinatore autenticato?`).
+3. Coordinator enters emergency details.
+4. System checks if information is complete (`Informazioni complete?`).
+5. System creates the emergency in the database.
+6. System creates an `Assegnazione` linked to the emergency.","- Emergency is created and displayed in the system.
+- New `Emergenza` record exists in the database.
+- Associated `Assegnazione` record is created with default `data_inizio` and `data_fine`."
+TC-EMERGENCY-CREATION-002,Failed emergency creation with incomplete details,Emergency Management,"1, 4",- Coordinator is logged in (authenticated).,- Descrizione: `Alluvione` (missing regione/provincia),"1. Coordinator clicks ""Inserisci emergenza"".
+2. System verifies coordinator authentication (`Coordinatore autenticato?`).
+3. Coordinator enters incomplete emergency details.
+4. System checks if information is complete (`Informazioni complete?`).
+5. System prompts coordinator to update missing details.","- Coordinator sees an error message: *""Please fill in all required fields (regione, provincia).""*.
+- No emergency is created in the database."
+TC-EMERGENCY-CREATION-003,Failed emergency creation by unauthenticated user,Emergency Management,"1, 4",- User is not logged in.,,"1. User clicks ""Inserisci emergenza"".
+2. System checks if coordinator is authenticated (`Coordinatore autenticato?`).
+3. System displays an error.","- User sees an error message: *""Access denied. Please log in as a coordinator.""*.
+- No emergency is created."
+TC-TASK-ASSIGNMENT-001,Successful task creation linked to an assignment,Task Management,"1, 7","- User is logged in.
+- An `Assegnazione` exists in the system.","- Compito name: `Pulizia strade`
+- Descrizione: `Rimuovere detriti in via Roma`
+- Regione: `Lombardia`
+- Provincia: `Milano`","1. User creates an `Assegnazione` with a linked `Compito`.
+2. System validates input fields for the task.
+3. System inserts the `Compito` into the database.
+4. System links the `Compito` to the `Assegnazione` via `ha` association.","- Task is created and associated with the assignment.
+- New `Compito` record exists in the database with correct attributes.
+- `Assegnazione` record includes the `Compito` ID in its associations."
+TC-TASK-ASSIGNMENT-002,Failed task creation with invalid coordinates,Task Management,"1, 7","- User is logged in.
+- An `Assegnazione` exists but has no valid `Coordinata`.","- Compito name: `Pulizia strade`
+- coordinate_x: `invalid`
+- coordinate_y: `invalid`","1. User attempts to create a task linked to an assignment.
+2. System validates the `Coordinata` for the assignment.
+3. System detects invalid coordinates.
+4. System logs an error and sends an HTTP `400` response.","- User sees an error message: *""Invalid coordinates. Please provide valid X and Y values.""*.
+- No task is created."
+TC-VOLUNTEER-REMOVAL-001,Successful volunteer removal from a task,Volunteer Management,"1, 5","- Coordinator is logged in.
+- A task has an assigned volunteer (`UtenteCompito` exists).",,"1. Coordinator clicks ""Visualizza emergenza"" and selects a task.
+2. System verifies coordinator authentication (`Coordinatore autenticato?`).
+3. System checks if a volunteer is assigned (`Volontario assegnato?`).
+4. Coordinator confirms volunteer removal.
+5. System removes the volunteer from the `UtenteCompito` record.","- Volunteer is removed from the task.
+- `UtenteCompito` record is deleted or updated to reflect no assignment.
+- Coordinator sees a success message: *""Voluntary removed successfully.""*"
+TC-VOLUNTEER-REMOVAL-002,Failed volunteer removal with no assigned volunteer,Volunteer Management,"1, 5","- Coordinator is logged in.
+- Task has no assigned volunteer (`UtenteCompito` does not exist).",,"1. Coordinator clicks ""Visualizza emergenza"" and selects a task.
+2. System verifies coordinator authentication (`Coordinatore autenticato?`).
+3. System checks if a volunteer is assigned (`Volontario assegnato?`).
+4. System displays an error.","- Coordinator sees an error message: *""No volunteer assigned to this task.""*.
+- No changes are made to the database."
+TC-EMERGENCY-TERMINATION-001,Successful emergency termination,"Emergency Termination
+**Source",,,,,

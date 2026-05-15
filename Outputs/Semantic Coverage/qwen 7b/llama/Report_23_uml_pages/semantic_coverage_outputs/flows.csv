@@ -1,0 +1,49 @@
+flow
+"utente -> cliente - type: association; label: ""eredita from""; explanation: ""eredita from"""
+"cliente -> venditore - type: association; label: ""eredita from""; explanation: ""eredita from"""
+"venditore -> venditorepreferito - type: association; label: ""venditorepreferito""; explanation: ""venditorepreferito"""
+flow 1: utente -> cliente -> venditore -> venditorepreferito
+the diagram models a system where users can create accounts and interact with clients and sellers.
+the system has a preference feature that allows users to select their preferred seller.
+the system sends notifications to users based on their interactions with clients and sellers.
+the system has a login feature that allows users to log in with their email and password.
+"client -> server — type=association; label=""login""; explanation=""client requests login"""
+"server -> database — type=association; label=""get user""; explanation=""server retrieves user data"""
+"client -> server — type=association; label=""logout""; explanation=""client requests logout"""
+"server -> database — type=association; label=""create user""; explanation=""server creates new user"""
+flow 1: client -> server -> database -> client -> server -> client
+flow 2: none
+"the diagram models a simple login process where the client requests login, the server checks the credentials, and if successful, returns the user's data. if the login fails, the server returns an error message."
+the client can then choose to logout or continue using the system.
+the server and database are separate entities that interact with each other and the client.
+"flow 1: click su un prodotto -> modifica prodotto -> premuto tasto ""modifica"" -> i campi sono compilati correttamente? -> no -> segnala errore"
+flow 2: i campi sono compilati correttamente? -> si -> applica modifiche prodotto
+conditions/branches:
+"i campi sono compilati correttamente?: if the fields are correctly filled, then apply product modifications; otherwise, signal an error"
+loops/repetitions:
+notes/annotations:
+the diagram models a sequence of actions and decisions related to modifying a product.
+"the main flows involve clicking on a product, modifying it, and applying the modifications."
+"the decision point checks if the fields are correctly filled, and if so, applies the modifications; otherwise, it signals an error."
+"flow 1: click su pulsante -> aggiungi prodotto -> premuto tasto ""aggiungi"" -> i campi sono compilati correttamente? -> aggiungi prodotto"
+"i campi sono compilati correttamente? -> si: if fields are filled correctly, the product is added; no: if fields are not filled correctly, an error is indicated"
+"the diagram models a sequence of actions where a user clicks a button, adds a product, presses the ""add"" button, checks if fields are filled correctly, and either adds the product or indicates an error."
+the main flow is a linear sequence of actions.
+there are no loops or repetitions in the diagram.
+the diagram does not show any error handling or alternative paths.
+"click su -> gestione notifiche — type=trigger; label=""click su""; explanation=""clicking the button triggers the notification management process"""
+"gestione notifiche -> premuto ""push notification"" — type=flow; label=""gestione notifiche""; explanation=""the notification management process triggers the push notification"""
+"premuto ""push notification"" -> invia notifiche in app — type=flow; label=""premuto 'push notification'""; explanation=""the push notification triggers the push of notifications to the app"""
+"premuto ""in app notification"" -> invia notifiche in app — type=flow; label=""premuto 'in app notification'""; explanation=""the in-app notification triggers the push of notifications to the app"""
+"flow 1: click su -> gestione notifiche -> premuto ""push notification"" -> invia notifiche in app -> premuto ""in app notification"" -> invia notifiche in app"
+"the diagram models the process of managing notifications, from clicking a button to pushing notifications to an app."
+the main flow involves the sequence of events from clicking the button to pushing notifications to the app.
+there are no decisions or branches in the flow.
+the diagram does not show any loops or repeated behavior.
+"user -> new product — type=association; label=""push""; explanation=""push notification"""
+"new product -> app — type=association; label=""inappnotification""; explanation=""in-app notification"""
+flow 1: user -> new product -> app
+"the diagram models the interaction between a user and a new product, where the user can either push or receive in-app notifications."
+"the main flow is a simple sequence of events where the user interacts with the new product, which then sends a push or in-app notification."
+there are no loops or repeated behavior in the diagram.
+======================================================================

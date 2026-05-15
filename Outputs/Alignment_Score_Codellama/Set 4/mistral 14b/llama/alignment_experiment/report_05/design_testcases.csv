@@ -1,0 +1,129 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration with valid data,User Registration,2,"- User is on the registration page.
+- Database is empty or contains no conflicting usernames/emails.","- Username: `johndoe123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `john.doe@example.com`","1. User enters `johndoe123` as username.
+2. User enters `SecurePass123!` as password.
+3. User enters `John Doe` as name.
+4. User enters `john.doe@example.com` as email.
+5. User clicks ""Register.""","- System validates data (returns `true`).
+- User data is saved in the database.
+- User receives confirmation: ""Registration successful."""
+TC-USER-REGISTRATION-002,Failed user registration with invalid email format,User Registration,2,- User is on the registration page.,"- Username: `johndoe123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `johndoe@example` (invalid format)","1. User enters `johndoe123` as username.
+2. User enters `SecurePass123!` as password.
+3. User enters `John Doe` as name.
+4. User enters `johndoe@example` as email.
+5. User clicks ""Register.""","- System validates data (returns `false`).
+- Error message: ""Invalid email format. Please use a valid email address.""
+- User data is **not** saved in the database."
+TC-USER-REGISTRATION-003,Failed user registration with duplicate username,User Registration,2,- User `johndoe123` already exists in the database.,"- Username: `johndoe123` (duplicate)
+- Password: `NewPass123!`
+- Name: `John Doe Jr.`
+- Email: `john.doe.jr@example.com`","1. User enters `johndoe123` as username.
+2. User enters `NewPass123!` as password.
+3. User enters `John Doe Jr.` as name.
+4. User enters `john.doe.jr@example.com` as email.
+5. User clicks ""Register.""","- System validates data (returns `false`).
+- Error message: ""Username already exists. Please choose another.""
+- User data is **not** saved in the database."
+TC-USER-LOGIN-001,Successful user login with valid credentials,User Authentication,3,- User `johndoe123` exists in the database with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User enters `john.doe@example.com` as email.
+2. User enters `SecurePass123!` as password.
+3. User clicks ""Login.""","- System validates credentials (returns `true`).
+- User is logged in successfully.
+- User is redirected to the trip dashboard."
+TC-USER-LOGIN-002,Failed user login with incorrect password,User Authentication,3,- User `johndoe123` exists in the database with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `WrongPass123!`","1. User enters `john.doe@example.com` as email.
+2. User enters `WrongPass123!` as password.
+3. User clicks ""Login.""","- System validates credentials (returns `false`).
+- Error message: ""Invalid email or password.""
+- User remains on the login page."
+TC-USER-LOGIN-003,Failed user login with non-existent email,User Authentication,3,- No user exists with email `nonexistent@example.com`.,"- Email: `nonexistent@example.com`
+- Password: `AnyPassword123!`","1. User enters `nonexistent@example.com` as email.
+2. User enters `AnyPassword123!` as password.
+3. User clicks ""Login.""","- System validates credentials (returns `false`).
+- Error message: ""Invalid email or password.""
+- User remains on the login page."
+TC-TRIP-CREATION-001,Create a trip with valid details,Trip Management,"1, 4",- User is logged in.,"- City: `Paris`
+- Country: `France`
+- Beginning Date: `2024-06-15`
+- Finish Date: `2024-06-22`","1. User clicks ""Create Trip.""
+2. User enters `Paris` as city.
+3. User enters `France` as country.
+4. User selects `2024-06-15` as beginning date.
+5. User selects `2024-06-22` as finish date.
+6. User clicks ""Save.""","- Trip is created with `Id` auto-assigned.
+- Trip details (city, country, dates) are saved.
+- User is redirected to the trip details page."
+TC-TRIP-CREATION-002,Failed trip creation with invalid finish date (before beginning date),Trip Management,1,- User is logged in.,"- City: `Paris`
+- Country: `France`
+- Beginning Date: `2024-06-22`
+- Finish Date: `2024-06-15` (invalid)","1. User clicks ""Create Trip.""
+2. User enters `Paris` as city.
+3. User enters `France` as country.
+4. User selects `2024-06-22` as beginning date.
+5. User selects `2024-06-15` as finish date.
+6. User clicks ""Save.""","- System detects invalid date range.
+- Error message: ""Finish date must be after beginning date.""
+- Trip is **not** created."
+TC-TRIP-UPDATE-001,Update trip details successfully,Trip Management,"1, 4","- User is logged in and owns a trip with `Id = 1`.
+- Current trip details: City = `Paris`, Country = `France`, Beginning Date = `2024-06-15`, Finish Date = `2024-06-22`.","- New City: `Lisbon`
+- New Country: `Portugal`
+- New Beginning Date: `2024-07-01`
+- New Finish Date: `2024-07-08`","1. User navigates to their trip (`Id = 1`).
+2. User clicks ""Edit Trip.""
+3. User updates city to `Lisbon`.
+4. User updates country to `Portugal`.
+5. User updates beginning date to `2024-07-01`.
+6. User updates finish date to `2024-07-08`.
+7. User clicks ""Save.""","- Trip details are updated in the database.
+- User sees updated trip details on the screen.
+- Confirmation message: ""Trip updated successfully."""
+TC-TRIP-UPDATE-002,Failed trip update with invalid city name (empty),Trip Management,"1, 4",- User is logged in and owns a trip with `Id = 1`.,"- New City: `` (empty)
+- Country: `France` (unchanged)
+- Beginning Date: `2024-06-15` (unchanged)
+- Finish Date: `2024-06-22` (unchanged)","1. User navigates to their trip (`Id = 1`).
+2. User clicks ""Edit Trip.""
+3. User clears the city field (leaves it empty).
+4. User clicks ""Save.""","- System detects empty city name.
+- Error message: ""City name is required.""
+- Trip details are **not** updated."
+TC-PLACE-TO-VISIT-001,Add a place to visit with valid category,Place Management,1,"- User is logged in and owns a trip with `Id = 1`.
+- Category `Museum` exists with `Id = 1`.","- Place Name: `Louvre Museum`
+- Category: `Museum` (`Id = 1`)","1. User navigates to their trip (`Id = 1`).
+2. User clicks ""Add Place to Visit.""
+3. User enters `Louvre Museum` as name.
+4. User selects `Museum` as category.
+5. User clicks ""Save.""","- Place to visit is added with auto-assigned `Id`.
+- Place is linked to trip `Id = 1` and category `Id = 1`.
+- User sees the new place in the trip details."
+TC-PLACE-TO-VISIT-002,Failed place addition with non-existent category,Place Management,1,"- User is logged in and owns a trip with `Id = 1`.
+- No category exists with `Id = 99`.","- Place Name: `Eiffel Tower`
+- Category: `InvalidCategory` (non-existent, `Id = 99`)","1. User navigates to their trip (`Id = 1`).
+2. User clicks ""Add Place to Visit.""
+3. User enters `Eiffel Tower` as name.
+4. User selects `InvalidCategory` (or enters `Id = 99`).
+5. User clicks ""Save.""","- System detects invalid category.
+- Error message: ""Invalid category. Please select a valid category.""
+- Place is **not** added."
+TC-DAILY-PLAN-001,Create a daily plan with valid weather data,Daily Plan Management,1,"- User is logged in and owns a trip with `Id = 1`.
+- Trip has a daily plan for `2024-06-16`.","- Day: `2024-06-16`
+- Weather High: `25.5`
+- Weather Low: `18.0`
+- Weather Icon: `sunny.png`","1. User navigates to their trip (`Id = 1`).
+2. User clicks ""Add Daily Plan.""
+3. User selects `2024-06-16` as day.
+4. User enters `25.5` as high temperature.
+5. User enters `18.0` as low temperature.
+6. User selects `sunny.png` as weather icon.
+7. User clicks ""Save.""","- Daily plan is created with auto-assigned `Id`.
+- Weather data is linked to the daily plan.
+- User sees the daily plan in the trip details."
+TC-DAILY-PLAN-002,Failed daily plan creation with invalid temperature (low > high),Daily Plan Management,1,- User is logged in and owns a trip with `Id = 1`.,"- Day: `2024-06-16`
+- Weather High: `15.0`
+- Weather Low: `20.0` (invalid)
+- Weather Icon: `rainy.png`",1. User navigates to their trip (`Id =,

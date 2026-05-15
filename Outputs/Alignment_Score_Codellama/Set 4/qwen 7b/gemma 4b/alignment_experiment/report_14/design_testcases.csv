@@ -1,0 +1,150 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Creation Success,User,2,No existing user with the same username.,"- Username: testuser123
+- Password: testpassword
+- Name: John
+- Surname: Doe
+- Localization: Valid location","1. Navigate to the user creation page.
+2. Enter the username, password, name, surname, and localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation is successful.
+- User is redirected to the home page."
+TC-User-002,User Creation Failure - Invalid Localization,User,2,No existing user with the same username.,"- Username: testuser123
+- Password: testpassword
+- Name: John
+- Surname: Doe
+- Localization: Invalid location","1. Navigate to the user creation page.
+2. Enter the username, password, name, surname, and invalid localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation fails due to invalid localization.
+- User is redirected to the home page."
+TC-User-003,User Creation Failure - Duplicate Username,User,2,An existing user with the same username.,"- Username: testuser123
+- Password: testpassword
+- Name: John
+- Surname: Doe
+- Localization: Valid location","1. Navigate to the user creation page.
+2. Enter the username, password, name, surname, and localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation fails due to duplicate username.
+- User is redirected to the home page."
+TC-Post-001,Posting a Comment Successfully,Post,"1, 4",A user is logged in and a post exists.,"- Comment: ""This is a test comment.""","1. Log in as a user.
+2. Navigate to the post details page.
+3. Enter the comment text.
+4. Click on the ""Post Comment"" button.
+5. Wait for the system response.","- Comment is posted successfully.
+- User is redirected to the post details page."
+TC-Post-002,Posting a Comment with Empty Text,Post,"1, 4",A user is logged in and a post exists.,"- Comment: """"","1. Log in as a user.
+2. Navigate to the post details page.
+3. Enter an empty comment text.
+4. Click on the ""Post Comment"" button.
+5. Wait for the system response.","- Comment posting fails due to empty text.
+- User is redirected to the post details page with an error message."
+TC-Post-003,Posting a Comment with Invalid Text,Post,"1, 4",A user is logged in and a post exists.,"- Comment: ""Invalid!@#""","1. Log in as a user.
+2. Navigate to the post details page.
+3. Enter invalid comment text.
+4. Click on the ""Post Comment"" button.
+5. Wait for the system response.","- Comment posting fails due to invalid text.
+- User is redirected to the post details page with an error message."
+TC-Chat-001,Navigating to Chat List,Chat,3,A user is logged in.,,"1. Log in as a user.
+2. Navigate to the chat section.
+3. Click on the ""Access Chat"" icon.
+4. Wait for the chat list to load.","- Chat list is loaded successfully.
+- User is presented with the chat list."
+TC-Chat-002,Navigating to Chat List with No Chats,Chat,3,A user is logged in and no chats exist.,,"1. Log in as a user.
+2. Navigate to the chat section.
+3. Click on the ""Access Chat"" icon.
+4. Wait for the chat list to load.","- Chat list is empty.
+- User is informed that there are no chats available."
+TC-Profile-001,Navigating to Profile Page,Profile,3,A user is logged in.,,"1. Log in as a user.
+2. Navigate to the home page.
+3. Click on the profile picture.
+4. Wait for the profile page to load.","- Profile page is loaded successfully.
+- User is presented with their profile information."
+TC-Profile-002,Navigating to Profile Page with No Profile Information,Profile,3,A user is logged in but has no profile information.,,"1. Log in as a user.
+2. Navigate to the home page.
+3. Click on the profile picture.
+4. Wait for the profile page to load.","- Profile page is loaded but displays no information.
+- User is informed that there is no profile information available."
+TC-GeneralDashboard-001,Scrolling Through Posts,GeneralDashboard,4,A user is logged in and posts exist.,,"1. Log in as a user.
+2. Navigate to the general dashboard.
+3. Scroll through the posts.
+4. Wait for the posts to load.","- Posts are loaded successfully.
+- User can see all the posts in the feed."
+TC-GeneralDashboard-002,Adding a Comment to a Post,GeneralDashboard,4,"A user is logged in, a post exists, and the post is visible.",,"1. Log in as a user.
+2. Navigate to the general dashboard.
+3. Click on a specific post.
+4. Enter a comment.
+5. Click on the ""Add Comment"" button.
+6. Wait for the system response.","- Comment is added successfully.
+- User is redirected to the post details page."
+TC-GeneralDashboard-003,Adding a Comment with Empty Text,GeneralDashboard,4,"A user is logged in, a post exists, and the post is visible.",,"1. Log in as a user.
+2. Navigate to the general dashboard.
+3. Click on a specific post.
+4. Enter an empty comment text.
+5. Click on the ""Add Comment"" button.
+6. Wait for the system response.","- Comment addition fails due to empty text.
+- User is redirected to the post details page with an error message."
+TC-ItemResultSearch-001,Searching for Items and Accessing Result Items,ItemResultSearch,5,A user is logged in.,,"1. Log in as a user.
+2. Perform a search for items.
+3. Click on a result item.
+4. Wait for the system response.","- Result item is accessed successfully.
+- User is redirected to the relevant page based on the result item."
+TC-ItemResultSearch-002,Initiating Chat from Result Item,ItemResultSearch,5,A user is logged in and a result item exists.,,"1. Log in as a user.
+2. Perform a search for items.
+3. Click on a result item.
+4. Click on the ""Chat"" option.
+5. Wait for the chat to initiate.","- Chat is initiated successfully.
+- User is redirected to the chat interface."
+TC-BusinessProfile-001,Accessing Business Profile,BusinessProfile,5,A user is logged in.,,"1. Log in as a user.
+2. Perform a search for items.
+3. Click on a result item.
+4. Click on the ""Business Profile"" option.
+5. Wait for the business profile to load.","- Business profile is loaded successfully.
+- User is presented with the business profile information."
+TC-BusinessProfile-002,Accessing Calendar from Business Profile,BusinessProfile,5,A user is logged in and a business profile exists.,,"1. Log in as a user.
+2. Perform a search for items.
+3. Click on a result item.
+4. Click on the ""Business Profile"" option.
+5. Click on the ""Calendar"" option.
+6. Wait for the calendar to load.","- Calendar is loaded successfully.
+- User is presented with the calendar."
+TC-BusinessProfile-003,Accessing Attend Operation from Business Profile,BusinessProfile,5,A user is logged in and a business profile exists.,,"1. Log in as a user.
+2. Perform a search for items.
+3. Click on a result item.
+4. Click on the ""Business Profile"" option.
+5. Click on the ""Attend Operation"" option.
+6. Wait for the operation to be confirmed.","- Operation is confirmed successfully.
+- User is informed that the operation was successful."
+TC-BusinessProfile-004,Accessing Conferma Riuscita from Business Profile,BusinessProfile,5,A user is logged in and a business profile exists.,,"1. Log in as a user.
+2. Perform a search for items.
+3. Click on a result item.
+4. Click on the ""Business Profile"" option.
+5. Click on the ""Conferma Riuscita"" option.
+6. Wait for the confirmation to be processed.","- Confirmation is processed successfully.
+- User is informed that the confirmation was successful."
+TC-StoredDataDB-001,User Creation Process - Valid Credentials,StoredDataDB,6,No existing user with the same username.,,"1. Navigate to the user creation page.
+2. Enter the username, password, name, surname, and localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation is successful.
+- New user entry is created in the database."
+TC-StoredDataDB-002,User Creation Process - Invalid Credentials,StoredDataDB,6,No existing user with the same username.,,"1. Navigate to the user creation page.
+2. Enter the username, password, name, surname, and invalid localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation fails due to invalid localization.
+- User is informed that the localization is invalid."
+TC-StoredDataDB-003,User Creation Process - Duplicate Username,StoredDataDB,6,An existing user with the same username.,,"1. Navigate to the user creation page.
+2. Enter the username, password, name, surname, and localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation fails due to duplicate username.
+- User is informed that the username is already taken."
+TC-StoredDataDB-004,User Creation Process - Missing Fields,StoredDataDB,6,No existing user with the same username.,,"1. Navigate to the user creation page.
+2. Enter only the username and password.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation fails due to missing fields.
+- User is informed that all fields are required."
+TC-StoredDataDB-005,User Creation Process - Empty Username,StoredDataDB,6,No existing user with the same username.,,"1. Navigate to the user creation page.
+2. Enter an empty username, password, name, surname, and localization.
+3. Click on the ""Create User"" button.
+4. Wait for the system response.","- User creation fails due to empty username.
+- User is informed that the username cannot be empty."
+"TC-StoredDataDB-006
+Title",,,,,,,

@@ -1,0 +1,84 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-PuntinaMappa-001,Testing PuntinaMappa class creation and attribute values,PuntinaMappa,1,None,"- longitudine: 12.3456789
+  - latitudine: -12.3456789
+  - qualitaAria: 50
+  - temperatura: 25
+  - statoMeteo: ""pioggia""
+  - umidita: 80.5
+  - vento: 10
+  - pressione: 1013
+  - categoria: ""Buona""","1. Create a new instance of PuntinaMappa using the provided data.
+  2. Verify that the instance has been created correctly by checking the attribute values.",- All attributes have the expected values.
+TC-PuntinaMappa-002,Testing PuntinaMappa class attribute setters and getters,PuntinaMappa,1,A valid instance of PuntinaMappa has been created.,"- nuovaLongitudine: 12.3456789
+  - nuovaLatitudine: -12.3456789
+  - nuovaQualitaAria: 100
+  - nuovaTemperatura: 30
+  - nuovoStatoMeteo: ""nebbia""
+  - nuovaUmidita: 90.5
+  - nuovoVento: 20
+  - nuovaPressione: 1014
+  - nuovaCategoria: ""Insalubre""","1. Set the attribute values of the PuntinaMappa instance using the setters.
+  2. Verify that the attribute values have been updated correctly by checking them using the getters.",- All attributes have the updated values.
+TC-PuntinaMappa-003,Testing PuntinaMappa class invalid attribute values,PuntinaMappa,1,A valid instance of PuntinaMappa has been created.,"- nuovaLongitudine: -180
+  - nuovaLatitudine: 90
+  - nuovaQualitaAria: -1
+  - nuovaTemperatura: -100
+  - nuovoStatoMeteo: ""alien""
+  - nuovaUmidita: -1
+  - nuovoVento: 200
+  - nuovaPressione: 0
+  - nuovaCategoria: ""Non definito""","1. Attempt to set the attribute values of the PuntinaMappa instance using the setters with invalid data.
+  2. Verify that an exception or error message is thrown.",- An exception or error message is thrown for invalid attribute values.
+TC-Suggerimento-001,Testing Suggerimento class creation and attribute values,Suggerimento,1,None,"- titolo: ""Migliori maschere antiparticelle""
+  - testo: ""Utilizza una maschera antiparticelle N95 per proteggerti meglio.""
+  - immagine: ""mask.png""
+  - categoria: ""Buona""","1. Create a new instance of Suggerimento using the provided data.
+  2. Verify that the instance has been created correctly by checking the attribute values.",- All attributes have the expected values.
+TC-Suggerimento-002,Testing Suggerimento class attribute setters and getters,Suggerimento,1,A valid instance of Suggerimento has been created.,"- nuovoTitolo: ""Migliori maschere antiparticelle""
+  - nuovoTesto: ""Utilizza una maschera antiparticelle N95 per proteggerti meglio.""
+  - nuovaImmagine: ""mask2.png""
+  - nuovaCategoria: ""Insalubre""","1. Set the attribute values of the Suggerimento instance using the setters.
+  2. Verify that the attribute values have been updated correctly by checking them using the getters.",- All attributes have the updated values.
+TC-Suggerimento-003,Testing Suggerimento class invalid attribute values,Suggerimento,1,A valid instance of Suggerimento has been created.,"- nuovoTitolo: ""Migliori maschere antiparticelle""
+  - nuovoTesto: ""Utilizza una maschera antiparticelle N95 per proteggerti meglio.""
+  - nuovaImmagine: ""non-image.txt""
+  - nuovaCategoria: ""Non definito""","1. Attempt to set the attribute values of the Suggerimento instance using the setters with invalid data.
+  2. Verify that an exception or error message is thrown.",- An exception or error message is thrown for invalid attribute values.
+TC-Association-001,Testing PuntinaMappa association with Suggerimento,Association,1,A valid instance of PuntinaMappa and a valid instance of Suggerimento have been created.,- suggerimento: A valid instance of Suggerimento,"1. Associate the Suggerimento instance with the PuntinaMappa instance.
+  2. Verify that the Suggerimento instance is correctly associated with the PuntinaMappa instance.",- The Suggerimento instance is correctly associated with the PuntinaMappa instance.
+TC-Association-002,Testing PuntinaMappa association removal,Association,1,A valid instance of PuntinaMappa and a valid instance of Suggerimento have been associated.,,"1. Remove the association between the PuntinaMappa instance and the Suggerimento instance.
+  2. Verify that the Suggerimento instance is no longer associated with the PuntinaMappa instance.",- The Suggerimento instance is no longer associated with the PuntinaMappa instance.
+TC-POSIZIONE-001,Testing POSIZIONE activity flow,POSIZIONE,2,None,,"1. Start the POSIZIONE activity.
+  2. Select a state, region, and city.
+  3. Verify that a request is sent to the server.
+  4. Verify that the data returned from the server is displayed.",- The data for the selected location is correctly displayed.
+TC-POSIZIONE-002,Testing POSIZIONE activity with invalid location data,POSIZIONE,2,None,,"1. Start the POSIZIONE activity.
+  2. Enter invalid location data (e.g., non-existent city).
+  3. Verify that an error message is displayed.",- An error message is displayed for invalid location data.
+TC-Mappa-001,Testing Mappa activity flow,Mappa,3,None,,"1. Start the Mappa activity.
+  2. Scroll down to refresh the map data.
+  3. Verify that a request is sent to the server.
+  4. Verify that the map is updated with the new data.",- The map is updated with the new data.
+TC-Mappa-002,Testing Mappa activity with no internet connection,Mappa,3,No internet connection,,"1. Start the Mappa activity.
+  2. Verify that an error message is displayed.",- An error message is displayed for no internet connection.
+TC-Mappa-003,Testing Mappa activity with invalid data,Mappa,3,Invalid data is returned from the server,,"1. Start the Mappa activity.
+  2. Verify that an error message is displayed for the invalid data.",- An error message is displayed for invalid data.
+TC-Suggerimenti-001,Testing Suggerimenti activity flow,Suggerimenti,4,None,,"1. Start the Suggerimenti activity from the map.
+  2. Verify that the suggestions are displayed.",- The suggestions are displayed.
+TC-Suggerimenti-002,Testing Suggerimenti activity with no suggestions,Suggerimenti,4,No suggestions available,,"1. Start the Suggerimenti activity from the map.
+  2. Verify that a message is displayed indicating no suggestions available.",- A message is displayed indicating no suggestions available.
+TC-AirQualityActivity-001,Testing AirQualityActivity activity flow,AirQualityActivity,"5, 6",None,,"1. Start the AirQualityActivity activity.
+  2. Verify that the countries, states, and cities are loaded.
+  3. Select a location.
+  4. Verify that the data for the selected location is displayed.",- The data for the selected location is correctly displayed.
+TC-AirQualityActivity-002,Testing AirQualityActivity activity with no location permission,AirQualityActivity,"5, 6",No location permission granted,,"1. Start the AirQualityActivity activity.
+  2. Verify that a request for location permission is displayed.",- A request for location permission is displayed.
+TC-AirQualityActivity-003,Testing AirQualityActivity activity with invalid data,AirQualityActivity,"5, 6",Invalid data is returned from the server,,"1. Start the AirQualityActivity activity.
+  2. Verify that an error message is displayed for the invalid data.",- An error message is displayed for invalid data.
+TC-WidgetProvider-001,Testing WidgetProvider activity flow,WidgetProvider,7,None,,"1. Start the WidgetProvider activity.
+  2. Verify that the data is updated and displayed.",- The data is correctly updated and displayed.
+TC-WidgetProvider-002,Testing WidgetProvider activity with no internet connection,WidgetProvider,7,No internet connection,,"1. Start the WidgetProvider activity.
+  2. Verify that an error message is displayed.",- An error message is displayed for no internet connection.
+TC-MapActivity-001,Testing MapActivity activity flow,MapActivity,8,None,,"1. Start the MapActivity activity.
+  2. Verify that the map is displayed.
+  3.",

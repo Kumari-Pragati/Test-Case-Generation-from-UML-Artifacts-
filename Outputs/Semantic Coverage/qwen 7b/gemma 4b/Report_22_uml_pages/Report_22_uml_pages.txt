@@ -1,0 +1,150 @@
+REPORT: Report_22_uml_pages.pdf
+======================================================================
+
+===== Report_22_uml_pages.pdf | Page 1 =====
+UML Type: class
+- Utente — kind=class; attributes=[id: String, nomeCognome: String, email: String]; operations=[creaUtente(String, String, bool), checkPassword(String, String, bool), resetPassword(String, bool), getUtenteInfo(): List<String>]; role=User
+- Devices — kind=class; attributes=[id: String, titolo: String]; operations=[getDeviceInfo(): List<String>]; role=Device
+- Config — kind=class; attributes=[isConnected: bool, light: bool, water: bool, max_temp: float, min_temp: float, max_soil_hum: float, min_soil_hum: float, max_air_hum: float, min_air_hum: float, max_lum: float, min_lum: float, max_jum: float, min_jum: float]; operations=[getConfig(): List<String>, setConfig(List<String>, bool)]; role=Configuration
+- Alert — kind=class; attributes=[message: String]; operations=[getMessage(): String, updateMessage(String)]; role=AlertMessage
+- History — kind=class; attributes=[data: String]; operations=[getHistory(): List<String>, updateHistory(String, float, float, float)]; role=HistoryRecord
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Devices — type=associazione; label="utilizza"; explanation="User associates with Devices"
+- Devices -> Config — type=associazione; label="configura"; explanation="Devices are configured by Config"
+- Devices -> Alert — type=segnala; label="segnala"; explanation="Devices signal events to Alert"
+- Alert -> History — type=segnala; label="registra"; explanation="Alert records events in History"
+
+Main Flows (step by step):
+- Utente.creaUtente(String, String, bool) -> Utente
+- Utente.checkPassword(String, String, bool) -> Utente
+- Utente.resetPassword(String, bool) -> Utente
+- Utente.getUtenteInfo() -> Utente
+- Devices.getDeviceInfo() -> Devices
+- Devices.configura(Config) -> Devices
+- Devices.segnala(Alert) -> Alert
+- Alert.registra(History) -> History
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Il diagramma raggruppa le entità del sistema come classi, tipiche del linguaggio UML."
+- "Il motivo legato agli altri sulle dall'entità (rappresentate qui tramite il lessico dei metodi)."
+
+Observations:
+-   The diagram models a system with user accounts, devices, configuration settings, alerts, and a history of events.
+-   Users can create accounts, check passwords, and reset passwords.
+-   Devices can be configured and report events.
+-   Alerts are recorded in a history.
+
+===== Report_22_uml_pages.pdf | Page 2 =====
+UML Type: state_machine
+- "Accesso eseguito" — kind=state; attributes=; operations=; role=Start
+- "Visualizzazione messaggio default" — kind=state; attributes=; operations=; role=Default
+- "Click 'Serre'" — kind=state; attributes=; operations=; role=Click
+- "Visualizzazione elenco serre" — kind=state; attributes=; operations=; role=Display
+
+Actors / Lifelines:
+- User — lifeline name 1
+- System — lifeline name 2
+
+Relationships / Links:
+- "Accesso eseguito" -> "Click 'Serre'" — type=transition; label="Click"; explanation="User clicks 'Serre'"
+- "Click 'Serre'" -> "Visualizzazione elenco serre" — type=transition; label="Si"; explanation="If at least 1 serre is associated"
+- "Accesso eseguito" -> "Visualizzazione messaggio default" — type=transition; label="No"; explanation="If no serre is associated"
+
+Conditions / Branches:
+- "almeno 1 serra associata" — condition="Si/No"
+  - "Si" -> "Visualizzazione elenco serre"
+  - "No" -> "Visualizzazione messaggio default"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the flow of a user accessing a "Serre" feature.
+- The system checks if there are any associated "serre".
+- If there are, the user is shown a list of the "serre".
+- If there are no associated "serre", a default message is displayed.
+
+===== Report_22_uml_pages.pdf | Page 3 =====
+UML Type: state_machine
+- Aggiunta Serra — kind=state_machine; attributes=[]; operations=[]; role=Add Device
+
+Actors / Lifelines:
+- Accesso eseguito
+- Valore errato
+- Campo inserito correttamente
+- Operazione eseguita
+
+Relationships / Links:
+- Accesso eseguito -> Valore errato — type=transition; label="No"; explanation="Incorrect value"
+- Accesso eseguito -> Campo inserito correttamente — type=transition; label="Si"; explanation="Correct value"
+- Valore errato -> Campo inserito correttamente — type=transition; label="Campo inserito correttamente"
+
+Main Flows (step by step):
+- Accesso eseguito -> Valore errato
+- Accesso eseguito -> Campo inserito correttamente
+
+Conditions / Branches:
+- Valore errato -> Campo inserito correttamente — condition="Campo inserito correttamente"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of adding a device.
+- The process starts with an access attempt.
+- If the value entered is incorrect, the process branches to a state where the user is prompted to enter the value correctly.
+- If the value entered is correct, the process proceeds to an operation execution state.
+
+===== Report_22_uml_pages.pdf | Page 4 =====
+UML Type: state_machine
+
+Components:
+- Accesso eseguito — kind=action;
+- Serra connessa — kind=action;
+- Click "Configuration" — kind=action;
+- Campi inseriti correttamente — kind=action;
+- Operazione eseguita — kind=action;
+- Valore errato — kind=action;
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Accesso eseguito -> Serra connessa — transition="Yes"; explanation="Successful connection";
+- Accesso eseguito -> Valore errato — transition="No"; explanation="Incorrect value";
+- Serra connessa -> Click "Configuration" — transition="Yes"; explanation="Click Configuration";
+- Click "Configuration" -> Campi inseriti correttamente — transition="Yes"; explanation="Fields entered correctly";
+- Click "Configuration" -> Valore errato — transition="No"; explanation="Incorrect value";
+- Campi inseriti correttamente -> Operazione eseguita — transition="Yes"; explanation="Operation executed";
+- Valore errato -> Accesso eseguito — transition="No"; explanation="Return to access";
+
+Conditions / Branches:
+- No
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of accessing a server, connecting to it, clicking a configuration button, and either successfully entering the correct values or encountering an error. The process loops back to the initial access if the values are incorrect.
+
+
+======================================================================

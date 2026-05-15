@@ -1,0 +1,51 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Test user authentication,Authentication,"1, 2",User has a valid email and password,"- Email: test@example.com
+- Password: test1234","1. Launch the application
+2. Navigate to the login page
+3. Enter the email and password
+4. Click the login button",The user is successfully logged in and redirected to the main page
+TC-User-002,Test user registration,Authentication,"1, 2",User does not have an account,"- Email: newuser@example.com
+- Password: newuser1234","1. Launch the application
+2. Navigate to the registration page
+3. Enter the email and password
+4. Click the register button","A new user account is created, and the user is logged in and redirected to the main page"
+TC-Report-001,Test creating a report,Report Management,1,User is logged in,"- Title: Test Report
+- Description: This is a test report","1. Log in as a user
+2. Navigate to the report creation page
+3. Enter the title and description
+4. Click the create report button",A new report is created and displayed on the user's report list
+TC-Report-002,Test modifying a report,Report Management,1,User is logged in and has a created report,"- New Title: Updated Test Report
+- New Description: This is an updated test report","1. Log in as a user
+2. Navigate to the report list
+3. Select a created report
+4. Click the edit button
+5. Enter the new title and description
+6. Click the update report button",The report is updated with the new title and description
+TC-Calendar-001,Test creating a calendar entry,Calendar Management,"6, 7",User is logged in,- Calendar: Test Calendar,"1. Log in as a user
+2. Navigate to the calendar creation page
+3. Enter the calendar name
+4. Click the create calendar button",A new calendar is created and displayed on the user's calendar list
+TC-Calendar-002,Test retrieving calendar entries,Calendar Management,"6, 7",User is logged in and has created calendars,,"1. Log in as a user
+2. Navigate to the calendar list
+3. Select a created calendar
+4. Click the view button",The calendar entries are displayed
+TC-Train-001,Test retrieving train information,Train Data Management,8,User is logged in and has a selected calendar,,"1. Log in as a user
+2. Navigate to the selected calendar
+3. Click the view trains button",The train information for the selected calendar is displayed
+TC-Train-002,Test setting a preferred train,Train Data Management,8,User is logged in and has a selected calendar with train information,,"1. Log in as a user
+2. Navigate to the selected calendar
+3. Click the set preferred train button for a specific train",The selected train is set as the preferred train for the calendar
+TC-Train-003,Test deleting a preferred train,Train Data Management,8,User is logged in and has a selected calendar with a preferred train,,"1. Log in as a user
+2. Navigate to the selected calendar
+3. Click the delete preferred train button for the preferred train",The preferred train is deleted from the calendar
+TC-Notification-001,Test displaying train variations,Notification System,9,User is logged in and has a selected calendar with train information,,"1. Log in as a user
+2. Navigate to the selected calendar
+3. Click the show notifications button",The train variations are displayed as notifications
+TC-System-001,Test system notifications,Data Notification System,1,User is logged in and has created reports,,"1. Log in as a user
+2. Create a report
+3. Modify the report
+4. Delete the report","The system sends notifications for each report action (creation, modification, deletion) to the user and the database"
+TC-System-002,Test system error handling,Data Notification System,1,User is logged in and has created reports,,"1. Log in as a user
+2. Create a report with invalid data (e.g., empty title or description)","The system handles the error and does not create the report, displaying an error message to the user"
+TC-System-003,Test system performance under load,Data Notification System,1,User is logged in and has created multiple reports,,"1. Log in as a user
+2. Create a large number of reports (e.g., 1000 reports) within a short period","The system handles the load and creates all reports without crashing or displaying errors, while maintaining acceptable performance levels."

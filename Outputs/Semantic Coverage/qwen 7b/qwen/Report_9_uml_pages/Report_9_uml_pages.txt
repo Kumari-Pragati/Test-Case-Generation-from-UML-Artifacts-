@@ -1,0 +1,373 @@
+REPORT: Report_9_uml_pages.pdf
+======================================================================
+
+===== Report_9_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Compito — kind=class; attributes=[id: int, nome: String, utentiRichiesti: String, descrizione: String, terminato: int, regione: String, provincia: String, citta: String, isActive: int]; operations=[newCompito(), getCompito(), modifyUtentiRichiesti(), terminateCompito(), deleteCompito()]
+- Assegnazione — kind=class; attributes=[id: int, accetta: int, utentiRichiesti: String, terminata: int, isActive: int]; operations=[newAssegnazione(), getAssegnazione(), terminateAssegnazione(), acceptAssegnazione(), deleteAssegnazione()]
+- Emergenza — kind=class; attributes=[idEmergenza: int, nome: String, descrizione: String, regione: String, provincia: String, dataInizio: date, dataFine: date, isActive: int]; operations=[newEmergenza(), getEmergenzaByLuogo(), getEmergenza(), deleteEmergenza(), terminateEmergenza()]
+- Utente — kind=class; attributes=[idUtente: int, nome: String, cognome: String, password: String, cellulare: String, email: String, DoB: String, regione: String, provincia: String, citta: String, isCoordinatore: int, isVolontario: int, isActive: int]; operations=[newUtente(), getUtente(), deleteUtente(), promoteUtente(), demoteUtente(), makeVolontario(), removeVolontario(), updateInfo()]
+- UtenteCompito — kind=class; attributes=[id: int, dataInizio: date, dataFine: date, isActive: int]; operations=[newAutoassegnazione(), getAutoassegnazione(), terminateAutoassegnazione(), deleteAutoassegnazione()]
+- Token — kind=class; attributes=[id: int, jti: String, creato: timestamp, terminato: timestamp, revoked: boolean]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Compito —> Assegnazione — type=association; label="E' di"; explanation="Each assignment belongs to one task"
+- Compito —> Utente — type=association; label="Appartiene a"; explanation="Each task is assigned to one user"
+- Assegnazione —> Utente — type=association; label="Assegnata da"; explanation="Each assignment is assigned by one user"
+- Assegnazione —> Utente — type=association; label="Riguarda"; explanation="Each assignment concerns one user"
+- Utente —> Assegnazione — type=association; label="Coordina"; explanation="Each user coordinates multiple assignments"
+- Utente —> UtenteCompito — type=association; label="Svolge"; explanation="Each user performs multiple tasks"
+- UtenteCompito —> Assegnazione — type=association; label="Svolto da"; explanation="Each task is performed by one user"
+- Utente —> Emergenza — type=association; label="Coordinata da"; explanation="Each emergency is coordinated by one user"
+- Utente —> Emergenza — type=association; label="Volontaria in"; explanation="Each user is involved in multiple emergencies"
+- Emergenza —> Assegnazione — type=association; label="Ha assegnazioni"; explanation="Each emergency has multiple assignments"
+- Emergenza —> Utente — type=association; label="Riguarda"; explanation="Each emergency concerns one user"
+- Utente —> Token — type=association; label="None"; explanation="Each user has a token"
+
+Main Flows (step by step):
+- Flow 1: User creates a task (Compito)
+- Flow 2: Task is assigned to a user (Assegnazione)
+- Flow 3: User performs a task (UtenteCompito)
+- Flow 4: User coordinates multiple assignments (Utente)
+- Flow 5: User is involved in multiple emergencies (Utente)
+- Flow 6: Emergency is coordinated by a user (Utente)
+- Flow
+
+===== Report_9_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Start — kind=initial_node; role=start point
+- Utente autenticato? — kind=decision_node; attributes=[a: Type]; operations=[op(args): Ret, ...]; role=authentication check
+- Login — kind=action_node; role=login process
+- Click "Visualizza emergenze" — kind=action_node; role=user action
+- Emergenze disponibili? — kind=decision_node; attributes=[a: Type]; operations=[op(args): Ret, ...]; role=emergency availability check
+- Messaggio "Nessuna emergenza" — kind=action_node; role=no emergencies message
+- Visualizza emergenze — kind=action_node; role=display emergencies
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Start -> Utente autenticato? — type=control_flow; label="Yes"; explanation="User authenticated?"
+- Utente autenticato? -> No — type=control_flow; label="No"; explanation="User not authenticated"
+- Utente autenticato? -> Login — type=control_flow; label="No"; explanation="User not authenticated"
+- Utente autenticato? -> Click "Visualizza emergenze" — type=control_flow; label="Yes"; explanation="User authenticated"
+- Click "Visualizza emergenze" -> Emergenze disponibili? — type=control_flow; label="Yes"; explanation="Click 'Visualizza emergenze'"
+- Emergenze disponibili? -> No — type=control_flow; label="No"; explanation="No emergencies available"
+- Emergenze disponibili? -> Messaggio "Nessuna emergenza" — type=control_flow; label="No"; explanation="No emergencies available"
+- Emergenze disponibili? -> Visualizza emergenze — type=control_flow; label="Yes"; explanation="Emergencies available"
+
+Main Flows (step by step):
+- Flow 1: Start -> Utente autenticato? -> Yes -> Click "Visualizza emergenze" -> Emergenze disponibili? -> Yes -> Visualizza emergenze
+- Flow 2: Start -> Utente autenticato? -> No -> Login -> Utente autenticato? -> Yes -> Click "Visualizza emergenze" -> Emergenze disponibili? -> Yes -> Visualizza emergenze
+- Flow 3: Start -> Utente autenticato? -> No -> Login -> Utente autenticato? -> No -> Messaggio "Nessuna emergenza"
+
+Conditions / Branches:
+- Utente autenticato? — Yes -> Click "Visualizza emergenze"
+- Utente autenticato? — No -> Login
+- Emergenze disponibili? — Yes -> Visualizza emergenze
+- Emergenze disponibili? — No -> Messaggio "Nessuna emergenza"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram describes the process of viewing emergency situations within a system.
+- The process starts with an initial authentication check.
+- If the user is authenticated, they can click "Visualizza emergenze" to check for available emergencies.
+- If no emergencies are available, a message indicating "Nessuna emergenza" is displayed.
+- If the user is not authenticated, they need to log in first before being able to view emergencies.
+- The diagram outlines the main flow and two potential error paths (user not authenticated or no emergencies available).
+
+===== Report_9_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Start — kind=initial_node; role=start point
+- Utente registrato? — kind=decision_node; attributes=[Utente registrato?]; operations=[No, Si]; role=check user registration
+- Registrazione utente — kind=activity_final_node; role=user registration completion
+- Login — kind=activity_final_node; role=login completion
+- Inserisci dati login — kind=activity_final_node; role=input data for login
+- Dati corretti? — kind=decision_node; attributes=[Dati corretti?]; operations=[No, Si]; role=validate login data
+- Home — kind=activity_final_node; role=home page access
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Start -> Utente registrato? — type=control_flow; label="Utente registrato?"; explanation="Check if user is registered"
+- Utente registrato? -> No — type=control_flow; label="No"; explanation="User not registered"
+- Utente registrato? -> Si — type=control_flow; label="Si"; explanation="User is registered"
+- No -> Registrazione utente — type=control_flow; label="No"; explanation="Redirect to user registration"
+- Si -> Login — type=control_flow; label="Si"; explanation="Proceed to login"
+- Login -> Inserisci dati login — type=control_flow; label="Inserisci dati login"; explanation="Prompt for login data"
+- Inserisci dati login -> Dati corretti? — type=control_flow; label="Dati corretti?"; explanation="Validate login data"
+- Dati corretti? -> No — type=control_flow; label="No"; explanation="Login data incorrect"
+- Dati corretti? -> Si — type=control_flow; label="Si"; explanation="Login data correct"
+- Si -> Home — type=control_flow; label="Si"; explanation="Access home page"
+
+Main Flows (step by step):
+- Flow 1: Start -> Utente registrato? -> Si -> Login -> Inserisci dati login -> Dati corretti? -> Si -> Home
+- Flow 2: Start -> Utente registrato? -> No -> Registrazione utente
+
+Conditions / Branches:
+- Utente registrato? — branches=["No", "Si"]
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of user login and registration.
+- The main flow starts at the "Start" node, checks if the user is registered, and proceeds accordingly.
+- If the user is not registered, it prompts for registration.
+- If the user is registered, it prompts for login credentials and validates them.
+- If the login credentials are correct, the user accesses the home page.
+- There is a secondary flow for users who are not registered, guiding them through the registration process.
+- The diagram includes decision points to handle both successful and unsuccessful login attempts.
+
+===== Report_9_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Click "Inserisci emergenza" — kind=action; role=initial action
+- Coordinatore autenticato? — kind=decision; attributes=[a: Boolean]; operations=[isAuthenticated(): Boolean]; role=authentication check
+- Errore — kind=action; role=error handling
+- Inserisci dettagli — kind=action; role=detail input
+- Informazioni complete? — kind=decision; attributes=[a: Boolean]; operations=[areDetailsComplete(): Boolean]; role=information completeness check
+- Aggiorna dettagli — kind=action; role=update details
+- Crea emergenza — kind=action; role=create emergency
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Click "Inserisci emergenza" -> Coordinatore autenticato? — type=control-flow; label="->"; explanation="flow to authentication check"
+- Coordinatore autenticato? -> No — type=control-flow; label="No"; explanation="branch for unauthenticated coordinator"
+- Coordinatore autenticato? -> Sì — type=control-flow; label="Sì"; explanation="branch for authenticated coordinator"
+- Coordinatore autenticato? -> Inserisci dettagli — type=control-flow; label="->"; explanation="flow to detail input"
+- Inserisci dettagli -> Informazioni complete? — type=control-flow; label="->"; explanation="flow to information completeness check"
+- Informazioni complete? -> No — type=control-flow; label="No"; explanation="branch for incomplete information"
+- Informazioni complete? -> Sì — type=control-flow; label="Sì"; explanation="branch for complete information"
+- Informazioni complete? -> Aggiorna dettagli — type=control-flow; label="->"; explanation="flow to update details"
+- Aggiorna dettagli -> Informazioni complete? — type=control-flow; label="->"; explanation="loop back to information completeness check"
+- Aggiorna dettagli -> Coordinatore autenticato? — type=control-flow; label="->"; explanation="loop back to authentication check"
+- Coordinatore autenticato? -> Errore — type=control-flow; label="No"; explanation="branch for error handling"
+- Errore -> - None — type=control-flow; label="->"; explanation="flow to end"
+
+Main Flows (step by step):
+- Flow 1: Click "Inserisci emergenza" -> Coordinatore autenticato? -> Sì -> Inserisci dettagli -> Informazioni complete? -> Sì -> Crea emergenza
+- Flow 2: Click "Inserisci emergenza" -> Coordinatore autenticato? -> No -> Errore
+
+Conditions / Branches:
+- Coordinatore autenticato? — branches: No, Sì
+- Informazioni complete? — branches: No, Sì
+
+Loops / Repetitions:
+- Aggiorna dettagli -> Informazioni complete? — loop back to information completeness check
+- Aggiorna dettagli -> Coordinatore autenticato? — loop back to authentication check
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of creating an emergency report.
+- The process starts with clicking "Inserisci emergenza".
+- It checks if the coordinator is authenticated. If not, it handles an error.
+- If authenticated, it proceeds to input details.
+- It then checks if the provided information is complete. If not, it updates the details and loops back to the information completeness check.
+- If the information is complete, it creates the emergency report.
+- There are two distinct error paths: one for an unauthenticated coordinator and one for incomplete information.
+
+===== Report_9_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Click "Visualizza emergenza" — kind=action; role=initial action
+- Coordinatore autenticato? — kind=decision; attributes=[a: Boolean]; operations=[isAuthenticated(): Boolean]; role=authentication check
+- Errore — kind=action; role=error handling
+- Seleziona emergenza — kind=action; role=emergency selection
+- Seleziona compito — kind=action; role=task selection
+- Volontario assegnato? — kind=decision; attributes=[a: Boolean]; operations=[isVolunteerAssigned(): Boolean]; role=volunteer assignment check
+- Errore — kind=action; role=error handling
+- Rimuovi volontario — kind=action; role=removal action
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Click "Visualizza emergenza" -> Coordinatore autenticato? — type=control-flow; label="No"; explanation="Coordinator not authenticated"
+- Coordinatore autenticato? -> Errore — type=control-flow; label="No"; explanation="Authentication failed"
+- Coordinatore autenticato? -> Seleziona emergenza — type=control-flow; label="Sì"; explanation="Coordinator authenticated"
+- Seleziona emergenza -> Seleziona compito — type=control-flow; label="—"; explanation="Emergency selected"
+- Seleziona compito -> Volontario assegnato? — type=control-flow; label="—"; explanation="Task selected"
+- Volontario assegnato? -> Errore — type=control-flow; label="No"; explanation="Volunteer not assigned"
+- Volontario assegnato? -> Rimuovi volontario — type=control-flow; label="Sì"; explanation="Volunteer assigned"
+
+Main Flows (step by step):
+- Flow 1: Click "Visualizza emergenza" -> Coordinatore autenticato? -> Seleziona emergenza -> Seleziona compito -> Volontario assegnato? -> Rimuovi volontario
+
+Conditions / Branches:
+- Coordinatore autenticato? — branches=["No", "Sì"]
+- Volontario assegnato? — branches=["No", "Sì"]
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the process of removing a volunteer from an emergency task.
+- The process starts with clicking "Visualizza emergenza" to view an emergency.
+- If the coordinator is not authenticated, an error occurs.
+- If authenticated, the user selects an emergency and then a task.
+- If a volunteer is not assigned to the task, an error occurs.
+- If a volunteer is assigned, the user can remove the volunteer from the task.
+- Key edge cases include authentication failure and volunteer assignment status checks.
+
+===== Report_9_uml_pages.pdf | Page 6 =====
+UML Type:
+- sequence
+
+Components:
+- Client — kind=participant; role=client
+- Server — kind=participant; role=server
+- Database — kind=participant; role=database
+
+Actors / Lifelines:
+- Client
+- Server
+- Database
+
+Relationships / Links:
+- Client -> Server — type=message; label="POST /login"; explanation="Client sends login request"
+- Server -> Database — type=message; label="SELECT * FROM Utenti WHERE email = ?"; explanation="Server queries database for user"
+- Server -> Server — type=message; label="user"; explanation="Server retrieves user data"
+- Server -> Server — type=message; label="user.length == 0"; explanation="Server checks user length"
+- Server -> Server — type=message; label="bcrypt.compareSync(password, user.Password)"; explanation="Server compares passwords"
+- Server -> Server — type=message; label="genera jti e token JWT"; explanation="Server generates JWT token"
+- Server -> Database — type=message; label="UPDATE Tokens SET Revoked = TRUE WHERE Id = ?"; explanation="Server updates tokens"
+- Server -> Server — type=message; label="risultato update"; explanation="Server receives update result"
+- Server -> Database — type=message; label="INSERT INTO Tokens (Jti, Id)"; explanation="Server inserts new token"
+- Server -> Server — type=message; label="risultato insert"; explanation="Server receives insert result"
+- Server -> Client — type=message; label="risposta (token o errore)"; explanation="Server sends response back to client"
+
+Main Flows (step by step):
+- Flow 1: Client -> Server (POST /login) -> Server -> Database (SELECT * FROM Utenti WHERE email = ?) -> Server -> Server (user) -> Server -> Server (user.length == 0) -> Server -> Server (bcrypt.compareSync(password, user.Password)) -> Server -> Server (genera jti e token JWT) -> Server -> Database (UPDATE Tokens SET Revoked = TRUE WHERE Id = ?) -> Server -> Server (risultato update) -> Server -> Database (INSERT INTO Tokens (Jti, Id)) -> Server -> Server (risultato insert) -> Server -> Client (risposta (token o errore))
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram illustrates the sequence of steps involved in a login process within an application, involving interactions between the client, server, and database.
+
+Observations:
+- The login process starts with the client sending a POST request to the server.
+- The server queries the database for a user matching the provided email.
+- If the user exists, the server compares the password using bcrypt.
+- If authentication is successful, the server generates a JWT token and updates the tokens table.
+- Finally, the server sends a response back to the client containing either a token or an error message.
+- The process involves multiple database interactions and server-side logic to ensure secure authentication.
+
+===== Report_9_uml_pages.pdf | Page 7 =====
+UML Type:
+- sequence
+
+Components:
+- Client — kind=participant; role=client
+- Server — kind=participant; role=server
+- Database — kind=participant; role=database
+- Logger — kind=participant; role=logger
+
+Actors / Lifelines:
+- Client
+- Server
+- Database
+- Logger
+
+Relationships / Links:
+- Client -> Server — type=message; label="POST /nuovoCompito"; explanation="Client sends POST request"
+- Server -> verifyToken() — type=call; label="verifyToken()"; explanation="Server calls verification function"
+- Server -> Database — type=message; label="INSERT INTO Compiti"; explanation="Server inserts data into database"
+- Server -> Logger — type=message; label="logger.error(error)"; explanation="Server logs error"
+- Server -> Client — type=message; label="result"; explanation="Server returns result"
+- Server -> Client — type=message; label="Errore HTTP (400/401/500)"; explanation="Server returns HTTP error"
+
+Main Flows (step by step):
+- Flow 1: Client -> Server (POST /nuovoCompito) -> Server -> verifyToken() -> Server -> Database (INSERT INTO Compiti) -> Server -> Client (result)
+- Flow 2: Client -> Server (POST /nuovoCompito) -> Server -> verifyToken() -> Server -> Logger (logger.error(error)) -> Server -> Client (Errore HTTP (400/401/500))
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Nuovo compito
+
+Observations:
+- This diagram models a sequence of interactions between a client, server, database, and logger for creating a new task.
+- The main flow involves the client sending a POST request to the server, which then verifies a token, inserts data into the database, and returns a result to the client.
+- An alternative path exists where an error is logged and an HTTP error is returned to the client.
+- Key edge cases include successful task creation and handling errors such as unauthorized access or server issues.
+
+===== Report_9_uml_pages.pdf | Page 8 =====
+UML Type:
+- sequence
+
+Components:
+- Client — kind=participant; role=client
+- Server — kind=participant; role=server
+- Database — kind=participant; role=database
+
+Actors / Lifelines:
+- Client
+- Server
+- Database
+
+Relationships / Links:
+- Client -> Server — type=message; label="POST /terminaEmergenza"; explanation="Client sends POST request"
+- Server -> verifytoken() — type=call; label="verifytoken()"; explanation="Server calls verification function"
+- Server -> Database — type=message; label="esegui UPDATE"; explanation="Server updates database"
+- Database -> Server — type=message; label="result (numero emergenze terminate)"; explanation="Database returns result"
+
+Main Flows (step by step):
+- Flow 1: Client -> Server -> verifytoken() -> Server -> Database -> Server -> Client
+
+Conditions / Branches:
+- alt [result > 0] -> { message: "X emergenza terminata" }
+- alt [result <= 0] -> { message: "Nessuna emergenza terminata" }
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- Se token non valido, errore e termina qui — note indicating error handling for invalid tokens
+
+Observations:
+- This diagram models a sequence of interactions between a client, server, and database to handle the termination of emergencies.
+- The main flow starts with the client sending a POST request to the server.
+- The server verifies the token and updates the database.
+- Depending on the result, the server sends a message back to the client indicating either successful termination of emergencies or no emergencies terminated.
+- There is an error path indicated for invalid tokens, which terminates the process.

@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOGIN-001,Successful login with valid credentials,Authentication,3,"- User account exists in the database with valid credentials (e.g., `idu=1`, `username=""testuser""`, `password=""SecurePass123""`).
+- System is online and accessible.","- Username: `testuser`
+- Password: `SecurePass123`","1. Navigate to the login page.
+2. Enter `testuser` in the username field.
+3. Enter `SecurePass123` in the password field.
+4. Click the ""Login"" button.","- System verifies credentials successfully.
+- User is granted access to the main program (Page 1).
+- No error messages are displayed."
+TC-LOGIN-002,Failed login with incorrect password,Authentication,3,"- User account exists in the database (e.g., `idu=1`, `username=""testuser""`, `password=""SecurePass123""`).","- Username: `testuser`
+- Password: `WrongPass123`","1. Navigate to the login page.
+2. Enter `testuser` in the username field.
+3. Enter `WrongPass123` in the password field.
+4. Click the ""Login"" button.","- System detects incorrect credentials.
+- Error message is displayed (e.g., ""Invalid username or password"").
+- User is prompted to retry (Riprova)."
+TC-LOGIN-003,Failed login with non-existent username,Authentication,3,- No user account exists with the provided username.,"- Username: `nonexistentuser`
+- Password: `AnyPassword123`","1. Navigate to the login page.
+2. Enter `nonexistentuser` in the username field.
+3. Enter `AnyPassword123` in the password field.
+4. Click the ""Login"" button.","- System detects invalid username.
+- Error message is displayed (e.g., ""User not found"").
+- User is prompted to retry."
+TC-LOGIN-004,Empty username/password fields,Authentication,3,- System is online.,"- Username: (empty)
+- Password: (empty)","1. Navigate to the login page.
+2. Leave username and password fields empty.
+3. Click the ""Login"" button.","- System detects empty fields.
+- Error message is displayed (e.g., ""Username and password are required"").
+- User is prompted to retry."
+TC-USER-MANAGEMENT-001,Retrieve user details successfully,User Management,2,"- User account exists in the database (e.g., `idu=1`, `username=""testuser""`, `mail=""test@example.com""`).
+- User is logged in.",- User ID: `1`,1. Call `getUser(1)` via the system interface.,"- System returns user details:
+  - `idu=1`
+  - `username=""testuser""`
+  - `mail=""test@example.com""`
+  - `password=""[hashed]""`
+  - `nome=""John""`
+  - `cognome=""Doe""`
+  - `posizione=""Admin""`"
+TC-USER-MANAGEMENT-002,Modify user details successfully,User Management,2,"- User account exists (e.g., `idu=1`, `username=""testuser""`).
+- User is logged in.","- New email: `updated@example.com`
+- New position: `Manager`","1. Call `modifyUser(1, {mail: ""updated@example.com"", posizione: ""Manager""})`.","- User details are updated in the database.
+- `getUser(1)` returns:
+  - `mail=""updated@example.com""`
+  - `posizione=""Manager""`"
+TC-OBJECT-MANAGEMENT-001,Add a new object successfully,Object Management,"2, 5","- User is logged in (`idu=1`).
+- Database is empty or object with `ido=1` does not exist.","- Object details:
+  - `idu=1` (user ID)
+  - `nome=""Drill""`
+  - `descrizione=[""Electric drill, 20V""]`
+  - `tipo=1` (tool type)
+  - `inUse=false`","1. Navigate to ""Create Object"" (Page 5).
+2. Enter object details as above.
+3. Submit the form.
+4. System executes `addOggetto()` and checks query success.","- Object is inserted into the database with auto-generated `ido`.
+- `getOggettoById(ido)` returns the object details.
+- No error messages are displayed."
+TC-OBJECT-MANAGEMENT-002,Add object with invalid user ID (negative),Object Management,"2, 5",- User is logged in (`idu=1`).,"- Object details:
+  - `idu=999` (non-existent user)
+  - `nome=""InvalidTool""`
+  - `descrizione=[""Test""]`
+  - `tipo=1`","1. Navigate to ""Create Object"".
+2. Enter object details as above.
+3. Submit the form.","- Query fails due to invalid `idu`.
+- Error message is displayed (e.g., ""User not found"").
+- User is prompted to retry (Page 5)."
+TC-OBJECT-MANAGEMENT-003,Delete an object successfully,Object Management,"2, 9","- Object exists in the database (e.g., `ido=1`, `idu=1`).
+- User is logged in (`idu=1`).",- Object ID: `1`,"1. Navigate to ""Delete Object"" (Page 9).
+2. Select object with `ido=1`.
+3. Confirm deletion.
+4. System executes `deleteOggetto(1)` and checks query success.","- Object is removed from the database.
+- `getAllOggetti()` no longer includes `ido=1`.
+- No error messages are displayed."
+TC-OBJECT-MANAGEMENT-004,Delete object with invalid ID (negative),Object Management,"2, 9",- User is logged in (`idu=1`).,- Object ID: `999` (non-existent),"1. Navigate to ""Delete Object"".
+2. Select object with `ido=999`.
+3. Confirm deletion.","- Query fails due to invalid `ido`.
+- Error message is displayed (e.g., ""Object not found"").
+- User is prompted to retry."
+TC-SERVICE-MANAGEMENT-001,Add a new service successfully,Service Management,"2, 6","- User is logged in (`idu=1`).
+- Database is empty or service with `ids=1` does not exist.","- Service details:
+  - `idu=1`
+  - `nome=""Plumbing""`
+  - `descrizione=[""Fix leaks, install pipes""]`
+  - `tipo=1` (service type)
+  - `inUse=false`","1. Navigate to ""Create Service"" (Page 6).
+2. Enter service details as above.
+3. Submit the form.
+4. System executes `addServizio()` and checks query success.","- Service is inserted into the database with auto-generated `ids`.
+- `getServizioById(ids)` returns the service details.
+- No error messages are displayed."
+TC-SERVICE-MANAGEMENT-002,Delete a service successfully,Service Management,"2, 9","- Service exists in the database (e.g., `ids=1`, `idu=1`).
+- User is logged in (`idu=1`).",- Service ID: `1`,"1. Navigate to ""Delete Service"" (Page 9).
+2. Select service with `ids=1`.
+3. Confirm deletion.
+4. System executes `deleteServizio(1)` and checks query success.","- Service is removed from the database.
+- `getAllServizi()` no longer includes `ids=1`.
+- No error messages are displayed."
+TC-ADVERTISEMENT-001,Create an advertisement linking object and service,Advertisement Management,"2, 7","- User is logged in (`idu=1`).
+- Object exists (`ido=1`).
+- Service exists (`ids=1`).","- Advertisement details:
+  - `idu=1`
+  - `ido=1` (object ID)
+  - `ids=1` (service ID)
+  - `titolo=""Drill rental for plumbing""`","1. Navigate to ""Create Advertisement"" (Page 7).
+2. Enter advertisement details as above.
+3. Submit the form.
+4. System executes `addAnnuncio()` and checks query success.","- Advertisement is created with auto-generated `ida`.
+- `getAnnuncioById(ida)` returns the advertisement details including linked `ido` and `ids`.
+- No error messages are displayed."
+TC-ADVERTISEMENT-002,Delete an advertisement successfully,Advertisement Management,"2, 8","- Advertisement exists in the database (e.g., `ida=1`, `idu=1`).
+- User is logged in (`idu=1`).",- Advertisement ID: `1`,"1. Navigate to ""Delete Advertisement"" (Page 8).
+2. Select advertisement with `ida=1`.
+3. Confirm deletion.
+4. System executes `deleteAnnuncio(1)` and checks query success.","- Advertisement is removed from the database.
+- `getAllAnnunci()` no longer includes `ida=1`.
+- No error messages are displayed."
+TC-SEARCH-001,Successful search for an object by name,Search Functionality,4,"- Object exists in the database (e.g., `ido=1`, `nome=""Drill""`).",- Search query: `Drill`,"1. Navigate to the search page.
+2. Enter `Drill` in the search field.
+3. Submit the query.
+4. System composes and executes the query.","- Search returns the object with `ido=1` and `nome=""Drill""`.
+- No error messages are displayed."
+TC-SEARCH-002,Failed search with no results,Search Functionality,4,- No objects/services match the search query.,- Search query: `NonexistentTool`,"1. Navigate to the search page.
+2. Enter `NonexistentTool` in the search field.
+3. Submit the query.","- System returns an empty result set.
+- No error messages are displayed (or a ""No results found"" message)."
+TC-SEARCH-003,Invalid search query (negative),Search Functionality,4,- System is online.,- Search query: `SQL_INJECT_TEST; DROP TABLE Oggetti; --`,1. Navigate,

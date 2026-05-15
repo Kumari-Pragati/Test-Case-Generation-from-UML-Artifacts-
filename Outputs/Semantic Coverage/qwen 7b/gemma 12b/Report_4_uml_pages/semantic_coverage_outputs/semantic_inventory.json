@@ -1,0 +1,227 @@
+{
+  "concepts": [
+    "utente",
+    "id",
+    "materiale",
+    "formula chimica",
+    "deposizione",
+    "percentuale presenza",
+    "carbon footprint",
+    "produzione",
+    "applicazione",
+    "database",
+    "main",
+    "esegui scansione hardware",
+    "scansione velocità e salute componenti",
+    "calcolo aspettativa di vita",
+    "return result"
+  ],
+  "flows": [
+    "utente -> produzione — type=association; label=\"\"; explanation=\"utente is associated with produzione\"",
+    "id -> produzione — type=association; label=\"\"; explanation=\"id is associated with produzione\"",
+    "materiale -> formula chimica — type=association; label=\"\"; explanation=\"materiale is associated with formula chimica\"",
+    "materiale -> deposizione — type=association; label=\"\"; explanation=\"materiale is associated with deposizione\"",
+    "materiale -> percentuale presenza — type=association; label=\"\"; explanation=\"materiale is associated with percentuale presenza\"",
+    "materiale -> carbon footprint — type=association; label=\"\"; explanation=\"materiale is associated with carbon footprint\"",
+    "produzione -> utente — type=association; label=\"\"; explanation=\"produzione is associated with utente\"",
+    "produzione -> modello — type=association; label=\"\"; explanation=\"produzione is associated with modello\"",
+    "produzione -> footprint produzione — type=association; label=\"\"; explanation=\"produzione is associated with footprint produzione\"",
+    "produzione -> footprint totale — type=association; label=\"\"; explanation=\"produzione is associated with footprint totale\"",
+    "flow 1: utente -> produzione -> utente; produzione -> id; produzione -> materiale; materiale -> formula chimica; materiale -> deposizione; materiale -> percentuale presenza; materiale -> carbon footprint",
+    "the diagram models a system for tracking production",
+    "utente -> applicazione — type=message; label=\"inizio login\"; explanation=\"user initiates login\"",
+    "applicazione -> applicazione — type=message; label=\"verifica se l'utente è registrato\"; explanation=\"application checks user registration\"",
+    "applicazione -> database — type=message; label=\"richiedi registrazione\"; explanation=\"application requests registration from the database\"",
+    "database -> applicazione — type=message; label=\"registrato?\"; explanation=\"database responds with registration status\"",
+    "applicazione -> utente — type=message; label=\"homepage\"; explanation=\"application sends homepage to the user\"",
+    "flow 1: utente -> applicazione (inizio login) -> applicazione -> applicazione (verifica se l'utente è registrato) -> applicazione -> database (richiedi registrazione) -> database -> applicazione (registrato?) -> applicazione -> utente (homepage)",
+    "the diagram models a login sequence where a user initiates a login, the application verifies registration status, and interacts with the database to check registration.",
+    "the flow branches based on whether the user is registered or not.",
+    "if the user is registered, the application sends the homepage.",
+    "the diagram does not show what happens if the user is not registered.",
+    "main -> applicazione — type=control flow; label=\"richiede modifica dati\"; explanation=\"request to modify data\"",
+    "applicazione -> database — type=control flow; label=\"richiedi dati attuali\"; explanation=\"request current data\"",
+    "database -> applicazione — type=control flow; label=\"fornisce dati attuali\"; explanation=\"provides current data\"",
+    "applicazione -> main — type=control flow; label=\"mostra dati attuali\"; explanation=\"shows current data\"",
+    "applicazione -> main — type=control flow; label=\"invia nuovi dati\"; explanation=\"sends new data\"",
+    "main -> database — type=control flow; label=\"aggiorna dati utente\"; explanation=\"updates user data\"",
+    "database -> main — type=control flow; label=\"conferma aggiornamento\"; explanation=\"confirms update\"",
+    "main -> applicazione — type=control flow; label=\"aggiornamento effettuato\"; explanation=\"update completed\"",
+    "flow 1: main -> applicazione -> database -> applicazione -> main -> applicazione -> main -> database -> main -> applicazione",
+    "the diagram models a data modification process involving a main component, an application component, and a database component.",
+    "the process begins with a request for data modification from main to application.",
+    "application retrieves current data from the database, displays it, and then receives new data from main.",
+    "the application then sends the new data to the database for updating.",
+    "the database confirms the update, and the application informs main that the update is complete.",
+    "the diagram represents a linear, sequential flow without any branching or looping.",
+    "main -> applicazione — type=control_flow; label=\"esegue scansione dispositivo\"; explanation=\"initiates device scanning\"",
+    "applicazione -> database — type=control_flow; label=\"esegui scansione hardware\"; explanation=\"performs hardware scan\"",
+    "database -> applicazione — type=control_flow; label=\"nome e impatto componente\"; explanation=\"returns component name and impact\"",
+    "applicazione -> main — type=control_flow; label=\"return result\"; explanation=\"returns the result to the main component\"",
+    "applicazione -> main — type=control_flow; label=\"return nome, impatto componente, diagnostica dispositivo\"; explanation=\"returns component name, impact, and device diagnostics\"",
+    "database -> applicazione — type=control_flow; label=\"si, ricavo impatto sostituzione componente\"; explanation=\"retrieves impact of component replacement\"",
+    "applicazione -> database — type=control_flow; label=\"se ci sono componenti difettosi si calcola quanto ha cambiarlo\"; explanation=\"calculates the cost of replacement if components are defective\"",
+    "flow 1: main -> applicazione -> database -> applicazione -> main (return result) -> applicazione -> main (return nome, impatto componente, diagnostica dispositivo)",
+    "flow 2: applicazione -> database -> applicazione -> database (si, ricavo impatto sostituzione componente) -> applicazione",
+    "the diagram models a device scanning process.",
+    "the process starts with the main component initiating a device scan through the applicazione component.",
+    "the applicazione component interacts with the database to perform a hardware scan and retrieve component information.",
+    "a decision point checks if components are functioning. if not, the impact of replacement is calculated.",
+    "the process returns results, including component names, impact, and device diagnostics, back to the main component.",
+    "main -> esegui scansione hardware — type=control flow; label=\"\"; explanation=\"starts the process\"",
+    "esegui scansione hardware -> scansione velocità e salute componenti — type=control flow; label=\"\"; explanation=\"performs hardware scan\"",
+    "scansione velocità e salute componenti -> calcolo aspettativa di vita — type=control flow; label=\"\"; explanation=\"calculates life expectancy\"",
+    "calcolo aspettativa di vita -> return result — type=control flow; label=\"\"; explanation=\"returns the result\"",
+    "flow 1: main -> esegui scansione hardware -> scansione velocità e salute componenti -> calcolo aspettativa di vita -> return result",
+    "the diagram depicts a process for calculating life expectancy.",
+    "the process begins with the \"main\" node, which initiates the \"esegui scansione hardware\" activity.",
+    "following the hardware scan, the \"scansione velocità e salute componenti\" activity is performed.",
+    "finally, the \"calcolo aspettativa di vita\" activity calculates the life expectancy, and the result is returned.",
+    "the diagram represents a linear, sequential flow of activities.",
+    "======================================================================"
+  ],
+  "validations": [
+    "registrato? — condition=registrato?; branches=[yes, no]",
+    "applicazione: \"componenti funzionanti?\"",
+    "no -> database (si, ricavo impatto sostituzione componente)",
+    "yes -> main (return result)"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "- class",
+      "concepts": [
+        "utente",
+        "id",
+        "materiale",
+        "formula chimica",
+        "deposizione",
+        "percentuale presenza",
+        "carbon footprint",
+        "produzione"
+      ],
+      "flows": [
+        "utente -> produzione — type=association; label=\"\"; explanation=\"utente is associated with produzione\"",
+        "id -> produzione — type=association; label=\"\"; explanation=\"id is associated with produzione\"",
+        "materiale -> formula chimica — type=association; label=\"\"; explanation=\"materiale is associated with formula chimica\"",
+        "materiale -> deposizione — type=association; label=\"\"; explanation=\"materiale is associated with deposizione\"",
+        "materiale -> percentuale presenza — type=association; label=\"\"; explanation=\"materiale is associated with percentuale presenza\"",
+        "materiale -> carbon footprint — type=association; label=\"\"; explanation=\"materiale is associated with carbon footprint\"",
+        "produzione -> utente — type=association; label=\"\"; explanation=\"produzione is associated with utente\"",
+        "produzione -> modello — type=association; label=\"\"; explanation=\"produzione is associated with modello\"",
+        "produzione -> footprint produzione — type=association; label=\"\"; explanation=\"produzione is associated with footprint produzione\"",
+        "produzione -> footprint totale — type=association; label=\"\"; explanation=\"produzione is associated with footprint totale\"",
+        "flow 1: utente -> produzione -> utente; produzione -> id; produzione -> materiale; materiale -> formula chimica; materiale -> deposizione; materiale -> percentuale presenza; materiale -> carbon footprint",
+        "the diagram models a system for tracking production"
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 2,
+      "uml_type": "- sequence",
+      "concepts": [
+        "utente",
+        "applicazione",
+        "database"
+      ],
+      "flows": [
+        "utente -> applicazione — type=message; label=\"inizio login\"; explanation=\"user initiates login\"",
+        "applicazione -> applicazione — type=message; label=\"verifica se l'utente è registrato\"; explanation=\"application checks user registration\"",
+        "applicazione -> database — type=message; label=\"richiedi registrazione\"; explanation=\"application requests registration from the database\"",
+        "database -> applicazione — type=message; label=\"registrato?\"; explanation=\"database responds with registration status\"",
+        "applicazione -> utente — type=message; label=\"homepage\"; explanation=\"application sends homepage to the user\"",
+        "flow 1: utente -> applicazione (inizio login) -> applicazione -> applicazione (verifica se l'utente è registrato) -> applicazione -> database (richiedi registrazione) -> database -> applicazione (registrato?) -> applicazione -> utente (homepage)",
+        "the diagram models a login sequence where a user initiates a login, the application verifies registration status, and interacts with the database to check registration.",
+        "the flow branches based on whether the user is registered or not.",
+        "if the user is registered, the application sends the homepage.",
+        "the diagram does not show what happens if the user is not registered."
+      ],
+      "validations": [
+        "registrato? — condition=registrato?; branches=[yes, no]"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "- activity",
+      "concepts": [
+        "main",
+        "applicazione",
+        "database"
+      ],
+      "flows": [
+        "main -> applicazione — type=control flow; label=\"richiede modifica dati\"; explanation=\"request to modify data\"",
+        "applicazione -> database — type=control flow; label=\"richiedi dati attuali\"; explanation=\"request current data\"",
+        "database -> applicazione — type=control flow; label=\"fornisce dati attuali\"; explanation=\"provides current data\"",
+        "applicazione -> main — type=control flow; label=\"mostra dati attuali\"; explanation=\"shows current data\"",
+        "applicazione -> main — type=control flow; label=\"invia nuovi dati\"; explanation=\"sends new data\"",
+        "main -> database — type=control flow; label=\"aggiorna dati utente\"; explanation=\"updates user data\"",
+        "database -> main — type=control flow; label=\"conferma aggiornamento\"; explanation=\"confirms update\"",
+        "main -> applicazione — type=control flow; label=\"aggiornamento effettuato\"; explanation=\"update completed\"",
+        "flow 1: main -> applicazione -> database -> applicazione -> main -> applicazione -> main -> database -> main -> applicazione",
+        "the diagram models a data modification process involving a main component, an application component, and a database component.",
+        "the process begins with a request for data modification from main to application.",
+        "application retrieves current data from the database, displays it, and then receives new data from main.",
+        "the application then sends the new data to the database for updating.",
+        "the database confirms the update, and the application informs main that the update is complete.",
+        "the diagram represents a linear, sequential flow without any branching or looping."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 4,
+      "uml_type": "- Activity",
+      "concepts": [
+        "main",
+        "applicazione",
+        "database"
+      ],
+      "flows": [
+        "main -> applicazione — type=control_flow; label=\"esegue scansione dispositivo\"; explanation=\"initiates device scanning\"",
+        "applicazione -> database — type=control_flow; label=\"esegui scansione hardware\"; explanation=\"performs hardware scan\"",
+        "database -> applicazione — type=control_flow; label=\"nome e impatto componente\"; explanation=\"returns component name and impact\"",
+        "applicazione -> main — type=control_flow; label=\"return result\"; explanation=\"returns the result to the main component\"",
+        "applicazione -> main — type=control_flow; label=\"return nome, impatto componente, diagnostica dispositivo\"; explanation=\"returns component name, impact, and device diagnostics\"",
+        "database -> applicazione — type=control_flow; label=\"si, ricavo impatto sostituzione componente\"; explanation=\"retrieves impact of component replacement\"",
+        "applicazione -> database — type=control_flow; label=\"se ci sono componenti difettosi si calcola quanto ha cambiarlo\"; explanation=\"calculates the cost of replacement if components are defective\"",
+        "flow 1: main -> applicazione -> database -> applicazione -> main (return result) -> applicazione -> main (return nome, impatto componente, diagnostica dispositivo)",
+        "flow 2: applicazione -> database -> applicazione -> database (si, ricavo impatto sostituzione componente) -> applicazione",
+        "the diagram models a device scanning process.",
+        "the process starts with the main component initiating a device scan through the applicazione component.",
+        "the applicazione component interacts with the database to perform a hardware scan and retrieve component information.",
+        "a decision point checks if components are functioning. if not, the impact of replacement is calculated.",
+        "the process returns results, including component names, impact, and device diagnostics, back to the main component."
+      ],
+      "validations": [
+        "applicazione: \"componenti funzionanti?\"",
+        "no -> database (si, ricavo impatto sostituzione componente)",
+        "yes -> main (return result)"
+      ]
+    },
+    {
+      "page_no": 5,
+      "uml_type": "- activity",
+      "concepts": [
+        "main",
+        "applicazione",
+        "esegui scansione hardware",
+        "scansione velocità e salute componenti",
+        "calcolo aspettativa di vita",
+        "return result"
+      ],
+      "flows": [
+        "main -> esegui scansione hardware — type=control flow; label=\"\"; explanation=\"starts the process\"",
+        "esegui scansione hardware -> scansione velocità e salute componenti — type=control flow; label=\"\"; explanation=\"performs hardware scan\"",
+        "scansione velocità e salute componenti -> calcolo aspettativa di vita — type=control flow; label=\"\"; explanation=\"calculates life expectancy\"",
+        "calcolo aspettativa di vita -> return result — type=control flow; label=\"\"; explanation=\"returns the result\"",
+        "flow 1: main -> esegui scansione hardware -> scansione velocità e salute componenti -> calcolo aspettativa di vita -> return result",
+        "the diagram depicts a process for calculating life expectancy.",
+        "the process begins with the \"main\" node, which initiates the \"esegui scansione hardware\" activity.",
+        "following the hardware scan, the \"scansione velocità e salute componenti\" activity is performed.",
+        "finally, the \"calcolo aspettativa di vita\" activity calculates the life expectancy, and the result is returned.",
+        "the diagram represents a linear, sequential flow of activities.",
+        "======================================================================"
+      ],
+      "validations": []
+    }
+  ]
+}

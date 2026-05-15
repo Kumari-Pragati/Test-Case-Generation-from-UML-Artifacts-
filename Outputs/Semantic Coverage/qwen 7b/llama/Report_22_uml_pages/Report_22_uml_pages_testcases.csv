@@ -1,0 +1,35 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Utente-001","User creates a new device","Utente","1","User is logged in.","Device name = ""NewDevice"", Device title = ""New Device Title""","1. Call createUser(""NewDevice"", ""New Device Title"")
+2. Verify that the device is added successfully by checking getUserInfo()","The device should be added and its details should be returned in getUserInfo()."
+"TC-Utente-002","User checks existing device information","Utente","1","A device has been created.","Device ID = ""ExistingDeviceID""","1. Call getUserInfo(""ExistingDeviceID"")","The device's information should be returned."
+"TC-Utente-003","User resets password","Utente","1","User is logged in.","Current password = ""currentPass"", New password = ""newPass""","1. Call resetPassword(""currentPass"", ""newPass"")","The password should be reset successfully."
+"TC-Utente-004","User adds a new device","Utente","1","User is logged in.","Device name = ""NewDevice2"", Device title = ""New Device Title 2""","1. Call addDevices(""NewDevice2"", ""New Device Title 2"")","The device should be added successfully."
+"TC-History-001","History updates with new data","History","1","A device exists.","Date = ""2023-10-01"", Air humidity = 60.5, Soil humidity = 70.2, Air temperature = 25.3, Luminosity = 800","1. Call updateHistory(""2023-10-01"", 60.5, 70.2)","The history should be updated with the provided data."
+"TC-Alert-001","Alert updates message","Alert","1","An alert exists.","New message = ""Alert Message""","1. Call updateMessage(""Alert Message"")","The alert message should be updated."
+"TC-Alert-002","Alert sends message","Alert","1","An alert exists.","Message = ""Alert Message""","1. Call getMessage()","The alert message should be returned."
+"TC-AddDevices-001","User adds a device successfully","Utente","2,3","User is logged in.","Device name = ""NewDevice3"", Device title = ""New Device Title 3""","1. Click ""Add Devices""
+2. Enter ""NewDevice3"" as the device name
+3. Enter ""New Device Title 3"" as the device title
+4. Submit the form","The device should be added successfully."
+"TC-AddDevices-002","User fails to add a device due to invalid input","Utente","2,3","User is logged in.","Device name = """", Device title = """"","1. Click ""Add Devices""
+2. Leave the device name and title fields empty
+3. Submit the form","The device should not be added, and appropriate error messages should be displayed."
+"TC-InvalidInput-001","User enters invalid device name","Utente","2,3","User is logged in.","Device name = ""12345""","1. Click ""Add Devices""
+2. Enter ""12345"" as the device name
+3. Submit the form","The device should not be added, and an appropriate error message should be displayed."
+"TC-InvalidInput-002","User enters invalid device title","Utente","2,3","User is logged in.","Device title = ""!""","1. Click ""Add Devices""
+2. Enter ""!"" as the device title
+3. Submit the form","The device should not be added, and an appropriate error message should be displayed."
+"TC-EmptyInput-001","User enters empty device name","Utente","2,3","User is logged in.","Device name = """"","1. Click ""Add Devices""
+2. Enter """" as the device name
+3. Submit the form","The device should not be added, and an appropriate error message should be displayed."
+"TC-EmptyInput-002","User enters empty device title","Utente","2,3","User is logged in.","Device title = """"","1. Click ""Add Devices""
+2. Enter """" as the device title
+3. Submit the form","The device should not be added, and an appropriate error message should be displayed."
+"TC-UpdateHistory-001","User updates history with invalid date","History","1","A device exists.","Date = ""2023-10-32""","1. Call updateHistory(""2023-10-32"", 60.5, 70.2)","The history should not be updated, and an appropriate error message should be displayed."
+"TC-UpdateHistory-002","User updates history with invalid humidity values","History","1","A device exists.","Air humidity = -10, Soil humidity = 120","1. Call updateHistory(""2023-10-01"", -10, 120)","The history should not be updated, and an appropriate error message should be displayed."
+"TC-UpdateHistory-003","User updates history with invalid temperature value","History","1","A device exists.","Air temperature = -50","1. Call updateHistory(""2023-10-01"", 60.5, 70.2, -50)","The history should not be updated, and an appropriate error message should be displayed."
+"TC-UpdateHistory-004","User updates history with invalid luminosity value","History","1","A device exists.","Luminosity = -1000","1. Call updateHistory(""2023-10-01"", 60.5, 70.2, 25.3, -1000)","The history should not be updated, and an appropriate error message should be displayed."
+"TC-UpdateMessage-001","User updates alert message with invalid input","Alert","1","An alert exists.","New message = ""!""","1. Call updateMessage(""!"")","The alert message should not be updated, and an appropriate error message should be displayed."
+"TC-UpdateMessage-002","User updates alert message with empty input","Alert","1","An alert exists.","New message = """"","1. Call updateMessage("""")","The alert message should not be updated, and an appropriate error message should be displayed."
+"TC-GetDeviceInfo-001","User retrieves device information with invalid device ID","Devices","1","A device exists.","Device ID = ""InvalidID""","1. Call getDeviceInfo(""InvalidID"")","The device information should"

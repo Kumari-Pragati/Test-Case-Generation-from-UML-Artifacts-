@@ -1,0 +1,97 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Compito-001,Test creating a new task,Task,1,User is authenticated,"- id: 1
+- name: ""Test Task""
+- descrizione: ""This is a test task""
+- regione: ""Lombardia""
+- provincia: ""Milano""
+- stato: ""In corso""
+- dataInizio: ""2023-03-01""
+- dataFine: ""2023-03-05""","1. Navigate to the task creation page
+2. Enter the task details
+3. Click the ""Crea Compito"" button
+Test Result:
+- If the task is successfully created, the system should display a success message and the new task should be visible in the task list
+- If an error occurs, the system should display an error message",
+TC-Assegnazione-001,Test assigning a task to a user,Assignment,1,User is authenticated and a task exists,"- utenteId: 1
+- compitoId: 1
+- dataInizio: ""2023-03-01""
+- dataFine: ""2023-03-05""
+- stato: ""In corso""","1. Navigate to the task details page
+2. Click the ""Assegna"" button
+3. Select a user
+4. Enter the assignment details
+5. Click the ""Crea Assegnazione"" button
+Test Result:
+- If the assignment is successfully created, the system should display a success message and the new assignment should be visible in the assignment list
+- If an error occurs, the system should display an error message",
+TC-Emergenza-001,Test creating a new emergency,Emergency,1,User is authenticated,"- id: 1
+- descrizione: ""Test Emergenza""
+- regione: ""Lombardia""
+- provincia: ""Milano""
+- dataInizio: ""2023-03-01""
+- dataFine: ""2023-03-05""
+- stato: ""In corso""","1. Navigate to the emergency creation page
+2. Enter the emergency details
+3. Click the ""Crea Emergenza"" button
+Test Result:
+- If the emergency is successfully created, the system should display a success message and the new emergency should be visible in the emergency list
+- If an error occurs, the system should display an error message",
+TC-Utente-001,Test user registration,User,3,None,"- cognome: ""Test""
+- nome: ""User""
+- password: ""test1234""
+- cultura: ""Italian""
+- regione: ""Lombardia""
+- provincia: ""Milano""
+- citta: ""Milano""","1. Navigate to the registration page
+2. Enter the user details
+3. Click the ""Registrazione"" button
+Test Result:
+- If the user is successfully registered, the system should display a success message and the new user should be visible in the user list
+- If an error occurs, the system should display an error message",
+TC-UtenteCompito-001,Test user-task relationship creation,User-Task Relationship,1,User and task exist,"- dataInizio: ""2023-03-01""
+- dataFine: ""2023-03-05""
+- stato: ""In corso""","1. Navigate to the user details page
+2. Click the ""Aggiungi Compito"" button
+3. Select a task
+4. Enter the user-task relationship details
+5. Click the ""Crea UtenteCompito"" button
+Test Result:
+- If the user-task relationship is successfully created, the system should display a success message and the new user-task relationship should be visible in the user-task relationship list
+- If an error occurs, the system should display an error message",
+TC-Token-001,Test token creation,Authentication Token,1,User is authenticated,,"1. Navigate to the login page
+2. Enter the user credentials
+3. Click the ""Login"" button
+Test Result:
+- If the user is successfully authenticated, the system should generate a token and display it to the user
+- If an error occurs, the system should display an error message",
+TC-Utente-002,Test user login,User,3,User exists,"- email: ""testuser@example.com""
+- password: ""test1234""","1. Navigate to the login page
+2. Enter the user credentials
+3. Click the ""Login"" button
+Test Result:
+- If the user is successfully authenticated, the system should display a success message and redirect the user to the home page
+- If the user credentials are incorrect, the system should display an error message",
+TC-Utente-003,Test user logout,User,3,User is authenticated,,"1. Navigate to the user profile page
+2. Click the ""Logout"" button
+Test Result:
+- If the user is successfully logged out, the system should redirect the user to the login page",
+TC-Emergenza-002,Test emergency termination,Emergency,1,User is authenticated and an emergency exists,- id: 1,"1. Navigate to the emergency details page
+2. Click the ""Termina Emergenza"" button
+Test Result:
+- If the emergency is successfully terminated, the system should display a success message and the emergency should be removed from the emergency list
+- If an error occurs, the system should display an error message",
+TC-UtenteCompito-002,Test terminating a user-task relationship,User-Task Relationship,1,User-task relationship exists,- id: 1,"1. Navigate to the user-task relationship details page
+2. Click the ""Termina UtenteCompito"" button
+Test Result:
+- If the user-task relationship is successfully terminated, the system should display a success message and the user-task relationship should be removed from the user-task relationship list
+- If an error occurs, the system should display an error message",
+TC-Assegnazione-002,Test terminating an assignment,Assignment,1,Assignment exists,- id: 1,"1. Navigate to the assignment details page
+2. Click the ""Termina Assegnazione"" button
+Test Result:
+- If the assignment is successfully terminated, the system should display a success message and the assignment should be removed from the assignment list
+- If an error occurs, the system should display an error message",
+TC-Compito-002,Test terminating a task,Task,1,Task exists,- id: 1,"1. Navigate to the task details page
+2. Click the ""Termina Compito"" button
+Test Result:
+- If the task is successfully terminated, the system should display a success message and the task should be removed from the task list
+- If an error occurs, the system should display an error message",

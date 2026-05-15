@@ -1,0 +1,151 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Register a new user,User,"1, 2",Application is launched and no user is logged in.,"- Email: testuser@example.com
+- Password: P@ssw0rd
+- Username: testuser","1. Launch the application.
+2. Navigate to the registration page.
+3. Enter the email, password, and username.
+4. Submit the registration form.","- A confirmation message appears indicating successful registration.
+- The user is redirected to the login page."
+TC-User-002,Log in an existing user,User,"1, 2",User is registered and not logged in.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and password.
+4. Submit the login form.","- A confirmation message appears indicating successful login.
+- The user is redirected to the homepage."
+TC-User-003,Log in with invalid credentials,User,"1, 2",User is registered and not logged in.,"- Email: testuser@example.com
+- Invalid Password: wrongpassword","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and incorrect password.
+4. Submit the login form.","- An error message appears indicating unsuccessful login.
+- The user remains on the login page."
+TC-Event-001,Create a new event,Event,"1, 3",User is logged in and viewing a city's details.,"- Title: New Event
+- Date: 2023-10-15
+- Type: Cultural
+- Creator: testuser
+- City: Rome
+- Description: Description of the event","1. Launch the application.
+2. Ensure the user is logged in and viewing a city's details.
+3. Scroll down and click the ""+"" button to add an event.
+4. Fill out the form with the provided data.
+5. Validate the form fields.
+6. Submit the form.",- The event is successfully created and displayed on the city's details page.
+TC-Event-002,Modify an existing event,Event,"1, 4",User is logged in and viewing a city's details.,"- Original Title: Existing Event
+- Modified Title: Updated Event
+- Date: 2023-10-15
+- Type: Cultural
+- Creator: testuser
+- City: Rome
+- Description: Description of the updated event","1. Launch the application.
+2. Ensure the user is logged in and viewing a city's details.
+3. Scroll down and click the ""pen"" icon to modify an event.
+4. Fill out the form with the modified data.
+5. Validate the form fields.
+6. Submit the form.",- The event is successfully modified and the changes are reflected on the city's details page.
+TC-Event-003,Delete an existing event,Event,"1, 4",User is logged in and viewing a city's details.,- Title: Existing Event,"1. Launch the application.
+2. Ensure the user is logged in and viewing a city's details.
+3. Scroll down and click the ""-"" button to delete an event.
+4. Confirm the deletion action.",- The event is successfully deleted and removed from the city's details page.
+TC-City-001,Search for a city,City,"1, 3",User is logged in.,- City Name: Rome,"1. Launch the application.
+2. Ensure the user is logged in.
+3. Navigate to the city search functionality.
+4. Enter the city name and initiate the search.",- The city details page for Rome is displayed.
+TC-Poi-001,Interact with a Point of Interest (POI),POI,1,User is logged in.,"- POI Name: Colosseum
+- City: Rome
+- Province: Roma
+- Type: Historical
+- Description: Description of the POI","1. Launch the application.
+2. Ensure the user is logged in.
+3. Navigate to the POI interaction functionality.
+4. Interact with the specified POI.",- The user can view and interact with the specified POI details.
+TC-User-004,Handle non-registered user attempting to log in,User,"1, 2",No user is registered.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate to the login page.
+3. Enter the email and password.
+4. Submit the login form.","- An error message appears indicating that the user is not registered.
+- The user is prompted to create a new account."
+TC-User-005,Handle non-logged-in user attempting to access homepage,User,"1, 2",User is registered but not logged in.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Navigate directly to the homepage without logging in.","- An error message appears indicating that the user needs to log in first.
+- The user is redirected to the login page."
+TC-Event-004,Attempt to create an event with invalid data,Event,"1, 3",User is logged in and viewing a city's details.,"- Title: New Event
+- Invalid Date: 2023-15-10
+- Type: Cultural
+- Creator: testuser
+- City: Rome
+- Description: Description of the event","1. Launch the application.
+2. Ensure the user is logged in and viewing a city's details.
+3. Scroll down and click the ""+"" button to add an event.
+4. Fill out the form with the provided data.
+5. Validate the form fields.","- An error message appears indicating that the date format is invalid.
+- The user remains on the event creation page."
+TC-Event-005,Attempt to modify an event with invalid data,Event,"1, 4",User is logged in and viewing a city's details.,"- Original Title: Existing Event
+- Modified Title: Updated Event
+- Invalid Date: 2023-15-10
+- Type: Cultural
+- Creator: testuser
+- City: Rome
+- Description: Description of the updated event","1. Launch the application.
+2. Ensure the user is logged in and viewing a city's details.
+3. Scroll down and click the ""pen"" icon to modify an event.
+4. Fill out the form with the modified data.
+5. Validate the form fields.","- An error message appears indicating that the date format is invalid.
+- The user remains on the event modification page."
+TC-Event-006,Attempt to delete an event while not viewing a city's details,Event,"1, 4",User is logged in but not viewing a city's details.,- Title: Existing Event,"1. Launch the application.
+2. Ensure the user is logged in but not viewing a city's details.
+3. Attempt to scroll down and click the ""-"" button to delete an event.","- An error message appears indicating that the user is not in the city view screen.
+- The user is prompted to navigate to a city's details page."
+TC-City-002,Search for a non-existent city,City,"1, 3",User is logged in.,- City Name: NonExistentCity,"1. Launch the application.
+2. Ensure the user is logged in.
+3. Navigate to the city search functionality.
+4. Enter the non-existent city name and initiate the search.","- An error message appears indicating that the city was not found.
+- The user remains on the city search page."
+TC-Poi-002,Interact with a non-existent POI,POI,1,User is logged in.,"- POI Name: NonExistentPOI
+- City: Rome
+- Province: Roma
+- Type: Historical
+- Description: Description of the POI","1. Launch the application.
+2. Ensure the user is logged in.
+3. Navigate to the POI interaction functionality.
+4. Attempt to interact with the specified non-existent POI.","- An error message appears indicating that the POI was not found.
+- The user remains on the POI interaction page."
+TC-User-006,Handle user logout,User,"1, 2",User is logged in.,"- Email: testuser@example.com
+- Password: P@ssw0rd","1. Launch the application.
+2. Ensure the user is logged in.
+3. Navigate to the logout functionality.
+4. Perform the logout action.","- A confirmation message appears indicating successful logout.
+- The user is redirected to the login page."
+TC-User-007,Handle user registration with invalid email format,User,"1, 2",No user is registered.,"- Invalid Email: testuserexample.com
+- Password: P@ssw0rd
+- Username: testuser","1. Launch the application.
+2. Navigate to the registration page.
+3. Enter the invalid email, password, and username.
+4. Submit the registration form.","- An error message appears indicating that the email format is invalid.
+- The user remains on the registration page."
+TC-User-008,Handle user registration with weak password,User,"1, 2",No user is registered.,"- Email: testuser@example.com
+- Weak Password: password
+- Username: testuser","1. Launch the application.
+2. Navigate to the registration page.
+3. Enter the email, weak password, and username.
+4. Submit the registration form.","- An error message appears indicating that the password is too weak.
+- The user remains on the registration page."
+TC-User-009,Handle user registration with duplicate email,User,"1, 2",User is already registered with the same email.,"- Email: testuser@example.com
+- Password: P@ssw0rd
+- Username: testuser","1. Launch the application.
+2. Navigate to the registration page.
+3. Enter the email, password, and username.
+4. Submit the registration form.","- An error message appears indicating that the email is already registered.
+- The user remains on the registration page."
+TC-User-010,Handle user registration with empty fields,User,"1, 2",No user is registered.,"- Empty Email: 
+- Password: P@ssw0rd
+- Username: testuser","1. Launch the application.
+2. Navigate to the registration page.
+3. Leave the email field empty, enter the password, and username.
+4. Submit the registration form.","- An error message appears indicating that the email field cannot be empty.
+- The user remains on the registration page."
+TC-Event-007,Handle event creation with empty fields,Event,"1, 3",User is logged in and viewing a city's details.,"- Empty Title: 
+- Date: 2023-10-15
+- Type: Cultural
+- Creator: testuser
+- City: Rome
+- Description: Description of the event","1. Launch the application.
+2. Ensure the user is logged in and viewing a city's details.",

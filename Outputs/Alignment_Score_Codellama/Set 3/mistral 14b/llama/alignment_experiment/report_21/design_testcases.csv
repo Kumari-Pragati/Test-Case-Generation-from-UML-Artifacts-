@@ -1,0 +1,109 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration with valid credentials,Authentication,2,"- FirebaseAuth is initialized and connected.
+- No user with the provided email exists in the system.","- Email: `testuser@example.com`
+- Password: `SecurePass123!`
+- Username: `testuser`","1. User clicks ""Register"" in the application.
+2. User enters `testuser@example.com`, `SecurePass123!`, and `testuser`.
+3. User submits the form.
+4. System calls `mAuth.createUserWithEmailAndPassword()`.
+5. System verifies credentials and creates the user in FirebaseAuth.
+6. System stores user data (`id`, `username`, `email`) in the database.","- User account is created successfully.
+- `mAuth.getCurrentUser()` returns the newly created user.
+- Database contains the user record with correct attributes.
+- Application displays a success message."
+TC-AUTHENTICATION-002,Failed user registration with invalid email format,Authentication,2,- FirebaseAuth is initialized.,"- Email: `invalid-email` (missing @ and domain)
+- Password: `SecurePass123!`
+- Username: `testuser`","1. User clicks ""Register"" in the application.
+2. User enters `invalid-email`, `SecurePass123!`, and `testuser`.
+3. User submits the form.
+4. System validates email format before calling `mAuth.createUserWithEmailAndPassword()`.","- Registration fails due to invalid email format.
+- Application displays an error message: *""Invalid email format.""*
+- No user is created in FirebaseAuth or the database."
+TC-AUTHENTICATION-003,Successful user login with correct credentials,Authentication,2,- User `testuser@example.com` exists in FirebaseAuth and the database.,"- Email: `testuser@example.com`
+- Password: `SecurePass123!`","1. User clicks ""Login"" in the application.
+2. User enters `testuser@example.com` and `SecurePass123!`.
+3. User submits the form.
+4. System calls `mAuth.signInWithEmailAndPassword()`.
+5. System verifies credentials and returns the user object.
+6. System calls `mAuth.getCurrentUser()` to confirm login.","- User is logged in successfully.
+- Application navigates to the home/dashboard.
+- `mAuth.getCurrentUser()` returns the logged-in user."
+TC-AUTHENTICATION-004,Failed user login with incorrect password,Authentication,2,- User `testuser@example.com` exists in FirebaseAuth.,"- Email: `testuser@example.com`
+- Password: `WrongPassword123!`","1. User clicks ""Login"" in the application.
+2. User enters `testuser@example.com` and `WrongPassword123!`.
+3. User submits the form.
+4. System calls `mAuth.signInWithEmailAndPassword()`.
+5. System detects incorrect password and returns an error.","- Login fails.
+- Application displays an error message: *""Invalid email or password.""*
+- `mAuth.getCurrentUser()` returns `null`."
+TC-AUTHENTICATION-005,Check if user is logged in after app restart,Authentication,2,- User `testuser@example.com` is logged in and the app is closed.,,"1. User restarts the application.
+2. System automatically calls `mAuth.getCurrentUser()`.","- System detects the logged-in user.
+- Application loads the user's dashboard without requiring re-login."
+TC-SIGNAL-REPORTING-001,Retrieve and display a list of signals from the database,Signal Management,3,- Database contains at least 3 signal records.,,"1. Application calls `getSegnalazioni()`.
+2. `Sistema di gestione segnalazioni` forwards the request to `Sistema di gestione dei dati`.
+3. `Sistema di gestione dei dati` queries the database with `select Segnalazioni()`.
+4. Database returns a list of signals (e.g., `[signal1, signal2, signal3]`).
+5. `Sistema di gestione dei dati` forwards the payload to `Sistema di gestione segnalazioni`.
+6. `Sistema di gestione segnalazioni` forwards the payload to the application.
+7. Application processes the list and displays it.","- Application displays a list of signals (e.g., in a table or list view).
+- No `Null` is returned."
+TC-SIGNAL-REPORTING-002,Handle empty signal list from the database,Signal Management,3,- Database contains no signal records.,,"1. Application calls `getSegnalazioni()`.
+2. `Sistema di gestione segnalazioni` forwards the request to `Sistema di gestione dei dati`.
+3. `Sistema di gestione dei dati` queries the database with `select Segnalazioni()`.
+4. Database returns an empty list (`[]` or `Null`).
+5. Application processes the empty list.","- Application displays a message: *""No signals found.""*
+- No errors or crashes occur."
+TC-TRAIN-SCHEDULING-001,Retrieve and display trains for a given calendar date,Train Scheduling,"4, 6, 7","- Calendar date `2023-12-25` exists in the system.
+- API Trenitalia returns train data for the date.",,"1. User selects a calendar date (`2023-12-25`).
+2. Application calls `getTrains(calendario)`.
+3. `Sistema gestione calendario` forwards the request to `Sistema di gestione dei dati`.
+4. `Sistema di gestione dei dati` calls `requestTrains(calendario)` on API Trenitalia.
+5. API Trenitalia queries the database with `getTrainInfo(train_code)`.
+6. Database returns train data (e.g., `[train1, train2, train3]`).
+7. API Trenitalia forwards the payload to `Sistema di gestione dei dati`.
+8. `Sistema di gestione dei dati` forwards the payload to the application.
+9. Application displays the list of trains.","- Application shows a list of trains with details (e.g., departure time, arrival time).
+- User can select a train to set as preferred."
+TC-TRAIN-SCHEDULING-002,Set a preferred train and verify persistence,Train Scheduling,7,"- User is logged in.
+- Train with `id = ""T123""` exists in the system.",,"1. User selects train `T123` from the list.
+2. Application calls `setPrefTrain(id, info)` with `id = ""T123""` and `info = {departure: ""08:00"", arrival: ""10:30""}`.
+3. `Sistema di gestione dei dati` forwards the request to the database.
+4. Database queries `new Treno(id, info)` and stores the preference.
+5. Database returns a success `status code`.
+6. Application displays a confirmation message: *""Preferred train saved.""*","- Preferred train is stored in the database.
+- `mAuth.getCurrentUser()` retrieves the user's preferred train on subsequent logins."
+TC-TRAIN-SCHEDULING-003,Delete a preferred train and verify removal,Train Scheduling,8,- User has a preferred train `T123` stored in the database.,,"1. User selects the option to delete the preferred train.
+2. Application calls `deletePrefTrain(id)` with `id = ""T123""`.
+3. `Sistema di gestione dei dati` forwards `deleteTreno(id)` to the database.
+4. Database executes `query(delete Treno(id))` and returns `status code = 200`.
+5. Application displays a confirmation message: *""Preferred train removed.""*","- Preferred train `T123` is deleted from the database.
+- Subsequent calls to `getPrefTrain(id)` return `Null`."
+TC-TRAIN-SCHEDULING-004,Handle API Trenitalia failure (no train data),Train Scheduling,"4, 8",- API Trenitalia is down or returns an error for date `2023-12-25`.,,"1. User selects calendar date `2023-12-25`.
+2. Application calls `getTrains(calendario)`.
+3. `Sistema di gestione dei dati` calls `requestTrains(calendario)` on API Trenitalia.
+4. API Trenitalia returns an error (e.g., `status code = 500`).
+5. `Sistema di gestione dei dati` forwards the error to the application.","- Application displays an error message: *""Failed to load train data. Please try again later.""*
+- No crash occurs."
+TC-CALENDAR-001,Set and retrieve a calendar successfully,Calendar Management,"5, 6",- User is logged in.,,"1. User selects a date range (e.g., `2023-12-01` to `2023-12-31`).
+2. Application calls `setCalendario(cal)` with the selected range.
+3. `Sistema gestione calendario` queries the database with `new Calendario(cal)`.
+4. Database stores the calendar data.
+5. Application calls `getCalendario()` to retrieve the stored calendar.
+6. `Sistema gestione calendario` forwards the request to `Sistema di gestione dei dati`.
+7. `Sistema di gestione dei dati` queries the database with `select Calendario()`.
+8. Database returns the stored calendar data.
+9. Application displays the calendar.","- Calendar is stored and retrieved successfully.
+- Application displays the correct date range."
+TC-CALENDAR-002,Handle null calendar data retrieval,Calendar Management,6,- No calendar data exists in the database for the user.,,"1. Application calls `getCalendario()`.
+2. `Sistema gestione calendario` forwards the request to `Sistema di gestione dei dati`.
+3. `Sistema di gestione dei dati` queries the database with `select Calendario()`.
+4. Database returns `Null`.
+5. Application processes the `Null` response.","- Application displays a message: *""No calendar data found. Please set a calendar.""*
+- No errors occur."
+TC-NOTIFICATIONS-001,Display train variation notifications,Notifications,9,- User has a preferred train `T123` with scheduled variations.,,"1. System detects variations for train `T123` (e.g., delay or cancellation).
+2. `Sistema gestione variazioni` calls `getVariazioni()` and receives `train_variations = res`.
+3. `Sistema gestione variazioni` forwards `train_variations` to `Sistema di notifica`.
+4. `Sistema di notifica` calls `showNotifica(train_variations)`.
+5. Application displays a notification: *""Train T123 delayed by 30 minutes.""*","- Notification is displayed to the user.
+- Notification includes details (e.g., train ID, variation type, time)."
+TC-DATABASE-001,Modify user profile and verify updates,User Management,1,-,,,

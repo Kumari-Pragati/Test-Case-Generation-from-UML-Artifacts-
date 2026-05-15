@@ -1,0 +1,133 @@
+flow
+"authentication system -> userprofile — association; label=""manage""; explanation=""manages user data"""
+"authentication system -> datamanager — association; label=""provide data""; explanation=""provides data to the datamanager"""
+"datamanager -> reporthandler — association; label=""send reports""; explanation=""sends reports to the reporthandler"""
+"datamanager -> database — association; label=""access data""; explanation=""accesses data from the database"""
+"reporthandler -> webserver — association; label=""display reports""; explanation=""displays reports via the webserver"""
+"notifysystem -> achievements — association; label=""notify""; explanation=""notifies about achievements"""
+"userprofile -> achievements — association; label=""has""; explanation=""user has achievements"""
+"authentication system -> userprofile — association; label=""manage"""
+"datamanager -> reporthandler — association; label=""send reports"""
+"datamanager -> database — association; label=""access data"""
+"reporthandler -> webserver — association; label=""display reports"""
+"notifysystem -> achievements — association; label=""notify"""
+"userprofile -> achievements — association; label=""has"""
+"the diagram models a system architecture with components for authentication, user profile management, data management, report generation, notification, and achievement tracking."
+"the datamanager component is central, providing data to the reporthandler and accessing the database."
+the reporthandler displays reports via the webserver.
+the notifysystem is responsible for notifying users about achievements.
+"report -> utenti — association, role=""crea"""
+"report -> consumo — association, role=""registra"""
+"report -> obiettivi — association, role=""gestisce"""
+"utenti -> consumo — association, role=""gestisce"""
+"consumo -> gioco — association, role=""aggiorna"""
+utenti -> report: crea
+report: registra consumo
+report: genera commento
+report: calcola consumo totale
+report: suggerimento
+obiettivi: gestisce obiettivo
+gioco: incrementagreenpoints
+gioco: decrementagreenpoints
+"this diagram models a system for managing reports, user accounts, consumption data, and game scores."
+"users create reports that record consumption data, which is then used to generate suggestions and manage objectives."
+the system tracks green points earned through consumption and updates game scores.
+"main -> local user — message=""getdatafromuser"";"
+"main -> data manager — message=""checkdata(data_user)"";"
+"main -> data manager — message=""richiesta di reinserire i dati"";"
+"main -> data manager — message=""adduser(data_user)"";"
+"main -> local user — message=""done"";"
+"data manager -> main — message=""success"";"
+main -> local user: getdatafromuser
+main -> data manager: checkdata(data_user)
+main -> data manager: richiesta di reinserire i dati
+main -> data manager: adduser(data_user)
+main -> local user: done
+data manager -> main: success
+the diagram models the process of creating a user.
+the main component initiates the process by requesting user data from the local user.
+"the data manager checks the data and, if necessary, prompts the user to re-enter it."
+"finally, the data manager adds the user and signals success back to the main component."
+"main -> checkauthenticated — type=message; label=""checkauthenticated(currentuser)""; explanation=""main calls checkauthenticated with current user"";"
+"checkauthenticated -> datamanager — type=message; label=""requestdatauser(currentuser)""; explanation=""checkauthenticated requests data from datamanager"";"
+"datamanager -> checkauthenticated — type=message; label=""success""; explanation=""datamanager returns success to checkauthenticated"";"
+"checkauthenticated -> main — type=message; label=""success""; explanation=""checkauthenticated passes success to main"""
+main -> checkauthenticated — checkauthenticated(currentuser);
+checkauthenticated -> datamanager — requestdatauser(currentuser);
+datamanager -> checkauthenticated — success;
+checkauthenticated -> main — success
+the diagram models a sequence of interactions between components to authenticate a user.
+the flow starts with the main component initiating the authentication process.
+the authentication process involves checking the user's credentials and retrieving user data from the datamanager.
+the success of the authentication is then passed back to the main component.
+main -> local user: checkauthenticated(currentuser);
+local user -> data manager: requestdata();
+data manager -> local user: done;
+data manager -> local user: updatedata(datamodified);
+local user -> data manager: success;
+main initiates checkauthenticated(currentuser).
+local user receives the message checkauthenticated(currentuser).
+local user sends requestdata().
+data manager receives requestdata().
+data manager sends done.
+local user receives done.
+data manager sends updatedata(datamodified).
+local user receives updatedata(datamodified).
+local user sends success.
+data manager receives success.
+the diagram models a user profile modification process.
+the local user component acts as an intermediary between the main component and the data manager.
+"the process involves authentication, data request, data modification, and confirmation."
+the diagram highlights the flow of messages and the order of operations.
+"main -> local user — message=""data = requestdata()"";"
+"local user -> data manager — message=""addconsumo(data)"";"
+"data manager -> local user — message=""done"";"
+"data manager -> local user — message=""success"";"
+main sends a request to the local user to create a calculation.
+local user sends the data to the data manager.
+"data manager processes the data and sends a ""done"" message back to the local user."
+"data manager sends a ""success"" message back to the local user."
+"the diagram models a sequence of events involving the main component, the local user, and the data manager."
+"the local user requests data from the data manager, which processes it and returns a ""done"" and ""success"" message."
+"this sequence represents a single, straightforward flow of data processing."
+main -> local user — message=checkconsumi(currentuser);
+main -> data manager — message=requestreport(report);
+local user -> data manager — message=report = requestdata();
+data manager -> main — message=success;
+data manager -> main — message=done;
+main -> local user: checkconsumi(currentuser);
+local user -> data manager: report = requestdata();
+data manager -> main: success;
+data manager -> main: done;
+the main component initiates the process by checking the user's consumption.
+the local user requests a report using the requestdata() method.
+the data manager responds with either a success or done message.
+"the diagram shows a simple sequence of events, with the local user triggering the report request and the data manager providing the result."
+"main -> local user: checkconsumi(currentuser); label=""checkconsumi""; explanation=""checks user consumption"";"
+"local user -> main: report = requestdata(); label=""report""; explanation=""sends report data"";"
+"main -> data manager: new_data = requestdata(); label=""new_data""; explanation=""sends new data"";"
+"data manager -> main: updatereport(report, new_data); label=""updatereport""; explanation=""updates report"";"
+"main -> data manager: success; label=""success""; explanation=""indicates success"";"
+main receives the `checkconsumi` message from the local user.
+the local user sends a `report` request to the main.
+the main sends a `new_data` request to the data manager.
+the data manager updates the report and sends a `success` message back to the main.
+"the diagram models a sequence of interactions between a user, a main component, and a data manager."
+the user initiates the process by sending a report.
+the main component then interacts with the data manager to update the report.
+"the success of the update is indicated by a ""success"" message."
+"main -> checkconsumer(currentuser) — type=synchronous call; label=""checkconsumer""; explanation=""calls the checkconsumer method with the current user."";"
+"local user -> local user — type=self-call; label=""deve avere un consumo""; explanation=""local user must have a consumption."";"
+"local user -> data manager -> deletereport(report) — type=synchronous call; label=""deletereport""; explanation=""local user calls the deletereport method on the data manager."";"
+"data manager -> main — type=synchronous call; label=""done""; explanation=""data manager returns 'done' to main."";"
+"main -> main — type=synchronous call; label=""success""; explanation=""main returns 'success' to the local user."";"
+main calls checkconsumer(currentuser)
+local user checks if it has a consumption.
+local user calls deletereport(report) on the data manager.
+"data manager returns ""done"" to main."
+"main returns ""success"" to local user."
+the diagram models the process of deleting a report.
+the local user initiates the deletion process.
+the data manager handles the actual report deletion.
+the main component orchestrates the process and provides feedback to the local user.
+======================================================================

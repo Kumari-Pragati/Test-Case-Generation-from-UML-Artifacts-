@@ -1,0 +1,390 @@
+REPORT: Report_14_uml_pages.pdf
+======================================================================
+
+===== Report_14_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+*   PostComment
+    *   Kind: Class
+    *   Attributes: 
+        *   int id
+        *   String content
+        *   User author
+        *   DateTime creationDate
+        *   DateTime lastUpdateDate
+        *   Post postReference
+    *   Operations: 
+        *   PostComment copyWith()
+        *   Map<String, dynamic> toMap()
+        *   String toString()
+    *   Role: Post comment
+*   BusinessUser
+    *   Kind: Class
+    *   Attributes: 
+        *   Uri brandPhoto
+        *   String brandName
+        *   String companyName
+        *   String vathNumber
+        *   User user
+        *   Int hashCode
+    *   Operations: 
+        *   Uri brandPhoto
+        *   String brandName
+        *   String companyName
+        *   String vathNumber
+        *   User user
+        *   Int hashCode
+    *   Role: Business user
+*   Post
+    *   Kind: Class
+    *   Attributes: 
+        *   User author
+        *   Neiborhood neiborhood
+        *   String postType
+        *   DateTime creationDate
+        *   DateTime lastUpdateDate
+    *   Operations: 
+        *   User author
+        *   Neiborhood neiborhood
+        *   String postType
+        *   DateTime creationDate
+        *   DateTime lastUpdateDate
+    *   Role: Post
+*   User
+    *   Kind: Class
+    *   Attributes: 
+        *   String name
+        *   String cognome
+        *   String email
+        *   URI photo
+        *   Neiborhood neiborhood
+        *   ChatList chat
+        *   int hashCode
+    *   Operations: 
+        *   String name
+        *   String cognome
+        *   String email
+        *   URI photo
+        *   Neiborhood neiborhood
+        *   ChatList chat
+        *   int hashCode
+    *   Role: User
+*   ChatList
+    *   Kind: Class
+    *   Attributes: 
+        *   User me
+        *   List<User> chattedWith
+        *   int hashCode
+    *   Operations: 
+        *   User me
+        *   List<User> chattedWith
+        *   int hashCode
+    *   Role: Chat list
+*   Neiborhood
+    *   Kind: Class
+    *   Attributes: 
+        *   String googleCode
+        *   Map<String, String> geocodeInfo
+        *   int hashCode
+    *   Operations: 
+        *   String googleCode
+        *   Map<String, String> geocodeInfo
+        *   int hashCode
+    *   Role: Neiborhood
+
+**Actors / Lifelines:**
+
+*   User
+*   BusinessUser
+*   Post
+*   PostComment
+*   Neiborhood
+*   ChatList
+
+**Relationships / Links:**
+
+*   PostComment -> BusinessUser — type=PostComment copyWith(); label=""; explanation=""
+*   BusinessUser -> Post — type=Uri brandPhoto; label=""; explanation=""
+*   Post -> User — type=String postType; label=""; explanation=""
+*   User -> ChatList — type=String name; label=""; explanation=""
+*   ChatList -> Neiborhood — type=String googleCode; label=""; explanation=""
+
+**Main Flows:**
+
+*   Flow 1: User -> BusinessUser -> Post -> User -> ChatList -> Neiborhood
+
+**Conditions / Branches:**
+
+*   User -> BusinessUser: dynamic fetchUserChatList()
+*   BusinessUser -> Post: Map<String, dynamic> toMap()
+*   Post -> User: Map<String, dynamic> toMap()
+*   User -> ChatList: Map<String, dynamic> toMap()
+*   ChatList -> Neiborhood: Map<String, dynamic> toMap()
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*
+
+===== Report_14_uml_pages.pdf | Page 2 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **START**: kind=Start; attributes=[]; operations=[]; role=Start
+* **UserCreateProcedure**: kind=Activity; attributes=[]; operations=[UserCreate(): User]; role=Create User
+* **VerifyLocalizationProcedure**: kind=Activity; attributes=[]; operations=[VerifyLocalization(): User]; role=Verify User Location
+* **AuthenticationProcedure**: kind=Activity; attributes=[]; operations=[Authentication(): User]; role=Authenticate User
+* **HOME**: kind=Activity; attributes=[]; operations=[]; role=Home
+
+**Actors / Lifelines:**
+
+* **User**: None
+
+**Relationships / Links:**
+
+* **START** -> **UserCreateProcedure** — type=Start; label=Start; explanation=Start of the process
+* **UserCreateProcedure** -> **User** — type=Create; label=Create User; explanation=Create a new user
+* **User** -> **AuthenticationProcedure** — type=Authentication; label=Authenticate; explanation=Authenticate the user
+* **AuthenticationProcedure** -> **User** — type=Authentication; label=Authentication; explanation=Authenticate the user
+* **User** -> **VerifyLocalizationProcedure** — type=Verify; label=Verify; explanation=Verify user location
+* **VerifyLocalizationProcedure** -> **User** — type=Verify; label=Verify; explanation=Verify user location
+* **User** -> **HOME** — type=Home; label=Home; explanation=Return to home
+
+**Main Flows:**
+
+* **Flow 1:** START -> UserCreateProcedure -> User -> AuthenticationProcedure -> User -> VerifyLocalizationProcedure -> User -> HOME
+
+**Conditions / Branches:**
+
+* **UserCreateProcedure**: If User created? -> Yes -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with success? -> No -> User created with success? -> Yes -> User created with success? -> No -> User created with
+
+===== Report_14_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Home - kind=Home; attributes=[profile: Profile, notificationSection: NotificationSection]; operations=[profile(): Profile, notificationSection(): NotificationSection]; role=Home
+* Profile - kind=Profile; attributes=[profile: Profile]; operations=[profile(): Profile]; role=Profile
+* NotificationSection - kind=NotificationSection; attributes=[notificationSection: NotificationSection]; operations=[notificationSection(): NotificationSection]; role=NotificationSection
+* MapFullScreenAPI - kind=MapFullScreenAPI; attributes=[mapFullScreenAPI: MapFullScreenAPI]; operations=[mapFullScreenAPI(): MapFullScreenAPI]; role=MapFullScreenAPI
+* Profile - kind=Profile; attributes=[profile: Profile]; operations=[profile(): Profile]; role=Profile
+* ChatSection - kind=ChatSection; attributes=[chatSection: ChatSection]; operations=[chatSection(): ChatSection]; role=ChatSection
+* GeneralDashboard - kind=GeneralDashboard; attributes=[generalDashboard: GeneralDashboard]; operations=[generalDashboard(): GeneralDashboard]; role=GeneralDashboard
+
+**Actors / Lifelines:**
+
+* Home
+* Profile
+* NotificationSection
+* MapFullScreenAPI
+* Profile
+* ChatSection
+* GeneralDashboard
+
+**Relationships / Links:**
+
+* Home -> Profile — type=association; label="SI"; explanation="Home to Profile"
+* Profile -> NotificationSection — type=association; label="SI"; explanation="Profile to NotificationSection"
+* NotificationSection -> MapFullScreenAPI — type=association; label="SI"; explanation="NotificationSection to MapFullScreenAPI"
+* MapFullScreenAPI -> Profile — type=association; label="SI"; explanation="MapFullScreenAPI to Profile"
+* Profile -> ChatSection — type=association; label="SI"; explanation="Profile to ChatSection"
+* ChatSection -> GeneralDashboard — type=association; label="SI"; explanation="ChatSection to GeneralDashboard"
+
+**Main Flows:**
+
+* Flow 1: Home -> Profile -> NotificationSection -> MapFullScreenAPI -> Profile -> ChatSection -> GeneralDashboard
+
+**Conditions / Branches:**
+
+* Interazione con la mappa -> SI -> MapFullScreenAPI
+* Interazione con il menu -> SI -> Profile
+* Cliccata icona accesso Home -> SI -> Profile
+* Cliccata icona accesso personale -> SI -> ChatSection
+* Cliccata icona accesso bacheca generale -> SI -> GeneralDashboard
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the interaction between the Home, Profile, NotificationSection, MapFullScreenAPI, Profile, ChatSection, and GeneralDashboard components.
+* The main flows represent the sequence of interactions between these components.
+* The conditions/branches represent the decision points in the interaction.
+* There are no loops or repetitions in the diagram.
+
+===== Report_14_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* GeneralDashboard - kind=General; attributes=[a: General; b: Dashboard]; operations=[start(): void; stop(): void]; role=General Dashboard
+* Section - kind=Section; attributes=[a: Section]; operations=[start(): void; stop(): void]; role=Section
+* FullScreenPost - kind=FullScreenPost; attributes=[a: FullScreenPost]; operations=[start(): void; stop(): void]; role=FullScreenPost
+* LeaveComment - kind=LeaveComment; attributes=[a: LeaveComment]; operations=[start(): void; stop(): void]; role=LeaveComment
+* Attendi salvataggio - kind=Attendi salvataggio; attributes=[a: Attendi salvataggio]; operations=[start(): void; stop(): void]; role=Attendi salvataggio
+
+**Actors / Lifelines:**
+
+* GeneralDashboard
+* Section
+* FullScreenPost
+* LeaveComment
+* Attendi salvataggio
+
+**Relationships / Links:**
+
+* GeneralDashboard -> Section — type=association; label="Cliccata una sezione in evidenza"; explanation="Cliccata una sezione in evidenza"
+* Section -> FullScreenPost — type=association; label="Cliccato specifico post"; explanation="Cliccato specifico post"
+* FullScreenPost -> LeaveComment — type=association; label="Attendendo caricamento relativi commenti"; explanation="Attendendo caricamento relativi commenti"
+* LeaveComment -> Attendi salvataggio — type=association; label="Aggiungi un commento"; explanation="Aggiungi un commento"
+
+**Main Flows:**
+
+* Flow 1: GeneralDashboard -> Section -> FullScreenPost -> LeaveComment -> Attendi salvataggio
+
+**Conditions / Branches:**
+
+* Scorri posts condivisi presenti in bachecha -> SI -> Cliccato specifico post
+* Attendi caricamento relativi commenti -> SI -> Aggiungi un commento
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of interactions between the GeneralDashboard, Section, FullScreenPost, LeaveComment, and Attendi salvataggio components.
+* The main flow starts with the GeneralDashboard and ends with the Attendi salvataggio component.
+* The diagram does not show any loops or repeated behavior.
+
+===== Report_14_uml_pages.pdf | Page 5 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **ItemResultSearch** — kind=; attributes=[]; operations=[]; role=?
+* **ResidentProfile** — kind=; attributes=[]; operations=[]; role=?
+* **BusinessProfile** — kind=; attributes=[]; operations=[]; role=?
+* **BusinessProfile** — kind=; attributes=[]; operations=[]; role=?
+* **Calendar** — kind=; attributes=[]; operations=[]; role=?
+* **Chat** — kind=; attributes=[]; operations=[]; role=?
+* **ViewUnSold** — kind=; attributes=[]; operations=[]; role=?
+* **ViewPromotions** — kind=; attributes=[]; operations=[]; role=?
+
+**Actors / Lifelines:**
+
+* **User**
+* **System**
+
+**Relationships / Links:**
+
+* **ItemResultSearch** -> **ResidentProfile** — type=; label=; explanation=
+* **ResidentProfile** -> **BusinessProfile** — type=; label=; explanation=
+* **BusinessProfile** -> **BusinessProfile** — type=; label=; explanation=
+* **BusinessProfile** -> **Calendar** — type=; label=; explanation=
+* **BusinessProfile** -> **Chat** — type=; label=; explanation=
+* **BusinessProfile** -> **ViewUnSold** — type=; label=; explanation=
+* **BusinessProfile** -> **ViewPromotions** — type=; label=; explanation=
+* **BusinessProfile** -> **Prenota appuntamento** — type=; label=; explanation=
+* **Prenota appuntamento** -> **Calendar** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** -> **BusinessProfile** — type=; label=; explanation=
+* **Prenota appuntamento** ->
+
+===== Report_14_uml_pages.pdf | Page 6 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main
+	+ kind: Main
+	+ attributes: None
+	+ operations: None
+	+ role: Main
+* StoredDataDB
+	+ kind: StoredDataDB
+	+ attributes: None
+	+ operations: None
+	+ role: StoredDataDB
+* UserCreateProcedure
+	+ kind: UserCreateProcedure
+	+ attributes: None
+	+ operations: None
+	+ role: UserCreateProcedure
+
+**Actors / Lifelines:**
+
+* Main
+* StoredDataDB
+* UserCreateProcedure
+
+**Relationships / Links:**
+
+* Main -> StoredDataDB - type: Not exist
+* StoredDataDB -> UserCreateProcedure - type: Not exist
+* Main -> UserCreateProcedure - type: Create new entry
+* UserCreateProcedure -> Main - type: authentication
+* UserCreateProcedure -> StoredDataDB - type: authorization
+
+**Main Flows:**
+
+* Flow 1: Main -> StoredDataDB -> UserCreateProcedure -> Main
+* Flow 2: None
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where the main entity interacts with the stored data database and the user create procedure.
+* The main entity creates a new entry, which is then authenticated and authorized.
+* The user create procedure is not present in the sequence, indicating that it is not part of the main flow.
+* The diagram does not show any loops or repetitions.
+
+
+======================================================================

@@ -1,0 +1,113 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-CalendarioUtente-001,Add Event to User Calendar,CalendarioUtente,1,User is authenticated and connected to the database.,"- Evento: eventoID=""EVT001"", titolo=""Meeting"", dataOraInizio=""2023-10-01T10:00:00"", dataOraFine=""2023-10-01T11:00:00"", descrizione=""Discuss project"", luogo=""Office""","1. Call CalendarioUtente.aggiungiEvento(evento).
+2. CalendarioUtente connects to the database.
+3. Database executes the query to add the event.
+4. Database returns the result set.
+5. CalendarioUtente receives the result set.",Event is successfully added to the user's calendar.
+TC-CalendarioUtente-002,Modify Event in User Calendar,CalendarioUtente,1,User has an existing event in the calendar.,"- Evento: eventoID=""EVT001"", titolo=""Meeting"", dataOraInizio=""2023-10-01T10:00:00"", dataOraFine=""2023-10-01T11:00:00"", descrizione=""Discuss project"", luogo=""Office""","1. Call CalendarioUtente.modificaEvento(evento).
+2. CalendarioUtente connects to the database.
+3. Database executes the query to modify the event.
+4. Database returns the result set.
+5. CalendarioUtente receives the result set.",Event is successfully modified in the user's calendar.
+TC-CalendarioUtente-003,Delete Event from User Calendar,CalendarioUtente,1,User has an existing event in the calendar.,"- Evento: eventoID=""EVT001"", titolo=""Meeting"", dataOraInizio=""2023-10-01T10:00:00"", dataOraFine=""2023-10-01T11:00:00"", descrizione=""Discuss project"", luogo=""Office""","1. Call CalendarioUtente.eliminaEvento(evento).
+2. CalendarioUtente connects to the database.
+3. Database executes the query to delete the event.
+4. Database returns the result set.
+5. CalendarioUtente receives the result set.",Event is successfully deleted from the user's calendar.
+TC-CalendarioUtente-004,View User Calendar,CalendarioUtente,1,User has events in the calendar.,,"1. Call CalendarioUtente.visualizzaCalendario().
+2. CalendarioUtente connects to the database.
+3. Database executes the query to retrieve all events.
+4. Database returns the result set.
+5. CalendarioUtente receives the result set.",All events are displayed in the user's calendar.
+TC-CalendarioUtente-005,Get Events Per Date,CalendarioUtente,1,User has events in the calendar.,"- Data: ""2023-10-01""","1. Call CalendarioUtente.getEventiPerData(data).
+2. CalendarioUtente connects to the database.
+3. Database executes the query to retrieve events for the specified date.
+4. Database returns the result set.
+5. CalendarioUtente receives the result set.",Events for the specified date are returned.
+TC-CalendarioUtente-006,Connect to Database,CalendarioUtente,1,None,"- Database credentials: url=""localhost"", username=""admin"", password=""password""","1. Call CalendarioUtente.connetti().
+2. Database connection is established.",Connection to the database is successful.
+TC-CalendarioUtente-007,Disconnect from Database,CalendarioUtente,1,Connected to the database.,,"1. Call CalendarioUtente.disconnetti().
+2. Database connection is closed.",Disconnection from the database is successful.
+TC-UserAuthentication-001,User Login,User Authentication,2,User account exists.,"- Email: ""user@example.com"", Password: ""password123""","1. Call Applicazione.logIn().
+2. Applicazione calls mAuth.getInstance().
+3. mAuth calls Firebase Auth.getInstance().
+4. mAuth calls Firebase Auth.getCurrentUser().
+5. Firebase Auth returns the current user.
+6. Applicazione logs in the user.",User is successfully logged in.
+TC-UserAuthentication-002,Register and Log In New User,User Authentication,2,User account does not exist.,"- Email: ""newuser@example.com"", Password: ""password123""","1. Call Applicazione.registerAndLogin().
+2. Applicazione calls mAuth.getInstance().
+3. mAuth calls Firebase Auth.getInstance().
+4. mAuth calls Firebase Auth.createUserWithEmailAndPassword().
+5. Firebase Auth creates a new user.
+6. Firebase Auth returns the current user.
+7. Applicazione logs in the new user.",New user is registered and logged in successfully.
+TC-SignalManagement-001,Retrieve Signal List,Signal Management,3,None,,"1. Call Applicazione.forward(getSegnalazioni()).
+2. Applicazione forwards payload to Sistema di segnalazioni.
+3. Sistema di segnalazioni forwards payload to Sistema di gestione dei dati.
+4. Sistema di gestione dei dati queries the database for signals.
+5. Database returns the signals as a payload.
+6. Sistema di gestione dei dati displays the list of signals to Applicazione.",List of signals is retrieved and displayed.
+TC-VariationManagement-001,Request Train Variations,Variation Management,4,None,,"1. Call Applicazione.train_variations(getVariationen).
+2. Applicazione forwards the request to Sistema gestione variazioni.
+3. Sistema gestione variazioni forwards the request to Sistema gestione dati.
+4. Sistema gestione dati queries the database for train trends.
+5. Database queries API Trenitalia for train information.
+6. API Trenitalia returns the train information.",Train variations are requested and processed.
+TC-CalendarManagement-001,Set Calendar,Calendar Management,5,None,- Calendar: cal,"1. Call Applicazione.setCalendarico(cal).
+2. Applicazione forwards the request to Sistema gestione calendario.
+3. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+4. Sistema di gestione dei dati queries the database for a new Calendarico.
+5. Database returns the result.
+6. Sistema di gestione dei dati forwards the outcome to Sistema gestione calendario.
+7. Sistema gestione calendario displays the outcome to Applicazione.",Calendar is set successfully.
+TC-CalendarManagement-002,Get Calendar,Calendar Management,6,Calendar exists.,,"1. Call Applicazione.getCalendario().
+2. Applicazione forwards the request to Sistema gestione calendario.
+3. Sistema gestione calendario queries the database for calendar data.
+4. Database returns the calendar data.
+5. Sistema di gestione dei dati forwards the data to Sistema gestione calendario.
+6. Sistema gestione calendario displays the calendar data to Applicazione.",Calendar data is retrieved and displayed.
+TC-TrainCancellation-001,Cancel Preferred Train,Train Cancellation,7,Train exists in the calendar.,,"1. Call Applicazione.forward(getTrains(calendario)).
+2. Applicazione forwards the request to Sistema gestione calendario.
+3. Sistema gestione calendario forwards the request to Sistema gestione dei dati.
+4. Sistema gestione dei dati requests train information from API Trenitalia.
+5. API Trenitalia queries the database for train information.
+6. Database returns the train information.
+7. API Trenitalia returns the outcome to Sistema gestione dei dati.
+8. Sistema gestione dei dati forwards the outcome to Applicazione.
+9. Applicazione displays the outcome to the user.",Train cancellation process is initiated and outcome is displayed.
+TC-TrainDeletion-001,Delete Train from Calendar,Train Deletion,8,Train exists in the calendar.,,"1. Call Applicazione.getTrains(calendario).
+2. Applicazione forwards the request to Sistema gestione calendario.
+3. Sistema gestione calendario forwards the request to Sistema di gestione dei dati.
+4. Sistema di gestione dei dati queries the database to delete the train.
+5. Database returns a status code.
+6. API Trenitalia returns the response to Sistema di gestione dei dati.
+7. Sistema di gestione dei dati forwards the outcome to Sistema gestione calendario.
+8. Sistema gestione calendario displays the outcome to Applicazione.",Train is deleted from the calendar and outcome is displayed.
+TC-VariationNotification-001,Show Train Variation Notification,Variation Notification,9,Train variations exist.,,"1. Call Applicazione.getVariazioni().
+2. Applicazione forwards the request to Sistema gestione variazioni.
+3. Sistema gestione variazioni returns the train variations.
+4. Applicazione forwards the train variations to Sistema di notifica.
+5. Sistema di notifica shows the notification.",Train variation notification is shown to the user.
+TC-UserAuthentication-003,Invalid Login Attempt,User Authentication,2,User account exists but invalid credentials provided.,"- Email: ""user@example.com"", Password: ""wrongpassword""","1. Call Applicazione.logIn().
+2. Applicazione calls mAuth.getInstance().
+3. mAuth calls Firebase Auth.getInstance().
+4. mAuth calls Firebase Auth.getCurrentUser().
+5. Firebase Auth returns null.",User login fails due to invalid credentials.
+TC-UserAuthentication-004,User Registration Failure,User Authentication,2,User account does not exist but email is already registered.,"- Email: ""existinguser@example.com"", Password: ""password123""","1. Call Applicazione.registerAndLogin().
+2. Applicazione calls mAuth.getInstance().
+3. mAuth calls Firebase Auth.getInstance().
+4. mAuth calls Firebase Auth.createUserWithEmailAndPassword().
+5. Firebase Auth returns an error indicating the email is already in use.",User registration fails due to email already being registered.
+TC-SignalManagement-002,No Signals Available,Signal Management,3,No signals available in the database.,,"1. Call Applicazione.forward(getSegnalazioni()).
+2. Applicazione forwards payload to Sistema di segnalazioni.
+3. Sistema di segnalazioni forwards payload to Sistema di gestione dei dati.
+4. Sistema di gestione dei dati queries the database for signals.
+5. Database returns no signals.
+6. Sistema di gestione dei dati displays an empty list to Applicazione.",An empty list is displayed indicating no signals are available.
+TC-VariationManagement-002,No Train Variations Available,Variation Management,4,No train variations available.,,"1. Call Applicazione.train_variations(getVariationen).
+2. Applicazione forwards the request to Sistema gestione variazioni.
+3. Sistema gestione variazioni forwards the request to Sistema gestione dati.
+4. Sistema gestione dati queries the database for train trends.
+5. Database queries API Trenitalia for train information.
+6. API Trenitalia returns no train variations.",No train variations are available and the process completes without errors.
+TC-CalendarManagement-003,Empty Calendar,,,,,,

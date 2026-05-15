@@ -1,0 +1,217 @@
+REPORT: Report_28_uml_pages.pdf
+======================================================================
+
+===== Report_28_uml_pages.pdf | Page 1 =====
+UML Type:
+- Class
+
+Components:
+- Configuration — kind=class; attributes=[MIN_AGE:int, MIN_LENGTH_PASSWORD:int, API_link:String]; operations=[start():void]
+- NotificationSystem — kind=class; attributes=[id:int, postDate:Date, title:String, priority:int, category:String, address:String, creator:String]; operations=[start():void, downloadReports():bool, elaborateData(List<Report>):void, sendNotificationReport(Report):void, showNotificationWithDefaultSound(String title, String message, bool withSound):void]
+- Report — kind=class; attributes=[id:int, postDate:Date, title:String, priority:int, category:String, address:String, creator:String]; operations=[getId():int, getPostDate():Date, getTitle():String, getPriority():int, getCategory():String, getAddress():String, getCreator():String, toJSON():String]
+- LocalUser — kind=class; attributes=[email:String, username:String, name:String, lastname:String, birthdate:Date, address:String, family:int, houseType:String, neighborhood:String, token:String]; operations=[getEmail():String, getUsername():String, getName():String, getLastname():String, getBirthdate():Date, getAddress():String, getFamily():int, getHouseType():String, getNeighborhood():String, getToken():String, setEmail(String):void, setUsername(String):void, setName(String):void, setLastname(String):void, setBirthdate(Date):void, setAddress(String):void, setFamily(int):void, setHouseType(String):void, setNeighborhood(String):void, toJSON():String]
+- Service — kind=class; attributes=[id:int, postDate:Date, title:String, link:String, description:String, creator:String]; operations=[getId():int, getPostDate():Date, getTitle():String, getLink():String, getDescription():String, getCreator():String, setTitle(String):void, setLink(String):void, setDescription(String):void, toJSON():String]
+- Need — kind=class; attributes=[id:int, postDate:Date, title:String, address:String, description:String, assistant:String, idAssistant:int, creator:String]; operations=[getId():int, getPostDate():Date, getTitle():String, getAddress():String, getDesc():String, getAssistant():String, getCreator():String, setTitle(String):void, setAddress(String):void, setDesc(String):void, setIdAssistant(int):void, toJSON():String]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Configuration -> NotificationSystem — type=association; label=""; explanation="Configuration provides data to NotificationSystem"
+- NotificationSystem -> Report — type=association; label=""; explanation="NotificationSystem handles reports"
+- Report -> LocalUser — type=association; label=""; explanation="Report is associated with LocalUser"
+- LocalUser -> Service — type=association; label=""; explanation="LocalUser interacts with Service"
+- LocalUser -> Need — type=association; label=""; explanation="LocalUser interacts with Need"
+- Service -> API_Manager — type=association; label=""; explanation="Service communicates through API_Manager"
+- Need -> API_Manager — type=association; label=""; explanation="Need communicates through API_Manager"
+- API_Manager -> Service — type=association; label=""; explanation="API_Manager manages Service"
+- API_Manager -> Need — type=association; label=""; explanation="API_Manager manages Need"
+- Service -> LocalUser — type=association; label=""; explanation="Service interacts with LocalUser"
+- Need -> LocalUser — type=association; label=""; explanation="Need interacts with LocalUser"
+
+Main Flows (step by step):
+- Flow 1: Configuration provides data to NotificationSystem -> NotificationSystem handles reports -> Report is associated with LocalUser -> LocalUser interacts with Service -> Service communicates through API_Manager -> API_Manager manages Service -> Service interacts with LocalUser
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a system with multiple components interacting through APIs and associations.
+- The main flows involve configuration settings, notification handling, user interactions with services and needs, and data exchange through API_Manager.
+- Key edge cases include data transfer between components and user interactions with services and needs.
+- Error paths are
+
+===== Report_28_uml_pages.pdf | Page 2 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=participant; attributes=[]; operations=[]; role=main process
+- LocalUser — kind=participant; attributes=[]; operations=[]; role=user
+- API_Manager — kind=participant; attributes=[]; operations=[]; role=API manager
+
+Actors / Lifelines:
+- Main
+- LocalUser
+- API_Manager
+
+Relationships / Links:
+- Main -> LocalUser — type=message; label="token = getToken()"; explanation="Main retrieves token"
+- LocalUser -> API_Manager — type=message; label="request(token)"; explanation="LocalUser requests data with token"
+- API_Manager -> LocalUser — type=message; label="return status"; explanation="API Manager returns status"
+- LocalUser -> Main — type=message; label="[token != null]: request(token)"; explanation="LocalUser checks token and requests data"
+- LocalUser -> Main — type=message; label="[token == null OR status != OK] richiedi dati utente"; explanation="LocalUser checks conditions and requests user data"
+- Main -> LocalUser — type=message; label="request(dati utente)"; explanation="Main requests user data"
+- LocalUser -> API_Manager — type=message; label="new LocalUser"; explanation="LocalUser creates new instance"
+- API_Manager -> LocalUser — type=message; label="done"; explanation="API Manager completes action"
+
+Main Flows (step by step):
+- Flow 1: Main -> LocalUser — token = getToken()
+- Flow 2: LocalUser -> API_Manager — request(token)
+- Flow 3: API_Manager -> LocalUser — return status
+- Flow 4: [token != null]: request(token)
+- Flow 5: [token == null OR status != OK] richiedi dati utente
+- Flow 6: Main -> LocalUser — request(dati utente)
+- Flow 7: LocalUser -> API_Manager — new LocalUser
+- Flow 8: API_Manager -> LocalUser — done
+
+Conditions / Branches:
+- [token != null]: request(token)
+- [token == null OR status != OK] richiedi dati utente
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- La funzione request restituisce un stringa in formato JSON, con un campo status
+
+Observations:
+- This diagram models a login process involving a Main process, a LocalUser, and an API Manager.
+- The Main process retrieves a token and uses it to request data from the API Manager.
+- If the token is valid and the status is OK, the process continues normally.
+- If the token is invalid or the status is not OK, the LocalUser requests user data.
+- The LocalUser then creates a new instance and the API Manager completes the action.
+- The process involves checking token validity and status, requesting user data, and handling responses in JSON format.
+
+===== Report_28_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=participant; attributes=[]; operations=[]; role=Application entry point
+- API_Manager — kind=participant; attributes=[]; operations=[]; role=API manager
+- Service/Need/Report — kind=participant; attributes=[]; operations=[]; role=Service/need/report handler
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager — type=message; label="listJSON=request()"; explanation="Request JSON list"
+- API_Manager -> Service/Need/Report — type=message; label="[for each entry in listJSON]: new"; explanation="Create new service/need/report for each entry"
+- Service/Need/Report -> Main — type=message; label="displayList()"; explanation="Display list of services/needs/reports"
+
+Main Flows (step by step):
+- Flow 1: Main -> API_Manager -> Service/Need/Report -> Main
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- Loop: Main -> API_Manager -> Service/Need/Report -> Main
+
+Notes / Annotations:
+- "Lettura Segnalazioni/Bisogni/Servizi" — annotation indicating the purpose of the sequence diagram
+
+Observations:
+- This sequence diagram models the process of reading and displaying a list of services/needs/reports.
+- The application starts with the Main participant, which sends a request to the API_Manager to get a JSON list.
+- The API_Manager processes the request and creates a new Service/Need/Report for each entry in the JSON list.
+- The Service/Need/Report participant then sends back a display list to the Main participant, which displays the list of services/needs/reports.
+- The process repeats for each entry in the JSON list, creating multiple instances of Service/Need/Report.
+
+===== Report_28_uml_pages.pdf | Page 4 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=participant; attributes=[]; operations=[]; role=client
+- API_Manager — kind=participant; attributes=[]; operations=[]; role=server
+- Service/Need/Report — kind=participant; attributes=[]; operations=[]; role=service
+
+Actors / Lifelines:
+- Main
+- API_Manager
+
+Relationships / Links:
+- Main -> API_Manager — type=message; label="new"; explanation="initiates request"
+- Main -> Service/Need/Report — type=message; label="newEntry=toJSON()"; explanation="converts data to JSON format"
+- API_Manager -> Service/Need/Report — type=message; label="request(newEntry)"; explanation="sends JSON data for processing"
+- Service/Need/Report -> API_Manager — type=message; label="done"; explanation="returns completion status"
+
+Main Flows (step by step):
+- Flow 1: Main -> API_Manager — "new" -> Main -> Service/Need/Report — "newEntry=toJSON()" -> API_Manager -> Service/Need/Report — "request(newEntry)" -> Service/Need/Report -> API_Manager — "done"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Inserimento" — indicates the process being described
+
+Observations:
+- This sequence diagram models the insertion process involving a client (Main) interacting with a server (API_Manager) and a service (Service/Need/Report). The client initiates the process by sending a "new" message to the server, which then converts the data into JSON format and sends it to the service for processing. Upon completion, the service returns a "done" message back to the server, which then communicates the status to the client.
+
+===== Report_28_uml_pages.pdf | Page 5 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=participant; attributes=[]; operations=[]; role=Main application
+- API_Manager — kind=participant; attributes=[]; operations=[]; role=API Manager
+- Service/Need/Report — kind=participant; attributes=[]; operations=[]; role=Service/Need/Report
+
+Actors / Lifelines:
+- Main
+- API_Manager
+- Service/Need/Report
+
+Relationships / Links:
+- Main -> API_Manager — type=message; label="stampa dati a schermo"; explanation="Print data to screen"
+- API_Manager -> Service/Need/Report — type=message; label="done"; explanation="Completion signal"
+- Main -> API_Manager — type=message; label="datiAggiornati = leggiDatilInseriti()"; explanation="Retrieve updated data"
+- Main -> API_Manager — type=message; label="[for each dato in datiAggiornati] : set(dato)"; explanation="Set each updated data item"
+- Main -> API_Manager — type=message; label="updateEntry= toJSON()"; explanation="Convert entry to JSON format"
+- Main -> API_Manager — type=message; label="request(updateEntry)"; explanation="Request update entry"
+- API_Manager -> Main — type=message; label="done"; explanation="Completion signal"
+
+Main Flows (step by step):
+- Flow 1: Main -> API_Manager — "stampa dati a schermo" -> API_Manager -> Service/Need/Report — "done" -> Main -> API_Manager — "datiAggiornati = leggiDatilInseriti()" -> Main -> API_Manager — "[for each dato in datiAggiornati] : set(dato)" -> Main -> API_Manager — "updateEntry= toJSON()" -> Main -> API_Manager — "request(updateEntry)" -> API_Manager -> Main — "done"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- Main -> API_Manager — "[for each dato in datiAggiornati] : set(dato)" — Loop
+
+Notes / Annotations:
+- "Modifica Bisogni/Servizi" — Note
+
+Observations:
+- This sequence diagram models the interaction between the Main application, API Manager, and Service/Need/Report.
+- The Main application prints data to the screen, retrieves updated data, processes each item, converts it to JSON format, and requests the update entry.
+- The API Manager handles the retrieval, processing, and conversion of data, and signals completion.
+- There is a loop in the Main application for processing each updated data item.
+- The diagram highlights the flow of data and control between the components, ensuring the update process is completed successfully.
+
+
+======================================================================

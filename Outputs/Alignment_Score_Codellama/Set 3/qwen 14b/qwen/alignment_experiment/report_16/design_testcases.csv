@@ -1,0 +1,172 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user,Utente,1,None,"- Id: 1
+- Password: ""password123""
+- Email: ""test@example.com""
+- Nome: ""John""
+- Cognome: ""Doe""","1. Call the constructor Utente() to create a new instance.
+2. Set the Id using setId(1).
+3. Set the password using setPassword(""password123"").
+4. Set the email using setEmail(""test@example.com"").
+5. Set the name using setNome(""John"").
+6. Set the surname using setCognome(""Doe"").","- A new Utente object is created with all attributes correctly set.
+- getId() returns 1.
+- getPassword() returns ""password123"".
+- getEmail() returns ""test@example.com"".
+- getNome() returns ""John"".
+- getCognome() returns ""Doe""."
+TC-Prodotto-001,Create a new product,Prodotto,1,None,"- Nome: ""Laptop""
+- Luogo: ""Milan""
+- Descrizione: ""High-performance laptop""
+- Immagine: ""laptop.jpg""
+- Prezzo: 999.99
+- Proprietario: Utente with Id 1","1. Call the constructor Prodotto() to create a new instance.
+2. Set the name using setNome(""Laptop"").
+3. Set the location using setLuogo(""Milan"").
+4. Set the description using setDescrizione(""High-performance laptop"").
+5. Set the image using setImmagine(""laptop.jpg"").
+6. Set the price using setPrezzo(999.99).
+7. Set the owner using setProprietario(Utente with Id 1).","- A new Prodotto object is created with all attributes correctly set.
+- getNome() returns ""Laptop"".
+- getLuogo() returns ""Milan"".
+- getDescrizione() returns ""High-performance laptop"".
+- getImmagine() returns ""laptop.jpg"".
+- getPrezzo() returns 999.99.
+- getProprietario().getId() returns 1."
+TC-Segnalazione-001,Create a new report,Segnalazione,1,None,"- Tipo: True
+- Id: 1
+- Titolo: ""Spamming""
+- Descrizione: ""User is spamming in the forum.""
+- UtenteSegnalato: Utente with Id 2
+- Autore: Utente with Id 1","1. Call the constructor Segnalazione() to create a new instance.
+2. Set the type using setTipo(True).
+3. Set the id using setId(1).
+4. Set the title using setTitolo(""Spamming"").
+5. Set the description using setDescrizione(""User is spamming in the forum."").
+6. Set the reported user using setUtenteSegnalato(Utente with Id 2).
+7. Set the author using setAutore(Utente with Id 1).","- A new Segnalazione object is created with all attributes correctly set.
+- getTipo() returns True.
+- getId() returns 1.
+- getTitolo() returns ""Spamming"".
+- getDescrizione() returns ""User is spamming in the forum."".
+- getUtenteSegnalato().getId() returns 2.
+- getAutore().getId() returns 1."
+TC-Utente-002,Update user details,Utente,1,User with Id 1 exists,"- New Password: ""newpassword123""
+- New Email: ""newemail@example.com""
+- New Name: ""Jane""
+- New Surname: ""Smith""","1. Retrieve the existing Utente object with Id 1.
+2. Update the password using setPassword(""newpassword123"").
+3. Update the email using setEmail(""newemail@example.com"").
+4. Update the name using setNome(""Jane"").
+5. Update the surname using setCognome(""Smith"").","- The Utente object's attributes are updated correctly.
+- getPassword() returns ""newpassword123"".
+- getEmail() returns ""newemail@example.com"".
+- getNome() returns ""Jane"".
+- getCognome() returns ""Smith""."
+TC-Prodotto-002,Update product details,Prodotto,1,Product with Id 1 exists,"- New Name: ""Desktop""
+- New Location: ""Rome""
+- New Description: ""High-performance desktop computer""
+- New Image: ""desktop.jpg""
+- New Price: 1299.99
+- New Owner: Utente with Id 2","1. Retrieve the existing Prodotto object with Id 1.
+2. Update the name using setNome(""Desktop"").
+3. Update the location using setLuogo(""Rome"").
+4. Update the description using setDescrizione(""High-performance desktop computer"").
+5. Update the image using setImmagine(""desktop.jpg"").
+6. Update the price using setPrezzo(1299.99).
+7. Update the owner using setProprietario(Utente with Id 2).","- The Prodotto object's attributes are updated correctly.
+- getNome() returns ""Desktop"".
+- getLuogo() returns ""Rome"".
+- getDescrizione() returns ""High-performance desktop computer"".
+- getImmagine() returns ""desktop.jpg"".
+- getPrezzo() returns 1299.99.
+- getProprietario().getId() returns 2."
+TC-Segnalazione-002,Update report details,Segnalazione,1,Report with Id 1 exists,"- New Type: False
+- New Title: ""Harassment""
+- New Description: ""User is harassing another user.""
+- New Reported User: Utente with Id 3
+- New Author: Utente with Id 2","1. Retrieve the existing Segnalazione object with Id 1.
+2. Update the type using setTipo(False).
+3. Update the title using setTitolo(""Harassment"").
+4. Update the description using setDescrizione(""User is harassing another user."").
+5. Update the reported user using setUtenteSegnalato(Utente with Id 3).
+6. Update the author using setAutore(Utente with Id 2).","- The Segnalazione object's attributes are updated correctly.
+- getTipo() returns False.
+- getTitolo() returns ""Harassment"".
+- getDescrizione() returns ""User is harassing another user."".
+- getUtenteSegnalato().getId() returns 3.
+- getAutore().getId() returns 2."
+TC-Utente-003,Delete user,Utente,1,User with Id 1 exists,None,"1. Retrieve the existing Utente object with Id 1.
+2. Delete the Utente object.","- The Utente object with Id 1 is deleted.
+- Attempting to retrieve the Utente object with Id 1 results in an error or null value."
+TC-Prodotto-003,Delete product,Prodotto,1,Product with Id 1 exists,None,"1. Retrieve the existing Prodotto object with Id 1.
+2. Delete the Prodotto object.","- The Prodotto object with Id 1 is deleted.
+- Attempting to retrieve the Prodotto object with Id 1 results in an error or null value."
+TC-Segnalazione-003,Delete report,Segnalazione,1,Report with Id 1 exists,None,"1. Retrieve the existing Segnalazione object with Id 1.
+2. Delete the Segnalazione object.","- The Segnalazione object with Id 1 is deleted.
+- Attempting to retrieve the Segnalazione object with Id 1 results in an error or null value."
+TC-Utente-004,Invalid user creation,Utente,1,None,"- Id: -1
+- Password: """"
+- Email: ""invalid-email""
+- Nome: """"
+- Cognome: """"","1. Call the constructor Utente() to create a new instance.
+2. Set the Id using setId(-1).
+3. Set the password using setPassword("""").
+4. Set the email using setEmail(""invalid-email"").
+5. Set the name using setNome("""").
+6. Set the surname using setCognome("""").","- An error occurs due to invalid input values.
+- The Utente object is not created successfully."
+TC-Prodotto-004,Invalid product creation,Prodotto,1,None,"- Nome: """"
+- Luogo: """"
+- Descrizione: """"
+- Immagine: """"
+- Prezzo: -100
+- Proprietario: None","1. Call the constructor Prodotto() to create a new instance.
+2. Set the name using setNome("""").
+3. Set the location using setLuogo("""").
+4. Set the description using setDescrizione("""").
+5. Set the image using setImmagine("""").
+6. Set the price using setPrezzo(-100).
+7. Set the owner using setProprietario(None).","- An error occurs due to invalid input values.
+- The Prodotto object is not created successfully."
+TC-Segnalazione-004,Invalid report creation,Segnalazione,1,None,"- Tipo: None
+- Id: -1
+- Titolo: """"
+- Descrizione: """"
+- UtenteSegnalato: None
+- Autore: None","1. Call the constructor Segnalazione() to create a new instance.
+2. Set the type using setTipo(None).
+3. Set the id using setId(-1).
+4. Set the title using setTitolo("""").
+5. Set the description using setDescrizione("""").
+6. Set the reported user using setUtenteSegnalato(None).
+7. Set the author using setAutore(None).","- An error occurs due to invalid input values.
+- The Segnalazione object is not created successfully."
+TC-Utente-005,Edge case - Empty string as password,Utente,1,None,"- Id: 1
+- Password: """"
+- Email: ""test@example.com""
+- Nome: ""John""
+- Cognome: ""Doe""","1. Call the constructor Utente() to create a new instance.
+2. Set the Id using setId(1).
+3. Set the password using setPassword("""").
+4. Set the email using setEmail(""test@example.com"").
+5. Set the name using setNome(""John"").
+6. Set the surname using setCognome(""Doe"").","- An error occurs due to an empty password.
+- The Utente object is not created successfully."
+TC-Prodotto-005,Edge case - Negative price,Prodotto,1,None,"- Nome: ""Laptop""
+- Luogo: ""Milan""
+- Descrizione: ""High-performance laptop""
+- Immagine: ""laptop.jpg""
+- Prezzo: -999.99
+- Proprietario: Utente with Id 1","1. Call the constructor Prodotto() to create a new instance.
+2. Set the name using setNome(""Laptop"").
+3. Set the location using setLuogo(""Milan"").
+4. Set the description using setDescrizione(""High-performance laptop"").
+5. Set the image using setImmagine(""laptop.jpg"").
+6. Set the price using setPrezzo(-999.99).
+7. Set the owner using setProprietario(Utente with Id 1).","- An error occurs due to a negative price.
+- The Prodotto object is not created successfully."
+TC-Segnalazione-005,Edge case - Null type,Segnalazione,1,None,"- Tipo: None
+- Id: 1
+- Titolo: ""Spamming""
+- Descrizione: ""User is spamming in the forum.""
+- UtenteSegnalato: Utente with Id 2",,

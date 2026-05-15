@@ -1,0 +1,78 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User successfully logs in","Login","1, 3","User has registered and provided valid credentials","username: ""testuser"", password: ""password123""","1. User initiates the process by clicking ""Start"".
+2. User navigates to the ""Login"" page.
+3. User enters valid username and password.
+4. User clicks ""Login"".","User is redirected to the homepage and sees a success message."
+"TC-Login-002","User fails to log in with invalid credentials","Login","1, 3","User has registered but provides incorrect credentials","username: ""testuser"", password: ""wrongpassword""","1. User initiates the process by clicking ""Start"".
+2. User navigates to the ""Login"" page.
+3. User enters invalid username and password.
+4. User clicks ""Login"".","User remains on the login page with an error message indicating failed login attempt."
+"TC-Register-001","User successfully registers","Register","1, 3","User does not have an existing account","username: ""newuser"", password: ""password123"", email: ""newuser@example.com""","1. User initiates the process by clicking ""Start"".
+2. User navigates to the ""Register"" page.
+3. User fills in the registration form with valid details.
+4. User clicks ""Register"".","User is redirected to the homepage and sees a success message."
+"TC-Register-002","User fails to register with invalid data","Register","1, 3","User attempts to register with incomplete or invalid data","username: """", password: ""password123"", email: """"","1. User initiates the process by clicking ""Start"".
+2. User navigates to the ""Register"" page.
+3. User leaves required fields empty.
+4. User clicks ""Register"".","User remains on the registration page with validation errors displayed."
+"TC-ForgotPassword-001","User successfully requests password reset","Forgot Password","3","User has registered and provided a valid email address","email: ""testuser@example.com""","1. User clicks ""Forgot Password"".
+2. User enters valid email address.
+3. User clicks ""Submit"".","User receives an email with a link to reset password."
+"TC-ForgotPassword-002","User fails to request password reset with invalid email","Forgot Password","3","User has registered but provides an invalid email address","email: ""invalidemail""","1. User clicks ""Forgot Password"".
+2. User enters invalid email address.
+3. User clicks ""Submit"".","User sees an error message indicating that the email is invalid."
+"TC-ResetPassword-001","User successfully resets password","Reset Password","3","User has received a password reset link via email","new_password: ""newpassword123""","1. User clicks the password reset link.
+2. User enters a new password.
+3. User clicks ""Reset Password"".","User is redirected to the login page with a success message."
+"TC-ResetPassword-002","User fails to reset password with weak password","Reset Password","3","User has received a password reset link via email","new_password: ""weak""","1. User clicks the password reset link.
+2. User enters a weak password.
+3. User clicks ""Reset Password"".","User sees an error message indicating that the password is too weak."
+"TC-Logout-001","User successfully logs out","Logout","1, 3","User is logged in","N/A","1. User clicks ""Logout"".","User is redirected to the login page."
+"TC-OrderPlacement-001","User successfully places an order","Place Order","2, 4","User is logged in and has added items to the cart","product_name: ""Product A"", quantity: 1","1. User navigates to the product page.
+2. User adds the product to the cart.
+3. User proceeds to checkout.
+4. User confirms the order.","User sees a confirmation message indicating successful order placement."
+"TC-OrderPlacement-002","User fails to place an order due to insufficient stock","Place Order","2, 4","User is logged in and tries to order a product with zero stock","product_name: ""Product B"", quantity: 1","1. User navigates to the product page.
+2. User attempts to add the product to the cart.
+3. User proceeds to checkout.
+4. User confirms the order.","User sees an error message indicating that the product is out of stock."
+"TC-AdminLogin-001","User successfully logs in as an admin","Admin Login","5","User has admin privileges and provides valid credentials","username: ""admin"", password: ""adminpassword""","1. User clicks ""Login"".
+2. User enters valid admin credentials.
+3. User clicks ""Login"".","User is redirected to the admin dashboard."
+"TC-AdminLogin-002","User fails to log in as an admin with invalid credentials","Admin Login","5","User has admin privileges but provides incorrect credentials","username: ""admin"", password: ""wrongpassword""","1. User clicks ""Login"".
+2. User enters invalid admin credentials.
+3. User clicks ""Login"".","User remains on the login page with an error message indicating failed login attempt."
+"TC-AdminLogout-001","Admin successfully logs out","Admin Logout","5","Admin is logged in","N/A","1. Admin clicks ""Logout"".","Admin is redirected to the login page."
+"TC-HomepageNavigation-001","User successfully navigates to the homepage","Homepage","1","User is logged in","N/A","1. User clicks ""Homepage"".","User is redirected to the homepage."
+"TC-HomepageNavigation-002","User fails to navigate to the homepage without being logged in","Homepage","1","User is not logged in","N/A","1. User clicks ""Homepage"".","User is redirected to the login page with a message indicating they need to log in first."
+"TC-UserAccountManagement-001","User successfully manages their account","Account Management","3","User is logged in","N/A","1. User clicks ""Account Settings"".
+2. User updates personal information.
+3. User saves changes.","User sees a confirmation message indicating successful account update."
+"TC-UserAccountManagement-002","User fails to manage their account with invalid input","Account Management","3","User is logged in","invalid_email: ""invalidemail""","1. User clicks ""Account Settings"".
+2. User enters invalid email address.
+3. User saves changes.","User sees an error message indicating that the email is invalid."
+"TC-OrderHistory-001","User successfully views their order history","Order History","4","User has placed orders","N/A","1. User clicks ""Order History"".
+2. User views past orders.","User sees a list of their previous orders."
+"TC-OrderHistory-002","User fails to view order history without placing any orders","Order History","4","User has not placed any orders","N/A","1. User clicks ""Order History"".
+2. User views past orders.","User sees a message indicating that there are no orders to display."
+"TC-ProductDetails-001","User successfully views product details","Product Details","4","User is logged in","product_name: ""Product C""","1. User navigates to the product page.
+2. User views product details.","User sees detailed information about the product."
+"TC-ProductDetails-002","User fails to view product details for a non-existent product","Product Details","4","User is logged in","product_name: ""NonExistentProduct""","1. User navigates to the product page.
+2. User attempts to view product details.","User sees an error message indicating that the product does not exist."
+"TC-CartManagement-001","User successfully adds a product to the cart","Cart Management","4","User is logged in","product_name: ""Product D"", quantity: 1","1. User navigates to the product page.
+2. User adds the product to the cart.","User sees a confirmation message indicating the product was added to the cart."
+"TC-CartManagement-002","User fails to add a product to the cart due to insufficient stock","Cart Management","4","User is logged in","product_name: ""Product E"", quantity: 1","1. User navigates to the product page.
+2. User attempts to add the product to the cart.","User sees an error message indicating that the product is out of stock."
+"TC-CheckoutProcess-001","User successfully completes the checkout process","Checkout Process","4","User has items in the cart","product_name: ""Product F"", quantity: 1","1. User navigates to the cart.
+2. User proceeds to checkout.
+3. User confirms the order.","User sees a confirmation message indicating successful order placement."
+"TC-CheckoutProcess-002","User fails to complete the checkout process due to incomplete form","Checkout Process","4","User has items in the cart","N/A","1. User navigates to the cart.
+2. User proceeds to checkout.
+3. User leaves required fields empty.
+4. User confirms the order.","User sees an error message indicating that the form is incomplete."
+"TC-AdminDashboard-001","Admin successfully accesses the admin dashboard","Admin Dashboard","5","Admin is logged in","N/A","1. Admin clicks ""Admin Dashboard"".","Admin sees the admin dashboard with various management options."
+"TC-AdminDashboard-002","Admin fails to access the admin dashboard without logging in","Admin Dashboard","5","Admin is not logged in","N/A","1. Admin clicks ""Admin Dashboard"".","Admin is redirected to the login page with a message indicating they need to log in first."
+"TC-AdminUserManagement-001","Admin successfully manages user accounts","Admin User Management","5","Admin is logged in","username: ""testuser""","1. Admin clicks ""Manage Users"".
+2. Admin searches for a user.
+3. Admin updates user information.
+4. Admin saves changes.","Admin sees a confirmation message indicating successful account update."

@@ -1,0 +1,101 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Login,1,User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. Enter ""testuser"" as the username.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Authenticate"" button.",The user is successfully authenticated and redirected to the dashboard.
+TC-Login-002,Incorrect Password,Login,1,User has a valid username but an incorrect password.,"- Username: testuser
+- Password: wrongpassword","1. Enter ""testuser"" as the username.
+2. Enter ""wrongpassword"" as the password.
+3. Click on the ""Authenticate"" button.",The system returns an error message indicating that the password is incorrect.
+TC-Login-003,Empty Username,Login,1,User leaves the username field empty.,"- Username: (empty)
+- Password: testpassword","1. Leave the username field empty.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Authenticate"" button.",The system returns an error message indicating that the username cannot be empty.
+TC-Login-004,Empty Password,Login,1,User leaves the password field empty.,"- Username: testuser
+- Password: (empty)","1. Enter ""testuser"" as the username.
+2. Leave the password field empty.
+3. Click on the ""Authenticate"" button.",The system returns an error message indicating that the password cannot be empty.
+TC-Signup-001,Successful Signup,Signup,1,User has a valid email and password.,"- Email: test@example.com
+- Password: testpassword","1. Enter ""test@example.com"" as the email.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Register"" button.",The user is successfully registered and redirected to the login page.
+TC-Signup-002,Duplicate Email,Signup,1,User attempts to register with an email already in use.,"- Email: test@example.com
+- Password: testpassword","1. Enter ""test@example.com"" as the email.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Register"" button.",The system returns an error message indicating that the email is already registered.
+TC-Signup-003,Empty Email,Signup,1,User leaves the email field empty.,"- Email: (empty)
+- Password: testpassword","1. Leave the email field empty.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Register"" button.",The system returns an error message indicating that the email cannot be empty.
+TC-Signup-004,Empty Password,Signup,1,User leaves the password field empty.,"- Email: test@example.com
+- Password: (empty)","1. Enter ""test@example.com"" as the email.
+2. Leave the password field empty.
+3. Click on the ""Register"" button.",The system returns an error message indicating that the password cannot be empty.
+TC-Profile-001,Successful Profile Update,Profile,1,User is logged in and has valid profile data.,"- Username: testuser
+- ProfileData: {""name"": ""John Doe"", ""age"": 30}","1. Navigate to the profile page.
+2. Enter ""John Doe"" as the name.
+3. Enter ""30"" as the age.
+4. Click on the ""UpdateProfile"" button.",The user's profile is successfully updated and saved.
+TC-Profile-002,Invalid Profile Data,Profile,1,User is logged in and attempts to enter invalid profile data.,"- Username: testuser
+- ProfileData: {""name"": ""John Doe"", ""age"": ""thirty""}","1. Navigate to the profile page.
+2. Enter ""John Doe"" as the name.
+3. Enter ""thirty"" as the age.
+4. Click on the ""UpdateProfile"" button.",The system returns an error message indicating that the age must be a number.
+TC-Profile-003,Empty Profile Data,Profile,1,User is logged in and leaves the profile data fields empty.,"- Username: testuser
+- ProfileData: {}","1. Navigate to the profile page.
+2. Leave all profile data fields empty.
+3. Click on the ""UpdateProfile"" button.",The system returns an error message indicating that at least one profile field must be filled.
+TC-Exit-001,Successful Exit,Exit,1,User is logged in.,"- ExitReason: ""Finished using the application""","1. Click on the ""Exit"" button.
+2. Enter ""Finished using the application"" as the exit reason.
+3. Confirm the exit.","The user's session is terminated, and they are logged out."
+TC-Exit-002,Empty Exit Reason,Exit,1,User is logged in and attempts to exit without providing a reason.,- ExitReason: (empty),"1. Click on the ""Exit"" button.
+2. Leave the exit reason field empty.
+3. Confirm the exit.",The system returns an error message indicating that an exit reason must be provided.
+TC-Exit-003,Invalid Exit Reason,Exit,1,User is logged in and attempts to provide an invalid exit reason.,"- ExitReason: ""Invalid reason""","1. Click on the ""Exit"" button.
+2. Enter ""Invalid reason"" as the exit reason.
+3. Confirm the exit.",The system returns an error message indicating that the exit reason is invalid.
+TC-Login-005,Session Timeout,Login,1,User is logged in and the session times out.,- No specific test data required.,"1. Wait for the session to timeout.
+2. Attempt to access a protected page.",The user is prompted to re-authenticate due to session timeout.
+TC-Profile-004,Profile Update with Existing Username,Profile,1,User is logged in and attempts to update the username to an existing one.,"- Username: testuser
+- ProfileData: {""username"": ""existinguser""}","1. Navigate to the profile page.
+2. Enter ""existinguser"" as the new username.
+3. Click on the ""UpdateProfile"" button.",The system returns an error message indicating that the username is already in use.
+TC-Signup-005,Registration with Existing Email,Signup,1,User attempts to register with an email already in use.,"- Email: test@example.com
+- Password: testpassword","1. Enter ""test@example.com"" as the email.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Register"" button.",The system returns an error message indicating that the email is already registered.
+TC-Login-006,Multiple Failed Login Attempts,Login,1,User enters incorrect credentials multiple times.,"- Username: testuser
+- Password: wrongpassword","1. Enter ""testuser"" as the username.
+2. Enter ""wrongpassword"" as the password.
+3. Click on the ""Authenticate"" button.
+4. Repeat steps 1-3 two more times.","After three failed login attempts, the system locks the account temporarily."
+TC-Profile-005,Profile Update with Invalid Email,Profile,1,User is logged in and attempts to update the email to an invalid format.,"- Username: testuser
+- ProfileData: {""email"": ""invalidemail""}","1. Navigate to the profile page.
+2. Enter ""invalidemail"" as the new email.
+3. Click on the ""UpdateProfile"" button.",The system returns an error message indicating that the email format is invalid.
+TC-Exit-004,Exit with Invalid Reason,Exit,1,User is logged in and attempts to exit with an invalid reason.,"- ExitReason: ""Invalid reason""","1. Click on the ""Exit"" button.
+2. Enter ""Invalid reason"" as the exit reason.
+3. Confirm the exit.",The system returns an error message indicating that the exit reason is invalid.
+TC-Login-007,Login with Expired Account,Login,1,User's account has expired.,"- Username: testuser
+- Password: testpassword","1. Enter ""testuser"" as the username.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Authenticate"" button.",The system returns an error message indicating that the account has expired.
+TC-Profile-006,Profile Update with Missing Required Fields,Profile,1,User is logged in and attempts to update the profile with missing required fields.,"- Username: testuser
+- ProfileData: {""name"": ""John Doe""}","1. Navigate to the profile page.
+2. Enter ""John Doe"" as the name.
+3. Click on the ""UpdateProfile"" button.",The system returns an error message indicating that at least one required field is missing.
+TC-Exit-005,Exit with Missing Reason,Exit,1,User is logged in and attempts to exit without providing a reason.,- ExitReason: (empty),"1. Click on the ""Exit"" button.
+2. Leave the exit reason field empty.
+3. Confirm the exit.",The system returns an error message indicating that an exit reason must be provided.
+TC-Login-008,Login with Locked Account,Login,1,User's account is locked after multiple failed login attempts.,"- Username: testuser
+- Password: testpassword","1. Enter ""testuser"" as the username.
+2. Enter ""testpassword"" as the password.
+3. Click on the ""Authenticate"" button.",The system returns an error message indicating that the account is locked.
+TC-Profile-007,Profile Update with Invalid Password,Profile,1,User is logged in and attempts to update the profile with an invalid password.,"- Username: testuser
+- ProfileData: {""password"": ""weakpassword""}","1. Navigate to the profile page.
+2. Enter ""weakpassword"" as the new password.
+3. Click on the ""UpdateProfile"" button.",The system returns an error message indicating that the password is too weak.
+TC-Exit-006,Exit with Empty Reason,Exit,1,User is logged in and attempts to exit with an empty reason.,- ExitReason: (empty),"1. Click on the ""Exit"" button.
+2. Leave the exit reason field empty.
+3. Confirm the exit.",The system returns an error message indicating that an exit reason must be provided.
+TC-Login-009,Login with Expired Password,Login,1,User's password has expired.,- Username: test,,

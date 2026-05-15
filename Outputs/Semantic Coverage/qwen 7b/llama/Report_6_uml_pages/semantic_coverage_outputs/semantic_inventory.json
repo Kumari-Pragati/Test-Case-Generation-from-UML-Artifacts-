@@ -1,0 +1,184 @@
+{
+  "concepts": [
+    "user",
+    "kind=class",
+    "area",
+    "categories",
+    "reports",
+    "influencer",
+    "login",
+    "kind",
+    "attributes",
+    "operations",
+    "role",
+    "system",
+    "utente",
+    "ui",
+    "firebaseauthentication",
+    "firebaserestore",
+    "firebase/firestore",
+    "firebase/storage"
+  ],
+  "flows": [
+    "user -> area — type=association; label=\"user has an area\"; explanation=\"a user can have multiple areas\"",
+    "area -> categories — type=association; label=\"area has categories\"; explanation=\"an area can have multiple categories\"",
+    "categories -> reports — type=association; label=\"category has reports\"; explanation=\"a category can have multiple reports\"",
+    "user -> reports — type=association; label=\"user has reports\"; explanation=\"a user can have multiple reports\"",
+    "influencer -> user — type=association; label=\"influencer has user\"; explanation=\"an influencer can have multiple users\"",
+    "flow 1: user -> area -> categories -> reports -> user",
+    "flow 2: user -> reports",
+    "the system allows users to create and manage areas, categories, and reports.",
+    "users can view and manage their own reports.",
+    "the system has a login and registration feature.",
+    "the system has a home page and a category list page.",
+    "user -> login - type: association; label: \"user logs in\"; explanation: \"user initiates login process\"",
+    "login -> system - type: association; label: \"login request\"; explanation: \"login request sent to system\"",
+    "system -> login - type: association; label: \"login response\"; explanation: \"system responds with login result\"",
+    "login -> user - type: association; label: \"login success\"; explanation: \"user is logged in successfully\"",
+    "login -> user - type: association; label: \"login failure\"; explanation: \"login fails\"",
+    "flow 1: user -> login -> system -> login -> user - \"user logs in, system processes, and returns login result\"",
+    "flow 2: none",
+    "the diagram models the login process, where the user initiates the login, the system processes the request, and returns a login result.",
+    "the system checks the user's credentials and returns a success or failure message.",
+    "the user is either logged in successfully or shown an error message.",
+    "utente -> ui — type=association; label=\"inserisci dati registrazione\"; explanation=the user inserts registration data",
+    "ui -> firebaseauthentication — type=association; label=\"creaaccount(email, password)\"; explanation=create a new account with email and password",
+    "firebaseauthentication -> firebaserestore — type=association; label=\"validatetoken(token: string)\"; explanation=validate a token",
+    "ui -> firebaseauthentication — type=association; label=\"validatetoken(token: string)\"; explanation=validate a token",
+    "flow 1: utente -> ui -> firebaseauthentication -> firebaserestore -> utente -> ui -> firebaseauthentication -> firebaserestore -> utente -> ui -> firebaseauthentication -> firebaserestore",
+    "the user inserts registration data, creates a new account with email and password, validates the token, and then validates the token again.",
+    "the diagram models the registration process of a new user in a system.",
+    "the main flows involve the user, the user interface, the firebase authentication system, and the firebase restore system.",
+    "the system checks for errors and provides feedback to the user.",
+    "the user can create a new account with email and password and then validate the token.",
+    "utente -> ui — type=association; label=\"inserisci segnalazione\"; explanation=insert signal",
+    "ui -> firebase/firestore — type=association; label=\"dati incompleti o errati\"; explanation=incomplete or incorrect data",
+    "firebase/firestore -> firebase/storage — type=association; label=\"carica immagine\"; explanation=upload image",
+    "firebase/storage -> firebase/firestore — type=association; label=\"conferma invio segnalazione con ente assegnato\"; explanation=confirm signal with assigned entity",
+    "flow 1: utente -> inserisci segnalazione -> dati incompleti o errati -> carica immagine -> conferma invio segnalazione con ente assegnato",
+    "the diagram models a sequence of events where the user inserts a signal, which may be incomplete or incorrect, leading to a loop of re-trying the insertion.",
+    "the user's action is followed by the upload of an image, which is then confirmed with an assigned entity.",
+    "the system uses firebase/firestore and firebase/storage for data storage and management.",
+    "======================================================================"
+  ],
+  "validations": [
+    "if user is logged in, then go to area; else, go to login page",
+    "if area is selected, then go to categories; else, go to home page",
+    "if category is selected, then go to reports; else, go to category list",
+    "if login is successful, then user is logged in; otherwise, show error message",
+    "conferma registrazione avenuta e errore: if the registration is successful, the system confirms it; otherwise, it shows an error message.",
+    "dati incompleti o errati -> dati incompleti o errati (repeated)",
+    "carica immagine -> carica immagine (repeated)"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "Class",
+      "concepts": [
+        "user",
+        "kind=class",
+        "area",
+        "categories",
+        "reports",
+        "influencer"
+      ],
+      "flows": [
+        "user -> area — type=association; label=\"user has an area\"; explanation=\"a user can have multiple areas\"",
+        "area -> categories — type=association; label=\"area has categories\"; explanation=\"an area can have multiple categories\"",
+        "categories -> reports — type=association; label=\"category has reports\"; explanation=\"a category can have multiple reports\"",
+        "user -> reports — type=association; label=\"user has reports\"; explanation=\"a user can have multiple reports\"",
+        "influencer -> user — type=association; label=\"influencer has user\"; explanation=\"an influencer can have multiple users\"",
+        "flow 1: user -> area -> categories -> reports -> user",
+        "flow 2: user -> reports",
+        "the system allows users to create and manage areas, categories, and reports.",
+        "users can view and manage their own reports.",
+        "the system has a login and registration feature.",
+        "the system has a home page and a category list page."
+      ],
+      "validations": [
+        "if user is logged in, then go to area; else, go to login page",
+        "if area is selected, then go to categories; else, go to home page",
+        "if category is selected, then go to reports; else, go to category list"
+      ]
+    },
+    {
+      "page_no": 2,
+      "uml_type": "Sequence",
+      "concepts": [
+        "login",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "user",
+        "system"
+      ],
+      "flows": [
+        "user -> login - type: association; label: \"user logs in\"; explanation: \"user initiates login process\"",
+        "login -> system - type: association; label: \"login request\"; explanation: \"login request sent to system\"",
+        "system -> login - type: association; label: \"login response\"; explanation: \"system responds with login result\"",
+        "login -> user - type: association; label: \"login success\"; explanation: \"user is logged in successfully\"",
+        "login -> user - type: association; label: \"login failure\"; explanation: \"login fails\"",
+        "flow 1: user -> login -> system -> login -> user - \"user logs in, system processes, and returns login result\"",
+        "flow 2: none",
+        "the diagram models the login process, where the user initiates the login, the system processes the request, and returns a login result.",
+        "the system checks the user's credentials and returns a success or failure message.",
+        "the user is either logged in successfully or shown an error message."
+      ],
+      "validations": [
+        "if login is successful, then user is logged in; otherwise, show error message"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "Sequence",
+      "concepts": [
+        "utente",
+        "ui",
+        "firebaseauthentication",
+        "firebaserestore"
+      ],
+      "flows": [
+        "utente -> ui — type=association; label=\"inserisci dati registrazione\"; explanation=the user inserts registration data",
+        "ui -> firebaseauthentication — type=association; label=\"creaaccount(email, password)\"; explanation=create a new account with email and password",
+        "firebaseauthentication -> firebaserestore — type=association; label=\"validatetoken(token: string)\"; explanation=validate a token",
+        "ui -> firebaseauthentication — type=association; label=\"validatetoken(token: string)\"; explanation=validate a token",
+        "flow 1: utente -> ui -> firebaseauthentication -> firebaserestore -> utente -> ui -> firebaseauthentication -> firebaserestore -> utente -> ui -> firebaseauthentication -> firebaserestore",
+        "the user inserts registration data, creates a new account with email and password, validates the token, and then validates the token again.",
+        "flow 2: none",
+        "the diagram models the registration process of a new user in a system.",
+        "the main flows involve the user, the user interface, the firebase authentication system, and the firebase restore system.",
+        "the system checks for errors and provides feedback to the user.",
+        "the user can create a new account with email and password and then validate the token."
+      ],
+      "validations": [
+        "conferma registrazione avenuta e errore: if the registration is successful, the system confirms it; otherwise, it shows an error message."
+      ]
+    },
+    {
+      "page_no": 4,
+      "uml_type": "Sequence",
+      "concepts": [
+        "utente",
+        "ui",
+        "firebase/firestore",
+        "firebase/storage"
+      ],
+      "flows": [
+        "utente -> ui — type=association; label=\"inserisci segnalazione\"; explanation=insert signal",
+        "ui -> firebase/firestore — type=association; label=\"dati incompleti o errati\"; explanation=incomplete or incorrect data",
+        "firebase/firestore -> firebase/storage — type=association; label=\"carica immagine\"; explanation=upload image",
+        "firebase/storage -> firebase/firestore — type=association; label=\"conferma invio segnalazione con ente assegnato\"; explanation=confirm signal with assigned entity",
+        "flow 1: utente -> inserisci segnalazione -> dati incompleti o errati -> carica immagine -> conferma invio segnalazione con ente assegnato",
+        "the diagram models a sequence of events where the user inserts a signal, which may be incomplete or incorrect, leading to a loop of re-trying the insertion.",
+        "the user's action is followed by the upload of an image, which is then confirmed with an assigned entity.",
+        "the system uses firebase/firestore and firebase/storage for data storage and management.",
+        "======================================================================"
+      ],
+      "validations": [
+        "dati incompleti o errati -> dati incompleti o errati (repeated)",
+        "carica immagine -> carica immagine (repeated)"
+      ]
+    }
+  ]
+}

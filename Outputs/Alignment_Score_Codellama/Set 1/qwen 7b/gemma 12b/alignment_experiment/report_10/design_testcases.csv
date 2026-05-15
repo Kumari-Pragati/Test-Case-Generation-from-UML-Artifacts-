@@ -1,0 +1,152 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,User Registration with Valid Inputs,Registration,"1,2",None,"- Email: user@example.com
+- Password: TestPass123
+- Username: TestUser","1. Launch the application.
+2. Click on the registration link.
+3. Fill in the email, password, and username fields with the provided test data.
+4. Click the submit button.","- User is registered successfully.
+- User is redirected to the login page."
+TC-Registration-002,User Registration with Invalid Email,Registration,"1,2",None,"- Email: invalidemail
+- Password: TestPass123
+- Username: TestUser","1. Launch the application.
+2. Click on the registration link.
+3. Fill in the email field with an invalid email format.
+4. Fill in the password and username fields with valid data.
+5. Click the submit button.","- Error message displayed indicating invalid email format.
+- User remains on the registration page."
+TC-Login-001,Successful Login with Valid Credentials,Login,"1,2",User has been registered.,"- Email: user@example.com
+- Password: TestPass123","1. Launch the application.
+2. Click on the login link.
+3. Enter the registered email and password in the respective fields.
+4. Click the login button.","- User is logged in successfully.
+- User is redirected to the city view screen."
+TC-Login-002,Failed Login with Invalid Password,Login,"1,2",User has been registered.,"- Email: user@example.com
+- Password: WrongPassword","1. Launch the application.
+2. Click on the login link.
+3. Enter the registered email and an incorrect password.
+4. Click the login button.","- Error message displayed indicating incorrect password.
+- User remains on the login page."
+TC-EventCreation-001,Create Event with Valid Inputs,Event Creation,"1,2,3",User is logged in.,"- Event Title: New Event
+- Event Date: 2023-10-10
+- Event Type: Concert
+- City: Rome
+- Description: This is a new event.","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event title, date, type, city, and description fields with the provided test data.
+4. Click the submit button.","- Event is created successfully.
+- Event details are displayed on the city view screen."
+TC-EventCreation-002,Create Event with Missing Required Fields,Event Creation,"1,2,3",User is logged in.,"- Event Title: 
+- Event Date: 2023-10-10
+- Event Type: Concert
+- City: Rome
+- Description: This is a new event.","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event date, type, city, and description fields with the provided test data.
+4. Leave the event title field empty.
+5. Click the submit button.","- Error message displayed indicating missing required field (event title).
+- User remains on the event creation form."
+TC-EventModification-001,Modify Event with Valid Inputs,Event Modification,"1,2,3,4",User is logged in and an event exists.,"- New Event Title: Updated Event
+- New Event Date: 2023-10-11
+- New Event Type: Seminar
+- New City: Milan
+- New Description: This is an updated event.","1. Navigate to the city view screen.
+2. Scroll down and click the 'pen' icon to edit an existing event.
+3. Fill in the event title, date, type, city, and description fields with the provided test data.
+4. Click the save button.","- Event is modified successfully.
+- Modified event details are displayed on the city view screen."
+TC-EventModification-002,Modify Event with Missing Required Fields,Event Modification,"1,2,3,4",User is logged in and an event exists.,"- New Event Title: Updated Event
+- New Event Date: 
+- New Event Type: Seminar
+- New City: Milan
+- New Description: This is an updated event.","1. Navigate to the city view screen.
+2. Scroll down and click the 'pen' icon to edit an existing event.
+3. Fill in the event type, city, and description fields with the provided test data.
+4. Leave the event date field empty.
+5. Click the save button.","- Error message displayed indicating missing required field (event date).
+- User remains on the event modification form."
+TC-EventDeletion-001,Delete Event with Valid Inputs,Event Deletion,"1,2,3,4",User is logged in and an event exists.,None,"1. Navigate to the city view screen.
+2. Scroll down and click the '>' icon to delete an existing event.
+3. Confirm the deletion.","- Event is deleted successfully.
+- Event details are no longer displayed on the city view screen."
+TC-EventDeletion-002,Attempt to Delete Non-Existent Event,Event Deletion,"1,2,3,4",User is logged in.,None,"1. Navigate to the city view screen.
+2. Scroll down and click the '>' icon to delete an event that does not exist.","- Error message displayed indicating the event does not exist.
+- User remains on the city view screen."
+TC-CitySearch-001,Search for a City with Valid Inputs,City Search,4,User is logged in.,- City Name: Rome,"1. Navigate to the city view screen.
+2. Enter the city name in the search bar.
+3. Click the search button.",- Correct city details are displayed on the city view screen.
+TC-CitySearch-002,Search for a City with Invalid Inputs,City Search,4,User is logged in.,- City Name: InvalidCity,"1. Navigate to the city view screen.
+2. Enter the invalid city name in the search bar.
+3. Click the search button.","- Error message displayed indicating the city does not exist.
+- User remains on the city view screen."
+TC-FieldValidation-001,Validate All Fields with Invalid Inputs,Field Validation,"3,4",User is logged in.,"- Event Title: @!#
+- Event Date: 2023-10-32
+- Event Type: 123
+- City: 456
+- Description: $%^","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event title, date, type, city, and description fields with the provided test data.
+4. Click the submit button.","- Error messages displayed for each invalid field.
+- User remains on the event creation form."
+TC-FieldValidation-002,Validate All Fields with Empty Inputs,Field Validation,"3,4",User is logged in.,"- Event Title: 
+- Event Date: 
+- Event Type: 
+- City: 
+- Description:","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Leave all fields empty.
+4. Click the submit button.","- Error message displayed indicating all fields are required.
+- User remains on the event creation form."
+TC-FieldValidation-003,Validate All Fields with Mixed Valid and Invalid Inputs,Field Validation,"3,4",User is logged in.,"- Event Title: ValidTitle
+- Event Date: 2023-10-10
+- Event Type: 123
+- City: Rome
+- Description: $%^","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event title, date, city, and description fields with valid data.
+4. Fill in the event type field with an invalid value.
+5. Click the submit button.","- Error message displayed for the invalid event type field.
+- User remains on the event creation form."
+TC-FieldValidation-004,Validate All Fields with Mixed Valid and Empty Inputs,Field Validation,"3,4",User is logged in.,"- Event Title: 
+- Event Date: 2023-10-10
+- Event Type: 
+- City: Rome
+- Description:","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event date and city fields with valid data.
+4. Leave the event title, event type, and description fields empty.
+5. Click the submit button.","- Error messages displayed for the missing required fields.
+- User remains on the event creation form."
+TC-FieldValidation-005,Validate All Fields with Mixed Valid and Invalid Inputs and Empty Fields,Field Validation,"3,4",User is logged in.,"- Event Title: @!#
+- Event Date: 2023-10-32
+- Event Type: 123
+- City: 
+- Description: $%^","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event title, date, and type fields with invalid data.
+4. Leave the city and description fields empty.
+5. Click the submit button.","- Error messages displayed for the invalid event title, date, and type fields.
+- User remains on the event creation form."
+TC-FieldValidation-006,Validate All Fields with Mixed Valid and Empty Inputs and Invalid Fields,Field Validation,"3,4",User is logged in.,"- Event Title: ValidTitle
+- Event Date: 2023-10-10
+- Event Type: 
+- City: Rome
+- Description: $%^","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event title, date, and city fields with valid data.
+4. Fill in the event type field with an empty value.
+5. Fill in the description field with an invalid value.
+6. Click the submit button.","- Error messages displayed for the invalid event type and description fields.
+- User remains on the event creation form."
+TC-FieldValidation-007,Validate All Fields with Mixed Valid and Empty Inputs and Invalid Fields,Field Validation,"3,4",User is logged in.,"- Event Title: @!#
+- Event Date: 2023-10-32
+- Event Type: 123
+- City: Rome
+- Description:","1. Navigate to the city view screen.
+2. Scroll down and click the '+' button to add a new event.
+3. Fill in the event title, date, and type fields with invalid data.
+4. Fill in the city field with a valid value.
+5. Leave the description field empty.
+6. Click the submit button.","- Error messages displayed for the invalid event title, date, and type fields.
+- User remains on the event creation form."
+TC-FieldValidation-008,Validate All Fields with Mixed Valid and Empty Inputs and Invalid Fields,Field Validation,"3,4",User is logged in.,"- Event Title: ValidTitle
+- Event Date: 2023-10",,

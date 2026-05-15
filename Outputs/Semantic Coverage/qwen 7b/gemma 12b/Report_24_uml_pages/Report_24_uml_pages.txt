@@ -1,0 +1,153 @@
+REPORT: Report_24_uml_pages.pdf
+======================================================================
+
+===== Report_24_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- Start — kind=initial_node; attributes=[]; operations=[]; role=start of the process
+- Home — kind=action; attributes=[]; operations=[]; role=home page
+- Utente creato ? — kind=decision; attributes=[]; operations=[]; role=check if user is created
+- creazione utente — kind=action; attributes=[]; operations=[]; role=user creation
+- creazione corretta? — kind=decision; attributes=[]; operations=[]; role=check if creation is correct
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Start -> Utente creato ? — type=transition; label=""; explanation="start of the process"
+- Utente creato ? -> Home — type=transition; label="SI"; explanation="if user is created, go to home"
+- Utente creato ? -> creazione utente — type=transition; label="NO"; explanation="if user is not created, create user"
+- creazione utente -> creazione corretta? — type=transition; label=""; explanation="after user creation, check if it is correct"
+- creazione corretta? -> Home — type=transition; label="SI"; explanation="if creation is correct, go to home"
+- creazione corretta? -> creazione utente — type=transition; label="NO"; explanation="if creation is not correct, create user again"
+
+Main Flows:
+- Flow 1: Start -> Utente creato ? (SI) -> Home
+- Flow 2: Start -> Utente creato ? (NO) -> creazione utente -> creazione corretta? (SI) -> Home
+- Flow 3: Start -> Utente creato ? (NO) -> creazione utente -> creazione corretta? (NO) -> creazione utente
+
+Conditions / Branches:
+- Utente creato ?:
+  - SI -> Home
+  - NO -> creazione utente
+- creazione corretta?:
+  - SI -> Home
+  - NO -> creazione utente
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user access process.
+- The process starts and checks if a user is already created.
+- If a user is not created, the system attempts to create one, and then checks if the creation was successful.
+- If the creation is not successful, the process loops back to the creation step.
+- If a user is already created or the creation is successful, the process proceeds to the home page.
+
+===== Report_24_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Home — kind=initial node; role=Starting point
+- accesso alla creazione? — kind=decision; role=Check access to creation
+- creazione commissione? — kind=decision; role=Check commission creation
+- creazione offerta? — kind=decision; role=Check offer creation
+- creazione corretta? — kind=decision; role=Check if creation is correct
+- creazione commissione — kind=action; role=Create commission
+- creazione offerta — kind=action; role=Create offer
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Home -> accesso alla creazione? — type=control flow; label="si"; explanation="Go to access check"
+- accesso alla creazione? -> creazione commissione? — type=control flow; label="si"; explanation="Go to commission creation check"
+- accesso alla creazione? -> no — type=control flow; label="no"; explanation="Go to no"
+- creazione commissione? -> creazione commissione — type=control flow; label="si"; explanation="Go to commission creation"
+- creazione commissione? -> creazione offerta? — type=control flow; label="no"; explanation="Go to offer creation check"
+- creazione commissione -> creazione corretta? — type=control flow; label="si"; explanation="Go to correct creation check"
+- creazione corretta? -> no — type=control flow; label="no"; explanation="Go to no"
+- creazione offerta? -> creazione offerta — type=control flow; label="si"; explanation="Go to offer creation"
+- creazione offerta -> creazione corretta? — type=control flow; label="si"; explanation="Go to correct creation check"
+- no -> no — type=control flow; label="no"; explanation="End"
+
+Main Flows:
+- Flow 1: Home -> accesso alla creazione? (si) -> creazione commissione? (si) -> creazione commissione -> creazione corretta? (si) -> no
+- Flow 2: Home -> accesso alla creazione? (si) -> creazione commissione? (no) -> creazione offerta? (si) -> creazione offerta -> creazione corretta? (si) -> no
+- Flow 3: Home -> accesso alla creazione? (no) -> no
+
+Conditions / Branches:
+- accesso alla creazione?: si/no
+- creazione commissione?: si/no
+- creazione corretta?: si/no
+- creazione offerta?: si/no
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a process flow for creation, potentially of a commission or an offer.
+- The flow starts at "Home" and branches based on access checks and creation checks.
+- The process involves checking if creation is correct, and if not, it ends.
+- The diagram shows two possible paths: creating a commission or creating an offer.
+- The diagram ends with a "no" state, indicating a failure or termination point.
+
+===== Report_24_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Home — kind=action; attributes=[]; operations=[]; role=Initial screen
+- accesso ad "menu"? — kind=decision; attributes=[]; operations=[]; role=Check access to menu
+- accesso a profilo? — kind=decision; attributes=[]; operations=[]; role=Check access to profile
+- informazioni profilo — kind=action; attributes=[]; operations=[]; role=Display profile information
+- accesso a guida? — kind=decision; attributes=[]; operations=[]; role=Check access to guide
+- Guida — kind=action; attributes=[]; operations=[]; role=Display guide
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Home -> accesso ad "menu"? — type=control_flow; label=""; explanation="Flow to check menu access"
+- accesso ad "menu"? -> Home — type=control_flow; label="no"; explanation="Return to Home if no access"
+- accesso ad "menu"? -> accesso a profilo? — type=control_flow; label="si"; explanation="Flow to check profile access if access to menu"
+- accesso a profilo? -> informazioni profilo — type=control_flow; label="si"; explanation="Flow to display profile information if access to profile"
+- accesso a profilo? -> accesso a guida? — type=control_flow; label="no"; explanation="Flow to check guide access if no access to profile"
+- accesso a guida? -> Guida — type=control_flow; label="si"; explanation="Flow to display guide if access to guide"
+- accesso a guida? -> Home — type=control_flow; label="no"; explanation="Return to Home if no access to guide"
+
+Main Flows:
+- Flow 1: Home -> accesso ad "menu"? (si) -> accesso a profilo? (si) -> informazioni profilo
+- Flow 2: Home -> accesso ad "menu"? (si) -> accesso a profilo? (no) -> accesso a guida? (si) -> Guida
+- Flow 3: Home -> accesso ad "menu"? (no) -> Home
+- Flow 4: Home -> accesso ad "menu"? (si) -> accesso a profilo? (no) -> accesso a guida? (no) -> Home
+
+Conditions / Branches:
+- accesso ad "menu"? : si -> accesso a profilo?; no -> Home
+- accesso a profilo?: si -> informazioni profilo; no -> accesso a guida?
+- accesso a guida?: si -> Guida; no -> Home
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a menu navigation flow within an application.
+- The flow starts at the "Home" screen and branches based on user access to the menu, profile, and guide.
+- If the user has access to the menu, the flow checks for profile access; otherwise, it returns to the Home screen.
+- If the user does not have profile access, the flow checks for guide access; otherwise, it returns to the Home screen.
+- The diagram shows a hierarchical structure where access to deeper features depends on previous access checks.
+
+
+======================================================================

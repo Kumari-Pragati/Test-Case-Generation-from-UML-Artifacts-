@@ -1,0 +1,86 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UserManagement-001,User Registration,User Management,"1, 2, 3",None,"- Valid username: testuser
+- Valid password: testpassword
+- Valid email: testuser@example.com","1. Navigate to the registration page.
+2. Enter the valid username, password, and email.
+3. Click the ""Register"" button.
+4. Verify that the user is successfully registered and redirected to the login page.",The user is registered and can log in with the provided credentials.
+TC-UserManagement-002,User Login,User Management,"4, 5",User has been registered.,"- Valid username: testuser
+- Valid password: testpassword","1. Navigate to the login page.
+2. Enter the valid username and password.
+3. Click the ""Login"" button.
+4. Verify that the user is successfully logged in and redirected to the user dashboard.",The user is logged in and can access their dashboard.
+TC-UserManagement-003,User Logout,User Management,6,User is logged in.,,"1. Navigate to the user dashboard.
+2. Click the ""Logout"" button.
+3. Verify that the user is successfully logged out and redirected to the login page.",The user is logged out and cannot access their dashboard.
+TC-UserManagement-004,User Information Update,User Management,"7, 8",User is logged in.,"- New username: newtestuser
+- New email: newtestuser@example.com","1. Navigate to the user dashboard.
+2. Click the ""Edit Profile"" button.
+3. Update the username and email.
+4. Click the ""Save Changes"" button.
+5. Verify that the user information is successfully updated.","The user information is updated, and the user can see the new information on their dashboard."
+TC-UserManagement-005,User Filtering,User Management,9,Multiple users are registered.,- Filter by username: testuser,"1. Navigate to the user list page.
+2. Enter the filter value and click the ""Filter"" button.
+3. Verify that only the user with the specified username is displayed.",The user list is filtered correctly based on the provided filter value.
+TC-UserManagement-006,Invalid User Registration,User Management,"1, 2, 3",None,"- Invalid username: test
+- Invalid password: pass
+- Invalid email: test.com","1. Navigate to the registration page.
+2. Enter the invalid username, password, and email.
+3. Click the ""Register"" button.
+4. Verify that an error message is displayed, and the user is not registered.",The user registration fails due to invalid input.
+TC-UserManagement-007,Empty User Registration,User Management,"1, 2, 3",None,"- Empty username
+- Empty password
+- Empty email","1. Navigate to the registration page.
+2. Leave all fields empty.
+3. Click the ""Register"" button.
+4. Verify that an error message is displayed, and the user is not registered.",The user registration fails due to empty input.
+TC-UserManagement-008,Login with Invalid Credentials,User Management,"4, 5",User has been registered.,"- Invalid username: testuser1
+- Invalid password: testpassword1","1. Navigate to the login page.
+2. Enter the invalid username and password.
+3. Click the ""Login"" button.
+4. Verify that an error message is displayed, and the user is not logged in.",The login fails due to invalid input.
+TC-UserManagement-009,Login with Empty Credentials,User Management,"4, 5",User has been registered.,"- Empty username
+- Empty password","1. Navigate to the login page.
+2. Leave both fields empty.
+3. Click the ""Login"" button.
+4. Verify that an error message is displayed, and the user is not logged in.",The login fails due to empty input.
+TC-UserManagement-010,Logout without Login,User Management,6,User is not logged in.,,"1. Navigate to the user dashboard.
+2. Click the ""Logout"" button.
+3. Verify that an error message is displayed, and the user is not logged out.",The user cannot log out if they are not logged in.
+TC-UserManagement-011,Update User Information with Invalid Input,User Management,"7, 8",User is logged in.,"- Invalid username: test
+- Invalid email: test.com","1. Navigate to the user dashboard.
+2. Click the ""Edit Profile"" button.
+3. Update the username and email with invalid input.
+4. Click the ""Save Changes"" button.
+5. Verify that an error message is displayed, and the user information is not updated.",The user information update fails due to invalid input.
+TC-UserManagement-012,Update User Information with Empty Input,User Management,"7, 8",User is logged in.,"- Empty username
+- Empty email","1. Navigate to the user dashboard.
+2. Click the ""Edit Profile"" button.
+3. Update the username and email with empty input.
+4. Click the ""Save Changes"" button.
+5. Verify that an error message is displayed, and the user information is not updated.",The user information update fails due to empty input.
+TC-UserManagement-013,Filter with Invalid Input,User Management,9,Multiple users are registered.,- Invalid filter value: test,"1. Navigate to the user list page.
+2. Enter the invalid filter value and click the ""Filter"" button.
+3. Verify that an error message is displayed, and the user list is not filtered.",The user list is not filtered due to invalid input.
+TC-UserManagement-014,Filter with Empty Input,User Management,9,Multiple users are registered.,- Empty filter value,"1. Navigate to the user list page.
+2. Enter the empty filter value and click the ""Filter"" button.
+3. Verify that an error message is displayed, and the user list is not filtered.",The user list is not filtered due to empty input.
+TC-UserManagement-015,User Search with Invalid Username,User Management,10,Multiple users are registered.,- Invalid username: test1,"1. Navigate to the user search page.
+2. Enter the invalid username and click the ""Search"" button.
+3. Verify that no results are displayed, and an error message is shown.",The search fails due to an invalid username.
+TC-UserManagement-016,User Search with Empty Username,User Management,10,Multiple users are registered.,- Empty username,"1. Navigate to the user search page.
+2. Enter the empty username and click the ""Search"" button.
+3. Verify that no results are displayed, and an error message is shown.",The search fails due to empty input.
+TC-UserManagement-017,User Search with Valid Username,User Management,10,Multiple users are registered.,- Valid username: testuser,"1. Navigate to the user search page.
+2. Enter the valid username and click the ""Search"" button.
+3. Verify that the user with the specified username is displayed.","The user search is successful, and the user with the specified username is displayed."
+TC-UserManagement-018,User Search with Multiple Users,User Management,10,Multiple users are registered.,- Valid username: test,"1. Navigate to the user search page.
+2. Enter the valid username and click the ""Search"" button.
+3. Verify that multiple users with the specified username are displayed.","The user search is successful, and multiple users with the specified username are displayed."
+TC-UserManagement-019,User Search with No Results,User Management,10,No users are registered.,- Valid username: testuser,"1. Navigate to the user search page.
+2. Enter the valid username and click the ""Search"" button.
+3. Verify that no results are displayed, and an error message is shown.",The search fails due to no matching users.
+TC-UserManagement-020,User Search with Special Characters,User Management,10,Multiple users are registered.,- Username containing special characters: test_user,"1. Navigate to the user search page.
+2. Enter the username containing special characters and click the ""Search"" button.
+3. Verify that the user with the specified username is displayed.","The user search is successful, and the user with the specified username is displayed."
+TC-UserManagement-021,User Search with Long Username,User Management,10,Multiple users are registered.,- Username longer than the maximum allowed length: testuser1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678,,

@@ -1,0 +1,88 @@
+flow
+"puntinamappa -> suggerimento — type=associazione; label=""contiene""; explanation=""puntinamappa contiene suggerimenti""."
+"puntinamappa -> suggerimento — type=associazione; label=""contiene"""
+this diagram models a system for managing air quality data and associated suggestions.
+the `puntinamappa` class represents a location with air quality data and contains a collection of `suggerimento` objects.
+the `suggerimento` class represents a suggestion related to the air quality at a location.
+the `categoria` attribute in both classes indicates the severity of the air quality.
+"schermata iniziale -> selezioniamo lo stato, la regione e la città — type=flow; label=""seleziona""; explanation=""initiates the process"";"
+"selezioniamo lo stato, la regione e la città -> viene effettuata la richiesta al server — type=flow; label=""richiesta""; explanation=""sends request to server"";"
+"viene effettuata la richiesta al server -> presenta i dati ritornati — type=flow; label=""risposta""; explanation=""receives and displays data"";"
+"selezioniamo la tua posizione attuale -> presenta i dati ritornati — type=flow; label=""posizione""; explanation=""displays current location"";"
+"schermata iniziale -> selezioniamo lo stato, la regione e la città -> viene effettuata la richiesta al server -> presenta i dati ritornati -> seleziona la tua posizione attuale -> presenta i dati ritornati"
+the diagram models the process of obtaining location data.
+"the process starts with an initial screen, then the user selects a location, a request is sent to a server, data is returned, and finally the user selects their current position."
+the process repeats to display the current location.
+"mappa iniziale -> ricaricare i dati scrolling giu — type=flow; label=""ricaricare i dati scrolling giu""; explanation=""initiates the process of refreshing the map."""
+"ricaricare i dati scrolling giu -> il server riceve la richiesta e invia dati nuovi — type=flow; label=""il server riceve la richiesta e invia dati nuovi""; explanation=""sends a request to the server for updated map data."""
+"il server riceve la richiesta e invia dati nuovi -> mappa aggiornata — type=flow; label=""mappa aggiornata""; explanation=""updates the map display."""
+"mappa aggiornata -> ricaricare i dati scrolling giu — type=flow; label=""ricaricare i dati scrolling giu""; explanation=""initiates the process of refreshing the map."""
+flow 1: mappa iniziale -> ricaricare i dati scrolling giu -> il server riceve la richiesta e invia dati nuovi -> mappa aggiornata
+the diagram models the process of updating a map.
+"the process starts with an initial map, then requests updated data from a server, and finally displays the updated map."
+"the loop ""ricaricare i dati scrolling giu"" suggests a continuous refresh mechanism."
+"mappa iniziale -> premere il pulsante per i suggerimenti — type=flow; label=""mappa iniziale""; explanation=""starting point of the process."""
+"premere il pulsante per i suggerimenti -> schermata suggerimenti — type=flow; label=""premere il pulsante""; explanation=""transition to the suggestions screen."""
+flow 1: mappa iniziale -> premere il pulsante per i suggerimenti -> schermata suggerimenti
+"this diagram models the process of navigating from an initial map to a screen displaying suggestions after pressing a button. it represents a simple, linear flow."
+"airqualityactivity -> mainactivity — message=""avvia applicazione"";"
+"airqualityactivity -> airvisual api — message=""loadcountries()"";"
+"mainactivity -> airvisual api — message=""loadstates()"";"
+"mainactivity -> airvisual api — message=""loadcountries()"";"
+"mainactivity -> airvisual api — message=""loadcities()"";"
+"airqualityactivity -> mainactivity — message=""handlemessage()"";"
+"mainactivity -> airqualityactivity — message=""intent/airqualityactivity.this, mainactivity.class)"";"
+airqualityactivity -> avvia applicazione
+airqualityactivity -> airvisual api -> loadcountries()
+mainactivity -> loadstates()
+mainactivity -> loadcountries()
+mainactivity -> loadcities()
+airqualityactivity -> mainactivity -> handlemessage() — presenta i dati recuperati dalla richiesta http
+the user starts the application.
+"the airqualityactivity calls the airvisual api to load countries, states, and cities."
+the mainactivity handles the data received from the api and presents it to the user.
+the diagram focuses on the flow of data and interactions between the components.
+airqualityactivity -> mainactivity — message=“avvia applicazione”;
+airqualityactivity -> mainactivity -> airvisual api — message=“loadcountries()”;
+airqualityactivity -> mainactivity -> airvisual api -> airqualityactivity — message=“gethttpdata()”;
+airqualityactivity -> mainactivity -> airvisual api — message=“loadstates()”;
+airqualityactivity -> mainactivity -> airvisual api — message=“loadcities()”;
+airqualityactivity -> mainactivity — message=“getlocations()”;
+airqualityactivity -> mainactivity -> airqualityactivity — message=“handlemessage()”;
+flow 1: airqualityactivity -> mainactivity — avvia applicazione;
+flow 2: mainactivity -> airvisual api — loadcountries();
+flow 3: airvisual api -> mainactivity — gethttpdata();
+flow 4: mainactivity -> airvisual api — loadstates();
+flow 5: airvisual api -> mainactivity — loadcities();
+flow 6: mainactivity -> airqualityactivity — getlocations();
+flow 7: airqualityactivity -> mainactivity — handlemessage();
+the application starts with the airqualityactivity.
+the application requests location permission from the user.
+"the mainactivity loads countries, states, cities, and locations sequentially from the airvisual api."
+the application handles the data received from the api and presents it to the user.
+the diagram shows a typical flow for retrieving location-based air quality data.
+utente -> widget provider : onenable()
+widget provider -> airvisual api : updateappwidget()
+airvisual api -> widget provider : recupera i dati
+widget provider -> utente : presenta i dati all'utente
+"the diagram models the interaction between a user, a widget provider, and an air visual api to update and display data."
+the user initiates the process by calling `onenable()` on the widget provider.
+the widget provider then requests data from the airvisual api using `updateappwidget()`.
+"finally, the widget provider presents the retrieved data to the user."
+"utente -> map activity — message=""l'utente vuole visualizzare la mappa"";"
+"map activity -> airvisual api — message=""la web view effettua il refresh dei dati"";"
+"airvisual api -> web view — message=""la web view vengono ritornati i nuovi dati"";"
+"web view -> utente — message=""i dati vengono presentati all'utente"""
+utente -> map activity: l'utente vuole visualizzare la mappa
+map activity -> airvisual api: la web view effettua il refresh dei dati
+airvisual api -> web view: la web view vengono ritornati i nuovi dati
+web view -> utente: i dati vengono presentati all'utente
+"the diagram models a sequence of events where a user requests a map view, the map activity requests data from the airvisual api, and the web view displays the updated data to the user. the process involves a refresh of data from the api."
+"utente -> posizione — type=association; label=""l'utente decide la nazione, la regione e la città di interesse""; explanation=""the user decides the nation, region, and city of interest."";"
+"posizione -> getconsigliperfaq(int aqi) — type=message; label=""dalla posizione otteniamo l'faq della città""; explanation=""from the position we obtain the faq of the city."";"
+"getconsigliperfaq(int aqi) -> i dati vengono presentati all'utente — type=message; label=""ritorna dati""; explanation=""returns data."";"
+utente -> posizione
+posizione -> getconsigliperfaq(int aqi)
+getconsigliperfaq(int aqi) -> i dati vengono presentati all'utente
+"the diagram models a process where a user provides location information, which is then used to retrieve relevant tips from an faq system. the system returns the data to the user."
+======================================================================

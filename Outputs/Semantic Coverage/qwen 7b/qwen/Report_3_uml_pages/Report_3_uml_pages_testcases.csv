@@ -1,0 +1,97 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-DashboardActivity-001","Navigating from DashboardActivity to MainActivity","DashboardActivity","1","User is logged into the application.","None","1. Open DashboardActivity.
+2. Tap on the navigation icon to open MainActivity.","MainActivity should be displayed with appropriate UI elements."
+"TC-MainActivity-001","Navigating from MainActivity to SignUpActivity","MainActivity","1","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Sign Up"" button.","SignUpActivity should be displayed with appropriate UI elements."
+"TC-MainActivity-002","Navigating from MainActivity to UserListActivity","MainActivity","1","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""User List"" button.","UserListActivity should be displayed with appropriate UI elements."
+"TC-SignUpActivity-001","Successful Sign-Up Process","SignUpActivity","1","User is not logged into the application.","Valid email and password.","1. Open SignUpActivity.
+2. Enter a valid email and password.
+3. Tap on the ""Sign Up"" button.","User should be successfully signed up and redirected to MainActivity."
+"TC-SignUpActivity-002","Invalid Sign-Up Process - Empty Email","SignUpActivity","1","User is not logged into the application.","Empty email, valid password.","1. Open SignUpActivity.
+2. Leave the email field empty and enter a valid password.
+3. Tap on the ""Sign Up"" button.","Error message should be displayed indicating that the email field cannot be empty."
+"TC-SignUpActivity-003","Invalid Sign-Up Process - Empty Password","SignUpActivity","1","User is not logged into the application.","Valid email, empty password.","1. Open SignUpActivity.
+2. Enter a valid email and leave the password field empty.
+3. Tap on the ""Sign Up"" button.","Error message should be displayed indicating that the password field cannot be empty."
+"TC-UserListActivity-001","Loading Users from Server","UserListActivity","1","User is logged into the application.","None","1. Open UserListActivity.
+2. Wait for the list of users to load.","A list of users should be displayed in the RecyclerView."
+"TC-WeatherFlow-001","Display Current Weather","Weather Flow","2","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Weather"" button.
+3. Wait for the current weather to be displayed.","Current weather information should be displayed."
+"TC-WeatherFlow-002","Zoom In on Current Weather","Weather Flow","2","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Weather"" button.
+3. Tap on the magnifying glass icon.
+4. Tap on ""Search for other locations weather"".","The user should be prompted to search for weather in another location."
+"TC-TrekkingFlow-001","Selecting a Trekking Route","Trekking Flow","3,4","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Trekking"" button.
+3. Wait for the list of provinces to load.
+4. Tap on a province.
+5. Wait for the list of routes to load.
+6. Tap on a route.","The selected route details should be displayed."
+"TC-HealthFlow-001","Fetching Past Training Data","Health Flow","5","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Health"" button.
+3. Wait for the list of past training data to load.","A list of past training data should be displayed."
+"TC-HealthFlow-002","Invalid Health Data Request","Health Flow","5","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Health"" button.
+3. Wait for the list of past training data to load.
+4. Simulate network failure during data fetching.","An error message should be displayed indicating that there was an issue fetching the data."
+"TC-NetworkFailure-001","Handling Network Failure During Weather Data Request","Weather Flow","2,4","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Weather"" button.
+3. Simulate network failure.","An error message should be displayed indicating that there was an issue fetching the weather data."
+"TC-NetworkFailure-002","Handling Network Failure During Province List Request","Trekking Flow","3","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Trekking"" button.
+3. Simulate network failure.","An error message should be displayed indicating that there was an issue fetching the province list."
+"TC-NetworkFailure-003","Handling Network Failure During Route List Request","Trekking Flow","3","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Trekking"" button.
+3. Wait for the list of provinces to load.
+4. Tap on a province.
+5. Simulate network failure.","An error message should be displayed indicating that there was an issue fetching the route list."
+"TC-NetworkFailure-004","Handling Network Failure During Past Training Data Request","Health Flow","5","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Health"" button.
+3. Simulate network failure.","An error message should be displayed indicating that there was an issue fetching the past training data."
+"TC-InvalidLogin-001","Invalid Login Credentials","MainActivity","1","User is not logged into the application.","Invalid email and password.","1. Open MainActivity.
+2. Enter an invalid email and password.
+3. Tap on the ""Login"" button.","An error message should be displayed indicating that the login credentials are invalid."
+"TC-InvalidLogin-002","Invalid Login Credentials - Empty Fields","MainActivity","1","User is not logged into the application.","Empty email and password fields.","1. Open MainActivity.
+2. Leave both the email and password fields empty.
+3. Tap on the ""Login"" button.","An error message should be displayed indicating that the email and password fields cannot be empty."
+"TC-Logout-001","Logging Out from MainActivity","MainActivity","1","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the logout button.","The user should be logged out and redirected to the DashboardActivity."
+"TC-Logout-002","Attempting to Access MainActivity Without Logging In","MainActivity","1","User is not logged into the application.","None","1. Open MainActivity.
+2. Tap on any button that requires authentication.","The user should be prompted to log in before accessing the required feature."
+"TC-EmptyRecyclerView-001","Empty RecyclerView in UserListActivity","UserListActivity","1","User is logged into the application.","None","1. Open UserListActivity.
+2. Wait for the list to load.","The RecyclerView should be empty if no users are available."
+"TC-EmptyRecyclerView-002","Empty RecyclerView in Health Flow","Health Flow","5","User is logged into the application.","None","1. Open MainActivity.
+2. Tap on the ""Health"" button.
+3. Wait for the list to load.","The RecyclerView should be empty if no past training data is available."
+"TC-InvalidProvinceSelection-001","Invalid Province Selection","Trekking Flow","3","User is logged into the application.","Invalid province name.","1. Open MainActivity.
+2. Tap on the ""Trekking"" button.
+3. Enter an invalid province name.
+4. Tap on the ""Search"" button.","An error message should be displayed indicating that the province name is invalid."
+"TC-InvalidRouteSelection-001","Invalid Route Selection","Trekking Flow","3","User is logged into the application.","Invalid route name.","1. Open MainActivity.
+2. Tap on the ""Trekking"" button.
+3. Wait for the list of provinces to load.
+4. Tap on a province.
+5. Enter an invalid route name.
+6. Tap on the ""Search"" button.","An error message should be displayed indicating that the route name is invalid."
+"TC-InvalidHealthData-001","Invalid Health Data Entry","Health Flow","5","User is logged into the application.","Invalid health data entry.","1. Open MainActivity.
+2. Tap on the ""Health"" button.
+3. Enter invalid health data.
+4. Tap on the ""Save"" button.","An error message should be displayed indicating that the health data entry is invalid."
+"TC-InvalidHealthData-002","Invalid Health Data Entry - Empty Fields","Health Flow","5","User is logged into the application.","Empty health data fields.","1. Open MainActivity.
+2. Tap on the ""Health"" button.
+3. Leave all health data fields empty.
+4. Tap on the ""Save"" button.","An error message should be displayed indicating that the health data fields cannot be empty."
+"TC-InvalidWeatherData-001","Invalid Weather Data Entry","Weather Flow","2,4","User is logged into the application.","Invalid weather data entry.","1. Open MainActivity.
+2. Tap on the ""Weather"" button.
+3. Enter invalid weather data.
+4. Tap on the ""Save"" button.","An error message should be displayed indicating that the weather data entry is invalid."
+"TC-InvalidWeatherData-002","Invalid Weather Data Entry - Empty Fields","Weather Flow","2,4","User is logged into the application.","Empty weather data fields.","1. Open MainActivity.
+2. Tap on the ""Weather"" button.
+3. Leave all weather data fields empty.
+4. Tap on the ""Save"" button.","An error message should be displayed indicating that the weather data fields cannot be empty."
+"TC-InvalidTrekkingData-001","Invalid Trekking Data Entry","Trekking Flow","3,4","User is logged into the application.","Invalid trekking data entry.","1. Open MainActivity.
+2. Tap on the ""Trekking"" button.
+3. Enter invalid trekking data.
+4. Tap on the ""Save"" button.","An error message should be displayed indicating that the trekking data entry is invalid."

@@ -1,0 +1,99 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Environment-001,User Registration,Environment,1,None,"- Username: testuser
+- Password: TestPassword123
+- Email: testuser@example.com","1. Navigate to the registration page.
+2. Enter the username, password, and email in the respective fields.
+3. Click on the ""Register"" button.
+4. Verify if the user is registered successfully.",The user should be registered successfully and redirected to the login page.
+TC-Environment-002,Invalid User Registration,Environment,1,None,"- Username: testuser
+- Password: TestPassword
+- Email: invalidemail","1. Navigate to the registration page.
+2. Enter the username, password, and email in the respective fields.
+3. Click on the ""Register"" button.
+4. Verify if the registration fails due to invalid email format.",The registration should fail and display an error message indicating an invalid email format.
+TC-Environment-003,User Login,Environment,1,User has been registered.,"- Username: testuser
+- Password: TestPassword123","1. Navigate to the login page.
+2. Enter the username and password in the respective fields.
+3. Click on the ""Login"" button.
+4. Verify if the user is logged in successfully.",The user should be logged in successfully and redirected to the dashboard.
+TC-Environment-004,Invalid User Login,Environment,1,User has been registered.,"- Username: testuser
+- Password: WrongPassword","1. Navigate to the login page.
+2. Enter the username and wrong password in the respective fields.
+3. Click on the ""Login"" button.
+4. Verify if the login fails due to incorrect password.",The login should fail and display an error message indicating incorrect credentials.
+TC-Environment-005,Event Creation,Environment,1,User is logged in.,"- Event Name: TestEvent
+- Date: 2023-10-10
+- Time: 14:00
+- Location: TestLocation","1. Navigate to the event creation page.
+2. Enter the event name, date, time, and location in the respective fields.
+3. Click on the ""Create Event"" button.
+4. Verify if the event is created successfully.",The event should be created successfully and displayed in the list of events.
+TC-Environment-006,Invalid Event Creation,Environment,1,User is logged in.,"- Event Name: TestEvent
+- Date: 2023-10-10
+- Time: 14:00
+- Location: TestLocation
+- Missing Date","1. Navigate to the event creation page.
+2. Enter the event name, time, and location in the respective fields.
+3. Click on the ""Create Event"" button.
+4. Verify if the event creation fails due to missing date.",The event creation should fail and display an error message indicating a required field is missing.
+TC-Environment-007,Joining an Event,Environment,1,User is logged in and an event exists.,- Event ID: 12345,"1. Navigate to the event details page.
+2. Click on the ""Join Event"" button.
+3. Verify if the user is added to the event attendees list.",The user should be added to the event attendees list and a confirmation message should be displayed.
+TC-Environment-008,Viewing an Event,Environment,1,User is logged in and an event exists.,- Event ID: 12345,"1. Navigate to the event details page.
+2. Verify if the event details are displayed correctly.","The event details should be displayed correctly including the name, date, time, and location."
+TC-Environment-009,User Profile Management,Environment,1,User is logged in.,"- New Username: NewTestUser
+- New Password: NewTestPassword123
+- New Email: newtestuser@example.com","1. Navigate to the user profile page.
+2. Update the username, password, and email in the respective fields.
+3. Click on the ""Save Changes"" button.
+4. Verify if the profile information is updated successfully.",The user profile information should be updated successfully and the changes should be reflected in the user's account.
+TC-Environment-010,Invalid Profile Update,Environment,1,User is logged in.,"- New Username: NewTestUser
+- New Password: ShortPass
+- New Email: invalidemail","1. Navigate to the user profile page.
+2. Update the username, password, and email in the respective fields.
+3. Click on the ""Save Changes"" button.
+4. Verify if the profile update fails due to invalid email format and short password.",The profile update should fail and display error messages indicating an invalid email format and a requirement for a longer password.
+TC-Environment-011,Notification Center,Environment,1,User is logged in.,,"1. Navigate to the notification center.
+2. Verify if notifications are displayed.",Notifications should be displayed based on the user's activity and system events.
+TC-Environment-012,Exit Application,Environment,1,User is logged in.,,"1. Navigate to the exit page.
+2. Click on the ""Exit"" button.
+3. Verify if the application exits successfully.",The application should exit successfully and log the user out.
+TC-Environment-013,Database Management,Environment,1,System is running.,,"1. Verify if the database connection is established.
+2. Perform a simple query to check data integrity.
+3. Verify if the query returns expected results.",The database connection should be established successfully and the query should return the expected results.
+TC-Environment-014,Newsletter Management,Environment,1,System is running.,,"1. Navigate to the newsletter management page.
+2. Add a new newsletter with subject and content.
+3. Verify if the newsletter is added successfully.",The newsletter should be added successfully and displayed in the list of newsletters.
+TC-Environment-015,Invalid Newsletter Management,Environment,1,System is running.,,"1. Navigate to the newsletter management page.
+2. Attempt to add a newsletter without subject or content.
+3. Verify if the newsletter addition fails due to missing required fields.",The newsletter addition should fail and display an error message indicating missing required fields.
+TC-Environment-016,Edge Case - Multiple User Registrations,Environment,1,System is running.,,"1. Register multiple users with unique usernames and emails.
+2. Verify if all users are registered successfully.",All users should be registered successfully without any conflicts.
+TC-Environment-017,Edge Case - Concurrent Event Creation,Environment,1,System is running.,,"1. Simulate concurrent event creations by multiple users.
+2. Verify if events are created successfully without conflicts.",Events should be created successfully without any conflicts or errors.
+TC-Environment-018,Edge Case - Concurrent User Logins,Environment,1,System is running.,,"1. Simulate concurrent user logins by multiple users.
+2. Verify if users can log in successfully without conflicts.",Users should be able to log in successfully without any conflicts or errors.
+TC-Environment-019,Edge Case - Concurrent Profile Updates,Environment,1,System is running.,,"1. Simulate concurrent profile updates by multiple users.
+2. Verify if profile updates are applied successfully without conflicts.",Profile updates should be applied successfully without any conflicts or errors.
+TC-Environment-020,Edge Case - Concurrent Event Joins,Environment,1,System is running.,,"1. Simulate concurrent event joins by multiple users.
+2. Verify if users are added to the event attendees list without conflicts.",Users should be added to the event attendees list without any conflicts or errors.
+TC-Environment-021,Edge Case - Concurrent Notifications,Environment,1,System is running.,,"1. Simulate concurrent notifications being sent to multiple users.
+2. Verify if notifications are delivered successfully without conflicts.",Notifications should be delivered successfully without any conflicts or errors.
+TC-Environment-022,Edge Case - Concurrent Database Queries,Environment,1,System is running.,,"1. Simulate concurrent database queries by multiple users.
+2. Verify if queries return expected results without conflicts.",Queries should return expected results without any conflicts or errors.
+TC-Environment-023,Edge Case - Concurrent Newsletter Management,Environment,1,System is running.,,"1. Simulate concurrent newsletter management actions by multiple users.
+2. Verify if newsletters are managed successfully without conflicts.",Newsletters should be managed successfully without any conflicts or errors.
+TC-Environment-024,Edge Case - Concurrent User Logouts,Environment,1,System is running.,,"1. Simulate concurrent user logouts by multiple users.
+2. Verify if users are logged out successfully without conflicts.",Users should be logged out successfully without any conflicts or errors.
+TC-Environment-025,Edge Case - Concurrent Database Disconnections,Environment,1,System is running.,,"1. Simulate concurrent database disconnections by multiple users.
+2. Verify if the system handles disconnections gracefully without conflicts.",The system should handle disconnections gracefully without any conflicts or errors.
+TC-Environment-026,Edge Case - Concurrent Event Deletions,Environment,1,System is running.,,"1. Simulate concurrent event deletions by multiple users.
+2. Verify if events are deleted successfully without conflicts.",Events should be deleted successfully without any conflicts or errors.
+TC-Environment-027,Edge Case - Concurrent Profile Deletions,Environment,1,System is running.,,"1. Simulate concurrent profile deletions by multiple users.
+2. Verify if profiles are deleted successfully without conflicts.",Profiles should be deleted successfully without any conflicts or errors.
+TC-Environment-028,Edge Case - Concurrent Notification Deletions,Environment,1,System is running.,,"1. Simulate concurrent notification deletions by multiple users.
+2. Verify if notifications are deleted successfully without conflicts.",Notifications should be deleted successfully without any conflicts or errors.
+TC-Environment-029,Edge Case - Concurrent Database Reconnections,Environment,1,System is running.,,"1. Simulate concurrent database reconnections by multiple users.
+2. Verify if the system reconnects successfully without conflicts.",The system should reconnect successfully without any conflicts or errors.
+TC-Environment-030,Edge Case - Concurrent Newsletter Revisions,Environment,1,System is running.,,"1. Simulate concurrent newsletter revisions by multiple users.
+2. Verify if newsletters are revised successfully without conflicts.",Newsletters

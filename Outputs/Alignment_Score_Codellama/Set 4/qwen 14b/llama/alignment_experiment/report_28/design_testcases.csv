@@ -1,0 +1,133 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User Registration,Server,1,None,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates registration with valid username and password.
+2. Server receives registration request.
+3. Server validates the input and creates a new user account.","- User account is successfully created.
+- Confirmation message is displayed to the user."
+TC-Login-002,User Login,Server,1,User account exists.,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates login with valid credentials.
+2. Server receives login request.
+3. Server validates the credentials and grants access.","- User is logged in successfully.
+- Access token is generated and provided to the user."
+TC-Login-003,Invalid Username during Registration,Server,1,None,"- Invalid username: ""testuser123!""
+- Valid password: ""password123""","1. User initiates registration with invalid username.
+2. Server receives registration request.
+3. Server validates the input and rejects the request due to invalid username format.","- Registration fails.
+- Error message indicating invalid username format is displayed to the user."
+TC-Login-004,Invalid Password during Registration,Server,1,None,"- Valid username: ""testuser""
+- Invalid password: ""pass""","1. User initiates registration with invalid password.
+2. Server receives registration request.
+3. Server validates the input and rejects the request due to invalid password length.","- Registration fails.
+- Error message indicating invalid password length is displayed to the user."
+TC-Token-001,Token Retrieval,Main,2,User is logged in.,"- Logged-in user: ""testuser""","1. Main component requests token from LocalUser.
+2. LocalUser provides token to Main.
+3. Main sends request with token to API_Manager.
+4. API_Manager returns status to LocalUser.
+5. LocalUser returns status to Main.","- Token is retrieved successfully.
+- Status is returned correctly."
+TC-Token-002,Null Token Handling,Main,2,User is logged out.,"- Logged-out user: ""testuser""","1. Main component requests token from LocalUser.
+2. LocalUser does not have a token.
+3. Main requests token again.
+4. LocalUser provides token to Main.
+5. Main sends request with token to API_Manager.
+6. API_Manager returns status to LocalUser.
+7. LocalUser returns status to Main.","- Token is requested and retrieved successfully.
+- Status is returned correctly."
+TC-Token-003,Invalid Token Handling,Main,2,User has an invalid token.,"- Invalid token: ""invalid_token""","1. Main component requests token from LocalUser.
+2. LocalUser provides invalid token to Main.
+3. Main sends request with invalid token to API_Manager.
+4. API_Manager returns error status to LocalUser.
+5. LocalUser returns error status to Main.","- Request fails due to invalid token.
+- Error message is displayed to the user."
+TC-Service-001,Post Creation,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post title: ""Sample Post""
+- Post description: ""This is a sample post.""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the post creation request.","- Post is created successfully.
+- Confirmation message is displayed to the user."
+TC-Service-002,Get Posts,Service,3,User is logged in.,"- Logged-in user: ""testuser""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component retrieves all posts.","- List of posts is retrieved successfully.
+- Posts are displayed to the user."
+TC-Service-003,Get Comments,Service,"3
+PreML: Service
+Source UML Pages: 3",User is logged in.,"- Logged-in user: ""testuser""
+- Post ID: ""123""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component retrieves comments for specified post.","- Comments for the specified post are retrieved successfully.
+- Comments are displayed to the user."
+TC-Service-004,Get Likes,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post ID: ""123""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component retrieves likes for specified post.","- Likes for the specified post are retrieved successfully.
+- Likes are displayed to the user."
+TC-Service-005,New Entry Creation,Main,4,User is logged in.,"- Logged-in user: ""testuser""
+- New entry details: {""title"": ""New Entry"", ""description"": ""This is a new entry.""}","1. Main component initiates new entry creation.
+2. Main component converts new entry to JSON format.
+3. Main component sends request with new entry to API_Manager.
+4. API_Manager processes the request.
+5. Main component completes the process.","- New entry is created successfully.
+- Confirmation message is displayed to the user."
+TC-Service-006,Update Entry,Main,5,User is logged in.,"- Logged-in user: ""testuser""
+- Updated entry details: {""title"": ""Updated Entry"", ""description"": ""This is an updated entry.""}","1. Main component retrieves updated data.
+2. Main component sets updated data.
+3. Main component converts updated entry to JSON format.
+4. Main component sends request with updated entry to API_Manager.
+5. API_Manager processes the request.
+6. Main component completes the process.","- Entry is updated successfully.
+- Confirmation message is displayed to the user."
+TC-Service-007,Invalid Entry Details,Main,4,User is logged in.,"- Logged-in user: ""testuser""
+- Invalid new entry details: {""title"": """", ""description"": """"}","1. Main component initiates new entry creation with invalid details.
+2. Main component attempts to convert new entry to JSON format.
+3. Main component encounters validation errors.","- New entry creation fails due to invalid details.
+- Error message is displayed to the user."
+TC-Service-008,Invalid Update Entry Details,Main,5,User is logged in.,"- Logged-in user: ""testuser""
+- Invalid updated entry details: {""title"": """", ""description"": """"}","1. Main component retrieves invalid updated data.
+2. Main component attempts to set invalid updated data.
+3. Main component encounters validation errors.","- Entry update fails due to invalid details.
+- Error message is displayed to the user."
+TC-Service-009,Edge Case - Empty Post Title,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post title: """"
+- Post description: ""This is a sample post.""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the post creation request with empty title.","- Post creation fails due to empty title.
+- Error message is displayed to the user."
+TC-Service-010,Edge Case - Empty Comment,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post ID: ""123""
+- Comment: """"","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the comment creation request with empty comment.","- Comment creation fails due to empty comment.
+- Error message is displayed to the user."
+TC-Service-011,Edge Case - Empty Like,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post ID: ""123""
+- User ID: ""456""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the like creation request with empty user ID.","- Like creation fails due to empty user ID.
+- Error message is displayed to the user."
+TC-Service-012,Edge Case - Nonexistent Post ID,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post ID: ""nonexistent_id""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the request for nonexistent post ID.","- Request fails due to nonexistent post ID.
+- Error message is displayed to the user."
+TC-Service-013,Edge Case - Nonexistent User ID,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- User ID: ""nonexistent_user_id""","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the request for nonexistent user ID.","- Request fails due to nonexistent user ID.
+- Error message is displayed to the user."
+TC-Service-014,Edge Case - Empty User Input,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- User ID: """"","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the request with empty user ID.","- Request fails due to empty user ID.
+- Error message is displayed to the user."
+TC-Service-015,Edge Case - Empty Post Description,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post title: ""Sample Post""
+- Post description: """"","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the post creation request with empty description.","- Post creation fails due to empty description.
+- Error message is displayed to the user."
+TC-Service-016,Edge Case - Empty Post Title and Description,Service,3,User is logged in.,"- Logged-in user: ""testuser""
+- Post title: """"
+- Post description: """"","1. Main component sends request to API_Manager.
+2. API_Manager processes the request and sends Service/Need/Report to Service component.
+3. Service component handles the post creation request with both empty title and description.","- Post creation fails due to both empty title and description.
+- Error message is displayed to the user."

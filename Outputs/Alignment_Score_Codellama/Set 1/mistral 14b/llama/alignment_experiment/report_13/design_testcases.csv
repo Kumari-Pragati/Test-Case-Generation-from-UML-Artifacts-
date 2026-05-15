@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-REGISTRATION-001,Successful user registration with valid credentials,Registration,1,"- User is on the Flash activity screen.
+- Network connection is stable.
+- Database (Postgresol) is accessible.","- Username: `john_doe_123`
+- Email: `john.doe@example.com`
+- Password: `SecurePass123!`
+- Confirm Password: `SecurePass123!`","1. User clicks ""Register"" from the Flash activity.
+2. User enters valid username, email, and password (meeting complexity requirements).
+3. User confirms password.
+4. User submits the registration form.","- System validates inputs and accepts registration.
+- User is redirected to the Login activity.
+- Confirmation message appears: ""Registration successful. Please log in.""
+- Database (Postgresol) records the new user with hashed password."
+TC-REGISTRATION-002,Registration failure with duplicate email,Registration,1,"- User `john.doe@example.com` already exists in Postgresol.
+- User is on the Flash activity screen.","- Username: `john_doe_duplicate`
+- Email: `john.doe@example.com` (duplicate)
+- Password: `TestPass123!`","1. User clicks ""Register"" from the Flash activity.
+2. User enters username, duplicate email, and password.
+3. User submits the form.","- System rejects registration.
+- Error message appears: ""Email already registered. Use a different email.""
+- User remains on the registration screen."
+TC-REGISTRATION-003,Registration failure with weak password,Registration,1,- User is on the Flash activity screen.,"- Username: `weak_user`
+- Email: `weak@example.com`
+- Password: `123` (too short and simple)","1. User clicks ""Register.""
+2. User enters username, email, and weak password.
+3. User submits the form.","- System rejects registration.
+- Error message appears: ""Password must be at least 8 characters with uppercase, lowercase, number, and special character.""
+- User remains on the registration screen."
+TC-LOGIN-001,Successful login with valid credentials,Login,1,"- User `john.doe@example.com` exists in Postgresol with password `SecurePass123!`.
+- User is on the Login activity screen.","- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User enters registered email and correct password.
+2. User clicks ""Login.""","- System authenticates the user.
+- User is redirected to the Newsletter activity.
+- Notification center receives login event (if configured)."
+TC-LOGIN-002,Login failure with incorrect password,Login,1,"- User `john.doe@example.com` exists with password `SecurePass123!`.
+- User is on the Login activity screen.","- Email: `john.doe@example.com`
+- Password: `WrongPass123!`","1. User enters correct email and incorrect password.
+2. User clicks ""Login.""","- System rejects login.
+- Error message appears: ""Invalid email or password.""
+- User remains on the Login activity screen.
+- No notification is triggered."
+TC-NEWSLETTER-001,Subscribe to newsletter successfully,Newsletter Management,1,"- User is logged in (from Login activity).
+- Newsletter management system is active.","- Newsletter topic: ""Tech Updates""
+- User email: `john.doe@example.com` (already logged in)","1. User navigates to Newsletter activity.
+2. User selects ""Tech Updates"" checkbox.
+3. User submits subscription.","- System confirms subscription.
+- Notification center sends confirmation email to `john.doe@example.com`.
+- Postgresol records the subscription.
+- User sees: ""Subscribed to Tech Updates. Check your email for confirmation."""
+TC-NEWSLETTER-002,Unsubscribe from newsletter,Newsletter Management,1,"- User `john.doe@example.com` is subscribed to ""Tech Updates.""
+- User is logged in.",,"1. User navigates to Newsletter activity.
+2. User selects ""Tech Updates"" and clicks ""Unsubscribe.""
+3. User confirms action.","- System removes subscription.
+- Notification center sends unsubscribe confirmation email.
+- Postgresol updates user record.
+- User sees: ""Unsubscribed from Tech Updates."""
+TC-EVENT-001,Create a new event successfully,Event Management,1,"- User is logged in.
+- Event creation form is accessible.","- Event name: ""Tech Conference 2023""
+- Date: `2023-12-15`
+- Time: `09:00 AM`
+- Location: ""Online""
+- Description: ""Annual tech conference with keynote speakers.""","1. User navigates to ""Create event"" activity.
+2. User fills in all event details.
+3. User clicks ""Save.""","- System validates and saves the event.
+- Postgresol records the event with user ID.
+- Notification center sends confirmation to user.
+- User sees: ""Event 'Tech Conference 2023' created successfully."""
+TC-EVENT-002,View an existing event,Event Management,1,"- Event ""Tech Conference 2023"" exists in Postgresol.
+- User is logged in.",,"1. User navigates to ""Join/view event"" activity.
+2. User searches for ""Tech Conference 2023.""
+3. User selects the event.","- System displays event details (name, date, location, description).
+- User can see ""Join"" or ""Already Joined"" button.
+- No errors occur."
+TC-EVENT-003,Join an event successfully,Event Management,1,"- Event ""Tech Conference 2023"" exists and is public.
+- User is logged in.",,"1. User views event details.
+2. User clicks ""Join.""
+3. User confirms action.","- System records user participation in Postgresol.
+- Notification center sends join confirmation to user.
+- User sees: ""You have joined Tech Conference 2023."""
+TC-PROFILE-001,Update user profile successfully,Profile Management,1,"- User is logged in.
+- Current profile data: Name = ""John Doe,"" Bio = ""Software Engineer.""","- New name: ""Johnathan Doe""
+- New bio: ""Senior QA Engineer""","1. User navigates to Profile activity.
+2. User edits name and bio fields.
+3. User clicks ""Save.""","- System updates profile in Postgresol.
+- User sees updated profile data.
+- Notification center logs profile change (if configured)."
+TC-PROFILE-002,Profile update failure with empty bio,Profile Management,1,- User is logged in.,"- New name: ""John Doe"" (unchanged)
+- New bio: """" (empty)","1. User navigates to Profile activity.
+2. User clears bio field and clicks ""Save.""","- System rejects update.
+- Error message appears: ""Bio cannot be empty.""
+- Profile data remains unchanged."
+TC-NOTIFICATION-001,Receive notification for new event,Notification Center,1,"- User is subscribed to ""Tech Updates"" newsletter.
+- A new event ""Tech Conference 2023"" is created.
+- Notification center is configured to alert subscribers.",,"1. System creates ""Tech Conference 2023.""
+2. Notification center processes event creation.","- User receives email: ""New Event: Tech Conference 2023.""
+- Notification appears in-app (if supported).
+- Postgresol logs notification sent to user."
+TC-EXIT-001,Logout and terminate session,Session Management,1,- User is logged in.,,"1. User clicks ""Exit"" (logout).
+2. System confirms logout.","- Session is terminated in Postgresol.
+- User is redirected to Flash activity.
+- Notification center logs logout event.
+- User sees: ""You have been logged out."""
+TC-INTEGRATION-001,End-to-end flow: Register → Login → Create Event → Exit,System Integration,1,"- Fresh database (Postgresol) with no users.
+- Notification center is active.",,"1. User registers with `newuser@example.com` and `Pass123!`.
+2. User logs in with the same credentials.
+3. User creates event ""Test Event.""
+4. User logs out.","- Registration succeeds; user exists in Postgresol.
+- Login succeeds; user is authenticated.
+- Event is created and recorded in Postgresol.
+- Notification for event creation is sent.
+- Logout terminates session; user is redirected to Flash activity."
+TC-EDGE-001,System behavior during database timeout,Postgresol Integration,1,"- Postgresol is temporarily unavailable (simulated timeout).
+- User is on the Login activity.","- Email: `john.doe@example.com`
+- Password: `SecurePass123!`",1. User attempts to log in during Postgresol timeout.,"- System displays error: ""Service unavailable. Please try again later.""
+- User is redirected to Flash activity.
+- No session is created.
+- Notification center logs the failure."
+TC-EDGE-002,Concurrent event creation by multiple users,Event Management,1,"- Two users (`user1@example.com`, `user2@example.com`) are logged in.
+- Both attempt to create an event with the same name simultaneously.","- User1: Event name = ""Conference 2023""
+- User2: Event name = ""Conference 2023""","1. User1 submits event creation.
+2. User2 submits event creation at the same time.","- System accepts one event and rejects the duplicate.
+- Rejected user sees: ""Event name already exists. Please choose another.""
+- Postgresol contains only one event record.
+- Notification center alerts User1 of success and User2 of failure."

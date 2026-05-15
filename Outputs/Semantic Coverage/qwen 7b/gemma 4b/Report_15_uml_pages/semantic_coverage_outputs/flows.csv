@@ -1,0 +1,55 @@
+flow
+informazioni utente -> datamanager -> operazioni di accesso
+datamanager -> lettura piante
+datamanager -> inserimento/modifica piante
+datamanager -> inserimento/modifica diario
+datamanager -> lettura diario
+flow 1: informazioni utente -> datamanager -> operazioni di accesso
+the diagram models a system where user information is accessed through a datamanager component.
+"the datamanager provides access to plant data (reading, inserting, modifying) and diary data (reading, inserting, modifying)."
+the diagram does not show any specific user interactions or error handling.
+user -> firebaseauthentication : authenticate
+firebaseauthentication -> firebasestoragemanager : storeimage
+firebaseauthentication -> personalstorage : retrieveimage
+gems -> asktext : requesttext
+asktext -> gems : sendtext
+the diagram models the user authentication process and interaction with a gemini ai service.
+the user authenticates with firebase authentication.
+firebase authentication stores an image in personal storage and retrieves an image.
+the gemini ai service receives text input from the user via the asktext component.
+"main -> localuser — message=""token = gettoken()"";"
+"main -> authentication — message=""[token = null] : request(token)"";"
+"localuser -> authentication — message=""request dati utente"";"
+"authentication -> localuser — message=""new localuser"";"
+"main -> main — message=""done"";"
+main -> localuser: token = gettoken()
+main -> authentication: [token = null] : request(token)
+localuser -> authentication: request dati utente
+authentication -> localuser: new localuser
+main -> main: done
+the diagram models the login process.
+the user interface initiates the process by requesting a token.
+"the token is sent to the local user service, which then requests user data from the authentication service."
+the authentication service creates a new localuser object and returns it to the local user service.
+"the main interface receives confirmation (""done"")."
+"main -> gemini ai api — type=synchronization; label=""newfoto -> richiesta specie pianta nella foto risposta con la specie""; explanation=""initiates the process by sending a new photo and requesting the plant species."""
+"gemini ai api -> firebase storage — type=synchronization; label=""inserimento della specie nello storage""; explanation=""sends the identified species to firebase storage."""
+"firebase storage -> main — type=synchronization; label=""caricamento nuova foto nella cartella corretta download url della foto caricata""; explanation=""returns a url of the uploaded photo."""
+"main -> gemini ai api — label=""newfoto -> richiesta specie pianta nella foto risposta con la specie"""
+"gemini ai api -> firebase storage — label=""inserimento della specie nello storage"""
+"firebase storage -> main — label=""caricamento nuova foto nella cartella corretta download url della foto caricata"""
+the diagram models the process of adding a plant photo to a system.
+"the process involves sending the photo to a gemini ai api for species identification, storing the identified species in firebase storage, and then downloading the original photo with its url."
+"the diagram does not show error handling or alternative flows (e.g., if the ai api fails or the storage operation fails)."
+"main -> firebase storage — type=message; label=""request personal storage""; explanation=""main requests access to personal storage"""
+"firebase storage -> main — type=message; label=""personal storage path""; explanation=""firebase storage provides the path to the personal storage"""
+"main -> firebase storage — type=message; label=""request foto per ogni specie presente""; explanation=""main requests photos for each species present"""
+"firebase storage -> main — type=message; label=""download uri di ogni foto richiesta""; explanation=""firebase storage downloads the uris of requested photos"""
+main -> firebase storage — request personal storage
+firebase storage -> main — personal storage path
+main -> firebase storage — request foto per ogni specie presente
+firebase storage -> main — download uri di ogni foto richiesta
+the diagram models a process where the main component requests access to personal storage from firebase storage.
+"it then requests photos for each species present, and firebase storage downloads the uris of those photos."
+"this appears to be a simple retrieval process, likely for displaying images associated with different species."
+======================================================================

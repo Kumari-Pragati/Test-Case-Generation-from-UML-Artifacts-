@@ -1,0 +1,477 @@
+system
+You are a senior SDET and software test designer. Generate concrete, code-faithful test cases ONLY from the given code context. Do NOT invent features, methods, screens, APIs, or validations not shown. You MUST cover every method in MUST_COVER at least once (1 test per method minimum). If there are UI/CTA signals, include interaction tests relevant to those signals. Output ONLY a valid JSON array. No markdown. No extra text.
+user
+TARGET FILE: Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java
+
+MUST_COVER (ensure each appears in covered_methods at least once):
+- getFormattedValue
+- loadDashboardData
+- onCreate
+- onCreateView
+- onDestroyView
+- setupChart
+- setValueFormatter
+- showErrorToast
+- updateGraph
+- updateStatistics
+
+UI/CTA SIGNALS (use if present):
+- (none)
+
+OUTPUT FORMAT (JSON array ONLY; EXACT keys):
+[
+  {
+    "test_case_id": "TC-<Module>-###",
+    "title": "...",
+    "module": "...",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["methodName1","methodName2"],
+    "preconditions": ["..."],
+    "test_data": ["..."],
+    "test_steps": ["..."],
+    "expected_result": ["..."]
+  }
+]
+
+RULES:
+- Keep total test cases <= 60 (merge coverage when needed).
+- Every MUST_COVER method must be in covered_methods somewhere.
+- Steps & expected_result must match code branches, UI actions, and backend outcomes visible.
+- Output ONLY the JSON array.
+
+FEW-SHOT EXAMPLE (how to cover UI + backend from code context):
+
+If code has:
+- Button confirmBt with setOnClickListener
+- Reads EditText newMail + confirmNewMail
+- Branch: empty/mismatch -> Toast error
+- Calls updateUserEmail(email)
+- Backend: getCurrentUser() null -> Toast unauthenticated
+- Backend: verifyBeforeUpdateEmail success -> save SharedPreferences + navigate
+- Backend: verifyBeforeUpdateEmail failure -> Toast failure
+
+Then tests must include covered_methods like:
+["onCreateView","updateUserEmail"] and steps for each branch.
+
+MISSING METHODS FROM PREVIOUS OUTPUT (ADD TESTS FOR THESE NOW):
+- setValueFormatter
+
+CONTEXT:
+FILE: Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java
+LANG: java
+
+CLASSES:
+- StatisticsFragment (Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:42-42)
+
+METHODS (must be covered):
+- onCreate | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:47-47
+  sig: public void onCreate(Bundle savedInstanceState) {         super.onCreate(savedInstanceState);         client = new OkHttpClient.Builder().build(); // Initialize OkHttpClient     }      @Override     public View onCreateV
+- onCreateView | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:53-53
+  sig: public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {         binding = FragmentDashboardBinding.inflate(inflater, container, false);          // Configura il grafic
+- loadDashboardData | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:64-64
+  sig: private void loadDashboardData() {         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);         String userId = sharedPreferences.getString("user_
+- updateGraph | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:134-134
+  sig: private void updateGraph(LineChart chart, List<Entry> emissionsData, List<String> days) {         LineDataSet dataSet = new LineDataSet(emissionsData, "Emissioni");         dataSet.setColor(Color.BLUE);         dataSet.s
+- setValueFormatter | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:150-150
+  sig: setValueFormatter(new ValueFormatter() {             @Override             public String getFormattedValue(float value) {                 int index = Math.round(value);                 if (index >= 0 && index < days.size
+- getFormattedValue | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:151-151
+  sig: public String getFormattedValue(float value) {                 int index = Math.round(value);                 if (index >= 0 && index < days.size()) {                     // Converti la data nel formato giorno/mese/anno 
+- showErrorToast | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:173-173
+  sig: private void showErrorToast(String message) {         requireActivity().runOnUiThread(() -> Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show());     }      private void setupChart(LineChart chart) {       
+- setupChart | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:178-178
+  sig: private void setupChart(LineChart chart) {         chart.getDescription().setEnabled(false);         chart.setTouchEnabled(true);         chart.setDragEnabled(true);         chart.setScaleEnabled(true);         chart.set
+- updateStatistics | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:196-196
+  sig: private void updateStatistics(double totalEmissions, double totalDistance, int weeklyTrips) {         binding.textTotalEmissionsValue.setText(String.format("%.2f kg", totalEmissions));         binding.textTravelDistanceV
+- onDestroyView | Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java:204-204
+  sig: public void onDestroyView() {         super.onDestroyView();         binding = null;     } }
+
+UI / CTA / INPUT SIGNALS:
+
+CODE (snippet):
+package com.example.ecodriving.ui.statistics;
+
+import static com.example.ecodriving.MainActivity.ip;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.example.ecodriving.databinding.FragmentDashboardBinding;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class StatisticsFragment extends Fragment {
+
+    private FragmentDashboardBinding binding;
+    private OkHttpClient client;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        client = new OkHttpClient.Builder().build(); // Initialize OkHttpClient
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+
+        // Configura il grafico settimanale
+        setupChart(binding.graphWeekly);
+
+        // Carica i dati dal server
+        loadDashboardData();
+
+        return binding.getRoot();
+    }
+
+    private void loadDashboardData() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("EcoDrivingPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("user_id", null);
+
+        if (userId == null) {
+            Toast.makeText(getActivity(), "Errore: utente non loggato", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("user_id", userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        new Thread(() -> {
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody body = RequestBody.create(postData.toString(), JSON);
+            Request request = new Request.Builder()
+                    .url("http://" + ip + ":8081/api/getDashboardData")
+                    .post(body)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+
+                    JSONObject jsonResponse = new JSONObject(responseData);
+
+                    // Estrarre le statistiche principali
+                    double totalEmissions = jsonResponse.getDouble("total_emissions");
+                    double totalDistance = jsonResponse.getDouble("total_distance");
+                    int weeklyTrips = jsonResponse.getInt("weekly_trips");
+
+                    // Aggiornare le statistiche nella UI
+                    requireActivity().runOnUiThread(() -> updateStatistics(totalEmissions, totalDistance, weeklyTrips));
+
+                    // Estrarre i dati per il grafico settimanale
+                    JSONArray dailyEmissions = jsonResponse.getJSONArray("daily_emissions");
+
+                    List<Entry> weeklyEmissions = new ArrayList<>();
+                    List<String> days = new ArrayList<>();
+                    for (int i = 0; i < dailyEmissions.length(); i++) {
+                        JSONObject dayData = dailyEmissions.getJSONObject(i);
+
+                        if (dayData.has("giorno") && dayData.has("totale_emissioni")) {
+                            String day = dayData.getString("giorno");
+                            double emission = dayData.getDouble("totale_emissioni");
+
+                            days.add(day);
+                            weeklyEmissions.add(new Entry(i, (float) emission));
+                        }
+                    }
+
+                    // Aggiornare il grafico nella UI
+                    requireActivity().runOnUiThread(() -> {
+                        updateGraph(binding.graphWeekly, weeklyEmissions, days);
+                    });
+                } else {
+                    showErrorToast("Errore durante il caricamento dei dati");
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                showErrorToast("Errore di connessione");
+            }
+        }).start();
+    }
+
+    private void updateGraph(LineChart chart, List<Entry> emissionsData, List<String> days) {
+        LineDataSet dataSet = new LineDataSet(emissionsData, "Emissioni");
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setLineWidth(2f);
+        dataSet.setCircleColor(Color.RED);
+        dataSet.setCircleRadius(4f);
+        dataSet.setDrawValues(true);
+
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
+
+        // Configura l'asse X
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int index = Math.round(value);
+                if (index >= 0 && index < days.size()) {
+                    // Converti la data nel formato giorno/mese/anno
+                    try {
+                        String inputDate = days.get(index); // Supponendo che sia nel formato "yyyy-MM-dd"
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                        return outputFormat.format(inputFormat.parse(inputDate));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return "";
+            }
+        });
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
+
+        // Configura altre proprietà del grafico
+        chart.invalidate(); // Forza il rendering
+    }
+
+
+    private void showErrorToast(String message) {
+        requireActivity().runOnUiThread(() -> Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show());
+    }
+
+    private void setupChart(LineChart chart) {
+        chart.getDescription().setEnabled(false);
+        chart.setTouchEnabled(true);
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+        chart.setPinchZoom(true);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setEnabled(false);
+    }
+
+    private void updateStatistics(double totalEmissions, double totalDistance, int weeklyTrips) {
+        binding.textTotalEmissionsValue.setText(String.format("%.2f kg", totalEmissions));
+        binding.textTravelDistanceValue.setText(String.format("%.2f km", totalDistance));
+        binding.textAverageTripsValue.setText(String.valueOf(weeklyTrips));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+}
+assistant
+```json
+[
+  {
+    "test_case_id": "TC-StatisticsFragment-001",
+    "title": "Test onCreate initializes OkHttpClient",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["onCreate"],
+    "preconditions": ["None"],
+    "test_data": ["None"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the onCreate method with a mock Bundle."
+    ],
+    "expected_result": [
+      "The OkHttpClient is initialized within the onCreate method."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-002",
+    "title": "Test onCreateView inflates layout and sets up chart",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["onCreateView", "setupChart"],
+    "preconditions": ["None"],
+    "test_data": ["None"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the onCreateView method with a mock LayoutInflater, ViewGroup, and Bundle.",
+      "Verify that the FragmentDashboardBinding is correctly inflated.",
+      "Check that the setupChart method is called on the graphWeekly chart."
+    ],
+    "expected_result": [
+      "The layout is correctly inflated.",
+      "The setupChart method configures the chart properties as expected."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-003",
+    "title": "Test loadDashboardData handles user not logged in",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["loadDashboardData"],
+    "preconditions": ["Mock SharedPreferences without user_id"],
+    "test_data": ["None"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the loadDashboardData method.",
+      "Verify that a toast message 'Errore: utente non loggato' is displayed."
+    ],
+    "expected_result": [
+      "The toast message 'Errore: utente non loggato' is shown when user_id is null."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-004",
+    "title": "Test loadDashboardData handles successful API response",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["loadDashboardData", "updateStatistics", "updateGraph"],
+    "preconditions": ["Mock successful API response with sample data"],
+    "test_data": ["Sample JSON response with total_emissions, total_distance, weekly_trips, and daily_emissions"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the loadDashboardData method.",
+      "Verify that the updateStatistics method updates the UI elements with correct values.",
+      "Verify that the updateGraph method populates the chart with correct data points."
+    ],
+    "expected_result": [
+      "The UI elements are updated with the correct statistics values.",
+      "The chart is populated with the correct data points."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-005",
+    "title": "Test loadDashboardData handles API error",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["loadDashboardData"],
+    "preconditions": ["Mock API error response"],
+    "test_data": ["Error response from API"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the loadDashboardData method.",
+      "Verify that a toast message 'Errore durante il caricamento dei dati' is displayed."
+    ],
+    "expected_result": [
+      "The toast message 'Errore durante il caricamento dei dati' is shown when API call fails."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-006",
+    "title": "Test loadDashboardData handles network connection error",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["loadDashboardData"],
+    "preconditions": ["Mock network connection error"],
+    "test_data": ["Network error"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the loadDashboardData method.",
+      "Verify that a toast message 'Errore di connessione' is displayed."
+    ],
+    "expected_result": [
+      "The toast message 'Errore di connessione' is shown when network connection fails."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-007",
+    "title": "Test updateGraph formats dates correctly",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["updateGraph"],
+    "preconditions": ["Mock date data"],
+    "test_data": ["List of daily emission data with formatted dates"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the updateGraph method with mocked data.",
+      "Verify that the X-axis labels are correctly formatted as 'dd/MM/yyyy'."
+    ],
+    "expected_result": [
+      "The X-axis labels are formatted as 'dd/MM/yyyy'."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-008",
+    "title": "Test updateStatistics updates UI elements",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["updateStatistics"],
+    "preconditions": ["Mock statistical data"],
+    "test_data": ["Sample statistical data with total_emissions, total_distance, and weekly_trips"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the updateStatistics method with mocked data.",
+      "Verify that the UI elements display the correct statistical values."
+    ],
+    "expected_result": [
+      "The UI elements display the correct statistical values."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-009",
+    "title": "Test setValueFormatter formats values correctly",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["setValueFormatter"],
+    "preconditions": ["Mock list of days"],
+    "test_data": ["List of days"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the setValueFormatter method with mocked data.",
+      "Verify that the formatted values match the expected format."
+    ],
+    "expected_result": [
+      "The formatted values match the expected format."
+    ]
+  },
+  {
+    "test_case_id": "TC-StatisticsFragment-010",
+    "title": "Test onDestroyView releases resources",
+    "module": "StatisticsFragment",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/ui/statistics/StatisticsFragment.java"],
+    "covered_methods": ["onDestroyView"],
+    "preconditions": ["None"],
+    "test_data": ["None"],
+    "test_steps": [
+      "Create an instance of StatisticsFragment.",
+      "Call the onDestroyView method.",
+      "Verify that the binding is set to null."
+    ],
+    "expected_result": [
+      "The binding is set to null after calling onDestroyView."
+    ]
+  }
+]
+```

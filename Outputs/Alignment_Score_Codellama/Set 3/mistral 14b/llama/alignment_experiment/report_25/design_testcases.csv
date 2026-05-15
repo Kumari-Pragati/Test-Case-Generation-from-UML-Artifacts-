@@ -1,0 +1,129 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Registration with OTP Validation,User Authentication,3,"- User has a valid email and password.
+- Server and database are operational.
+- Network connectivity is available.","- Email: `testuser@example.com`
+- Password: `SecurePass123!`
+- OTP: `123456` (simulated)","1. User opens the app and clicks ""Register.""
+2. User enters `testuser@example.com` and `SecurePass123!` in the registration form.
+3. App sends `doRegistration()` to the server.
+4. Server generates OTP (`123456`) and saves it to the database.
+5. Server sends OTP to the user via email/SMS (simulated).
+6. User enters OTP (`123456`) in the app.
+7. App validates OTP with the server.
+8. Server confirms OTP and saves user data to the database.
+9. User receives a confirmation message.","- User account is successfully created in the database.
+- App displays a success message: ""Registration completed. Please log in.""
+- No errors in server logs."
+TC-AUTHENTICATION-002,Failed User Registration Due to Invalid OTP,User Authentication,3,- User has entered valid email/password but incorrect OTP.,"- Email: `testuser@example.com`
+- Password: `SecurePass123!`
+- Incorrect OTP: `999999`","1. User registers with `testuser@example.com` and `SecurePass123!`.
+2. Server generates OTP (`123456`) and sends it to the user.
+3. User enters incorrect OTP (`999999`) in the app.
+4. App sends OTP validation request to the server.
+5. Server rejects the OTP.","- App displays an error: ""Invalid OTP. Please try again.""
+- User account is **not** created in the database.
+- Server logs show OTP validation failure."
+TC-AUTHENTICATION-003,Successful User Login with Token Generation,User Authentication,4,"- User is registered (`testuser@example.com`/`SecurePass123!`).
+- Server and database are operational.","- Email: `testuser@example.com`
+- Password: `SecurePass123!`","1. User enters `testuser@example.com` and `SecurePass123!` in the login form.
+2. App sends `emailValidate()` and `passwordValidate()` to the server.
+3. Server checks credentials against the database.
+4. Server generates an `AuthToken` and saves it to the database.
+5. App receives the token and stores it locally.
+6. App redirects the user to the homepage.","- User is logged in successfully.
+- App displays the homepage.
+- Database contains the new `AuthToken` for `testuser@example.com`.
+- No errors in server logs."
+TC-AUTHENTICATION-004,Failed Login Due to Incorrect Password,User Authentication,4,- User is registered (`testuser@example.com`/`SecurePass123!`).,"- Email: `testuser@example.com`
+- Incorrect Password: `WrongPass123!`","1. User enters `testuser@example.com` and `WrongPass123!`.
+2. App sends validation requests to the server.
+3. Server checks credentials and rejects the password.","- App displays an error: ""Invalid email or password.""
+- User is **not** logged in.
+- No `AuthToken` is generated or saved.
+- Server logs show authentication failure."
+TC-AUTHENTICATION-005,Password Recovery via Email,User Authentication,5,"- User is registered (`testuser@example.com`/`SecurePass123!`).
+- User requests a password reset.","- Email: `testuser@example.com`
+- New Password: `NewSecurePass456!`
+- Recovery Token: `abc123xyz` (simulated)","1. User clicks ""Forgot Password"" and enters `testuser@example.com`.
+2. App sends `LostPSWRequest()` to the server.
+3. Server checks if the email exists in the database.
+4. Server sends a recovery email with a link containing the token (`abc123xyz`).
+5. User clicks the link and enters `NewSecurePass456!`.
+6. App sends the new password and token to the server.
+7. Server validates the token and updates the password in the database.
+8. User logs in with the new password.","- User password is updated to `NewSecurePass456!`.
+- App displays: ""Password updated successfully. Please log in.""
+- Database reflects the new password and invalidates the old token.
+- No errors in server logs."
+TC-AUTHENTICATION-006,Password Recovery with Invalid Token,User Authentication,5,- User requests a password reset but uses an invalid token.,"- Email: `testuser@example.com`
+- Invalid Token: `xyz999abc`
+- New Password: `NewSecurePass456!`","1. User requests a password reset and receives a token (`abc123xyz`).
+2. User manually alters the token to `xyz999abc` and submits it with `NewSecurePass456!`.
+3. App sends the request to the server.
+4. Server validates the token and rejects it.","- App displays an error: ""Invalid recovery link. Please request a new one.""
+- User password is **not** updated.
+- Server logs show token validation failure."
+TC-ECOMMERCE-001,Successful Product Creation and Categorization,Product Management,2,"- User is logged in.
+- Database has a `Category` (e.g., ""Electronics"").","- Product Name: `Smartphone X`
+- Price: `599.99`
+- Description: `Latest model with advanced features.`
+- Category: `Electronics`","1. User navigates to ""Add Product"" and enters details.
+2. User clicks ""Create.""
+3. App sends `create(name, price, description)` to the server.
+4. Server validates input and saves the product to the database.
+5. User selects ""Electronics"" as the category.
+6. App sends `create(categoryId, productId)` to associate the product with the category.","- Product `Smartphone X` is created in the database with `id=1`.
+- `ProductCategory` table contains `categoryId=1`, `productId=1`.
+- App displays: ""Product created successfully.""
+- No errors in server logs."
+TC-ECOMMERCE-002,Failed Product Creation Due to Invalid Price,Product Management,2,- User is logged in.,"- Product Name: `Smartphone X`
+- Invalid Price: `-100.00` (negative value)
+- Description: `Latest model...`","1. User enters invalid price (`-100.00`).
+2. User clicks ""Create.""
+3. App sends the request to the server.
+4. Server validates the price and rejects it.","- App displays an error: ""Price must be a positive number.""
+- Product is **not** created in the database.
+- Server logs show validation failure."
+TC-ECOMMERCE-003,Successful Order Creation with Products,Order Management,2,"- User is logged in (`userId=1`).
+- Database has a `Product` (`productId=1`, `price=599.99`).
+- User has added the product to their cart.",- Quantity: `2`,"1. User navigates to ""Checkout"" and selects quantity `2`.
+2. User clicks ""Place Order.""
+3. App sends `create(userId=1, productId=1, quantity=2)` to the server.
+4. Server validates the order and saves it to the database.
+5. Server processes payment (simulated success).","- Order is created with `id=1`, `userId=1`, `productId=1`, `quantity=2`.
+- App displays: ""Order placed successfully. Total: $1199.98.""
+- Database reflects the order and updates product stock (if applicable).
+- No errors in server logs."
+TC-ECOMMERCE-004,Failed Order Creation Due to Insufficient Stock,Order Management,2,"- User is logged in (`userId=1`).
+- Database has a `Product` (`productId=1`, `price=599.99`, `stock=1`).",- Quantity: `2` (exceeds stock),"1. User attempts to order `quantity=2`.
+2. App sends the request to the server.
+3. Server checks stock and rejects the order.","- App displays an error: ""Insufficient stock. Only 1 available.""
+- Order is **not** created.
+- Server logs show stock validation failure."
+TC-SOCIAL-001,Successful Card Swipe and Match Notification,User Matching,"6, 7","- Two users (`Utente1`, `Utente2`) are logged in.
+- Database has `n=10` objects (profiles) for each user.
+- Both users swipe right on each other’s profiles.",,"1. `Utente1` swipes right on `Utente2`'s card.
+2. `App1` sends `trackObjectPre{true}` to the server.
+3. Server saves the preference to the database.
+4. `Utente2` swipes right on `Utente1`'s card.
+5. `App2` sends `trackObjectPre{true}` to the server.
+6. Server detects a mutual match and notifies both users.","- Both users receive a match notification.
+- App displays a ""Match found!"" screen with `Utente2`'s profile.
+- Database logs the match between `Utente1` and `Utente2`.
+- Push notification system sends alerts to both users."
+TC-SOCIAL-002,No Match Due to Unilateral Swipe,User Matching,"6, 7","- `Utente1` swipes right on `Utente2`'s card.
+- `Utente2` swipes left on `Utente1`'s card.",,"1. `Utente1` swipes right on `Utente2`'s card.
+2. `App1` sends `trackObjectPre{true}` to the server.
+3. `Utente2` swipes left on `Utente1`'s card.
+4. `App2` sends `trackObjectPre{false}` to the server.","- No match notification is sent to either user.
+- App displays: ""No match this time. Keep swiping!""
+- Database does not log a match.
+- No push notifications are triggered."
+TC-SOCIAL-003,Real-Time Messaging Between Users,Chat System,8,"- `Utente1` and `Utente2` are matched.
+- Both users have opened the chat interface.","- Message from `Utente1`: ""Hi there!""
+- Message from `Utente2`: ""Hello! How are you?""","1. `Utente1` types ""Hi there!"" and sends it.
+2. `App1` sends `sendMessage` to `App2`.
+3. `App2` receives the notification and displays the message.
+4. `Utente2` types ""Hello! How are you?"" and sends it.
+5. `App2` sends `sendMessage` to `App1`.
+6. `App1",

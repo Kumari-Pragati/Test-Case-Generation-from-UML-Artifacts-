@@ -1,0 +1,151 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration with Valid Data,User,"2,3",None,"- Email: test@example.com
+- Password: StrongPassword123!
+- Name: John Doe
+- Nationality: USA
+- Role: User","1. Utente inputs registration data into the UI.
+2. UI sends the registration data to FirebaseAuthentication.
+3. FirebaseAuthentication validates the data and returns a token.
+4. UI sends the user data along with the token to FirebaseAuthentication for saving.
+5. FirebaseAuthentication confirms the user's save.
+6. UI receives confirmation of successful registration.","- User is successfully registered and logged in.
+- Confirmation message is displayed on the UI."
+TC-User-002,User Registration with Invalid Data,User,"2,3",None,"- Email: invalid-email
+- Password: WeakPass
+- Name: Jane
+- Nationality: 
+- Role:","1. Utente inputs invalid registration data into the UI.
+2. UI sends the registration data to FirebaseAuthentication.
+3. FirebaseAuthentication validates the data and returns an error.
+4. UI receives an error message indicating invalid data.","- User registration fails.
+- Error message is displayed on the UI."
+TC-User-003,User Login with Valid Credentials,User,2,User is registered and logged out.,"- Email: test@example.com
+- Password: StrongPassword123!","1. Utente inputs valid credentials into the UI.
+2. UI sends the credentials to FirebaseAuthentication.
+3. FirebaseAuthentication validates the credentials and returns a token.
+4. FirebaseAuthentication retrieves user data from the token.
+5. UI receives valid credentials and user data.","- User is successfully logged in.
+- User data is retrieved and displayed on the UI."
+TC-User-004,User Login with Invalid Credentials,User,2,User is registered and logged out.,"- Email: test@example.com
+- Password: IncorrectPassword","1. Utente inputs invalid credentials into the UI.
+2. UI sends the credentials to FirebaseAuthentication.
+3. FirebaseAuthentication validates the credentials and returns an error.
+4. UI receives an error message indicating invalid credentials.","- User login fails.
+- Error message is displayed on the UI."
+TC-User-005,User Creates a Report with Valid Data,Report,"1,4",User is logged in.,"- Description: Broken street light
+- Image: valid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: High
+- Category: Public Safety
+- Area: Downtown","1. Utente inputs report details into the UI.
+2. UI uploads the image to FirebaseStorage.
+3. UI searches for the nearest competent entity based on coordinates and urgency.
+4. UI saves the report with the image URL and entity data in FirebaseFirestore.
+5. UI confirms the report saving.","- Report is successfully created and saved.
+- Confirmation message is displayed on the UI."
+TC-User-006,User Creates a Report with Missing Required Fields,Report,"1,4",User is logged in.,"- Description: 
+- Image: 
+- Coordinates: 
+- Urgency: 
+- Category: 
+- Area:","1. Utente inputs incomplete report details into the UI.
+2. UI attempts to upload the image to FirebaseStorage.
+3. UI searches for the nearest competent entity based on coordinates and urgency.
+4. UI fails to save the report due to missing required fields.","- Report creation fails.
+- Error message is displayed on the UI indicating missing required fields."
+TC-User-007,User Creates a Report with Invalid Image,Report,"1,4",User is logged in.,"- Description: Damaged road
+- Image: invalid_image.txt
+- Coordinates: 40.7128, -74.0060
+- Urgency: Medium
+- Category: Infrastructure
+- Area: Midtown","1. Utente inputs report details with an invalid image into the UI.
+2. UI attempts to upload the invalid image to FirebaseStorage.
+3. UI fails to upload the image.
+4. UI searches for the nearest competent entity based on coordinates and urgency.
+5. UI fails to save the report due to invalid image.","- Report creation fails.
+- Error message is displayed on the UI indicating invalid image."
+TC-User-008,User Creates a Report with Invalid Coordinates,Report,"1,4",User is logged in.,"- Description: Pothole
+- Image: valid_image.jpg
+- Coordinates: abcdefg
+- Urgency: Low
+- Category: Road Maintenance
+- Area: Financial District","1. Utente inputs report details with invalid coordinates into the UI.
+2. UI attempts to search for the nearest competent entity based on invalid coordinates.
+3. UI fails to find the nearest competent entity.
+4. UI fails to save the report due to invalid coordinates.","- Report creation fails.
+- Error message is displayed on the UI indicating invalid coordinates."
+TC-User-009,User Creates a Report with Invalid Urgency Level,Report,"1,4",User is logged in.,"- Description: Graffiti
+- Image: valid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: VeryHigh
+- Category: Aesthetics
+- Area: Upper East Side","1. Utente inputs report details with an invalid urgency level into the UI.
+2. UI attempts to save the report with the invalid urgency level.
+3. UI fails to save the report due to invalid urgency level.","- Report creation fails.
+- Error message is displayed on the UI indicating invalid urgency level."
+TC-User-010,User Creates a Report with Invalid Category,Report,"1,4",User is logged in.,"- Description: Street flooding
+- Image: valid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: High
+- Category: NonExistentCategory
+- Area: Lower West Side","1. Utente inputs report details with an invalid category into the UI.
+2. UI attempts to save the report with the invalid category.
+3. UI fails to save the report due to invalid category.","- Report creation fails.
+- Error message is displayed on the UI indicating invalid category."
+TC-User-011,User Creates a Report with Invalid Area,Report,"1,4",User is logged in.,"- Description: Sidewalk damage
+- Image: valid_image.jpg
+- Coordinates: 40.7128, -74.0060
+- Urgency: Medium
+- Category: Infrastructure
+- Area: NonExistentArea","1. Utente inputs report details with an invalid area into the UI.
+2. UI attempts to save the report with the invalid area.
+3. UI fails to save the report due to invalid area.","- Report creation fails.
+- Error message is displayed on the UI indicating invalid area."
+TC-User-012,User Receives Notification After Creating a Report,Notification,"1,4",User is logged in and has created a report.,"- Report ID: 12345
+- Text: Your report has been submitted successfully.
+- Date: 2023-10-01","1. User creates a report.
+2. UI generates a notification for the user.
+3. Notification is saved in the database.
+4. User receives the notification.","- Notification is successfully generated and received by the user.
+- Notification message is displayed on the UI."
+TC-User-013,User Receives Multiple Notifications,Notification,"1,4",User is logged in and has created multiple reports.,"- Report IDs: 12345, 67890
+- Text: Your report has been submitted successfully.
+- Dates: 2023-10-01, 2023-10-02","1. User creates multiple reports.
+2. UI generates notifications for each report.
+3. Notifications are saved in the database.
+4. User receives all notifications.","- Multiple notifications are successfully generated and received by the user.
+- All notification messages are displayed on the UI."
+TC-User-014,User Receives Notification with Invalid Report ID,Notification,"1,4",User is logged in.,"- Report ID: 00000
+- Text: Your report has been submitted successfully.
+- Date: 2023-10-01","1. User attempts to generate a notification with an invalid report ID.
+2. UI fails to generate the notification due to invalid report ID.","- Notification generation fails.
+- Error message is displayed on the UI indicating invalid report ID."
+TC-User-015,User Receives Notification with Invalid Text,Notification,"1,4",User is logged in.,"- Report ID: 12345
+- Text: 
+- Date: 2023-10-01","1. User attempts to generate a notification with an empty text.
+2. UI fails to generate the notification due to invalid text.","- Notification generation fails.
+- Error message is displayed on the UI indicating invalid text."
+TC-User-016,User Receives Notification with Invalid Date,Notification,"1,4",User is logged in.,"- Report ID: 12345
+- Text: Your report has been submitted successfully.
+- Date: 2023-13-01","1. User attempts to generate a notification with an invalid date.
+2. UI fails to generate the notification due to invalid date.","- Notification generation fails.
+- Error message is displayed on the UI indicating invalid date."
+TC-User-017,User Receives Notification with Valid Data,Notification,"1,4",User is logged in and has created a report.,"- Report ID: 12345
+- Text: Your report has been submitted successfully.
+- Date: 2023-10-01","1. User creates a report.
+2. UI generates a notification for the user.
+3. Notification is saved in the database.
+4. User receives the notification.","- Notification is successfully generated and received by the user.
+- Notification message is displayed on the UI."
+TC-User-018,User Receives Notification with Empty Text,Notification,"1,4",User is logged in.,"- Report ID: 12345
+- Text: 
+- Date: 2023-10-01","1. User attempts to generate a notification with an empty text.
+2. UI fails to generate the notification due to invalid text.","- Notification generation fails.
+- Error message is displayed on the UI indicating invalid text."
+TC-User-019,User Receives Notification with Invalid Date Format,Notification,"1,4",User is logged in.,"- Report ID: 12345
+- Text: Your report has been submitted successfully.
+- Date: 2023-10-01T12:00:00Z","1. User attempts to generate a notification with an invalid date format.
+2. UI fails to generate the notification due to invalid date format.","- Notification generation fails.
+- Error message is displayed on the UI indicating invalid date format."
+TC-User-020,User Receives Notification with Valid Data and Correct Date Format,"Notification
+Source U",,,,,

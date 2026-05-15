@@ -1,0 +1,86 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Test User Creation with Valid Inputs,User,1,None,"- Username: valid_username
+- Email: valid_email@example.com
+- Password: valid_password
+- Punti: 0","1. Create a new User object with the provided test data.
+2. Call the SetUsername, SetEmail, SetPassword, and SetPunti methods on the User object.
+3. Call the GetUsername, GetEmail, GetPassword, and GetPunti methods on the User object.","- The User object should be created successfully.
+- The GetUsername, GetEmail, GetPassword, and GetPunti methods should return the provided test data."
+TC-USER-002,Test User Creation with Invalid Email,User,1,None,"- Username: invalid_email@
+- Email: invalid_email@
+- Password: valid_password
+- Punti: 0","1. Create a new User object with the provided test data.
+2. Call the SetUsername, SetEmail, SetPassword, and SetPunti methods on the User object.
+3. Call the GetEmail method on the User object.","- The User object should not be created.
+- The GetEmail method should return an error message."
+TC-USER-003,Test User Login with Valid Credentials,User,"1, 2, 3",A user has been created.,"- Email: valid_email@example.com
+- Password: valid_password","1. Call the signInWithEmailAndPassword method with the provided test data.
+2. Check if the response is not an error.
+3. Call the GetUsername method on the returned FirebaseAuthUser object.","- The user should be successfully logged in.
+- The GetUsername method should return the username of the logged-in user."
+TC-USER-004,Test User Login with Invalid Password,User,"1, 2, 3",A user has been created.,"- Email: valid_email@example.com
+- Password: invalid_password","1. Call the signInWithEmailAndPassword method with the provided test data.
+2. Check if the response is an error.","- The user should not be logged in.
+- The response should contain an error message."
+TC-RANKING-001,Test User Superation with Valid Inputs,Ranking,1,A user has been logged in.,"- id: 1
+- Titolo: ""Top Ranking""
+- Superato: true","1. Create a new Ranking object with the provided test data.
+2. Call the SetId, SetTitolo, and SetSuperato methods on the Ranking object.
+3. Call the GetId, GetTitolo, and GetSuperato methods on the Ranking object.","- The Ranking object should be created successfully.
+- The GetId, GetTitolo, and GetSuperato methods should return the provided test data."
+TC-MISSION-001,Test Mission Creation with Valid Inputs,Mission,1,None,"- id: 1
+- Titolo: ""Test Mission""
+- Superato: false
+- Descrizione: ""Test Mission Description""","1. Create a new Mission object with the provided test data.
+2. Call the SetId, SetTitolo, SetSuperato, and SetDescrizione methods on the Mission object.
+3. Call the GetId, GetTitolo, GetSuperato, and GetDescrizione methods on the Mission object.","- The Mission object should be created successfully.
+- The GetId, GetTitolo, GetSuperato, and GetDescrizione methods should return the provided test data."
+TC-MISSION-002,Test Mission Completion with Valid Inputs,Mission,"1, 2, 3, 4",A user has been logged in and a mission has been created.,"- Tip: ""Test Tip""","1. Create a new Tip object with the provided test data.
+2. Call the SetId and SetTitolo methods on the Tip object.
+3. Call the GetId and GetTitolo methods on the Tip object.
+4. Call the SetMission method on the Tip object with the previously created mission object.
+5. Call the SetSuperato method on the Tip object with true.
+6. Call the SetSuperato method on the Mission object with true.","- The Tip object should be created successfully.
+- The Mission object's Superato property should be set to true."
+TC-MISSION-003,Test Mission Completion with Invalid Inputs (No Tip),Mission,"1, 2, 3, 4",A user has been logged in and a mission has been created.,- Tip: null,"1. Create a new Tip object with the provided test data.
+2. Call the SetId and SetTitolo methods on the Tip object.
+3. Call the SetMission method on the Tip object with the previously created mission object.
+4. Call the SetSuperato method on the Tip object with true.","- The Tip object should not be created.
+- The Mission object's Superato property should remain false."
+TC-MISSION-004,Test Mission Completion with Invalid Inputs (Already Completed Mission),Mission,"1, 2, 3, 4","A user has been logged in, a mission has been created, and the mission has already been completed.","- Tip: ""Test Tip""","1. Create a new Tip object with the provided test data.
+2. Call the SetId and SetTitolo methods on the Tip object.
+3. Call the SetMission method on the Tip object with the previously created mission object.
+4. Call the SetSuperato method on the Tip object with true.","- The Tip object should not be created.
+- The Mission object's Superato property should remain true."
+TC-TIP-001,Test Tip Creation with Valid Inputs,Tip,1,None,"- id: 1
+- Titolo: ""Test Tip""","1. Create a new Tip object with the provided test data.
+2. Call the SetId and SetTitolo methods on the Tip object.
+3. Call the GetId and GetTitolo methods on the Tip object.","- The Tip object should be created successfully.
+- The GetId and GetTitolo methods should return the provided test data."
+TC-TIP-002,Test Tip Creation with Invalid Inputs (No Title),Tip,1,None,"- id: 1
+- Titolo: null","1. Create a new Tip object with the provided test data.
+2. Call the SetId and SetTitolo methods on the Tip object.","- The Tip object should not be created.
+- An error message should be returned."
+TC-TIP-003,Test Tip Assignment to Mission with Valid Inputs,Tip,"1, 2, 3, 4","A user has been logged in, a mission has been created, and a tip has been created.",- Mission: previously created mission object,1. Call the SetMission method on the Tip object with the previously created mission object.,- The Tip should be assigned to the Mission.
+TC-TIP-004,Test Tip Assignment to Mission with Invalid Inputs (No Mission),Tip,"1, 2, 3, 4","A user has been logged in, a tip has been created, but no mission has been created.",- Mission: null,1. Call the SetMission method on the Tip object with the provided test data.,"- The Tip should not be assigned to a Mission.
+- An error message should be returned."
+TC-FIREBASE-001,Test Firebase Authentication Sign-In with Valid Credentials,Firebase Authentication,2,None,"- Email: valid_email@example.com
+- Password: valid_password",1. Call the signInWithEmailAndPassword method with the provided test data.,"- The user should be successfully signed in.
+- The response should contain the user's data."
+TC-FIREBASE-002,Test Firebase Authentication Sign-In with Invalid Credentials,Firebase Authentication,2,None,"- Email: invalid_email@
+- Password: valid_password",1. Call the signInWithEmailAndPassword method with the provided test data.,"- The user should not be signed in.
+- The response should contain an error message."
+TC-FIREBASE-003,Test Firebase Authentication Sign-Up with Valid Inputs,Firebase Authentication,3,None,"- Email: valid_email@example.com
+- Password: valid_password",1. Call the CreateUserWithEmailAndPassword method with the provided test data.,"- The user should be successfully created.
+- The response should contain the user's data."
+TC-FIREBASE-004,Test Firebase Authentication Sign-Up with Invalid Email,Firebase Authentication,3,None,"- Email: invalid_email@
+- Password: valid_password",1. Call the CreateUserWithEmailAndPassword method with the provided test data.,"- The user should not be created.
+- The response should contain an error message."
+TC-FIREBASE-005,Test Firebase Authentication Sign-Up with Empty Email,Firebase Authentication,3,None,"- Email: """"
+- Password: valid_password",1. Call the CreateUserWithEmailAndPassword method with the provided test data.,"- The user should not be created.
+- The response should contain an error message."
+TC-FIREBASE-006,Test Firebase Authentication Sign-Up with Empty Password,Firebase Authentication,3,None,"- Email: valid_email@example.com
+- Password: """"",1. Call the CreateUserWithEmailAndPassword method with the provided test data.,"- The user should not be created.
+- The response should contain an error message."
+TC-FIREBASE-007,Test Firebase Authentication Sign-Up with Short Password,Firebase Authentication,3,None,"- Email: valid_email@example.com
+- Password: ""short""",1. Call the,

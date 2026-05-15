@@ -1,0 +1,84 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login via APIManager,Authentication,"2, 4","- User account exists in the system with valid credentials (e.g., `username: ""testuser""`, `password: ""SecurePass123""`).
+- APIManager is operational and accessible.","- Valid username: `""testuser""`
+- Valid password: `""SecurePass123""`","1. User invokes `login(username: String, password: String)` on `APIManager` with valid credentials.
+2. APIManager validates credentials against stored user data.
+3. APIManager returns `true` (success) from the `login()` method.","- Login operation returns `true`, indicating successful authentication.
+- User is granted access to subsequent APIManager operations (e.g., `createAPI`, `handleRequest`)."
+TC-AUTHENTICATION-002,Failed user login with invalid credentials,Authentication,"2, 4","- User account exists, but invalid credentials are provided.
+- APIManager is operational.","- Invalid username: `""wronguser""`
+- Valid password: `""SecurePass123""` (or vice versa)","1. User invokes `login(username: String, password: String)` with invalid credentials.
+2. APIManager validates credentials and detects a mismatch.
+3. APIManager returns `false` (failure) from the `login()` method.","- Login operation returns `false`, denying access to further operations.
+- System logs the failed attempt (assumed implicit; not shown in UML but reasonable for security)."
+TC-AUTHENTICATION-003,Failed login with empty credentials,Authentication,"2, 4",- APIManager is operational.,"- Empty username: `""""`
+- Empty password: `""""`","1. User invokes `login(username: """", password: """")`.
+2. APIManager detects null/empty inputs.
+3. APIManager rejects the request (assumed to return `false` or throw an exception; not specified in UML).","- Login operation fails (returns `false` or throws an error like `InvalidCredentialsException`).
+- System may log the attempt as invalid input."
+TC-APIMANAGER-001,APIManager creates a new API,API Management,"4, 5","- User is authenticated (login successful).
+- APIManager is operational.","- API name: `""WeatherAPI""`
+- API version: `""v1.0""`","1. Authenticated user invokes `createAPI(name: String, version: String)` on APIManager.
+2. APIManager validates input parameters (non-empty, valid format).
+3. APIManager registers the new API (assumed to store internally or in DataManager).","- API is successfully created and stored.
+- Method returns confirmation (e.g., `void` with no errors).
+- APIManager can now route requests to the `Service` for `""WeatherAPI""`."
+TC-APIMANAGER-002,APIManager deletes an existing API,API Management,4,"- API `""WeatherAPI""` exists and is registered in APIManager.
+- User is authenticated.","- API name: `""WeatherAPI""`
+- API version: `""v1.0""`","1. Authenticated user invokes `deleteAPI(name: String, version: String)`.
+2. APIManager locates and validates the API exists.
+3. APIManager removes the API from its registry (and DataManager, if applicable).","- API is deleted successfully.
+- No further requests can be routed to the deleted API.
+- Method completes without errors."
+TC-APIMANAGER-003,APIManager fails to delete non-existent API,API Management,4,"- No API named `""NonExistentAPI""` exists.
+- User is authenticated.","- API name: `""NonExistentAPI""`
+- API version: `""v1.0""`","1. User invokes `deleteAPI(""NonExistentAPI"", ""v1.0"")`.
+2. APIManager searches its registry and finds no match.","- Operation fails (e.g., returns `false` or throws `APINotFoundException`).
+- No changes to the system state."
+TC-SERVICE-001,Service handles a valid request,Service Processing,"4, 5","- API `""WeatherAPI""` exists and is registered.
+- User is authenticated.
+- DataManager has required data (e.g., weather records).","- Request name: `""WeatherAPI""`","1. APIManager forwards a request to `Service.handleRequest(name: String)` with `""WeatherAPI""`.
+2. Service validates the API name and retrieves data from DataManager.
+3. Service processes the request (e.g., fetches weather data).","- Request is processed successfully.
+- Service returns data (e.g., JSON response) to APIManager.
+- No errors or exceptions."
+TC-SERVICE-002,Service fails to handle invalid API request,Service Processing,"4, 5","- No API named `""InvalidAPI""` exists.
+- User is authenticated.","- Request name: `""InvalidAPI""`","1. APIManager forwards `handleRequest(""InvalidAPI"")` to Service.
+2. Service detects the API does not exist.","- Service returns an error (e.g., `APINotFoundException` or `false`).
+- APIManager logs the failure and notifies the user."
+TC-DATAMANAGER-001,DataManager retrieves data for report generation,Data Management,5,"- DataManager contains weather records for `""WeatherAPI""`.
+- User is authenticated.","- Report name: `""MonthlyWeatherReport""`","1. APIManager invokes `generateReport(name: String)` on Report class.
+2. Report class requests data from DataManager (assumed via `Service` or direct association).
+3. DataManager retrieves and returns the required dataset.","- Data is successfully retrieved and passed to the Report class.
+- Report is generated without errors."
+TC-DATAMANAGER-002,DataManager fails to retrieve non-existent data,Data Management,5,"- DataManager has no records for `""NonExistentData""`.
+- User is authenticated.","- Report name: `""NonExistentReport""`","1. APIManager requests `generateReport(""NonExistentReport"")`.
+2. Report class queries DataManager for data.
+3. DataManager returns empty or `null`.","- Report generation fails (e.g., throws `DataNotFoundException`).
+- APIManager notifies the user of the failure."
+TC-INTEGRATION-001,End-to-end flow: Login → API Creation → Request Handling → Report Generation,End-to-End Workflow,"2, 4, 5","- System is initialized with no APIs or reports.
+- User credentials are valid.",,"1. User logs in with valid credentials (`login(""testuser"", ""SecurePass123"")`).
+2. User creates an API (`createAPI(""WeatherAPI"", ""v1.0"")`).
+3. User sends a request via APIManager (`handleRequest(""WeatherAPI"")`).
+4. Service processes the request and generates a report (`generateReport(""MonthlyWeatherReport"")`).
+5. DataManager provides data for the report.","- All steps complete successfully in sequence:
+  - Login returns `true`.
+  - API is created and registered.
+  - Request is processed; data is returned.
+  - Report is generated and stored.
+- No errors or exceptions occur."
+TC-EDGE-001,Concurrent API requests from multiple users,Concurrency,"4, 5","- Two users (`user1`, `user2`) are authenticated.
+- APIManager and Service support concurrent operations.","- User1: `login(""user1"", ""pass1"")` → `createAPI(""API1"", ""v1"")` → `handleRequest(""API1"")`.
+- User2: `login(""user2"", ""pass2"")` → `createAPI(""API2"", ""v1"")` → `handleRequest(""API2"")`.","1. User1 and User2 log in simultaneously.
+2. Both create APIs (`API1`, `API2`) concurrently.
+3. Both send requests to their respective APIs concurrently.","- All operations complete without conflicts or data corruption.
+- APIs and requests are isolated (no interference).
+- Reports are generated correctly for each user."
+TC-EDGE-002,APIManager handles null/empty API name,Input Validation,4,- User is authenticated.,"- API name: `null` or `""""`
+- API version: `""v1.0""`","1. User invokes `createAPI(null, ""v1.0"")` or `createAPI("""", ""v1.0"")`.
+2. APIManager validates inputs.","- Operation fails (e.g., throws `InvalidInputException` or returns `false`).
+- No API is created; system state remains unchanged."
+TC-EDGE-003,Service handles malformed request data,Error Handling,"4, 5","- API `""WeatherAPI""` exists.
+- User is authenticated.","- Malformed request: `handleRequest(""WeatherAPI|malformed"")` (e.g., SQL injection or invalid format).","1. APIManager forwards malformed request to Service.
+2. Service detects invalid input format.","- Service rejects the request (e.g., returns `false` or throws `InvalidRequestException`).
+- APIManager logs the error and notifies the user."

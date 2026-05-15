@@ -1,0 +1,102 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-MGMT-001,User registration and faculty assignment,User Management,1,"- System is running; no users exist for the test faculty.
+- Valid faculty account is logged in.","- User ID: 1001, Name: ""John Doe"", Email: ""john.doe@example.com""
+- Faculty: ""Pediatrics"", Code: ""PED-001""","1. Faculty logs in with credentials.
+2. Faculty navigates to ""addUser()"" operation.
+3. Faculty enters: ID=1001, Name=""John Doe"", Email=""john.doe@example.com"".
+4. Faculty assigns user to faculty ""Pediatrics"" (PED-001).
+5. Faculty assigns user to camp ""SummerCamp2024"".
+6. Faculty confirms submission.","- User is created with ID=1001, name=""John Doe"", email=""john.doe@example.com"".
+- User is linked to faculty ""Pediatrics"" and camp ""SummerCamp2024"".
+- System logs confirmation: ""User added successfully to Pediatrics/SummerCamp2024""."
+TC-USER-MGMT-002,User removal by faculty,User Management,1,"- User ""John Doe"" (ID=1001) exists and is assigned to faculty ""Pediatrics"" and camp ""SummerCamp2024"".
+- Faculty ""Pediatrics"" is logged in.",- User ID: 1001,"1. Faculty logs in.
+2. Faculty navigates to ""removeUser()"" operation.
+3. Faculty searches for and selects user ID=1001.
+4. Faculty confirms removal.","- User ""John Doe"" is deleted from the system.
+- User is no longer linked to faculty ""Pediatrics"" or camp ""SummerCamp2024"".
+- System logs: ""User ID=1001 removed successfully""."
+TC-USER-MGMT-003,Invalid user removal (non-existent user),User Management,1,"- No user with ID=9999 exists in the system.
+- Faculty is logged in.",- User ID: 9999,"1. Faculty logs in.
+2. Faculty navigates to ""removeUser()"" operation.
+3. Faculty enters ID=9999 and attempts removal.","- System displays error: ""User ID=9999 not found"".
+- No changes to the database.
+- Faculty remains on the removal page."
+TC-USER-MGMT-004,User login/logout,Authentication,"1, 3","- User ""John Doe"" (ID=1001) exists and is assigned to a faculty/camp.
+- System is running.","- Valid credentials: Email=""john.doe@example.com"", Password=""Secure123!""
+- Invalid credentials: Email=""wrong@example.com"", Password=""wrongpass""","1. User enters valid email/password and clicks ""login()"".
+2. System verifies credentials.
+3. User navigates to ""logout()"" and confirms.","- User is authenticated and redirected to **HomeActivity**.
+- User session is active; profile/graphs are accessible.
+- After logout, user is redirected to **LoginActivity**.
+- System logs: ""User ID=1001 logged out""."
+TC-USER-MGMT-005,Invalid user login (wrong credentials),Authentication,"1, 3","- No user exists with email=""wrong@example.com"".
+- System is running.","- Invalid credentials: Email=""wrong@example.com"", Password=""wrongpass""","1. User enters invalid email/password and clicks ""login()"".","- System displays error: ""Invalid email or password"".
+- User remains on **LoginActivity**.
+- No session is created."
+TC-NAVIGATION-001,Home page → Monitoring section → Note → Return to home,UI Navigation,2,- User is logged in and on the **HOME** page.,,"1. User clicks ""Accesso al menu a fondo"" (bottom menu).
+2. User selects ""Sezione di monitoraggio"" (monitoring section).
+3. User chooses **NO** (do not monitor) in the monitoring section.
+4. User is redirected to **Note** screen.
+5. User clicks ""Ritorno alla home"" (return to home).","- User navigates: **HOME → Monitoring Section → Note → HOME**.
+- No data is displayed in the **Note** screen (as per ""NO"" condition).
+- Home page reloads successfully."
+TC-NAVIGATION-002,Home page → Monitoring section → Monitoring data → Return to home,UI Navigation,2,"- User is logged in and on the **HOME** page.
+- Monitoring data exists for the user (e.g., sleep graph).",,"1. User clicks ""Accesso al menu a fondo"".
+2. User selects ""Sezione di monitoraggio"".
+3. User chooses **SI** (monitor) in the monitoring section.
+4. User views monitoring data (e.g., sleep graph).
+5. User clicks ""Ritorno alla home"".","- User navigates: **HOME → Monitoring Section → Data View → HOME**.
+- Monitoring data (e.g., graph) is displayed.
+- Home page reloads without data loss."
+TC-NAVIGATION-003,Home → Profile → Graph fragments navigation,UI Navigation,3,"- User is logged in and on the **HomeActivity**.
+- Profile data exists for the user.",,"1. User clicks profile icon in **HomeActivity**.
+2. User is redirected to **ProfileActivity**.
+3. User clicks ""GraphSonoFragment"" (sleep graph).
+4. User navigates back to **HomeActivity**.
+5. User clicks ""GraphAlattamentoFragment"" (feeding graph).
+6. User navigates back to **HomeActivity**.
+7. User clicks ""GraphCrescitaFragment"" (growth graph).","- Navigation flow: **HomeActivity → ProfileActivity → GraphSonoFragment → HomeActivity → GraphAlattamentoFragment → HomeActivity → GraphCrescitaFragment**.
+- Each graph fragment loads data correctly (e.g., sleep/feeding/growth metrics).
+- No crashes or data corruption during transitions."
+TC-FAMILY-ACTIVITY-001,Create family activity record,Family Activity,3,"- User is logged in and on **HomeActivity**.
+- User has profile data.",,"1. User navigates to **FamilyActivity** via home menu.
+2. User enters:
+   - Name: ""Smith""
+   - Surname: ""Family""
+   - Gender: ""Male""
+   - Date: ""2024-05-20""
+3. User clicks ""createFamilyActivity"".
+4. System generates a random ID (e.g., 2001).","- Family activity record is created with:
+  - Name=""Smith"", Surname=""Family"", Gender=""Male"", Date=""2024-05-20"", ID=2001.
+- System logs: ""Family activity created successfully"".
+- Record is visible in **ProfileActivity**."
+TC-FAMILY-ACTIVITY-002,Invalid family activity creation (missing required field),Family Activity,3,- User is logged in.,,"1. User navigates to **FamilyActivity**.
+2. User leaves **Name** field empty and submits.","- System displays error: ""Name is required"".
+- No record is created.
+- User remains on **FamilyActivity** screen."
+TC-GRAPH-FRAGMENTS-001,View sleep graph data,Graph Visualization,3,"- User is logged in and has sleep data recorded.
+- User is on **ProfileActivity**.",,"1. User clicks ""GraphSonoFragment"" (sleep graph).
+2. User verifies graph displays:
+   - X-axis: Time (e.g., hours).
+   - Y-axis: Sleep duration (e.g., minutes).
+   - Data points for past 7 days.","- Graph renders correctly with labeled axes and data points.
+- No errors or missing data.
+- User can zoom/pan (if supported)."
+TC-GRAPH-FRAGMENTS-002,View growth graph with no data,Graph Visualization,3,"- User is logged in but has no growth data recorded.
+- User is on **ProfileActivity**.",,"1. User clicks ""GraphCrescitaFragment"" (growth graph).","- Graph displays a message: ""No growth data available"".
+- No errors or crashes.
+- User can return to **ProfileActivity** without issues."
+TC-EDGE-CASE-001,User assigned to multiple camps (invalid scenario),User Management,1,"- User ""John Doe"" (ID=1001) exists and is assigned to camp ""SummerCamp2024"".
+- Faculty is logged in.",,"1. Faculty attempts to assign user ID=1001 to a second camp ""WinterCamp2024"".","- System displays error: ""User already assigned to SummerCamp2024"".
+- User remains assigned only to ""SummerCamp2024"".
+- No duplicate assignments are created."
+TC-EDGE-CASE-002,Faculty manages 0 camps (edge case),User Management,1,"- Faculty ""Pediatrics"" exists but manages no camps.
+- User ""John Doe"" exists but is not assigned to any camp.",,"1. Faculty logs in.
+2. Faculty attempts to assign user ID=1001 to a camp.","- System displays error: ""No camps available for assignment"".
+- User remains unassigned to any camp.
+- Faculty can create a camp first (if UI allows)."
+TC-EDGE-CASE-003,User logout during graph navigation,UI Navigation,3,- User is viewing **GraphSonoFragment**.,,"1. User clicks ""logout()"" while on **GraphSonoFragment**.","- User is logged out immediately.
+- System redirects to **LoginActivity**.
+- No unsaved data is lost (graphs are read-only).
+- System logs: ""User logged out during graph view""."

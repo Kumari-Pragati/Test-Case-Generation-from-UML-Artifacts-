@@ -1,0 +1,78 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration and notification-triggered event creation,User Registration & Event Creation,1,"- System is live; PostgreSQL is accessible.
+- No duplicate email in the database.","- Valid user: `email=""testuser@example.com""`, `password=""SecurePass123!""`, `name=""Test User""`","1. User navigates to **U-moviment** and selects **Register activity**.
+2. User enters valid credentials (`testuser@example.com`, `SecurePass123!`, `Test User`).
+3. System validates input and confirms registration.
+4. **Notification Center** receives registration event and triggers **Create event**.
+5. System creates a default welcome event (e.g., ""Welcome to [AppName]!"").","- User account is created in PostgreSQL.
+- Flash message: ""Registration successful! Welcome event created.""
+- Event appears in the system under the user’s profile."
+TC-USER-REGISTRATION-002,Registration with invalid email format,User Registration,1,System is live.,"- Invalid user: `email=""invalid.email""`, `password=""WeakPass""`, `name=""Test User""`","1. User selects **Register activity** from **U-moviment**.
+2. User submits invalid email (`invalid.email`) and weak password.
+3. System attempts validation.","- Error message: ""Invalid email format. Password must be 8+ characters with uppercase, lowercase, and a number.""
+- No account created; **Notification Center** receives no event.
+- Flash message: ""Registration failed. Please correct errors."""
+TC-USER-REGISTRATION-003,Duplicate email registration attempt,User Registration,1,- `testuser@example.com` already exists in PostgreSQL.,"- Duplicate user: `email=""testuser@example.com""`, `password=""NewPass456""`, `name=""Duplicate User""`","1. User attempts registration with existing email.
+2. System validates input.","- Error message: ""Email already registered.""
+- No account created; **Notification Center** receives no event.
+- Flash message: ""Registration failed."""
+TC-USER-LOGIN-001,Successful login and notification-triggered event joining,User Login & Event Participation,1,"- User `testuser@example.com` exists with password `SecurePass123!`.
+- A public event (e.g., ""Welcome to [AppName]!"") exists in the system.","- Valid credentials: `email=""testuser@example.com""`, `password=""SecurePass123!""`","1. User selects **Login activity** from **U-moviment**.
+2. User enters valid credentials.
+3. System authenticates and redirects to **Notification Center**.
+4. **Notification Center** triggers **Join/View event** for the welcome event.","- User is logged in; session is active.
+- Flash message: ""Logged in successfully! Joined 'Welcome to [AppName]!'""
+- Event appears in the user’s joined events list."
+TC-USER-LOGIN-002,Failed login with incorrect password,User Login,1,User `testuser@example.com` exists.,"- Invalid credentials: `email=""testuser@example.com""`, `password=""WrongPass123""`","1. User selects **Login activity**.
+2. User submits incorrect password.
+3. System attempts authentication.","- Error message: ""Invalid email or password.""
+- No session created; **Notification Center** receives no event.
+- Flash message: ""Login failed."""
+TC-NOTIFICATION-001,Flash message display and notification propagation,Flash Messages & Notification Center,1,User is logged in.,"- System-generated flash message: ""Your event 'Team Meeting' is updated!""","1. User performs an action (e.g., edits an event) triggering a flash message.
+2. **Flash activity** sends message to **Notification Center**.
+3. **Notification Center** propagates to **Profile** (e.g., updates user dashboard).","- Flash message appears briefly on screen.
+- User profile shows updated event status.
+- No further actions are triggered (e.g., no event creation)."
+TC-NEWSLETTER-001,Successful newsletter subscription and data persistence,Newsletter Management,1,System is live; PostgreSQL is accessible.,"- Valid subscription: `email=""newsletter@example.com""`, `preferences=""Weekly Updates""`","1. User selects **Newsletter activity** from **U-moviment**.
+2. User submits email and preferences.
+3. **Newsletter management** processes request and interacts with **Gestione dati del progetto**.
+4. Data is stored in PostgreSQL.","- Flash message: ""Subscribed to newsletter! Expect updates weekly.""
+- Entry added to PostgreSQL under `newsletter_subscriptions`.
+- **Notification Center** receives no event (no action triggered)."
+TC-NEWSLETTER-002,Newsletter subscription with invalid email,Newsletter Management,1,System is live.,"- Invalid subscription: `email=""invalid.email""`, `preferences=""Daily""`","1. User submits invalid email.
+2. **Newsletter management** validates input.","- Error message: ""Invalid email format.""
+- No data stored in PostgreSQL.
+- Flash message: ""Subscription failed."""
+TC-EVENT-PARTICIPATION-001,User joins a public event via notification,Event Participation,1,"- User is logged in.
+- Public event ""Community Workshop"" exists.",- Event ID: `101` (Community Workshop),"1. **Notification Center** receives a trigger (e.g., from a system update).
+2. **Notification Center** directs user to **Join/View event** for event ID `101`.
+3. User confirms join action.","- Event ""Community Workshop"" appears in user’s joined events.
+- Flash message: ""Joined 'Community Workshop'!""
+- Event participation record added to PostgreSQL."
+TC-EVENT-PARTICIPATION-002,User attempts to join a non-existent event,Event Participation,1,User is logged in.,- Invalid event ID: `9999`,"1. **Notification Center** attempts to trigger join for event ID `9999`.
+2. System validates event existence.","- Error message: ""Event not found.""
+- No join action recorded.
+- Flash message: ""Failed to join event."""
+TC-PROFILE-001,Profile access via notification trigger,User Profile,1,User is logged in.,- User ID: `1001` (testuser@example.com),"1. **Notification Center** triggers **Profile** access for user ID `1001`.
+2. User navigates to profile.","- User profile loads with correct data (name, joined events, etc.).
+- Flash message: ""Profile updated via notification.""
+- No data changes occur (read-only trigger)."
+TC-DATA-MANAGEMENT-001,PostgreSQL data integrity for newsletter subscriptions,Project Data Management,1,- Newsletter subscription exists for `newsletter@example.com`.,,"1. **Newsletter management** queries **Gestione dati del progetto** for subscriptions.
+2. **Gestione dati del progetto** retrieves data from PostgreSQL.
+3. System verifies record count and format.","- Query returns 1 record with correct fields (`email`, `preferences`, `timestamp`).
+- No errors in PostgreSQL logs.
+- Data matches input from TC-NEWSLETTER-001."
+TC-DATA-MANAGEMENT-002,PostgreSQL connection failure during data write,Project Data Management,1,- PostgreSQL is temporarily unavailable (simulated).,"- Newsletter subscription: `email=""test@fail.com""`","1. **Newsletter management** attempts to store subscription.
+2. **Gestione dati del progetto** fails to connect to PostgreSQL.","- Error logged: ""Database connection failed. Retry in 5 seconds.""
+- Flash message: ""Service unavailable. Please try again later.""
+- No partial data written to database."
+TC-EXIT-001,User exits application via notification trigger,Application Exit,1,User is logged in.,,"1. **Notification Center** triggers **Exit** (e.g., due to inactivity timeout).
+2. User session is terminated.","- All active sessions for user are invalidated.
+- Flash message: ""You have been logged out.""
+- User is redirected to login screen."
+TC-EDGE-001,Concurrent registration and login by same user,User Registration & Login,1,- User `concurrent@example.com` is not registered.,"- Registration: `email=""concurrent@example.com""`, `password=""Pass123!""`
+- Login (simultaneous): Same credentials","1. Two users (or automated scripts) attempt to register/login with `concurrent@example.com` simultaneously.
+2. System processes requests in order.","- Only the first registration succeeds.
+- Second registration fails with ""Email already registered.""
+- Login succeeds only after first registration completes.
+- No race conditions in PostgreSQL (e.g., duplicate entries)."

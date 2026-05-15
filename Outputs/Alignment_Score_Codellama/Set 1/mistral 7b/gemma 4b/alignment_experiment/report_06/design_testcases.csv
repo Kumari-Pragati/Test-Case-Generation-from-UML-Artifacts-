@@ -1,0 +1,62 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,User registration with valid data,User,"1, 2",None,"- email: test@example.com
+- password: Test1234
+- name: Test User","1. Navigate to the registration page.
+2. Enter the email, password, and name.
+3. Click the ""Register"" button.","- The user is registered successfully, and a confirmation message is displayed."
+TC-USER-002,User registration with invalid data (email format),User,2,None,"- email: testexample.com
+- password: Test1234
+- name: Test User","1. Navigate to the registration page.
+2. Enter the email, password, and name.
+3. Click the ""Register"" button.","- An error message is displayed, indicating that the email format is invalid."
+TC-USER-003,User login with valid credentials,User,"1, 2",User has been registered.,"- email: test@example.com
+- password: Test1234","1. Navigate to the login page.
+2. Enter the email and password.
+3. Click the ""Login"" button.","- The user is logged in successfully, and a confirmation message is displayed."
+TC-USER-004,User login with invalid credentials,User,"1, 2",User has been registered.,"- email: test@example.com
+- password: Wrong1234","1. Navigate to the login page.
+2. Enter the email and password.
+3. Click the ""Login"" button.","- An error message is displayed, indicating that the credentials are incorrect."
+TC-ENTITY-001,Create an entity with valid data,Entity,1,User is logged in.,"- id: 1
+- name: Test Entity
+- description: Test Entity description
+- type: Test Entity type","1. Navigate to the entity creation page.
+2. Enter the entity data.
+3. Click the ""Create"" button.","- The entity is created successfully, and a confirmation message is displayed."
+TC-ENTITY-002,Create an entity with invalid data (missing name),Entity,1,User is logged in.,"- id: 1
+- description: Test Entity description
+- type: Test Entity type","1. Navigate to the entity creation page.
+2. Enter the entity data without a name.
+3. Click the ""Create"" button.","- An error message is displayed, indicating that the name is required."
+TC-AREA-001,Create an area with valid data,Area,1,User is logged in.,"- id: 1
+- name: Test Area
+- description: Test Area description","1. Navigate to the area creation page.
+2. Enter the area data.
+3. Click the ""Create"" button.","- The area is created successfully, and a confirmation message is displayed."
+TC-AREA-002,Create an area with invalid data (missing name),Area,1,User is logged in.,"- id: 1
+- description: Test Area description","1. Navigate to the area creation page.
+2. Enter the area data without a name.
+3. Click the ""Create"" button.","- An error message is displayed, indicating that the name is required."
+TC-REPORT-001,Create a report with valid data,Report,1,"User is logged in, and entities and areas have been created.","- id: 1
+- user_id: 1
+- area_id: 1
+- date: 2023-03-01
+- content: Test Report content","1. Navigate to the report creation page.
+2. Select the user, area, and date.
+3. Enter the report content.
+4. Click the ""Create"" button.","- The report is created successfully, and a confirmation message is displayed."
+TC-REPORT-002,Create a report with invalid data (missing user_id),Report,1,"User is logged in, and entities and areas have been created.","- id: 1
+- area_id: 1
+- date: 2023-03-01
+- content: Test Report content","1. Navigate to the report creation page.
+2. Select the area and date.
+3. Enter the report content.
+4. Click the ""Create"" button.","- An error message is displayed, indicating that the user_id is required."
+TC-NOTIFICATION-001,Send a notification to a user,Notification,1,"User is logged in, and a user has been created.",- message: Test Notification message,"1. Navigate to the notification creation page.
+2. Enter the notification message.
+3. Select the user to receive the notification.
+4. Click the ""Send"" button.","- The notification is sent successfully, and a confirmation message is displayed."
+TC-NOTIFICATION-002,Send a notification to a non-existent user,Notification,1,User is logged in.,- message: Test Notification message,"1. Navigate to the notification creation page.
+2. Enter the notification message.
+3. Select a non-existent user to receive the notification.
+4. Click the ""Send"" button.","- An error message is displayed, indicating that the user does not exist."

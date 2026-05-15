@@ -1,0 +1,102 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Auth-001,Successful User Login,Auth,"2, 3, 6",User account exists and is active.,"- Valid email: user@example.com
+- Valid password: Password123!","1. Navigate to the login page.
+2. Enter the valid email and password.
+3. Click the login button.","- User is redirected to the home page.
+- A success message is displayed."
+TC-Auth-002,Unsuccessful User Login with Incorrect Password,Auth,"2, 3, 6",User account exists and is active.,"- Valid email: user@example.com
+- Invalid password: wrongpassword","1. Navigate to the login page.
+2. Enter the valid email and the incorrect password.
+3. Click the login button.","- User remains on the login page.
+- An error message indicating incorrect password is displayed."
+TC-Auth-003,User Registration,Auth,3,User does not have an account.,"- New user details: name, surname, email, password, phone number, DOB, address","1. Navigate to the registration page.
+2. Fill in all required fields with valid data.
+3. Submit the form.","- User is redirected to the login page.
+- A success message indicating successful registration is displayed."
+TC-Emergency-001,Create Emergency Successfully,Emergency,4,Coordinator is authenticated and active.,"- Emergency details: name, description, location, start date, end date","1. Click ""Inserisci emergenza"".
+2. Ensure the coordinator is authenticated.
+3. Input all required emergency details.
+4. Confirm that the information is complete.
+5. Click ""Crea emergenza"".","- Emergency is created successfully.
+- Confirmation message is displayed."
+TC-Emergency-002,Error Handling for Unauthenticated Coordinator,Emergency,4,Coordinator is not authenticated.,"- Emergency details: name, description, location, start date, end date","1. Click ""Inserisci emergenza"".
+2. Ensure the coordinator is not authenticated.","- Error message is displayed.
+- User is redirected to the login page."
+TC-Emergency-003,View Emergencies,Emergency,2,User is authenticated and active.,- User is authenticated.,"1. Click ""Visualizza emergenze"".
+2. Check if any emergencies are available.","- If emergencies are available, they are displayed.
+- If no emergencies are available, a message ""Nessuna emergenza"" is shown."
+TC-Emergency-004,Remove Volunteer from Task,Emergency,5,Coordinator is authenticated and active.,- Emergency and task details.,"1. Click ""Visualizza emergenza"".
+2. Ensure the coordinator is authenticated.
+3. Select an emergency.
+4. Select a task.
+5. Check if a volunteer is assigned to the task.
+6. If a volunteer is assigned, remove the volunteer.","- Volunteer is removed from the task.
+- Confirmation message is displayed."
+TC-Task-001,Create New Task Successfully,Task,7,User is authenticated and active.,"- Task details: id, name, description, location, due date","1. Send a POST request to ""/nuovoCompito"" with valid task details.
+2. Verify the token.
+3. Insert the task details into the database.","- Task is created successfully.
+- Success message is returned."
+TC-Task-002,Error Handling During Task Creation,Task,7,User is authenticated and active.,"- Task details: id, name, description, location, due date","1. Send a POST request to ""/nuovoCompito"" with valid task details.
+2. Verify the token.
+3. Attempt to insert invalid task details into the database.","- Error is logged.
+- HTTP error (400/401/500) is returned."
+TC-Emergency-Termination-001,Terminate Emergency Successfully,EmergencyTermination,8,User is authenticated and active.,"- Emergency details: id, name, description, location, start date, end date","1. Send a POST request to ""/terminaEmergenza"".
+2. Verify the token.
+3. Update the database to terminate the emergency.","- Emergency is terminated successfully.
+- Message ""X emergenza terminata"" is returned."
+TC-Emergency-Termination-002,No Emergencies Terminated,EmergencyTermination,8,User is authenticated and active.,"- Emergency details: id, name, description, location, start date, end date","1. Send a POST request to ""/terminaEmergenza"".
+2. Verify the token.
+3. Attempt to terminate an emergency that does not exist.","- Emergency is not terminated.
+- Message ""Nessuna emergenza terminata"" is returned."
+TC-Emergency-Termination-003,Error Handling for Invalid Token,EmergencyTermination,8,User is authenticated and active.,"- Emergency details: id, name, description, location, start date, end date","1. Send a POST request to ""/terminaEmergenza"".
+2. Provide an invalid token.","- Error is logged.
+- Process is terminated.
+- HTTP error (401) is returned."
+TC-Assignment-001,Assign Task to User Successfully,Assignment,1,Task and user exist and are active.,"- Task details: id, name, description, location, due date
+- User details: id, name, email","1. Call the operation ""newAssegnazione()"" to assign the task to the user.","- Task is assigned to the user successfully.
+- Confirmation message is displayed."
+TC-Assignment-002,Accept Assignment,Assignment,1,Assignment exists and is active.,"- Assignment details: id, task id, user id","1. Call the operation ""acceptAssegnazione()"" to accept the assignment.","- Assignment is accepted successfully.
+- Confirmation message is displayed."
+TC-Assignment-003,Terminate Assignment,Assignment,1,Assignment exists and is active.,"- Assignment details: id, task id, user id","1. Call the operation ""terminateAssegnazione()"" to terminate the assignment.","- Assignment is terminated successfully.
+- Confirmation message is displayed."
+TC-Assignment-004,Delete Assignment,Assignment,1,Assignment exists and is active.,"- Assignment details: id, task id, user id","1. Call the operation ""deleteAssegnazione()"" to delete the assignment.","- Assignment is deleted successfully.
+- Confirmation message is displayed."
+TC-User-Role-001,Promote User to Coordinator,UserRole,1,User exists and is active.,"- User details: id, name, email","1. Call the operation ""promoteUtente()"" to promote the user to coordinator.","- User is promoted to coordinator successfully.
+- Confirmation message is displayed."
+TC-User-Role-002,Demote User from Coordinator,UserRole,1,User exists and is active.,"- User details: id, name, email","1. Call the operation ""demoteUtente()"" to demote the user from coordinator.","- User is demoted from coordinator successfully.
+- Confirmation message is displayed."
+TC-User-Role-003,Make User a Volunteer,UserRole,1,User exists and is active.,"- User details: id, name, email","1. Call the operation ""makeVolontario()"" to make the user a volunteer.","- User is made a volunteer successfully.
+- Confirmation message is displayed."
+TC-User-Role-004,Remove User from Volunteer Role,UserRole,1,User exists and is active.,"- User details: id, name, email","1. Call the operation ""removeVolontario()"" to remove the user from the volunteer role.","- User is removed from the volunteer role successfully.
+- Confirmation message is displayed."
+TC-User-Role-005,Update User Information,UserRole,1,User exists and is active.,"- User details: id, name, email, updated information","1. Call the operation ""updateInfo()"" to update the user's information.","- User information is updated successfully.
+- Confirmation message is displayed."
+TC-User-Role-006,Delete User Account,UserRole,1,User exists and is active.,"- User details: id, name, email","1. Call the operation ""deleteUtente()"" to delete the user account.","- User account is deleted successfully.
+- Confirmation message is displayed."
+TC-Token-001,Generate Token Successfully,Token,6,User is authenticated and active.,"- User details: id, email, password","1. Send a POST request to ""/login"" with valid user credentials.
+2. Server verifies the user credentials.
+3. Server generates a new token.
+4. Server updates the tokens table to revoke any existing tokens.
+5. Server inserts the new token into the tokens table.","- Token is generated successfully.
+- Token is returned to the client."
+TC-Token-002,Revoke Existing Token,Token,6,User is authenticated and active.,"- User details: id, email, password","1. Send a POST request to ""/login"" with valid user credentials.
+2. Server verifies the user credentials.
+3. Server revokes any existing tokens.
+4. Server generates a new token.
+5. Server inserts the new token into the tokens table.","- Existing tokens are revoked successfully.
+- New token is generated and returned to the client."
+TC-Token-003,Error Handling for Invalid Credentials,Token,6,User is authenticated and active.,"- User details: id, email, incorrect password","1. Send a POST request to ""/login"" with invalid user credentials.
+2. Server verifies the user credentials.","- Error is logged.
+- HTTP error (401) is returned."
+TC-Token-004,Error Handling for Token Generation Failure,Token,6,User is authenticated and active.,"- User details: id, email, password","1. Send a POST request to ""/login"" with valid user credentials.
+2. Server verifies the user credentials.
+3. Server fails to generate a new token.","- Error is logged.
+- HTTP error (500) is returned."
+TC-Token-005,Token Expiration,Token,6,User is authenticated and active.,"- User details: id, email, password","1. Send a POST request to ""/login"" with valid user credentials.
+2. Server verifies the user credentials.
+3. Server generates a new token.
+4. Wait until the token expires.
+5. Attempt to use the expired token.","- Token is considered expired.
+- HTTP error (401) is returned. 
+
+Test Case ID"

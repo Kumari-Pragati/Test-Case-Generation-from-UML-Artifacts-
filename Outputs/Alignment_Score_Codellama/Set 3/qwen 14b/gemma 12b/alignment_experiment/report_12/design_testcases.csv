@@ -1,0 +1,164 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-SignUp-001,User Registration,SignUp,1,None,"- Valid email: john@example.com
+- Valid password: P@ssw0rd
+- Invalid email: invalid-email
+- Invalid password: short","1. Navigate to the sign-up page.
+2. Enter a valid email and password.
+3. Click the sign-up button.
+4. Repeat step 2 with an invalid email.
+5. Repeat step 2 with an invalid password.","1. User registration is successful, and a confirmation message is displayed.
+2. An error message is displayed for the invalid email.
+3. An error message is displayed for the invalid password."
+TC-Login-002,User Login,Login,1,User registered and activated,"- Valid credentials: john@example.com, P@ssw0rd
+- Invalid credentials: john@example.com, wrongpassword","1. Navigate to the login page.
+2. Enter valid credentials and click the login button.
+3. Repeat step 2 with invalid credentials.","1. Successful login, redirect to dashboard.
+2. Failed login, display error message."
+TC-GeoLocalization-003,Geo Localization Post Login,GeoLocalization,1,User logged in,None,"1. Log in as a user.
+2. Attempt to access geo localization features.",1. Geo localization features are accessible.
+TC-CreateAdvertisement-004,Create Advertisement,CreateAdvertisement,1,User logged in,"- Valid advertisement details
+- Invalid advertisement details","1. Log in as a user.
+2. Navigate to the create advertisement page.
+3. Fill in valid advertisement details and submit.
+4. Repeat step 3 with invalid advertisement details.","1. Advertisement is created successfully.
+2. Error message is displayed for invalid details."
+TC-BookAdvertisement-005,Book Advertisement,BookAdvertisement,1,"User logged in, advertisement created","- Valid booking details
+- Invalid booking details","1. Log in as a user.
+2. Navigate to the advertisement listing.
+3. Select an advertisement and fill in valid booking details.
+4. Submit the booking.
+5. Repeat step 3 with invalid booking details.","1. Booking is successful, confirmation message is displayed.
+2. Error message is displayed for invalid details."
+TC-FilterAdvertisements-006,Filter Advertisements,FilterAdvertisements,"1, 5",User logged in,"- Valid filter criteria
+- Invalid filter criteria","1. Log in as a user.
+2. Navigate to the advertisement listing.
+3. Apply valid filter criteria.
+4. Apply invalid filter criteria.","1. Filtered advertisements are displayed.
+2. Error message is displayed for invalid criteria."
+TC-AcceptAdvertisement-007,Accept Advertisement Booking,AcceptAdvertisement,"1, 6","User logged in, booking request received","- Valid acceptance
+- Invalid acceptance","1. Log in as a user.
+2. Navigate to the booking request.
+3. Accept the booking request.
+4. Attempt to accept an invalid booking request.","1. Booking is accepted, confirmation message is displayed.
+2. Error message is displayed for invalid acceptance."
+TC-ViewOtherUserProfile-008,View Other User Profile,ViewOtherUserProfile,1,User logged in,"- Valid user profile
+- Invalid user profile","1. Log in as a user.
+2. Navigate to another user's profile.
+3. Attempt to view an invalid user profile.","1. Valid user profile is displayed.
+2. Error message is displayed for invalid profile."
+TC-ModifyAccount-009,Modify Account Information,ModifyAccount,"1, 8",User logged in,"- Valid account information
+- Invalid account information","1. Log in as a user.
+2. Navigate to the account settings.
+3. Modify valid account information.
+4. Attempt to modify invalid account information.","1. Account information is updated successfully.
+2. Error message is displayed for invalid information."
+TC-ModifyAdvertisement-010,Modify Advertisement,ModifyAdvertisement,1,"User logged in, advertisement created","- Valid advertisement modifications
+- Invalid advertisement modifications","1. Log in as a user.
+2. Navigate to the advertisement listing.
+3. Select an advertisement and modify valid details.
+4. Attempt to modify invalid details.","1. Advertisement is modified successfully.
+2. Error message is displayed for invalid modifications."
+TC-DeleteAdvertisement-011,Delete Advertisement,DeleteAdvertisement,1,"User logged in, advertisement created","- Valid advertisement to delete
+- Invalid advertisement to delete","1. Log in as a user.
+2. Navigate to the advertisement listing.
+3. Select a valid advertisement and delete it.
+4. Attempt to delete an invalid advertisement.","1. Advertisement is deleted successfully.
+2. Error message is displayed for invalid deletion."
+TC-ViewAdvertisement-012,View Advertisement Details,ViewAdvertisement,1,User logged in,"- Valid advertisement
+- Invalid advertisement","1. Log in as a user.
+2. Navigate to the advertisement listing.
+3. View a valid advertisement.
+4. Attempt to view an invalid advertisement.","1. Advertisement details are displayed.
+2. Error message is displayed for invalid advertisement."
+TC-Logout-013,User Logout,Logout,1,User logged in,None,"1. Log in as a user.
+2. Navigate to the logout page.
+3. Click the logout button.","1. User is logged out, redirected to login page."
+TC-UserCreationFlow-014,User Creation Flow,UserCreationFlow,2,None,"- Valid user details
+- Invalid user details","1. Start the process.
+2. Check if the user already exists.
+3. If not, create a new user with valid details.
+4. If not, create a new user with invalid details.
+5. If user creation is successful, log in.
+6. If user creation fails, restart the process.","1. User creation is successful, and login is allowed.
+2. User creation fails, and the process restarts."
+TC-BoardNavigation-015,Board Navigation,BoardNavigation,3,User logged in,None,"1. Log in as a user.
+2. Navigate to the board.
+3. Check for menu access.
+4. If access is granted, display the menu.
+5. If access is denied, return to the board.
+6. From the menu, navigate to profile view.
+7. From the menu, navigate to activities display.
+8. From the menu, navigate to logout.","1. Menu access is granted, and the menu is displayed.
+2. Menu access is denied, and the user remains on the board.
+3. Profile view is displayed.
+4. Activities display is shown.
+5. Logout is initiated."
+TC-NoticeboardCreation-016,Noticeboard Creation,NoticeboardCreation,4,User logged in,"- Valid noticeboard details
+- Invalid noticeboard details","1. Log in as a user.
+2. Navigate to the board.
+3. Check if noticeboard creation is needed.
+4. If needed, attempt to create a noticeboard with valid details.
+5. If needed, attempt to create a noticeboard with invalid details.
+6. Loop back to creation if it fails.","1. Noticeboard is created successfully.
+2. Error message is displayed for invalid details.
+3. Creation process continues until successful."
+TC-NoticeboardListing-017,Noticeboard Listing,NoticeboardListing,5,User logged in,"- Valid filter criteria
+- Invalid filter criteria","1. Log in as a user.
+2. Navigate to the board.
+3. Check if filter selection is needed.
+4. If needed, select valid filter criteria.
+5. If needed, select invalid filter criteria.
+6. Display the list with or without filters.
+7. Check if detail view is needed.
+8. If needed, view the noticeboard details.","1. Filtered or unfiltered list is displayed.
+2. Error message is displayed for invalid criteria.
+3. Noticeboard details are displayed."
+TC-BookingProcess-018,Booking Process,BookingProcess,6,"User logged in, noticeboard details viewed","- Valid booking details
+- Invalid booking details","1. Log in as a user.
+2. Navigate to the noticeboard details.
+3. Ask if the user wants to book.
+4. If yes, check if a filter was present.
+5. If a filter was present, display the list with filter.
+6. If no filter was present, display the list without filter.
+7. Initiate booking with valid details.
+8. Initiate booking with invalid details.","1. Booking process is initiated with valid details.
+2. Error message is displayed for invalid details."
+TC-ActivityManagement-019,Activity Management,ActivityManagement,7,User logged in,None,"1. Log in as a user.
+2. Navigate to the menu.
+3. Select activity management.
+4. Check if the user wants to manage their own announcements.
+5. If yes, access the noticeboard.",1. User is directed to the noticeboard if they want to manage their announcements.
+TC-ProfileModification-020,Profile Modification,ProfileModification,8,User logged in,"- Valid profile updates
+- Invalid profile updates","1. Log in as a user.
+2. Navigate to the menu.
+3. Select profile view.
+4. Check if the user wants to update their data.
+5. If yes, initiate profile modification with valid updates.
+6. If yes, initiate profile modification with invalid updates.
+7. If no, check if the user wants to donate points.
+8. If yes, initiate points donation.","1. Profile is updated successfully with valid updates.
+2. Error message is displayed for invalid updates.
+3. Points donation is initiated if selected."
+TC-AdvertisementLifecycle-021,Advertisement Lifecycle,AdvertisementLifecycle,9,Advertisement created,None,"1. Create an advertisement.
+2. Transition to the Modify state.
+3. Transition to the Booking state.
+4. Transition to the Accept state.
+5. Transition to the Accepted state.
+6. Transition to the InProgress state.
+7. Transition to the PointsAssignment state.
+8. Transition to the FinishTime state.
+9. Transition to the removed state.",1. Advertisement transitions through all states correctly.
+TC-UserCreationSequence-022,User Creation Sequence,UserCreationSequence,10,None,"- Valid user details
+- Invalid user details","1. Request user creation from the USERS component.
+2. Map user data to the database.
+3. Save data to the database.
+4. Notify the user exists.
+5. Map data in USERS.","1. User creation is successful.
+2. Error message is displayed for invalid details."
+TC-NoticeboardCreationSequence-023,Noticeboard Creation Sequence,NoticeboardCreationSequence,11,None,"- Valid noticeboard details
+- Invalid noticeboard details","1. Request noticeboard creation from the NOTICEBOARD component.
+2. Map data to the database.
+3. Notify noticeboard exists.
+4. Map data in NOTICEBOARD.
+5. Save data to the database.","1. Noticeboard creation is successful.
+2. Error"

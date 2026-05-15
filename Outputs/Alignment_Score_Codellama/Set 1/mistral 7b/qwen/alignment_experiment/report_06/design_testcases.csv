@@ -1,0 +1,61 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Valid User Login,User,1,User has valid credentials,"- Email: user@example.com
+- Password: password123","1. User enters email and password on the login screen.
+2. The UI sends the credentials to Firebase Authentication.
+3. Firebase Authentication validates the credentials and returns a token and user data.
+4. The UI receives the token and user data.",The user is successfully logged in and redirected to the main dashboard.
+TC-USER-002,Invalid User Login,User,1,User enters invalid credentials,"- Email: invalid@example.com
+- Password: wrongpassword","1. User enters email and password on the login screen.
+2. The UI sends the credentials to Firebase Authentication.
+3. Firebase Authentication returns an error message.
+4. The UI displays the error message to the user.",
+TC-USER-003,User Registration,User,2,User has not registered before,"- Email: newuser@example.com
+- Password: password123
+- Name: John Doe","1. User navigates to the registration page.
+2. The UI requests the user's registration data.
+3. The user enters their email, password, and name.
+4. The UI sends the registration data to Firebase Authentication.
+5. Firebase Authentication validates the data and saves the user.
+6. The UI receives confirmation of successful registration.",
+TC-USER-004,Invalid User Registration,User,2,User enters invalid data,"- Email: invalidemail.com
+- Password: shortpassword
+- Name:","1. User navigates to the registration page.
+2. The UI requests the user's registration data.
+3. The user enters invalid data.
+4. The UI sends the registration data to Firebase Authentication.
+5. Firebase Authentication returns an error message.
+6. The UI displays the error message to the user.",
+TC-REPORT-001,Create Report with Valid Data,Report,"3, 4",User is logged in,"- Description: Report about a broken street light
+- Image: sample_image.jpg
+- Coordinates: 40.712776, -74.005974
+- Urgency: High","1. User navigates to the report creation page.
+2. The UI requests the report data.
+3. The user enters the report details and selects an image.
+4. The UI sends the report data to Firebase Firestore.
+5. Firebase Firestore saves the report and assigns it to the nearest competent entity.
+6. The UI receives confirmation of successful report saving.",
+TC-REPORT-002,Create Report with Invalid Data,Report,"3, 4",User is logged in,"- Description:
+- Image: missing_image.jpg
+- Coordinates: 40.712776, -74.005974
+- Urgency:","1. User navigates to the report creation page.
+2. The UI requests the report data.
+3. The user enters invalid data.
+4. The UI sends the report data to Firebase Firestore.
+5. Firebase Firestore returns an error message.
+6. The UI displays the error message to the user.",
+TC-REPORT-003,View User Reports,Report,"3, 4",User is logged in,N/A,"1. User navigates to the user reports page.
+2. The UI displays the user's reports.",The user can view their reports on the reports page.
+TC-REPORT-004,View Report Details,Report,"3, 4",User is logged in and has a report,N/A,"1. User navigates to the report details page for a specific report.
+2. The UI displays the report details.",The user can view the details of a specific report on the report details page.
+TC-NOTIFICATION-001,User Receives Notification,Notification,1,User has a report,N/A,"1. A new notification is created for a user's report.
+2. The UI displays the notification to the user.",The user receives a notification for their report.
+TC-NOTIFICATION-002,User Marks Notification as Read,Notification,1,User has a notification,N/A,"1. The user marks a notification as read.
+2. The UI updates the notification status.",The user's notification is marked as read.
+TC-AREA-001,User Assigns Report to Area,Area,"3, 4",User is logged in and has a report,- Area: Central Park,"1. User navigates to the report details page for a specific report.
+2. The user assigns the report to a specific area.
+3. The UI sends the report data to Firebase Firestore.
+4. Firebase Firestore updates the report's area.",The report is assigned to the specified area.
+TC-CATEGORY-001,User Assigns Report to Category,Category,"3, 4",User is logged in and has a report,- Category: Street Lighting,"1. User navigates to the report details page for a specific report.
+2. The user assigns the report to a specific category.
+3. The UI sends the report data to Firebase Firestore.
+4. Firebase Firestore updates the report's category.",The report is assigned to the specified category.

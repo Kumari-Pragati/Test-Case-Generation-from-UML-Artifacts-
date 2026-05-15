@@ -1,0 +1,111 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 8","- User account exists in the database with valid credentials (e.g., `username: testuser`, `password: SecurePass123`).
+- System is operational and database connection is active.","- Valid username: `testuser`
+- Valid password: `SecurePass123`","1. User enters `testuser` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.
+4. System processes the login request.","- System validates credentials against the database.
+- Database returns a success response.
+- User is logged in successfully (e.g., session established, redirect to home page).
+- `login()` method returns `true` (or equivalent success indicator)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Credentials),Authentication,"1, 8","- System is operational.
+- User account exists, but credentials are intentionally incorrect.","- Invalid username: `wronguser`
+- Valid password: `SecurePass123` (or vice versa)","1. User enters `wronguser` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.
+4. System processes the login request.","- System validates credentials and fails to match them with any record in the database.
+- Database returns a failure response.
+- User receives an error message (e.g., ""Invalid username or password"").
+- `login()` method returns `false` (or equivalent failure indicator)."
+TC-AUTHENTICATION-003,Failed User Login (Empty Fields),Authentication,"1, 8",- System is operational.,"- Username field: empty
+- Password field: empty","1. User leaves both username and password fields empty.
+2. User clicks the ""Login"" button.
+3. System processes the login request.","- System detects empty fields and rejects the request.
+- User receives an error message (e.g., ""Username and password are required"").
+- `login()` method throws an exception or returns `false`."
+TC-AUTHENTICATION-004,Successful User Logout,Authentication,1,- User is currently logged in (session active).,,"1. User clicks the ""Logout"" button.
+2. System processes the logout request.","- System terminates the user session.
+- `logout()` method executes successfully.
+- User is redirected to the login page or home page with no active session.
+- User receives a confirmation message (e.g., ""You have been logged out successfully"")."
+TC-DATABASE-001,Insert New User into Database,Database Operations,"7, 11","- Database connection is active.
+- No duplicate username exists in the database.","- New username: `newuser`
+- New password: `NewPass456`","1. User initiates the registration process (e.g., via `insertUserIntoDatabase`).
+2. System sends `insert(username: ""newuser"", password: ""NewPass456"")` to the database.
+3. Database processes the insertion request.","- Database validates the input (no duplicates, valid format).
+- New user record is created with `username: newuser` and `password: NewPass456`.
+- `insert()` method returns success (e.g., no exception).
+- User receives a confirmation message (e.g., ""Registration successful"")."
+TC-DATABASE-002,Failed User Insertion (Duplicate Username),Database Operations,"7, 11","- Database contains a user with `username: newuser`.
+- Database connection is active.","- Duplicate username: `newuser`
+- New password: `NewPass456`","1. User initiates registration with `username: newuser` (already exists).
+2. System sends `insert(username: ""newuser"", password: ""NewPass456"")` to the database.
+3. Database processes the request.","- Database detects duplicate username.
+- `insert()` method throws an exception or returns failure.
+- User receives an error message (e.g., ""Username already exists"").
+- No new record is created in the database."
+TC-DATABASE-003,Retrieve Items from Database,Data Retrieval,12,"- Database contains at least one item (e.g., user record or exchange data).
+- User is logged in.",,"1. User sends a request to retrieve items (e.g., `get items from Database`).
+2. Database processes the request and returns the data.","- Database returns the requested items (e.g., list of user records or exchanges).
+- User receives the data successfully.
+- No errors or exceptions are thrown."
+TC-DATABASE-004,Failed Data Retrieval (Empty Database),Data Retrieval,12,"- Database is empty (no items to retrieve).
+- User is logged in.",,"1. User sends a request to retrieve items.
+2. Database processes the request.","- Database returns an empty result set.
+- User receives a message (e.g., ""No items found"") or an empty list.
+- No errors or exceptions are thrown."
+TC-EXCHANGE-001,User Sends Exchange to Exchange Module,Exchange Operations,14,"- User is logged in.
+- Exchange module is operational.",,"1. User initiates an exchange (e.g., sends data to `Exchange` class).
+2. `Exchange` class receives the data from the user.
+3. `Exchange` processes the data (e.g., prepares for database storage).","- User’s data is successfully sent to the `Exchange` class.
+- `Exchange` class acknowledges receipt (e.g., logs the exchange or prepares for next step).
+- No errors or exceptions are thrown."
+TC-EXCHANGE-002,Exchange Retrieves Data from Database,Exchange Operations,14,"- Database contains exchange data.
+- `Exchange` class is operational.",,"1. `Exchange` class sends a request to the database to retrieve exchanges (e.g., `get exchanges from database`).
+2. Database processes the request and returns the data.","- Database returns the exchange data to the `Exchange` class.
+- `Exchange` class processes the data successfully.
+- No errors or exceptions are thrown."
+TC-FILTER-001,Apply and View Filtered Results,Filter Operations,16,"- Database contains items to filter (e.g., user records or exchanges).
+- User is logged in.","- Filter criteria: `status = ""active""`","1. User inserts a filter (e.g., `filter: ""active users""`).
+2. System applies the filter and retrieves matching results.
+3. User views the filtered results.
+
+**Test Data:**
+- Filter criteria: `status = ""active""`","- System returns only items matching the filter (e.g., users with `status = ""active""`).
+- User sees the filtered list without errors.
+- Filter operation completes successfully."
+TC-FILTER-002,Failed Filter Application (Invalid Criteria),Filter Operations,16,"- Database contains items.
+- User is logged in.","- Invalid filter criteria: `status = ""invalid_status""`","1. User inserts an invalid filter (e.g., `status = ""invalid_status""`).
+2. System attempts to apply the filter.","- System detects invalid criteria and returns no results or an error.
+- User receives a message (e.g., ""No items match the filter criteria"").
+- No exceptions are thrown."
+TC-INTEGRATION-001,End-to-End User Login and Data Insertion,Integration,"1, 7, 11","- System is operational.
+- Database is empty or contains no duplicate usernames.",,"1. User registers a new account (e.g., `username: testuser2`, `password: TestPass789`).
+   - System calls `insertUserIntoDatabase(username, password)`.
+2. User logs in with the new credentials.
+   - System calls `login(username, password)`.
+3. User inserts a new item (e.g., exchange data).
+   - System calls `InserimentoNuovoItem` and `Database.insert()`.","- New user is successfully registered in the database.
+- User logs in successfully.
+- New item is inserted into the database without errors.
+- All operations return success responses."
+TC-EDGE-001,Concurrent User Logins (Same Credentials),Authentication (Edge Case),"1, 8","- User account exists with valid credentials.
+- System supports only one active session per user.",,"1. User A logs in with `username: testuser`, `password: SecurePass123`.
+2. Before User A logs out, User B attempts to log in with the same credentials.
+3. System processes both login requests.","- User A’s session remains active.
+- User B’s login attempt fails (e.g., ""User already logged in"").
+- Only one active session is allowed per user.
+- `login()` returns `false` for User B."
+TC-EDGE-002,Database Connection Failure During Insertion,Database Operations (Edge Case),"7, 11","- Database connection is intentionally terminated during testing.
+- User attempts to insert data.",,"1. User initiates data insertion (e.g., `insertUserIntoDatabase`).
+2. System attempts to connect to the database but fails.
+3. System handles the connection error.","- System detects the connection failure.
+- User receives an error message (e.g., ""Database unavailable. Please try again later"").
+- No partial data is inserted into the database.
+- `insert()` method throws a connection exception."
+TC-EDGE-003,Maximum Password Length Validation,Authentication (Edge Case),"1, 8","- System enforces a maximum password length (e.g., 20 characters).","- Valid username: `testuser`
+- Password: `ThisPasswordIsWayTooLongAndExceedsTheLimit123` (exceeds 20 chars)","1. User enters `testuser` as username.
+2. User enters an overly long password.
+3. User attempts to register/login.","- System rejects the password due to length.
+- User receives an error message (e.g., ""Password must be 20 characters or less"").
+- Registration/login fails."

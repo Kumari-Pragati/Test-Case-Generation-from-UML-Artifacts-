@@ -1,0 +1,69 @@
+flow
+"utente -> cliente — type=inheritance; label=""""; explanation=""cliente inherits from utente"""
+"utente -> venditore — type=inheritance; label=""""; explanation=""venditore inherits from utente"""
+"cliente -> clientevenditore — type=association; label=""""; explanation=""cliente is associated with clientevenditore"""
+"venditore -> clientevenditore — type=association; label=""""; explanation=""venditore is associated with clientevenditore"""
+"cliente -> venditorepreferito — type=association; label=""""; explanation=""cliente is associated with venditorepreferito"""
+"venditore -> venditorepreferito — type=association; label=""""; explanation=""venditore is associated with venditorepreferito"""
+"segnalazione -> cliente — type=association; label=""""; explanation=""segnalazione is associated with cliente"""
+"segnalazione -> venditore — type=association; label=""""; explanation=""segnalazione is associated with venditore"""
+"recensione -> cliente — type=association; label=""""; explanation=""recensione is associated with cliente"""
+"recensione -> prodotto — type=association; label=""""; explanation=""recensione is associated with prodotto"""
+flow 1: utente -> cliente -> clientevenditore -> venditore
+flow 2: utente -> venditore -> clientevenditore -> cliente
+the diagram models a system with users who can be either customers or sellers.
+customers can create reports and write reviews for products.
+sellers can manage their store and be added to a customer's list of favorite sellers.
+"the inheritance relationship shows that both cliente and venditore extend from utente, indicating shared attributes and operations."
+"the relationships between cliente, venditore, and clientevenditore suggest a connection between customers and sellers within the system."
+"map -> posizione dell'utente è accessibile? — type=control_flow; label=""""; explanation=""flow of control"""
+"posizione dell'utente è accessibile? -> segnalazione errore — type=control_flow; label=""no""; explanation=""if position is not accessible"""
+"posizione dell'utente è accessibile? -> crea la lista in base alla posizione dell'utente — type=control_flow; label=""si""; explanation=""if position is accessible"""
+flow 1: map -> posizione dell'utente è accessibile? (si) -> crea la lista in base alla posizione dell'utente
+flow 2: map -> posizione dell'utente è accessibile? (no) -> segnalazione errore
+the diagram models a process that starts with displaying a map.
+the process checks if the user's position is accessible.
+"if the position is accessible, a list is created based on the user's position."
+"if the position is not accessible, an error is reported."
+the diagram represents a simple decision flow with two possible outcomes.
+"click su un prodotto -> modifica prodotto — type=transition; label=""""; explanation=""flow of execution"""
+"modifica prodotto -> premuto tasto ""modifica"" — type=transition; label=""""; explanation=""flow of execution"""
+"premuto tasto ""modifica"" -> i campi sono compilati correttamente? — type=transition; label=""""; explanation=""flow of execution"""
+"i campi sono compilati correttamente? -> segnala errore — type=transition; label=""no""; explanation=""error path"""
+"i campi sono compilati correttamente? -> applica modifiche prodotto — type=transition; label=""si""; explanation=""successful path"""
+"flow 1: click su un prodotto -> modifica prodotto -> premuto tasto ""modifica"" -> i campi sono compilati correttamente? -> applica modifiche prodotto"
+the diagram models the process of modifying a product.
+the process starts with clicking on a product and proceeds to modify it.
+a decision point checks if the fields are filled correctly.
+"if the fields are not filled correctly, an error is signaled."
+"if the fields are filled correctly, the product modifications are applied."
+"click su pulsante ""+"" -> aggiungi prodotto — type=control_flow; label=""""; explanation=""initiates the process"""
+"aggiungi prodotto -> premuto tasto ""aggiungi"" — type=control_flow; label=""""; explanation=""proceeds to confirmation"""
+"premuto tasto ""aggiungi"" -> i campi sono compilati correttamente? — type=control_flow; label=""""; explanation=""validation check"""
+"i campi sono compilati correttamente? -> segnala errore — type=control_flow; label=""no""; explanation=""if fields are not correctly filled"""
+"i campi sono compilati correttamente? -> aggiungi prodotto — type=control_flow; label=""si""; explanation=""if fields are correctly filled"""
+"flow 1: click su pulsante ""+"" -> aggiungi prodotto -> premuto tasto ""aggiungi"" -> i campi sono compilati correttamente? -> aggiungi prodotto"
+the diagram models the process of adding a product.
+"the process starts with clicking a ""+"" button and proceeds through confirmation and validation."
+a decision point checks if the fields are correctly filled.
+"if the fields are not correctly filled, an error is signaled. otherwise, the product is added."
+"click su -> gestione notifiche — type=transition; label=""""; explanation=""starts the notification management process"""
+"gestione notifiche -> premuto ""push notification"" — type=transition; label=""""; explanation=""navigates to push notification option"""
+"gestione notifiche -> premuto ""in app notification"" — type=transition; label=""""; explanation=""navigates to in-app notification option"""
+"premuto ""push notification"" -> invia notifiche push — type=transition; label=""""; explanation=""triggers sending push notifications"""
+"premuto ""in app notification"" -> invia notifiche in app — type=transition; label=""""; explanation=""triggers sending in-app notifications"""
+"flow 1: click su -> gestione notifiche -> premuto ""push notification"" -> invia notifiche push"
+"flow 2: click su -> gestione notifiche -> premuto ""in app notification"" -> invia notifiche in app"
+the diagram illustrates a workflow for managing and sending notifications.
+it presents two distinct paths: one for sending push notifications and another for sending in-app notifications.
+"the process begins with a ""click su"" action, leading to a ""gestione notifiche"" action, which then branches into two separate flows."
+each flow culminates in sending either push or in-app notifications.
+"notifiche -> new product — type=contains; label=""""; explanation=""new product is displayed within the notifiche screen"""
+"notifiche -> push notification — type=contains; label=""""; explanation=""push notification toggle is displayed within the notifiche screen"""
+"notifiche -> in app notification — type=contains; label=""""; explanation=""in app notification toggle is displayed within the notifiche screen"""
+"flow 1: notifiche displays new product, push notification, and in app notification."
+"the diagram represents a screen for managing notifications related to nearby stores, specifically for promotions and new products."
+the screen displays a list of notification items (new product) and allows users to toggle push notifications and in app notifications.
+the diagram does not show any user interaction or specific actions beyond displaying the elements.
+the toggles suggest that users can enable or disable different notification types.
+======================================================================

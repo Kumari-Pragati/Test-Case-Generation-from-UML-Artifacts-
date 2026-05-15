@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Authentication-001,User Login with Valid Credentials,Authentication,1,User account exists in the database.,"- Email: user@example.com
+- Password: password123","1. Initiate login process with valid email and password.
+2. System retrieves Firebase Auth instance.
+3. System signs in with provided credentials.
+4. System retrieves current user after sign-in.","- User successfully logged in.
+- Current user object is returned."
+TC-Authentication-002,User Registration with Valid Credentials,Authentication,1,User account does not exist in the database.,"- Email: newuser@example.com
+- Password: password123","1. Initiate registration process with valid email and password.
+2. System retrieves Firebase Auth instance.
+3. System creates user with provided credentials.
+4. System retrieves current user after creation.","- New user successfully registered.
+- Current user object is returned."
+TC-Authentication-003,User Login with Invalid Credentials,Authentication,1,User account exists in the database.,"- Email: user@example.com
+- Password: wrongpassword","1. Initiate login process with invalid password.
+2. System retrieves Firebase Auth instance.
+3. System attempts to sign in with provided credentials.
+4. System retrieves current user after sign-in attempt.","- User login fails.
+- Current user object is null."
+TC-SignalManagement-001,Retrieve List of Signals,Signal Management,2,At least one signal exists in the database.,None,"1. Application requests a list of signals.
+2. Signal management system forwards the request to data management system.
+3. Data management system queries the database.
+4. Database returns the data payload.
+5. Data management system returns the payload to signal management system.
+6. Signal management system returns the payload to application.
+7. Application assigns the payload to the list variable.
+8. Application checks if the list is not null and displays the list.",- List of signals is retrieved and displayed.
+TC-SignalManagement-002,Retrieve Empty List of Signals,Signal Management,2,No signals exist in the database.,None,"1. Application requests a list of signals.
+2. Signal management system forwards the request to data management system.
+3. Data management system queries the database.
+4. Database returns no data.
+5. Data management system returns null payload to signal management system.
+6. Signal management system returns null payload to application.
+7. Application assigns null to the list variable.
+8. Application checks if the list is null and displays null.",- List of signals is null and displayed as null.
+TC-VariationManagement-001,Retrieve Train Variations with Existing Preferred Trains,Variation Management,3,At least one preferred train exists in the database.,None,"1. Application requests train variations.
+2. Variation management system requests preferred trains from data management system.
+3. Data management system queries the database.
+4. Database returns list of preferred trains.
+5. Data management system requests train information from API Trenitalia.
+6. API Trenitalia returns train information.
+7. Data management system updates train information conditionally.
+8. Variation management system appends updated trains to result.
+9. Variation management system returns variations to application.
+10. Application checks if variations are not null and displays list.",- Train variations are retrieved and displayed.
+TC-VariationManagement-002,Retrieve Train Variations with No Preferred Trains,Variation Management,3,No preferred trains exist in the database.,None,"1. Application requests train variations.
+2. Variation management system requests preferred trains from data management system.
+3. Data management system queries the database.
+4. Database returns no preferred trains.
+5. Data management system requests train information from API Trenitalia.
+6. API Trenitalia returns no train information.
+7. Variation management system returns null variations to application.
+8. Application checks if variations are null and displays null.",- Train variations are null and displayed as null.
+TC-CalendarManagement-001,Insert Calendar Entry with Valid Data,Calendar Management,4,None,"- Calendar entry: {id: ""1"", data: ""2023-10-01""}","1. Application sends calendar data to calendar management system.
+2. Calendar management system forwards the data to data management system.
+3. Data management system queries the database.
+4. Database returns a success status code.
+5. Data management system forwards the outcome to calendar management system.
+6. Calendar management system returns the outcome to application.","- Calendar entry is inserted successfully.
+- Outcome is returned to application."
+TC-CalendarManagement-002,Insert Calendar Entry with Invalid Data,Calendar Management,4,None,"- Calendar entry: {id: """", data: """"}","1. Application sends invalid calendar data to calendar management system.
+2. Calendar management system forwards the data to data management system.
+3. Data management system queries the database.
+4. Database returns an error status code.
+5. Data management system forwards the outcome to calendar management system.
+6. Calendar management system returns the outcome to application.","- Calendar entry insertion fails.
+- Error outcome is returned to application."
+TC-CalendarManagement-003,Retrieve Calendar Entry with Valid ID,Calendar Management,5,At least one calendar entry exists in the database.,"- Calendar ID: ""1""","1. Application requests calendar data with valid ID.
+2. Calendar management system forwards the request to data management system.
+3. Data management system queries the database.
+4. Database returns the calendar data.
+5. Data management system forwards the payload to calendar management system.
+6. Calendar management system returns the payload to application.
+7. Application checks if the calendar is not null and displays the calendar data.",- Calendar entry is retrieved and displayed.
+TC-CalendarManagement-004,Retrieve Calendar Entry with Invalid ID,Calendar Management,5,No calendar entry exists in the database.,"- Calendar ID: ""999""","1. Application requests calendar data with invalid ID.
+2. Calendar management system forwards the request to data management system.
+3. Data management system queries the database.
+4. Database returns no data.
+5. Data management system forwards null payload to calendar management system.
+6. Calendar management system returns null payload to application.
+7. Application checks if the calendar is null and displays null.",- Calendar entry is null and displayed as null.
+TC-TrainManagement-001,Retrieve Train List with Valid Calendar,Train Management,6,At least one train exists in the database.,"- Calendar: {id: ""1"", data: ""2023-10-01""}","1. Application requests train list with valid calendar.
+2. Calendar management system forwards the request to data management system.
+3. Data management system requests train information from API Trenitalia.
+4. API Trenitalia queries the database.
+5. Database returns train information.
+6. API Trenitalia returns payload to data management system.
+7. Data management system forwards payload to calendar management system.
+8. Calendar management system returns payload to application.
+9. Application checks if the train list is not null and displays the list.",- Train list is retrieved and displayed.
+TC-TrainManagement-002,Retrieve Train List with Invalid Calendar,Train Management,6,No trains exist in the database.,"- Calendar: {id: ""999"", data: ""2023-10-01""}","1. Application requests train list with invalid calendar.
+2. Calendar management system forwards the request to data management system.
+3. Data management system requests train information from API Trenitalia.
+4. API Trenitalia queries the database.
+5. Database returns no train information.
+6. API Trenitalia returns null payload to data management system.
+7. Data management system forwards null payload to calendar management system.
+8. Calendar management system returns null payload to application.
+9. Application checks if the train list is null and displays null.",- Train list is null and displayed as null.
+TC-TrainManagement-003,Set Preferred Train with Valid Data,Train Management,6,At least one train exists in the database.,"- Train ID: ""1""
+- Train Info: {code: ""T1"", name: ""Train One""}","1. Application sets preferred train with valid data.
+2. Calendar management system forwards the set request to data management system.
+3. Data management system returns outcome.
+4. Calendar management system forwards outcome to application.","- Preferred train is set successfully.
+- Outcome is returned to application."
+TC-TrainManagement-004,Delete Preferred Train with Valid ID,Train Management,7,At least one preferred train exists in the database.,"- Train ID: ""1""","1. Application requests deletion of preferred train with valid ID.
+2. Calendar management system forwards the deletion request to data management system.
+3. Data management system queries API Trenitalia.
+4. API Trenitalia returns status code.
+5. Data management system forwards outcome to calendar management system.
+6. Calendar management system returns outcome to application.","- Preferred train is deleted successfully.
+- Outcome is returned to application."
+TC-TrainManagement-005,Delete Preferred Train with Invalid ID,Train Management,7,No preferred trains exist in the database.,"- Train ID: ""999""","1. Application requests deletion of preferred train with invalid ID.
+2. Calendar management system forwards the deletion request to data management system.
+3. Data management system queries API Trenitalia.
+4. API Trenitalia returns status code.
+5. Data management system forwards outcome to calendar management system.
+6. Calendar management system returns outcome to application.","- Preferred train deletion fails.
+- Outcome is returned to application."
+TC-NotificationManagement-001,Display Notification with Valid Train Variations,Notification Management,8,At least one train variation exists.,"- Train Variations: [{id: ""1"", title: ""Variation One""}]","1. Application requests train variations.
+2. Variation management system returns variations to application.
+3. Application sends variations to notification system to display.",- Notification is displayed with valid train variations.
+TC-NotificationManagement-002,Display Notification with No Train Variations,Notification Management,8,No train variations exist.,- Train Variations: [],"1. Application requests train variations.
+2. Variation management system returns no variations to application.
+3. Application sends null variations to notification system to display.",- Notification is displayed as null.
+TC-NotificationManagement-003,Display Notification with Invalid Train Variations,Notification Management,8,Invalid train variations exist.,"- Train Variations: [{id: """", title: """"}]","1. Application requests train variations.
+2. Variation management system returns invalid variations to application.
+3. Application sends invalid variations to notification system to display.",- Notification is displayed with invalid train variations.
+TC-UserManagement-001,Create User with Valid Data,User Management,1,User does not exist in the database.,"- Username: ""newuser""
+- Password: ""password123""","1. Application creates user with valid data.
+2. User management system creates user in the database.",- User is created successfully.
+TC-UserManagement-002,Get User with Valid ID,User Management,1,User exists in the database.,"- User ID: ""1""","1. Application requests user with valid ID.
+2. User management system retrieves user from the database.",- User is retrieved successfully.
+TC-UserManagement,,,,,,,

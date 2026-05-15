@@ -1,0 +1,70 @@
+flow
+"user -> userdata — type=association; label=""has""; explanation=""user has a userdata object"""
+"userdata -> formulachemica — type=association; label=""contains""; explanation=""userdata contains a formulachemica object"""
+"userdata -> depositive — type=association; label=""contains""; explanation=""userdata contains a depositive object"""
+"userdata -> percentualepresenza — type=association; label=""contains""; explanation=""userdata contains a percentualepresenza object"""
+"userdata -> carbonfootprint — type=association; label=""contains""; explanation=""userdata contains a carbonfootprint object"""
+"userdata -> modello — type=association; label=""contains""; explanation=""userdata contains a modello object"""
+"userdata -> inputproduzione — type=association; label=""contains""; explanation=""userdata contains an inputproduzione object"""
+"userdata -> footprinttotale — type=association; label=""contains""; explanation=""userdata contains a footprinttotale object"""
+"userdata -> inputproduzionefootprinttotale — type=association; label=""contains""; explanation=""userdata contains an inputproduzionefootprinttotale object"""
+user -> userdata: getid()
+userdata -> formulachemica: getformulachemica()
+formulachemica -> depositive: getdepositive()
+depositive -> percentualepresenza: getpercentualepresenza()
+percentualepresenza -> carbonfootprint: getcarbonfootprint()
+carbonfootprint -> modello: getmodello()
+modello -> inputproduzione: getinputproduzione()
+inputproduzione -> footprinttotale: getfootprinttotale()
+footprinttotale -> inputproduzionefootprinttotale: getinputproduzionefootprinttotale()
+"this diagram models a system for managing chemical formulas, deposits, presence percentages, carbon footprints, models, input production, and total footprints."
+"the system allows a user to retrieve information about these entities, likely for analysis or reporting."
+"the relationships between the entities suggest a hierarchical structure, with userdata containing information"
+utente -> applicazione: inizio login
+applicazione -> database: verifica se l'utente è registrato
+applicazione -> database: richiedi registrazione
+applicazione -> database: consenti accesso
+applicazione -> utente: homepage
+applicazione -> utente: registrato?
+database -> applicazione: registrato?
+utente -> applicazione: registrato?
+the diagram models the login process of an application.
+the application checks if the user is registered.
+"if the user is registered, the application allows access to the homepage."
+"if the user is not registered, the application prompts the user to register."
+"main -> applicazione — type=flow; label=""richiede modifica dati""; explanation=""initiates the modification process."""
+"applicazione -> database — type=flow; label=""richiedi dati attuali""; explanation=""requests current data from the database."""
+"database -> applicazione — type=flow; label=""fornisce dati attuali""; explanation=""provides current data to the application."""
+"applicazione -> database — type=flow; label=""aggiorna dati utente""; explanation=""updates the data in the database."""
+"database -> applicazione — type=flow; label=""conferma aggiornamento""; explanation=""confirms the data update to the application."""
+"applicazione -> main — type=flow; label=""mostra dati attuali""; explanation=""displays the updated data to the user."""
+"applicazione -> main — type=flow; label=""invio nuovi dati""; explanation=""sends new data to the user."""
+"applicazione -> main — type=flow; label=""aggiornamento effettuato""; explanation=""indicates that the update has been completed."""
+flow 1: main -> applicazione (richiede modifica dati) -> applicazione -> database (richiedi dati attuali) -> database -> applicazione (fornisce dati attuali) -> applicazione -> database (aggiorna dati utente) -> database -> applicazione (conferma aggiornamento) -> applicazione -> main (mostra dati attuali) -> applicazione -> main (invio nuovi dati) -> applicazione -> main (aggiornamento effettuato)
+the diagram models a process for modifying data.
+"the process involves the main component requesting a modification, the application retrieving current data, updating the data in the database, and then confirming the update and displaying the new data to the user."
+"the flow represents a single, linear process for data modification."
+"main -> esegue scansione dispositivo — type=transition; label=""esegue scansione dispositivo""; explanation=""initiates the scanning process."""
+"esegue scansione dispositivo -> componenti funzionanti? — type=decision; label=""componenti funzionanti?""; explanation=""checks if components are functioning."""
+"componenti funzionanti? -> si, ricerca impatto sostituzione componente — type=transition; label=""si""; explanation=""if components are functioning, proceeds to impact search."""
+"componenti funzionanti? -> no — type=transition; label=""no""; explanation=""if components are not functioning, proceeds to name and impact component."""
+"esegue scansione hardware -> nome e impatto componente — type=transition; label=""nome e impatto componente""; explanation=""gets the name and impact of the component."""
+"nome e impatto componente -> return name, impatto componente, diagnostica dispositivo — type=transition; label=""return name, impatto componente, diagnostica dispositivo""; explanation=""returns the component name, impact, and diagnostic information."""
+"database -> esegui scansione hardware — type=transition; label=""esegui scansione hardware""; explanation=""queries the database for component information."""
+"database -> se ci sono componenti difettosi si calcola quanto impatto ha cambiarlo — type=transition; label=""se ci sono componenti difettosi si calcola quanto impatto ha cambiarlo""; explanation=""if defective components are found, calculates the impact of changing them."""
+the diagram models a process for scanning a device and identifying potential issues with its components.
+the process starts with scanning the device and then checks if the components are functioning.
+"if the components are functioning, the system retrieves the name and impact of the component from the database."
+"if the components are not functioning, the system retrieves the name and impact of the component from the database."
+"the diagram indicates a potential branch for handling defective components, calculating the impact of replacement."
+"main -> scansione velocità e salute componenti — type=sequence; label=""esegui scansione hardware""; explanation=""initiates hardware scanning"""
+"scansione velocità e salute componenti -> calcolo aspettativa di vita — type=sequence; label=""scansione velocità e salute componenti""; explanation=""scans speed and health components"""
+"calcolo aspettativa di vita -> main — type=return; label=""return result""; explanation=""returns the calculated lifespan"""
+flow 1: main -> esegui scansione hardware
+flow 2: esegui scansione hardware -> scansione velocità e salute componenti
+flow 3: scansione velocità e salute componenti -> calcolo aspettativa di vita
+flow 4: calcolo aspettativa di vita -> main
+the diagram models the process of calculating a lifespan based on hardware scanning and component health assessment.
+"the process starts with hardware scanning, then assesses component speed and health, and finally calculates the lifespan."
+the result of the lifespan calculation is returned to the main process.
+======================================================================

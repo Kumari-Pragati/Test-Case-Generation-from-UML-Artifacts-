@@ -1,0 +1,91 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration with Valid Data,User Registration,2,None,"- Username: john_doe
+- Password: password123
+- Name: John Doe
+- Email: john.doe@example.com","1. User calls `registerUser()` on the Main component.
+2. Main calls `getData()` on the User.
+3. User returns the provided data to Main.
+4. Main calls `verifyValidData()` on the UsersDatabase.
+5. UsersDatabase returns true.
+6. Main calls `saveUserData()` on the UsersDatabase.",User registration is successful and the user is added to the database.
+TC-User-002,User Registration with Invalid Data,User Registration,2,None,"- Username: john_doe
+- Password: short
+- Name: John Doe
+- Email: john.doe@example.com","1. User calls `registerUser()` on the Main component.
+2. Main calls `getData()` on the User.
+3. User returns the provided data to Main.
+4. Main calls `verifyValidData()` on the UsersDatabase.
+5. UsersDatabase returns false.",User registration fails due to invalid password and an error message is returned to the user.
+TC-User-003,User Login with Valid Credentials,User Login,3,User is registered in the database.,"- Email: john.doe@example.com
+- Password: password123","1. User sends login request with email and password to the Main component.
+2. Main requests user validation from the Users Database.
+3. Users Database returns true.
+4. Main sends 'ok' response to the User.",User login is successful and an 'ok' message is received by the user.
+TC-User-004,User Login with Invalid Credentials,User Login,3,User is registered in the database.,"- Email: john.doe@example.com
+- Password: wrongpassword","1. User sends login request with email and password to the Main component.
+2. Main requests user validation from the Users Database.
+3. Users Database returns false.",User login fails and an 'error' message is received by the user.
+TC-Trip-001,Create Trip with Valid Data,Trip Creation,"1, 4",User is logged in.,"- City: New York
+- Country: USA
+- FinalDate: 2023-10-15
+- PlanId: 1","1. User creates a new Trip.
+2. Trip is associated with a Plan.
+3. Trip includes a DailyPlan with weather information.
+4. Trip includes a PlaceToVisit categorized by a Category.",Trip creation is successful and all associated data is stored correctly.
+TC-Trip-002,Create Trip with Invalid Data,Trip Creation,"1, 4",User is logged in.,"- City: New York
+- Country: USA
+- FinalDate: 2023-10-15
+- PlanId: -1",1. User attempts to create a new Trip with an invalid PlanId.,Trip creation fails due to invalid PlanId and an error message is displayed.
+TC-Trip-003,Update Trip Data,Trip Management,"4, 5",User is logged in and has a Trip.,"- Updated City: Los Angeles
+- Updated Country: USA
+- Updated FinalDate: 2023-10-20
+- Updated PlanId: 2","1. User initiates the updateTrip() process.
+2. Main retrieves new data from the User.
+3. Main updates the Trip data in the Trips Database.
+4. Main lists the updated Trip data to the User.",Trip data is successfully updated and the updated data is displayed to the user.
+TC-Trip-004,Update Trip Data with Invalid Data,Trip Management,"4, 5",User is logged in and has a Trip.,"- Updated City: Los Angeles
+- Updated Country: USA
+- Updated FinalDate: 2023-10-15
+- Updated PlanId: -1",1. User attempts to update the Trip data with an invalid PlanId.,Trip data update fails due to invalid PlanId and an error message is displayed.
+TC-Profile-001,Change Profile with Valid Data,Profile Management,5,User is logged in.,"- New Username: johndoe
+- New Password: newpassword123
+- New Name: John Doe
+- New Email: johndoe@example.com","1. User initiates the changeProfile() process.
+2. Main requests new data from the User.
+3. User provides the new data to Main.
+4. Main sends the data to the Users Database for verification.
+5. Users Database returns true.
+6. Main updates the user data in the Users Database.
+7. Main informs the User of the successful change.",Profile change is successful and the user's data is updated in the database.
+TC-Profile-002,Change Profile with Invalid Data,Profile Management,5,User is logged in.,"- New Username: johndoe
+- New Password: short
+- New Name: John Doe
+- New Email: johndoe@example.com","1. User initiates the changeProfile() process.
+2. Main requests new data from the User.
+3. User provides the new data to Main.
+4. Main sends the data to the Users Database for verification.
+5. Users Database returns false.",Profile change fails due to invalid password and an error message is displayed.
+TC-Weather-001,Retrieve Weather Information for a Daily Plan,Weather Retrieval,"1, 4",DailyPlan exists with a valid Weather entry.,- DailyPlan id: 1,1. Main retrieves the Weather information for the specified DailyPlan.,Weather information is retrieved successfully and displayed to the user.
+TC-Weather-002,Attempt to Retrieve Weather Information for a Non-Existent Daily Plan,Weather Retrieval,"1, 4",No DailyPlan exists with the specified id.,- DailyPlan id: 9999,1. Main attempts to retrieve the Weather information for the non-existent DailyPlan.,An error message is displayed indicating that the DailyPlan does not exist.
+TC-PlaceToVisit-001,Add Place To Visit with Valid Data,Place To Visit Management,"1, 4",User is logged in and has a Trip.,"- PlaceToVisit name: Statue of Liberty
+- CategoryId: 1",1. User adds a new PlaceToVisit to the Trip.,PlaceToVisit is successfully added to the Trip.
+TC-PlaceToVisit-002,Add Place To Visit with Invalid Data,Place To Visit Management,"1, 4",User is logged in and has a Trip.,"- PlaceToVisit name: Statue of Liberty
+- CategoryId: -1",1. User attempts to add a new PlaceToVisit with an invalid CategoryId.,PlaceToVisit addition fails due to invalid CategoryId and an error message is displayed.
+TC-Plan-001,Create Plan with Valid Data,Plan Management,"1, 4",User is logged in.,- Plan id: 1,1. User creates a new Plan.,Plan is successfully created and stored in the database.
+TC-Plan-002,Create Plan with Invalid Data,Plan Management,"1, 4",User is logged in.,- Plan id: -1,1. User attempts to create a new Plan with an invalid id.,Plan creation fails due to invalid id and an error message is displayed.
+TC-DailyPlan-001,Create Daily Plan with Valid Data,Daily Plan Management,"1, 4",User is logged in and has a Plan.,"- DailyPlan day: 2023-10-15
+- Weather high: 25
+- Weather low: 15","1. User creates a new DailyPlan.
+2. DailyPlan includes Weather information.",DailyPlan is successfully created and stored in the database.
+TC-DailyPlan-002,Create Daily Plan with Invalid Data,Daily Plan Management,"1, 4",User is logged in and has a Plan.,"- DailyPlan day: 2023-10-15
+- Weather high: -5",1. User attempts to create a new DailyPlan with an invalid Weather high value.,DailyPlan creation fails due to invalid Weather high value and an error message is displayed.
+TC-Category-001,Add Category with Valid Data,Category Management,"1, 4",User is logged in.,- Category name: Historical Sites,1. User adds a new Category.,Category is successfully added to the database.
+TC-Category-002,Add Category with Invalid Data,Category Management,"1, 4",User is logged in.,- Category name: Historical Sites,1. User attempts to add a new Category with a duplicate name.,Category addition fails due to duplicate name and an error message is displayed.
+TC-PlaceToVisit-003,Remove Place To Visit with Valid Data,Place To Visit Management,"1, 4",User is logged in and has a Trip with a PlaceToVisit.,- PlaceToVisit id: 1,1. User removes a PlaceToVisit from the Trip.,PlaceToVisit is successfully removed from the Trip.
+TC-PlaceToVisit-004,Remove Place To Visit with Invalid Data,Place To Visit Management,"1, 4",User is logged in and has a Trip with a PlaceToVisit.,- PlaceToVisit id: 9999,1. User attempts to remove a PlaceToVisit with an invalid id.,PlaceToVisit removal fails due to invalid id and an error message is displayed.
+TC-Trip-005,List Trips with Valid Data,Trip Listing,4,User is logged in and has multiple Trips.,- No specific data required.,1. User requests to list all Trips.,All Trips are listed successfully and displayed to the user.
+TC-Trip-006,List Trips with No Data,Trip Listing,4,User is logged in but has no Trips.,- No specific data required.,1. User requests to list all Trips.,An empty list is displayed to the user indicating no Trips are available.
+TC-User-005,Retrieve User Data with Valid Credentials,User Data Retrieval,3,User is registered in the database.,"- Email: john.doe@example.com
+- Password: password123",1. User sends a request to retrieve their data.,User data is successfully retrieved and displayed to the user.
+TC-User-006,Retrieve User Data with Invalid Credentials,User Data Retrieval,"3
+Pre",,,,

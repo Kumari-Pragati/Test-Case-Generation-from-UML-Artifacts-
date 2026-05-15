@@ -1,0 +1,132 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user account,Utente,1,None,"- Valid name: John Doe
+- Valid email: john.doe@example.com
+- Invalid name: (empty string)
+- Invalid email: invalid-email","1. Call createUser(""John Doe"", ""john.doe@example.com"")
+2. Call createUser("""", ""john.doe@example.com"")
+3. Call createUser(""John Doe"", ""invalid-email"")","1. Returns true and creates a new user account
+2. Returns false and does not create a user account
+3. Returns false and does not create a user account"
+TC-Utente-002,Check existing user account,Utente,1,A user account exists,"- Existing email: john.doe@example.com
+- Non-existing email: non.existing@example.com","1. Call checkUser(""john.doe@example.com"", ""password"")
+2. Call checkUser(""non.existing@example.com"", ""password"")","1. Returns true
+2. Returns false"
+TC-Utente-003,Reset password for user account,Utente,1,A user account exists,"- Existing email: john.doe@example.com
+- New password: newpassword123
+- Invalid email: invalid-email","1. Call resetPassword(""john.doe@example.com"", ""newpassword123"")
+2. Call resetPassword(""invalid-email"", ""newpassword123"")","1. Returns true and updates the password
+2. Returns false and does not update the password"
+TC-Utente-004,Add devices to user account,Utente,1,A user account exists,"- Valid device ID: D123
+- Invalid device ID: (empty string)","1. Call addDevices(""D123"")
+2. Call addDevices("""")","1. Returns true and adds the device to the user's account
+2. Returns false and does not add the device to the user's account"
+TC-Utente-005,Get user information,Utente,1,A user account exists,None,1. Call getUserInfo(),1. Returns a list containing the user's name and email
+TC-Devices-006,Get device information,Devices,1,A device exists,"- Valid device ID: D123
+- Invalid device ID: (empty string)","1. Call getDeviceInfo() with a valid device ID
+2. Call getDeviceInfo() with an empty string","1. Returns a list containing the device's ID and title
+2. Returns an empty list"
+TC-Alert-007,Get alert message,Alert,1,An alert exists,None,1. Call getMessage(),1. Returns the current alert message
+TC-Alert-008,Update alert message,Alert,1,An alert exists,"- New message: ""New alert message""",1. Call updateMessage() with a new message,1. Returns the updated alert message
+TC-History-009,Get history data,History,1,Historical data exists,None,1. Call getHistory(),1. Returns a list containing historical data entries
+TC-History-010,Update history data,History,1,Historical data exists,"- Date: 2023-10-01
+- Air humidity: 50.0
+- Soil humidity: 30.0
+- Invalid date: invalid-date","1. Call updateHistory(""2023-10-01"", 50.0, 30.0)
+2. Call updateHistory(""invalid-date"", 50.0, 30.0)","1. Returns true and updates the history data
+2. Returns false and does not update the history data"
+TC-Sequence-011,Access and display serra list,Sequence,2,User has accessed the system,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Click 'Serre'""
+3. Perform ""Visualizzazione elenco serre""
+4. Perform ""Visualizzazione messaggio default""
+5. Perform ""aimeno 1 serra associata""
+6. Perform ""almeno 1 serra associata""","1. User accesses the system
+2. User clicks ""Serre""
+3. Displays the list of serra
+4. Displays a default message
+5. Associates one serra
+6. Associates at least one serra"
+TC-Sequence-012,Add devices through user interface,Sequence,3,User has accessed the system,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Click 'Add Devices'""
+3. Perform ""Operazione eseguita""","1. User accesses the system
+2. User clicks ""Add Devices""
+3. Performs the operation to add devices"
+TC-Sequence-013,Configure connected serra,Sequence,4,User has accessed the system and a serra is connected,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa""
+3. Perform ""Click 'Configuration'""
+4. Perform ""Operazione eseguita""
+5. Perform ""Accesso eseguito""","1. User accesses the system
+2. Serra is connected
+3. User clicks ""Configuration""
+4. Performs the configuration operation
+5. User re-accesses the system"
+TC-Sequence-014,Handle invalid access attempts,Sequence,"2, 3, 4",User has attempted invalid access,None,"1. Attempt ""Accesso eseguito"" with invalid credentials
+2. Attempt ""Click 'Add Devices'"" without proper access
+3. Attempt ""Serra connessa"" without proper access","1. System denies access
+2. System denies click action
+3. System denies connection attempt"
+TC-Sequence-015,Validate device addition operation,Sequence,3,User has accessed the system,"- Valid device ID: D123
+- Invalid device ID: (empty string)","1. Perform ""Accesso eseguito""
+2. Perform ""Click 'Add Devices'""
+3. Perform ""Operazione eseguita"" with a valid device ID
+4. Perform ""Operazione eseguita"" with an invalid device ID","1. User accesses the system
+2. User clicks ""Add Devices""
+3. Operation succeeds with a valid device ID
+4. Operation fails with an invalid device ID"
+TC-Sequence-016,Validate configuration operation,Sequence,4,User has accessed the system and a serra is connected,"- Valid configuration parameters: {param1: value1, param2: value2}
+- Invalid configuration parameters: {param1: invalid-value}","1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa""
+3. Perform ""Click 'Configuration'""
+4. Perform ""Operazione eseguita"" with valid parameters
+5. Perform ""Operazione eseguita"" with invalid parameters","1. User accesses the system
+2. Serra is connected
+3. User clicks ""Configuration""
+4. Configuration operation succeeds with valid parameters
+5. Configuration operation fails with invalid parameters"
+TC-Sequence-017,Validate serra connection,Sequence,4,User has accessed the system,"- Valid serra ID: S123
+- Invalid serra ID: (empty string)","1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa"" with a valid serra ID
+3. Perform ""Serra connessa"" with an invalid serra ID","1. User accesses the system
+2. Serra connection succeeds with a valid serra ID
+3. Serra connection fails with an invalid serra ID"
+TC-Sequence-018,Validate alert generation,Sequence,"1, 4",User has accessed the system and a serra is connected,"- Valid alert message: ""High temperature detected""
+- Invalid alert message: (empty string)","1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa""
+3. Perform ""Generate alert"" with a valid message
+4. Perform ""Generate alert"" with an invalid message","1. User accesses the system
+2. Serra is connected
+3. Alert is generated with a valid message
+4. Alert generation fails with an invalid message"
+TC-Sequence-019,Validate history update,Sequence,"1, 4",User has accessed the system and a serra is connected,"- Valid history entry: {date: ""2023-10-01"", air_humidity: 50.0, soil_humidity: 30.0}
+- Invalid history entry: {date: ""invalid-date"", air_humidity: 50.0, soil_humidity: 30.0}","1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa""
+3. Perform ""Update history"" with a valid entry
+4. Perform ""Update history"" with an invalid entry","1. User accesses the system
+2. Serra is connected
+3. History is updated with a valid entry
+4. History update fails with an invalid entry"
+TC-Sequence-020,Validate user interaction with serra,Sequence,"2, 4",User has accessed the system and a serra is connected,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Click 'Serre'""
+3. Perform ""Serra connessa""
+4. Perform ""Click 'Configuration'""
+5. Perform ""Operazione eseguita""","1. User accesses the system
+2. User clicks ""Serre""
+3. Serra is connected
+4. User clicks ""Configuration""
+5. Configuration operation is performed"
+TC-Sequence-021,Validate user interaction with devices,Sequence,3,User has accessed the system,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Click 'Add Devices'""
+3. Perform ""Operazione eseguita""","1. User accesses the system
+2. User clicks ""Add Devices""
+3. Operation to add devices is performed"
+TC-Sequence-022,Validate user interaction with alerts,Sequence,"1, 4",User has accessed the system and a serra is connected,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa""
+3. Perform ""Generate alert""","1. User accesses the system
+2. Serra is connected
+3. Alert is generated"
+TC-Sequence-023,Validate user interaction with history,Sequence,"1, 4",User has accessed the system and a serra is connected,None,"1. Perform ""Accesso eseguito""
+2. Perform ""Serra connessa""
+3. Perform ""Update history""","1. User accesses the system
+2. Serra is connected
+3. History is updated"
+TC-Sequence-024,Validate user interaction with configuration,Sequence,"4
+Preconditions",,,,

@@ -1,0 +1,37 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful login,Login,"1, 2",User exists in the system.,"- Valid username: testuser
+- Valid password: testpassword","1. Navigate to the login page.
+2. Enter the testuser as the username.
+3. Enter the testpassword as the password.
+4. Click the login button.",The user is logged in successfully.
+TC-Login-002,Invalid username,Login,"1, 2",User exists in the system.,"- Invalid username: invaliduser
+- Valid password: testpassword","1. Navigate to the login page.
+2. Enter the invaliduser as the username.
+3. Enter the testpassword as the password.
+4. Click the login button.","An error message is displayed, and the user remains logged out."
+TC-Login-003,Invalid password,Login,"1, 2",User exists in the system.,"- Valid username: testuser
+- Invalid password: wrongpassword","1. Navigate to the login page.
+2. Enter the testuser as the username.
+3. Enter the wrongpassword as the password.
+4. Click the login button.","An error message is displayed, and the user remains logged out."
+TC-APIManager-001,Create API,API Manager,3,The API Manager is logged in.,"- API name: TestAPI
+- API version: 1.0","1. Log in to the API Manager.
+2. Navigate to the API creation page.
+3. Enter TestAPI as the API name.
+4. Enter 1.0 as the API version.
+5. Click the create API button.",The API is created successfully.
+TC-APIManager-002,Delete API,API Manager,3,The API Manager is logged in and the TestAPI exists.,,"1. Log in to the API Manager.
+2. Navigate to the API list page.
+3. Find the TestAPI in the list.
+4. Click the delete API button next to the TestAPI.
+5. Confirm the deletion.",The TestAPI is deleted successfully.
+TC-Service-001,Handle request,Service,4,The Service is ready to handle requests.,- API name: TestAPI,1. The API Manager sends a request to the Service for the TestAPI.,The Service handles the request for the TestAPI.
+TC-DataManager-001,Save data,Data Manager,4,The Data Manager is ready to save data.,- Data: Test data,"1. The Service sends data to the Data Manager.
+2. The Data Manager saves the Test data.",The Test data is saved successfully.
+TC-DataManager-002,Retrieve data,Data Manager,4,The Data Manager has saved data.,,1. The Service requests data from the Data Manager.,The Data Manager retrieves the saved data and sends it to the Service.
+TC-Main-001,Main flow,Main,5,The system is running.,,"1. The Main interacts with the API Manager.
+2. The API Manager interacts with the Service.
+3. The Service interacts with the Data Manager.
+4. The Data Manager interacts with the Service.
+5. The Service interacts with the API Manager.
+6. The API Manager interacts with the Main.",The main flow is executed successfully.

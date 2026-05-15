@@ -1,0 +1,82 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-System-001,User Registration Process,System,"2,3",None,"- Valid email: user@example.com
+- Valid password: Password123
+- Invalid email: invalidemail
+- Invalid password: short","1. User fills form fields on the registration page.
+2. Application initiates registration process.
+3. Server saves data.
+4. Server confirms insertion.
+5. Server generates OTP.
+6. Server saves OTP.
+7. Server requests saved OTP.
+8. Server receives saved OTP.
+9. Server checks saved OTP.
+10. Server sends OTP via email.
+11. Server sends authentication token if OTP is valid.","- Registration successful with OTP sent via email.
+- Authentication token generated and saved."
+TC-System-002,User Login Process,System,4,User has registered and received an authentication token.,"- Valid email: user@example.com
+- Valid password: Password123
+- Invalid email: invalidemail
+- Invalid password: short","1. User inputs email and password into the login form.
+2. Application validates email and password.
+3. Server processes login request.
+4. Server requests password associated with the email.
+5. Database sends password.
+6. Server checks password.
+7. Server generates token.
+8. Application sends authentication token.
+9. Server saves authentication token.
+10. Application opens home screen for user.","- Login successful with home screen opened.
+- Authentication token saved."
+TC-System-003,Password Recovery Process,System,5,User has registered and forgotten their password.,"- Valid email: user@example.com
+- Invalid email: invalidemail","1. User requests password recovery.
+2. Application sends request to server.
+3. Server checks email.
+4. Server generates password recovery token.
+5. Server saves recovery token.
+6. Server confirms saving.
+7. Server sends new password and recovery token.
+8. Application sends email with link.",- Email with password recovery link sent successfully.
+TC-System-004,Card Loading Process,System,6,User opens homepage.,"- Preload count: 10
+- Remaining cards: 5","1. User opens homepage.
+2. Application initiates card loading.
+3. Server requests 10 objects.
+4. Database receives 10 objects.
+5. Server sends 10 objects to fill cards.
+6. Application loads more cards if needed.
+7. Server requests next set of 5 objects.
+8. Database receives 5 objects.
+9. Server sends 5 objects to fill cards.","- Homepage loaded with 15 cards.
+- Additional cards loaded as needed."
+TC-System-005,Matchmaking Process,System,7,Two users have swiped cards for each other.,"- User 1 swipes right on User 2.
+- User 2 swipes right on User 1.","1. User 1 swipes card for User 2.
+2. App1 tracks object preference.
+3. Server saves preference.
+4. Server asks if there are matches.
+5. Server receives response.
+6. Server checks for matches.
+7. Server displays match screen.
+8. App1 notifies match and opens chat.
+9. User 2 swipes card for User 1.
+10. App2 tracks object preference.
+11. Server saves preference.
+12. Server asks if there are matches.
+13. Server receives response.
+14. Server checks for matches.
+15. Server displays match screen.
+16. App2 notifies match and opens chat.","- Match screen displayed for both users.
+- Chat opened for both users."
+TC-System-006,Messaging Process,System,8,Two users are logged in and have an active chat session.,- Message content: Hello!,"1. User 1 inputs message.
+2. App1 sends message to App2.
+3. App2 sends message to server.
+4. Server saves message.
+5. Server confirms saving.
+6. App2 shows notification.
+7. App2 opens chat.
+8. App2 retrieves message.
+9. Server retrieves message.
+10. App2 displays messages.","- Message sent and received successfully.
+- Notification shown to User 2.
+- Chat opened and messages displayed. 
+
+Note: For edge cases, assume minimal reasonable assumptions where necessary. <|assistant|>"

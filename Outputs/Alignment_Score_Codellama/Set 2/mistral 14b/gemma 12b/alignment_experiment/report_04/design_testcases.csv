@@ -1,0 +1,118 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTHENTICATION-001,Successful user login with valid credentials,User Authentication,2,"- User is registered in the database with valid credentials (e.g., Username: `user123`, Password: `SecurePass123`, Email: `user@example.com`).
+- Database is accessible and contains the user record.","- Username: `user123`
+- Password: `SecurePass123`","1. User initiates login via the application.
+2. Application verifies if the user is registered by querying the database.
+3. Database responds with ""Registrato?"" (Registered: **yes**).
+4. Application redirects the user to the homepage.",- User is successfully authenticated and redirected to the homepage without errors.
+TC-USER-AUTHENTICATION-002,Failed login with unregistered username,User Authentication,2,"- User is **not** registered in the database.
+- Database is accessible.","- Username: `nonexistentuser`
+- Password: `AnyPassword123`","1. User initiates login with an unregistered username.
+2. Application verifies registration status by querying the database.
+3. Database responds with ""Registrato?"" (Registered: **no**).
+4. Application does not redirect to the homepage (flow not specified in UML; assume error message or retry prompt).","- User receives an error message (e.g., ""User not registered"") or is prompted to register."
+TC-USER-AUTHENTICATION-003,Failed login with incorrect password,User Authentication,2,"- User is registered with valid credentials (e.g., Username: `user123`, Password: `SecurePass123`).
+- Database is accessible.","- Username: `user123`
+- Password: `WrongPassword456`","1. User initiates login with correct username but incorrect password.
+2. Application verifies registration status (returns **yes**).
+3. Application checks password validity (assumed implicit; not in UML but realistic).
+4. Application denies access (flow not specified; assume error message).","- User receives an error message (e.g., ""Invalid password"") and is not redirected to the homepage."
+TC-USER-PROFILE-UPDATE-001,Successful update of user password,User Profile Management,3,"- User is logged in (authenticated).
+- Current password is `OldPass123`; new password is `NewSecurePass456`.
+- Database contains the user record with `Password: OldPass123`.","- Current Password: `OldPass123`
+- New Password: `NewSecurePass456`","1. User requests to modify their password via the application.
+2. Application retrieves current user data from the database (including `Password`).
+3. Application displays current data (including `Password: OldPass123`).
+4. User submits new password (`NewSecurePass456`).
+5. Application sends updated data to the database.
+6. Database confirms the update.
+7. Application notifies the user of successful update.","- User password is updated in the database to `NewSecurePass456`.
+- User receives confirmation: ""Password updated successfully."""
+TC-USER-PROFILE-UPDATE-002,Failed update due to invalid new password format,User Profile Management,3,"- User is logged in.
+- Current password is `ValidPass123`.
+- Application enforces password rules (e.g., minimum 8 characters, 1 uppercase, 1 number).","- Current Password: `ValidPass123`
+- New Password: `weak` (invalid format)","1. User requests to modify their password.
+2. Application retrieves and displays current data.
+3. User submits `weak` as the new password.
+4. Application validates the new password (fails due to format).
+5. Application rejects the update and notifies the user.","- Password is **not** updated in the database.
+- User receives an error: ""Password must meet complexity requirements."""
+TC-PRODUCTION-TRACKING-001,Create a new production record with valid material data,Production Tracking,1,"- User is logged in and is an admin (`Admin: true`).
+- Material data is valid (e.g., `Formula chimica: CO2`, `Deposizione: 50`, `Percentuale Presenza: 20`, `Carbon footprint: 10kg`).
+- Database is accessible.","- User: `admin1`
+- Modello: `ModelX`
+- Materiale:
+  - Formula chimica: `CO2`
+  - Deposizione: `50`
+  - Percentuale Presenza: `20`
+  - Carbon footprint: `10kg`","1. User creates a new `Produzione` record with the above data.
+2. System associates the record with the user (`Utente: admin1`) and generates a unique `ID`.
+3. System calculates `Footprint produzione` (assumed to be derived from `Materiale.Carbon footprint`).
+4. System calculates `Footprint totale` (assumed to be `Footprint produzione` + `Utente.Footprint_totale`).
+5. Record is saved to the database.","- Production record is created with:
+  - `ID`: auto-generated (e.g., `1001`)
+  - `Utente`: `admin1`
+  - `Modello`: `ModelX`
+  - `Footprint produzione`: `10kg`
+  - `Footprint totale`: `10kg` (assuming `Utente.Footprint_totale` was `0`).
+- No errors occur."
+TC-PRODUCTION-TRACKING-002,Create production record with invalid material percentage,Production Tracking,1,"- User is logged in as admin.
+- Material data is invalid (e.g., `Percentuale Presenza: 101`).",- Percentuale Presenza: `101` (invalid; must be ≤ 100),"1. User attempts to create a production record with `Percentuale Presenza: 101`.
+2. System validates the input and detects the invalid percentage.
+3. System rejects the record and notifies the user.","- Record is **not** created.
+- User receives an error: ""Percentuale Presenza must be between 0 and 100."""
+TC-MATERIAL-FOOTPRINT-001,Update carbon footprint of a material,Material Management,1,"- Material record exists with `Carbon footprint: 5kg`.
+- User is logged in as admin.",- New Carbon footprint: `7.5kg`,"1. User selects the material and requests to update its `Carbon footprint`.
+2. Application retrieves current material data (including `Carbon footprint: 5kg`).
+3. User submits new value: `7.5kg`.
+4. Application updates the material record in the database.
+5. Application confirms the update.","- Material record is updated with `Carbon footprint: 7.5kg`.
+- User receives confirmation: ""Material updated successfully."""
+TC-MATERIAL-FOOTPRINT-002,Update material with empty formula chimica,Material Management,1,- Material record exists with `Formula chimica: CO2`.,- New Formula chimica: `` (empty string),"1. User attempts to update `Formula chimica` to an empty string.
+2. Application validates the input and detects the empty value.
+3. Application rejects the update.","- Material record is **not** updated.
+- User receives an error: ""Formula chimica cannot be empty."""
+TC-DEVICE-SCAN-001,Successful device scan with all components functional,Device Diagnostics,4,"- Device has 2 components: `CPU` (functional) and `RAM` (functional).
+- Database contains component impact data (e.g., `CPU` replacement impact: `5kg`, `RAM`: `2kg`).",,"1. Main component initiates device scan via the application.
+2. Application performs hardware scan and queries the database for component names and impacts.
+3. Database returns:
+   - `CPU`: functional, impact: `5kg`
+   - `RAM`: functional, impact: `2kg`
+4. Application checks if components are functioning (**yes**).
+5. Application returns results to Main: component names, impacts, and diagnostics (all functional).","- Main receives:
+  - Component names: `CPU`, `RAM`
+  - Impacts: `5kg`, `2kg`
+  - Diagnostics: `All components functional`.
+- No replacement impact is calculated."
+TC-DEVICE-SCAN-002,Device scan with defective component (replacement impact calculated),Device Diagnostics,4,"- Device has 2 components: `CPU` (functional) and `RAM` (defective).
+- Database contains replacement impact data for `RAM`: `3kg`.",,"1. Main initiates device scan.
+2. Application scans hardware and queries the database.
+3. Database returns:
+   - `CPU`: functional, impact: `5kg`
+   - `RAM`: defective, impact: `3kg`
+4. Application checks if components are functioning (**no** for `RAM`).
+5. Application calculates replacement impact for `RAM` (`3kg`).
+6. Application returns results to Main, including replacement impact for `RAM`.","- Main receives:
+  - Component names: `CPU`, `RAM`
+  - Impacts: `5kg`, `3kg`
+  - Diagnostics: `RAM defective; replacement impact: 3kg`.
+  - `CPU` is functional."
+TC-DEVICE-SCAN-003,Device scan with no database response (network error),Device Diagnostics,4,"- Device has components, but the database is unavailable (simulated network error).",,"1. Main initiates device scan.
+2. Application attempts to query the database but fails (no response).
+3. Application handles the error (assumed: timeout or retry logic).
+4. Application returns partial results or an error to Main.","- Main receives an error message: ""Failed to retrieve component data. Please check network connection.""
+- No component details are returned."
+TC-COMPONENT-LIFE-EXPECTANCY-001,Calculate life expectancy for a component with valid health data,Component Health Analysis,5,"- Component health data is available:
+  - Speed: `90%` of optimal
+  - Health: `85%` (e.g., wear level)
+- Life expectancy formula: `Life Expectancy = (Speed * Health) / 100` (assumed for testing).",,"1. Main initiates hardware scan.
+2. Application performs speed and health scan for the component.
+3. Application calculates life expectancy:
+   - `(90 * 85) / 100 = 76.5` (rounded to `77`).
+4. Application returns the result to Main.",- Main receives: `Component life expectancy: 77%`.
+TC-COMPONENT-LIFE-EXPECTANCY-002,Calculate life expectancy with zero health score,Component Health Analysis,5,"- Component health data:
+  - Speed: `0%` (completely failed)
+  - Health: `0%` (completely worn out).",,"1. Main initiates hardware scan.
+2. Application scans and detects `Speed: 0%`, `Health: 0%`.
+3. Application calculates life expectancy: `(0 * 0) / 100 = 0`.
+4. Application flags the component as ""Failed""",

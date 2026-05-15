@@ -1,0 +1,215 @@
+REPORT: Report_27_uml_pages.pdf
+======================================================================
+
+===== Report_27_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Admin — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Product — kind=class; attributes=[name: String, description: String]; operations=[view(username: String): Ret, update(username: String, description: String): Ret]
+- Cart — kind=class; attributes=[items: List<Product>]; operations=[add(product: Product): Ret, remove(product: Product): Ret]
+- Checkout — kind=class; attributes=[user: User, cart: Cart]; operations=[checkout(): Ret]
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=association; label="login"; explanation="User logs in to Admin system"
+- User -> Product — type=association; label="view"; explanation="User views Product details"
+- User -> Cart — type=association; label="add"; explanation="User adds Product to Cart"
+- User -> Checkout — type=association; label="checkout"; explanation="User checks out from Cart"
+- Admin -> Product — type=association; label="update"; explanation="Admin updates Product details"
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> User (login -> logout)
+- Flow 2: User -> Product -> User (view -> add -> remove -> checkout)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple e-commerce system with a User, Admin, Product, Cart, and Checkout.
+- Users can log in and log out, view and update Products, and add and remove items from their Cart.
+- Admins can log in and log out, and update Product details.
+- The Checkout is the final step where the User checks out from their Cart.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio" -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * None
+
+- For STATE_MACHINE:
+  * None
+
+- For STATE_MACHINE:
+  * None
+
+- For OBJECT:
+  * None
+
+- For STATE_MACHINE:
+  * None
+
+- For STATE_MACHINE:
+  * None
+
+- For STATE_MACHINE:
+  * None
+
+- For STATE_MACHINE:
+  * None
+- For STATE
+
+===== Report_27_uml_pages.pdf | Page 2 =====
+UML Type:
+- Sequence diagram
+
+Components:
+- Menu: kind=class; attributes=[a: String]; operations=[op(args): void]; role=main menu
+- Si: kind=class; attributes=[a: String]; operations=[op(args): void]; role=yes/no selection
+- No: kind=class; attributes=[a: String]; operations=[op(args): void]; role=no selection
+- Note: kind=class; attributes=[a: String]; operations=[op(args): void]; role=note selection
+- Ritmo alla home: kind=class; attributes=[a: String]; operations=[op(args): void]; role=home selection
+
+Actors / Lifelines:
+- None (no actors or lifelines are explicitly shown in the diagram)
+
+Relationships / Links:
+- Menu -> Si: type=message; label=""; explanation="Menu sends a message to Si to determine the user's selection"
+- Si -> No: type=message; label=""; explanation="Si sends a message to No to determine the user's selection"
+- No -> Note: type=message; label=""; explanation="No sends a message to Note to determine the user's selection"
+- Note -> Ritmo alla home: type=message; label=""; explanation="Note sends a message to Ritmo alla home to determine the user's selection"
+
+Main Flows (step by step):
+- Flow 1: Menu -> Si -> No -> Note -> Ritmo alla home
+- Flow 2: None (no distinct flows are clearly visible)
+
+Conditions / Branches:
+- None (no decisions or branches are explicitly shown in the diagram)
+
+Loops / Repetitions:
+- None (no loops or repetitions are clearly visible in the diagram)
+
+Notes / Annotations:
+- None (no notes or annotations are explicitly shown in the diagram)
+
+Observations:
+- The sequence diagram models a user interface where a menu is presented, followed by a series of yes/no selections to navigate through different options.
+- The main flows behave as a series of yes/no selections, with each selection leading to a different note or action.
+- Key edge cases or error paths are not explicitly visible in the diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For SEQUENCE diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", "associations", etc.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For STATE_MACHINE diagrams:
+  * Components are states and transitions.
+  * Relationships / Links capture "includes", "extends", "associations", etc.
+  * Main Flows should be explicit sequences like: "Avvia" -> "Utente registrato con successo al servizio?" (SI) -> ...
+
+- For COMPON
+
+===== Report_27_uml_pages.pdf | Page 3 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): void, logout(): void]; role=User
+- Admin — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): void, logout(): void]; role=Admin
+- Product — kind=class; attributes=[name: String, price: Double]; operations=[addToCart(name: String, price: Double): void, removeFromCart(name: String): void]; role=Product
+- Cart — kind=class; attributes=[items: List<Product>]; operations=[addProduct(product: Product): void, removeProduct(product: Product): void]; role=Cart
+- Checkout — kind=class; attributes=[cart: Cart]; operations=[checkout(): void]; role=Checkout
+
+Actors / Lifelines:
+- User
+- Admin
+- Cart
+- Checkout
+
+Relationships / Links:
+- User -> Admin — type=association; label=""; explanation="User is an Admin";
+- User -> Product — type=association; label=""; explanation="User can view Products";
+- User -> Cart — type=association; label=""; explanation="User can add Products to Cart";
+- Admin -> Product — type=association; label=""; explanation="Admin can view Products";
+- Admin -> Cart — type=association; label=""; explanation="Admin can add Products to Cart";
+- Cart -> Checkout — type=association; label=""; explanation="Cart is checked out";
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> Product -> Cart -> Checkout
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This class diagram models a simple e-commerce system where users (Admin and User) can view and purchase products.
+- The main flows represent the process of a user adding products to their cart and then checking out.
+- The Admin can view all products, while the User can only view products they have added to their cart.
+- The Checkout class is responsible for handling the checkout process.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Components are classes with their attributes and operations.
+  * Relationships are associations between classes.
+  * Main Flows describe the interactions between classes.
+
+- For ACTIVITY diagrams:
+  * Components are activities with their attributes and operations.
+  * Relationships are control-flow arrows between activities.
+  * Main Flows describe the sequence of activities in a process.
+
+- For SEQUENCE diagrams:
+  * Components are lifelines and fragments.
+  * Relationships are messages between lifelines.
+  * Main Flows describe the sequence of messages between lifelines.
+
+- For USE-CASE diagrams:
+  * Components are use cases with their attributes and operations.
+  * Relationships are associations between use cases.
+  * Main Flows describe the sequence of use cases.
+
+- For STATE_MACHINE diagrams:
+  * Components are states with their attributes and transitions.
+  * Relationships are transitions between states.
+  * Main Flows describe the sequence of transitions between states.
+
+- For COMPON
+
+
+======================================================================

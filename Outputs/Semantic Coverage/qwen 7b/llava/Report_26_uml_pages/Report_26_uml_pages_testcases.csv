@@ -1,0 +1,70 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Valid Login with Correct Credentials,Login,"1, 4, 8",User has registered with correct credentials.,"- Username: valid_user
+- Password: valid_password","1. User enters ""valid_user"" in the username field.
+2. User enters ""valid_password"" in the password field.
+3. User clicks the login button.",User is successfully logged in and redirected to the dashboard.
+TC-Login-002,Invalid Login with Incorrect Credentials,Login,"1, 4, 8",User has registered with correct credentials.,"- Username: invalid_user
+- Password: invalid_password","1. User enters ""invalid_user"" in the username field.
+2. User enters ""invalid_password"" in the password field.
+3. User clicks the login button.",Login fails and an error message is displayed.
+TC-Login-003,Empty Fields During Login,Login,"1, 4, 8",User has registered with correct credentials.,"- Username: 
+- Password:","1. User leaves both fields empty.
+2. User clicks the login button.",An error message is displayed indicating that both fields are required.
+TC-Login-004,Logout Functionality,Login,"1, 4, 8",User is logged in.,- No specific test data required.,1. User clicks the logout button.,User is logged out and redirected to the login page.
+TC-Insert-001,Successful Insertion of New User,Insertion,"6, 8, 10, 11, 12, 14",Database is accessible.,"- Username: new_user
+- Password: new_password","1. User enters ""new_user"" in the username field.
+2. User enters ""new_password"" in the password field.
+3. User clicks the submit button.",New user is successfully inserted into the database and a success message is displayed.
+TC-Insert-002,Failed Insertion Due to Duplicate Username,Insertion,"6, 8, 10, 11, 12, 14",Database is accessible and contains a duplicate username.,"- Username: existing_user
+- Password: new_password","1. User enters ""existing_user"" in the username field.
+2. User enters ""new_password"" in the password field.
+3. User clicks the submit button.",Insertion fails and an error message is displayed indicating that the username already exists.
+TC-Update-001,Successful Update of Existing User,Update,"6, 8, 10, 11, 12, 14",User is logged in and database is accessible.,"- Current Username: existing_user
+- New Username: updated_user
+- New Password: updated_password","1. User enters ""existing_user"" in the current username field.
+2. User enters ""updated_user"" in the new username field.
+3. User enters ""updated_password"" in the new password field.
+4. User clicks the update button.",User information is successfully updated in the database and a success message is displayed.
+TC-Update-002,Failed Update Due to Duplicate Username,Update,"6, 8, 10, 11, 12, 14",User is logged in and database is accessible.,"- Current Username: existing_user
+- New Username: existing_user
+- New Password: updated_password","1. User enters ""existing_user"" in the current username field.
+2. User enters ""existing_user"" in the new username field.
+3. User enters ""updated_password"" in the new password field.
+4. User clicks the update button.",Update fails and an error message is displayed indicating that the username already exists.
+TC-Delete-001,Successful Deletion of User,Delete,"6, 8, 10, 11, 12, 14",User is logged in and database is accessible.,- Username: user_to_delete,"1. User enters ""user_to_delete"" in the username field.
+2. User clicks the delete button.",User is successfully deleted from the database and a success message is displayed.
+TC-Delete-002,Failed Deletion Due to Non-Existent User,Delete,"6, 8, 10, 11, 12, 14",User is logged in and database is accessible.,- Username: non_existent_user,"1. User enters ""non_existent_user"" in the username field.
+2. User clicks the delete button.",Deletion fails and an error message is displayed indicating that the user does not exist.
+TC-Filters-001,Apply and Display Filtered Results,Filters,"15, 16, 17",User is logged in and database is accessible.,"- Filter Criteria: ""search_term""","1. User enters ""search_term"" in the filter field.
+2. User clicks the apply filter button.",Filtered results are displayed on the screen.
+TC-Filters-002,Clear Filtered Results,Filters,"15, 16, 17",User is logged in and database is accessible.,"- Filter Criteria: ""search_term""","1. User enters ""search_term"" in the filter field.
+2. User clicks the clear filter button.",Filtered results are cleared and original results are displayed.
+TC-Database-001,Insert New Information,Database,"16, 17",User is logged in and database is accessible.,"- New Information: ""new_info""","1. User enters ""new_info"" in the input field.
+2. User clicks the submit button.",New information is successfully inserted into the database and a success message is displayed.
+TC-Database-002,Show Updated Information,Database,"16, 17",User is logged in and database is accessible.,"- Updated Information: ""updated_info""","1. User enters ""updated_info"" in the input field.
+2. User clicks the submit button.",Updated information is successfully shown to another user and a success message is displayed.
+TC-Logout-001,Logout After Multiple Logins,Logout,"1, 4, 8",User is logged in.,- No specific test data required.,1. User clicks the logout button.,User is logged out and redirected to the login page.
+TC-Logout-002,Attempt to Logout Without Being Logged In,Logout,"1, 4, 8",User is not logged in.,- No specific test data required.,1. User clicks the logout button.,An error message is displayed indicating that the user is not logged in.
+TC-Logout-003,Logout After Multiple Sessions,Logout,"1, 4, 8",User is logged in and multiple sessions are active.,- No specific test data required.,1. User clicks the logout button.,All active sessions are terminated and the user is logged out.
+TC-Logout-004,Logout After Session Timeout,Logout,"1, 4, 8",User is logged in and session timeout is set.,- No specific test data required.,"1. Wait until session timeout occurs.
+2. User tries to access a protected page.",User is automatically logged out and redirected to the login page.
+TC-Logout-005,Logout After Forced Logout,Logout,"1, 4, 8",User is logged in.,- No specific test data required.,1. User clicks the force logout button.,User is immediately logged out and redirected to the login page.
+TC-Logout-006,Logout After Session Expired,Logout,"1, 4, 8",User is logged in and session expiration is set.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User tries to access a protected page.",User is automatically logged out and redirected to the login page.
+TC-Logout-007,Logout After Session Expired and Force Logout,Logout,"1, 4, 8",User is logged in and session expiration is set.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User clicks the force logout button.",User is immediately logged out and redirected to the login page.
+TC-Logout-008,Logout After Session Expired and Attempt to Access Protected Page,Logout,"1, 4, 8",User is logged in and session expiration is set.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User tries to access a protected page.",User is automatically logged out and redirected to the login page.
+TC-Logout-009,Logout After Session Expired and Attempt to Access Protected Page with Force Logout,Logout,"1, 4, 8",User is logged in and session expiration is set.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User clicks the force logout button.
+3. User tries to access a protected page.",User is immediately logged out and redirected to the login page.
+TC-Logout-010,Logout After Session Expired and Attempt to Access Protected Page with Force Logout and Another Session,Logout,"1, 4, 8",User is logged in and multiple sessions are active.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User clicks the force logout button.
+3. User tries to access a protected page.",All active sessions are terminated and the user is logged out.
+TC-Logout-011,Logout After Session Expired and Attempt to Access Protected Page with Force Logout and Another Session and Another Session,Logout,"1, 4, 8",User is logged in and multiple sessions are active.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User clicks the force logout button.
+3. User tries to access a protected page.",All active sessions are terminated and the user is logged out.
+TC-Logout-012,Logout After Session Expired and Attempt to Access Protected Page with Force Logout and Another Session and Another Session and Another Session,Logout,"1, 4, 8",User is logged in and multiple sessions are active.,- No specific test data required.,"1. Wait until session expiration occurs.
+2. User clicks the force logout button.
+3. User tries to access a protected page.",All active sessions are terminated and the user is logged out.
+TC-Logout-013,Logout After Session Expired and Attempt to Access Protected Page with Force Logout and Another Session and Another Session and Another Session and Another Session,Logout,"1, 4, 8",,,,

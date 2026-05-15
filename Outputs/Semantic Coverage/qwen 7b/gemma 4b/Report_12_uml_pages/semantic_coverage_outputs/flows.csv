@@ -1,0 +1,203 @@
+flow
+"sign up -> creazione annuuncio — type=includes; label=""sign up""; explanation=""the sign-up process includes the creation of an announcement."";"
+"sign up -> login — type=includes; label=""sign up""; explanation=""the sign-up process includes login."";"
+"login -> geolocalizzazione — type=includes; label=""login""; explanation=""login includes geolocation."";"
+"geolocalizzazione -> filtraggio annuuncio — type=includes; label=""geolocation""; explanation=""geolocation is included in filtering announcements."";"
+"filtraggio annuuncio -> accettazione annuuncio — type=includes; label=""filtering""; explanation=""filtering includes acceptance."";"
+"accettazione annuuncio -> visualizzazione annuuncio — type=includes; label=""acceptance""; explanation=""acceptance includes visualization."";"
+"visualizzazione annuuncio -> modifica annuuncio — type=includes; label=""visualization""; explanation=""visualization includes modification."";"
+"visualizzazione annuuncio -> eliminazione annuuncio — type=includes; label=""visualization""; explanation=""visualization includes elimination."";"
+"modifica account — type=includes; label=""modify account""; explanation=""modify account includes the modification of an announcement."";"
+"logout — type=includes; label=""logout""; explanation=""logout includes logout."";"
+sign up -> creazione annuuncio
+sign up -> login
+login -> geolocalizzazione
+geolocalizzazione -> filtraggio annuuncio
+filtraggio annuuncio -> accettazione annuuncio
+accettazione annuuncio -> visualizzazione annuuncio
+visualizzazione annuuncio -> modifica annuuncio
+visualizzazione annuuncio -> eliminazione annuuncio
+modifica account
+logout
+"this diagram represents the main use cases of a system, likely related to managing announcements and user accounts."
+the sign-up process includes both creating an announcement and logging in.
+geolocation is used to filter announcements.
+"the system allows users to create, filter, accept, visualize, modify, and delete announcements, as well as manage their accounts."
+"start -> utente creato? — type=initial edge; label=""si""; explanation=""start"""
+"start -> createuser — type=edge; label=""no""; explanation=""create user"""
+"utente creato? — type=decision edge; label=""si""; explanation=""user created"""
+"utente creato? — type=decision edge; label=""no""; explanation=""user not created"""
+"utente creato? (si) -> login — type=edge; label=""login"""
+"utente creato? (no) -> createuser — type=edge; label=""createuser"""
+"login -> bacheca — type=edge; label=""bacheca"""
+flow 1: start -> utente creato? (no) -> createuser -> utente creato? (si) -> login -> bacheca
+the diagram models the process of user creation and login.
+"the process starts with checking if a user is already created. if not, a new user is created. if a user is already created, the user logs in."
+"the final step is accessing the ""bacheca"" (likely a dashboard or main page)."
+"bacheca -> accesso a menu laterale — transition=""no""; explanation=""user does not press bacheca"";"
+"accesso a menu laterale -> menu — transition=""si""; explanation=""user accesses the menu"";"
+"menu -> visualizzare profilo? — transition=""si""; explanation=""user wants to view profile"";"
+"visualizzare profilo? — transition=""no"" -> logout — transition=""si""; explanation=""user wants to logout"";"
+"visualizzare profilo? — transition=""si"" -> menu — transition=""no""; explanation=""user wants to continue using the menu"";"
+"menu -> myprofile — transition=""si""; explanation=""user wants to view profile"";"
+"menu -> myactivities — transition=""si""; explanation=""user wants to view activities"";"
+"myprofile -> visualizzare i miei annunci? — transition=""si""; explanation=""user wants to view announcements"";"
+"visualizzare i miei annunci? — transition=""no"" -> logout — transition=""si""; explanation=""user wants to logout"";"
+"myactivities -> visualizzare i miei annunci? — transition=""si""; explanation=""user wants to view announcements"";"
+"logout -> bacheca — transition=""si""; explanation=""user returns to the main menu"";"
+* the diagram models the navigation flow within a menu system.
+"* the user can access the menu, view their profile, view their activities, or logout."
+* the system checks if the user wants to view their profile or announcements before proceeding.
+* the system checks if the user wants to logout.
+* the user can return to the main menu after logging out.
+"bacheca -> createnoticeboard — type=decision; label=""creazione annuncio?""; explanation=""decision to create an announcement"";"
+"bacheca -> noticeboardcreated — type=decision; label=""creazione avvenuta?""; explanation=""decision if the announcement was created"";"
+bacheca -> createnoticeboard (si) -> noticeboardcreated
+the diagram represents a basic decision-making process.
+the process starts with a check to see if an announcement needs to be created.
+"if an announcement is needed, a noticeboard is created."
+"if an announcement is not needed, the process loops back to the initial decision point."
+"bacheca -> seleziona filtri? — type=transition; label=""no""; explanation=""if no filters are selected"""
+"seleziona filtri? -> listnofilter — type=transition; label=""si""; explanation=""if filters are selected"""
+"seleziona filtri? -> filter — type=transition; label=""si""; explanation=""if filters are selected"""
+"filter -> filtro corretto? — type=transition; label=""no""; explanation=""if the filter is not correct"""
+"filtro corretto? -> listwithfilter — type=transition; label=""si""; explanation=""if the filter is correct"""
+"listwithfilter -> visualizzare dettagli? — type=transition; label=""no""; explanation=""if details are not to be visualized"""
+"visualizzare dettagli? -> noticeboarddetails — type=transition; label=""si""; explanation=""if details are to be visualized"""
+bacheca -> seleziona filtri?
+"if ""no"": listnofilter"
+"if ""si"": filter"
+"if ""si"": listwithfilter"
+listwithfilter -> visualizzare dettagli?
+"if ""si"": noticeboarddetails"
+the diagram models the flow of displaying a noticeboard based on filter selection.
+"if no filters are selected, the noticeboard is displayed directly."
+"if filters are selected, the system checks if the filter is correct."
+"if the filter is correct, the details of the noticeboard are displayed."
+"if the filter is not correct, the noticeboard is displayed without filters."
+"noticeboarddetails -> utente — type=flow; label=""vuoi prenotarti?""; explanation=""check if user wants to book"""
+"utente -> noticeboarddetails — type=flow; label=""si""; explanation=""user says yes"""
+"noticeboarddetails -> listwithfilter — type=flow; label=""si""; explanation=""proceed to list with filter"""
+"utente -> listwithfilter — type=flow; label=""si""; explanation=""user wants to filter"""
+"utente -> listwithfilter — type=flow; label=""no""; explanation=""user doesn't want to filter"""
+"listwithfilter -> booking — type=flow; label=""si""; explanation=""user selects an item to book"""
+"listwithfilter -> listnofilter — type=flow; label=""no""; explanation=""user doesn't want to filter"""
+"listnofilter -> booking — type=flow; label=""si""; explanation=""user selects an item to book"""
+"utente -> noticeboarddetails — type=flow; label=""vuoi prenotarti?""; explanation=""user asks if they want to book"""
+"if (vuoi prenotarti?) -> si: utente -> listwithfilter — type=flow; label=""si""; explanation=""user wants to filter"""
+"if (vuoi prenotarti?) -> no: utente -> listnofilter — type=flow; label=""no""; explanation=""user doesn't want to filter"""
+"utente -> booking — type=flow; label=""si""; explanation=""user selects an item to book"""
+the diagram models the booking process for a noticeboard.
+the user first checks if they want to book.
+"if they do, they can either filter the list or proceed directly to booking."
+"if they don't want to book, they are presented with a list of notices (filtered or unfiltered)."
+"menu -> myactivities — type=sequence flow; label=""navigate to activities""; explanation=""user navigates to the activities section"";"
+"myactivities -> gestione propri annunci? — type=decision flow; label=""check for announcements""; explanation=""system checks if there are announcements"";"
+"gestione propri annunci? -> mynoticeboard — type=sequence flow; label=""yes""; explanation=""if announcements exist, navigate to the noticeboard"";"
+"gestione propri annunci? -> mynoticeboard — type=sequence flow; label=""no""; explanation=""if no announcements exist, continue to the activities"";"
+"the diagram models the navigation flow within an application, specifically the user's access to activities and announcements."
+the user can navigate to the activities section.
+the system checks for announcements and directs the user to the noticeboard if any exist.
+"if no announcements are present, the user remains in the activities section."
+"menu -> myprofile — type=flow; label=""si""; explanation=""user navigates to myprofile"";"
+"menu -> pointsdonation — type=flow; label=""no""; explanation=""user chooses pointsdonation"";"
+"myprofile -> modifyaccount — type=decision; label=""vuoi aggiornare dati?""; explanation=""user decides to update profile data"";"
+"modifyaccount -> modifyaccount — type=flow; label=""si""; explanation=""user updates account details"";"
+"modifyaccount -> myprofile — type=flow; label=""no""; explanation=""user does not update account details"";"
+"pointsdonation -> pointsdonation — type=flow; label=""si""; explanation=""user donates points"";"
+"pointsdonation -> myprofile — type=flow; label=""no""; explanation=""user does not donate points"";"
+menu -> myprofile (si)
+myprofile -> modifyaccount (si) -> modifyaccount (si) -> myprofile (no)
+myprofile -> modifyaccount (no)
+pointsdonation (si) -> pointsdonation (si) -> myprofile (no)
+pointsdonation (no)
+this diagram models the user's interaction with a profile modification and points donation feature.
+the user can either navigate to their profile to update information or directly donate points.
+the diagram shows a branching flow based on the user's choice to update their profile or donate points.
+"announcio -> create — type=transition; label=""create""; explanation=""initiates the process"""
+"create -> created — type=transition; label=""created"""
+"created -> modify — type=transition; label=""modify"""
+"modify -> booking — type=transition; label=""booking"""
+"booking -> accept — type=transition; label=""accept"""
+"accept -> accepted — type=transition; label=""accepted"""
+"accepted -> inprogress — type=transition; label=""in progress"""
+"inprogress -> pointsassignment — type=transition; label=""points assignment"""
+"pointsassignment -> finishtime — type=transition; label=""finish time"""
+"finishtime -> removed — type=transition; label=""removed"""
+"removed -> announcio — type=transition; label=""removed"""
+announcio -> create -> created -> modify -> booking -> accept -> accepted -> inprogress -> pointsassignment -> finishtime -> removed -> announcio
+"this diagram models the lifecycle of an announcement, starting from creation, through booking, acceptance, and points assignment, culminating in a finish time and eventual removal. the process flows in a cyclical manner, returning to the initial state after removal."
+"main -> create user — type=flow; label=""create user""; explanation=""initiates user creation"";"
+"main -> notify user exists — type=flow; label=""notify user exists""; explanation=""notifies user that account exists"";"
+"create user -> users — type=flow; label=""map in database""; explanation=""maps user data to the database"";"
+"users -> db — type=flow; label=""save data""; explanation=""saves user data to the database"";"
+"users -> db -> map data in users — type=flow; label=""map data in users""; explanation=""maps data to users"";"
+flow 1: main -> create user -> users -> db -> map data in users -> users -> db -> save data
+the diagram models the process of creating a new user and handling the scenario where a user already exists.
+"the ""create user"" flow involves mapping user data to the database and then saving it."
+"the ""notify user exists"" flow simply informs the user that an account with the same name already exists."
+"main -> noticeboard — type=create; label=""create noticeboard""; explanation=""initiates the creation of a noticeboard"";"
+"noticeboard -> db — type=map; label=""map in database""; explanation=""maps data to the database"";"
+"noticeboard -> db — type=save; label=""save data""; explanation=""saves data to the database"";"
+"noticeboard -> main — type=notify; label=""notify noticeboard exists""; explanation=""notifies the main component that the noticeboard exists"";"
+flow 1: main -> noticeboard — create noticeboard
+flow 2: noticeboard -> db — map in database
+flow 3: noticeboard -> db — save data
+flow 4: noticeboard -> main — notify noticeboard exists
+the diagram models the process of creating an announcement and storing it in a database.
+the main component initiates the creation of a noticeboard.
+the noticeboard maps data to the database and saves the data.
+the noticeboard then notifies the main component that it has been created.
+"main -> db — type=synchronization; label=""check if noticeboard exist""; explanation=""checks if a noticeboard exists in the database"""
+"main -> db -> users — type=synchronization; label=""return list""; explanation=""returns a list of notices to the users"""
+"main -> users — type=synchronization; label=""show noticeboard""; explanation=""displays the noticeboard to the user"""
+"users -> main — type=synchronization; label=""booking""; explanation=""user initiates a booking"""
+flow 1: main -> db — check if noticeboard exist
+flow 2: db -> main — return list
+flow 3: main -> users — show noticeboard
+flow 4: users -> main — booking
+"the diagram models the interaction between a main application, a database, and users to display and book notices."
+the application first checks if a noticeboard exists in the database.
+"if a noticeboard exists, it returns a list of notices to the user interface."
+the user interface then displays the noticeboard to the user.
+the user can then initiate a booking.
+main -> db : check candidate list
+main -> db : search list
+main -> db : show candidate list
+main -> db : accept candidate
+users -> main : accept candidate
+flow 1: users -> main : accept candidate
+flow 2: main -> db : check candidate list
+flow 3: db -> main : return list
+flow 4: main -> db : search list
+flow 5: db -> main : show candidate list
+flow 6: users -> main : accept candidate
+"the diagram models a system where users can accept candidates. the process involves searching for candidates in a database and presenting a list to the user for selection. the user then accepts a candidate, which triggers a confirmation process."
+"main -> db — message=""check if noticeboard exist"";"
+"db -> main — message=""return new version"";"
+"db -> db — message=""modify data"";"
+"main sends ""check if noticeboard exist"" message to db."
+"db returns ""return new version"" message to main."
+"db sends ""modify data"" message to db."
+the diagram models a sequence of operations for updating an announcement.
+the main component initiates the process by checking for a new noticeboard version.
+the db component retrieves the new version and returns it to the main component.
+the db component then modifies the data.
+"main -> db — type=message; label=""check if user exist""; explanation=""main asks db if a user exists"""
+"db -> main — type=message; label=""return new version""; explanation=""db returns the user's version"""
+"db -> main — type=message; label=""modify data""; explanation=""db modifies the user's data"""
+flow 1: main -> db (check if user exist) -> db -> main (return new version)
+the diagram models a simple interaction between a main application and a database.
+the main application first checks if a user exists in the database.
+"if the user exists, the database returns the user's version number, and the main application proceeds."
+the diagram does not show what happens if the user does not exist.
+"main -> db — type=flow; label=""if noticeboard's period finished""; explanation=""conditional flow based on noticeboard status"";"
+"db -> delete noticeboard — type=flow; label=""delete noticeboard""; explanation=""action to delete the noticeboard"";"
+"main -> noticeboard — type=flow; label=""noticeboard does not exist anymore""; explanation=""flow if noticeboard is no longer present"";"
+flow 1: main -> db
+flow 2: if db -> delete noticeboard: noticeboard does not exist anymore -> main
+the diagram models a process for handling a noticeboard.
+the main flow involves checking if the noticeboard's period has finished.
+"if it has finished, the noticeboard is deleted."
+"if it hasn't finished, the system checks if the noticeboard still exists."
+======================================================================

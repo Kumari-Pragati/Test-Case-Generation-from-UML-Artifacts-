@@ -1,0 +1,96 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-INITIAL-001,Verify initial configuration check and distributor list access,Application Startup,1,"- Application is freshly installed (no prior configuration).
+- User has not completed initial setup.",- None (default state).,"1. Launch the application.
+2. System prompts: *""La configurazione iniziale è stata effettuata?""*
+3. User selects **""No""** (initial config not done).
+4. System redirects to **""Aggiungi veicolo""** (vehicle addition).","- Application skips distributor list access and proceeds to vehicle addition.
+- No error messages appear."
+TC-INITIAL-002,Verify initial configuration check and distributor list access (positive),Application Startup,1,"- Initial configuration is completed (e.g., user profile set up).","- Simulated ""initial config done"" state.","1. Launch the application.
+2. System prompts: *""La configurazione iniziale è stata effettuata?""*
+3. User selects **""Si""** (config done).
+4. System redirects to **""Accesso lista distributori""**.","- Distributor list loads successfully.
+- Navigation bar appears with options (e.g., ""Impostazioni"")."
+TC-VEHICLE-001,Add vehicle manually (no dataset selection),Vehicle Management,1,- Initial config not done (or user skips distributor list).,"- Vehicle details: *Targa: AB123CD, Marca: Fiat, Modello: Panda*.","1. User selects **""Aggiungi veicolo""**.
+2. System prompts: *""Vuoi selezionare il tuo veicolo dal dataset?""*
+3. User selects **""No""** (manual entry).
+4. System opens manual entry form.
+5. User inputs vehicle details and submits.
+6. System prompts: *""Vuoi aggiungere un altro veicolo?""*
+7. User selects **""No""**.","- Vehicle is saved to the system.
+- User returns to initial state (e.g., distributor list or settings)."
+TC-VEHICLE-002,Search and add vehicle from dataset (success),Vehicle Management,1,"- Dataset contains at least one vehicle (e.g., *Targa: XY987ZY*).",- Search query: *Targa: XY987ZY*.,"1. User selects **""Aggiungi veicolo""**.
+2. System prompts: *""Vuoi selezionare il tuo veicolo dal dataset?""*
+3. User selects **""Si""**.
+4. System opens search interface.
+5. User enters search query and submits.
+6. System returns results: *""Hai trovato il veicolo nel dataset?""* → **""Si""**.
+7. User selects the vehicle and confirms addition.
+8. System prompts: *""Vuoi aggiungere un altro veicolo?""*
+9. User selects **""No""**.","- Vehicle is added to the system.
+- No duplicate entries appear."
+TC-VEHICLE-003,Search vehicle in dataset (not found),Vehicle Management,1,- Dataset contains no matching vehicle for the query.,- Search query: *Targa: INVALID123*.,"1. User selects **""Aggiungi veicolo""**.
+2. System prompts: *""Vuoi selezionare il tuo veicolo dal dataset?""*
+3. User selects **""Si""**.
+4. System opens search interface.
+5. User enters invalid query and submits.
+6. System returns: *""Hai trovato il veicolo nel dataset?""* → **""No""**.
+7. User attempts to proceed without adding.","- System prevents vehicle addition without a valid match.
+- User is prompted to either:
+  - Retry search, or
+  - Manually add a vehicle."
+TC-VEHICLE-004,Add multiple vehicles sequentially,Vehicle Management,1,- Initial config not done.,"- Vehicle 1: *Targa: AB123CD* (manual).
+- Vehicle 2: *Targa: XY987ZY* (dataset).","1. User selects **""Aggiungi veicolo""**.
+2. User manually adds Vehicle 1 → confirms addition.
+3. System prompts: *""Vuoi aggiungere un altro veicolo?""* → **""Si""**.
+4. User searches for and adds Vehicle 2 from dataset.
+5. System prompts again: *""Vuoi aggiungere un altro veicolo?""* → **""No""**.","- Both vehicles are saved.
+- No conflicts or duplicates occur."
+TC-DISTRIBUTOR-001,Access and display distributor list (default),Distributor Navigation,2,"- Initial config is done.
+- User is on the distributor list page.",- None.,"1. User selects **""Accesso lista distributori""**.
+2. System prompts: *""Vuoi modificare i parametri di ordinamento della lista di distributori?""*
+3. User selects **""No""**.
+4. System displays default distributor list.","- List loads with default sorting (e.g., alphabetical by name).
+- All distributors are visible."
+TC-DISTRIBUTOR-002,Customize and apply sorting parameters,Distributor Navigation,2,- User is on the distributor list page.,"- Sorting parameters: *Order by: Distance, Ascending*.","1. User selects **""Accesso lista distributori""**.
+2. System prompts: *""Vuoi modificare i parametri di ordinamento?""* → **""Si""**.
+3. User selects sorting parameters and applies.
+4. System displays updated list.","- List re-sorts according to selected criteria.
+- Confirmation message appears (e.g., *""Parametri aggiornati""*)."
+TC-DISTRIBUTOR-003,Select distributor and trigger navigation,Distributor Navigation,2,- Distributor list is displayed with at least one entry.,"- Distributor: *Nome: Distributore Alfa, Indirizzo: Via Roma 1*.","1. User selects **""Seleziona il distributore""** → picks *Distributore Alfa*.
+2. System opens navigation app automatically.
+3. User completes navigation (simulated).
+4. System confirms: *""Navigazione terminata, raggiunto distributore""*.","- Navigation app launches with correct coordinates.
+- System detects arrival and displays confirmation."
+TC-DISTRIBUTOR-004,Cancel distributor selection (edge case),Distributor Navigation,2,- Distributor list is displayed.,,"1. User selects **""Seleziona il distributore""** but closes the selection modal without choosing.
+2. System returns to distributor list.","- No navigation app opens.
+- User remains on the distributor list."
+TC-SETTINGS-001,Access settings and view current settings,Settings Management,3,- User is on the distributor list or any other page.,,"1. User navigates to **""Accesso pagina impostazioni""**.
+2. System displays: *""Visualizza le impostazioni""*.
+3. User does not interact further.","- Settings page loads with current values (e.g., vehicle list, app preferences).
+- No errors occur."
+TC-SETTINGS-002,Navigate from settings to distributor list,Settings Management,3,- User is on the settings page.,,"1. User selects *""Vuoi cambiare schermata?""* → **""Si""**.
+2. System prompts: *""Click sull'accesso pagina lista distributori""* → **""Si""**.
+3. User is redirected to distributor list.","- Distributor list loads without data loss.
+- Navigation bar updates to reflect current page."
+TC-SETTINGS-003,Modify vehicle list in settings,Settings Management,3,- User has at least one vehicle added.,- Action: Remove *Targa: AB123CD*.,"1. User selects *""Vuoi modificare i tuoi veicoli?""* → **""Si""**.
+2. User removes *AB123CD* from the list.
+3. System displays: *""Visualizza pop-up 'modifica effettuata'""*.","- Vehicle is removed from the system.
+- Pop-up confirms successful modification.
+- Vehicle list updates across all pages."
+TC-SETTINGS-004,Cancel vehicle modification (edge case),Settings Management,3,- User is on the settings page.,,"1. User selects *""Vuoi modificare i tuoi veicoli?""* → **""Si""**.
+2. User opens modification interface but cancels without saving.
+3. System returns to settings page.","- No changes are applied to the vehicle list.
+- System shows original vehicle list."
+TC-INTEGRATION-001,End-to-end flow: Add vehicle → Access distributor list → Navigate to distributor,Full Workflow,"1, 2, 3",- Initial config is done.,,"1. Launch app → initial config is done → access distributor list.
+2. Add a vehicle manually (e.g., *Targa: TEST456*).
+3. Return to distributor list.
+4. Select a distributor and trigger navigation.
+5. Simulate arrival.","- Vehicle is added successfully.
+- Distributor list loads without errors.
+- Navigation completes and confirms arrival."
+TC-ERROR-001,Handle missing initial configuration (negative),System Resilience,1,- Application crashes during initial config check.,,"1. Simulate a crash when prompted: *""La configurazione iniziale è stata effettuata?""*.
+2. User restarts the app.","- System detects prior state and prompts for initial config again.
+- No data corruption occurs."
+TC-ERROR-002,Invalid vehicle data entry (negative),Vehicle Management,1,- User is adding a vehicle manually.,- Invalid targa: *Targa: !@#$%^&*.,"1. User attempts to add a vehicle with invalid targa.
+2. System validates input.","- System rejects the input with an error message (e.g., *""Formato targa non valido""*).
+- User is prompted to re-enter valid data."

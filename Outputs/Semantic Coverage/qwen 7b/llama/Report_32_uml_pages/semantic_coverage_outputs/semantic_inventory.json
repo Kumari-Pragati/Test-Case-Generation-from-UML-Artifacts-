@@ -1,0 +1,359 @@
+{
+  "concepts": [
+    "main program",
+    "routine 1",
+    "routine 2",
+    "routine 3",
+    "routine 1.1",
+    "routine 1.2",
+    "routine 3.1",
+    "routine 3.2",
+    "utenti",
+    "kind",
+    "attributes",
+    "oggetti",
+    "servizi",
+    "annunci",
+    "login",
+    "verifica correttezza delle informazioni",
+    "accesso",
+    "user",
+    "system",
+    "inserimento input",
+    "operations",
+    "role",
+    "composizione query",
+    "la query è stata eseguita con successo?",
+    "creazione dell'oggetto da noleggiare",
+    "query per inserire il dato nel database",
+    "messaggio di errore",
+    "actors/lifelines",
+    "relationships/links",
+    "creazione del servizio da offrire",
+    "creazione dell'annuncio",
+    "riprova",
+    "selezione dell'annuncio da rimuovere",
+    "query per cancellare il dato dal database",
+    "selezione dell'oggetto/servizio da rimuovere"
+  ],
+  "flows": [
+    "main program -> routine 1 — type=call; label=\"main program\"; explanation=\"main program calls routine 1\"",
+    "routine 1 -> routine 1.1 — type=call; label=\"routine 1\"; explanation=\"routine 1 calls routine 1.1\"",
+    "routine 1 -> routine 1.2 — type=call; label=\"routine 1\"; explanation=\"routine 1 calls routine 1.2\"",
+    "routine 2 -> routine 3.1 — type=call; label=\"routine 2\"; explanation=\"routine 2 calls routine 3.1\"",
+    "routine 3 -> routine 3.2 — type=call; label=\"routine 3\"; explanation=\"routine 3 calls routine 3.2\"",
+    "routine 3 -> routine 3.1 — type=call; label=\"routine 3\"; explanation=\"routine 3 calls routine 3.1\"",
+    "flow 1: main program -> routine 1 -> routine 1.1 -> routine 1.2 -> main program",
+    "flow 2: main program -> routine 2 -> routine 3.1 -> routine 3.2 -> main program",
+    "the diagram models a program with multiple routines that call each other.",
+    "the main program calls routine 1, which then calls routine 1.1 and routine 1.2.",
+    "routine 2 calls routine 3.1, which then calls routine 3.2.",
+    "the program has two main flows, one for each set of routines.",
+    "there are no conditions or branches visible in the diagram.",
+    "there are no loops or repetitions.",
+    "utenti -> oggetti - type: association; label: richiede /offre; explanation: e' offerto/ richiesto",
+    "oggetti -> oggetti - type: association; label: e' offerto/ richiesto; explanation: e' offerto/ richiesto",
+    "oggetti -> servizi - type: association; label: e' offerto/ richiesto; explanation: e' offerto/ richiesto",
+    "servizi -> servizi - type: association; label: e' offerto/ richiesto; explanation: e' offerto/ richiesto",
+    "oggetti -> annunci - type: association; label: crea; explanation: crea",
+    "servizi -> servizi - type: association; label: servizi offerti; explanation: servizi offerti",
+    "flow 1: richiede /offre -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ rich",
+    "login -> verifica correttezza delle informazioni — type=message; label=\"riprova\"; explanation=\"verify information\"",
+    "verifica correttezza delle informazioni -> accesso — type=message; label=\"si\"; explanation=\"access granted\"",
+    "accesso -> login — type=message; label=\"no\"; explanation=\"access denied\"",
+    "flow 1: login -> verifica correttezza delle informazioni -> accesso",
+    "the diagram models the login process, where the user's information is verified, and if correct, they are granted access.",
+    "the system will ask for re-entry if the information is incorrect.",
+    "there are no error paths or edge cases shown in the diagram.",
+    "inserimento input -> composizione query — type: input",
+    "composizione query -> la query è stata eseguita con successo? — type: query",
+    "la query è stata eseguita con successo? -> messaggio di errore — type: error message",
+    "la query è stata eseguita con successo? -> si — type: success",
+    "inserimento input -> composizione query -> la query è stata eseguita con successo? -> si -> messaggio di errore",
+    "this diagram models a process that starts with input, composes a query, checks for success, and handles errors.",
+    "the main flow is a straightforward sequence of steps.",
+    "the decision point is based on the success of the query.",
+    "the error message is sent if the query fails.",
+    "creazione dell'oggetto da noleggiare -> query per inserire il dato nel database -> la query è stata eseguita con successo? -> si -> messaggio di errore",
+    "conditions/branches:",
+    "la query è stata eseguita con successo? -> no: no",
+    "loops/repetitions:",
+    "notes/annotations:",
+    "this sequence diagram models the process of creating an object for rent, inserting data into a database, and handling the success or error of the query.",
+    "the process starts with the creation of the object to be rented and ends with an error message if the query is not successful.",
+    "the decision to check if the query has been executed successfully is a critical point in the process.",
+    "creazione del servizio da offrire -> query per inserire il dato nel database — type=association; label=; explanation=service creation",
+    "query per inserire il dato nel database -> la query è stata eseguita con successo? — type=decision; label=; explanation=database query",
+    "la query è stata eseguita con successo? -> messaggio di errore — type=error; label=; explanation=success query",
+    "messaggio di errore -> si — type=error; label=; explanation=error message",
+    "flow 1: creazione del servizio da offrire -> query per inserire il dato nel database -> la query è stata eseguita con successo? -> si -> messaggio di errore",
+    "the diagram models a service creation and database query process.",
+    "the main flow involves creating a service, querying the database, and handling success or error messages.",
+    "the decision point checks for query success, and if not, an error message is sent.",
+    "the process is a straightforward sequence of actions with a decision point.",
+    "creazione dell'annuncio -> query per inserire il dato nel database — type=association; label=; explanation=create announcement and query database",
+    "query per inserire il dato nel database -> la query è stata eseguita con successo? — type=decision; label=; explanation=query database for success",
+    "la query è stata eseguita con successo? -> messaggio di errore — type=association; label=; explanation=success query or error message",
+    "messaggio di errore -> riprova — type=association; label=; explanation=error message to retry",
+    "riprova -> creazione dell'annuncio — type=association; label=; explanation=retry to create announcement",
+    "flow 1: create announcement, query database, check success, send error message, retry, create announcement",
+    "the diagram models the process of creating an announcement, querying the database, checking for success, sending an error message, and retrying if necessary.",
+    "the main flow is a linear sequence of these steps.",
+    "the decision point is based on the success of the database query.",
+    "there are no loops or repetitions in the flow.",
+    "la query è stata eseguita con successo? -> riprova — type=transition; label=\"no\"; explanation=\"retry if query fails\"",
+    "la query è stata eseguita con successo? -> la query è stata eseguita con successo? — type=loop; label=\"si\"; explanation=\"if query is successful\"",
+    "selezione dell'annuncio da rimuovere -> query per cancellare il dato dal database — type=association; label=\"select announcement\"; explanation=\"select announcement to delete\"",
+    "query per cancellare il dato dal database -> riprova — type=transition; label=\"delete\"; explanation=\"delete data from database\"",
+    "la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguit",
+    "selezione dell'oggetto/servizio da rimuovere -> query per cancellare il dato dal database — type=flow; label=\"riprova\"; explanation=retry",
+    "query per cancellare il dato dal database -> la query è stata eseguita con successo? — type=flow; label=\"no\"; explanation=not successful",
+    "la query è stata eseguita con successo? -> messaggio di errore — type=flow; label=\"si\"; explanation=success",
+    "selezione dell'oggetto/servizio da rimuovere -> query per cancellare il dato dal database -> la query è stata eseguita con successo? -> messaggio di errore -> selezione dell'oggetto/servizio da rimuovere (loop)",
+    "the diagram models a process for removing an object/service from a service.",
+    "the process involves selecting the object/service to remove, querying the database to cancel the data, checking if the query was successful, and handling errors.",
+    "the process repeats if the query is not successful.",
+    "======================================================================"
+  ],
+  "validations": [
+    "routine 1 -> routine 1.1: if condition not visible",
+    "routine 1 -> routine 1.2: if condition not visible",
+    "routine 2 -> routine 3.1: if condition not visible",
+    "routine 3 -> routine 3.2: if condition not visible",
+    "riprova: if the information is incorrect, the system will ask the user to re-enter their information.",
+    "no: if the information is correct, the system will grant access.",
+    "la query è stata eseguita con successo?:",
+    "si: no",
+    "no: messaggio di errore",
+    "la query è stata eseguita con successo? -> no: no -> messaggio di errore",
+    "la query è stata eseguita con successo? — yes: si, no: messaggio di errore",
+    "la query è stata eseguita con successo? -> no -> messaggio di errore (if query is not successful)"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "Class",
+      "concepts": [
+        "main program",
+        "routine 1",
+        "routine 2",
+        "routine 3",
+        "routine 1.1",
+        "routine 1.2",
+        "routine 3.1",
+        "routine 3.2"
+      ],
+      "flows": [
+        "main program -> routine 1 — type=call; label=\"main program\"; explanation=\"main program calls routine 1\"",
+        "routine 1 -> routine 1.1 — type=call; label=\"routine 1\"; explanation=\"routine 1 calls routine 1.1\"",
+        "routine 1 -> routine 1.2 — type=call; label=\"routine 1\"; explanation=\"routine 1 calls routine 1.2\"",
+        "routine 2 -> routine 3.1 — type=call; label=\"routine 2\"; explanation=\"routine 2 calls routine 3.1\"",
+        "routine 3 -> routine 3.2 — type=call; label=\"routine 3\"; explanation=\"routine 3 calls routine 3.2\"",
+        "routine 3 -> routine 3.1 — type=call; label=\"routine 3\"; explanation=\"routine 3 calls routine 3.1\"",
+        "flow 1: main program -> routine 1 -> routine 1.1 -> routine 1.2 -> main program",
+        "flow 2: main program -> routine 2 -> routine 3.1 -> routine 3.2 -> main program",
+        "the diagram models a program with multiple routines that call each other.",
+        "the main program calls routine 1, which then calls routine 1.1 and routine 1.2.",
+        "routine 2 calls routine 3.1, which then calls routine 3.2.",
+        "the program has two main flows, one for each set of routines.",
+        "there are no conditions or branches visible in the diagram.",
+        "there are no loops or repetitions."
+      ],
+      "validations": [
+        "routine 1 -> routine 1.1: if condition not visible",
+        "routine 1 -> routine 1.2: if condition not visible",
+        "routine 2 -> routine 3.1: if condition not visible",
+        "routine 3 -> routine 3.2: if condition not visible"
+      ]
+    },
+    {
+      "page_no": 2,
+      "uml_type": "Class",
+      "concepts": [
+        "utenti",
+        "kind",
+        "attributes",
+        "oggetti",
+        "servizi",
+        "annunci"
+      ],
+      "flows": [
+        "utenti -> oggetti - type: association; label: richiede /offre; explanation: e' offerto/ richiesto",
+        "oggetti -> oggetti - type: association; label: e' offerto/ richiesto; explanation: e' offerto/ richiesto",
+        "oggetti -> servizi - type: association; label: e' offerto/ richiesto; explanation: e' offerto/ richiesto",
+        "servizi -> servizi - type: association; label: e' offerto/ richiesto; explanation: e' offerto/ richiesto",
+        "oggetti -> annunci - type: association; label: crea; explanation: crea",
+        "servizi -> servizi - type: association; label: servizi offerti; explanation: servizi offerti",
+        "flow 1: richiede /offre -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ richiesto -> e' offerto/ rich"
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 3,
+      "uml_type": "Activity",
+      "concepts": [
+        "login",
+        "verifica correttezza delle informazioni",
+        "accesso",
+        "user",
+        "system"
+      ],
+      "flows": [
+        "login -> verifica correttezza delle informazioni — type=message; label=\"riprova\"; explanation=\"verify information\"",
+        "verifica correttezza delle informazioni -> accesso — type=message; label=\"si\"; explanation=\"access granted\"",
+        "accesso -> login — type=message; label=\"no\"; explanation=\"access denied\"",
+        "flow 1: login -> verifica correttezza delle informazioni -> accesso",
+        "the diagram models the login process, where the user's information is verified, and if correct, they are granted access.",
+        "the system will ask for re-entry if the information is incorrect.",
+        "there are no error paths or edge cases shown in the diagram."
+      ],
+      "validations": [
+        "riprova: if the information is incorrect, the system will ask the user to re-enter their information.",
+        "no: if the information is correct, the system will grant access."
+      ]
+    },
+    {
+      "page_no": 4,
+      "uml_type": "Activity",
+      "concepts": [
+        "inserimento input",
+        "kind",
+        "attributes",
+        "operations",
+        "role",
+        "composizione query",
+        "la query è stata eseguita con successo?"
+      ],
+      "flows": [
+        "inserimento input -> composizione query — type: input",
+        "composizione query -> la query è stata eseguita con successo? — type: query",
+        "la query è stata eseguita con successo? -> messaggio di errore — type: error message",
+        "la query è stata eseguita con successo? -> si — type: success",
+        "inserimento input -> composizione query -> la query è stata eseguita con successo? -> si -> messaggio di errore",
+        "this diagram models a process that starts with input, composes a query, checks for success, and handles errors.",
+        "the main flow is a straightforward sequence of steps.",
+        "the decision point is based on the success of the query.",
+        "the error message is sent if the query fails."
+      ],
+      "validations": [
+        "la query è stata eseguita con successo?:",
+        "si: no",
+        "no: messaggio di errore"
+      ]
+    },
+    {
+      "page_no": 5,
+      "uml_type": "Sequence",
+      "concepts": [
+        "creazione dell'oggetto da noleggiare",
+        "query per inserire il dato nel database",
+        "la query è stata eseguita con successo?",
+        "messaggio di errore",
+        "actors/lifelines",
+        "relationships/links"
+      ],
+      "flows": [
+        "creazione dell'oggetto da noleggiare -> query per inserire il dato nel database -> la query è stata eseguita con successo? -> si -> messaggio di errore",
+        "conditions/branches:",
+        "la query è stata eseguita con successo? -> no: no",
+        "loops/repetitions:",
+        "notes/annotations:",
+        "this sequence diagram models the process of creating an object for rent, inserting data into a database, and handling the success or error of the query.",
+        "the process starts with the creation of the object to be rented and ends with an error message if the query is not successful.",
+        "the decision to check if the query has been executed successfully is a critical point in the process."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 6,
+      "uml_type": "Activity",
+      "concepts": [
+        "creazione del servizio da offrire",
+        "query per inserire il dato nel database",
+        "la query è stata eseguita con successo?",
+        "messaggio di errore"
+      ],
+      "flows": [
+        "creazione del servizio da offrire -> query per inserire il dato nel database — type=association; label=; explanation=service creation",
+        "query per inserire il dato nel database -> la query è stata eseguita con successo? — type=decision; label=; explanation=database query",
+        "la query è stata eseguita con successo? -> messaggio di errore — type=error; label=; explanation=success query",
+        "messaggio di errore -> si — type=error; label=; explanation=error message",
+        "flow 1: creazione del servizio da offrire -> query per inserire il dato nel database -> la query è stata eseguita con successo? -> si -> messaggio di errore",
+        "the diagram models a service creation and database query process.",
+        "the main flow involves creating a service, querying the database, and handling success or error messages.",
+        "the decision point checks for query success, and if not, an error message is sent.",
+        "the process is a straightforward sequence of actions with a decision point."
+      ],
+      "validations": [
+        "la query è stata eseguita con successo? -> no: no -> messaggio di errore"
+      ]
+    },
+    {
+      "page_no": 7,
+      "uml_type": "Sequence",
+      "concepts": [
+        "creazione dell'annuncio",
+        "query per inserire il dato nel database",
+        "la query è stata eseguita con successo?",
+        "messaggio di errore",
+        "riprova"
+      ],
+      "flows": [
+        "creazione dell'annuncio -> query per inserire il dato nel database — type=association; label=; explanation=create announcement and query database",
+        "query per inserire il dato nel database -> la query è stata eseguita con successo? — type=decision; label=; explanation=query database for success",
+        "la query è stata eseguita con successo? -> messaggio di errore — type=association; label=; explanation=success query or error message",
+        "messaggio di errore -> riprova — type=association; label=; explanation=error message to retry",
+        "riprova -> creazione dell'annuncio — type=association; label=; explanation=retry to create announcement",
+        "flow 1: create announcement, query database, check success, send error message, retry, create announcement",
+        "the diagram models the process of creating an announcement, querying the database, checking for success, sending an error message, and retrying if necessary.",
+        "the main flow is a linear sequence of these steps.",
+        "the decision point is based on the success of the database query.",
+        "there are no loops or repetitions in the flow."
+      ],
+      "validations": [
+        "la query è stata eseguita con successo? — yes: si, no: messaggio di errore"
+      ]
+    },
+    {
+      "page_no": 8,
+      "uml_type": "Activity",
+      "concepts": [
+        "la query è stata eseguita con successo?",
+        "riprova",
+        "selezione dell'annuncio da rimuovere",
+        "query per cancellare il dato dal database"
+      ],
+      "flows": [
+        "la query è stata eseguita con successo? -> riprova — type=transition; label=\"no\"; explanation=\"retry if query fails\"",
+        "la query è stata eseguita con successo? -> la query è stata eseguita con successo? — type=loop; label=\"si\"; explanation=\"if query is successful\"",
+        "selezione dell'annuncio da rimuovere -> query per cancellare il dato dal database — type=association; label=\"select announcement\"; explanation=\"select announcement to delete\"",
+        "query per cancellare il dato dal database -> riprova — type=transition; label=\"delete\"; explanation=\"delete data from database\"",
+        "la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguita con successo? -> si -> la query è stata eseguita con successo? -> riprova -> la query è stata eseguit"
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 9,
+      "uml_type": "Activity",
+      "concepts": [
+        "selezione dell'oggetto/servizio da rimuovere",
+        "query per cancellare il dato dal database",
+        "la query è stata eseguita con successo?",
+        "messaggio di errore"
+      ],
+      "flows": [
+        "selezione dell'oggetto/servizio da rimuovere -> query per cancellare il dato dal database — type=flow; label=\"riprova\"; explanation=retry",
+        "query per cancellare il dato dal database -> la query è stata eseguita con successo? — type=flow; label=\"no\"; explanation=not successful",
+        "la query è stata eseguita con successo? -> messaggio di errore — type=flow; label=\"si\"; explanation=success",
+        "selezione dell'oggetto/servizio da rimuovere -> query per cancellare il dato dal database -> la query è stata eseguita con successo? -> messaggio di errore -> selezione dell'oggetto/servizio da rimuovere (loop)",
+        "the diagram models a process for removing an object/service from a service.",
+        "the process involves selecting the object/service to remove, querying the database to cancel the data, checking if the query was successful, and handling errors.",
+        "the process repeats if the query is not successful.",
+        "======================================================================"
+      ],
+      "validations": [
+        "la query è stata eseguita con successo? -> no -> messaggio di errore (if query is not successful)"
+      ]
+    }
+  ]
+}

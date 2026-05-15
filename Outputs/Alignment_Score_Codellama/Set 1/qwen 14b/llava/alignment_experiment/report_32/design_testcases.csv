@@ -1,0 +1,118 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Order-001,User Places Order Successfully,Order,1,User is logged in and has viewed the menu.,"- User: John Doe
+- Restaurant: Pizza Place
+- Order Items: Pizza, Salad","1. User selects items from the menu.
+2. User places an order with the restaurant.
+3. Restaurant processes the order.
+4. Restaurant processes the payment.",Order is successfully placed and payment is processed.
+TC-Order-002,User Places Invalid Order,Order,1,User is logged in and has viewed the menu.,"- User: Jane Smith
+- Restaurant: Burger Joint
+- Order Items: Invalid Item","1. User selects invalid item from the menu.
+2. User attempts to place an order with the restaurant.
+3. Restaurant rejects the order due to invalid item.",Order placement fails due to invalid item.
+TC-RequestResponse-001,Request Generates Valid Response,RequestResponse,2,Service is active.,"- Request ID: 123
+- Service ID: 456","1. Request is made to the service.
+2. Service generates a response.
+3. Response is sent back to the request.",Valid response is generated and returned to the request.
+TC-RequestResponse-002,Request Generates Invalid Response,RequestResponse,2,Service is inactive.,"- Request ID: 123
+- Service ID: 456","1. Request is made to the service.
+2. Service generates an invalid response due to inactive state.
+3. Response is sent back to the request.",Invalid response is generated and returned to the request.
+TC-Verification-001,Correct Information Grants Access,Verification,3,None,- Verified Information: Correct,"1. Verifier checks information.
+2. Access is granted.
+3. Reward is offered.
+4. Marketplace is accessed.",Access is granted and reward is offered.
+TC-Verification-002,Incorrect Information Denies Access,Verification,3,None,- Verified Information: Incorrect,"1. Verifier checks information.
+2. Access is denied.",Access is denied.
+TC-NoleggiaraSearch-001,Search Instrument Executes Successful Search,NoleggiaraSearch,4,None,"- Search Query: ""Bicycle""","1. Start search instrument.
+2. Execute search service.
+3. Receive search result.
+4. Print search result.",Search result is received and printed.
+TC-NoleggiaraSearch-002,Search Instrument Fails to Execute Search,NoleggiaraSearch,4,None,- Search Query: Invalid Query,"1. Start search instrument.
+2. Execute search service.
+3. Fail to receive search result.",Search fails and no result is printed.
+TC-LoginLogout-001,User Logs In Successfully,LoginLogout,"5, 8",None,"- Username: john
+- Password: password123","1. User sends login request to server.
+2. Server handles login request.
+3. Server returns login success message to user.",User logs in successfully.
+TC-LoginLogout-002,User Logs Out Successfully,LoginLogout,"5, 8",User is logged in.,None,"1. User sends logout request to server.
+2. Server handles logout request.
+3. Server returns logout success message to user.",User logs out successfully.
+TC-LoginLogout-003,User Attempts Invalid Login,LoginLogout,"5, 8",None,"- Username: john
+- Password: incorrectpassword","1. User sends login request to server.
+2. Server handles login request.
+3. Server returns login failure message to user.",User login fails due to invalid credentials.
+TC-LoginLogoutDatabase-001,User Logs In and Queries Database Successfully,LoginLogoutDatabase,6,None,"- Username: alice
+- Password: password123
+- Query: SELECT * FROM users","1. User sends login request to server.
+2. Server handles login request.
+3. Server sends login success message to user.
+4. User sends query request to database.
+5. Database handles query request.
+6. Database sends query result to user.",User logs in successfully and receives query result.
+TC-LoginLogoutDatabase-002,User Logs In and Inserts Data into Database Successfully,LoginLogoutDatabase,6,None,"- Username: bob
+- Password: password123
+- Insert Data: {name: 'John', age: 30}","1. User sends login request to server.
+2. Server handles login request.
+3. Server sends login success message to user.
+4. User sends insert request to database.
+5. Database handles insert request.
+6. Database sends insert success message to user.",User logs in successfully and data is inserted into the database.
+TC-AnnouncementService-001,Announcement Creation Triggers Database and Service Creation,AnnouncementService,7,None,- Announcement: New Product Launch,"1. Create announcement.
+2. Announcement triggers database creation.
+3. Database creation triggers service creation.",Announcement creation triggers database and service creation.
+TC-AnnouncementService-002,Failed Announcement Creation Does Not Trigger Database or Service Creation,AnnouncementService,7,None,- Announcement: Invalid Announcement,"1. Attempt to create invalid announcement.
+2. No database or service creation occurs.",Announcement creation fails and no database or service creation occurs.
+TC-ClientServer-001,Client Sends Valid Request to Server,ClientServer,9,None,- Request: GET /users,"1. Client sends request to server.
+2. Server queries the database.
+3. Server sends response to client.",Client receives valid response from server.
+TC-ClientServer-002,Client Sends Invalid Request to Server,ClientServer,9,None,- Request: GET /invalid,"1. Client sends invalid request to server.
+2. Server queries the database.
+3. Server sends error response to client.",Client receives error response from server.
+TC-ClientServer-003,Client Receives Empty Response from Server,ClientServer,9,None,- Request: GET /empty,"1. Client sends request to server.
+2. Server queries the database.
+3. Server sends empty response to client.",Client receives empty response from server.
+TC-ClientServer-004,Client Receives Unexpected Response from Server,ClientServer,9,None,- Request: GET /unexpected,"1. Client sends request to server.
+2. Server queries the database.
+3. Server sends unexpected response to client.",Client receives unexpected response from server.
+TC-ClientServer-005,Client Receives Timeout Response from Server,ClientServer,9,None,- Request: GET /timeout,"1. Client sends request to server.
+2. Server queries the database.
+3. Server takes too long to respond.
+4. Client receives timeout response.",Client receives timeout response from server.
+TC-ClientServer-006,Client Receives Internal Server Error Response from Server,ClientServer,9,None,- Request: GET /internalerror,"1. Client sends request to server.
+2. Server queries the database.
+3. Server encounters internal error.
+4. Server sends internal server error response to client.",Client receives internal server error response from server.
+TC-ClientServer-007,Client Receives Forbidden Response from Server,ClientServer,9,None,- Request: GET /forbidden,"1. Client sends request to server.
+2. Server queries the database.
+3. Server denies access.
+4. Server sends forbidden response to client.",Client receives forbidden response from server.
+TC-ClientServer-008,Client Receives Unauthorized Response from Server,ClientServer,9,None,- Request: GET /unauthorized,"1. Client sends request to server.
+2. Server queries the database.
+3. Server requires authentication.
+4. Server sends unauthorized response to client.",Client receives unauthorized response from server.
+TC-ClientServer-009,Client Receives Not Found Response from Server,ClientServer,9,None,- Request: GET /notfound,"1. Client sends request to server.
+2. Server queries the database.
+3. Server cannot find requested resource.
+4. Server sends not found response to client.",Client receives not found response from server.
+TC-ClientServer-010,Client Receives Method Not Allowed Response from Server,ClientServer,9,None,- Request: POST /methodnotallowed,"1. Client sends request to server.
+2. Server queries the database.
+3. Server does not allow specified method.
+4. Server sends method not allowed response to client.",Client receives method not allowed response from server.
+TC-ClientServer-011,Client Receives Conflict Response from Server,ClientServer,9,None,- Request: PUT /conflict,"1. Client sends request to server.
+2. Server queries the database.
+3. Server detects conflict.
+4. Server sends conflict response to client.",Client receives conflict response from server.
+TC-ClientServer-012,Client Receives Gone Response from Server,ClientServer,9,None,- Request: GET /gone,"1. Client sends request to server.
+2. Server queries the database.
+3. Server indicates resource is no longer available.
+4. Server sends gone response to client.",Client receives gone response from server.
+TC-ClientServer-013,Client Receives Length Required Response from Server,ClientServer,9,None,- Request: POST /lengthrequired,"1. Client sends request to server.
+2. Server queries the database.
+3. Server requires content length.
+4. Server sends length required response to client.",Client receives length required response from server.
+TC-ClientServer-014,Client Receives Precondition Failed Response from Server,ClientServer,9,None,- Request: PUT /preconditionfailed,"1. Client sends request to server.
+2. Server queries the database.
+3. Server detects failed precondition.
+4. Server sends precondition failed response to client.",Client receives precondition failed response from server.
+TC-ClientServer-015,Client Receives Payload Too Large Response from Server,ClientServer,9,None,- Request,,

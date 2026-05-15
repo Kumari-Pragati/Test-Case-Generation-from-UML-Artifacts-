@@ -1,0 +1,221 @@
+REPORT: Report_24_uml_pages.pdf
+======================================================================
+
+===== Report_24_uml_pages.pdf | Page 1 =====
+**UML Type:** Accesso
+
+**Components:**
+
+* Start
+	+ kind: Start
+	+ role: Starting point of the process
+* Home
+	+ kind: Home
+	+ role: The main entry point of the system
+* Utente creato?
+	+ kind: Decision
+	+ role: A decision point to determine if a user has been created
+* creazione utente
+	+ kind: Action
+	+ role: The process of creating a user
+* creazione corretta?
+	+ kind: Decision
+	+ role: A decision point to determine if the user creation was correct
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Start -> Utente creato? — type: Decision; label: "Start"; explanation: The starting point of the process
+* Utente creato? -> Home — type: Transition; label: "Yes"; explanation: If the user has been created, proceed to the home
+* Home -> creazione utente — type: Transition; label: "No"; explanation: If the user has not been created, proceed to create a new user
+* creazione utente -> creazione corretta? — type: Decision; label: "Create User"; explanation: The process of creating a user
+* creazione corretta? -> Home — type: Transition; label: "Yes"; explanation: If the user creation was correct, proceed to the home
+
+**Main Flows:**
+
+* Flow 1: Start -> Utente creato? -> Home -> creazione utente -> creazione corretta? -> Home
+
+**Conditions / Branches:**
+
+* Utente creato?:
+	+ Yes: Proceed to Home
+	+ No: Create a new user
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of accessing a system, starting with a decision to create a user or proceed to the home.
+* The process involves creating a user and checking if the creation was correct.
+* The system has a main flow that starts with the decision to create a user and ends with the home.
+* There are no loops or repetitions in the process.
+
+===== Report_24_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Home
+	+ kind: Home
+	+ attributes: None
+	+ operations: None
+	+ role: Home page
+* creazione commissioni
+	+ kind: Commission
+	+ attributes: None
+	+ operations: None
+	+ role: Commission creation
+* creazione offerta
+	+ kind: Offer
+	+ attributes: None
+	+ operations: None
+	+ role: Offer creation
+* creazione corretta
+	+ kind: Correct
+	+ attributes: None
+	+ operations: None
+	+ role: Correct creation
+* creazione commissione
+	+ kind: Commission
+	+ attributes: None
+	+ operations: None
+	+ role: Commission creation
+* creazione offerta
+	+ kind: Offer
+	+ attributes: None
+	+ operations: None
+	+ role: Offer creation
+
+**Actors / Lifelines:**
+
+* Home
+* creazione commissioni
+* creazione offerta
+* creazione corretta
+* creazione commissione
+* creazione offerta
+
+**Relationships / Links:**
+
+* Home -> creazione commissioni — type: association; label: "Home"; explanation: "Starts the commission creation process"
+* creazione commissioni -> creazione corretta — type: association; label: "Commission creation"; explanation: "Creates a commission"
+* creazione corretta -> creazione offerta — type: association; label: "Correct creation"; explanation: "Creates an offer"
+* creazione offerta -> creazione commissione — type: association; label: "Offer creation"; explanation: "Creates a commission"
+* creazione offerta -> creazione corretta — type: association; label: "Offer creation"; explanation: "Creates a correct offer"
+
+**Main Flows:**
+
+* Flow 1: Home -> creazione commissioni -> creazione corretta -> creazione offerta -> creazione commissione -> creazione offerta -> creazione corretta
+* Flow 2: None
+
+**Conditions / Branches:**
+
+* "accesso alla creazione" -> si -> creazione commissioni
+* "creazione commissioni" -> si -> creazione corretta
+* "creazione offerta" -> si -> creazione commissione
+* "creazione offerta" -> si -> creazione corretta
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of creating a commission and an offer.
+* The main flows represent the sequence of steps involved in creating a commission and an offer.
+* The conditions/branches represent the decision points in the process.
+* The loops/repetitions are not present in this diagram.
+
+===== Report_24_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Home
+	+ kind: Home
+	+ attributes: none
+	+ operations: none
+	+ role: Home page
+* accesso ad'menu'
+	+ kind: access
+	+ attributes: none
+	+ operations: none
+	+ role: Access to menu
+* accesso a profilo?
+	+ kind: access
+	+ attributes: none
+	+ operations: none
+	+ role: Access to profile
+* accesso a guida?
+	+ kind: access
+	+ attributes: none
+	+ operations: none
+	+ role: Access to guide
+* informazioni profilo
+	+ kind: information
+	+ attributes: none
+	+ operations: none
+	+ role: Profile information
+* Guida
+	+ kind: guide
+	+ attributes: none
+	+ operations: none
+	+ role: Guide
+
+**Actors / Lifelines:**
+
+* Home
+* accesso ad'menu'
+* accesso a profilo?
+* accesso a guida?
+* informazioni profilo
+* Guida
+
+**Relationships / Links:**
+
+* Home -> accesso ad'menu' — type: association; label: "Home"; explanation: "Starts here"
+* accesso ad'menu' -> accesso a profilo? — type: decision; label: "Si"; explanation: "Yes"
+* accesso a profilo? -> accesso a guida? — type: decision; label: "Si"; explanation: "Yes"
+* accesso a profilo? -> informazioni profilo — type: association; label: "Profile"; explanation: "Profile information"
+* accesso a guida? -> Guida — type: association; label: "Guide"; explanation: "Guide"
+* informazioni profilo -> Guida — type: association; label: "Profile"; explanation: "Profile information"
+
+**Main Flows:**
+
+* Flow 1: Home -> accesso ad'menu' -> accesso a profilo? -> accesso a guida? -> Guida
+* Flow 2: Home -> accesso ad'menu' -> accesso a profilo? -> informazioni profilo
+
+**Conditions / Branches:**
+
+* accesso ad'menu' -> accesso a profilo? — no
+* accesso a profilo? -> accesso a guida? — no
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a user's interaction with a system, starting from the Home page and navigating through various options.
+* The user can access their profile or guide, and the system provides profile information and a guide.
+* The user can also access the menu from the Home page.
+
+
+======================================================================

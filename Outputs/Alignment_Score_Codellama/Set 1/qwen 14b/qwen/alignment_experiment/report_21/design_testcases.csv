@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UserManagement-001,User Login Process,UserManagement,1,User has internet access and valid credentials.,"- Valid email: user@example.com
+- Valid password: Passw0rd!
+- Invalid email: invalidemail
+- Invalid password: wrongpassword","1. User attempts to log in using valid email and password.
+2. System checks if user is already logged in.
+3. If not logged in, system initiates login process via Firebase Authentication API.
+4. System retrieves current user from Firebase Authentication API.
+5. If user is not logged in, system initiates registration and login process.
+6. System creates user with email and password via Firebase Authentication API.
+7. System retrieves current user after successful registration and login.","- For valid credentials: User is successfully logged in.
+- For invalid credentials: User is prompted to enter correct credentials.
+- For registration: New user account is created and user is logged in."
+TC-SignalManagement-001,Retrieve Signals,SignalManagement,2,System is up and running.,- Valid signal data,"1. Application requests signals from Signal Management System.
+2. Signal Management System forwards request to Data Management System.
+3. Data Management System queries database for signals.
+4. Database returns payload containing signal data.
+5. Data Management System forwards payload back to Signal Management System.
+6. Signal Management System forwards payload to Application.
+7. Application receives and displays signal data.",- Application displays retrieved signal data.
+TC-SignalManagement-002,Display Null Signal Data,SignalManagement,2,No signal data exists in the database.,- No signal data,"1. Application requests signals from Signal Management System.
+2. Signal Management System forwards request to Data Management System.
+3. Data Management System queries database for signals.
+4. Database returns null payload.
+5. Data Management System forwards null payload back to Signal Management System.
+6. Signal Management System forwards null payload to Application.
+7. Application receives and displays null signal data.",- Application displays message indicating no signal data available.
+TC-VariationManagement-001,Retrieve Train Variations,VariationManagement,3,System is up and running.,- Valid train data,"1. Application requests train variations from Variation Management System.
+2. Variation Management System forwards request to Data Management System.
+3. Data Management System retrieves train information from database.
+4. Data Management System forwards train information back to Variation Management System.
+5. Variation Management System forwards train information to Application.
+6. Application receives and displays train information.",- Application displays retrieved train variations.
+TC-CalendarManagement-001,Insert Calendar Data,CalendarManagement,4,System is up and running.,- Valid calendar data,"1. Application sends calendar data to Calendar Management System.
+2. Calendar Management System forwards calendar data to Data Management System.
+3. Data Management System queries database for new calendar data.
+4. Database returns status code.
+5. Data Management System forwards outcome back to Calendar Management System.
+6. Calendar Management System sends outcome to Application.
+7. Application displays outcome.",- Application displays success message for inserting calendar data.
+TC-CalendarManagement-002,Modify Calendar Data,CalendarManagement,4,Existing calendar data in the database.,- Modified calendar data,"1. Application sends modified calendar data to Calendar Management System.
+2. Calendar Management System forwards modified calendar data to Data Management System.
+3. Data Management System queries database for modified calendar data.
+4. Database returns status code.
+5. Data Management System forwards outcome back to Calendar Management System.
+6. Calendar Management System sends outcome to Application.
+7. Application displays outcome.",- Application displays success message for modifying calendar data.
+TC-CalendarManagement-003,Retrieve Calendar Data,CalendarManagement,5,System is up and running.,- Valid calendar data,"1. Application requests calendar data from Calendar Management System.
+2. Calendar Management System forwards request to Data Management System.
+3. Data Management System queries database for calendar data.
+4. Database returns payload containing calendar data.
+5. Data Management System forwards payload back to Calendar Management System.
+6. Calendar Management System forwards payload to Application.
+7. Application receives and displays calendar data.",- Application displays retrieved calendar data.
+TC-CalendarManagement-004,Display Null Calendar Data,CalendarManagement,5,No calendar data exists in the database.,- No calendar data,"1. Application requests calendar data from Calendar Management System.
+2. Calendar Management System forwards request to Data Management System.
+3. Data Management System queries database for calendar data.
+4. Database returns null payload.
+5. Data Management System forwards null payload back to Calendar Management System.
+6. Calendar Management System forwards null payload to Application.
+7. Application receives and displays null calendar data.",- Application displays message indicating no calendar data available.
+TC-CalendarManagement-005,Retrieve Trains for Calendar,CalendarManagement,6,System is up and running.,- Valid calendar data,"1. Application requests trains for calendar from Calendar Management System.
+2. Calendar Management System forwards request to Data Management System.
+3. Data Management System requests trains from Trenitalia API.
+4. Trenitalia API returns payload containing train data.
+5. Data Management System queries database for new train data.
+6. Database returns status code.
+7. Data Management System forwards outcome back to Calendar Management System.
+8. Calendar Management System forwards outcome to Application.
+9. Application receives and displays train data.",- Application displays retrieved train data for the calendar.
+TC-CalendarManagement-006,Delete Preferred Train,CalendarManagement,7,System is up and running.,- Valid train ID,"1. Application requests deletion of preferred train from Calendar Management System.
+2. Calendar Management System forwards request to Data Management System.
+3. Data Management System queries database to delete train.
+4. Database returns status code.
+5. Data Management System forwards outcome back to Calendar Management System.
+6. Calendar Management System forwards outcome to Application.
+7. Application receives and displays outcome.",- Application displays success message for deleting preferred train.
+TC-NotificationManagement-001,Show Notifications for Train Variations,NotificationManagement,8,System is up and running.,- Valid train variation data,"1. Application requests train variations from Variation Management System.
+2. Variation Management System starts notification process.
+3. Notification System shows notifications to Application.",- Application displays notifications for train variations.
+TC-NotificationManagement-002,No Train Variations Available,NotificationManagement,8,No train variations available.,- No train variation data,"1. Application requests train variations from Variation Management System.
+2. Variation Management System starts notification process.
+3. Notification System shows no notifications to Application.",- Application displays message indicating no train variations available.
+TC-NotificationManagement-003,Edge Case - Empty Train Variations,NotificationManagement,8,Empty train variations.,- Empty train variation data,"1. Application requests train variations from Variation Management System.
+2. Variation Management System starts notification process.
+3. Notification System shows empty notifications to Application.",- Application displays message indicating no train variations available.
+TC-NotificationManagement-004,Edge Case - Null Train Variations,NotificationManagement,8,Null train variations.,- Null train variation data,"1. Application requests train variations from Variation Management System.
+2. Variation Management System starts notification process.
+3. Notification System shows null notifications to Application.",- Application displays message indicating no train variations available.
+TC-UserManagement-002,User Logout Process,UserManagement,1,User is logged in.,- Logged-in user,"1. User initiates logout process.
+2. System logs out user.
+3. System clears session data.
+4. System redirects user to login page.",- User is logged out and redirected to login page.
+TC-SignalManagement-003,Add Signal,SignalManagement,1,System is up and running.,- Valid signal data,"1. User adds new signal through application.
+2. Signal Management System adds new signal.
+3. Signal Management System updates database with new signal.
+4. Signal Management System confirms addition to user.",- Confirmation message displayed to user indicating successful addition of signal.
+TC-SignalManagement-004,Modify Signal,SignalManagement,1,Existing signal data in the database.,- Modified signal data,"1. User modifies existing signal through application.
+2. Signal Management System modifies signal.
+3. Signal Management System updates database with modified signal.
+4. Signal Management System confirms modification to user.",- Confirmation message displayed to user indicating successful modification of signal.
+TC-SignalManagement-005,Remove Signal,SignalManagement,1,Existing signal data in the database.,- Valid signal ID,"1. User removes existing signal through application.
+2. Signal Management System removes signal.
+3. Signal Management System updates database to remove signal.
+4. Signal Management System confirms removal to user.",- Confirmation message displayed to user indicating successful removal of signal.
+TC-VariationManagement-002,Retrieve Specific Train Variations,VariationManagement,3,System is up and running.,- Valid train ID,"1. Application requests specific train variations from Variation Management System.
+2. Variation Management System forwards request to Data Management System.
+3. Data Management System retrieves specific train information from database.
+4. Data Management System forwards specific train information back to Variation Management System.
+5. Variation Management System forwards specific train information to Application.
+6. Application receives and displays specific train information.",- Application displays retrieved specific train variations.
+TC-CalendarManagement-007,Retrieve Trains for Specific Date,CalendarManagement,6,System is up and running.,- Valid calendar data for specific date,"1. Application requests trains for specific date from Calendar Management System.
+2. Calendar Management System forwards request to Data Management System.
+3. Data Management System requests trains from Trenitalia API.
+4. Trenitalia API returns payload containing train data for specific date.
+5. Data Management System queries database for new train data for specific date.
+6. Database returns status code.
+7. Data Management System forwards outcome back to Calendar Management System.
+8. Calendar Management System forwards outcome to Application.
+9. Application receives and displays train data for specific date.",- Application displays retrieved train data for specific date.
+TC-CalendarManagement-008,Retrieve Trains for Specific Station,CalendarManagement,6,System is up and running.,- Valid calendar data for specific station,"1. Application requests trains for specific station from Calendar Management System.
+2. Calendar Management System forwards request to Data Management System.
+3. Data Management System requests trains from Trenitalia API.
+4. Trenitalia API returns payload containing train data for specific station.
+5. Data Management System queries database for new train data for specific station.
+6. Database returns status code.
+7. Data Management System forwards outcome back to Calendar Management System.
+8. Calendar Management System forwards outcome to Application.
+9. Application receives and displays train data for specific station.",- Application displays retrieved train data for specific station.
+TC-NotificationManagement-005,Edge Case - Multiple Train Variations,NotificationManagement,8,Multiple train variations available.,- Multiple train variation data,"1. Application requests train variations from Variation Management System.
+2. Variation Management System starts notification process.
+3. Notification System shows multiple notifications to Application.","- Application displays multiple notifications for train variations.
+
+Test"

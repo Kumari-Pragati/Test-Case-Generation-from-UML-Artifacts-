@@ -1,0 +1,132 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Authentication and Profile Data Retrieval,Authentication & Profile Viewing,"1, 4, 5","- User account exists in the system with valid credentials.
+- User has at least one consumption record.
+- Database and WebServer are operational.","- Valid username: `user123`
+- Valid password: `SecurePass123!`
+- User ID: `1001`
+- Consumption records: `[{id: 1, type: ""electricity"", value: 50.5}, {id: 2, type: ""water"", value: 20.0}]`","1. User enters `user123` and `SecurePass123!` in the login interface.
+2. **Authentication System** validates credentials and returns `true`.
+3. **Authentication System** triggers `CheckAuthenticated(currentUser)` (Page 4).
+4. **Data Manager** receives `RequestDataUser(currentUser)` and retrieves user profile data (Page 4).
+5. **WebServer** fetches consumption data from **Database** (Page 1).
+6. **UserProfile** component populates the profile UI with:
+   - Name: `John Doe`
+   - Email: `john.doe@example.com`
+   - Gamification points: `150`
+   - Consumption records: `[{type: ""electricity"", value: 50.5}, {type: ""water"", value: 20.0}]`","- Profile page loads successfully with all user details and consumption data.
+- No errors in logs (e.g., authentication failures, data retrieval errors).
+- Gamification points (`150`) and consumption records are displayed correctly."
+TC-AUTHENTICATION-002,Failed Authentication Due to Invalid Credentials,Authentication,"1, 4","- User account exists, but credentials are invalid.
+- System is operational.","- Invalid username: `user123`
+- Invalid password: `wrongpass`
+- Expected error: `Invalid credentials. Please try again.`","1. User enters `user123` and `wrongpass` in the login interface.
+2. **Authentication System** validates credentials and returns `false`.
+3. System redirects to login page with error message: `Invalid credentials. Please try again.`
+4. **CheckAuthenticated(currentUser)** fails (Page 4), preventing access to profile data.","- User sees error message and cannot proceed to profile viewing.
+- No data is fetched from **DataManager** or **Database**.
+- System logs the failed authentication attempt."
+TC-USERREGISTRATION-001,Successful User Registration with Valid Data,User Registration,3,"- System is operational.
+- No duplicate username exists in the database.","- Username: `newuser456`
+- Password: `NewPass789!`
+- Email: `newuser@example.com`
+- Name: `Jane Smith`
+- Date of Birth: `1990-05-15`
+- Sex: `F`
+- Consumption records: `[]` (empty initially)","1. User enters all registration fields in the UI.
+2. **Main** calls `GetDataFromUser()` (Page 3).
+3. **CheckData(data_user)** validates:
+   - Username is unique.
+   - Password meets complexity requirements (e.g., 8+ chars, special char).
+   - Email is valid format.
+4. Data passes validation; **AddUser(data_user)** is called.
+5. **DataManager** persists user data to **Database** (Page 1).
+6. **Utenti** class initializes with:
+   - `id: 1002` (auto-generated)
+   - `Gamification_points: 0`
+   - `consumi: []`","- User receives success message: `Registration successful!`
+- New user appears in **Database** with correct attributes.
+- **UserProfile** component can retrieve the new user’s data."
+TC-USERREGISTRATION-002,Failed User Registration Due to Invalid Email Format,User Registration,3,- System is operational.,"- Username: `newuser456`
+- Password: `NewPass789!`
+- **Invalid Email:** `invalid-email`
+- Name: `Jane Smith`","1. User enters all fields, including invalid email.
+2. **CheckData(data_user)** detects invalid email format.
+3. System displays error: `Please enter a valid email address.`
+4. **AddUser(data_user)** is **not** called.","- User is prompted to re-enter data (Page 3).
+- No new record is created in **Database**.
+- Error is logged in the system."
+TC-CONSUMPTION-001,Add Consumption Data to User Profile,Consumption Tracking,"2, 6","- User is authenticated (`user123`).
+- User has an existing profile with `id: 1001`.","- Consumption type: `electricity`
+- Value: `30.2`
+- Timestamp: `2024-05-20T12:00:00Z`","1. User navigates to ""Add Consumption"" interface.
+2. **Main** calls `RequestData()` (Page 6).
+3. User enters consumption details and submits.
+4. **Local User** sends `AddConsumo(data)` to **DataManager** (Page 6).
+5. **DataManager** validates data (e.g., value > 0) and persists to **Database**.
+6. **Utenti** class updates `consumi` list with new entry (Page 2).
+7. **ReportHandler** recalculates `consumiTotali` (Page 2).","- Success message: `Consumption added successfully!`
+- New consumption appears in user’s profile.
+- **Report** class’s `calcolaConsumiTotali()` reflects the update.
+- Gamification points are updated if applicable (e.g., +10 for adding data)."
+TC-CONSUMPTION-002,Add Invalid Consumption Data (Negative Value),Consumption Tracking,"2, 6",- User is authenticated.,"- Consumption type: `electricity`
+- **Invalid Value:** `-5.0` (negative)
+- Timestamp: `2024-05-20T12:00:00Z`","1. User enters negative consumption value.
+2. **DataManager** validates data and rejects it.
+3. System displays error: `Consumption value must be positive.`
+4. **AddConsumo(data)** fails.","- No new record is added to **Database**.
+- User is prompted to re-enter valid data.
+- Existing consumption data remains unchanged."
+TC-REPORT-001,Generate User Report with Consumption Data,Report Generation,"2, 7","- User has at least 2 consumption records.
+- User is authenticated.","- User ID: `1001`
+- Consumption records:
+  - `{type: ""electricity"", value: 50.5}`
+  - `{type: ""water"", value: 20.0}`","1. User requests a report via UI.
+2. **Main** calls `checkConsumi(currentUser)` (Page 7).
+3. **DataManager** retrieves consumption data (`RequestData()`).
+4. **ReportHandler** generates:
+   - `consumiTotali`: `{electricity: 50.5, water: 20.0}`
+   - `getSuggerimenti()`: `[""Reduce electricity usage by 10%""]`
+   - `generaCommento()`: `""Good progress! Consider switching to LED bulbs.""`
+5. **WebServer** sends report to UI (Page 1).","- Report displays:
+  - Total consumption values.
+  - Suggestions and comments.
+- **Report** class methods return correct data (Page 2).
+- No errors in **Database** or **DataManager** logs."
+TC-REPORT-002,Failed Report Generation (No Consumption Data),Report Generation,"2, 7, 9","- User has **no** consumption records.
+- User is authenticated.",- User ID: `1003` (empty consumption list),"1. User requests a report.
+2. **checkConsumi(currentUser)** detects no consumption data (Page 7).
+3. System displays error: `No consumption data available. Please add data first.`
+4. **DeleteReport(report)** is **not** called (Page 9).","- No report is generated.
+- User is redirected to ""Add Consumption"" page.
+- **ReportHandler** does not process empty data."
+TC-GAMIFICATION-001,Earn Gamification Points for Adding Consumption Data,Gamification,"2, 6","- User has `Gamification_points: 0`.
+- User is authenticated.","- Initial points: `0`
+- Consumption added: `{type: ""electricity"", value: 25.0}`","1. User adds consumption data (as in TC-CONSUMPTION-001).
+2. **Gioco** class increments `greenPoints` by `10` (Page 2).
+3. **Utenti** class updates `Gamification_points` to `10`.
+4. User views profile; points reflect update.","- User’s gamification points increase to `10`.
+- **Obbiettivi** class tracks progress toward achievements (e.g., `IdAchievement: 1` for ""First Consumption"").
+- UI displays updated points."
+TC-GAMIFICATION-002,Claim Achievement for High Consumption Reduction,Gamification,2,"- User has `greenPoints: 50`.
+- Achievement `IdAchievement: 2` (""Eco Hero"") requires `50` points.",,"1. User checks profile; sees achievement `IdAchievement: 2` with `claim: false`.
+2. User clicks ""Claim Achievement.""
+3. **Obbiettivi** class calls `Set_achievement(2)` (Page 2).
+4. Achievement status updates to `claim: true`.","- Achievement is marked as claimed.
+- UI shows badge/notification: `""Congratulations! You earned the Eco Hero badge!""`
+- **Gioco** class logs the achievement."
+TC-DATAUPDATE-001,Update User Profile Data (Name and Email),Profile Management,"2, 5","- User is authenticated.
+- Current name: `John Doe`, email: `john.doe@example.com`.","- New name: `Johnathan Doe`
+- New email: `john.doe.new@example.com`","1. User edits profile and submits changes.
+2. **CheckAuthenticated(currentUser)** confirms authentication (Page 5).
+3. **Local User** sends `UpdateData(dataModified)` to **DataManager**.
+4. **DataManager** validates:
+   - Email format is correct.
+   - Name is not empty.
+5. **Utenti** class updates:
+   - `setName(""Johnathan Doe"")`
+   - `setEmail(""john.doe.new@example.com"")`
+6. **Database** persists changes (Page 1).","- Profile updates with new name and email.
+- Success message: `Profile updated successfully!`
+- **UserProfile** component reflects changes."
+TC-DATAUPDATE-002,Failed Profile Update Due to Invalid Email,Profile Management,"2, 5",- User is authenticated.,"- New name: `John Doe`
+- **Invalid email:** `invalid-email`",1. User submits update with invalid email,

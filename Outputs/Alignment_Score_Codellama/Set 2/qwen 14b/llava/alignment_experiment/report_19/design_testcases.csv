@@ -1,0 +1,82 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Login,1,User has an existing account with valid credentials.,"- Username: testuser
+- Password: testpassword","1. Enter the username ""testuser"".
+2. Enter the password ""testpassword"".
+3. Click on the login button.",User is successfully authenticated and redirected to the home page.
+TC-Login-002,Failed Login with Incorrect Password,Login,1,User has an existing account with valid username but invalid password.,"- Username: testuser
+- Password: wrongpassword","1. Enter the username ""testuser"".
+2. Enter the password ""wrongpassword"".
+3. Click on the login button.","User receives an ""Unauthorized"" message and remains on the login page."
+TC-Signup-001,Successful Registration,Signup,1,User does not have an existing account.,"- Email: testuser@example.com
+- Password: testpassword","1. Enter the email ""testuser@example.com"".
+2. Enter the password ""testpassword"".
+3. Click on the signup button.",User is successfully registered and redirected to the login page.
+TC-Signup-002,Registration with Invalid Email Format,Signup,1,User does not have an existing account.,"- Email: testuserexample.com
+- Password: testpassword","1. Enter the email ""testuserexample.com"".
+2. Enter the password ""testpassword"".
+3. Click on the signup button.",User receives an error message indicating an invalid email format and remains on the signup page.
+TC-Profile-001,Successful Profile Update,Profile,1,User is logged in with valid credentials.,"- Username: testuser
+- ProfileData: NewProfileData","1. Navigate to the profile page.
+2. Enter the new profile data ""NewProfileData"".
+3. Click on the update profile button.",User's profile is successfully updated and a confirmation message is displayed.
+TC-Profile-002,Profile Update with Empty Fields,Profile,1,User is logged in with valid credentials.,"- Username: testuser
+- ProfileData:","1. Navigate to the profile page.
+2. Leave all fields empty.
+3. Click on the update profile button.",User receives an error message indicating required fields cannot be empty and remains on the profile page.
+TC-Exit-001,Successful Session Termination,Exit,1,User is logged in with valid credentials.,- ExitReason: Logout,"1. Navigate to the exit page.
+2. Select the exit reason as ""Logout"".
+3. Click on the exit button.",User's session is terminated and redirected to the login page.
+TC-Exit-002,Session Termination with Invalid Reason,Exit,1,User is logged in with valid credentials.,- ExitReason: InvalidReason,"1. Navigate to the exit page.
+2. Enter an invalid exit reason ""InvalidReason"".
+3. Click on the exit button.",User receives an error message indicating an invalid exit reason and remains on the exit page.
+TC-Login-003,Login with Empty Fields,Login,1,User has an existing account.,"- Username: 
+- Password:","1. Leave both username and password fields empty.
+2. Click on the login button.",User receives an error message indicating required fields cannot be empty and remains on the login page.
+TC-Signup-003,Registration with Existing Email,Signup,1,User already has an account with the same email.,"- Email: testuser@example.com
+- Password: testpassword","1. Enter the email ""testuser@example.com"".
+2. Enter the password ""testpassword"".
+3. Click on the signup button.",User receives an error message indicating the email is already registered and remains on the signup page.
+TC-Profile-003,Profile Update with Special Characters,Profile,1,User is logged in with valid credentials.,"- Username: testuser
+- ProfileData: @!#$%^&*()","1. Navigate to the profile page.
+2. Enter special characters ""@!#$%^&*()"" in the profile data field.
+3. Click on the update profile button.",User's profile is successfully updated with the special characters and a confirmation message is displayed.
+TC-Exit-003,Session Termination with No Reason Provided,Exit,1,User is logged in with valid credentials.,- ExitReason:,"1. Navigate to the exit page.
+2. Leave the exit reason field empty.
+3. Click on the exit button.",User receives an error message indicating a reason is required and remains on the exit page.
+TC-Login-004,Login with Nonexistent Account,Login,1,User does not have an account.,"- Username: nonexistentuser
+- Password: testpassword","1. Enter the username ""nonexistentuser"".
+2. Enter the password ""testpassword"".
+3. Click on the login button.","User receives an ""Unauthorized"" message and remains on the login page."
+TC-Signup-004,Registration with Weak Password,Signup,1,User does not have an existing account.,"- Email: weakuser@example.com
+- Password: 123456","1. Enter the email ""weakuser@example.com"".
+2. Enter the password ""123456"".
+3. Click on the signup button.",User receives an error message indicating a strong password is required and remains on the signup page.
+TC-Profile-004,Profile Update with Long Text,Profile,1,User is logged in with valid credentials.,"- Username: testuser
+- ProfileData: A very long text string exceeding the maximum allowed length.","1. Navigate to the profile page.
+2. Enter a very long text string in the profile data field.
+3. Click on the update profile button.",User receives an error message indicating the text exceeds the maximum allowed length and remains on the profile page.
+TC-Exit-004,Session Termination with Valid Reason,Exit,1,User is logged in with valid credentials.,- ExitReason: Logout,"1. Navigate to the exit page.
+2. Select the exit reason as ""Logout"".
+3. Click on the exit button.",User's session is terminated and redirected to the login page.
+TC-Login-005,Login with Special Characters in Username,Login,1,User has an existing account with a username containing special characters.,"- Username: @!#$%^&*()
+- Password: testpassword","1. Enter the username ""@!#$%^&*()"".
+2. Enter the password ""testpassword"".
+3. Click on the login button.",User is successfully authenticated and redirected to the home page.
+TC-Signup-005,Registration with Short Email,Signup,1,User does not have an existing account.,"- Email: t@example.com
+- Password: testpassword","1. Enter the email ""t@example.com"".
+2. Enter the password ""testpassword"".
+3. Click on the signup button.",User receives an error message indicating the email is too short and remains on the signup page.
+TC-Profile-005,Profile Update with Numeric Only Data,Profile,1,User is logged in with valid credentials.,"- Username: testuser
+- ProfileData: 1234567890","1. Navigate to the profile page.
+2. Enter numeric data ""1234567890"" in the profile data field.
+3. Click on the update profile button.",User's profile is successfully updated with the numeric data and a confirmation message is displayed.
+TC-Exit-005,Session Termination with Valid Reason and Additional Comment,Exit,1,User is logged in with valid credentials.,"- ExitReason: Logout
+- Comment: Leaving for now","1. Navigate to the exit page.
+2. Select the exit reason as ""Logout"".
+3. Enter a comment ""Leaving for now"".
+4. Click on the exit button.",User's session is terminated and redirected to the login page.
+TC-Login-006,Login with Case Sensitive Username,Login,1,User has an existing account with a case-sensitive username.,"- Username: TestUser
+- Password: testpassword","1. Enter the username ""TestUser"".
+2. Enter the password ""testpassword"".
+3. Click on the login button.","User receives an ""Unauthorized"" message and remains on the login page."
+TC-Signup-006,Registration with Long Email,Signup,1,User does not have an existing account.,- Email: verylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemailaddressverylongemail,,

@@ -1,0 +1,280 @@
+REPORT: Report_6_uml_pages.pdf
+======================================================================
+
+===== Report_6_uml_pages.pdf | Page 1 =====
+UML Type:
+- Class
+
+Components:
+- User — kind=Class; attributes=[name: String, age: int, email: String]; operations=[login(): void, logout(): void]; role=User
+- Admin — kind=Class; attributes=[name: String, email: String]; operations=[addUser(): void, removeUser(): void]; role=Admin
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=Association; label="addUser()"; explanation="User can add Admin"
+- User -> Admin — type=Association; label="removeUser()"; explanation="Admin can remove User"
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> User (login() -> addUser() -> logout())
+
+Conditions / Branches:
+- User -> Admin — type=Message; label="addUser()"; explanation="User sends addUser() to Admin"
+- Admin -> User — type=Message; label="removeUser()"; explanation="Admin sends removeUser() to User"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple class model with two classes, User and Admin, and their interactions.
+- The User class has a login() and logout() method, while the Admin class has an addUser() and removeUser() method.
+- The User can add an Admin and remove an Admin, while the Admin can add a User and remove a User.
+- The User and Admin classes are connected by an Association relationship, indicating that they are related entities.
+- The User and Admin classes are connected by a Message relationship, indicating that they communicate with each other.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors are external users.
+  * Components include use cases (ellipses.
+  * Relationships / Links correspond to use-case interactions.
+  * Main Flows describe the sequence of steps.
+
+- For STATEMENT
+  * None
+
+- None
+
+Observations:
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+Observations:
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+
+===== Report_6_uml_pages.pdf | Page 2 =====
+UML Type:
+- Sequence
+
+Components:
+- Login — kind=Sequence; attributes=[a: User]; operations=[op(args): Success, Failure]; role=User
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Login -> User — type=Association; label="Login"; explanation="Login"; explanation="User sends login request"
+
+Main Flows (step-by-step:
+- Flow 1: Login -> User -> Login; explanation="Login"; explanation="Login";
+
+Diagram of Activities:
+- None
+
+Diagram of Activities:
+- None
+
+===== Report_6_uml_pages.pdf | Page 3 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=User
+- Server — kind=class; attributes=[port: int]; operations=[handleLogin(username: String, password: String): boolean, handleLogout(): void]; role=Server
+- Database — kind=class; attributes=[connection: DatabaseConnection]; operations=[query(query: String): ResultSet, close(): void]; role=Database
+
+Actors / Lifelines:
+- User
+- Server
+
+Relationships / Links:
+- User -> Server: association; type=login; label="login"; explanation="User sends login request to Server"
+- User -> Database: association; type=query; label="query"; explanation="User sends query to Database"
+- Server -> Database: association; type=handleLogin; label="handleLogin"; explanation="Server handles login request from User"
+
+Main Flows (step by step):
+- Flow 1: User -> Server -> Database
+  - User sends login request to Server
+  - Server handles login request from User
+  - Server sends login result to User
+  - User receives login result from Server
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a login process where a user attempts to log in to a system through a server, which interacts with a database to authenticate the user.
+- The main flow is the sequence of actions from the user's login request to the server's response, which includes the user's login attempt, the server's handling of the login, and the server's response to the user.
+- The login process is the key interaction between the user and the server, and the server's handling of the login is the central operation in this process.
+- The database is involved in the process to authenticate the user, and the server sends the authentication result back to the user.
+- There are no decision points or loops visible in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Components are classes, and the attributes and operations are listed as they appear in the diagram.
+  * Relationships are associations between classes, and the type and explanation are given for each association.
+  * Main Flows describe the interactions between classes, focusing on the methods and relationships that are visible in the diagram.
+
+- For ACTIVITY diagrams:
+  * Components are activities, and the attributes and operations are listed as they appear in the diagram.
+  * Relationships are control-flow arrows, and the type and explanation are given for each arrow.
+  * Main Flows describe the sequence of activities, focusing on the flow of control from start to end.
+
+- For SEQUENCE diagrams:
+  * Components are sequence diagrams, and the attributes and operations are listed as they appear in the diagram.
+  * Relationships are messages between lifelines and lifelines, and the type and explanation are given for each message.
+  * Main Flows describe the sequence of messages, focusing on the flow from start to end.
+
+- For USE-CASE diagrams:
+  * Components are use cases, and the attributes and operations are listed as they appear in the diagram.
+  * Relationships are relationships between actors and lifelines, and the type and explanation are given for each relationship.
+  * Main Flows describe the sequence of interactions, focusing on the use cases, focusing on the flow from start to end.
+
+- For STATEMENT
+
+===== Report_6_uml_pages.pdf | Page 4 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=User
+- Server — kind=class; attributes=[port: int]; operations=[handleRequest(request: Request): Response, handleResponse(response: Response): void]; role=Server
+- Database — kind=class; attributes=[connection: Connection]; operations=[query(query: String): Result, update(id: int, data: String): void]; role=Database
+
+Actors / Lifelines:
+- User
+- Server
+
+Relationships / Links:
+- User -> Server: association; type=login; label="login"; explanation="User sends login request to Server"
+- User -> Server: association; type=handleRequest; label="handleRequest"; explanation="Server handles login request from User"
+- User -> Server: association; type=handleResponse; label="handleResponse"; explanation="Server sends response to User"
+- User -> Database: association; type=query; label="query"; explanation="User sends query to Database"
+- User -> Database: association; type=update; label="update"; explanation="User sends update to Database"
+
+Main Flows (step by step):
+- Flow 1: User -> Server -> Database
+  - User sends login request to Server
+  - Server handles login request from User
+  - Server sends response to User
+  - User sends query to Database
+  - Database handles query from User
+  - Database sends response to User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a login process where a user logs in to a server, which then handles the login request and sends a response. The user then sends a query to the database, which handles the query and sends a response back to the user.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should describe the interaction from start to end.
+
+- For USE-CASE diagrams:
+  * Components should be described in a sequence of events.
+
+- For STATEMENT diagrams:
+  * Components should be described in a sequence of events.
+
+- For STATEMENT diagrams:
+  * Components should be described in a sequence of events.
+
+- For STATEMENT diagrams:
+  * Components should be described in a sequence of events.
+  * Components should be described in a sequence of events.
+  * Components should be described in a sequence of events.
+  * Components should be described in a sequence of events.
+  * Components
+
+
+======================================================================

@@ -1,0 +1,117 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-REGISTRATION-001,Successful user registration with OTP verification,User Registration,3,"- User has internet access.
+- Email service (e.g., Gmail) is functional.
+- Database tables (`users`, `personal_access_tokens`, `jobs`) are empty or contain no conflicting data.","- Valid email: `test.user@example.com`
+- Valid password: `SecurePass123!`
+- OTP: `123456` (simulated)","1. User opens app and clicks ""Register.""
+2. User fills form with `test.user@example.com`, `SecurePass123!`, and submits.
+3. App validates email/password and sends `doRegistration()` to server.
+4. Server saves user data to `Database` and generates OTP (`generateOtp()`).
+5. Server sends OTP via email (`sendOtp()`) and saves it to `Database`.
+6. User receives email with OTP and enters `123456` in the app.
+7. App sends OTP to server for verification (`checkOtp()`).
+8. Server validates OTP and sends authentication token (`sendAuthToken()`).
+9. App saves token and opens home screen.","- User account created in `Database` with hashed password.
+- OTP record exists in `Database` (later deleted after use).
+- Auth token stored in `App` (e.g., `personal_access_tokens` table).
+- Home screen loads successfully."
+TC-REGISTRATION-002,Registration failure due to invalid email format,User Registration,3,Same as TC-REGISTRATION-001.,"- Invalid email: `invalid.email@`
+- Valid password: `SecurePass123!`","1. User attempts registration with `invalid.email@` and `SecurePass123!`.
+2. App validates email and rejects submission.
+3. Error message: ""Invalid email format"" appears.","- No data saved in `Database`.
+- No OTP generated or sent.
+- User remains on registration screen."
+TC-REGISTRATION-003,Registration failure due to weak password,User Registration,3,Same as TC-REGISTRATION-001.,"- Valid email: `test.user@example.com`
+- Weak password: `123`","1. User submits `test.user@example.com` and `123`.
+2. App rejects submission with error: ""Password must be at least 8 characters with special character.""","- No data saved in `Database`.
+- No OTP generated."
+TC-LOGIN-001,Successful login with valid credentials,User Authentication,4,"- User `test.user@example.com` exists in `Database` with password hash.
+- App has network access.","- Email: `test.user@example.com`
+- Password: `SecurePass123!`","1. User enters credentials in login screen.
+2. App validates email (`_emailValidate()`) and password (`_passwordValidate()`).
+3. App sends `doLogin()` to server.
+4. Server requests password hash from `Database` for `test.user@example.com`.
+5. Server compares hashes (`checkPassword()`) and generates token (`generateToken()`).
+6. Server sends token to app (`sendAuthToken()`).
+7. App saves token and opens home screen.","- Auth token stored in `App` and `personal_access_tokens` table.
+- Home screen loads with user data."
+TC-LOGIN-002,Login failure with incorrect password,User Authentication,4,User exists in `Database`.,"- Email: `test.user@example.com`
+- Incorrect password: `WrongPass123!`","1. User submits credentials.
+2. App validates inputs and sends `doLogin()`.
+3. Server retrieves correct hash but `checkPassword()` fails.
+4. Server sends error to app.
+5. App displays: ""Invalid email or password.""","- No token generated.
+- User remains on login screen."
+TC-PASSWORD-RECOVERY-001,Successful password recovery via email,Password Recovery,5,"- User `test.user@example.com` exists in `Database`.
+- Email service is functional.",- Email: `test.user@example.com`,"1. User clicks ""Forgot Password"" and submits `test.user@example.com`.
+2. App sends `LostPSWRequest()` to server.
+3. Server checks email in `Database` (`$checkMail` = true).
+4. Server generates recovery token and saves it to `Database`.
+5. Server sends email with reset link (containing token) to user.
+6. User clicks link in email, enters new password (`NewPass123!`), and submits.
+7. App validates new password and sends it to server with token.
+8. Server updates password in `Database` and confirms.","- New password saved in `Database`.
+- Recovery token deleted after use.
+- User receives confirmation email."
+TC-PASSWORD-RECOVERY-002,Password recovery failure with non-existent email,Password Recovery,5,None.,- Email: `nonexistent@example.com`,"1. User submits `nonexistent@example.com`.
+2. Server checks `Database` and returns `$checkMail = false`.
+3. App displays: ""Email not found.""","- No token generated or email sent.
+- User remains on recovery screen."
+TC-DATA-FETCHING-001,Successful lazy-loading of product cards,Homepage Data Loading,6,"- `products` table has 10+ entries.
+- App has network access.",- Initial load: `n = 5` (preload count).,"1. User opens homepage.
+2. App calls `initCards(5)` to server.
+3. Server requests 5 `products` from `Database`.
+4. Server sends 5 products to app; app displays cards.
+5. User scrolls to near bottom; `remainingCard < 5/2` triggers `loadMoreCards(2)`.
+6. Server requests next 2 products (offset = 5).
+7. Server sends 2 products; app appends to cards.","- First 5 products displayed immediately.
+- Next 2 products loaded without full page reload.
+- No duplicate or missing data."
+TC-DATA-FETCHING-002,Data loading failure due to network error,Homepage Data Loading,6,App has no network.,,"1. User opens homepage.
+2. App attempts `initCards(5)` but fails to connect to server.
+3. App displays error: ""Failed to load products. Check connection.""","- No data fetched from `Database`.
+- Empty state or skeleton UI shown."
+TC-MATCHMAKING-001,Successful match between two users,Matchmaking System,7,"- User1 and User2 exist in `Database`.
+- Both have active sessions.","- User1 swipes right on User2’s card.
+- User2 swipes right on User1’s card.","1. User1 swipes right; app sends `trackObjectPref(true)` to server.
+2. Server saves preference in `Database` and calls `checkMatch()`.
+3. `Database` returns `true` (mutual swipe).
+4. Server sends match screen to both apps.
+5. Both apps show match notification and open chat.","- Match record created in `Database` (e.g., `views` table with `is_interested = 1`).
+- Push notifications sent via OneSignal.
+- Chat UI opens for both users."
+TC-MATCHMAKING-002,No match due to unilateral swipe,Matchmaking System,7,User1 and User2 exist.,"- User1 swipes right on User2.
+- User2 does not swipe on User1.","1. User1 swipes right; preference saved.
+2. Server calls `checkMatch()`; `Database` returns `false`.
+3. Server sends no match response to User1.
+4. User1 sees no notification.","- No match record in `Database`.
+- No chat opened."
+TC-MESSAGING-001,Successful message send and receive,Real-Time Messaging,8,"- User1 and User2 are matched.
+- Both have active sessions.","- User1 sends: ""Hello!""","1. User1 types ""Hello!"" in chat; app sends `$token1: sendMessage()` to server.
+2. Server saves message in `Database` and confirms to app.
+3. Server pushes message to User2’s app via Pusher.
+4. User2’s app shows notification and opens chat.
+5. User2’s app calls `$token2: getMessage()`; server retrieves message.
+6. User2 sees ""Hello!"" in chat.","- Message stored in `Database` (e.g., `jobs` or custom table).
+- Notification received by User2.
+- Message displayed in chat UI."
+TC-MESSAGING-002,Message failure due to offline recipient,Real-Time Messaging,8,- User1 is online; User2 is offline.,"- User1 sends: ""Hi!""","1. User1 sends message; server saves it to `Database`.
+2. User2 comes online later; app calls `getMessage()`.
+3. Server retrieves pending message and sends to User2.
+4. User2 sees ""Hi!"" in chat.","- Message stored in `Database` until retrieved.
+- No notification if User2 is offline (or delayed notification via OneSignal)."
+TC-BACKEND-INTEGRATION-001,API handler routes request to correct service,API/Service Integration,1,"- All services (Pusher, OneSignal, Bunny.net) are operational.","- Endpoint: `/api/upload-image`
+- File: `test.jpg` (1MB)","1. App sends image to `ApiHandler` with `/upload-image`.
+2. `ApiHandler` routes to:
+   - `Bunny.net` for CDN upload.
+   - `MySQL` to save `images` record (e.g., `url`, `product_id`).
+   - `Jobs` to process thumbnail generation.
+3. `ApiHandler` returns success to app.","- File uploaded to Bunny.net CDN.
+- Record created in `images` table with CDN URL.
+- Job added to `jobs` queue for thumbnail."
+TC-BACKEND-INTEGRATION-002,Database connection failure during API call,API/Service Integration,1,- MySQL server is down.,- Endpoint: `/api/create-product`,"1. App sends product data to `ApiHandler`.
+2. `ApiHandler` fails to connect to `MySQL`.
+3. `ApiHandler` returns `503 Service Unavailable` to app.","- No data saved in `Database`.
+- Error logged in `errors_report` table.
+- App shows retry option."
+TC-CACHE-001,Cache hit for frequent product queries,Caching System,2,"- `cache` table has entry for `key = ""products:1-5""` with `value = [product1, product2, ...]`.",- Query: `GET /api/products?limit=5`,,

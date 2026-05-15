@@ -1,0 +1,123 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration with valid data,AuthenticationSystem,"1, 3","- Database is empty or contains no user with the provided email.
+- WebServer and DataManager are operational.","- First Name: ""Mario""
+- Last Name: ""Rossi""
+- Email: ""mario.rossi@example.com""
+- Password: ""SecurePass123!""
+- Date of Birth: ""1990-05-15""
+- Gender: ""M""","1. User enters registration data via Local User interface.
+2. Local User sends `data_user` to Main component.
+3. Main forwards `data_user` to DataManager for `CheckData()` validation.
+4. DataManager validates:
+   - Email format (valid).
+   - Password meets complexity (8+ chars, mixed case, special char).
+   - Date of Birth is not in the future.
+5. DataManager approves data and sends `AddUser(data_user)`.
+6. DataManager confirms success to Local User.","- User account is created in Database with `greenPoints = 0`.
+- `Utenti` object is instantiated with all provided attributes.
+- Local User displays ""Registration successful"" message.
+- `Gioco` object is auto-created linked to the user."
+TC-AUTHENTICATION-002,Failed user registration due to invalid email format,AuthenticationSystem,"1, 3",Same as TC-AUTHENTICATION-001.,"- Email: ""mario.rossi@example"" (missing TLD)","1. User enters invalid email and submits registration.
+2. Local User sends `data_user` to Main.
+3. Main forwards to DataManager for `CheckData()`.
+4. DataManager detects invalid email format.
+5. DataManager sends `Richiesta di reinserire i dati` to Local User.","- User sees error: ""Invalid email format. Please correct.""
+- Data is not saved to Database.
+- No `Utenti` or `Gioco` objects are created."
+TC-AUTHENTICATION-003,Failed user registration due to duplicate email,AuthenticationSystem,"1, 3","- Database contains a user with `Email = ""mario.rossi@example.com""`.","- Email: ""mario.rossi@example.com"" (duplicate)","1. User enters duplicate email and submits registration.
+2. Local User sends `data_user` to Main.
+3. Main forwards to DataManager for `CheckData()`.
+4. DataManager detects duplicate email.
+5. DataManager sends `Richiesta di reinserire i dati` to Local User.","- User sees error: ""Email already registered. Use another email.""
+- Data is not saved to Database."
+TC-CONSUMPTION-001,Successful consumption logging for authenticated user,ConsumptionLogging,"2, 6","- User is authenticated (`Utenti` object exists in Database).
+- `DataManager` is operational.","- User ID: 101
+- Consumption Type: ""Water""
+- Quantity: 5.5 (liters)
+- Date: ""2023-10-20""","1. Authenticated user enters consumption data via Local User.
+2. Local User sends `data = RequestData()` to Main.
+3. Main sends `AddConsumo(data)` to DataManager with:
+   - `utenteId = 101`
+   - `quantita = 5.5`
+   - `data = 2023-10-20`
+4. DataManager validates:
+   - `utenteId` exists in `Utenti`.
+   - `quantita > 0`.
+   - `data` is not in the future.
+5. DataManager creates `Consumo` object and links it to `Utenti`.
+6. DataManager sends ""Success"" to Main.","- `Consumo` object is saved to Database with `id`, `utenteId`, `quantita`, and `data`.
+- User’s `greenPoints` in `Gioco` are incremented by 1 (assuming 1 point per log).
+- Local User displays confirmation: ""Consumption logged successfully."""
+TC-CONSUMPTION-002,Failed consumption logging with negative quantity,ConsumptionLogging,"2, 6",User is authenticated.,- Quantity: -2.0 (invalid),"1. User enters negative quantity and submits.
+2. Local User sends `data` to Main.
+3. Main forwards to DataManager.
+4. DataManager detects `quantita < 0`.
+5. DataManager sends error to Local User.","- User sees error: ""Quantity must be positive.""
+- No `Consumo` object is created.
+- `greenPoints` are not modified."
+TC-CONSUMPTION-003,Consumption logging for non-existent user,ConsumptionLogging,"2, 6",Database has no user with `utenteId = 999`.,- User ID: 999 (invalid),"1. User enters invalid `utenteId` and submits.
+2. Local User sends `data` to Main.
+3. Main forwards to DataManager.
+4. DataManager detects `utenteId` does not exist.
+5. DataManager sends error to Local User.","- User sees error: ""User not found. Please authenticate.""
+- No `Consumo` object is created."
+TC-REPORT-001,Generate report for user with consumption data,ReportGeneration,"2, 7","- User with `id = 101` has 3 `Consumo` records.
+- `DataManager` is operational.","- User ID: 101
+- Period: ""2023-10"" (monthly)
+- Comment: ""High water usage this month""","1. Authenticated user requests report via Local User.
+2. Main calls `checkConsumi(currentUser)`.
+3. Local User calls `RequestData()` for user’s consumption.
+4. DataManager retrieves `Consumo` objects for `utenteId = 101`.
+5. Main calls `RequestReport(report)` with:
+   - `utenteId = 101`
+   - `periodo = ""2023-10""`
+   - `commento = ""High water usage this month""`
+6. DataManager generates `Report` object with:
+   - `utenteId = 101`
+   - `periodo = ""2023-10""`
+   - `commento = ""High water usage this month""`
+   - Linked `Consumo` objects.
+7. DataManager sends ""Success"" to Main.","- `Report` object is created in Database with `id`, `utenteId`, `periodo`, and `commento`.
+- `getConsumi()` returns 3 `Consumo` objects.
+- `getSuggerimenti()` returns 1 suggestion (e.g., ""Reduce water usage by 10%"").
+- Local User displays report with summary stats and suggestions."
+TC-REPORT-002,Failed report generation for user with no consumption,ReportGeneration,"2, 7",- User with `id = 102` has no `Consumo` records.,- User ID: 102,"1. User requests report.
+2. Main calls `checkConsumi(currentUser)`.
+3. DataManager detects no `Consumo` records for `utenteId = 102`.
+4. DataManager sends error to Local User.","- User sees error: ""No consumption data available for this period.""
+- No `Report` object is created."
+TC-PROFILE-001,Successful profile update for authenticated user,UserProfile,"2, 5","- User with `id = 101` exists.
+- User is authenticated.","- New Email: ""mario.rossi.new@example.com""
+- New Green Points: 50 (simulated via `Gioco`)","1. Authenticated user requests profile update via Local User.
+2. Main calls `CheckAuthenticated(currentUser)`.
+3. Local User calls `dataModified = RequestData()` with new email.
+4. Main sends `UpdateData(dataModified)` to DataManager.
+5. DataManager validates:
+   - New email is valid and not a duplicate.
+   - `utenteId` exists.
+6. DataManager updates `Utenti` object with new email.
+7. DataManager updates `Gioco` object with `greenPoints = 50`.
+8. DataManager sends ""Success"" to Main.","- `Utenti` object’s `Email` is updated to ""mario.rossi.new@example.com"".
+- `Gioco` object’s `greenPoints` is set to 50.
+- Local User displays confirmation: ""Profile updated successfully."""
+TC-PROFILE-002,Failed profile update with invalid email,UserProfile,"2, 5",User is authenticated.,"- New Email: ""invalid.email"" (missing TLD)","1. User attempts update with invalid email.
+2. Main forwards to DataManager.
+3. DataManager detects invalid format.
+4. DataManager sends error to Local User.","- User sees error: ""Invalid email format.""
+- No changes are saved to `Utenti` or `Gioco`."
+TC-GAME-001,Green points increment after consumption logging,Achievements,"2, 6",- User with `id = 101` has `greenPoints = 0` in `Gioco`.,- Consumption Logs: 3 (each worth 1 point),"1. User logs 3 consumptions (each via `AddConsumo`).
+2. For each log, DataManager:
+   - Creates `Consumo` object.
+   - Calls `incrementaGreenPoints(1)` on `Gioco`.
+3. After 3 logs, `Gioco.greenPoints` should be 3.","- `Gioco` object’s `greenPoints` increases by 1 for each valid `Consumo`.
+- After 3 logs, `greenPoints = 3`.
+- `Obiettivi` object’s `claim` may be set to `true` if an achievement threshold is met (e.g., 3 points)."
+TC-GAME-002,Green points decrement for invalid consumption,Achievements,"2, 6",- User has `greenPoints = 5`.,"- Invalid Consumption: 1 (negative quantity, rejected)
+- Valid Consumption: 1 (quantity = 2.0, accepted)","1. User attempts to log invalid consumption (quantity = -1.0).
+2. DataManager rejects log; no `Consumo` is created.
+3. User logs valid consumption (quantity = 2.0).
+4. DataManager creates `Consumo` and calls `incrementaGreenPoints(1)`.
+5. `Gioco.greenPoints` should decrease by 1 (penalty for invalid attempt) then increase by 1.","- `Gioco.greenPoints` decreases to 4 (penalty for invalid log).
+- After valid log, `greenPoints` increases to 5.
+- System logic: Invalid attempts deduct 1 point; valid attempts add 1 point."
+TC-REPORT-UPDATE-001,Update existing report with new consumption data,ReportModification,"2, 8","- User with `id = 101` has a `Report` for """,,,

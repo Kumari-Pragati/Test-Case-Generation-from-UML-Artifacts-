@@ -1,0 +1,97 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UTENTE-001,Create a new user account,Utente,1,None,"- name: John Doe
+- surname: Smith
+- email: john.doe@example.com
+- password: password123
+- isVenditore: false","1. Navigate to the user registration page
+2. Enter the required user details
+3. Click the ""Register"" button",- The user account is created successfully
+TC-UTENTE-002,Login with valid credentials,Utente,1,A user account has been created,"- email: john.doe@example.com
+- password: password123","1. Navigate to the login page
+2. Enter the email and password
+3. Click the ""Login"" button",- The user is logged in successfully
+TC-UTENTE-003,Login with invalid credentials,Utente,1,A user account has been created,"- email: john.doe@example.com
+- password: wrongpassword","1. Navigate to the login page
+2. Enter the email and password
+3. Click the ""Login"" button","- The login fails, and an error message is displayed"
+TC-UTENTE-004,Set user nominee,Utente,1,A user account has been created,,"1. Log in as the user
+2. Navigate to the account settings page
+3. Enter a nominee name
+4. Click the ""Save"" button",- The nominee name is saved successfully
+TC-UTENTE-005,Set user address,Utente,1,A user account has been created,,"1. Log in as the user
+2. Navigate to the account settings page
+3. Enter a new address
+4. Click the ""Save"" button",- The user address is saved successfully
+TC-UTENTE-006,Set user notification type,Utente,1,A user account has been created,,"1. Log in as the user
+2. Navigate to the account settings page
+3. Select a notification type
+4. Click the ""Save"" button",- The user notification type is saved successfully
+TC-VENDITORE-001,Create a new vendor account,Venditore,1,None,"- nomeNegozio: John's Store
+- indirizzo: 123 Main St
+- indirizzoVenditore: PO Box 456
+- isVenditore: true","1. Navigate to the vendor registration page
+2. Enter the required vendor details
+3. Click the ""Register"" button",- The vendor account is created successfully
+TC-VENDITORE-002,Create a vendor preferred customer,VenditorePreferito,1,A vendor account has been created,"- cliente: John Doe
+- voto: 5","1. Log in as the vendor
+2. Navigate to the preferred customers page
+3. Select a customer
+4. Set the preferred customer status
+5. Save the changes",- The vendor preferred customer is created successfully
+TC-CLIENTI-001,Create a new customer account,Clienti,1,None,"- nome: John Doe
+- cognome: Smith
+- email: john.doe@example.com","1. Navigate to the customer registration page
+2. Enter the required customer details
+3. Click the ""Register"" button",- The customer account is created successfully
+TC-CLIENTI-002,Get customer title,Clienti,1,A customer account has been created,,"1. Log in as the customer
+2. Navigate to the account settings page
+3. Enter a title
+4. Click the ""Save"" button",- The customer title is saved successfully
+TC-CLIENTI-003,Set customer description,Clienti,1,A customer account has been created,,"1. Log in as the customer
+2. Navigate to the account settings page
+3. Enter a new description
+4. Click the ""Save"" button",- The customer description is saved successfully
+TC-CLIENTI-004,Set customer vote,Clienti,1,A customer account has been created,,"1. Log in as the customer
+2. Navigate to the account settings page
+3. Set a new vote
+4. Click the ""Save"" button",- The customer vote is saved successfully
+TC-CLIENTI-005,Get customer vote,Clienti,1,A customer account has been created,,"1. Log in as the customer
+2. Navigate to the account settings page
+3. Retrieve the customer vote",- The customer vote is retrieved successfully
+TC-SEGnalazione-001,Create a new complaint,Segnalazione,1,A customer account has been created,"- titolo: Product Quality Issue
+- descrizione: The product arrived damaged","1. Log in as the customer
+2. Navigate to the complaints page
+3. Enter the complaint details
+4. Click the ""Submit"" button",- The complaint is created successfully
+TC-RECENSIONE-001,Create a new review,Recensione,1,A customer account has been created,"- titolo: Great Product
+- descrizione: I love this product!
+- voto: 5","1. Log in as the customer
+2. Navigate to the reviews page
+3. Enter the review details
+4. Click the ""Submit"" button",- The review is created successfully
+TC-PRODOTTO-001,Create a new product,Prodotto,1,None,"- nome: John's Special Sauce
+- categoria: Food
+- prezzo: 10.99
+- descrizione: A delicious sauce for all occasions","1. Navigate to the product creation page
+2. Enter the required product details
+3. Click the ""Add"" button",- The product is added successfully
+TC-PRODOTTO-002,Modify an existing product,Prodotto,3,A product has been created,"- nome: John's Special Sauce
+- categoria: Condiments
+- prezzo: 12.99
+- descrizione: A delicious sauce for all occasions","1. Navigate to the product list page
+2. Click on the product to modify
+3. Edit the product details
+4. Click the ""Modifica"" button",- The product is modified successfully
+TC-MAP-001,Check if location is accessible,Map,2,None,,"1. Navigate to the map page
+2. Check the location accessibility",- The location accessibility is determined correctly
+TC-MAP-002,Report inaccessible location,Map,2,The location is inaccessible,,"1. Navigate to the map page
+2. Check the location accessibility
+3. Report the inaccessible location",- The inaccessible location is reported successfully
+TC-NOTIFICAZIONI-001,Send push notification,Notifiche,5,A user account has been created,,"1. Navigate to the notification management page
+2. Select the push notification option
+3. Enter the notification details
+4. Click the ""Send"" button",- The push notification is sent successfully
+TC-NOTIFICAZIONI-002,Send in-app notification,Notifiche,5,A user account has been created,,"1. Navigate to the notification management page
+2. Select the in-app notification option
+3. Enter the notification details
+4. Click the ""Send"" button",- The in-app notification is sent successfully

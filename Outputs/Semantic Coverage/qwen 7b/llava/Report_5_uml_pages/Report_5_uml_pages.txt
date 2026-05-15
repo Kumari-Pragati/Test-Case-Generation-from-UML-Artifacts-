@@ -1,0 +1,222 @@
+REPORT: Report_5_uml_pages.pdf
+======================================================================
+
+===== Report_5_uml_pages.pdf | Page 1 =====
+UML Type: Class
+
+Components:
+- User — kind=class; attributes=[name: string, email: string, password: string]; operations=[login(email: string, password: string): void, logout(): void]
+- Trip — kind=class; attributes=[id: int, name: string, date: string, category: string]; operations=[createTrip(name: string, date: string, category: string): void, deleteTrip(id: int): void]
+- Plan — kind=class; attributes=[id: int, name: string, date: string, category: string]; operations=[createPlan(name: string, date: string, category: string): void, deletePlan(id: int): void]
+- DailyPlan — kind=class; attributes=[id: int, user: User, date: string, plan: Plan]; operations=[createDailyPlan(user: User, plan: Plan, date: string): void, deleteDailyPlan(id: int): void]
+
+Actors / Lifelines:
+- User
+- None
+
+Relationships / Links:
+- User -> Trip — type=association; label=""; explanation="User has a trip"
+- User -> DailyPlan — type=association; label=""; explanation="User has a daily plan"
+- Trip -> Plan — type=association; label=""; explanation="Trip has a plan"
+- Plan -> DailyPlan — type=association; label=""; explanation="Plan is part of a daily plan"
+
+Main Flows (step by step):
+- Flow 1: User -> Trip -> Plan -> DailyPlan
+- Flow 2: User -> Trip -> Plan -> DailyPlan
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system where users can create trips and plans, and associate daily plans with these plans.
+- The main flows show the creation of trips and plans, and the association between a user and their daily plans.
+- There are no decision points or branches visible in the diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * List each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written.
+  * In the relationships / links correspond to associations, inheritances, aggregations, and compositions.
+- For ACTIVITY diagrams:
+  * List each activity box as a component with kind="activity".
+  * In the component bullet, list each activity.
+  * In the relationships / links correspond to the type of association, aggregation, and composition, and composition, and the type of relationship, and the type of association, and the type of composition, and the type of aggregation, and the type of class diagram.
+ 5.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.
+
+===== Report_5_uml_pages.pdf | Page 2 =====
+UML Type: SEQUENCE DIAGRAM
+
+Components:
+- User: kind=User; attributes=[]; operations=[]; role=User
+- User Registration: kind=UserRegistration; attributes=[]; operations=[]; role=UserRegistration
+- Users Database: kind=UsersDatabase; attributes=[]; operations=[]; role=UsersDatabase
+
+Actors / Lifelines:
+- User
+- Users Database
+
+Relationships / Links:
+- User -> User Registration: type=association; label="registerUser()"; explanation="User registers with UserRegistration"
+- User Registration -> Users Database: type=association; label="saveUserData()"; explanation="UserRegistration saves user data to UsersDatabase"
+
+Main Flows (step by step):
+- Flow 1: User -> User Registration -> Users Database
+  - User calls registerUser()
+  - User Registration calls saveUserData()
+  - Users Database saves user data
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This sequence diagram models the interaction between a user and a user registration system, where the user registers with the system and the user registration saves the user data to a database.
+- The main flow shows the sequence of interactions from the user calling the registerUser() method, through the User Registration saving the user data to the Users Database.
+- The diagram does not show any decision points or loops, indicating a straightforward, linear interaction flow.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For SEQUENCE diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For STATE_MACHART:
+  * None
+
+- For COMPON
+
+===== Report_5_uml_pages.pdf | Page 3 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: string, password: string]; operations=[login(username: string, password: string): boolean, logout(): void]; role=User
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- login -> User — type=association; label="login"; explanation="User logs in to the system using their username and password."
+
+Main Flows (step by step):
+- Flow 1: User -> User — type=message; label="login"; explanation="User sends a login message to the system with their username and password."
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple login process for a user.
+- The User class has a login operation that takes a username and password as input and returns a boolean indicating whether the login was successful.
+- The login operation is the main flow of the system, as it is the first step in the login process.
+- The login operation is the only operation visible in the diagram, and it is the only way for a user to interact with the system.
+- The User class has a logout operation, but it is not visible in the diagram.
+- The User class has a username and password attribute, but the password attribute is not visible in the diagram.
+- The User class has a role attribute, but it is not visible in the diagram.
+- The User class has a type attribute, but it is not visible in the diagram.
+- The User class has a kind attribute, but it is not visible in the diagram.
+- The User class has a name attribute, but it is not visible in the diagram.
+- The User class has a stereotype attribute, but it is not visible in the diagram.
+- The User class has a constraint attribute, but it is not visible in the diagram.
+- The User class has a comment attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the diagram.
+- The User class has a documentation attribute, but it is not visible in the User class;
+
+===== Report_5_uml_pages.pdf | Page 4 =====
+UML Type:
+- class
+
+Components:
+- User
+- Trip
+- TripDatabase
+
+Actors / Lifelines:
+- User
+- TripDatabase
+
+Relationships / Links:
+- User -> TripDatabase: association; type=1; label=""; explanation="";
+
+Main Flows (step by step):
+- Flow 1: User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> User -> TripDatabase -> TripDatabase -> User -> TripDatabase -> TripDatabase -> User -> TripDatabase -> TripDatabase -> TripDatabase -> TripDatabase -> TripDatabase -> TripDatabase -> TripDatabase -> TripDatabase -> TripDatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tripdatabase -> Tsp
+
+===== Report_5_uml_pages.pdf | Page 5 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=User
+- UserProfile — kind=class; attributes=[id: String, name: String, email: String]; operations=[getProfile(): UserProfile, updateProfile(name: String, email: String): void]; role=UserProfile
+- UsersDatabase — kind=class; attributes=[users: List<User>, profiles: List<UserProfile>]; operations=[addUser(username: String, password: String): void, deleteUser(id: String): void]; role=UsersDatabase
+
+Actors / Lifelines:
+- User
+- UsersDatabase
+
+Relationships / Links:
+- User -> UserProfile — type=association; label="1:N"; explanation="A user has multiple profiles."
+- User -> UsersDatabase — type=association; label="1:N"; explanation="A user has a profile in the database."
+- UserProfile -> User — type=association; label="N:1"; explanation="A profile belongs to a user."
+
+Main Flows (step by step):
+- Flow 1: User -> UserProfile -> UsersDatabase -> UserProfile -> User -> UserProfile -> UsersDatabase
+
+Conditions / Branches:
+- User -> UserProfile — type=message; label="login"; explanation="User sends a login message to UserProfile."
+- User -> UsersDatabase — type=message; label="addUser"; explanation="User sends an addUser message to UsersDatabase."
+- UserProfile -> User — type=message; label="getProfile"; explanation="UserProfile sends a getProfile message to User."
+- UserProfile -> User -> UserProfile — type=message; label="updateProfile"; explanation="UserProfile sends an updateProfile message to User."
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple user management system where users can log in and out, and their profiles are managed by a database.
+- The UserProfile class is used to store user profile information.
+- The UsersDatabase class is used to store user and profile information.
+- The User class is used to interact with the UserProfile and UsersDatabase.
+- The UserProfile and UsersDatabase classes are used to manage user and profile information.
+- The User class is used to interact with the UserProfile and UsersDatabase.
+- The UserProfile and UsersDatabase classes are used to manage user and profile information.
+
+Guidelines by diagram type:
+- For CLASS
+
+
+======================================================================

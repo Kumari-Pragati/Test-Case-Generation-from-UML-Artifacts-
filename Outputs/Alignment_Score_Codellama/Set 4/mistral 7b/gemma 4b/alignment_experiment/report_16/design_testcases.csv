@@ -1,0 +1,38 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Test User Creation,User,1,None,"- id: 1
+- Password: correctPassword
+- Email: user@example.com
+- Name: John
+- Cognome: Doe",1. Create a new user with the provided test data.,The user is created successfully.
+TC-Utente-002,Test User Password Change,User,1,A user has been created.,"- id: 1
+- New Password: newCorrectPassword",1. Change the password of the user with the provided test data.,The password is changed successfully.
+TC-Utente-003,Test User Email Change,User,1,A user has been created.,"- id: 1
+- New Email: newUser@example.com",1. Change the email of the user with the provided test data.,The email is changed successfully.
+TC-Utente-004,Test User Name Change,User,1,A user has been created.,"- id: 1
+- New Name: NewJohn",1. Change the name of the user with the provided test data.,The name is changed successfully.
+TC-Utente-005,Test User Surname Change,User,1,A user has been created.,"- id: 1
+- New Surname: NewDoe",1. Change the surname of the user with the provided test data.,The surname is changed successfully.
+TC-Prodotto-001,Test Product Creation,Product,1,None,"- Name: Test Product
+- Luogo: Test Location
+- Immagine: Test Image
+- Prezzo: 10.00
+- Proprietario: User with id 1",1. Create a new product with the provided test data.,The product is created successfully.
+TC-Prodotto-002,Test Product Ownership Change,Product,1,A product has been created.,"- id: 1
+- New Proprietario: User with id 2",1. Change the ownership of the product with the provided test data.,The ownership of the product is changed successfully.
+TC-Prodotto-003,Test Product Price Change,Product,1,A product has been created.,"- id: 1
+- New Prezzo: 20.00",1. Change the price of the product with the provided test data.,The price of the product is changed successfully.
+TC-Prodotto-004,Test Product Image Change,Product,1,A product has been created.,"- id: 1
+- New Immagine: NewTest Image",1. Change the image of the product with the provided test data.,The image of the product is changed successfully.
+TC-Prodotto-005,Test Product Location Change,Product,1,A product has been created.,"- id: 1
+- New Luogo: NewTest Location",1. Change the location of the product with the provided test data.,The location of the product is changed successfully.
+TC-Prodotto-006,Test User Ownership of Non-Existent Product,User,1,A user has been created.,"- id: 1
+- Product id: 1000",1. Try to assign a non-existent product to the user.,An error is thrown because the product does not exist.
+TC-Prodotto-007,Test User Ownership of Existing Product of Another User,User,1,Two users and a product have been created.,"- User 1 id: 1
+- User 2 id: 2
+- Product id: 1","1. Try to assign the product to User 1, which is not the current owner.",An error is thrown because User 1 is not the current owner of the product.
+TC-Prodotto-008,Test Product Price Validation,Product,1,A product has been created.,"- id: 1
+- New Prezzo: -1.00",1. Try to set a negative price for the product.,An error is thrown because the price must be a positive number.
+TC-Prodotto-009,Test Product Image Validation,Product,1,A product has been created.,"- id: 1
+- New Immagine: Invalid Image",1. Try to set an invalid image for the product.,An error is thrown because the image is invalid.
+TC-Prodotto-010,Test Product Location Validation,Product,1,A product has been created.,"- id: 1
+- New Luogo: Invalid Location",1. Try to set an invalid location for the product.,An error is thrown because the location is invalid.

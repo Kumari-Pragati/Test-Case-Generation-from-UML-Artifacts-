@@ -1,0 +1,138 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UserManagement-001,User Registration and Login,UserManagement,"1,2",None,"- Username: testuser
+- Password: testpassword
+- Email: testuser@example.com","1. Open the application.
+2. Click on the registration button.
+3. Enter the username, password, and email.
+4. Click on the register button.
+5. Verify that the user is registered successfully.
+6. Log out.
+7. Click on the login button.
+8. Enter the username and password.
+9. Click on the login button.
+10. Verify that the user is logged in successfully.",User should be registered and logged in successfully.
+TC-UserManagement-002,User Modification,UserManagement,"1,2",User is already registered and logged in.,"- New username: newtestuser
+- New password: newtestpassword
+- New email: newtestuser@example.com","1. Open the application.
+2. Click on the profile settings.
+3. Enter the new username, password, and email.
+4. Click on the save button.
+5. Verify that the user details are updated successfully.",User details should be updated successfully.
+TC-SignalManagement-001,Get Signalizations,SignalManagement,3,Application is running.,None,"1. Open the application.
+2. Click on the signal management tab.
+3. Verify that the list of signalizations is displayed.",List of signalizations should be displayed.
+TC-VariationManagement-001,Get Train Variations,VariationManagement,"4,7",Application is running.,None,"1. Open the application.
+2. Click on the variation management tab.
+3. Verify that the list of train variations is displayed.",List of train variations should be displayed.
+TC-CalendarManagement-001,Set and Get Calendar,CalendarManagement,"5,6",Application is running.,- Calendar: 2023-10-01 to 2023-10-31,"1. Open the application.
+2. Click on the calendar management tab.
+3. Set the calendar to the specified date range.
+4. Verify that the calendar is set successfully.
+5. Click on the get calendar button.
+6. Verify that the calendar is retrieved successfully.",Calendar should be set and retrieved successfully.
+TC-NotificationManagement-001,Show Notifications,NotificationManagement,9,Application is running.,"- Train variations: [var1, var2, var3]","1. Open the application.
+2. Click on the notification management tab.
+3. Click on the show notifications button.
+4. Verify that the notifications related to train variations are displayed.",Notifications related to train variations should be displayed.
+TC-APIIntegration-001,Fetch Train Information from API,APIIntegration,4,Application is running.,- Train code: 12345,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the train code.
+4. Click on the fetch button.
+5. Verify that the train information is fetched successfully.",Train information should be fetched successfully.
+TC-APIIntegration-002,Delete Train Information from API,APIIntegration,8,Train information is available in the database.,- Train id: 12345,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the train id.
+4. Click on the delete button.
+5. Verify that the train information is deleted successfully.",Train information should be deleted successfully.
+TC-EdgeCase-001,Empty List of Signalizations,SignalManagement,3,Application is running.,None,"1. Open the application.
+2. Click on the signal management tab.
+3. Verify that the list of signalizations is empty.",List of signalizations should be empty.
+TC-EdgeCase-002,Invalid Train Code,APIIntegration,4,Application is running.,- Train code: invalidcode,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the invalid train code.
+4. Click on the fetch button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-001,Unregistered User Login,UserManagement,2,Application is running.,"- Username: unregistereduser
+- Password: unregisteredpassword","1. Open the application.
+2. Click on the login button.
+3. Enter the unregistered username and password.
+4. Click on the login button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-002,Incorrect Password,UserManagement,2,User is registered.,"- Username: testuser
+- Password: incorrectpassword","1. Open the application.
+2. Click on the login button.
+3. Enter the registered username and incorrect password.
+4. Click on the login button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-003,Empty Calendar Date Range,CalendarManagement,"5,6",Application is running.,- Calendar: Empty date range,"1. Open the application.
+2. Click on the calendar management tab.
+3. Set the calendar to an empty date range.
+4. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-004,Non-Existent Train Code,APIIntegration,4,Application is running.,- Train code: nonexistcode,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the non-existent train code.
+4. Click on the fetch button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-005,Non-Existent Train ID,APIIntegration,8,Application is running.,- Train id: nonexistid,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the non-existent train id.
+4. Click on the delete button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-006,Empty Train Variations,VariationManagement,7,Application is running.,- Train variations: [],"1. Open the application.
+2. Click on the variation management tab.
+3. Verify that the list of train variations is empty.
+4. Click on the show notifications button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-007,Empty Calendar,CalendarManagement,6,Application is running.,- Calendar: Empty calendar,"1. Open the application.
+2. Click on the calendar management tab.
+3. Set the calendar to an empty calendar.
+4. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-008,Empty Signalizations,SignalManagement,3,Application is running.,None,"1. Open the application.
+2. Click on the signal management tab.
+3. Verify that the list of signalizations is empty.
+4. Click on the show notifications button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-009,Empty Train Information,APIIntegration,4,Application is running.,- Train code: emptycode,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the empty train code.
+4. Click on the fetch button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-010,Empty Train ID,APIIntegration,8,Application is running.,- Train id: emptyid,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the empty train id.
+4. Click on the delete button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-011,Empty Train Variations List,VariationManagement,7,Application is running.,- Train variations: [],"1. Open the application.
+2. Click on the variation management tab.
+3. Verify that the list of train variations is empty.
+4. Click on the show notifications button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-012,Empty Calendar Date Range,CalendarManagement,"5,6",Application is running.,- Calendar: Empty date range,"1. Open the application.
+2. Click on the calendar management tab.
+3. Set the calendar to an empty date range.
+4. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-013,Empty Signalizations List,SignalManagement,3,Application is running.,None,"1. Open the application.
+2. Click on the signal management tab.
+3. Verify that the list of signalizations is empty.
+4. Click on the show notifications button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-014,Empty Train Information,APIIntegration,4,Application is running.,- Train code: emptycode,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the empty train code.
+4. Click on the fetch button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-015,Empty Train ID,APIIntegration,8,Application is running.,- Train id: emptyid,"1. Open the application.
+2. Click on the train information tab.
+3. Enter the empty train id.
+4. Click on the delete button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-016,Empty Train Variations List,VariationManagement,7,Application is running.,- Train variations: [],"1. Open the application.
+2. Click on the variation management tab.
+3. Verify that the list of train variations is empty.
+4. Click on the show notifications button.
+5. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-017,Empty Calendar Date Range,CalendarManagement,"5,6",Application is running.,- Calendar: Empty date range,"1. Open the application.
+2. Click on the calendar management tab.
+3. Set the calendar to an empty date range.
+4. Verify that an error message is displayed.",Error message should be displayed.
+TC-NegativeCase-018,Empty Signalizations List,,,,,,

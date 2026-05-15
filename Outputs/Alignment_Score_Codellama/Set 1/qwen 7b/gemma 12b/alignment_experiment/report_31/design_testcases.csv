@@ -1,0 +1,39 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-System-001","Verify User Authentication","System","1","User is registered in the system.","Valid username and password.","1. User enters valid username and password.
+2. System attempts to authenticate the user.
+3. System checks if the credentials match the stored data.
+4. System displays a success message if authentication is successful.","User is authenticated successfully and redirected to the main interface."
+"TC-System-002","Verify Invalid User Authentication","System","1","User is registered in the system.","Invalid username and password.","1. User enters invalid username and password.
+2. System attempts to authenticate the user.
+3. System checks if the credentials match the stored data.
+4. System displays an error message if authentication fails.","User is not authenticated and an error message is displayed."
+"TC-System-003","Verify Data Display Interaction","System","1","User is authenticated and has access to the data display.","No specific data required.","1. User interacts with the data display.
+2. Data display requests data from the data organizer.
+3. Data organizer retrieves data from Firebase.
+4. Data display displays the retrieved data.","Data display correctly shows the requested data."
+"TC-System-004","Verify Data Organizer Interaction with Firebase","System","1","User is authenticated and has access to the data display.","No specific data required.","1. Data display requests data from the data organizer.
+2. Data organizer retrieves data from Firebase.
+3. Firebase processes the request and returns the data.
+4. Data organizer forwards the data to the data display.","Data organizer correctly retrieves and forwards the data from Firebase to the data display."
+"TC-System-005","Verify Chat Creation","Chat","2","User is authenticated.","Chat identifier and two URLs.","1. User creates a new chat.
+2. System generates a unique chat identifier.
+3. System stores the chat identifier and URLs.
+4. System associates the chat with the user.","Chat is created successfully and stored in the system."
+"TC-System-006","Verify Message Sending","Message","2","User is authenticated and has access to a chat.","Message content, chat identifier, and receiver.","1. User sends a message.
+2. System generates a unique message identifier.
+3. System stores the message content, chat identifier, and receiver.
+4. System associates the message with the user and chat.","Message is sent successfully and stored in the system."
+"TC-System-007","Verify Message Retrieval","Message","2","User is authenticated and has access to a chat.","Chat identifier.","1. User requests messages from a chat.
+2. System retrieves messages associated with the chat identifier.
+3. System displays the retrieved messages to the user.","Messages are retrieved and displayed correctly."
+"TC-System-008","Verify Post Creation","Post","2","User is authenticated.","Post content, user nickname, fridge ID, type, and cost.","1. User creates a new post.
+2. System generates a unique post identifier.
+3. System stores the post content, user nickname, fridge ID, type, and cost.
+4. System associates the post with the user and fridge.","Post is created successfully and stored in the system."
+"TC-System-009","Verify Fridge Ownership","Fridge","2","User is authenticated.","Fridge ID and user nickname.","1. User requests ownership of a fridge.
+2. System verifies the user's credentials.
+3. System associates the fridge with the user.","Fridge ownership is verified and associated with the user."
+"TC-System-0010","Verify Product Removal from Fridge","Fridge","3","User is authenticated and owns a fridge.","No specific data required.","1. User initiates the removal of a product from the fridge.
+2. Schema Principale sends a ChangeFragment() message to fragment Frigorifero.
+3. Fragment Frigorifero sends a RimuoviProdotto() message to Firebase Database.
+4. Firebase Database processes the request and removes the product.","Product is removed from the fridge and the change is reflected in the Firebase Database."

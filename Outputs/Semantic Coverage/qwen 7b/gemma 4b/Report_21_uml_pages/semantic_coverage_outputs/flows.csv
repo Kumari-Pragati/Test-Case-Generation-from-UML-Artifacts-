@@ -1,0 +1,125 @@
+flow
+"calendarioutente -> evento — type=has; label=""aggiungi""; explanation=""calendarioutente ha eventi"""
+"calendarioutente -> stagione — type=has; label=""stagione""; explanation=""calendarioutente ha una stagione"""
+"calendarioutente -> regolazione — type=has; label=""regolazione""; explanation=""calendarioutente ha una regolazione"""
+"evento -> database — type=usa; label=""eseguiquery""; explanation=""evento usa il database"""
+"calendarioutente -> database — type=usa; label=""connetti""; explanation=""calendarioutente si connette al database"""
+"calendarioutente -> database — type=usa; label=""disconnetti""; explanation=""calendarioutente si disconnette dal database"""
+sistema interfaccia utente -> calendarioutente: aggiungievento(evento)
+calendarioutente -> database: eseguiquery(query)
+database -> calendarioutente: resultset
+the diagram models a system for managing events and their scheduling within a user's calendar.
+the system utilizes a database to store event information.
+"the user interface allows adding, modifying, and deleting events."
+the system associates events with a specific season and regulation.
+applicazione -> mauth — message=getinstance();
+mauth -> firebase auth — message=getcurrentuser();
+mauth -> user — message=getcurrentuser();
+applicazione -> user — message=login();
+user -> sistema di gestione dei dati — message=checkiflogin();
+sistema di gestione dei dati -> user — message=null;
+applicazione -> mauth — message=signinwithemailandpassword();
+mauth -> firebase auth — message=getinstance();
+mauth -> user — message=createuserwithemailandpassword();
+applicazione -> user — message=registerandlogin();
+applicazione -> user -> login();
+user -> sistema di gestione dei dati -> checkiflogin();
+sistema di gestione dei dati -> user -> null;
+applicazione -> mauth -> getinstance();
+mauth -> firebase auth -> getcurrentuser();
+mauth -> user -> getcurrentuser();
+applicazione -> user -> registerandlogin();
+user -> sistema di gestione dei dati -> null;
+mauth -> firebase auth -> getinstance();
+mauth -> user -> createuserwithemailandpassword();
+the diagram models the sequence of actions involved in user authentication and registration.
+"the flow includes checking if the user is already logged in, registering a new user, and retrieving the current user from firebase auth."
+"the diagram highlights the interaction between the application, the data management system, and firebase auth."
+applicazione -> sistema di segnalazioni: forward(getsegnalazioni());
+sistema di segnalazioni -> sistema di gestione dei dati: forward(payload);
+sistema di gestione dei dati -> database: query(select segnalazioni());
+database -> sistema di gestione dei dati: payload
+sistema di gestione dei dati -> applicazione: display(list(list));
+applicazione -> sistema di segnalazioni: getsegnalazioni();
+the application requests a list of signals from the signaling system.
+the signaling system forwards a payload to the data management system.
+the data management system queries the database for signals.
+the database returns the signals as a payload.
+the data management system displays the list of signals to the application.
+applicazione -> sistema gestione variazioni: train_variations(getvariationen)
+sistema gestione variazioni -> sistema gestione dati: list_pref_train (getpreftrend())
+sistema gestione dati -> database: gettrendinfo(train.code)
+database -> api trenitalia: gettrendinfo(train.code)
+the application initiates the process by requesting train variations.
+the data management system retrieves train preferences.
+"the database retrieves train information, likely for comparison or validation."
+"the api (trenitalia) is used to fetch train information, potentially for external data."
+the loop suggests a mechanism to detect and handle changes in train information.
+"applicazione -> sistema gestione calendario — message=setcalendarico(cal); label=""setcalendarico(cal)""; explanation=""application calls setcalendarico(cal)"""
+"sistema gestione calendario -> sistema di gestione dei dati — message=forward(setcalendarico(cal)); label=""forward(setcalendarico(cal))""; explanation=""system gestione calendario forwards setcalendarico(cal)"""
+"sistema di gestione dei dati -> database — message=query(new calendarico(cal)); label=""query(new calendarico(cal))""; explanation=""system di gestione dei dati queries a new calendarico(cal)"""
+"sistema di gestione dati -> applicazione — message=forward(outcome); label=""forward(outcome)""; explanation=""system di gestione dei dati forwards outcome"""
+"sistema gestione calendario -> applicazione — message=display(outcome); label=""display(outcome)""; explanation=""system gestione calendario displays outcome"""
+applicazione sends setcalendarico(cal) to sistema gestione calendario.
+sistema gestione calendario forwards setcalendarico(cal) to sistema di gestione dei dati.
+sistema di gestione dei dati queries a new calendarico(cal) from database.
+sistema di gestione dei dati forwards outcome to sistema gestione calendario.
+sistema gestione calendario displays outcome to applicazione.
+"the diagram models the interaction between an application, a calendar management system, a data management system, and a database during a calendar insertion process."
+the application initiates the process by calling `setcalendarico(cal)`.
+the calendar management system forwards this request to the data management system.
+the data management system retrieves a new calendar object from the database.
+"finally, the calendar management system displays the outcome to the application."
+"applicazione -> sistema gestione calendario — message=forward(getcalendario()); label=""forward(getcalendario())""; explanation=""application requests calendar data from the calendar management system."";"
+"sistema gestione calendario -> database — message=query(select calendario(*)); label=""query(select calendario(*))""; explanation=""calendar management system queries the database for calendar data."";"
+"database -> sistema di gestione dei dati — message=payload; label=""payload""; explanation=""database returns the calendar data."";"
+"sistema di gestione dei dati -> sistema gestione calendario — message=forward(payload); label=""forward(payload)""; explanation=""data management system forwards the calendar data to the calendar management system."";"
+"sistema gestione calendario -> applicazione — message=display(calendario); label=""display(calendario)""; explanation=""calendar management system displays the calendar data to the application."";"
+"sistema gestione calendario -> applicazione — message=display(null); label=""display(null)""; explanation=""calendar management system displays null to the application."";"
+flow 1: applicazione calls getcalendario() -> sistema gestione calendario forwards(getcalendario()) -> database queries(select calendario(*)) -> database returns payload -> sistema di gestione dei dati forwards(payload) -> sistema gestione calendario displays(calendario) -> applicazione displays(calendario)
+the application initiates the process by requesting calendar data.
+the calendar management system queries the database for the data.
+the data management system forwards the retrieved data to the calendar management system.
+the calendar management system then displays the calendar data to the application.
+applicazione -> sistema gestione calendario: forward(gettrains(calendario))
+sistema gestione calendario -> sistema gestione dei dati: forward(payload)
+sistema gestione dei dati -> api trenitalia: requesttrains(calendario)
+api trenitalia -> sistema gestione dei dati: payload
+"api trenitalia -> database: query(newtrnolo[id, info])"
+sistema gestione dei dati -> applicazione: forward(outcome)
+applicazione -> sistema gestione calendario: display(outcome)
+the application initiates the cancellation process by requesting train information from the calendar system.
+the calendar system retrieves the relevant train data and forwards it to the data management system.
+"the data management system then communicates with the api trenitalia to initiate the cancellation request, passing the train details."
+the api trenitalia queries the database for the train information.
+"finally, the data management system forwards the outcome of the cancellation to the application, which displays it to the user."
+"applicazione -> sistema gestione calendario — message=gettrains(calendario); label=""gettrains(calendario)""; explanation=""application requests train list for a calendar."""
+"sistema gestione calendario -> sistema di gestione dei dati — message=forward(payload); label=""forward(payload)""; explanation=""system forwards the request to the data system."""
+"sistema di gestione dei dati -> api trenitalia — message=payload; label=""payload""; explanation=""data system sends the request to the api."""
+"api trenitalia -> database — message=query(deletetrenodi(id)); label=""query(deletetrenodi(id))""; explanation=""api queries the database to delete a train."""
+"database -> api trenitalia — message=status code; label=""status code""; explanation=""database returns a status code to the api."""
+"api trenitalia -> sistema di gestione dei dati — message=payload; label=""payload""; explanation=""api sends the response back to the data system."""
+"sistema di gestione dei dati -> sistema gestione calendario — message=forward(outcome); label=""forward(outcome)""; explanation=""data system forwards the outcome to the calendar system."""
+"sistema gestione calendario -> applicazione — message=display(outcome); label=""display(outcome)""; explanation=""calendar system displays the outcome to the application."""
+flow 1: applicazione -> sistema gestione calendario: gettrains(calendario)
+flow 2: sistema gestione calendario -> sistema di gestione dei dati: forward(payload)
+flow 3: sistema di gestione dei dati -> api trenitalia: payload
+flow 4: api trenitalia -> database: query(deletetrenodi(id))
+flow 5: database -> api trenitalia: status code
+flow 6: api trenitalia -> sistema di gestione dei dati: payload
+flow 7: sistema di gestione dati -> sistema gestione calendario: forward(outcome)
+flow 8: sistema gestione calendario -> applicazione: display(outcome)
+the application requests a list of trains for a specific calendar.
+the system forwards this request to the data system.
+the data system queries the database to delete a train.
+the database returns a status code to the api.
+the api sends the response back to the data system.
+the data system forwards the outcome to the calendar system.
+the calendar system displays the outcome to the application.
+applicazione -> sistema gestione variazioni: getvariazioni();
+sistema gestione variazioni -> applicazione: train_variations = res;
+applicazione -> sistema di notifica: shownotifica(train_variations);
+the application initiates a process by requesting variation data from the system.
+the system processes the request and returns the variation data.
+the application then displays the received notification.
+======================================================================

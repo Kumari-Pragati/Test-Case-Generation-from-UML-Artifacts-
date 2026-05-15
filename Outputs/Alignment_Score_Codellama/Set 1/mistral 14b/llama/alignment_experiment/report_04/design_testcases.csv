@@ -1,0 +1,130 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTH-001,Successful user registration with valid credentials,User Authentication,"1, 2","- Database is empty or contains no conflicting usernames.
+- Network connectivity is active.","- Username: `john_doe_123`
+- Password: `SecurePass123!`
+- Email: `john.doe@example.com`
+- Admin: `false`","1. User navigates to the registration page.
+2. User enters `john_doe_123`, `SecurePass123!`, `john.doe@example.com`, and unchecks ""Admin"".
+3. User clicks ""Register"".
+4. System validates input (non-empty fields, valid email format).
+5. Application calls `Database.insert()` with provided data.
+6. Database confirms successful insertion.","- User receives a confirmation message: ""Registration successful. Please log in.""
+- User record is stored in the database with hashed password.
+- User’s `admin` field is `false`."
+TC-USER-AUTH-002,Failed registration due to duplicate username,User Authentication,"1, 2",- Database contains a user with `username: john_doe_123`.,"- Username: `john_doe_123` (duplicate)
+- Password: `NewPass456!`
+- Email: `john.doe+new@example.com`","1. User attempts to register with the duplicate username.
+2. Application calls `Database.insert()`.
+3. Database detects duplicate `username` (PK conflict).
+4. System rolls back the operation.","- User sees error: ""Username already exists. Choose another.""
+- No new record is created in the database."
+TC-USER-AUTH-003,Successful login with valid credentials,User Authentication,"1, 2",- User `john_doe_123` exists in the database with password `SecurePass123!`.,"- Username: `john_doe_123`
+- Password: `SecurePass123!`","1. User enters credentials on the login page.
+2. Application calls `Database.verifyUser()`.
+3. Database validates credentials (matches stored hash).
+4. Application grants access.","- User is redirected to their dashboard.
+- Session is created (not explicitly modeled but implied).
+- User’s `admin` status is checked for access control."
+TC-USER-AUTH-004,Failed login with incorrect password,User Authentication,"1, 2",- User `john_doe_123` exists with password `SecurePass123!`.,"- Username: `john_doe_123`
+- Password: `WrongPass123!`","1. User enters incorrect password.
+2. Application calls `Database.verifyUser()`.
+3. Database returns `false` for credential validation.","- User sees error: ""Invalid username or password.""
+- No session is created.
+- No access is granted."
+TC-MATERIAL-CRUD-001,Admin adds a new material to the database,Material Management,1,- User `admin_user` is logged in with `admin: true`.,"- Material:
+  - Name: `Solar_Panel_XL`
+  - Description: `High-efficiency photovoltaic panel`
+  - Price: `999.99`
+  - Quantity: `50`
+  - Carbon footprint: `0.8 kg CO2e`","1. Admin navigates to ""Add Material"" page.
+2. Admin fills in all fields and submits.
+3. Application calls `Material.insert()`.
+4. Database persists the new record.","- Material is listed in the admin’s inventory.
+- Material record appears in the database with all fields populated.
+- Non-admin users cannot see this material unless it’s assigned to them (per Page 1)."
+TC-MATERIAL-CRUD-002,Non-admin user accesses only their own materials,Material Management,1,"- User `john_doe_123` (non-admin) has 2 materials assigned: `Material_A`, `Material_B`.
+- Admin has added `Material_C` (not assigned to `john_doe_123`).",,"1. `john_doe_123` logs in.
+2. User navigates to ""My Materials"" page.
+3. System filters materials by `username` (implicit from Page 1).","- Only `Material_A` and `Material_B` are displayed.
+- `Material_C` is hidden from the list.
+- Admin users see all materials (per Page 1 conditions)."
+TC-MATERIAL-CRUD-003,Delete a material (admin action),Material Management,1,"- Admin is logged in.
+- `Material_C` exists in the database.",,"1. Admin selects `Material_C` and clicks ""Delete"".
+2. Application calls `Material.delete()` with `Material_C.ID`.
+3. Database removes the record.","- Material is removed from all lists.
+- Database confirms deletion (no record with `Material_C.ID` exists).
+- Non-admin users cannot delete any materials."
+TC-DEVICE-SCAN-001,Device scan returns functioning components with replacement impact,Hardware Diagnostics,"4, 5","- Device has 3 components: `CPU`, `RAM`, `HDD`.
+- All components are functioning but nearing end-of-life.",,"1. `Main` sends `Esegui scansione dispositivo` to `Applicazione`.
+2. `Applicazione` executes `Esegui scansione hardware`.
+3. Scan detects all components are functioning but calculates high replacement impact for `HDD`.
+4. `Applicazione` returns `Nome e Impatto componente` for `HDD`.","- Output includes:
+  - Component: `HDD`
+  - Replacement impact: `High (12.5 kg CO2e)`
+  - Diagnostic: `Replace within 6 months`
+- No error flags are raised."
+TC-DEVICE-SCAN-002,Device scan detects defective component (no replacement data),Hardware Diagnostics,"4, 5","- Device’s `CPU` is defective (e.g., overheating).",,"1. `Main` triggers scan.
+2. `Applicazione` detects `CPU` failure in `Esegui scansione hardware`.
+3. Decision branch: `Componenti funzionanti?` → `No`.
+4. `Applicazione` returns raw diagnostic data.","- Output includes:
+  - Component: `CPU`
+  - Status: `Defective`
+  - Diagnostic: `Overheating error (Error Code: 0xCPU001)`
+  - No replacement impact data (since component is non-functional).
+- System logs the defect for manual review."
+TC-DEVICE-SCAN-003,Lifespan calculation for healthy components,Hardware Diagnostics,5,"- Device components:
+  - `CPU`: 85% health, 2 years old.
+  - `RAM`: 95% health, 1 year old.",,"1. `Main` requests `Esegui scansione hardware`.
+2. `Applicazione` receives speed/health data.
+3. `Applicazione` calculates lifespan:
+   - `CPU`: `1.5 years remaining`
+   - `RAM`: `3 years remaining`
+4. Result is returned.","- Output:
+  - `CPU`: `Expected lifespan: 1.5 years`
+  - `RAM`: `Expected lifespan: 3 years`
+- No warnings or errors."
+TC-DATA-FLOW-001,Main UI requests and updates material data via Application,Data Persistence,3,- Database contains 1 material: `Material_A`.,,"1. `Main` sends `Richiedi dati` to `Applicazione`.
+2. `Applicazione` queries `Database` for materials.
+3. `Database` returns `Material_A`.
+4. `Applicazione` sends `Mostra dati` to `Main` (displays `Material_A`).
+5. `Main` user edits `Material_A.Quantity` to `45`.
+6. `Main` sends `Invia nuovi dati` to `Applicazione`.
+7. `Applicazione` updates `Database` via `update()`.
+8. `Database` confirms update.
+9. `Applicazione` sends `Conferma aggiornamento` to `Main`.","- `Material_A.Quantity` is updated to `45` in the database.
+- `Main` displays confirmation: ""Material updated successfully.""
+- No data loss or conflicts occur."
+TC-EDGE-CASE-001,Empty or invalid material input during creation,Material Management,1,- Admin is logged in.,"- Name: (empty)
+- Description: `Invalid "" character`
+- Price: `-100.00`
+- Quantity: `abc`
+- Carbon footprint: `negative_5.0`","1. Admin submits form with invalid data.
+2. Application validates each field:
+   - Name: Required field.
+   - Description: Contains invalid character.
+   - Price: Must be positive.
+   - Quantity: Must be numeric.
+   - Carbon footprint: Must be numeric.","- System displays errors for each invalid field:
+  - ""Name is required.""
+  - ""Description contains invalid characters.""
+  - ""Price must be positive.""
+  - ""Quantity must be a number.""
+  - ""Carbon footprint must be a positive number.""
+- No record is created in the database."
+TC-EDGE-CASE-002,Database connection failure during material update,Data Persistence,3,- Database server is temporarily unavailable.,,"1. `Main` sends updated material data to `Applicazione`.
+2. `Applicazione` attempts to call `Database.update()`.
+3. Database connection times out.","- `Applicazione` retries the operation (e.g., 3 times with 2-second intervals).
+- After retries fail, `Applicazione` logs the error and displays to `Main`:
+  - ""Failed to update material. Please try again later.""
+- No partial updates occur (atomicity implied)."
+TC-ADMIN-VS-NONADMIN-001,Admin vs. non-admin access control for materials,Access Control,1,"- Admin user `admin_user` exists.
+- Non-admin user `john_doe` exists.
+- Shared material `Shared_Mat` exists (assigned to both).
+- Admin-only material `Admin_Mat` exists.",,"1. `admin_user` logs in.
+2. `admin_user` navigates to ""All Materials"".
+3. `admin_user` sees both `Shared_Mat` and `Admin_Mat`.
+4. `john_doe` logs in.
+5. `john_doe` navigates to ""My Materials"".
+6. `john_doe` sees only `Shared_Mat`.","- Admin has full visibility and edit/delete rights for all materials.
+- Non-admin sees only materials assigned to their `username` (per Page 1).
+- UI reflects appropriate access levels (e.g., ""Edit"" button hidden for non-admins)."

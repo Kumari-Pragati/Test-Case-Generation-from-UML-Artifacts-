@@ -1,0 +1,152 @@
+REPORT: Report_30_uml_pages.pdf
+======================================================================
+
+===== Report_30_uml_pages.pdf | Page 1 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Homepage** — kind=page; attributes=[si, no]; operations=[Click impostazioni, Apertura pagina impostazioni, Click sul luogo, Apertura pagina luogo dettagliata, Click Pathfinder, Apertura pagina Pathfinder, Swipe verso fatto]; role=main page
+*   **Visualizzazione nuovo luogo** — kind=page; attributes=[si, no]; operations=[Visualizzazione nuovo luogo]; role=new place visualization
+*   **Click impostazioni** — kind=button; attributes=[si, no]; operations=[Click impostazioni]; role=configuration button
+*   **Apertura pagina impostazioni** — kind=page; attributes=[si, no]; operations=[Apertura pagina impostazioni]; role=configuration page
+*   **Click sul luogo** — kind=button; attributes=[si, no]; operations=[Click sul luogo]; role=click on place
+*   **Apertura pagina luogo dettagliata** — kind=page; attributes=[si, no]; operations=[Apertura pagina luogo dettagliata]; role=place detailed page
+*   **Click Pathfinder** — kind=button; attributes=[si, no]; operations=[Click Pathfinder]; role=Pathfinder button
+*   **Apertura pagina Pathfinder** — kind=page; attributes=[si, no]; operations=[Apertura pagina Pathfinder]; role=Pathfinder page
+*   **Swipe verso fatto** — kind=button; attributes=[si, no]; operations=[Swipe verso fatto]; role=swipe done
+
+**Actors / Lifelines:**
+
+*   - None
+
+**Relationships / Links:**
+
+*   **Homepage** -> **Click impostazioni** — type=link; label="no"; explanation="click on the configuration button"
+*   **Click impostazioni** -> **Apertura pagina impostazioni** — type=link; label="si"; explanation="open the configuration page"
+*   **Apertura pagina impostazioni** -> **Visualizzazione nuovo luogo** — type=link; label="no"; explanation="new place visualization"
+*   **Visualizzazione nuovo luogo** -> **Click sul luogo** — type=link; label="si"; explanation="click on the place"
+*   **Click sul luogo** -> **Apertura pagina luogo dettagliata** — type=link; label="si"; explanation="open the place detailed page"
+*   **Apertura pagina luogo dettagliata** -> **Click Pathfinder** — type=link; label="no"; explanation="click on the Pathfinder"
+*   **Click Pathfinder** -> **Apertura pagina Pathfinder** — type=link; label="si"; explanation="open the Pathfinder page"
+*   **Apertura pagina Pathfinder** -> **Swipe verso fatto** — type=link; label="no"; explanation="swipe done"
+
+**Main Flows:**
+
+*   **Flow 1:** Homepage -> Click impostazioni -> Apertura pagina impostazioni -> Visualizzazione nuovo luogo -> Click sul luogo -> Apertura pagina luogo dettagliata -> Click Pathfinder -> Apertura pagina Pathfinder -> Swipe verso fatto
+
+**Conditions / Branches:**
+
+*   **Click impostazioni** -> **Apertura pagina impostazioni** — no
+*   **Click sul luogo** -> **Apertura pagina luogo dettagliata** — si
+*   **Click Pathfinder** -> **Apertura pagina Pathfinder** — si
+
+**Loops / Repetitions:**
+
+*   - None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a sequence of actions starting from the homepage, where the user can click on the configuration button to open the configuration page, then visualize a new place, click on it, open the place detailed page, click on the Pathfinder, open the Pathfinder page, and finally swipe to confirm.
+*   The user can choose to click on the configuration button or the place, and the system will respond accordingly.
+*   The user can also choose to click on the Pathfinder or the place detailed page, and the system will respond accordingly.
+*   The user can also choose to swipe to confirm or not, and the system will respond accordingly.
+
+===== Report_30_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Pagina dettagliata - kind=page; attributes=[no]; operations=[Click "Navigate", Click "Open in Browser", Click "Call Business", Click "Indietro", Click "Like/Dislike"]; role=page
+* Apertura mappa di sistema - kind=system; attributes=[no]; operations=[Apertura sito Yelp sul browser]; role=system
+* Apertura sito Yelp sul browser - kind=website; attributes=[no]; operations=[Avvio chiamata al business]; role=website
+* Avvio chiamata al business - kind=call; attributes=[no]; operations=[Ritorno ad Homepage]; role=call
+* Ritorno ad Homepage - kind=homepage; attributes=[no]; operations=[Modifica preferenze]; role=homepage
+* Modifica preferenze - kind=preferences; attributes=[no]; operations=[no]; role=preferences
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Pagina dettagliata -> Apertura mappa di sistema - type=transition; label="si"; explanation="open system map"
+* Apertura mappa di sistema -> Apertura sito Yelp sul browser - type=transition; label="si"; explanation="open Yelp site on browser"
+* Apertura sito Yelp sul browser -> Avvio chiamata al business - type=transition; label="si"; explanation="start call to business"
+* Avvio chiamata al business -> Ritorno ad Homepage - type=transition; label="si"; explanation="return to homepage"
+* Ritorno ad Homepage -> Modifica preferenze - type=transition; label="si"; explanation="modify preferences"
+* Modifica preferenze -> Pagina dettagliata - type=transition; label="si"; explanation="modify preferences"
+
+**Main Flows:**
+
+* Flow 1: Pagina dettagliata -> Apertura mappa di sistema -> Apertura sito Yelp sul browser -> Avvio chiamata al business -> Ritorno ad Homepage -> Modifica preferenze -> Pagina dettagliata
+
+**Conditions / Branches:**
+
+* Click "Navigate" -> no -> Click "Open in Browser" -> no -> Click "Call Business" -> no -> Click "Indietro" -> no -> Click "Like/Dislike" -> no -> Modifica preferenze
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of actions performed by a user on a webpage.
+* The main flows represent the user's navigation through the system, starting from the page and ending with the modification of preferences.
+* The conditions/branches represent the user's choices and actions, such as navigating, opening the browser, calling a business, and liking or disliking something.
+* The diagram does not show any loops or repetitions.
+
+===== Report_30_uml_pages.pdf | Page 3 =====
+**UML Type:** Activity
+
+**Components:**
+
+* Apertura pagina Pathfinder - kind=page; attributes=[none]; operations=[no]; role=page opening
+* Click "Indietro" - kind=button; attributes=[none]; operations=[no]; role=go back button
+* Visualizzazione domanda - kind=page; attributes=[none]; operations=[no]; role=question page
+* Scelta risposta - kind=button; attributes=[none]; operations=[no]; role=answer selection
+* Visualizzazione luogo suggerito - kind=page; attributes=[none]; operations=[no]; role=suggested location page
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Apertura pagina Pathfinder -> Click "Indietro" - type=transition; label="si"; explanation=go back to home page
+* Click "Indietro" -> Visualizzazione domanda - type=transition; label="no"; explanation=show demand visualization
+* Visualizzazione domanda -> Scelta risposta - type=transition; label="suggerimento disponibile"; explanation=show suggested response
+* Scelta risposta -> Visualizzazione luogo suggerito - type=transition; label="suggerimento non disponibile"; explanation=show suggested location
+
+**Main Flows:**
+
+* Flow 1: Apertura pagina Pathfinder -> Click "Indietro" -> Visualizzazione domanda -> Scelta risposta -> Visualizzazione luogo suggerito
+
+**Conditions / Branches:**
+
+* Click "Indietro" -> no -> Visualizzazione domanda
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the flow of a user navigating through a website, starting with the opening of the Pathfinder page, followed by a decision to go back to the home page or proceed to the demand visualization, and then selecting a response and viewing the suggested location.
+* The user can only proceed to the next step if the response is available, otherwise, they are shown a non-availability message.
+* The diagram does not show any loops or repeated behavior.
+
+
+======================================================================

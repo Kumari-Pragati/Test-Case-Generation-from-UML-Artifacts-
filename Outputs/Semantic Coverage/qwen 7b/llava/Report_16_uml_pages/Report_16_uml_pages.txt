@@ -1,0 +1,68 @@
+REPORT: Report_16_uml_pages.pdf
+======================================================================
+
+===== Report_16_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: string, password: string]; operations=[login(username: string, password: string): boolean, logout(): void]; role=user
+- Admin — kind=class; attributes=[username: string, password: string]; operations=[login(username: string, password: string): boolean, logout(): void]; role=admin
+- Product — kind=class; attributes=[name: string, description: string]; operations=[add(name: string, description: string): void, remove(name: string): void]; role=product
+- Cart — kind=class; attributes=[items: list<Item>]; operations=[add(item: Item): void, remove(item: Item): void]; role=cart
+- Item — kind=class; attributes=[name: string, price: float]; role=item
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=association; label="login"; explanation="User logs in to Admin system"
+- User -> Product — type=association; label="add"; explanation="User adds a product to their cart"
+- User -> Cart — type=association; label="add"; explanation="User adds an item to their cart"
+- Admin -> Product — type=association; label="add"; explanation="Admin adds a product to the system"
+- Admin -> Cart — type=association; label="add"; explanation="Admin adds an item to their cart"
+- User -> Cart — type=association; label="remove"; explanation="User removes an item from their cart"
+- Admin -> Cart — type=association; label="remove"; explanation="Admin removes an item from their cart"
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> Cart
+  - User logs in
+  - User adds a product to their cart
+  - User logs out
+
+Conditions / Branches:
+- User -> Admin — type=message; label="login"; explanation="User sends login request to Admin system"
+  - Admin -> User — type=message; label="login"; explanation="Admin sends login response to User"
+  - User -> Cart — type=message; label="add"; explanation="User sends add request to Cart"
+  - Cart -> User — type=message; label="add"; explanation="Cart sends add response to User"
+  - User -> Cart — type=message; label="remove"; explanation="User sends remove request to Cart"
+  - Cart -> User — type=message; label="remove"; explanation="Cart sends remove response to User"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a simple e-commerce system where users can log in, add products to their cart, and remove items from their cart.
+- The main flows show the interactions between the User and the Admin system, including login, adding products to the cart, and removing items from the cart.
+- The system allows for the addition and removal of items from the cart, indicating that the system supports both incremental and decremental operations.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  - List each class with its attributes and operations.
+  - In the component bullet, list all associations, aggregations, and inheritances.
+- For ACTIVITY diagrams:
+  - List each activity with its attributes and operations.
+  - In the component bullet, list all activities and operations.
+
+- For SEQUENCE diagrams:
+  - List each sequence with its attributes and operations.
+  - In the component bullet, list all activities and operations.
+
+- For OB.
+
+
+======================================================================

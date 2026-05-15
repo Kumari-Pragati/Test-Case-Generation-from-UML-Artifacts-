@@ -1,0 +1,121 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User Registration,2,None,"- Username: testuser
+- Password: testpassword","1. User opens the registration form.
+2. User enters the username ""testuser"" and password ""testpassword"".
+3. User clicks on the ""Register"" button.
+4. User Registration calls saveUserData().
+5. Users Database saves user data.",User is registered successfully and redirected to the login page.
+TC-User-002,User Login,User Login,"1,3",User is registered.,"- Username: testuser
+- Password: testpassword","1. User opens the login form.
+2. User enters the username ""testuser"" and password ""testpassword"".
+3. User clicks on the ""Login"" button.
+4. User sends a login message to the system with their username and password.
+5. System verifies the credentials.
+6. System returns true if credentials are correct.",User is logged in successfully.
+TC-User-003,User Logout,User Logout,1,User is logged in.,None,"1. User clicks on the ""Logout"" button.
+2. User sends a logout message to the system.
+3. System processes the logout request.",User is logged out successfully.
+TC-Trip-001,Create Trip,Trip Management,"1,4",User is logged in.,"- Trip Name: Vacation
+- Date: 2023-10-01
+- Category: Personal","1. User navigates to the trip creation page.
+2. User enters the trip name ""Vacation"", date ""2023-10-01"", and category ""Personal"".
+3. User clicks on the ""Create Trip"" button.
+4. System creates the trip.",Trip is created successfully.
+TC-Trip-002,Delete Trip,Trip Management,"1,4",User is logged in and has a trip.,- Trip ID: 1,"1. User navigates to the trip deletion page.
+2. User selects the trip with ID 1.
+3. User clicks on the ""Delete Trip"" button.
+4. System deletes the trip.",Trip is deleted successfully.
+TC-Plan-001,Create Plan,Plan Management,"1,4",User is logged in and has a trip.,"- Plan Name: Day 1
+- Date: 2023-10-01
+- Category: Travel","1. User navigates to the plan creation page.
+2. User enters the plan name ""Day 1"", date ""2023-10-01"", and category ""Travel"".
+3. User clicks on the ""Create Plan"" button.
+4. System creates the plan.",Plan is created successfully.
+TC-Plan-002,Delete Plan,Plan Management,"1,4",User is logged in and has a plan.,- Plan ID: 1,"1. User navigates to the plan deletion page.
+2. User selects the plan with ID 1.
+3. User clicks on the ""Delete Plan"" button.
+4. System deletes the plan.",Plan is deleted successfully.
+TC-DailyPlan-001,Create Daily Plan,Daily Plan Management,"1,4",User is logged in and has a plan.,"- User ID: 1
+- Plan ID: 1
+- Date: 2023-10-01","1. User navigates to the daily plan creation page.
+2. User selects the user with ID 1 and the plan with ID 1.
+3. User enters the date ""2023-10-01"".
+4. User clicks on the ""Create Daily Plan"" button.
+5. System creates the daily plan.",Daily plan is created successfully.
+TC-DailyPlan-002,Delete Daily Plan,Daily Plan Management,"1,4",User is logged in and has a daily plan.,- Daily Plan ID: 1,"1. User navigates to the daily plan deletion page.
+2. User selects the daily plan with ID 1.
+3. User clicks on the ""Delete Daily Plan"" button.
+4. System deletes the daily plan.",Daily plan is deleted successfully.
+TC-Profile-001,Get Profile,Profile Management,5,User is logged in.,None,"1. User navigates to the profile page.
+2. User clicks on the ""Get Profile"" button.
+3. UserProfile sends a getProfile message to the User.
+4. User retrieves the profile information.",User profile is retrieved successfully.
+TC-Profile-002,Update Profile,Profile Management,5,User is logged in.,"- New Name: John Doe
+- New Email: john.doe@example.com","1. User navigates to the profile update page.
+2. User enters the new name ""John Doe"" and new email ""john.doe@example.com"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User updates the profile information.",User profile is updated successfully.
+TC-Profile-003,Invalid Profile Update,Profile Management,5,User is logged in.,"- New Name: 12345
+- New Email: invalidemail","1. User navigates to the profile update page.
+2. User enters the new name ""12345"" and new email ""invalidemail"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to invalid input.",User profile update fails due to invalid input.
+TC-Profile-004,Delete User,User Management,5,User is logged in.,- User ID: 1,"1. User navigates to the user deletion page.
+2. User selects the user with ID 1.
+3. User clicks on the ""Delete User"" button.
+4. UsersDatabase deletes the user.",User is deleted successfully.
+TC-Profile-005,Invalid User Deletion,User Management,5,User is logged in.,- User ID: 99999,"1. User navigates to the user deletion page.
+2. User selects the user with ID 99999.
+3. User clicks on the ""Delete User"" button.
+4. UsersDatabase returns an error message due to non-existent user.",User deletion fails due to non-existent user.
+TC-Profile-006,User Profile Retrieval Failure,Profile Management,5,User is logged in.,None,"1. User navigates to the profile page.
+2. User clicks on the ""Get Profile"" button.
+3. UserProfile sends a getProfile message to the User.
+4. User receives an error message due to failure in retrieving profile.",User profile retrieval fails.
+TC-Profile-007,User Profile Update Failure,Profile Management,5,User is logged in.,"- New Name: John Doe
+- New Email: john.doe@example.com","1. User navigates to the profile update page.
+2. User enters the new name ""John Doe"" and new email ""john.doe@example.com"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to failure in updating profile.",User profile update fails.
+TC-Profile-008,User Profile Update with Empty Fields,Profile Management,5,User is logged in.,"- New Name: 
+- New Email:","1. User navigates to the profile update page.
+2. User leaves the new name and new email fields empty.
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to empty fields.",User profile update fails due to empty fields.
+TC-Profile-009,User Profile Update with Invalid Email,Profile Management,5,User is logged in.,"- New Name: John Doe
+- New Email: john.doe@example","1. User navigates to the profile update page.
+2. User enters the new name ""John Doe"" and new email ""john.doe@example"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to invalid email format.",User profile update fails due to invalid email format.
+TC-Profile-010,User Profile Update with Invalid Name,Profile Management,5,User is logged in.,"- New Name: 12345
+- New Email: john.doe@example.com","1. User navigates to the profile update page.
+2. User enters the new name ""12345"" and new email ""john.doe@example.com"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to invalid name format.",User profile update fails due to invalid name format.
+TC-Profile-011,User Profile Update with Invalid Password,Profile Management,5,User is logged in.,- New Password: 12345,"1. User navigates to the profile update page.
+2. User enters the new password ""12345"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to invalid password format.",User profile update fails due to invalid password format.
+TC-Profile-012,User Profile Update with Empty Password,Profile Management,5,User is logged in.,- New Password:,"1. User navigates to the profile update page.
+2. User leaves the new password field empty.
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to empty password field.",User profile update fails due to empty password field.
+TC-Profile-013,User Profile Update with Empty Username,Profile Management,5,User is logged in.,- New Username:,"1. User navigates to the profile update page.
+2. User leaves the new username field empty.
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to empty username field.",User profile update fails due to empty username field.
+TC-Profile-014,User Profile Update with Invalid Username,Profile Management,5,User is logged in.,- New Username: 12345,"1. User navigates to the profile update page.
+2. User enters the new username ""12345"".
+3. User clicks on the ""Update Profile"" button.
+4. UserProfile sends an updateProfile message to the User.
+5. User receives an error message due to invalid username format.",User profile update fails due to invalid username format.
+TC-Profile-015,User Profile Update with Empty Password and Invalid,,,,,,

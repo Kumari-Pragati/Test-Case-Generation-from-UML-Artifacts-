@@ -1,0 +1,150 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Login,"2,3",User has valid credentials.,"- Username: testuser
+- Password: testpassword","1. Enter username ""testuser"" and password ""testpassword"".
+2. Click ""Login"".
+3. Verify that the user is redirected to the home page.",User is successfully logged in and redirected to the home page.
+TC-Login-002,Invalid Login,Login,"2,3",User has invalid credentials.,"- Username: testuser
+- Password: wrongpassword","1. Enter username ""testuser"" and password ""wrongpassword"".
+2. Click ""Login"".
+3. Verify that the user is prompted to enter valid credentials.",User is shown an error message and remains on the login page.
+TC-Login-003,Empty Credentials,Login,"2,3",User enters empty fields.,"- Username: 
+- Password:","1. Leave both fields empty.
+2. Click ""Login"".
+3. Verify that the user is prompted to enter valid credentials.",User is shown an error message and remains on the login page.
+TC-Compito-001,Create Compito,Compito,"4,6",Coordinator is authenticated.,"- Compito name: New Task
+- Description: Description of the task
+- Region: Region
+- Province: Province
+- City: City
+- Active: True","1. Click ""Inserisci emergenza"".
+2. Verify that the coordinator is authenticated.
+3. Enter the compito details.
+4. Click ""Crea emergenza"".
+5. Verify that the compito is created successfully.",Compito is created and displayed in the system.
+TC-Compito-002,Create Compito with Missing Details,Compito,"4,6",Coordinator is authenticated.,"- Compito name: 
+- Description: 
+- Region: 
+- Province: 
+- City: 
+- Active: True","1. Click ""Inserisci emergenza"".
+2. Verify that the coordinator is authenticated.
+3. Enter incomplete compito details.
+4. Click ""Crea emergenza"".
+5. Verify that the system prompts for missing details.",System shows an error message and prompts for missing details.
+TC-Emergenza-001,View Emergenza,Emergenza,"5,8",Coordinator is authenticated.,- Emergenza ID: 1,"1. Click ""Visualizza emergenza"".
+2. Verify that the coordinator is authenticated.
+3. Select the emergenza.
+4. Verify that the emergenza details are displayed.",Emergenza details are displayed.
+TC-Emergenza-002,View Emergenza with Unauthenticated Coordinator,Emergenza,"5,8",Coordinator is unauthenticated.,- Emergenza ID: 1,"1. Click ""Visualizza emergenza"".
+2. Verify that the coordinator is unauthenticated.
+3. Verify that the system shows an error message.",System shows an error message and redirects to the login page.
+TC-Emergenza-003,Terminate Emergenza,Emergenza,8,Coordinator is authenticated.,- Emergenza ID: 1,"1. Click ""Termina emergenza"".
+2. Verify that the coordinator is authenticated.
+3. Enter the emergenza ID.
+4. Verify that the emergenza is terminated.
+5. Verify that the system displays the number of terminated emergencies.",Emergenza is terminated and the system displays the number of terminated emergencies.
+TC-Emergenza-004,Terminate Emergenza with Invalid ID,Emergenza,8,Coordinator is authenticated.,- Emergenza ID: 999,"1. Click ""Termina emergenza"".
+2. Verify that the coordinator is authenticated.
+3. Enter an invalid emergenza ID.
+4. Verify that the system shows an error message.",System shows an error message and prompts for a valid emergenza ID.
+TC-Utente-001,Register New User,Utente,3,User is not registered.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: newpassword
+- Name: John
+- Surname: Doe
+- Cellphone: 1234567890
+- Email: john.doe@example.com
+- Region: Region
+- Province: Province
+- City: City","1. Click ""Register"".
+2. Enter all required user details.
+3. Confirm the password.
+4. Click ""Register"".
+5. Verify that the user is registered successfully.",User is registered and can log in.
+TC-Utente-002,Register User with Mismatched Passwords,Utente,3,User is not registered.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: wrongpassword
+- Name: John
+- Surname: Doe
+- Cellphone: 1234567890
+- Email: john.doe@example.com
+- Region: Region
+- Province: Province
+- City: City","1. Click ""Register"".
+2. Enter all required user details.
+3. Confirm the password with a mismatch.
+4. Click ""Register"".
+5. Verify that the system shows an error message.",System shows an error message and prompts for matching passwords.
+TC-Utente-003,Register User with Empty Fields,Utente,3,User is not registered.,"- Username: 
+- Password: 
+- Confirm Password: 
+- Name: 
+- Surname: 
+- Cellphone: 
+- Email: 
+- Region: 
+- Province: 
+- City:","1. Click ""Register"".
+2. Leave all fields empty.
+3. Click ""Register"".
+4. Verify that the system shows an error message.",System shows an error message and prompts for all required fields.
+TC-Appartiene-a-001,Assign User to Compito,Appartiene a,"1,5",User is authenticated and compito exists.,"- Compito ID: 1
+- User ID: 1","1. Click ""Assign User to Compito"".
+2. Verify that the user is authenticated.
+3. Select the compito and user.
+4. Click ""Assign"".
+5. Verify that the user is assigned to the compito.",User is successfully assigned to the compito.
+TC-Appartiene-a-002,Assign User to Non-Existent Compito,Appartiene a,"1,5",User is authenticated.,"- Compito ID: 999
+- User ID: 1","1. Click ""Assign User to Compito"".
+2. Verify that the user is authenticated.
+3. Enter a non-existent compito ID.
+4. Click ""Assign"".
+5. Verify that the system shows an error message.",System shows an error message and prompts for a valid compito ID.
+TC-Risguarda-001,View User's Risguarda,Risguarda,"1,5",User is authenticated.,- User ID: 1,"1. Click ""View User's Risguarda"".
+2. Verify that the user is authenticated.
+3. Select the user.
+4. Verify that the user's risguarda is displayed.",User's risguarda is displayed.
+TC-Svolto-da-001,Mark Task as Completed,Svolto da,"1,5",User is authenticated and compito exists.,"- Compito ID: 1
+- User ID: 1","1. Click ""Mark Task as Completed"".
+2. Verify that the user is authenticated.
+3. Select the compito and user.
+4. Click ""Complete"".
+5. Verify that the compito is marked as completed.",Compito is marked as completed.
+TC-Svolto-da-002,Mark Non-Existent Task as Completed,Svolto da,"1,5",User is authenticated.,"- Compito ID: 999
+- User ID: 1","1. Click ""Mark Task as Completed"".
+2. Verify that the user is authenticated.
+3. Enter a non-existent compito ID.
+4. Click ""Complete"".
+5. Verify that the system shows an error message.",System shows an error message and prompts for a valid compito ID.
+TC-Coordinate-001,View User's Coordinates,Coordinate,"1,5",User is authenticated.,- User ID: 1,"1. Click ""View User's Coordinates"".
+2. Verify that the user is authenticated.
+3. Select the user.
+4. Verify that the user's coordinates are displayed.",User's coordinates are displayed.
+TC-Logout-001,Logout User,Logout,"2,3",User is authenticated.,- No specific data required.,"1. Click ""Logout"".
+2. Verify that the user is logged out.
+3. Verify that the user is redirected to the login page.",User is logged out and redirected to the login page.
+TC-Delete-Compito-001,Delete Compito,Compito,"1,6",User is authenticated and compito exists.,- Compito ID: 1,"1. Click ""Delete Compito"".
+2. Verify that the user is authenticated.
+3. Select the compito.
+4. Click ""Delete"".
+5. Verify that the compito is deleted.",Compito is deleted.
+TC-Delete-Compito-002,Delete Non-Existent Compito,Compito,"1,6",User is authenticated.,- Compito ID: 999,"1. Click ""Delete Compito"".
+2. Verify that the user is authenticated.
+3. Enter a non-existent compito ID.
+4. Click ""Delete"".
+5. Verify that the system shows an error message.",System shows an error message and prompts for a valid compito ID.
+TC-Delete-Emergenza-001,Delete Emergenza,Emergenza,"1,8",User is authenticated and emergenza exists.,- Emergenza ID: 1,"1. Click ""Delete Emergenza"".
+2. Verify that the user is authenticated.
+3. Select the emergenza.
+4. Click ""Delete"".
+5. Verify that the emergenza is deleted.",Emergenza is deleted.
+TC-Delete-Emergenza-002,Delete Non-Existent Emergenza,Emergenza,"1,8",User is authenticated.,- Emergenza ID: 999,"1. Click ""Delete Emergenza"".
+2. Verify that the user is authenticated.
+3. Enter a non-existent emergenza ID.
+4. Click ""Delete"".
+5. Verify that the system shows an error message.",System shows an error message and prompts for a valid emergenza ID.
+TC-Delete-Utente-001,Delete User,Utente,"1,3",User is authenticated and user exists.,- User ID: 1,"1. Click ""Delete User"".
+2. Verify that the user is authenticated.
+3. Select the user.
+4. Click ""Delete"".
+5. Verify that the",

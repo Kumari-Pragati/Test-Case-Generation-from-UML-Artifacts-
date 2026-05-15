@@ -1,0 +1,104 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-AUTHENTICATION-001,Successful user creation and localization verification,User Onboarding,"2, 6","- System is running; database is empty or contains no users.
+- Valid credentials (email, password) are provided.","- Email: `test.user@example.com`
+- Password: `SecurePass123!`
+- Neighborhood: `NYC123` (valid Google code)","1. User initiates registration via `UserCreateProcedure`.
+2. System validates credentials and checks if user exists in `StoredDataDB`.
+3. System confirms user does not exist and creates a new entry.
+4. User completes localization verification (`VerifyLocalizationProcedure`).
+5. System confirms successful localization.","- User is created in `StoredDataDB` with attributes: `id`, `name`, `surname`, `email`, `neighborhood`.
+- User is redirected to `HOME` page.
+- `ChatList` and `Neighborhood` associations are initialized for the user."
+TC-USER-AUTHENTICATION-002,Failed user creation due to invalid credentials,User Onboarding,"2, 6","- System is running.
+- Invalid credentials (e.g., existing email, weak password) are provided.","- Email: `existing.user@example.com` (already registered)
+- Password: `weak` (fails complexity rules)","1. User initiates registration with invalid credentials.
+2. System validates credentials and checks `StoredDataDB`.
+3. System detects duplicate email or weak password.
+4. User is prompted to correct input.","- User is **not** created in `StoredDataDB`.
+- Error message: *""Email already exists""* or *""Password too weak""*.
+- System loops back to `UserCreateProcedure` for retry."
+TC-USER-AUTHENTICATION-003,Successful authentication for existing user,User Onboarding,2,- User `test.user@example.com` exists in `StoredDataDB`.,"- Email: `test.user@example.com`
+- Password: `SecurePass123!`","1. User skips registration and proceeds to `AuthenticationProcedure`.
+2. System validates credentials against `StoredDataDB`.
+3. Credentials are confirmed valid.","- User is authenticated and redirected to `HOME` page.
+- `ChatList` and `Neighborhood` associations are loaded."
+TC-USER-AUTHENTICATION-004,Failed authentication with invalid credentials,User Onboarding,2,- User exists in `StoredDataDB`.,"- Email: `test.user@example.com`
+- Password: `WrongPass123!`","1. User attempts authentication with incorrect password.
+2. System validates credentials and rejects them.
+3. User is prompted to retry.","- Authentication fails.
+- Error message: *""Invalid email or password""*.
+- System loops back to `AuthenticationProcedure`."
+TC-USER-AUTHENTICATION-005,Localization verification failure,User Onboarding,2,"- User is successfully created.
+- Invalid neighborhood code is provided.",- Neighborhood: `INVALID123` (non-existent Google code),"1. User completes registration and proceeds to `VerifyLocalizationProcedure`.
+2. System validates neighborhood code against `Neighborhood` class.
+3. Code is rejected as invalid.","- Localization verification fails.
+- Error message: *""Invalid neighborhood code""*.
+- System loops back to `VerifyLocalizationProcedure` for retry."
+TC-NAVIGATION-001,Navigate from HOME to Profile via profile photo click,UI Navigation,3,- User is authenticated and on `HOME` page.,,"1. User clicks on their profile photo.
+2. System transitions to `Profile` action.","- User profile page loads with attributes: `name`, `surname`, `email`, `neighborhood`.
+- `ChatList` and `Post` associations (if any) are visible."
+TC-NAVIGATION-002,Navigate from HOME to NotificationSection via notification icon,UI Navigation,3,"- User is authenticated and on `HOME` page.
+- User has unread notifications.",,"1. User clicks the notification icon.
+2. System transitions to `NotificationSection`.","- Notification list loads with recent alerts (e.g., new comments, messages).
+- Option to return to `HOME` is available."
+TC-NAVIGATION-003,Navigate from HOME to ChatSection via menu interaction,UI Navigation,3,"- User is authenticated and on `HOME` page.
+- User has active chats in `ChatList`.",,"1. User interacts with the menu (e.g., swipes or taps).
+2. System shows `Clicked icon access profile personale` → `ChatSection`.","- Chat list loads with conversations from `ChatList`.
+- Option to return to `HOME` or `Profile` is available."
+TC-POST-COMMENT-001,Successful post creation and comment addition,Post Interaction,"1, 4","- User is authenticated and on `GeneralDashboard`.
+- User has selected a `Section` with posts.","- Post content: `""Neighborhood meeting tomorrow!""`
+- Comment content: `""See you there!""`","1. User scrolls to a post and clicks it (`Clicked specific post`).
+2. System loads comments (`Attendi caricamento relativi commenti`).
+3. User clicks ""Aggiungi un commento"" (`LeaveComment`).
+4. User submits comment.
+5. System saves comment (`Attendi salvataggio`).","- New `PostComment` is created with:
+  - `id`, `content`, `creationDate`, `lastUpdateDate`, `hashcode`.
+  - Association to the `Post` is established.
+- Comment appears in the full-screen post view (`FullScreenPost`).
+- `Post.lastUpdateDate` is updated."
+TC-POST-COMMENT-002,Failed comment submission with empty content,Post Interaction,4,- User is on `FullScreenPost` page.,"- Comment content: `""""` (empty string)","1. User attempts to submit an empty comment.
+2. System validates input.","- Comment is **not** saved.
+- Error message: *""Comment cannot be empty""*.
+- User remains on `FullScreenPost` with comment field highlighted."
+TC-BUSINESS-FEATURES-001,Business user views unsold items,Business Profile,5,"- User is a `BusinessUser` (inherits from `User`).
+- User searches for a business profile.",,"1. User selects a `BusinessProfile` from `ItemResultSearch`.
+2. System prompts: *""Visualizza venduto?""* (View unsold items?).
+3. User selects **Yes**.","- System transitions to `ViewUnSold`.
+- List of unsold items (e.g., products/services) is displayed."
+TC-BUSINESS-FEATURES-002,Business user books an appointment,Business Profile,5,"- User is a `BusinessUser`.
+- User searches for a business profile.",,"1. User selects a `BusinessProfile`.
+2. System prompts: *""Prenota appuntamento?""* (Book appointment?).
+3. User selects **Yes** and proceeds to `Calendar`.
+4. User selects a time slot.
+5. System saves appointment (`Attendi operazione di scrittura sul db`).","- Appointment is recorded in the database.
+- Confirmation message: *""Appuntamento prenotato con successo""* appears.
+- User is redirected to `GeneralDashboard`."
+TC-BUSINESS-FEATURES-003,Resident adds business to contacts,Contact Management,5,"- User is a `User` (not `BusinessUser`).
+- User searches for a business profile.",,"1. User selects a `BusinessProfile`.
+2. System prompts: *""Aggiungi ai contatti?""* (Add to contacts?).
+3. User selects **Yes**.","- Business is added to user’s `ChatList`.
+- System transitions to `Chat` interface with the business.
+- Notification: *""Contatto aggiunto""* appears."
+TC-DATA-INTEGRITY-001,Verify `PostComment` association with `Post`,Data Model,1,"- A `Post` exists with `id = 101`.
+- A `PostComment` is created for this post.",,"1. Query `PostComment` with `id` of the comment.
+2. Verify `PostComment` has a valid `Post` association (e.g., `Post.id = 101`).","- `PostComment` correctly references the `Post` via association.
+- `Post.lastUpdateDate` matches the comment’s `creationDate` (if it was the last update)."
+TC-DATA-INTEGRITY-002,Verify `BusinessUser` inheritance from `User`,Data Model,1,- A `BusinessUser` exists with `id = 201`.,,"1. Query `BusinessUser` with `id = 201`.
+2. Verify it inherits all `User` attributes (`id`, `name`, `surname`, `email`, `neighborhood`).
+3. Verify additional `BusinessUser` attributes (`photo`, `companyName`, `companyDescription`).","- `BusinessUser` instance contains all `User` fields + business-specific fields.
+- No conflicts in attribute overrides."
+TC-EDGE-CASE-001,User creation with maximum attribute length,User Onboarding,"1, 2","- System allows:
+  - `name`: 50 chars max
+  - `email`: 100 chars max","- Name: `""A""*50` (exactly 50 chars)
+- Email: `""valid.email.with.long.subdomain@example.com""` (99 chars)","1. User submits registration with max-length attributes.
+2. System validates and creates user.","- User is created successfully.
+- No truncation or errors occur.
+- Attributes are stored as-is in `StoredDataDB`."
+TC-EDGE-CASE-002,Post with empty content,Post Interaction,"1, 4",- User is on `GeneralDashboard`.,"- Post content: `""""` (empty string)","1. User attempts to create a post with empty content.
+2. System validates input.","- Post is **not** created.
+- Error message: *""Post content cannot be empty""*.
+- User remains on `GeneralDashboard`."
+TC-EDGE-CASE-003,Neighborhood with invalid Google code format,Localization,"1, 2",- User is completing registration.,- Neighborhood: `NYC` (invalid format; requires `NYC123` style),"1. User submits invalid neighborhood code.
+2. System validates format.","- Localization verification fails.
+- Error message: *""Invalid neighborhood code format. Use format: [CODE123]""*.
+- User is prompted to retry."

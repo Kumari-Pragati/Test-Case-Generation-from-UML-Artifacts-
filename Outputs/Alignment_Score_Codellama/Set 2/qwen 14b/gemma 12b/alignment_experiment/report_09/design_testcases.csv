@@ -1,0 +1,126 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User login with valid credentials,Login,"2, 3, 6",User account exists and is active,"- Email: test@example.com
+- Password: P@ssw0rd","1. Navigate to the login page.
+2. Enter valid email and password.
+3. Click the login button.","- User is redirected to the home page.
+- Authentication token is generated and stored."
+TC-Login-002,User login with invalid credentials,Login,"2, 3, 6",User account exists but with incorrect password,"- Email: test@example.com
+- Password: wrongpassword","1. Navigate to the login page.
+2. Enter invalid email and password.
+3. Click the login button.","- Error message is displayed indicating incorrect credentials.
+- User remains on the login page."
+TC-Registration-001,User registration with valid data,Registration,3,User does not exist in the system,"- Name: John Doe
+- Email: john.doe@example.com
+- Password: P@ssw0rd
+- Confirm Password: P@ssw0rd","1. Navigate to the registration page.
+2. Fill in all required fields with valid data.
+3. Click the register button.","- User is redirected to the login page.
+- New user account is created in the database."
+TC-Registration-002,User registration with invalid data,Registration,3,User does not exist in the system,"- Name: John Doe
+- Email: invalidemail
+- Password: short
+- Confirm Password: differentpassword","1. Navigate to the registration page.
+2. Fill in required fields with invalid data.
+3. Click the register button.","- Error messages are displayed for each invalid field.
+- User remains on the registration page."
+TC-EmergencyCreation-001,Create a new emergency with valid data,Emergency Creation,4,Coordinator is authenticated,"- Description: Fire at location X
+- Region: Rome
+- Province: Roma
+- Start Date: 2023-10-01
+- End Date: 2023-10-05","1. Click ""Inserisci emergenza"".
+2. Enter valid emergency details.
+3. Click submit.","- Emergency is successfully created and saved in the database.
+- Confirmation message is displayed."
+TC-EmergencyCreation-002,Create a new emergency with incomplete data,Emergency Creation,4,Coordinator is authenticated,"- Description: Fire at location X
+- Region: 
+- Province: 
+- Start Date: 
+- End Date:","1. Click ""Inserisci emergenza"".
+2. Enter incomplete emergency details.
+3. Click submit.","- Error message is displayed indicating incomplete data.
+- User is prompted to fill in missing fields."
+TC-EmergencyView-001,View available emergencies,Emergency View,2,User is authenticated,- Existing emergencies in the system,"1. Click ""Visualizza emergenze"".
+2. Check if emergencies are available.",- List of available emergencies is displayed.
+TC-EmergencyView-002,View no available emergencies,Emergency View,2,No emergencies in the system,- No existing emergencies in the system,"1. Click ""Visualizza emergenze"".
+2. Check if emergencies are available.","- Message ""Nessuna emergenza"" is displayed."
+TC-TerminateEmergency-001,Terminate an existing emergency,Emergency Termination,8,User is authenticated and has permission to terminate emergencies,- Existing emergency in the system,"1. Send POST request to ""/terminaEmergenza"".
+2. Verify token.
+3. Update the database to terminate the emergency.","- Success message ""X emergenza terminata"" is received.
+- Emergency status is updated in the database."
+TC-TerminateEmergency-002,Attempt to terminate non-existent emergency,Emergency Termination,8,User is authenticated and has permission to terminate emergencies,- Non-existent emergency ID,"1. Send POST request to ""/terminaEmergenza"".
+2. Verify token.
+3. Attempt to update the database to terminate the emergency.","- Failure message ""Nessuna emergenza terminata"" is received.
+- No changes made to the database."
+TC-TaskCreation-001,Create a new task with valid data,Task Creation,7,User is authenticated,"- Description: Clean up area Y
+- Region: Milan
+- Province: Milano
+- Start Date: 2023-10-01
+- End Date: 2023-10-05","1. Send POST request to ""/nuovoCompito"".
+2. Verify token.
+3. Insert task data into the database.","- Task is successfully created and saved in the database.
+- Success message is received."
+TC-TaskCreation-002,Create a new task with invalid data,Task Creation,7,User is authenticated,"- Description: 
+- Region: 
+- Province: 
+- Start Date: 
+- End Date:","1. Send POST request to ""/nuovoCompito"".
+2. Verify token.
+3. Attempt to insert task data into the database.","- Error message is received.
+- No changes made to the database."
+TC-VolunteerRemoval-001,Remove a volunteer from a task,Volunteer Removal,5,Coordinator is authenticated and volunteer is assigned to a task,- Existing task with assigned volunteer,"1. Click ""Visualizza emergenza"".
+2. Select the task.
+3. Check if a volunteer is assigned.
+4. Remove the volunteer.","- Volunteer is successfully removed from the task.
+- Confirmation message is displayed."
+TC-VolunteerRemoval-002,Attempt to remove a non-assigned volunteer from a task,Volunteer Removal,5,Coordinator is authenticated and no volunteer is assigned to a task,- Existing task without assigned volunteer,"1. Click ""Visualizza emergenza"".
+2. Select the task.
+3. Check if a volunteer is assigned.","- Error message is displayed indicating no volunteer is assigned.
+- No changes made to the task."
+TC-TokenManagement-001,Revoke an existing token,Token Management,6,User is authenticated and has a valid token,- Valid token,"1. Send POST request to ""/login"" with valid credentials.
+2. Verify token.
+3. Revoke the token in the database.","- Token is successfully revoked.
+- Confirmation message is received."
+TC-TokenManagement-002,Attempt to revoke a non-existent token,Token Management,6,User is authenticated and has no valid token,- Invalid token,"1. Send POST request to ""/login"" with valid credentials.
+2. Verify token.
+3. Attempt to revoke the token in the database.","- Error message is received.
+- No changes made to the database."
+TC-UserTaskRelationship-001,Assign a user to a task,User-Task Relationship,1,User and task exist in the system,"- User ID: 1
+- Task ID: 1
+- Start Date: 2023-10-01
+- End Date: 2023-10-05","1. Create a new user-task relationship.
+2. Assign the user to the task.","- User-task relationship is successfully created.
+- User is assigned to the task."
+TC-UserTaskRelationship-002,Unassign a user from a task,User-Task Relationship,1,User is assigned to a task,"- User ID: 1
+- Task ID: 1","1. Terminate the user-task relationship.
+2. Unassign the user from the task.","- User-task relationship is successfully terminated.
+- User is unassigned from the task."
+TC-EmergencyUserAssociation-001,Associate a user with an emergency,Emergency-User Association,1,User and emergency exist in the system,"- User ID: 1
+- Emergency ID: 1","1. Create a new emergency-user association.
+2. Associate the user with the emergency.","- Emergency-user association is successfully created.
+- User is associated with the emergency."
+TC-EmergencyUserAssociation-002,Disassociate a user from an emergency,Emergency-User Association,1,User is associated with an emergency,"- User ID: 1
+- Emergency ID: 1","1. Terminate the emergency-user association.
+2. Disassociate the user from the emergency.","- Emergency-user association is successfully terminated.
+- User is disassociated from the emergency."
+TC-TaskAssignment-001,Assign a task to a user,Task Assignment,1,User and task exist in the system,"- User ID: 1
+- Task ID: 1
+- Start Date: 2023-10-01
+- End Date: 2023-10-05","1. Create a new task assignment.
+2. Assign the task to the user.","- Task assignment is successfully created.
+- Task is assigned to the user."
+TC-TaskAssignment-002,Unassign a task from a user,Task Assignment,1,User is assigned to a task,"- User ID: 1
+- Task ID: 1","1. Terminate the task assignment.
+2. Unassign the task from the user.","- Task assignment is successfully terminated.
+- Task is unassigned from the user."
+TC-UserDeletion-001,Delete a user account,User Deletion,1,User exists in the system,- User ID: 1,"1. Initiate user deletion process.
+2. Delete the user account from the system.","- User account is successfully deleted.
+- All related associations (tasks, emergencies, tokens) are also deleted."
+TC-UserDeletion-002,Attempt to delete a non-existent user account,User Deletion,1,User does not exist in the system,- User ID: 99999,"1. Initiate user deletion process.
+2. Attempt to delete the non-existent user account.","- Error message is received.
+- No changes made to the system."
+TC-TaskDeletion-001,Delete a task,Task Deletion,1,Task exists in the system,- Task ID: 1,"1. Initiate task deletion process.
+2. Delete the task from the system.","- Task is successfully deleted.
+- All related associations (assignments, user-task relationships) are also deleted."
+TC-TaskDeletion-002,Attempt to delete a non-existent task,Task Deletion,1,Task does not exist in the system,- Task ID: 99999,"1. Initiate task deletion process.
+2. Attempt to delete the non-existent task.
+Expected Result",

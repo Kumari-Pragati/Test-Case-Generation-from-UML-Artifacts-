@@ -1,0 +1,155 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Access-001","User logs in successfully for the first time","Access","1","User has never accessed the app before.","Valid username and password.","1. User opens the app.
+2. User is prompted to enter credentials.
+3. User enters valid username and password.
+4. Application sends credentials to the server.
+5. Server verifies credentials against the database.
+6. Server confirms valid credentials.
+7. Application compares entered credentials with those in the database.
+8. Application informs the user that the login was successful.","User is redirected to the HOME page."
+"TC-Access-002","User logs in successfully after first access","Access","1","User has accessed the app before.","Valid username and password.","1. User opens the app.
+2. User is prompted to enter credentials.
+3. User enters valid username and password.
+4. Application sends credentials to the server.
+5. Server verifies credentials against the database.
+6. Server confirms valid credentials.
+7. Application compares entered credentials with those in the database.
+8. Application informs the user that the login was successful.","User is redirected to the HOME page."
+"TC-Access-003","User fails to log in due to invalid credentials","Access","1","User has accessed the app before.","Invalid username or password.","1. User opens the app.
+2. User is prompted to enter credentials.
+3. User enters invalid username or password.
+4. Application sends credentials to the server.
+5. Server verifies credentials against the database.
+6. Server confirms invalid credentials.
+7. Application informs the user that the login failed.","User remains on the login page."
+"TC-Trip-001","User starts a trip and completes it","Trip","2,3","User is logged in and on the HOME page.","Valid trip details.","1. User is on the HOME page.
+2. User selects to start a trip.
+3. Application sends trip details to the server.
+4. Server processes the trip details and stores them in the database.
+5. Server confirms the trip has started.
+6. User completes the trip.
+7. Application sends a completion signal to the server.
+8. Server updates the trip status to completed.
+9. Application informs the user that the trip is completed.
+10. Application prompts the user to calculate emissions.","User is redirected to the TRAGITTO TERMINATO state."
+"TC-Trip-002","User skips emission calculation after completing a trip","Trip","2,3","User has completed a trip.","No input for emission calculation.","1. User is on the TRAGITTO TERMINATO state.
+2. Application prompts the user to calculate emissions.
+3. User chooses not to calculate emissions.
+4. Application returns to the HOME page.","User is redirected to the HOME page."
+"TC-Trip-003","User calculates emissions after completing a trip","Trip","2,3","User has completed a trip.","Valid emission calculation details.","1. User is on the TRAGITTO TERMINATO state.
+2. Application prompts the user to calculate emissions.
+3. User provides valid emission calculation details.
+4. Application sends emission details to the server.
+5. Server processes the emission details.
+6. Server returns the calculated emissions to the application.
+7. Application displays the calculated emissions to the user.","User sees the calculated emissions on the TRAGITTO TERMINATO state."
+"TC-Statistics-001","User views weekly report","Statistics","3","User is logged in and on the STATISTICHE page.","No specific data required.","1. User is on the STATISTICHE page.
+2. User selects to view the weekly report.
+3. Application prompts the user to confirm the report.
+4. User confirms the report.
+5. Application retrieves the weekly report from the server.
+6. Application displays the weekly report to the user.","User sees the weekly report on the REPORT SETTIMANALE page."
+"TC-Statistics-002","User changes section while viewing statistics","Statistics","3","User is logged in and on the STATISTICHE page.","No specific data required.","1. User is on the STATISTICHE page.
+2. User selects to change the section.
+3. Application prompts the user to confirm the change.
+4. User confirms the change.
+5. Application redirects the user to the MENU ORIZZONTALE page.","User is redirected to the MENU ORIZZONTALE page."
+"TC-Profile-001","User views personal data","Profile","4","User is logged in and on the PROFILLO page.","No specific data required.","1. User is on the PROFILLO page.
+2. User selects to view personal data.
+3. Application prompts the user to confirm the view.
+4. User confirms the view.
+5. Application retrieves the personal data from the server.
+6. Application displays the personal data to the user.","User sees the personal data on the PROFILLO page."
+"TC-Profile-002","User updates personal data","Profile","4","User is logged in and on the PROFILLO page.","Updated personal data.","1. User is on the PROFILLO page.
+2. User selects to update personal data.
+3. Application prompts the user to confirm the update.
+4. User confirms the update.
+5. User provides updated personal data.
+6. Application sends the updated data to the server.
+7. Server processes the updated data.
+8. Server confirms the update.
+9. Application displays the updated personal data to the user.","User sees the updated personal data on the PROFILLO page."
+"TC-Profile-003","User logs out","Profile","4","User is logged in and on the PROFILLO page.","No specific data required.","1. User is on the PROFILLO page.
+2. User selects to log out.
+3. Application prompts the user to confirm the logout.
+4. User confirms the logout.
+5. Application sends a logout request to the server.
+6. Server processes the logout request.
+7. Server confirms the logout.
+8. Application redirects the user to the HOME page.","User is redirected to the HOME page."
+"TC-Sequence-001","User logs in successfully","Authentication","5","User has never accessed the app before.","Valid username and password.","1. User opens the app.
+2. User is prompted to enter credentials.
+3. User enters valid username and password.
+4. Application sends credentials to the server.
+5. Server verifies credentials against the database.
+6. Server confirms valid credentials.
+7. Application compares entered credentials with those in the database.
+8. Application informs the user that the login was successful.","User is redirected to the HOME page."
+"TC-Sequence-002","User logs in unsuccessfully due to invalid credentials","Authentication","5","User has never accessed the app before.","Invalid username or password.","1. User opens the app.
+2. User is prompted to enter credentials.
+3. User enters invalid username or password.
+4. Application sends credentials to the server.
+5. Server verifies credentials against the database.
+6. Server confirms invalid credentials.
+7. Application informs the user that the login failed.","User remains on the login page."
+"TC-Sequence-003","User starts a trip and calculates emissions","Emission Calculation","6","User is logged in and on the HOME page.","Valid trip details and emission calculation details.","1. User is on the HOME page.
+2. User selects to start a trip.
+3. Application sends trip details to the server.
+4. Server processes the trip details and stores them in the database.
+5. Server confirms the trip has started.
+6. User completes the trip.
+7. Application sends a completion signal to the server.
+8. Server updates the trip status to completed.
+9. Application prompts the user to calculate emissions.
+10. User provides valid emission calculation details.
+11. Application sends emission details to the server.
+12. Server processes the emission details.
+13. Server returns the calculated emissions to the application.
+14. Application displays the calculated emissions to the user.","User sees the calculated emissions on the TRAGITTO TERMINATO state."
+"TC-Sequence-004","User starts a trip but skips emission calculation","Emission Calculation","6","User is logged in and on the HOME page.","Valid trip details.","1. User is on the HOME page.
+2. User selects to start a trip.
+3. Application sends trip details to the server.
+4. Server processes the trip details and stores them in the database.
+5. Server confirms the trip has started.
+6. User completes the trip.
+7. Application sends a completion signal to the server.
+8. Server updates the trip status to completed.
+9. Application prompts the user to calculate emissions.
+10. User chooses not to calculate emissions.
+11. Application returns to the HOME page.","User is redirected to the HOME page."
+"TC-Sequence-005","User starts a trip and calculates emissions with invalid data","Emission Calculation","6","User is logged in and on the HOME page.","Invalid emission calculation details.","1. User is on the HOME page.
+2. User selects to start a trip.
+3. Application sends trip details to the server.
+4. Server processes the trip details and stores them in the database.
+5. Server confirms the trip has started.
+6. User completes the trip.
+7. Application prompts the user to calculate emissions.
+8. User provides invalid emission calculation details.
+9. Application sends invalid emission details to the server.
+10. Server processes the invalid emission details.
+11. Server returns an error message to the application.
+12. Application informs the user that the emission calculation failed.","User sees an error message on the TRAGITTO TERMINATO state."
+"TC-Sequence-006","User starts a trip and calculates emissions with partial data","Emission Calculation","6","User is logged in and on the HOME page.","Partially filled emission calculation details.","1. User is on the HOME page.
+2. User selects to start a trip.
+3. Application sends trip details to the server.
+4. Server processes the trip details and stores them in the database.
+5. Server confirms the trip has started.
+6. User completes the trip.
+7. Application prompts the user to calculate emissions.
+8. User provides partially filled emission calculation details.
+9. Application sends partially filled emission details to the server.
+10. Server processes the partially filled emission details.
+11. Server returns a warning message to the application.
+12. Application informs the user that the emission calculation was partially successful.","User sees a warning message on the TRAGITTO TERMINATO state."
+"TC-Sequence-007","User starts a trip and calculates emissions with no data","Emission Calculation","6","User is logged in and on the HOME page.","No emission calculation details.","1. User is on the HOME page.
+2. User selects to start a trip.
+3. Application sends trip details to the server.
+4. Server processes the trip details and stores them in the database.
+5. Server confirms the trip has started.
+6. User completes the trip.
+7. Application prompts the user to calculate emissions.
+8. User provides no emission calculation details.
+9. Application sends no emission details to the server.
+10. Server processes the absence of emission details.
+11. Server returns a warning message to the application.
+12. Application informs the user that the emission calculation was not performed.","User sees a warning message on the TRAGITTO TERMINATO state."

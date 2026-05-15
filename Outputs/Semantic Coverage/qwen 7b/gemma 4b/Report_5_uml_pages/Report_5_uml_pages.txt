@@ -1,0 +1,222 @@
+REPORT: Report_5_uml_pages.pdf
+======================================================================
+
+===== Report_5_uml_pages.pdf | Page 1 =====
+UML Type: class
+- User — kind=class; attributes=[username: String, password: String, name: String, email: String]; operations=[setUsername(username: String), setPassword(password: String), setName(name: String), setEmail(email: String), getUsername(), getPassword(), getName(), getEmail()]; role=User
+- Trip — kind=class; attributes=[city: String, country: String, beginDate: Date, endDate: Date, author: User, id: int]; operations=[setCity(city: String), setCountry(country: String), setBeginDate(beginDate: Date), setEndDate(endDate: Date), setAuthor(author: User), setId(id: int)]; role=Trip
+- Plan — kind=class; attributes=[id: int, trip: Trip, dailyPlan: DailyPlan]; operations=[setId(id: int), setTrip(trip: Trip), setDailyPlan(dailyPlan: DailyPlan)]; role=Plan
+- DailyPlan — kind=class; attributes=[day: Date, date: Date, weather: Weather]; operations=[setDay(day: Date), setDate(date: Date), setWeather(weather: Weather)]; role=DailyPlan
+- Category — kind=class; attributes=[name: String, id: int, icon: String]; operations=[setName(name: String), setId(id: int), setIcon(icon: String), getName(), getId(), getIcon()]; role=Category
+- PlaceToVisit — kind=class; attributes=[name: String, id: int, category: Category, city: String, icon: String]; operations=[setName(name: String), setId(id: int), setCategory(category: Category), setCity(city: String), setIcon(icon: String), getName(), getId(), getCategory(), getCity(), getIcon()]; role=PlaceToVisit
+- Weather — kind=class; attributes=[id: int, high: double, low: double, icon: String, description: String]; operations=[setId(id: int), setHigh(high: double), setLow(low: double), setIcon(icon: String), setDescription(description: String), getId(), getHigh(), getLow(), getIcon(), getDescription()]; role=Weather
+
+Actors / Lifelines:
+- User
+- System
+
+Relationships / Links:
+- User -> Trip — type=association; label="creates"; explanation="A User creates a Trip."
+- Trip -> Plan — type=composition; label="contains"; explanation="A Trip contains one or more Plans."
+- Plan -> DailyPlan — type=composition; label="contains"; explanation="A Plan contains one or more DailyPlans."
+- DailyPlan -> Weather — type=association; label="references"; explanation="A DailyPlan references a Weather."
+- Trip -> Category — type=association; label="includes"; explanation="A Trip includes one or more Categories."
+- PlaceToVisit -> Category — type=association; label="belongs to"; explanation="A PlaceToVisit belongs to a Category."
+
+Main Flows (step by step):
+- User -> Creates Trip -> Trip is created -> Trip contains Plan -> Plan contains DailyPlan -> DailyPlan references Weather
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a travel planning system.
+- Users create trips, which contain plans.
+- Each plan contains daily plans, which reference weather conditions.
+- Trips can be associated with categories.
+- PlaceToVisit is associated with a category.
+
+===== Report_5_uml_pages.pdf | Page 2 =====
+UML Type: Sequence
+
+Components:
+- User — kind=actor;
+- Main — kind=actor;
+- Users Database — kind=database;
+
+Actors / Lifelines:
+- User
+- Main
+- Users Database
+
+Relationships / Links:
+- User -> Main : registerUser();
+- Main -> Users Database : verifyValidData();
+- Main -> Users Database : saveUserData();
+- Main -> User : registerUser.“ok”;
+- Main -> User : registerUser.“error”;
+- User -> Main : getData();
+
+Main Flows:
+- User -> Main : registerUser();
+- Main -> Users Database : verifyValidData();
+- Main -> Users Database : saveUserData();
+- Main -> User : registerUser.“ok”;
+
+Conditions / Branches:
+- y = verifyValidData();
+- y = true -> Main -> User : registerUser.“ok”;
+- y = false -> Main -> User : registerUser.“error”;
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the user registration process.
+- The process starts with the user calling `registerUser()`.
+- The main component validates the data and saves it to the database.
+- If the data is valid, the user receives a success message.
+- If the data is invalid, the user receives an error message.
+
+===== Report_5_uml_pages.pdf | Page 3 =====
+UML Type: Sequence
+
+Components:
+- sd User Login — kind=sequence;
+- User — role=User;
+- Main Login — role=Main Login;
+- Users Database — role=Users Database;
+
+Actors / Lifelines:
+- sd User Login
+- User
+- Main Login
+- Users Database
+
+Relationships / Links:
+- sd User Login -> User : userLogin(email, password);
+- User -> Main Login : userLogin(email, password);
+- Main Login -> Users Database : validUser(email, password);
+- Users Database -> Main Login : x = true;
+- Main Login -> sd User Login : userLogin("ok");
+- Users Database -> Main Login : userLogin("error");
+
+Main Flows (step by step):
+- sd User Login -> User : userLogin(email, password);
+- User -> Main Login : userLogin(email, password);
+- Main Login -> Users Database : validUser(email, password);
+- Users Database -> Main Login : x = true;
+- Main Login -> sd User Login : userLogin("ok");
+
+Conditions / Branches:
+- x = true
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user login process.
+- The process starts with the user providing their email and password to the system.
+- The system validates the credentials against a database.
+- If the credentials are valid, the system proceeds with a "userLogin('ok')" message.
+- If the credentials are invalid, the system returns an "userLogin('error')" message.
+
+===== Report_5_uml_pages.pdf | Page 4 =====
+UML Type: Activity
+
+Components:
+- sd Update Trip Data — kind=activity;
+- User — kind=actor;
+- Main — kind=activity;
+- Trips Database — kind=component;
+
+Actors / Lifelines:
+- User
+- Main
+- Trips Database
+
+Relationships / Links:
+- sd Update Trip Data -> Main — type=start event; label="Start"; explanation="Initiates the process";
+- Main -> User — type=message; label="updateTrip"; explanation="Calls the updateTrip function";
+- Main -> Trips Database — type=message; label="updateTripData"; explanation="Updates the trip data in the database";
+- Main -> User — type=message; label="listTrip"; explanation="Lists the trips";
+
+Main Flows (step by step):
+- Start -> Main -> User -> Main -> Trips Database -> Main -> User
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of updating trip data.
+- The user initiates the update process by calling the `updateTrip` function.
+- The `updateTrip` function updates the data in the Trips Database.
+- The user can then list the updated trips.
+
+===== Report_5_uml_pages.pdf | Page 5 =====
+UML Type: Activity
+
+Components:
+- sd — kind=activity;
+- Change User Profile — kind=activity;
+- User — kind=object;
+- Main — kind=object;
+- Users Database — kind=object;
+
+Actors / Lifelines:
+- User
+- Main
+
+Relationships / Links:
+- sd -> Change User Profile — type=initial node; label="Change User Profile"; explanation="Start activity"
+- Change User Profile -> Main — type=fork; label="getNewData"
+- Main -> Users Database — type=invoke; label="getNewData"
+- Users Database -> Main — type=return; label="x"
+- Main -> Main — type=fork; label="verifyValidData"
+- Main -> Users Database — type=invoke; label="verifyValidData(x)"
+- Users Database -> Main — type=return; label="y"
+- Main -> Main — type=fork; label="updateUserData"
+- Main -> Users Database — type=invoke; label="updateUserData(y)"
+- Users Database -> Main — type=return; label="ok"
+- Main -> Change User Profile — type=join; label="ok"
+- Main -> Change User Profile — type=fork; label="else"
+- Main -> Change User Profile — type=invoke; label="error"
+- Change User Profile -> Change User Profile — type=return; label="error"
+
+Conditions / Branches:
+- verifyValidData(x) — condition="y = true"; branch="changeProfile('ok')"
+- verifyValidData(x) — condition="y = false"; branch="changeProfile('error')"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The activity models the process of changing a user profile.
+- The process starts with the "Change User Profile" activity.
+- It involves retrieving new data, validating the data, and updating the user data in the database.
+- There are two possible outcomes: success ("ok") or error.
+- The validation step checks if the data is valid, and if not, an error is returned.
+
+
+======================================================================

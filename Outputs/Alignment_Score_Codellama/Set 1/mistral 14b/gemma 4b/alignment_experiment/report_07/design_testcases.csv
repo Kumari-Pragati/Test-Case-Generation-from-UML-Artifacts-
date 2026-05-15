@@ -1,0 +1,98 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user authentication,Authentication System,"1, 4","- Database contains a valid user with `user_id`, `email`, and `password`.
+- Network connectivity between `WebServer` and `Authentication System`.","- Valid credentials: `email=""user@example.com""`, `password=""SecurePass123!""`","1. User submits login via `WebServer`.
+2. `Authentication System` receives credentials and calls `CheckAuthenticated(currentuser)`.
+3. `CheckAuthenticated` requests user data from `DataManager` with `RequestDataUser(currentuser)`.
+4. `DataManager` validates credentials against the `Database` and returns `Success`.
+5. `CheckAuthenticated` propagates `Success` to `Main`.","- User is authenticated; `Authentication System` grants access to `UserProfile` and `DataManager`.
+- No error messages displayed."
+TC-AUTHENTICATION-002,Failed authentication with invalid credentials,Authentication System,"1, 4","- Database contains a user with `email=""user@example.com""` but password is `""WrongPass""`.","- Invalid credentials: `email=""user@example.com""`, `password=""WrongPass""`","1. User submits login via `WebServer`.
+2. `Authentication System` calls `CheckAuthenticated(currentuser)`.
+3. `CheckAuthenticated` requests data from `DataManager`.
+4. `DataManager` fails validation and returns `Error: Invalid credentials`.
+5. `CheckAuthenticated` propagates failure to `Main`.","- User sees error: *""Invalid email or password""*.
+- Access to `UserProfile` and `DataManager` is denied."
+TC-AUTHENTICATION-003,Authentication bypass attempt (negative),Authentication System,"1, 4",- No active session; user attempts to access `DataManager` directly via API.,,"1. User sends unauthenticated request to `DataManager` (e.g., `GET /api/data`).
+2. `DataManager` detects missing authentication token.
+3. `DataManager` forwards request to `Authentication System` for validation.
+4. `Authentication System` rejects request due to missing credentials.","- HTTP 401 Unauthorized response.
+- Log entry: *""Unauthorized access attempt from IP [X]""*."
+TC-USERPROFILE-001,Create a new user with valid data,UserProfile Management,"1, 3",- `Database` is accessible; no duplicate `email`.,"- New user: `id=""U1001""`, `nome=""Mario""`, `cognome=""Rossi""`, `dataNascita=""1990-05-15""`, `email=""mario.rossi@example.com""`, `password=""Passw0rd!""`, `ruolo=""user""`","1. `Main` calls `GetDataFromUser` (Page 3).
+2. `Local User` submits data to `Main`.
+3. `Main` sends `CheckData(data_user)` to `DataManager`.
+4. `DataManager` validates:
+   - `email` format (valid).
+   - `password` meets complexity rules (valid).
+   - No duplicate `email` in `Database`.
+5. `DataManager` returns `Success`; `Main` calls `AddUser(data_user)`.
+6. `DataManager` persists user to `Database`.","- User record created in `Database` with `user_id=""U1001""`.
+- `Authentication System` assigns default `Achievements` (empty list).
+- `Main` displays: *""User created successfully""*."
+TC-USERPROFILE-002,Create user with invalid email format,UserProfile Management,"1, 3",None,"- Invalid email: `email=""invalid.email""`","1. `Main` receives `GetDataFromUser` with invalid `email`.
+2. `DataManager` validates and rejects due to format.
+3. `DataManager` sends `Richiesta di reinserire i dati` to `Main`.
+4. `Main` prompts user to re-enter data.","- Error message: *""Invalid email format. Use format: user@example.com""*.
+- User data is **not** persisted."
+TC-USERPROFILE-003,Update user profile data,UserProfile Management,"1, 5","- Authenticated user with `user_id=""U1001""`.
+- Current `email=""mario.rossi@example.com""`.","- Updated data: `email=""mario.rossi.new@example.com""`, `ruolo=""admin""` (if allowed)","1. `Main` calls `CheckAuthenticated(currentUser)` (Page 5).
+2. `Local User` authenticates and sends `RequestData()` to `DataManager`.
+3. `DataManager` returns current user data.
+4. `Local User` submits updated data (`UpdateData(dataModified)`).
+5. `DataManager` validates:
+   - New `email` is unique.
+   - Role change is authorized (if applicable).
+6. `DataManager` updates `Database` and returns `Success`.","- `UserProfile` updated with new `email` and `ruolo`.
+- `Authentication System` reflects role change in subsequent sessions."
+TC-CONSUMPTION-001,Record valid consumption data,Consumption Tracking,"2, 6","- Authenticated user with `user_id=""U1001""`.
+- `Consumo` table is empty.","- Consumption entry: `id=""C2001""`, `tipo=""electricity""`, `quantita=50.5`, `data=""2024-05-20""`","1. `Main` calls `RequestData()` (Page 6).
+2. `Local User` submits `AddConsumo(data)` to `DataManager`.
+3. `DataManager` validates:
+   - `quantita` is numeric and > 0.
+   - `data` is not in the future.
+4. `DataManager` persists to `Database` and sends `Success` to `Local User`.
+5. `DataManager` triggers `Gioco` to `incrementaGreenPoints` (e.g., +10 points for 50.5 kWh).","- New record in `Consumo` table with `id=""C2001""`.
+- `Gioco.greenPoints` increased by 10.
+- `Report` linked to user (if applicable)."
+TC-CONSUMPTION-002,Record consumption with negative quantity (edge case),Consumption Tracking,"2, 6",Authenticated user.,- Invalid consumption: `quantita=-10.0`,"1. `Local User` submits `AddConsumo(data)` with `quantita=-10.0`.
+2. `DataManager` detects invalid value.
+3. `DataManager` rejects request and returns `Error: Invalid quantity`.","- No record created in `Consumo` table.
+- Error message: *""Quantity must be positive""*."
+TC-REPORT-001,Generate a report with consumption data,Report Generation,"2, 7","- User has 3 consumption entries (`Consumo` table).
+- `ReportHandler` is active.","- Report parameters: `period=""2024-05""`, `username=""mario.rossi""`","1. `Main` calls `checkConsumi(currentUser)` (Page 7).
+2. `Local User` verifies user has consumption data.
+3. `Local User` calls `RequestData()` to fetch consumption.
+4. `DataManager` aggregates data into a `Report`:
+   - `consumoTotale=151.0` (sum of 3 entries).
+   - `commento=""Above average for May""` (auto-generated).
+5. `ReportHandler` sends `Report` to `WebServer` for display.","- `Report` object created with:
+  - `id=""R3001""`, `period=""2024-05""`, `consumoTotale=151.0`.
+- `WebServer` displays report with suggestions (e.g., *""Reduce electricity by 10%""*).
+- `Obiettivi` (Objectives) updated if thresholds are met."
+TC-REPORT-002,Generate report with no consumption data (edge case),Report Generation,"2, 7",- User has no entries in `Consumo` table.,,"1. `Main` calls `checkConsumi(currentUser)`.
+2. `Local User` detects no consumption data.
+3. `Local User` returns `Error: No consumption data available`.","- `ReportHandler` displays: *""No data to generate report. Add consumption first.""*.
+- No `Report` object created."
+TC-REPORT-003,Update an existing report with new data,Report Generation,"2, 8","- Existing `Report` with `id=""R3001""`, `consumoTotale=151.0`.
+- New consumption entry added (`quantita=10.0`).","- Updated data: `new_data={""quantita"":10.0, ""data"":""2024-05-31""}`","1. `Local User` calls `checkConsumi(currentUser)`.
+2. `Main` sends `RequestReport(report)` to `DataManager`.
+3. `DataManager` fetches `Report` and merges `new_data`.
+4. `DataManager` recalculates:
+   - `consumoTotale=161.0`.
+   - Updates `commento` to *""Increased consumption detected""*.
+5. `DataManager` calls `UpdateReport(report, new_data)`.
+6. `Main` returns `Success`.","- `Report` updated with `consumoTotale=161.0`.
+- `WebServer` reflects changes in displayed report."
+TC-REPORT-004,Delete a report,Report Generation,"2, 9","- Existing `Report` with `id=""R3001""` linked to user.",,"1. `Main` calls `checkConsumer(currentuser)`.
+2. `Local User` verifies user has consumption data.
+3. `Local User` calls `DeleteReport(report)` on `DataManager`.
+4. `DataManager` deletes `Report` from `Database`.
+5. `DataManager` returns `Done` to `Main`.
+6. `Main` returns `Success` to `Local User`.","- `Report` with `id=""R3001""` is removed from `Database`.
+- `Achievements` linked to this report are invalidated (if any).
+- `WebServer` no longer displays the deleted report."
+TC-ACHIEVEMENTS-001,Earn an achievement for low consumption,Achievement System,"1, 2","- User has `Report` with `consumoTotale=80.0` (below threshold).
+- `Obiettivi` table has entry: `id=1`, `achievement=""Eco Hero""`, `claim=False`.",,"1. `ReportHandler` processes `Report` and detects `consumoTotale=80.0`.
+2. `ReportHandler` checks `Obiettivi` for unclaimed achievements.
+3. `NotifySystem` triggers `achievement=""Eco Hero""` for user.
+4. `UserProfile` updates `Achievements` list to include `id=1`.
+5. `Gioco` calls `incrementaGreenPoints(50)`.",

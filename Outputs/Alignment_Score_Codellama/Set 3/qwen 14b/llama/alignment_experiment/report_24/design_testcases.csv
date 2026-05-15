@@ -1,0 +1,119 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Access-001,Verify user creation process,Access,1,System is up and running,"- User credentials: username=""testuser"", password=""password123""
+- Existing user: username=""existinguser"", password=""existingpassword""","1. Navigate to the start point of the process.
+2. Check if the user ""testuser"" exists.
+3. If the user does not exist, initiate the user creation process.
+4. After successful creation, verify the user creation status.
+5. Proceed to the home page.","- User ""testuser"" is successfully created and redirected to the home page.
+- If the user already exists, the system should redirect directly to the home page without attempting to create a duplicate user."
+TC-Access-002,Verify user creation failure handling,Access,1,System is up and running,"- Invalid user credentials: username="""", password=""""","1. Navigate to the start point of the process.
+2. Check if the user with empty credentials exists.
+3. If the user does not exist, initiate the user creation process with invalid credentials.
+4. Verify the user creation fails due to invalid input.
+5. Stay on the current page and display an error message.","- User creation fails due to invalid input.
+- An appropriate error message is displayed indicating the failure."
+TC-Access-003,Verify commission and offer creation process,CommissionOfferCreation,2,User is logged in and on the home page,"- Commission details: name=""Test Commission"", description=""Test Description""
+- Offer details: name=""Test Offer"", description=""Test Description""","1. From the home page, initiate the commission creation process.
+2. Provide commission details and submit.
+3. Verify the commission creation is successful.
+4. Initiate the offer creation process.
+5. Provide offer details and submit.
+6. Verify the offer creation is successful.
+7. Return to the home page.","- Commission and offer are successfully created and displayed on the home page.
+- User is redirected back to the home page after completion."
+TC-Access-004,Verify commission and offer creation failure handling,CommissionOfferCreation,2,User is logged in and on the home page,"- Invalid commission details: name="""", description=""""
+- Invalid offer details: name="""", description=""""","1. From the home page, initiate the commission creation process.
+2. Provide invalid commission details and submit.
+3. Verify the commission creation fails due to invalid input.
+4. Display an error message.
+5. Repeat steps 1-4 for offer creation.","- Commission and offer creation fails due to invalid input.
+- Appropriate error messages are displayed indicating the failures."
+TC-MenuNavigation-001,Verify access to profile information,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""","1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. Retrieve and display the user profile information.",- User profile information is retrieved and displayed correctly.
+TC-MenuNavigation-002,Verify access to guide,MenuNavigation,3,User is logged in and on the home page,"- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the guide.
+3. Retrieve and display the guide content.",- Guide content is retrieved and displayed correctly.
+TC-MenuNavigation-003,Verify navigation flow between profile and guide,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. From the profile page, navigate to the guide.
+4. Retrieve and display the guide content.","- User profile information is displayed first.
+- Guide content is then retrieved and displayed correctly upon navigating from the profile page."
+TC-MenuNavigation-004,Verify navigation flow between guide and profile,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the guide.
+3. From the guide page, navigate to the profile.
+4. Retrieve and display the user profile information.","- Guide content is displayed first.
+- User profile information is then retrieved and displayed correctly upon navigating from the guide page."
+TC-MenuNavigation-005,Verify navigation flow without selecting any options,MenuNavigation,3,User is logged in and on the home page,None,"1. From the home page, navigate to the menu.
+2. Do not select any options.
+3. Stay on the menu page.",- User remains on the menu page without any actions taken.
+TC-MenuNavigation-006,Verify navigation flow with invalid selections,MenuNavigation,3,User is logged in and on the home page,None,"1. From the home page, navigate to the menu.
+2. Attempt to select an invalid option.
+3. Display an error message.",- An appropriate error message is displayed indicating the invalid selection.
+TC-MenuNavigation-007,Verify navigation flow with missing profile data,MenuNavigation,3,User is logged in and on the home page,- Missing user profile data,"1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. Attempt to retrieve and display the user profile information.
+4. Display an error message.",- An appropriate error message is displayed indicating missing profile data.
+TC-MenuNavigation-008,Verify navigation flow with missing guide content,MenuNavigation,3,User is logged in and on the home page,- Missing guide content,"1. From the home page, navigate to the menu.
+2. Select the option to access the guide.
+3. Attempt to retrieve and display the guide content.
+4. Display an error message.",- An appropriate error message is displayed indicating missing guide content.
+TC-MenuNavigation-009,Verify navigation flow with both profile and guide options selected,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. From the profile page, navigate to the guide.
+4. Retrieve and display the guide content.
+5. From the guide page, navigate back to the profile.
+6. Retrieve and display the user profile information.","- User profile information is displayed first.
+- Guide content is then retrieved and displayed correctly upon navigating from the profile page.
+- User profile information is then retrieved and displayed correctly upon navigating back from the guide page."
+TC-MenuNavigation-010,Verify navigation flow with both guide and profile options selected in reverse order,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the guide.
+3. From the guide page, navigate to the profile.
+4. Retrieve and display the user profile information.
+5. From the profile page, navigate back to the guide.
+6. Retrieve and display the guide content.","- Guide content is displayed first.
+- User profile information is then retrieved and displayed correctly upon navigating from the guide page.
+- Guide content is then retrieved and displayed correctly upon navigating back from the profile page."
+TC-MenuNavigation-011,Verify navigation flow with repeated selections,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. From the profile page, navigate back to the menu.
+4. Select the option to access the profile again.
+5. Retrieve and display the user profile information.",- User profile information is retrieved and displayed correctly even with repeated selections.
+TC-MenuNavigation-012,Verify navigation flow with repeated selections in reverse order,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the guide.
+3. From the guide page, navigate back to the menu.
+4. Select the option to access the guide again.
+5. Retrieve and display the guide content.",- Guide content is retrieved and displayed correctly even with repeated selections.
+TC-MenuNavigation-013,Verify navigation flow with repeated selections between profile and guide,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. From the profile page, navigate to the guide.
+4. From the guide page, navigate back to the profile.
+5. From the profile page, navigate back to the guide.
+6. Retrieve and display the guide content.","- User profile information is displayed first.
+- Guide content is then retrieved and displayed correctly upon navigating from the profile page.
+- Guide content is then retrieved and displayed correctly upon navigating back from the profile page."
+TC-MenuNavigation-014,Verify navigation flow with repeated selections between guide and profile,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the guide.
+3. From the guide page, navigate to the profile.
+4. From the profile page, navigate back to the guide.
+5. From the guide page, navigate back to the profile.
+6. Retrieve and display the user profile information.","- Guide content is displayed first.
+- User profile information is then retrieved and displayed correctly upon navigating from the guide page.
+- User profile information is then retrieved and displayed correctly upon navigating back from the guide page."
+TC-MenuNavigation-015,Verify navigation flow with repeated selections between profile and guide with invalid selections,MenuNavigation,3,User is logged in and on the home page,"- User profile data: username=""testuser"", email=""test@example.com""
+- Guide content: title=""User Guide"", content=""Welcome to the system.""","1. From the home page, navigate to the menu.
+2. Select the option to access the profile.
+3. From the profile page, navigate to the guide.
+4. Attempt to select an invalid option.
+5. Display an error message.
+6. From the guide page, navigate back to the profile.
+7. From the profile page, navigate back to the guide.
+8. Retrieve and",

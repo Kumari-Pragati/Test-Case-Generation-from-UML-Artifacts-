@@ -1,0 +1,161 @@
+REPORT: Report_30_uml_pages.pdf
+======================================================================
+
+===== Report_30_uml_pages.pdf | Page 1 =====
+UML Type:
+- sequence
+
+Components:
+- Homepage — kind=state; attributes=[]; operations=[]; role=homepage
+- Click impostazioni — kind=action; attributes=[]; operations=[]; role=click on settings
+- Apertura pagina impostazioni — kind=state; attributes=[]; operations=[]; role=settings page
+- Visualizzazione nuovo luogo — kind=action; attributes=[]; operations=[]; role=display new location
+- Click sul luogo — kind=action; attributes=[]; operations=[]; role=click on location
+- Apertura pagina luogo dettagliata — kind=state; attributes=[]; operations=[]; role=location details page
+- Click Pathfinder — kind=action; attributes=[]; operations=[]; role=click on Pathfinder
+- Apertura pagina Pathfinder — kind=state; attributes=[]; operations=[]; role=Pathfinder page
+- Swipe verso l'alto — kind=action; attributes=[]; operations=[]; role=swipe up
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Homepage -> Click impostazioni — type=transition; label="si"; explanation="click on settings"
+- Homepage -> Visualizzazione nuovo luogo — type=transition; label="si"; explanation="display new location"
+- Homepage -> Click sul luogo — type=transition; label="si"; explanation="click on location"
+- Homepage -> Click Pathfinder — type=transition; label="si"; explanation="click on Pathfinder"
+- Homepage -> Swipe verso l'alto — type=transition; label="si"; explanation="swipe up"
+- Click impostazioni -> Apertura pagina impostazioni — type=transition; label="si"; explanation="open settings page"
+- Click sul luogo -> Apertura pagina luogo dettagliata — type=transition; label="si"; explanation="open location details page"
+- Click Pathfinder -> Apertura pagina Pathfinder — type=transition; label="si"; explanation="open Pathfinder page"
+
+Main Flows (step by step):
+- Flow 1: Homepage -> Click impostazioni -> Apertura pagina impostazioni
+- Flow 2: Homepage -> Visualizzazione nuovo luogo
+- Flow 3: Homepage -> Click sul luogo -> Apertura pagina luogo dettagliata
+- Flow 4: Homepage -> Click Pathfinder -> Apertura pagina Pathfinder
+
+Conditions / Branches:
+- Click impostazioni: si -> Apertura pagina impostazioni; no -> -
+- Click sul luogo: si -> Apertura pagina luogo dettagliata; no -> -
+- Click Pathfinder: si -> Apertura pagina Pathfinder; no -> -
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram illustrates different scenarios that can occur during the application's usage, including homepage, detailed page, and settings.
+
+Observations:
+- The diagram models user interactions with the application's homepage, allowing navigation to settings, location details, and Pathfinder pages.
+- Users can also swipe up to return to the homepage.
+- Decisions are made based on user actions, leading to specific pages or settings.
+- The diagram covers multiple user paths, ensuring comprehensive coverage for testing.
+
+===== Report_30_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Pagina dettagliata — kind=activity; role=starting point
+- Click "Navigate" — kind=action; role=click action
+- Apertura mappa di sistema — kind=action; role=system map opening
+- Click "Open in Browser" — kind=action; role=browser opening action
+- Apertura sito Yelp sul browser — kind=action; role=Yelp site opening
+- Click "Call Business" — kind=action; role=call business action
+- Avvio chiamata al business — kind=action; role=call initiation
+- Click "Indietro" — kind=action; role=back action
+- Ritorno ad Homepage — kind=action; role=home page return
+- Click "Like/Dislike" — kind=action; role=like/dislike click
+- Modifica preferenze — kind=action; role=preferences modification
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Pagina dettagliata -> Click "Navigate" — type=transition; label="si"; explanation="navigate action"
+- Click "Navigate" -> Apertura mappa di sistema — type=transition; label="si"; explanation="system map opening"
+- Click "Navigate" -> Click "Open in Browser" — type=transition; label="no"; explanation="open in browser option"
+- Click "Open in Browser" -> Apertura sito Yelp sul browser — type=transition; label="si"; explanation="browser opening action"
+- Click "Open in Browser" -> Click "Call Business" — type=transition; label="no"; explanation="call business option"
+- Click "Call Business" -> Avvio chiamata al business — type=transition; label="si"; explanation="call initiation"
+- Click "Call Business" -> Click "Indietro" — type=transition; label="no"; explanation="back action"
+- Click "Indietro" -> Ritorno ad Homepage — type=transition; label="si"; explanation="home page return"
+- Click "Indietro" -> Click "Like/Dislike" — type=transition; label="no"; explanation="like/dislike click"
+- Click "Like/Dislike" -> Modifica preferenze — type=transition; label="si"; explanation="preferences modification"
+
+Main Flows (step by step):
+- Flow 1: Pagina dettagliata -> Click "Navigate" -> Apertura mappa di sistema
+- Flow 2: Pagina dettagliata -> Click "Navigate" -> Click "Open in Browser" -> Apertura sito Yelp sul browser
+- Flow 3: Pagina dettagliata -> Click "Navigate" -> Click "Call Business" -> Avvio chiamata al business
+- Flow 4: Pagina dettagliata -> Click "Navigate" -> Click "Indietro" -> Ritorno ad Homepage
+- Flow 5: Pagina dettagliata -> Click "Navigate" -> Click "Indietro" -> Click "Like/Dislike" -> Modifica preferenze
+
+Conditions / Branches:
+- Click "Navigate" -> Apertura mappa di sistema (si)
+- Click "Navigate" -> Click "Open in Browser" (no)
+- Click "Open in Browser" -> Apertura sito Yelp sul browser (si)
+- Click "Open in Browser" -> Click "Call Business" (no)
+- Click "Call Business" -> Avvio chiamata al business (si)
+- Click "Call Business" -> Click "Indietro" (no)
+- Click "Indietro" -> Ritorno ad Homepage (si)
+- Click "Indietro" -> Click "Like/Dislike" (no)
+- Click "Like/Dislike" -> Modifica preferenze (si)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Ingegneria del Software 2023/24 – docente: prof. Agostino Cortesi
+
+Observations:
+- This activity diagram models user interactions with a detailed page, focusing on navigation options such as opening a system map, browsing Yelp, calling a business, returning to the homepage, and modifying preferences.
+- The diagram includes multiple decision points ("si" for yes and "no" for
+
+===== Report_30_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Apertura pagina Pathfinder — kind=action; role=initial action
+- Click "Indietro" — kind=decision; attributes=[si/no]; operations=[none]; role=branch decision
+- Ritorno ad Homepage — kind=action; role=end action
+- Visualizzazione domanda — kind=action; role=question display
+- Scelta risposta — kind=action; role=response selection
+- Visualizzazione luogo suggestito — kind=action; role=suggested location display
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Apertura pagina Pathfinder -> Click "Indietro" — type=control-flow; label="si"; explanation="yes branch"
+- Click "Indietro" -> Ritorno ad Homepage — type=control-flow; label="si"; explanation="yes branch"
+- Click "Indietro" -> Visualizzazione domanda — type=control-flow; label="no"; explanation="no branch"
+- Visualizzazione domanda -> Scelta risposta — type=control-flow; label="none"; explanation="direct transition"
+- Scelta risposta -> Visualizzazione luogo suggestito — type=control-flow; label="suggerimento disponibile"; explanation="suggestion available"
+- Scelta risposta -> - None — type=control-flow; label="suggerimento non disponibile"; explanation="suggestion not available"
+
+Main Flows (step by step):
+- Flow 1: Apertura pagina Pathfinder -> Click "Indietro" (si) -> Ritorno ad Homepage
+- Flow 2: Apertura pagina Pathfinder -> Click "Indietro" (no) -> Visualizzazione domanda -> Scelta risposta -> Visualizzazione luogo suggestito
+
+Conditions / Branches:
+- Click "Indietro" — si: Ritorno ad Homepage; no: Visualizzazione domanda
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Ingegneria del Software 2023/24 – docente: prof. Agostino Cortesi
+
+Observations:
+- This activity diagram models the flow of a Pathfinder page interaction.
+- The user starts by opening the Pathfinder page.
+- They have the option to go back ("Indietro"), which leads to returning to the homepage.
+- If they do not click "Indietro," they proceed to view a question.
+- After viewing the question, they select a response, which may lead to displaying a suggested location if one is available.
+- If no suggestion is available, the process ends without further steps.
+- The diagram captures the main flow and a potential error path (no suggestion available).
+
+
+======================================================================

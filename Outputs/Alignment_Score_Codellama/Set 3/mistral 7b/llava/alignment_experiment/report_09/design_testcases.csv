@@ -1,0 +1,77 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Login,User,1,User has a valid username and password.,"- Username: valid_user
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the valid username and password.
+3. Click the login button.",The user is successfully logged in.
+TC-User-002,User Logout,User,1,User is logged in.,None,1. Click the logout button.,The user is successfully logged out.
+TC-User-003,Add Product to Cart,User,1,User is logged in.,"- Product name: test_product
+- Product price: 10.00","1. Navigate to the product page.
+2. Click the ""Add to Cart"" button for the test_product.",The test_product is added to the user's cart.
+TC-User-004,Remove Product from Cart,User,1,User is logged in and has a product in the cart.,- Product name: test_product,"1. Navigate to the cart page.
+2. Click the ""Remove"" button for the test_product.",The test_product is removed from the user's cart.
+TC-Admin-001,Admin Login,Admin,1,Admin has a valid username and password.,"- Username: admin_user
+- Password: admin_password","1. Navigate to the login page.
+2. Enter the admin_user and admin_password.
+3. Click the login button.",The admin is successfully logged in.
+TC-Admin-002,Remove Product from User's Cart,Admin,1,Admin is logged in and there is a product in a user's cart.,"- Username: user_to_remove_product
+- Product name: test_product","1. Navigate to the user's cart page.
+2. Select the test_product from the user's cart.
+3. Click the ""Remove"" button.",The test_product is removed from the user's cart.
+TC-Admin-003,Proceed to Payment,Admin,1,Admin is logged in and there are products in a user's cart.,- Username: user_to_proceed_to_payment,"1. Navigate to the user's cart page.
+2. Click the ""Proceed to Payment"" button.",The user is redirected to the payment page.
+TC-Checkout-001,Calculate Total,Checkout,1,There are products in the cart.,"- Product 1: name=product1, price=10.00
+- Product 2: name=product2, price=20.00","1. Add product1 and product2 to the cart.
+2. Click the ""Calculate Total"" button.",The total price is correctly calculated as 30.00.
+TC-Checkout-002,Proceed to Payment,Checkout,1,There are products in the cart and the total price has been calculated.,None,"1. Click the ""Proceed to Payment"" button.",The user is redirected to the payment page.
+TC-Invalid-Login-001,Invalid Username,User,1,User enters an invalid username.,"- Username: invalid_user
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the invalid_user and valid_password.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Invalid-Login-002,Invalid Password,User,1,User enters an invalid password.,"- Username: valid_user
+- Password: invalid_password","1. Navigate to the login page.
+2. Enter the valid_user and invalid_password.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Invalid-Login-003,Empty Fields,User,1,User leaves the username or password field empty.,"- Username: """"
+- Password: """"","1. Navigate to the login page.
+2. Leave the username or password field empty.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Empty-Cart-001,Proceed to Payment with Empty Cart,Checkout,1,User has an empty cart.,None,"1. Click the ""Proceed to Payment"" button.",The user is redirected to the cart page with an error message indicating that the cart is empty.
+TC-Negative-Price-001,Add Negative Product Price,User,1,User is logged in.,"- Product name: test_product
+- Product price: -10.00","1. Navigate to the product page.
+2. Click the ""Add to Cart"" button for the test_product.","An error message is displayed, and the test_product is not added to the user's cart."
+TC-Null-Product-001,Add Null Product,User,1,User is logged in.,"- Product name: null_product
+- Product price: null","1. Navigate to the product page.
+2. Click the ""Add to Cart"" button for the null_product.","An error message is displayed, and the null_product is not added to the user's cart."
+TC-Null-Username-001,Login with Null Username,User,1,User enters a null username.,"- Username: null
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the null and valid_password.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Null-Password-001,Login with Null Password,User,1,User enters a null password.,"- Username: valid_user
+- Password: null","1. Navigate to the login page.
+2. Enter the valid_user and null.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Null-Test-Product-001,Remove Product with Null Name,Admin,1,Admin is logged in and there is a product in a user's cart.,"- Username: user_to_remove_product
+- Product name: null","1. Navigate to the user's cart page.
+2. Select the null product from the user's cart.
+3. Click the ""Remove"" button.","An error message is displayed, and the null product is not removed from the user's cart."
+TC-Null-User-001,Remove Product from User with Null Username,Admin,1,Admin is logged in and there is a product in a user's cart.,"- Username: null
+- Product name: test_product","1. Navigate to the user's cart page.
+2. Select the test_product from the user's cart.
+3. Click the ""Remove"" button.","An error message is displayed, and the test_product is not removed from the user's cart."
+TC-Null-Admin-001,Proceed to Payment with Null Admin,Admin,1,There are products in the cart and the total price has been calculated.,None,"1. Click the ""Proceed to Payment"" button.","An error message is displayed, and the user is not redirected to the payment page."
+TC-Null-Checkout-001,Calculate Total with Null Cart,Checkout,1,There is no product in the cart.,None,"1. Click the ""Calculate Total"" button.","An error message is displayed, and the total price is not calculated."
+TC-Null-Checkout-002,Proceed to Payment with Null Checkout,Checkout,1,There are products in the cart and the total price has been calculated.,None,"1. Click the ""Proceed to Payment"" button.","An error message is displayed, and the user is not redirected to the payment page."
+TC-Null-Login-001,Login with Null User,User,1,User enters a null username.,"- Username: null
+- Password: valid_password","1. Navigate to the login page.
+2. Enter the null and valid_password.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Null-Login-002,Login with Null Password,User,1,User enters a null password.,"- Username: valid_user
+- Password: null","1. Navigate to the login page.
+2. Enter the valid_user and null.
+3. Click the login button.","The login fails, and an error message is displayed."
+TC-Null-Test-Product-002,Add Product with Null Name,User,1,User is logged in.,"- Product name: null
+- Product price: 10.00","1. Navigate to the product page.
+2. Click the ""Add to Cart"" button for the null product.","An error message is displayed, and the null product is not added to the user's cart."
+TC-Null-Test-Product-003,Remove Product with Null Name,Admin,1,Admin is logged in and there is a product in a user's cart.,"- Username: user_to_remove_product
+- Product name: null
+Test",,

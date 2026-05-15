@@ -1,0 +1,55 @@
+flow
+"utente -> eventi — type=association; label=""""; explanation=""association between user and event"""
+"utente -> città — type=association; label=""""; explanation=""association between user and city"""
+"utente -> poi — type=association; label=""""; explanation=""association between user and poi"""
+flow 1: utente -> eventi (association)
+flow 2: utente -> città (association)
+flow 3: utente -> poi (association)
+"this diagram represents a class model for a system involving users, events, cities, and points of interest (pois). each class has attributes and operations defined. users have associations with events, cities, and pois, indicating relationships such as creating events, being associated with cities, and interacting with pois. the diagram does not show any specific flows or conditions but highlights the basic structure and relationships between the classes."
+"avvio app -> utente registrato con successo al servizio? — type=control-flow; label=""si""; explanation=""success"""
+"utente registrato con successo al servizio? -> utente loggato correttamente? — type=control-flow; label=""si""; explanation=""success"""
+"utente registrato con successo al servizio? -> creazione di un nuovo utente — type=control-flow; label=""no""; explanation=""not registered"""
+"utente loggato correttamente? -> homepage — type=control-flow; label=""si""; explanation=""success"""
+"utente loggato correttamente? -> creazione di un nuovo utente — type=control-flow; label=""no""; explanation=""not logged in"""
+flow 1: avvio app -> utente registrato con successo al servizio? (si) -> utente loggato correttamente? (si) -> homepage
+flow 2: avvio app -> utente registrato con successo al servizio? (no) -> creazione di un nuovo utente
+this activity diagram models the login and registration process for an application.
+"the main flow starts with the app being launched (""avvio app"")."
+"it checks if the user is successfully registered (""utente registrato con successo al servizio?"")."
+"if registered, it further checks if the user is logged in correctly (""utente loggato correttamente?"")."
+"if the user is both registered and logged in, it leads to the homepage."
+"if the user is not registered, it proceeds to create a new user."
+"if the user is not logged in, it also proceeds to create a new user."
+"key edge cases include scenarios where the user is neither registered nor logged in, leading to user creation."
+"avvio app -> l'utente è loggato? — type=control_flow; label=""si""; explanation=""check user login"""
+"l'utente è loggato? -> fase di login /registrazione — type=control_flow; label=""no""; explanation=""go to login/registration phase"""
+"l'utente è loggato? -> è nella schermata di visualizzazione di una città — type=control_flow; label=""si""; explanation=""check city view"""
+"è nella schermata di visualizzazione di una città -> scorri in basso e premi ""+"" per aggiungere un evento. — type=control_flow; label=""si""; explanation=""scroll down and add event"""
+"è nella schermata di visualizzazione di una città -> svolgi i passaggi per ricercare una città — type=control_flow; label=""no""; explanation=""search city steps"""
+"scorri in basso e premi ""+"" per aggiungere un evento. -> compila i form — type=control_flow; label=""si""; explanation=""fill forms"""
+"compila i form -> i campi sono corretti? — type=control_flow; label=""si""; explanation=""validate fields"""
+"i campi sono corretti? -> evento creato — type=control_flow; label=""si""; explanation=""event created"""
+"i campi sono corretti? -> compila i form — type=control_flow; label=""no""; explanation=""fields not correct"""
+"flow 1: avvio app -> l'utente è loggato? (si) -> è nella schermata di visualizzazione di una città (si) -> scorri in basso e premi ""+"" per aggiungere un evento. -> compila i form -> i campi sono corretti? (si) -> evento creato"
+flow 2: avvio app -> l'utente è loggato? (no) -> fase di login /registrazione
+flow 3: avvio app -> l'utente è loggato? (no) -> è nella schermata di visualizzazione di una città (no) -> svolgi i passaggi per ricercare una città
+this activity diagram models the process of inserting an event in an application.
+the main flow starts with the app being launched and checks if the user is logged in.
+"if the user is logged in, it proceeds to check if the user is viewing a city's details."
+"if the user is viewing a city's details, it allows the user to scroll down and add an event."
+the user then fills out the form and validates the fields before creating the event.
+"if the user is not logged in, it prompts them to go through the login or registration process."
+"if the user is not viewing a city's details, it guides the user to search for a city."
+key edge
+"l'utente è loggato? -> fase di login /registrazione — type=control_flow; label=""no""; explanation=""user not logged in"""
+"l'utente è loggato? -> é nella schermata di visualizzazione di una città — type=control_flow; label=""si""; explanation=""user logged in"""
+"é nella schermata di visualizzazione di una città -> scorri in basso e premi ""-"" per rimuovere un evento o 'la penna' per modificare. — type=control_flow; label=""si""; explanation=""user in city view screen"""
+"é nella schermata di visualizzazione di una città -> svolgi i passaggi per ricercare una città — type=control_flow; label=""no""; explanation=""user not in city view screen"""
+"scorri in basso e premi ""-"" per rimuovere un evento o 'la penna' per modificare. -> hai premuto '-'? — type=control_flow; label=""si""; explanation=""scroll and delete/edit event"""
+"scorri in basso e premi ""-"" per rimuovere un evento o 'la penna' per modificare. -> i campi sono corretti? — type=control_flow; label=""no""; explanation=""scroll and delete/edit event"""
+"hai premuto '-'? -> evento cancellato — type=control_flow; label=""si""; explanation=""confirmed delete action"""
+"hai premuto '-'? -> compila i form per modificare l'evento. — type=control_flow; label=""no""; explanation=""confirmed delete action"""
+"i campi sono corretti? -> compila i form per modificare l'evento. — type=control_flow; label=""si""; explanation=""form validation passed"""
+"i campi sono corretti? -> evento modificato — type=control_flow; label=""no""; explanation=""form validation failed"""
+"flow 1: avvio app -> l'utente è loggato? -> é nella schermata di visualizzazione di una città -> scorri in basso e premi ""-"" per rimuovere un evento o 'la penna' per modificare. -> hai premuto '-'? -> evento cancellato"
+"flow 2: avvio app -> l'utente è loggato? -> é nella schermata di visualizzazione di una città -> scorri in basso e premi ""-"" per rimuovere un evento o 'la penna' per modificare. -> hai premuto '-'? -> compila i form per modificare l'evento. -> evento modificato"

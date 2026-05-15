@@ -1,0 +1,80 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Authentication Success","Authentication System","1","No specific precondition.","Valid username and password.","1. Enter valid username and password.
+2. Click on login button.","User is authenticated successfully and redirected to the main page."
+"TC-Authentication-002","User Authentication Failure","Authentication System","1","No specific precondition.","Invalid username or password.","1. Enter invalid username or password.
+2. Click on login button.","Authentication fails and error message is displayed."
+"TC-UserCreation-001","User Creation with Valid Data","User Creation","2,3","User is not authenticated.","Valid user details including name, email, password, etc.","1. Open the registration form.
+2. Fill in all required fields with valid data.
+3. Submit the form.","User is created successfully and redirected to the main page."
+"TC-UserCreation-002","User Creation with Invalid Data","User Creation","2,3","User is not authenticated.","Missing or invalid fields in the registration form.","1. Open the registration form.
+2. Leave one or more required fields empty or fill them with invalid data.
+3. Submit the form.","Error message is displayed indicating the need to correct the data."
+"TC-ProfileView-001","View User Profile with Valid Credentials","Profile Viewing","4,5","User is authenticated.","Valid user credentials.","1. Log in with valid credentials.
+2. Navigate to the profile view section.","User profile is displayed with all details."
+"TC-ProfileView-002","View User Profile with Invalid Credentials","Profile Viewing","4,5","User is authenticated.","Invalid user credentials.","1. Log in with invalid credentials.
+2. Navigate to the profile view section.","Access denied or error message is displayed."
+"TC-DataModification-001","Modify User Data with Valid Data","Data Modification","5","User is authenticated.","Valid data for modification.","1. Log in with valid credentials.
+2. Navigate to the data modification section.
+3. Enter valid data for modification.
+4. Submit the form.","Data is updated successfully and confirmation message is displayed."
+"TC-DataModification-002","Modify User Data with Invalid Data","Data Modification","5","User is authenticated.","Invalid data for modification.","1. Log in with valid credentials.
+2. Navigate to the data modification section.
+3. Enter invalid data for modification.
+4. Submit the form.","Error message is displayed indicating the need to correct the data."
+"TC-ConsumptionCheck-001","Check Consumption with Valid Credentials","Consumption Checking","6,7,8","User is authenticated.","Valid user credentials.","1. Log in with valid credentials.
+2. Navigate to the consumption check section.","Consumption data is displayed."
+"TC-ConsumptionCheck-002","Check Consumption with Invalid Credentials","Consumption Checking","6,7,8","User is authenticated.","Invalid user credentials.","1. Log in with invalid credentials.
+2. Navigate to the consumption check section.","Access denied or error message is displayed."
+"TC-ReportGeneration-001","Generate Report with Valid Data","Report Generation","7,8","User is authenticated and has at least one consumption.","Valid user credentials and consumption data.","1. Log in with valid credentials.
+2. Navigate to the report generation section.
+3. Select the required parameters.
+4. Submit the form.","Report is generated successfully and displayed."
+"TC-ReportGeneration-002","Generate Report with Invalid Data","Report Generation","7,8","User is authenticated and has at least one consumption.","Invalid user credentials or missing consumption data.","1. Log in with valid credentials.
+2. Navigate to the report generation section.
+3. Select invalid parameters or leave required fields empty.
+4. Submit the form.","Error message is displayed indicating the need to correct the data."
+"TC-ReportDeletion-001","Delete Report with Valid Data","Report Deletion","9","User is authenticated and has at least one report.","Valid user credentials and report ID.","1. Log in with valid credentials.
+2. Navigate to the report deletion section.
+3. Select the report to delete.
+4. Confirm the deletion.","Report is deleted successfully and confirmation message is displayed."
+"TC-ReportDeletion-002","Delete Report with Invalid Data","Report Deletion","9","User is authenticated and has at least one report.","Invalid user credentials or non-existent report ID.","1. Log in with valid credentials.
+2. Navigate to the report deletion section.
+3. Select invalid report ID or non-existent report.
+4. Confirm the deletion.","Error message is displayed indicating the need to correct the data."
+"TC-DataFlow-001","Data Flow Validation","Data Flow","1,2,3,4,5,6,7,8,9","User is authenticated.","Valid user data and consumption data.","1. Log in with valid credentials.
+2. Ensure the data flow from Authentication System to Notify System, UserProfile, ReportHandler, and DataManager is working correctly.
+3. Verify the data flow from DataManager to WebServer and Database.
+4. Confirm the data flow from ReportHandler to WebServer.","All data flows are validated and no errors are encountered."
+"TC-DataFlow-002","Data Flow Validation with Invalid Data","Data Flow","1,2,3,4,5,6,7,8,9","User is authenticated.","Invalid user data and consumption data.","1. Log in with valid credentials.
+2. Introduce invalid data into the system.
+3. Monitor the data flow and verify that the system handles invalid data appropriately.","The system should handle invalid data gracefully and provide appropriate error messages."
+"TC-EdgeCase-001","Multiple Iterations for Data Validation","Data Validation","3","User is authenticated.","Invalid user data.","1. Log in with valid credentials.
+2. Provide invalid data during the data entry process.
+3. Follow the prompts to re-enter the data.
+4. Repeat the process until valid data is entered.","The system should prompt the user to re-enter data until valid data is provided, and then confirm the successful addition of the user."
+"TC-EdgeCase-002","Circular Data Exchange","Circular Data Exchange","1,2,3,4,5,6,7,8,9","User is authenticated.","Valid user data and consumption data.","1. Log in with valid credentials.
+2. Ensure the circular data exchange between WebServer and Database is functioning correctly.","The system should handle the circular data exchange without errors and maintain data integrity."
+"TC-EdgeCase-003","User Must Have Consumption","Consumption Requirement","6,7,8,9","User is authenticated.","User with no consumption data.","1. Log in with valid credentials.
+2. Attempt to perform actions that require consumption data.","The system should display an error message indicating that the user must have at least one consumption to proceed."
+"TC-EdgeCase-004","Authentication Required","Authentication Requirement","1,4,5,6,7,8,9","User is not authenticated.","Any attempt to access protected sections.","1. Attempt to access any protected section without logging in.","The system should display an error message or redirect to the login page."
+"TC-EdgeCase-005","Data Manager Failure","Data Manager","1,2,3,4,5,6,7,8,9","User is authenticated.","Simulate a failure in the Data Manager.","1. Log in with valid credentials.
+2. Introduce a simulated failure in the Data Manager.
+3. Attempt to perform actions that rely on the Data Manager.","The system should handle the failure gracefully and provide appropriate error messages."
+"TC-EdgeCase-006","Network Disconnection","Network Disconnection","1,2,3,4,5,6,7,8,9","User is authenticated.","Simulate a network disconnection.","1. Log in with valid credentials.
+2. Simulate a network disconnection.
+3. Attempt to perform actions that rely on network connectivity.","The system should handle the network disconnection gracefully and provide appropriate error messages."
+"TC-EdgeCase-007","Database Failure","Database","1,2,3,4,5,6,7,8,9","User is authenticated.","Simulate a database failure.","1. Log in with valid credentials.
+2. Simulate a database failure.
+3. Attempt to perform actions that rely on the database.","The system should handle the database failure gracefully and provide appropriate error messages."
+"TC-EdgeCase-008","Authentication System Failure","Authentication System","1,2,3,4,5,6,7,8,9","User is authenticated.","Simulate a failure in the Authentication System.","1. Log in with valid credentials.
+2. Simulate a failure in the Authentication System.
+3. Attempt to perform actions that rely on the Authentication System.","The system should handle the failure gracefully and provide appropriate error messages."
+"TC-EdgeCase-009","Notify System Failure","Notify System","1,2,3,4,5,6,7,8,9","User is authenticated.","Simulate a failure in the Notify System.","1. Log in with valid credentials.
+2. Simulate a failure in the Notify System.
+3. Attempt to perform actions that rely on the Notify System.","The system should handle the failure gracefully and provide appropriate error messages."
+"TC-EdgeCase-010","Web Server Failure","Web Server","1,2,3,4,5,6,7,8,9","User is authenticated.","Simulate a failure in the Web Server.","1. Log in with valid credentials.
+2. Simulate a failure in the Web Server.
+3. Attempt to perform actions that rely on the Web Server.","The system should handle the failure gracefully and provide appropriate error messages."
+"TC-EdgeCase-011","Data Manager Data Integrity","Data Integrity","1,2,3,4,5,6,7,8,9","User is authenticated.","Introduce invalid data into the Data Manager.","1. Log in with valid credentials.
+2. Introduce invalid data into the Data Manager.
+3. Verify that the system detects and handles the invalid data appropriately.","The system should detect and handle the invalid data appropriately, ensuring data integrity."

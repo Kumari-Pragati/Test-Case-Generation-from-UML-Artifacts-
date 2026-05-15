@@ -1,0 +1,134 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,User successfully registers,Registration,"2,3",None,"- Username: testuser
+- Password: TestPass123
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User fills in the registration form with the provided test data.
+3. User submits the form.
+4. Application sends a registration request to the server.
+5. Server processes the request and saves the user data.
+6. Server generates an OTP and sends it to the user via email.
+7. User receives the email and enters the OTP.
+8. Server verifies the OTP and completes the registration.",User is successfully registered and redirected to the homepage.
+TC-Registration-002,User fails to register due to invalid email format,Registration,"2,3",None,"- Username: testuser
+- Password: TestPass123
+- Email: testuserexample.com","1. User navigates to the registration page.
+2. User fills in the registration form with the provided test data.
+3. User submits the form.
+4. Application sends a registration request to the server.
+5. Server processes the request and detects the invalid email format.",Registration fails and an error message is displayed to the user.
+TC-Login-001,User successfully logs in,Login,"2,4",User has been registered,"- Username: testuser
+- Password: TestPass123","1. User navigates to the login page.
+2. User fills in the login form with the provided test data.
+3. User submits the form.
+4. Application sends a login request to the server.
+5. Server processes the request and authenticates the user.
+6. Server generates an authentication token and sends it to the application.
+7. Application stores the token and redirects the user to the homepage.",User is successfully logged in and redirected to the homepage.
+TC-Login-002,User fails to log in due to incorrect password,Login,"2,4",User has been registered,"- Username: testuser
+- Password: IncorrectPassword","1. User navigates to the login page.
+2. User fills in the login form with the provided test data.
+3. User submits the form.
+4. Application sends a login request to the server.
+5. Server processes the request and detects the incorrect password.",Login fails and an error message is displayed to the user.
+TC-PasswordReset-001,User successfully requests a password reset,Password Reset,"2,5",User has been registered,- Email: testuser@example.com,"1. User navigates to the password reset page.
+2. User fills in the email field with the provided test data.
+3. User submits the form.
+4. Application sends a password reset request to the server.
+5. Server processes the request and checks if the email is registered.
+6. Server sends a password reset link to the user's email.",User receives a password reset link via email.
+TC-PasswordReset-002,User fails to request a password reset due to invalid email,Password Reset,"2,5",User has been registered,- Email: invalidemail@example.com,"1. User navigates to the password reset page.
+2. User fills in the email field with the provided test data.
+3. User submits the form.
+4. Application sends a password reset request to the server.
+5. Server processes the request and detects the invalid email.",Password reset request fails and an error message is displayed to the user.
+TC-PasswordReset-003,User successfully resets their password,Password Reset,"2,5",User has received a password reset link,- New Password: NewPass123,"1. User clicks on the password reset link.
+2. User fills in the new password field with the provided test data.
+3. User submits the form.
+4. Application sends a password update request to the server.
+5. Server processes the request and updates the user's password.",User's password is successfully updated and a confirmation message is displayed.
+TC-PasswordReset-004,User fails to reset their password due to invalid token,Password Reset,"2,5",User has received a password reset link,"- New Password: NewPass123
+- Invalid Token: abcdef","1. User clicks on the password reset link.
+2. User fills in the new password field with the provided test data.
+3. User submits the form.
+4. Application sends a password update request to the server.
+5. Server processes the request and detects the invalid token.",Password reset fails and an error message is displayed to the user.
+TC-CardLoading-001,User successfully loads initial batch of cards,Card Loading,6,User is logged in,- Initial number of cards to load: 10,"1. User navigates to the homepage.
+2. Application initiates the card loading process with 10 cards.
+3. Server requests 10 cards from the database.
+4. Database returns 10 cards to the server.
+5. Server populates the cards and sends them to the application.
+6. Application displays the loaded cards to the user.",User sees 10 cards displayed on the homepage.
+TC-CardLoading-002,User successfully loads additional batch of cards,Card Loading,6,User is logged in and has already loaded initial batch of cards,"- Initial number of cards to load: 10
+- Additional number of cards to load: 5","1. User continues to swipe through cards.
+2. Application requests additional 5 cards from the server.
+3. Server requests 5 cards from the database.
+4. Database returns 5 cards to the server.
+5. Server populates the cards and sends them to the application.
+6. Application displays the additional 5 cards to the user.",User sees 5 additional cards displayed on the homepage.
+TC-MatchDetection-001,Two users successfully detect a match,Match Detection,7,Both users have been registered and have swiped each other's profiles,"- User1: testuser1
+- User2: testuser2","1. User1 swipes right on User2's profile.
+2. Application sends a preference tracking request to the server.
+3. Server saves the preference in the database.
+4. Server checks for a match and sends a response to User1.
+5. User2 swipes right on User1's profile.
+6. Application sends a preference tracking request to the server.
+7. Server saves the preference in the database.
+8. Server checks for a match and sends a response to User1.
+9. User1 receives a match notification.",User1 sees a match notification with User2.
+TC-MatchDetection-002,Two users fail to detect a match,Match Detection,7,Both users have been registered and have swiped each other's profiles,"- User1: testuser1
+- User2: testuser2","1. User1 swipes right on User2's profile.
+2. Application sends a preference tracking request to the server.
+3. Server saves the preference in the database.
+4. Server checks for a match and sends a response to User1.
+5. User2 swipes left on User1's profile.
+6. Application sends a preference tracking request to the server.
+7. Server saves the preference in the database.
+8. Server checks for a match and sends a response to User1.
+9. User1 does not receive a match notification.",User1 does not see a match notification with User2.
+TC-Chat-001,User successfully sends a message,Chat,8,User is logged in and has a chat with another user,- Message: Hello!,"1. User1 navigates to the chat page.
+2. User1 types the message ""Hello!"".
+3. User1 sends the message to User2.
+4. Application sends a message request to the server.
+5. Server processes the request and saves the message in the database.
+6. Server sends the message to User2's application.
+7. User2 receives the message notification.
+8. User2 opens the chat and sees the message.","User2 sees the message ""Hello!"" in the chat."
+TC-Chat-002,User fails to send a message due to invalid token,Chat,8,User is logged in and has a chat with another user,"- Message: Hello!
+- Invalid Token: abcdef","1. User1 navigates to the chat page.
+2. User1 types the message ""Hello!"".
+3. User1 sends the message to User2.
+4. Application sends a message request to the server.
+5. Server processes the request and detects the invalid token.",Message sending fails and an error message is displayed to the user.
+TC-Chat-003,User successfully receives a message,Chat,8,User is logged in and has a chat with another user,- Message: Hi there!,"1. User2 navigates to the chat page.
+2. User2 types the message ""Hi there!"".
+3. User2 sends the message to User1.
+4. Application sends a message request to the server.
+5. Server processes the request and saves the message in the database.
+6. Server sends the message to User1's application.
+7. User1 receives the message notification.
+8. User1 opens the chat and sees the message.","User1 sees the message ""Hi there!"" in the chat."
+TC-Chat-004,User fails to receive a message due to invalid token,Chat,8,User is logged in and has a chat with another user,"- Message: Hi there!
+- Invalid Token: abcdef","1. User2 navigates to the chat page.
+2. User2 types the message ""Hi there!"".
+3. User2 sends the message to User1.
+4. Application sends a message request to the server.
+5. Server processes the request and detects the invalid token.",Message sending fails and an error message is displayed to the user.
+TC-ErrorHandling-001,User encounters an error during registration,Error Handling,"2,3",None,"- Username: testuser
+- Password: TestPass123
+- Email: testuser@example.com","1. User navigates to the registration page.
+2. User fills in the registration form with the provided test data.
+3. User submits the form.
+4. Application sends a registration request to the server.
+5. Server processes the request and encounters an error.",An error message is displayed to the user indicating the failure of the registration process.
+TC-ErrorHandling-002,User encounters an error during login,Error Handling,"2,4",User has been registered,"- Username: testuser
+- Password: IncorrectPassword","1. User navigates to the login page.
+2. User fills in the login form with the provided test data.
+3. User submits the form.
+4. Application sends a login request to the server.
+5. Server processes the request and encounters an error.",An error message is displayed to the user indicating the failure of the login process.
+TC-ErrorHandling-003,User encounters an error during password reset,Error Handling,"2,5",User has been registered,- Email: testuser@example.com,"1. User navigates to the password reset page.
+2. User fills in the email field with the provided test data.
+3. User submits the form.
+4. Application sends a password reset request to the server.
+5. Server processes the request and encounters an error.",An error message is displayed to the user indicating the failure of the password reset process.
+TC-ErrorHandling,,,,,,,

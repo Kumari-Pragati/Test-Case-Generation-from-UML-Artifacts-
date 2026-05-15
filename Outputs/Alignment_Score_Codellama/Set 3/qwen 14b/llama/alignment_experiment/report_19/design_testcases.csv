@@ -1,0 +1,76 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-FlashActivity-001","User initiates flash activity","FlashActivity","1","System is up and running","None","1. User triggers flash activity","Flash activity is initiated and control passes to U-environment"
+"TC-UEnvironment-002","User registers in the system","UEnvironment","1","Flash activity has been triggered","Valid user details","1. User provides valid registration details
+2. Registration activity is triggered","User is registered successfully and control returns to U-environment"
+"TC-RegisterActivity-003","User registration fails due to invalid input","RegisterActivity","1","Flash activity has been triggered","Invalid user details (missing required fields)","1. User provides invalid registration details
+2. Registration activity is triggered","Registration fails with appropriate error message"
+"TC-UEnvironment-004","User logs into the system","UEnvironment","1","User is registered","Valid login credentials","1. User enters valid login credentials
+2. Login activity is triggered","User is logged in successfully and control returns to U-environment"
+"TC-LoginActivity-005","User login fails due to incorrect credentials","LoginActivity","1","User is registered","Incorrect login credentials","1. User enters incorrect login credentials
+2. Login activity is triggered","Login fails with appropriate error message"
+"TC-UEnvironment-006","User subscribes to newsletter","UEnvironment","1","User is logged in","None","1. User triggers newsletter subscription
+2. Newsletter activity is triggered","User is subscribed to the newsletter and control returns to U-environment"
+"TC-NewsletterActivity-007","User unsubscribes from newsletter","NewsletterActivity","1","User is subscribed to the newsletter","None","1. User triggers newsletter unsubscription
+2. Newsletter activity is triggered","User is unsubscribed from the newsletter and control returns to U-environment"
+"TC-UEnvironment-008","User creates an event","UEnvironment","1","User is logged in","Event details (title, date, time)","1. User provides event details
+2. Create event activity is triggered","Event is created successfully and control returns to U-environment"
+"TC-CreateEvent-009","User creates an event with invalid details","CreateEvent","1","User is logged in","Invalid event details (missing required fields)","1. User provides invalid event details
+2. Create event activity is triggered","Event creation fails with appropriate error message"
+"TC-UEnvironment-010","User joins or views an event","UEnvironment","1","Event is created","Event ID","1. User selects an event to join or view
+2. Join/view event activity is triggered","User can join or view the selected event and control returns to U-environment"
+"TC-JoinViewEvent-011","User attempts to join a non-existent event","JoinViewEvent","1","No events exist","Non-existent event ID","1. User tries to join a non-existent event
+2. Join/view event activity is triggered","User receives an error message indicating the event does not exist"
+"TC-UEnvironment-012","User accesses their profile","UEnvironment","1","User is logged in","None","1. User triggers profile access
+2. Profile activity is triggered","User's profile information is displayed and control returns to U-environment"
+"TC-UEnvironment-013","User exits the system","UEnvironment","1","User is logged in","None","1. User triggers exit activity
+2. Exit activity is triggered","User is logged out and session is terminated"
+"TC-UEnvironment-014","User interacts with Postgresol","UEnvironment","1","User is logged in","Database query","1. User triggers interaction with Postgresol
+2. Postgresol activity is triggered","Interaction with Postgresol is successful and control returns to U-environment"
+"TC-Postgresol-015","User interaction with Postgresol fails","Postgresol","1","User is logged in","Invalid database query","1. User triggers interaction with Postgresol using an invalid query
+2. Postgresol activity is triggered","Interaction with Postgresol fails with appropriate error message"
+"TC-UEnvironment-016","User triggers notification center","UEnvironment","1","User is logged in","Notification details","1. User triggers notification center
+2. Notification center activity is triggered","Notification is sent successfully and control returns to U-environment"
+"TC-NotificationCenter-017","User triggers notification center with invalid data","NotificationCenter","1","User is logged in","Invalid notification details","1. User triggers notification center with invalid data
+2. Notification center activity is triggered","Notification fails with appropriate error message"
+"TC-UEnvironment-018","User triggers newsletter management","UEnvironment","1","User is logged in","Newsletter management actions","1. User triggers newsletter management actions
+2. Newsletter management activity is triggered","Newsletter management actions are processed successfully and control returns to U-environment"
+"TC-NewsletterManagement-019","User triggers newsletter management with invalid actions","NewsletterManagement","1","User is logged in","Invalid newsletter management actions","1. User triggers newsletter management actions with invalid data
+2. Newsletter management activity is triggered","Newsletter management actions fail with appropriate error message"
+"TC-UEnvironment-020","User triggers flash activity again after exiting","UEnvironment","1","User has exited the system","None","1. User triggers flash activity again
+2. Flash activity is triggered","User is prompted to log in again before proceeding with flash activity"
+"TC-UEnvironment-021","User triggers multiple activities in sequence","UEnvironment","1","User is logged in","Multiple activities (registration, login, newsletter, event creation)","1. User triggers registration activity
+2. User triggers login activity
+3. User triggers newsletter activity
+4. User triggers event creation activity","All activities are processed successfully in sequence and control returns to U-environment"
+"TC-UEnvironment-022","User triggers multiple activities in parallel","UEnvironment","1","User is logged in","Multiple activities (registration, login, newsletter, event creation)","1. User triggers registration activity
+2. Simultaneously, user triggers login activity
+3. Simultaneously, user triggers newsletter activity
+4. Simultaneously, user triggers event creation activity","Activities are processed concurrently and control returns to U-environment"
+"TC-UEnvironment-023","User triggers multiple activities in reverse order","UEnvironment","1","User is logged in","Multiple activities (event creation, newsletter, login, registration)","1. User triggers event creation activity
+2. User triggers newsletter activity
+3. User triggers login activity
+4. User triggers registration activity","Activities are processed in reverse order and control returns to U-environment"
+"TC-UEnvironment-024","User triggers multiple activities with invalid data","UEnvironment","1","User is logged in","Invalid activities (registration, login, newsletter, event creation)","1. User triggers registration activity with invalid data
+2. User triggers login activity with invalid data
+3. User triggers newsletter activity with invalid data
+4. User triggers event creation activity with invalid data","Activities fail with appropriate error messages and control returns to U-environment"
+"TC-UEnvironment-025","User triggers multiple activities with mixed valid and invalid data","UEnvironment","1","User is logged in","Mixed valid and invalid activities (registration, login, newsletter, event creation)","1. User triggers registration activity with valid data
+2. User triggers login activity with invalid data
+3. User triggers newsletter activity with valid data
+4. User triggers event creation activity with invalid data","Valid activities succeed, invalid activities fail with appropriate error messages, and control returns to U-environment"
+"TC-UEnvironment-026","User triggers multiple activities with edge cases","UEnvironment","1","User is logged in","Edge case activities (registration, login, newsletter, event creation)","1. User triggers registration activity with edge case data (minimum length username)
+2. User triggers login activity with edge case data (minimum length password)
+3. User triggers newsletter activity with edge case data (maximum allowed characters)
+4. User triggers event creation activity with edge case data (maximum allowed characters)","Activities succeed with edge case data and control returns to U-environment"
+"TC-UEnvironment-027","User triggers multiple activities with extreme edge cases","UEnvironment","1","User is logged in","Extreme edge case activities (registration, login, newsletter, event creation)","1. User triggers registration activity with extreme edge case data (empty username)
+2. User triggers login activity with extreme edge case data (empty password)
+3. User triggers newsletter activity with extreme edge case data (exceeding maximum allowed characters)
+4. User triggers event creation activity with extreme edge case data (exceeding maximum allowed characters)","Activities fail with appropriate error messages and control returns to U-environment"
+"TC-UEnvironment-028","User triggers multiple activities with special characters","UEnvironment","1","User is logged in","Special character activities (registration, login, newsletter, event creation)","1. User triggers registration activity with special characters (username contains !@#)
+2. User triggers login activity with special characters (password contains !@#)
+3. User triggers newsletter activity with special characters (subject contains !@#)
+4. User triggers event creation activity with special characters (title contains !@#)","Activities succeed with special characters and control returns to U-environment"
+"TC-UEnvironment-029","User triggers multiple activities with non-alphanumeric characters","UEnvironment","1","User is logged in","Non-alphanumeric character activities (registration, login, newsletter, event creation)","1. User triggers registration activity with non-alphanumeric characters (username contains spaces)
+2. User triggers login activity with non-alphanumeric characters (password contains spaces)
+3. User triggers newsletter activity with non-alphanumeric characters (subject contains spaces)
+4. User triggers event creation activity with non-alphanumeric characters (title contains spaces)","Activities succeed with non-alphanumeric characters and control returns to U-environment"

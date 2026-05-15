@@ -1,0 +1,24 @@
+flow
+"u-moviment -> register activity — type=control_flow; label=""""; explanation=""user initiates registration"""
+"u-moviment -> login activity — type=control_flow; label=""""; explanation=""user initiates login"""
+"u-moviment -> flash activity — type=control_flow; label=""""; explanation=""user sees flash messages"""
+"register activity -> notification center — type=control_flow; label=""""; explanation=""registration triggers notification"""
+"login activity -> notification center — type=control_flow; label=""""; explanation=""login triggers notification"""
+"flash activity -> notification center — type=control_flow; label=""""; explanation=""flash messages are sent to notification center"""
+"notification center -> create event — type=control_flow; label=""""; explanation=""notification triggers event creation"""
+"notification center -> join/view event — type=control_flow; label=""""; explanation=""notification triggers event joining/viewing"""
+"notification center -> profile — type=control_flow; label=""""; explanation=""notification triggers profile access"""
+"notification center -> exit — type=control_flow; label=""""; explanation=""notification triggers exit"""
+"u-moviment -> newsletter activity — type=control_flow; label=""""; explanation=""user initiates newsletter activity"""
+"newsletter activity -> newsletter management — type=control_flow; label=""""; explanation=""newsletter activity triggers newsletter management"""
+"newsletter management -> gestione dati del progetto — type=control_flow; label=""""; explanation=""newsletter management interacts with project data"""
+"gestione dati del progetto -> postgresql — type=control_flow; label=""""; explanation=""project data management uses postgresql"""
+flow 1: u-moviment -> register activity -> notification center -> create event
+flow 2: u-moviment -> login activity -> notification center -> join/view event
+flow 3: u-moviment -> flash activity -> notification center -> profile
+flow 4: u-moviment -> newsletter activity -> newsletter management -> gestione dati del progetto -> postgresql
+"the diagram depicts the flow of actions within an application, starting from user interactions (u-moviment) and branching to various activities like registration, login, newsletter management, and event handling."
+"notifications play a central role, triggering actions like event creation, joining events, and profile access."
+"data management is handled by the ""gestione dati del progetto"" component, which interacts with a postgresql database."
+"the diagram illustrates a relatively linear flow, with the user's initial action leading to a series of subsequent actions and notifications."
+======================================================================

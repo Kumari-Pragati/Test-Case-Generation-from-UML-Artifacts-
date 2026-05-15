@@ -1,0 +1,46 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Flash-001,Verify Flash activity is displayed upon system startup,Flash activity,1,System is launched,N/A,"1. Launch the system
+2. Observe the Flash activity is displayed",
+TC-Register-001,Verify user can register with valid credentials,Register activity,1,Flash activity is displayed,"- Valid username: testuser1
+- Valid email: testuser1@example.com
+- Valid password: Test1234","1. Click the ""Register"" button in the Flash activity
+2. Enter the valid username, email, and password
+3. Click the ""Register"" button
+4. Observe the system redirects to the Login activity
+5. Observe the user's registration is saved in the Postgresol database",
+TC-Login-001,Verify user can log in with valid credentials,Login activity,1,User has registered,"- Valid username: testuser1
+- Valid password: Test1234","1. Enter the valid username and password in the Login activity
+2. Click the ""Login"" button
+3. Observe the system redirects to the Newsletter activity",
+TC-Newsletter-001,Verify user can view newsletters,Newsletter activity,1,User has logged in,,"1. Navigate to the Newsletter activity
+2. Observe the newsletters are displayed",
+TC-Create-Event-001,Verify user can create a new event,Create event,1,User has logged in,"- Event title: Test Event 1
+- Event description: This is a test event
+- Event date: 2023-05-01","1. Navigate to the Create event activity
+2. Enter the event title, description, and date
+3. Click the ""Create"" button
+4. Observe the system redirects to the Join/view event activity
+5. Observe the new event is displayed",
+TC-Join-View-Event-001,Verify user can join or view an existing event,Join/view event,1,User has logged in and created an event,- Event ID: 1 (the event created in TC-Create-Event-001),"1. Navigate to the Join/view event activity
+2. Enter the event ID
+3. Click the ""Join"" or ""View"" button (depending on the event status)
+4. Observe the event details are displayed",
+TC-Profile-001,Verify user can view their profile,Profile,1,User has logged in,,"1. Navigate to the Profile activity
+2. Observe the user's profile details are displayed",
+TC-Exit-001,Verify user can log out,Exit,1,User has logged in,,"1. Click the ""Logout"" button
+2. Observe the system redirects to the Flash activity",
+TC-Postgresol-001,Verify data is saved and retrieved from the Postgresol database,Postgresol,1,User has registered and created an event,,"1. Retrieve user data from the Postgresol database
+2. Retrieve event data from the Postgresol database
+3. Compare the retrieved data with the data entered during registration and event creation
+4. Observe the data matches",
+TC-Notification-Center-001,Verify notifications are displayed in the notification center,Notification center,1,User has logged in and created an event,,"1. Navigate to the Notification center
+2. Observe notifications related to user registration, event creation, and event updates are displayed",
+TC-Negative-001,Verify system handles invalid inputs,"Register, Login, Create event, Join/view event",1,System is launched,"- Invalid username: testuser123 (too long)
+- Invalid email: testuser1@example.com.invalid (invalid domain)
+- Invalid password: Test123 (too short)","1. Attempt to register, log in, create an event, or join/view an event with invalid inputs
+2. Observe error messages are displayed",
+TC-Edge-001,Verify system handles edge cases,"Register, Login, Create event, Join/view event",1,System is launched,"- Empty username, email, or password during registration
+- Existing username during registration
+- Existing email during registration
+- Empty event title, description, or date during event creation","1. Attempt to register, log in, create an event, or join/view an event with edge cases
+2. Observe error messages are displayed or appropriate actions are taken (e.g., existing username or email should not be allowed during registration)",

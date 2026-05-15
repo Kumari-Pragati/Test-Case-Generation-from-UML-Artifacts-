@@ -1,0 +1,81 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login via Firebase,Authentication,"2, 3","- Firebase Authentication service is active.
+- User account exists with valid credentials (e.g., `testuser@example.com`/`Password123!`).","- Valid email: `testuser@example.com`
+- Valid password: `Password123!`","1. User enters `testuser@example.com` and `Password123!` in the login UI.
+2. System forwards credentials to **MAIN** component (Page 2).
+3. **MAIN** relays credentials to **Firebase Authentication** (Page 2).
+4. **Firebase** validates credentials via `login(username, password)` (Page 3).
+5. Firebase returns `true` (authentication successful).
+6. **MAIN** confirms login to the user.","- User session is established.
+- `login()` returns `true`.
+- System redirects to user dashboard (or equivalent)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Credentials),Authentication,"2, 3","- Firebase Authentication service is active.
+- No user account exists for the provided credentials.","- Invalid email: `nonexistent@example.com`
+- Valid password: `Password123!`","1. User enters `nonexistent@example.com` and `Password123!`.
+2. **MAIN** forwards credentials to **Firebase Authentication**.
+3. Firebase attempts `login()` and returns `false`.
+4. System displays error message: *""Invalid email or password.""*","- `login()` returns `false`.
+- User remains on login screen with error feedback.
+- No session is created."
+TC-AUTHENTICATION-003,User Logout Functionality,Authentication,"1, 3",- User is logged in (active session).,,"1. Logged-in user clicks ""Logout"" button.
+2. **User** class invokes `logout()` (Page 1).
+3. Firebase session is terminated (implicit via Page 3 flows).","- User session is invalidated.
+- `logout()` returns `void` (no error).
+- User is redirected to login screen."
+TC-ADMIN-USERMANAGEMENT-001,Admin Adds a New User via Firebase,User Management,"1, 3, 5","- Admin is logged in.
+- Firebase service is active.","- New user email: `newuser@example.com`
+- Admin credentials: `admin@example.com`/`AdminPass123!`","1. Admin enters `newuser@example.com` in the ""Add User"" UI.
+2. **Admin** class invokes `addUser()` (Page 1).
+3. **MAIN** (Page 5) relays request to **Firebase**.
+4. Firebase executes `createUserWithEmail(email)` (Page 3).
+5. Firebase returns `true` (user created).","- New user account is created in Firebase.
+- `addUser()` returns `true`.
+- Admin receives confirmation: *""User added successfully.""*"
+TC-ADMIN-USERMANAGEMENT-002,Admin Deletes a User via Firebase,User Management,"1, 3, 5","- Admin is logged in.
+- Target user exists (e.g., `testuser@example.com`).","- User ID to delete: `testuser@example.com` (or Firebase-generated UID).
+- Admin credentials: `admin@example.com`/`AdminPass123!`","1. Admin selects `testuser@example.com` and clicks ""Delete.""
+2. **Admin** class invokes `deleteUser(userId)` (Page 1).
+3. **MAIN** forwards request to **Firebase**.
+4. Firebase executes `deleteUser(userId)` (Page 3).
+5. Firebase returns `true` (deletion successful).","- User account is deleted from Firebase.
+- `deleteUser()` returns `true`.
+- Admin receives confirmation: *""User deleted successfully.""*"
+TC-ADMIN-USERMANAGEMENT-003,Admin Fails to Delete Non-Existent User,User Management,"1, 3","- Admin is logged in.
+- No user exists with the provided ID.",- Invalid user ID: `99999` (non-existent).,"1. Admin enters `99999` and clicks ""Delete.""
+2. **Admin** invokes `deleteUser(""99999"")`.
+3. Firebase attempts deletion and returns `false` (user not found).","- `deleteUser()` returns `false`.
+- Admin receives error: *""User not found.""*"
+TC-RANDOM-REQUEST-RESPONSE-001,Valid Random Number Generation in Request/Response Flow,Random Number Service,4,- System is initialized.,,"1. **REQUEST** object is created.
+2. **REQUEST** retrieves random number from **RANDOM** class.
+3. **MAP** associates the random number with **REQUEST**.
+4. **MAP** generates **RESPONSE** with the same random number.
+5. **RESPONSE** is returned to the caller.","- **REQUEST** and **RESPONSE** contain identical random integers.
+- No errors during association."
+TC-RANDOM-REQUEST-RESPONSE-002,Edge Case – Maximum Integer Random Number,Random Number Service,4,"- System supports 32-bit integers (range: `-2,147,483,648` to `2,147,483,647`).",,"1. **RANDOM** generates `2,147,483,647` (max value).
+2. **MAP** associates this value with **REQUEST** and **RESPONSE**.","- **REQUEST** and **RESPONSE** correctly store `2,147,483,647`.
+- No overflow errors."
+TC-INTEGRATION-FIREBASE-DATABASE-001,Main Class Successfully Writes Data to Real-Time Database,Data Persistence,5,"- User is logged in.
+- Firebase and Real-Time Database are active.","- Sample data: `{""key"": ""value""}`","1. **MAIN** prepares data payload.
+2. **MAIN** sends payload to **Firebase**.
+3. **Firebase** writes data to **RealTime Database**.
+4. **RealTime Database** acknowledges write success.
+5. **MAIN** receives confirmation.","- Data is persisted in Real-Time Database.
+- No errors in the flow."
+TC-INTEGRATION-FIREBASE-DATABASE-002,Main Class Fails to Write Data (Invalid Payload),Data Persistence,5,- User is logged in.,"- Invalid payload: `{""key"": null}` (null value not allowed).","1. **MAIN** attempts to write `{""key"": null}`.
+2. **Firebase** rejects payload (validation error).
+3. **RealTime Database** returns failure.","- Data is **not** persisted.
+- **MAIN** receives error: *""Invalid data format.""*"
+TC-EDGE-CASES-001,Empty String Email During User Creation,User Management,"1, 3",- Admin is logged in.,"- Empty email: `""""`","1. Admin attempts to add user with email `""""`.
+2. **Firebase** validates input and rejects it.","- `createUserWithEmail("""")` returns `false`.
+- Admin receives error: *""Email cannot be empty.""*"
+TC-EDGE-CASES-002,Concurrent User Login Attempts,Authentication,"2, 3",- User `testuser@example.com` is logged in on Device A.,,"1. User attempts to log in from Device B with same credentials.
+2. **Firebase** detects concurrent session.
+3. **MAIN** invalidates Device A’s session.
+4. Device B’s login succeeds; Device A is logged out.","- Only one active session per user.
+- Device A receives logout notification."
+TC-EDGE-CASES-003,Special Characters in Password,Authentication,"2, 3",- User exists with password: `P@ssw0rd!`.,- Password: `P@ssw0rd!`,"1. User enters `P@ssw0rd!` during login.
+2. **Firebase** validates special characters.","- Login succeeds.
+- No error for allowed special characters (`@`, `!`, `0`, etc.)."
+TC-EDGE-CASES-004,Maximum User Age Limit (Edge Case),User Profile,1,- User exists with `age: 120` (invalid per business rules).,- Age: `120`,"1. Admin attempts to add user with `age: 120`.
+2. System validates age constraint (e.g., max 110).","- `addUser()` fails.
+- Error: *""Age must be ≤ 110.""*"

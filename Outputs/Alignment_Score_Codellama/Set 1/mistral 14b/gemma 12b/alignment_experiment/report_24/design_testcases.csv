@@ -1,0 +1,83 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-ONBOARDING-001,Verify user creation flow when no user exists,User Onboarding,1,"- System is initialized with no existing user.
+- User attempts to access the application for the first time.","- Valid user credentials (e.g., `email=test@example.com`, `password=Secure123!`).
+- Invalid user credentials (e.g., `email=invalid`, `password=123`).","1. System starts and checks if a user exists.
+2. Since no user exists, trigger the ""creazione utente"" action with valid credentials.
+3. System attempts to create the user.
+4. System validates the creation and checks ""creazione corretta?"".
+5. Verify the user is created successfully and the flow proceeds to ""Home"".","- User is created successfully.
+- System transitions to ""Home"" without errors."
+TC-USER-ONBOARDING-002,Verify user creation loop on failed validation,User Onboarding,1,"- System is initialized with no existing user.
+- User attempts to create an account with invalid credentials.","- Invalid credentials (e.g., `email=test@`, `password=abc`).
+- Weak password (e.g., `password=123`).","1. System starts and checks if a user exists.
+2. Since no user exists, trigger ""creazione utente"" with invalid credentials.
+3. System attempts to create the user but fails validation.
+4. System checks ""creazione corretta?"" and returns ""NO"".
+5. System loops back to ""creazione utente"" for retry.
+6. User provides valid credentials and retries creation.","- First attempt fails, and the system loops back to ""creazione utente"".
+- Second attempt with valid credentials succeeds, and the system transitions to ""Home""."
+TC-USER-ONBOARDING-003,Verify direct transition to Home if user exists,User Onboarding,1,- System is initialized with an existing user.,- N/A (user already exists).,"1. System starts and checks if a user exists.
+2. Since a user exists, the system skips ""creazione utente"" and transitions directly to ""Home"".","- System bypasses user creation and proceeds to ""Home""."
+TC-CREATION-FLOW-001,Verify commission creation flow with successful validation,Commission/Offer Creation,2,"- User has access to the creation module.
+- User is on the ""Home"" screen.","- Valid commission details (e.g., `commission_id=COM123`, `description=Test Commission`, `status=Active`).
+- Invalid commission details (e.g., `commission_id=`, `description=Invalid`).","1. User is on ""Home"" and has access to creation (""accesso alla creazione?"" = SI).
+2. System checks ""creazione commissione?"" and user selects ""SI"".
+3. User provides valid commission details and triggers ""creazione commissione"".
+4. System validates creation and checks ""creazione corretta?"".
+5. System returns ""SI"" and ends the flow.","- Commission is created successfully.
+- System ends the flow without errors."
+TC-CREATION-FLOW-002,Verify offer creation flow with successful validation,Commission/Offer Creation,2,"- User has access to the creation module.
+- User is on the ""Home"" screen.","- Valid offer details (e.g., `offer_id=OFF456`, `description=Test Offer`, `price=100.00`).
+- Invalid offer details (e.g., `price=-50.00`).","1. User is on ""Home"" and has access to creation (""accesso alla creazione?"" = SI).
+2. System checks ""creazione commissione?"" and user selects ""NO"".
+3. System checks ""creazione offerta?"" and user selects ""SI"".
+4. User provides valid offer details and triggers ""creazione offerta"".
+5. System validates creation and checks ""creazione corretta?"".
+6. System returns ""SI"" and ends the flow.","- Offer is created successfully.
+- System ends the flow without errors."
+TC-CREATION-FLOW-003,Verify termination on failed creation validation,Commission/Offer Creation,2,"- User has access to the creation module.
+- User is on the ""Home"" screen.","- Invalid commission details (e.g., `commission_id=COM123`, `description=`).
+- Invalid offer details (e.g., `price=abc`).","1. User is on ""Home"" and has access to creation (""accesso alla creazione?"" = SI).
+2. User selects ""creazione commissione"" or ""creazione offerta"" and provides invalid details.
+3. System validates creation and checks ""creazione corretta?"".
+4. System returns ""NO"" and terminates the flow.","- Creation fails validation.
+- System terminates the flow without creating the commission/offer."
+TC-CREATION-FLOW-004,Verify no access to creation module,Commission/Offer Creation,2,"- User does not have access to the creation module.
+- User is on the ""Home"" screen.",- N/A (user lacks creation access).,"1. User is on ""Home"" and does not have access to creation (""accesso alla creazione?"" = NO).
+2. System terminates the flow without proceeding to creation checks.",- System skips all creation steps and ends the flow.
+TC-MENU-NAVIGATION-001,Verify profile access when menu access is granted,Menu Navigation,3,"- User has access to the menu.
+- User is on the ""Home"" screen.",- N/A (access permissions are predefined).,"1. User is on ""Home"" and has menu access (""accesso ad 'menu'?"" = SI).
+2. System checks ""accesso a profilo?"" and grants access (""SI"").
+3. User triggers ""informazioni profilo"".
+4. System displays profile information.",- Profile information is displayed successfully.
+TC-MENU-NAVIGATION-002,Verify guide access when profile access is denied,Menu Navigation,3,"- User has access to the menu but not to the profile.
+- User is on the ""Home"" screen.",- N/A (access permissions are predefined).,"1. User is on ""Home"" and has menu access (""accesso ad 'menu'?"" = SI).
+2. System checks ""accesso a profilo?"" and denies access (""NO"").
+3. System checks ""accesso a guida?"" and grants access (""SI"").
+4. User triggers ""Guida"".
+5. System displays the guide.",- Guide is displayed successfully.
+TC-MENU-NAVIGATION-003,Verify return to Home when no menu access,Menu Navigation,3,"- User does not have access to the menu.
+- User is on the ""Home"" screen.",- N/A (access permissions are predefined).,"1. User is on ""Home"" and lacks menu access (""accesso ad 'menu'?"" = NO).
+2. System returns to ""Home"" without further checks.","- System remains on ""Home"" without proceeding to profile/guide."
+TC-MENU-NAVIGATION-004,Verify return to Home when guide access is denied,Menu Navigation,3,"- User has access to the menu but not to the profile or guide.
+- User is on the ""Home"" screen.",- N/A (access permissions are predefined).,"1. User is on ""Home"" and has menu access (""accesso ad 'menu'?"" = SI).
+2. System checks ""accesso a profilo?"" and denies access (""NO"").
+3. System checks ""accesso a guida?"" and denies access (""NO"").
+4. System returns to ""Home"".","- System returns to ""Home"" without displaying profile or guide."
+TC-EDGE-CASE-001,Verify system behavior on repeated failed user creation,User Onboarding,1,"- System is initialized with no existing user.
+- User attempts to create an account with invalid credentials multiple times.","- Invalid credentials (e.g., `email=test@`, `password=abc`) for 3 consecutive attempts.","1. System starts and checks if a user exists (NO).
+2. User attempts to create an account with invalid credentials.
+3. System validates and returns ""NO"" for ""creazione corretta?"".
+4. System loops back to ""creazione utente"" for retry.
+5. Repeat steps 2–4 for 3 attempts.
+6. User provides valid credentials on the 4th attempt.","- System loops back to ""creazione utente"" for each failed attempt.
+- System accepts valid credentials on the 4th attempt and transitions to ""Home""."
+TC-EDGE-CASE-002,Verify system behavior when all creation checks are denied,Commission/Offer Creation,2,- User has access to the creation module but all creation checks are denied.,"- N/A (all checks return ""NO"").","1. User is on ""Home"" and has access to creation (""accesso alla creazione?"" = SI).
+2. System checks ""creazione commissione?"" and denies access (""NO"").
+3. System checks ""creazione offerta?"" and denies access (""NO"").
+4. System terminates the flow.",- System terminates the flow without creating a commission or offer.
+TC-EDGE-CASE-003,Verify system behavior on invalid input during creation,Commission/Offer Creation,2,- User has access to the creation module.,"- Empty or malformed input (e.g., `commission_id=`, `description=`, `price=abc`).","1. User is on ""Home"" and has access to creation (""accesso alla creazione?"" = SI).
+2. User selects ""creazione commissione"" or ""creazione offerta"".
+3. User provides empty/malformed input.
+4. System validates creation and returns ""NO"" for ""creazione corretta?"".
+5. System terminates the flow.",- System rejects invalid input and terminates the flow without creation.

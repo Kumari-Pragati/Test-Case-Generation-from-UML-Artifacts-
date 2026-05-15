@@ -1,0 +1,42 @@
+flow
+"utente -> devices — type=associazione; label=""utilizza""; explanation=""user associates with devices"""
+"devices -> config — type=associazione; label=""configura""; explanation=""devices are configured by config"""
+"devices -> alert — type=segnala; label=""segnala""; explanation=""devices signal events to alert"""
+"alert -> history — type=segnala; label=""registra""; explanation=""alert records events in history"""
+"utente.creautente(string, string, bool) -> utente"
+"utente.checkpassword(string, string, bool) -> utente"
+"utente.resetpassword(string, bool) -> utente"
+utente.getutenteinfo() -> utente
+devices.getdeviceinfo() -> devices
+devices.configura(config) -> devices
+devices.segnala(alert) -> alert
+alert.registra(history) -> history
+"the diagram models a system with user accounts, devices, configuration settings, alerts, and a history of events."
+"users can create accounts, check passwords, and reset passwords."
+devices can be configured and report events.
+alerts are recorded in a history.
+"""accesso eseguito"" -> ""click 'serre'"" — type=transition; label=""click""; explanation=""user clicks 'serre'"""
+"""click 'serre'"" -> ""visualizzazione elenco serre"" — type=transition; label=""si""; explanation=""if at least 1 serre is associated"""
+"""accesso eseguito"" -> ""visualizzazione messaggio default"" — type=transition; label=""no""; explanation=""if no serre is associated"""
+"the diagram models the flow of a user accessing a ""serre"" feature."
+"the system checks if there are any associated ""serre""."
+"if there are, the user is shown a list of the ""serre""."
+"if there are no associated ""serre"", a default message is displayed."
+"accesso eseguito -> valore errato — type=transition; label=""no""; explanation=""incorrect value"""
+"accesso eseguito -> campo inserito correttamente — type=transition; label=""si""; explanation=""correct value"""
+"valore errato -> campo inserito correttamente — type=transition; label=""campo inserito correttamente"""
+accesso eseguito -> valore errato
+accesso eseguito -> campo inserito correttamente
+the diagram models the process of adding a device.
+the process starts with an access attempt.
+"if the value entered is incorrect, the process branches to a state where the user is prompted to enter the value correctly."
+"if the value entered is correct, the process proceeds to an operation execution state."
+"accesso eseguito -> serra connessa — transition=""yes""; explanation=""successful connection"";"
+"accesso eseguito -> valore errato — transition=""no""; explanation=""incorrect value"";"
+"serra connessa -> click ""configuration"" — transition=""yes""; explanation=""click configuration"";"
+"click ""configuration"" -> campi inseriti correttamente — transition=""yes""; explanation=""fields entered correctly"";"
+"click ""configuration"" -> valore errato — transition=""no""; explanation=""incorrect value"";"
+"campi inseriti correttamente -> operazione eseguita — transition=""yes""; explanation=""operation executed"";"
+"valore errato -> accesso eseguito — transition=""no""; explanation=""return to access"";"
+"the diagram models the process of accessing a server, connecting to it, clicking a configuration button, and either successfully entering the correct values or encountering an error. the process loops back to the initial access if the values are incorrect."
+======================================================================

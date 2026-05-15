@@ -1,0 +1,131 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Creation and Authentication,User,"1,2",None,"- User details: id=1, nome=""John"", cognome=""Doe"", email=""john.doe@example.com"", photo=""http://example.com/photo.jpg""
+- Valid credentials: username=""john.doe"", password=""password123""
+- Invalid credentials: username=""invalid.user"", password=""wrongpassword""","1. Call UserCreateProcedure with valid user details.
+2. Call StoredDataDB with ""Valid credentials"" for authorization.
+3. Call UserCreateProcedure with invalid user details.
+4. Call StoredDataDB with ""Not exist"" for authentication.","1. UserCreateProcedure should create a new user entry in StoredDataDB.
+2. StoredDataDB should return authorization success.
+3. UserCreateProcedure should handle invalid user details gracefully.
+4. StoredDataDB should return authentication success."
+TC-Post-001,Creating and Viewing Posts,Post,"1,3,4",User exists in the system.,"- Post content: ""Hello, world!""
+- User id: 1
+- Neighborhood id: 1","1. Create a new Post with the given content and user.
+2. Store the Post in the database.
+3. Retrieve the Post from the database.
+4. Verify the Post content and user association.","1. Post should be created successfully.
+2. Post should be stored in the database.
+3. Retrieved Post should match the original content and user association."
+TC-Comment-001,Adding and Retrieving Comments,Comment,"1,3,4",Post exists in the system.,"- Comment content: ""Great post!""
+- User id: 1
+- Post id: 1","1. Create a new Comment with the given content and user.
+2. Associate the Comment with the Post.
+3. Store the Comment in the database.
+4. Retrieve the Comment from the database.
+5. Verify the Comment content and user association.","1. Comment should be created successfully.
+2. Comment should be associated with the Post.
+3. Comment should be stored in the database.
+4. Retrieved Comment should match the original content and user association."
+TC-Chat-001,Creating and Managing Chats,Chat,"1,3,4",Users exist in the system.,"- User id: 1
+- ChattedWith user id: 2","1. Create a new ChatList for the given users.
+2. Add the ChattedWith user to the ChatList.
+3. Store the ChatList in the database.
+4. Retrieve the ChatList from the database.
+5. Verify the ChatList contains both users.","1. ChatList should be created successfully.
+2. ChattedWith user should be added to the ChatList.
+3. ChatList should be stored in the database.
+4. Retrieved ChatList should contain both users."
+TC-Network-001,Associating Posts with Neighborhoods,Network,"1,3,4",Post and Neighborhood exist in the system.,"- Post id: 1
+- Neighborhood id: 1","1. Associate the Post with the Neighborhood.
+2. Store the association in the database.
+3. Retrieve the association from the database.
+4. Verify the association between Post and Neighborhood.","1. Association should be created successfully.
+2. Association should be stored in the database.
+3. Retrieved association should match the original Post and Neighborhood."
+TC-Profile-001,Navigating to Profile Sections,Profile,3,User exists in the system.,- User id: 1,"1. Click on the profile photo from the Home screen.
+2. Verify the transition to the Profile section.
+3. Click on the notifications icon from the Home screen.
+4. Verify the transition to the Notification section.
+5. Click on the map icon from the Home screen.
+6. Verify the transition to the MapFullScreenAPI.
+7. Click on the home access icon from the Home screen.
+8. Verify the transition back to the Home screen.
+9. Click on the personal profile access icon from the Home screen.
+10. Verify the transition to the Profile section.
+11. Click on the chat access icon from the Home screen.
+12. Verify the transition to the Chat section.
+13. Click on the general archive access icon from the Home screen.
+14. Verify the transition to the GeneralDashboard.","1. Transition to the Profile section should occur.
+2. Transition to the Notification section should occur.
+3. Transition to the MapFullScreenAPI should occur.
+4. Transition back to the Home screen should occur.
+5. Transition to the Profile section should occur.
+6. Transition to the Chat section should occur.
+7. Transition to the GeneralDashboard should occur."
+TC-PostInteraction-001,Browsing and Commenting on Posts,PostInteraction,4,Post and User exist in the system.,"- Post id: 1
+- User id: 1
+- Comment content: ""Great post!""","1. Browse the shared posts from the GeneralDashboard.
+2. Click on a specific post.
+3. Load the comments for the selected post.
+4. Navigate to the FullScreenPost view.
+5. Add a comment to the post.
+6. Submit the comment.
+7. Wait for the comment to be saved.","1. Shared posts should be browsed successfully.
+2. Specific post should be clicked and comments loaded.
+3. FullScreenPost view should display the post.
+4. Comment should be added successfully.
+5. Comment should be submitted.
+6. Comment should be saved successfully."
+TC-ProfileView-001,Viewing and Interacting with Profiles,ProfileView,5,User exists in the system.,- User id: 1,"1. View the resident profile from the ItemResultSearch.
+2. Add the resident to contacts.
+3. View the business profile from the ItemResultSearch.
+4. View unsold items from the business profile.
+5. View promotions from the business profile.
+6. Make an appointment from the business profile.
+7. Perform a database write operation for the appointment.
+8. Confirm the successful operation.","1. Resident profile should be viewed successfully.
+2. Resident should be added to contacts.
+3. Business profile should be viewed successfully.
+4. Unsold items should be viewed successfully.
+5. Promotions should be viewed successfully.
+6. Appointment should be made successfully.
+7. Database write operation should succeed.
+8. Successful operation confirmation should be received."
+TC-AuthFailure-001,Handling Authentication Failure,Authentication,2,User does not exist in the system.,"- User details: id=1, nome=""John"", cognome=""Doe"", email=""john.doe@example.com"", photo=""http://example.com/photo.jpg""
+- Invalid credentials: username=""john.doe"", password=""wrongpassword""","1. Attempt to create a new user with invalid credentials.
+2. Verify the authentication failure.","1. User creation should fail due to invalid credentials.
+2. Authentication failure should be handled gracefully."
+TC-DBWriteFailure-001,Handling Database Write Operation Failure,DatabaseWrite,5,Appointment exists in the system.,- Appointment id: 1,"1. Perform a database write operation for the appointment.
+2. Verify the failure of the database write operation.","1. Database write operation should fail.
+2. Failure should be handled gracefully."
+TC-EdgeCase-001,Edge Case Handling,EdgeCase,"1,2,3,4,5",Various conditions as described in the UML diagrams.,- Various data points as described in the UML diagrams.,"1. Test all conditional branches and loops as described in the UML diagrams.
+2. Verify the handling of edge cases.","1. All conditional branches and loops should be handled correctly.
+2. Edge cases should be handled gracefully."
+TC-NullInput-001,Handling Null Input,InputValidation,"1,2,3,4,5",Input fields can be null.,- Null input for various fields as described in the UML diagrams.,"1. Provide null input for various fields.
+2. Verify the handling of null input.","1. Null input should be handled gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidInput-001,Handling Invalid Input,InputValidation,"1,2,3,4,5",Input fields have invalid values.,- Invalid input for various fields as described in the UML diagrams.,"1. Provide invalid input for various fields.
+2. Verify the handling of invalid input.","1. Invalid input should be handled gracefully.
+2. Appropriate error messages should be displayed."
+TC-Timeout-001,Handling Timeouts,TimeoutHandling,"1,2,3,4,5",Various operations can time out.,- Various operations as described in the UML diagrams.,"1. Perform operations that can time out.
+2. Verify the handling of timeouts.","1. Operations should handle timeouts gracefully.
+2. Appropriate error messages should be displayed."
+TC-EmptyInput-001,Handling Empty Input,InputValidation,"1,2,3,4,5",Input fields can be empty.,- Empty input for various fields as described in the UML diagrams.,"1. Provide empty input for various fields.
+2. Verify the handling of empty input.","1. Empty input should be handled gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidUser-001,Handling Invalid User,UserValidation,"1,2,3,4,5",User does not exist.,- Invalid user id: 1000,"1. Perform operations with the invalid user id.
+2. Verify the handling of invalid user.","1. Operations should handle invalid user gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidPost-001,Handling Invalid Post,PostValidation,"1,2,3,4,5",Post does not exist.,- Invalid post id: 1000,"1. Perform operations with the invalid post id.
+2. Verify the handling of invalid post.","1. Operations should handle invalid post gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidComment-001,Handling Invalid Comment,CommentValidation,"1,2,3,4,5",Comment does not exist.,- Invalid comment id: 1000,"1. Perform operations with the invalid comment id.
+2. Verify the handling of invalid comment.","1. Operations should handle invalid comment gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidChat-001,Handling Invalid Chat,ChatValidation,"1,2,3,4,5",Chat does not exist.,- Invalid chat id: 1000,"1. Perform operations with the invalid chat id.
+2. Verify the handling of invalid chat.","1. Operations should handle invalid chat gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidNeighborhood-001,Handling Invalid Neighborhood,NeighborhoodValidation,"1,2,3,4,5",Neighborhood does not exist.,- Invalid neighborhood id: 1000,"1. Perform operations with the invalid neighborhood id.
+2. Verify the handling of invalid neighborhood.","1. Operations should handle invalid neighborhood gracefully.
+2. Appropriate error messages should be displayed."
+TC-InvalidProfile-001,Handling Invalid Profile,ProfileValidation,"1,2,3,4,5",Profile does not exist.,- Invalid profile id: 10,,

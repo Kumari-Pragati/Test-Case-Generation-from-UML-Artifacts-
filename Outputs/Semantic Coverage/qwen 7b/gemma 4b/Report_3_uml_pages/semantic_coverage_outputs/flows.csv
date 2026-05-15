@@ -1,0 +1,60 @@
+flow
+"dashboardactivity -> mainactivity — type=flow; label=""avvio""; explanation=""starts the application"""
+"mainactivity -> signupactivity — type=flow; label=""registrazione""; explanation=""user registration flow"""
+"mainactivity -> dashboardactivity — type=flow; label=""dashboard""; explanation=""navigates to the dashboard"""
+"signupactivity -> appcompatactivity — type=flow; label=""ritorna""; explanation=""returns to the app"""
+"userlistactivity -> appcompatactivity — type=flow; label=""elenco utenti""; explanation=""navigates to the user list"""
+flow 1: avvio -> registrazione -> dashboard -> ritorna
+flow 2: avvio -> elenco utenti -> ritorna
+"the diagram models a basic application flow with user registration, dashboard navigation, and user list access."
+"the application starts with an ""avvio"" flow."
+"the user can either register (""registrazione"") and return to the app, or navigate to the ""elenco utenti"" and return."
+"the ""registrazione"" flow includes a decision point to check if the user is registered successfully."
+"home -> click su ""weather"" — type=transition; label=""click su \""weather\""""; explanation=""user clicks on the 'weather' button."""
+"click su ""weather"" -> visualizzazione meteo della località — type=transition; label=""visualizzazione meteo della località""; explanation=""displays the weather for the current location."""
+"visualizzazione meteo della località -> click su lato d'ingrandimento — type=transition; label=""click su lato d'ingrandimento""; explanation=""user clicks on the enlargement side."""
+"click su lato d'ingrandimento -> ricerca meteo di altre località — type=transition; label=""ricerca meteo di altre località""; explanation=""user searches for weather in other locations."""
+the diagram models the user interaction flow for accessing weather information.
+"the user starts by clicking on the ""weather"" button, which displays the current weather."
+the user can then either view the enlargement side or search for weather in other locations.
+the diagram shows a decision point based on whether the user clicks on the enlargement side.
+"user -> applicazione: click su ""trekking"";"
+applicazione -> server: richiesta elenco province;
+server -> applicazione: invio elenco province;
+applicazione -> server: richiesta elenco percorsi;
+server -> applicazione: invio elenco percorsi;
+applicazione -> server: click sul percorso nella provincia selezionata;
+"user clicks on ""trekking""."
+applicazione requests a list of provinces from the server.
+server sends the list of provinces to the applicazione.
+applicazione clicks on a province from the list.
+applicazione requests a list of paths from the server for the selected province.
+server sends the list of paths to the applicazione.
+applicazione clicks on a path in the selected province.
+* the diagram models the user interaction flow for selecting a trekking route.
+* the application retrieves province and path lists from the server.
+* the user navigates through the province and path options.
+* the flow ends after the user selects a path.
+"user -> applicazione: click su ""weather"";"
+applicazione -> server: richiesta dati meteo;
+server -> applicazione: invia dati meteo;
+applicazione -> user: fornisce dati meteo
+"the diagram models a sequence of interactions between a user, an application, and a server to retrieve weather data."
+"the user initiates the process by clicking on a ""weather"" button."
+the application then sends a request to the server for weather data.
+the server responds by sending the weather data back to the application.
+the application finally displays the weather data to the user.
+"user -> application — type=message; label=""click su \""health\""""; explanation=""user clicks on the 'health' element"";"
+"application -> server — type=message; label=""richiesta dati allenamenti passati""; explanation=""application requests past training data"";"
+"server -> application — type=message; label=""invio dati""; explanation=""server sends the data"";"
+"application -> user — type=message; label=""fornisce elenco allenamenti""; explanation=""application provides the list of training data"";"
+user -> application: click su “health”
+application -> server: richiesta dati allenamenti passati
+server -> application: invio dati
+application -> user: fornisce elenco allenamenti
+"the diagram models a sequence of interactions between a user, an application, and a server."
+"the user initiates the process by clicking on ""health""."
+the application then requests training data from the server.
+the server responds by sending the data back to the application.
+"finally, the application presents the list of training data to the user."
+======================================================================

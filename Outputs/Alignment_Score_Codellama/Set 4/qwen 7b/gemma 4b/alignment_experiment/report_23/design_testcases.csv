@@ -1,0 +1,131 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User creates a new client account,User,1,None,"- name: John Doe
+- cognome: Smith
+- email: john.smith@example.com
+- password: Test123
+- immagine: ""default.jpg""
+- isVenditore: false","1. Navigate to the registration page.
+2. Fill in the form with the provided data.
+3. Submit the form.",A new Clienti object is created with the provided details.
+TC-Vendor-001,Vendor creates a new vendor account,Vendor,1,None,"- nomeNegozio: TechStore
+- indirizzo: 123 Tech St
+- indirizzoVenditore: 456 Vendor Ave
+- isVenditore: true","1. Navigate to the registration page.
+2. Fill in the form with the provided data.
+3. Submit the form.",A new Venditore object is created with the provided details.
+TC-Client-001,Client creates a new review,Client,"1, 3",Client has a product to review.,"- titolo: Great Product
+- descrizione: This product is amazing!
+- voto: 5","1. Navigate to the product page.
+2. Click on the ""Create Review"" button.
+3. Fill in the form with the provided data.
+4. Submit the form.",A new Recensione object is created with the provided details.
+TC-Client-002,Client creates a new complaint,Client,"1, 3",Client has a product to complain about.,"- titolo: Poor Quality
+- descrizione: The product is of poor quality.","1. Navigate to the product page.
+2. Click on the ""Create Complaint"" button.
+3. Fill in the form with the provided data.
+4. Submit the form.",A new Segnalazione object is created with the provided details.
+TC-Vendor-002,Vendor creates a new preferred customer,Vendor,"1, 3",Vendor has a customer to add as a preferred customer.,"- cliente: Clienti object with name: Jane Doe, cognome: Doe, email: jane.doe@example.com
+- voto: 4","1. Navigate to the customer management page.
+2. Click on the ""Create Preferred Customer"" button.
+3. Select the customer from the dropdown.
+4. Set the voto value to 4.
+5. Submit the form.",A new VenditorePreferito object is created with the provided details.
+TC-Map-001,Check if user's location is accessible,Map,2,User's location is not accessible.,None,"1. Navigate to the map page.
+2. Check if the location is accessible.",An error message is displayed indicating that the location is not accessible.
+TC-Map-002,Create list based on user's location,Map,2,User's location is accessible.,None,"1. Navigate to the map page.
+2. Check if the location is accessible.
+3. Create a list based on the user's location.",A list is created based on the user's location.
+TC-ModifyProduct-001,Modify product with valid input,Modify Product,3,Product exists and fields are filled correctly.,"- nome: Updated Name
+- categoria: Updated Category
+- prezzo: 99.99
+- descrizione: Updated Description","1. Click on the product to modify.
+2. Fill in the form with the provided data.
+3. Click the ""Modify"" button.",The product is modified with the provided details.
+TC-ModifyProduct-002,Modify product with invalid input,Modify Product,3,Product exists and fields are empty.,"- nome: 
+- categoria: 
+- prezzo: 
+- descrizione:","1. Click on the product to modify.
+2. Fill in the form with empty data.
+3. Click the ""Modify"" button.",An error message is displayed indicating that the fields are not filled correctly.
+TC-AddProduct-001,Add product with valid input,Add Product,4,Fields are filled correctly.,"- nome: New Product
+- categoria: Electronics
+- prezzo: 199.99
+- descrizione: This is a new product.","1. Click the ""Add"" button.
+2. Fill in the form with the provided data.
+3. Click the ""Add!"" button.",A new Prodotto object is created with the provided details.
+TC-AddProduct-002,Add product with invalid input,Add Product,4,Fields are empty.,"- nome: 
+- categoria: 
+- prezzo: 
+- descrizione:","1. Click the ""Add"" button.
+2. Fill in the form with empty data.
+3. Click the ""Add!"" button.",An error message is displayed indicating that the fields are not filled correctly.
+TC-NotificationManagement-001,Manage notifications via push notification,Notification Management,5,User navigates to the notification management page.,None,"1. Navigate to the notification management page.
+2. Click on the ""Push Notification"" option.
+3. Send a push notification.",A push notification is sent.
+TC-NotificationManagement-002,Manage notifications via in-app notification,Notification Management,5,User navigates to the notification management page.,None,"1. Navigate to the notification management page.
+2. Click on the ""In App Notification"" option.
+3. Send an in-app notification.",An in-app notification is sent.
+TC-NotificationManagement-003,Manage notifications for new products,Notification Management,6,User initiates notification management.,None,"1. Initiate the notification management process.
+2. Send a notification about a new product.",A notification about a new product is sent.
+TC-NotificationManagement-004,Manage notifications for nearby stores,Notification Management,6,User initiates notification management.,None,"1. Initiate the notification management process.
+2. Send a notification from a nearby store.","A notification from a nearby store is sent. 
+
+Note: For simplicity, placeholder data and steps have been used where specific values were not provided in the UML description. Actual values would be determined during the testing phase. <|assistant|> 
+PROJECT OVERVIEW:
+The system manages users, vendors, products, and customer feedback. Users can create customer accounts, while vendors can create vendor accounts and manage their products. Customers can provide reviews and report issues, and vendors can create preferred customers. Notifications are managed for new products and promotions.
+
+----------------------------
+TEST CASES
+----------------------------"
+TC-User-001,User creates a new client account,User,1,None,"- name: John Doe
+- cognome: Smith
+- email: john.smith@example.com
+- password: Test123
+- immagine: ""default.jpg""
+- isVenditore: false","1. Navigate to the registration page.
+2. Fill in the form with the provided data.
+3. Submit the form.",A new Clienti object is created with the provided details.
+TC-Vendor-001,Vendor creates a new vendor account,Vendor,1,None,"- nomeNegozio: TechStore
+- indirizzo: 123 Tech St
+- indirizzoVenditore: 456 Vendor Ave
+- isVenditore: true","1. Navigate to the registration page.
+2. Fill in the form with the provided data.
+3. Submit the form.",A new Venditore object is created with the provided details.
+TC-Client-001,Client creates a new review,Client,"1, 3",Client has a product to review.,"- titolo: Great Product
+- descrizione: This product is amazing!
+- voto: 5","1. Navigate to the product page.
+2. Click on the ""Create Review"" button.
+3. Fill in the form with the provided data.
+4. Submit the form.",A new Recensione object is created with the provided details.
+TC-Client-002,Client creates a new complaint,Client,"1, 3",Client has a product to complain about.,"- titolo: Poor Quality
+- descrizione: The product is of poor quality.","1. Navigate to the product page.
+2. Click on the ""Create Complaint"" button.
+3. Fill in the form with the provided data.
+4. Submit the form.",A new Segnalazione object is created with the provided details.
+TC-Vendor-002,Vendor creates a new preferred customer,Vendor,"1, 3",Vendor has a customer to add as a preferred customer.,"- cliente: Clienti object with name: Jane Doe, cognome: Doe, email: jane.doe@example.com
+- voto: 4","1. Navigate to the customer management page.
+2. Click on the ""Create Preferred Customer"" button.
+3. Select the customer from the dropdown.
+4. Set the voto value to 4.
+5. Submit the form.",A new VenditorePreferito object is created with the provided details.
+TC-Map-001,Check if user's location is accessible,Map,2,User's location is not accessible.,None,"1. Navigate to the map page.
+2. Check if the location is accessible.",An error message is displayed indicating that the location is not accessible.
+TC-Map-002,Create list based on user's location,Map,2,User's location is accessible.,None,"1. Navigate to the map page.
+2. Check if the location is accessible.
+3. Create a list based on the user's location.",A list is created based on the user's location.
+TC-ModifyProduct-001,Modify product with valid input,Modify Product,3,Product exists and fields are filled correctly.,"- nome: Updated Name
+- categoria: Updated Category
+- prezzo: 99.99
+- descrizione: Updated Description","1. Click on the product to modify.
+2. Fill in the form with the provided data.
+3. Click the ""Modify"" button.",The product is modified with the provided details.
+TC-ModifyProduct-002,Modify product with invalid input,Modify Product,3,Product exists and fields are empty.,"- nome: 
+- categoria: 
+- prezzo: 
+- descrizione:","1. Click on the product to modify.
+2. Fill in the form with empty data.
+3. Click the ""Modify"" button.",An error message is displayed indicating that the fields are not filled correctly.
+TC-AddProduct-001,Add product with valid input,Add Product,4,Fields are filled correctly.,"- nome: New Product
+- categoria: Electronics
+- prezzo: 199.99
+- descrizione: This is a new product.",,

@@ -1,0 +1,120 @@
+REPORT: Report_8_uml_pages.pdf
+======================================================================
+
+===== Report_8_uml_pages.pdf | Page 1 =====
+UML Type: state_machine
+- Configuration iniziale — kind=state_machine; attributes= []; operations= []; role=Configuration
+
+Actors / Lifelines:
+- Avvio applicazione
+- Utente
+
+Relationships / Links:
+- Avvio applicazione -> Configurazione iniziale — type=transition; label="Sì"; explanation="User starts the application"
+- Avvio applicazione -> Configurazione iniziale — type=transition; label="No"; explanation="Configuration already exists"
+- Configurazione iniziale -> Aggiungi veicolo — type=transition; label="Aggiungi veicolo"
+- Configurazione iniziale -> Accesso lista distributori — type=transition; label="Accesso lista distributori"
+- Configurazione iniziale -> Aggiungi veicolo — type=transition; label="Inserisci il veicolo manualmente"
+- Configurazione iniziale -> Seleziona e aggiungi il veicolo — type=transition; label="Seleziona e aggiungi il veicolo"
+- Configurazione iniziale -> Aggiungi veicolo — type=transition; label="Non aggiungere un altro veicolo?"
+
+Conditions / Branches:
+- Configurazione iniziale -> Aggiungi veicolo — condition="Non aggiungere un altro veicolo?"; branches=["Sì" -> Configurazione iniziale, "No" -> Seleziona e aggiungi il veicolo]
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the initial configuration process of an application, starting with the application launch.
+- The user can either start a new configuration or access a list of distributors.
+- The user can add a vehicle manually or select and add it.
+- The process can be stopped if the user chooses not to add another vehicle.
+
+===== Report_8_uml_pages.pdf | Page 2 =====
+UML Type: activity
+
+Components:
+- Accesso sito web — kind=activity;
+- Visualizza lista distributori — kind=activity;
+- Verificare se sono disponibili distributori — kind=decision;
+- Visualizza lista distributori non disponibili — kind=decision;
+- Visualizza informazioni distributore — kind=activity;
+- Salvare i parametri della lista di distributori — kind=activity;
+- Aprire finestra applicativa del dettaglio del distributore — kind=activity;
+- Annullare apertura finestra applicativa del dettaglio del distributore — kind=activity;
+
+Actors / Lifelines:
+- Utente — None
+
+Relationships / Links:
+- Accesso sito web -> Visualizza lista distributori — type=transition; label="Accesso sito web"; explanation="User accesses the website.";
+- Visualizza lista distributori -> Verificare se sono disponibili distributori — type=transition; label="Verificare se sono disponibili distributori"; explanation="Check if distributors are available.";
+- Verificare se sono disponibili distributori -> Visualizza lista distributori non disponibili — type=transition; label="Visualizza lista distributori non disponibili"; explanation="If distributors are not available, display the list.";
+- Verificare se sono disponibili distributori -> Visualizza lista distributori — type=transition; label="Visualizza lista distributori"; explanation="If distributors are available, display the list.";
+- Visualizza lista distributori -> Visualizza informazioni distributore — type=transition; label="Visualizza informazioni distributore"; explanation="Display distributor information.";
+- Visualizza lista distributori -> Annullare apertura finestra applicativa del dettaglio del distributore — type=transition; label="Annullare apertura finestra applicativa del dettaglio del distributore"; explanation="Cancel opening the distributor detail window.";
+- Visualizza informazioni distributore -> Salvare i parametri della lista di distributori — type=transition; label="Salvare i parametri della lista di distributori"; explanation="Save the distributor parameters.";
+- Salvare i parametri della lista di distributori -> Aprire finestra applicativa del dettaglio del distributore — type=transition; label="Aprire finestra applicativa del dettaglio del distributore"; explanation="Open the distributor detail application window.";
+
+Conditions / Branches:
+- Verificare se sono disponibili distributori — label="SI";
+- Verificare se sono disponibili distributori — label="NO";
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of accessing a distributor page on a website.
+- The user first accesses the website.
+- The system checks if distributors are available.
+- If distributors are available, the system displays a list of distributors.
+- If distributors are not available, the system displays a list of unavailable distributors.
+- The user can then select a distributor to view its details, or cancel the opening of the detail window.
+
+===== Report_8_uml_pages.pdf | Page 3 =====
+UML Type: state_machine
+- Accesso pagina impostazioni
+
+Components:
+- Accesso pagina impostazioni — kind=state;
+- Valutazione le impostazioni — kind=state;
+- Mostra i dati dei distributori — kind=state;
+- Mostra i dati statistiche — kind=state;
+- Aggiungi lista dei veicoli — kind=state;
+- Visualizza popup con informazioni effettuate — kind=state;
+
+Actors / Lifelines:
+- Utente
+
+Relationships / Links:
+- Accesso pagina impostazioni -> Valutazione le impostazioni — transition="Yes"; explanation="Proceed to evaluate settings";
+- Accesso pagina impostazioni -> Mostra i dati dei distributori — transition="No"; explanation="Proceed to show distributor data";
+- Valutazione le impostazioni -> Mostra i dati dei distributori — transition="No"; explanation="Proceed to show distributor data";
+- Valutazione le impostazioni -> Mostra i dati statistiche — transition="Yes"; explanation="Proceed to show statistics data";
+- Mostra i dati dei distributori -> Aggiungi lista dei veicoli — transition="No"; explanation="Proceed to add vehicle list";
+- Mostra i dati statistiche -> Aggiungi lista dei veicoli — transition="No"; explanation="Proceed to add vehicle list";
+- Aggiungi lista dei veicoli -> Visualizza popup con informazioni effettuate — transition="Yes"; explanation="Proceed to display popup";
+
+Conditions / Branches:
+- Valutazione le impostazioni -> Mostra i dati dei distributori — condition="Valutare impostazioni?";
+- Valutazione le impostazioni -> Mostra i dati statistiche — condition="Valutare impostazioni?";
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- "Valutare impostazioni?"
+
+Observations:
+- The diagram models the flow of a user accessing the settings page and then potentially navigating to different sections based on whether they are evaluating settings or viewing distributor/statistic data.
+- The user can add a vehicle list and then view a popup with information about completed actions.
+- The diagram shows a branching path based on whether the user is evaluating settings or not.
+
+
+======================================================================

@@ -1,0 +1,73 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,1,None,"- email: testuser@example.com
+- password: Test1234
+- username: TestUser","1. Navigate to the registration page.
+2. Enter the email, password, and username.
+3. Click the ""Register"" button.",The user is successfully registered and redirected to the login page.
+TC-User-002,User Login,User,1,User has been registered.,"- email: testuser@example.com
+- password: Test1234","1. Navigate to the login page.
+2. Enter the email and password.
+3. Click the ""Login"" button.",The user is successfully logged in and redirected to the homepage.
+TC-City-001,City View,City,2,User is logged in.,,"1. Navigate to the homepage.
+2. Select a city from the list.
+3. Verify that the city details are displayed.",The city details are correctly displayed.
+TC-Event-001,Create Event,Event,"2, 3",User is logged in and on the city view page.,"- titolo: Test Event
+- data: 2023-01-01
+- tipologia: Party
+- creatore: TestUser
+- città: TestCity
+- descrizione: Test Event Description","1. Scroll down to the ""Add Event"" section.
+2. Enter the event details.
+3. Click the ""Add Event"" button.",The event is successfully created and displayed on the city view page.
+TC-Event-002,Edit Event,Event,3,User is logged in and on the city view page.,"- titolo: Updated Test Event
+- data: 2023-01-02
+- tipologia: Concert
+- creatore: TestUser
+- città: TestCity
+- descrizione: Updated Test Event Description","1. Find the event to be edited.
+2. Click the ""Edit"" button next to the event.
+3. Update the event details.
+4. Click the ""Save"" button.",The event is successfully updated and displayed on the city view page.
+TC-Event-003,Delete Event,Event,3,User is logged in and on the city view page.,,"1. Find the event to be deleted.
+2. Click the ""Delete"" button next to the event.
+3. Confirm the deletion.",The event is successfully deleted and no longer displayed on the city view page.
+TC-City-002,Search City,City,2,User is logged in.,- città: Rome,"1. Navigate to the homepage.
+2. Enter ""Rome"" in the search bar.
+3. Click the ""Search"" button.","The city named ""Rome"" is displayed on the city view page."
+TC-POI-001,View POI,POI,1,User is logged in and on the city view page.,,"1. Verify that the city has associated points of interest.
+2. Click on a point of interest.
+3. Verify that the point of interest details are displayed.",The point of interest details are correctly displayed.
+TC-User-003,Invalid Registration,User,1,None,"- email: testuser
+- password: Test123
+- username: Test","1. Navigate to the registration page.
+2. Enter the invalid data.
+3. Click the ""Register"" button.","An error message is displayed, and the user is not registered."
+TC-User-004,Invalid Login,User,1,User has been registered.,"- email: testuser@example.com
+- password: Test12","1. Navigate to the login page.
+2. Enter the invalid data.
+3. Click the ""Login"" button.","An error message is displayed, and the user is not logged in."
+TC-Event-004,Invalid Event Creation,Event,"2, 3",User is logged in and on the city view page.,"- titolo:
+- data: 2023-02-32 (Invalid date)
+- tipologia:
+- creatore: TestUser
+- città: TestCity
+- descrizione: Test Event Description","1. Scroll down to the ""Add Event"" section.
+2. Enter the invalid data.
+3. Click the ""Add Event"" button.","An error message is displayed, and the event is not created."
+TC-Event-005,Edit Event with Invalid Data,Event,3,User is logged in and on the city view page.,"- titolo: (Empty title)
+- data: 2023-01-01
+- tipologia: Party
+- creatore: TestUser
+- città: TestCity
+- descrizione: Test Event Description","1. Find the event to be edited.
+2. Click the ""Edit"" button next to the event.
+3. Update the event details with invalid data.
+4. Click the ""Save"" button.","An error message is displayed, and the event is not updated."
+TC-Event-006,Delete Event with Invalid Data,Event,3,User is logged in and on the city view page.,,"1. Find the event to be deleted.
+2. Click the ""Delete"" button next to the event.
+3. Enter an invalid confirmation.","An error message is displayed, and the event is not deleted."
+TC-City-003,Search City with Invalid Data,City,2,User is logged in.,- città: Romea (Invalid city name),"1. Navigate to the homepage.
+2. Enter the invalid data in the search bar.
+3. Click the ""Search"" button.","No city is displayed, and an error message is shown."
+TC-POI-002,View POI with Invalid Data,POI,1,User is logged in and on the city view page.,,"1. Verify that the city has associated points of interest.
+2. Click on an invalid point of interest.","An error message is displayed, and the point of interest details are not shown."

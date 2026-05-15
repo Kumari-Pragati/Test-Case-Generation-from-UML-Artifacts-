@@ -1,0 +1,63 @@
+flow
+"utente -> clienti — type=eridafrom; label=""eredita da""; explanation=""utente eredita attributi da clienti"""
+"venditore -> clienti — type=eridafrom; label=""eredita da""; explanation=""venditore eredita attributi da clienti"""
+"clienti -> segnalazione — type=crea; label=""crea""; explanation=""clienti crea segnalazione"""
+"clienti -> recensione — type=crea; label=""crea""; explanation=""clienti crea recensione"""
+"venditore -> venditorepreferito — type=crea; label=""crea""; explanation=""venditore crea venditorepreferito"""
+"venditorepreferito -> clienti — type=ha; label=""ha""; explanation=""venditorepreferito ha cliente"""
+utente -> clienti: crea un nuovo cliente
+venditore -> venditorepreferito: crea un nuovo venditore preferito
+clienti -> segnalazione: crea una segnalazione
+clienti -> recensione: crea una recensione
+venditorepreferito -> clienti: associa un cliente al venditore preferito
+"this diagram models a system for managing users, vendors, products, and customer feedback."
+users can create customer accounts and vendors can create vendor accounts.
+customers can create reviews and vendors can create product listings.
+venditorepreferito links a vendor to a specific customer.
+"map -> posizione del futente è accessibile? — type=transition; label=""no""; explanation=""decision point"""
+"posizione del futente è accessibile? -> segnalazione errore — type=transition; label=""no"""
+"posizione del futente è accessibile? -> crea la lista in base alla posizione dell'utente — type=transition; label=""si"""
+map
+posizione del futente è accessibile? (no) -> segnalazione errore
+posizione del futente è accessibile? (si) -> crea la lista in base alla posizione dell'utente
+"the diagram models a process where the accessibility of a location is checked. if the location is not accessible, an error is reported. if it is accessible, a list is created based on the user's position. this appears to be a simple decision-based workflow."
+"click su un prodotto -> modifica prodotto — type=transition; label=""click su un prodotto""; explanation=""initiates the modification process"""
+"modifica prodotto -> premuto tasto ""modifica"" — type=transition; label=""premuto tasto 'modifica'""; explanation=""triggers the validation step"""
+"premuto tasto ""modifica"" -> i campi sono compilati correttamente? — type=decision; label=""i campi sono compilati correttamente?""; explanation=""checks if the input fields are filled correctly"""
+"i campi sono compilati correttamente? (si) -> applica modifiche prodotto — type=transition; label=""si""; explanation=""proceeds to apply the changes"""
+"i campi sono compilati correttamente? (no) -> segnala errore — type=transition; label=""no""; explanation=""indicates an error and stops the process"""
+"applica modifiche prodotto -> modifica prodotto — type=transition; label=""applica modifiche prodotto""; explanation=""applies the changes"""
+the process starts with a user clicking on a product.
+it then checks if the input fields are filled correctly.
+"if the fields are valid, the changes are applied."
+"if the fields are invalid, an error is signaled, and the process stops."
+"click su pulsante ""+“ -> aggiungi prodotto — type=transition; label=""click su pulsante ""+""; explanation=""user clicks the 'add' button"""
+"aggiungi prodotto -> premiuto tasto “aggiungi!” — type=transition; label=""premiuto tasto ‘aggiungi!’""; explanation=""button press"""
+"aggiungi prodotto -> i campi sono compilati correttamente? — type=decision; label=""i campi sono compilati correttamente?""; explanation=""check if fields are filled correctly"""
+"i campi sono compilati correttamente? — type=decision; label=""no"";"
+"no -> segnala errore — type=transition; label=""no""; explanation=""report error"""
+"i campi sono compilati correttamente? — type=decision; label=""si"";"
+"si -> aggiungi prodotto — type=transition; label=""si""; explanation=""add product"""
+"* the process starts with a user clicking the ""add"" button."
+* the system checks if the required fields are filled correctly.
+"* if the fields are not filled correctly, an error is reported."
+"* if the fields are filled correctly, the product is added."
+"pagina gestione notifiche -> click — type=transition; label=""click""; explanation=""user clicks on the notification management page."";"
+"click -> gestione notifiche — type=transition; label=""gestione notifiche""; explanation=""initiates notification management."";"
+"gestione notifiche -> promuto “push notification” — type=transition; label=""promuto ‘push notification’""; explanation=""user selects 'push notification' option."";"
+"promuto “push notification” -> invia notifiche push — type=transition; label=""invia notifiche push""; explanation=""sends notifications via push."";"
+"gestione notifiche -> promuto “in app notification” — type=transition; label=""promuto ‘in app notification’""; explanation=""user selects 'in app notification' option."";"
+"promuto “in app notification” -> invia notifiche in app — type=transition; label=""invia notifiche in app""; explanation=""sends notifications in the app."";"
+pagina gestione notifiche -> click -> gestione notifiche -> promuto “push notification” -> invia notifiche push
+pagina gestione notifiche -> click -> gestione notifiche -> promuto “in app notification” -> invia notifiche in app
+"the diagram models the process of managing and sending notifications, starting from a user clicking on a notification management page."
+the user can choose to send notifications via a push notification or through the app.
+"the diagram shows a simple, linear flow of actions."
+"gestione notifiche -> nuovo prodotto — type=sends; label=""new product""; explanation=""sends a notification about a new product."""
+"gestione notifiche -> push notifica — type=sends; label=""push notification""; explanation=""sends a push notification."""
+"gestione notifiche -> in app notifica — type=sends; label=""in app notification""; explanation=""sends an in-app notification."""
+"utente -> gestione notifiche — type=initiates; label=""gestione dell'arrivo di notifiche""; explanation=""user initiates the management of notifications."""
+the diagram models a user interface for managing notifications received from nearby stores.
+"the primary flow involves the user initiating the notification management process, which then triggers the sending of notifications for new products or promotions."
+the diagram focuses on the notification sending aspect and does not detail the notification content or delivery mechanisms.
+======================================================================

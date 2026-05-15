@@ -1,0 +1,126 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Verify Username Getter and Setter,Utente,1,An Utente object is instantiated.,"- NewUsername: ""newusername""","1. Call GetUsername() on the Utente object.
+2. Assert that the returned value matches the initial username.
+3. Call SetUsername(""newusername"").
+4. Call GetUsername() again.
+5. Assert that the returned value is now ""newusername"".","The initial username is retrieved correctly, and after setting a new username, the getter retrieves the updated value."
+TC-Utente-002,Verify Email Getter and Setter,Utente,1,An Utente object is instantiated.,"- NewEmail: ""newemail@example.com""","1. Call GetEmail() on the Utente object.
+2. Assert that the returned value matches the initial email.
+3. Call SetEmail(""newemail@example.com"").
+4. Call GetEmail() again.
+5. Assert that the returned value is now ""newemail@example.com"".","The initial email is retrieved correctly, and after setting a new email, the getter retrieves the updated value."
+TC-Utente-003,Verify Password Getter and Setter,Utente,1,An Utente object is instantiated.,"- NewPassword: ""newpassword123""","1. Call GetPassword() on the Utente object.
+2. Assert that the returned value matches the initial password.
+3. Call SetPassword(""newpassword123"").
+4. Call GetPassword() again.
+5. Assert that the returned value is now ""newpassword123"".","The initial password is retrieved correctly, and after setting a new password, the getter retrieves the updated value."
+TC-Utente-004,Verify Points Getter and Setter,Utente,1,An Utente object is instantiated.,- NewPoints: 100,"1. Call GetPunti() on the Utente object.
+2. Assert that the returned value matches the initial points.
+3. Call SetPunti(100).
+4. Call GetPunti() again.
+5. Assert that the returned value is now 100.","The initial points are retrieved correctly, and after setting new points, the getter retrieves the updated value."
+TC-Ranking-001,Verify Ranking Getter and Setter Methods,Ranking,1,A Ranking object is instantiated.,"- NewId: 2
+- NewTitle: ""New Title""
+- NewSuperato: true","1. Call GetId() on the Ranking object.
+2. Assert that the returned value matches the initial id.
+3. Call SetId(2).
+4. Call GetId() again.
+5. Assert that the returned value is now 2.
+6. Call GetTitolo() on the Ranking object.
+7. Assert that the returned value matches the initial title.
+8. Call SetTitolo(""New Title"").
+9. Call GetTitolo() again.
+10. Assert that the returned value is now ""New Title"".
+11. Call GetSuperato() on the Ranking object.
+12. Assert that the returned value matches the initial superato status.
+13. Call SetSuperato(true).
+14. Call GetSuperato() again.
+15. Assert that the returned value is now true.","The initial id, title, and superato status are retrieved correctly, and after setting new values, the getters retrieve the updated values."
+TC-Tip-001,Verify Tip Getter and Setter Methods,Tip,1,A Tip object is instantiated.,"- NewId: 3
+- NewTitle: ""New Tip Title""
+- NewDescription: ""New Tip Description""","1. Call GetId() on the Tip object.
+2. Assert that the returned value matches the initial id.
+3. Call SetId(3).
+4. Call GetId() again.
+5. Assert that the returned value is now 3.
+6. Call GetTitolo() on the Tip object.
+7. Assert that the returned value matches the initial title.
+8. Call SetTitolo(""New Tip Title"").
+9. Call GetTitolo() again.
+10. Assert that the returned value is now ""New Tip Title"".
+11. Call GetDescrizione() on the Tip object.
+12. Assert that the returned value matches the initial description.
+13. Call SetDescrizione(""New Tip Description"").
+14. Call GetDescrizione() again.
+15. Assert that the returned value is now ""New Tip Description"".","The initial id, title, and description are retrieved correctly, and after setting new values, the getters retrieve the updated values."
+TC-Mission-001,Verify Mission Getter and Setter Methods,Mission,1,A Mission object is instantiated.,"- NewId: 4
+- NewTitle: ""New Mission Title""
+- NewSuperato: false
+- NewDescription: ""New Mission Description""","1. Call GetId() on the Mission object.
+2. Assert that the returned value matches the initial id.
+3. Call SetId(4).
+4. Call GetId() again.
+5. Assert that the returned value is now 4.
+6. Call GetTitolo() on the Mission object.
+7. Assert that the returned value matches the initial title.
+8. Call SetTitolo(""New Mission Title"").
+9. Call GetTitolo() again.
+10. Assert that the returned value is now ""New Mission Title"".
+11. Call GetSuperato() on the Mission object.
+12. Assert that the returned value matches the initial superato status.
+13. Call SetSuperato(false).
+14. Call GetSuperato() again.
+15. Assert that the returned value is now false.
+16. Call GetDescrizione() on the Mission object.
+17. Assert that the returned value matches the initial description.
+18. Call SetDescrizione(""New Mission Description"").
+19. Call GetDescrizione() again.
+20. Assert that the returned value is now ""New Mission Description"".","The initial id, title, superato status, and description are retrieved correctly, and after setting new values, the getters retrieve the updated values."
+TC-FirebaseAuth-001,Successful User Login with Valid Credentials,Firebase Authentication,2,Firebase Authentication service is available and a valid user account exists.,"- Email: ""validuser@example.com""
+- Password: ""validpassword""","1. Call signInWithEmailAndPassword(""validuser@example.com"", ""validpassword"").
+2. Assert that the response does not contain an error.
+3. Assert that the FirebaseUser object is returned.","The user logs in successfully with valid credentials, and the FirebaseUser object is returned."
+TC-FirebaseAuth-002,Failed User Login with Empty Email Field,Firebase Authentication,2,Firebase Authentication service is available.,"- Email: """"
+- Password: ""validpassword""","1. Call signInWithEmailAndPassword("""", ""validpassword"").
+2. Assert that the response contains an error.","The user login fails due to an empty email field, and an error is returned."
+TC-FirebaseAuth-003,Failed User Login with Empty Password Field,Firebase Authentication,2,Firebase Authentication service is available.,"- Email: ""validuser@example.com""
+- Password: """"","1. Call signInWithEmailAndPassword(""validuser@example.com"", """").
+2. Assert that the response contains an error.","The user login fails due to an empty password field, and an error is returned."
+TC-FirebaseAuth-004,Successful User Registration with Valid Credentials,Firebase Authentication,3,Firebase Authentication service is available.,"- Email: ""newuser@example.com""
+- Password: ""newpassword123""","1. Check that email is not empty and password length is greater than 7 characters.
+2. Call CreateUserWithEmailAndPassword(""newuser@example.com"", ""newpassword123"").
+3. Assert that the response does not contain an error.
+4. Assert that the FirebaseUser object and UserID are returned.
+5. Call setValue(HashMap<String, Object>).
+6. Assert that the FirebaseUser is logged in.","The user registers successfully with valid credentials, and the FirebaseUser object and UserID are returned."
+TC-FirebaseAuth-005,Failed User Registration with Empty Email Field,Firebase Authentication,3,Firebase Authentication service is available.,"- Email: """"
+- Password: ""newpassword123""","1. Check that email is empty.
+2. Call CreateUserWithEmailAndPassword("""", ""newpassword123"").
+3. Assert that the response contains an error.","The user registration fails due to an empty email field, and an error is returned."
+TC-FirebaseAuth-006,Failed User Registration with Short Password,Firebase Authentication,3,Firebase Authentication service is available.,"- Email: ""newuser@example.com""
+- Password: ""short""","1. Check that password length is less than 8 characters.
+2. Call CreateUserWithEmailAndPassword(""newuser@example.com"", ""short"").
+3. Assert that the response contains an error.","The user registration fails due to a short password, and an error is returned."
+TC-RealtimeDB-001,Update Database with Valid Data,Realtime Database,4,Realtime Database is available and a HashMap with valid data is prepared.,"- HashMap<String, Object>: {""key1"": ""value1"", ""key2"": ""value2""}","1. Convert the HashMap to JSON format.
+2. Send a REST/HTTP/2 request to the Realtime Database with the JSON data.
+3. Receive an asynchronous response from the Realtime Database.
+4. Assert that the response indicates success.","The database is updated successfully with the provided data, and an asynchronous response confirms the update."
+TC-RealtimeDB-002,Handle Asynchronous Response Failure,Realtime Database,4,Realtime Database is available and a HashMap with valid data is prepared.,"- HashMap<String, Object>: {""key1"": ""value1"", ""key2"": ""value2""}","1. Convert the HashMap to JSON format.
+2. Send a REST/HTTP/2 request to the Realtime Database with the JSON data.
+3. Receive an asynchronous response from the Realtime Database.
+4. Assert that the response indicates failure.","The database update fails, and an asynchronous response indicates the failure."
+TC-RealtimeDB-003,Retrieve Data from Realtime Database,Realtime Database,5,Realtime Database is available and a listener for Mission is added.,- None,"1. Add a listener for Mission in the Firebase SDK.
+2. Wait for onDataChange() event.
+3. Add a listener for Mission in the Realtime Database.
+4. Realtime Database sends a response with the requested data.
+5. Main application controls the token and collects the requested data.",The main application receives the requested data from the Realtime Database upon data change events.
+TC-RealtimeDB-004,Handle Token Control During Data Retrieval,Realtime Database,5,Realtime Database is available and a listener for Mission is added.,- Invalid Token,"1. Add a listener for Mission in the Firebase SDK.
+2. Wait for onDataChange() event.
+3. Add a listener for Mission in the Realtime Database.
+4. Realtime Database sends a response with the requested data.
+5. Main application controls the token and collects the requested data.
+6. Assert that the token control fails.",The main application fails to collect the requested data due to an invalid token.
+TC-RealtimeDB-005,Retrieve Data from Realtime Database for Trofeo,Realtime Database,5,Realtime Database is available and a listener for Trofeo is added.,- None,"1. Add a listener for Trofeo in the Firebase SDK.
+2. Wait for onDataChange() event.
+3. Add a listener for Trofeo in the Realtime Database.
+4. Realtime Database sends a",

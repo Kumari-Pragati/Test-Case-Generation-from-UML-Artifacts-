@@ -1,0 +1,214 @@
+REPORT: Report_4_uml_pages.pdf
+======================================================================
+
+===== Report_4_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[Username (PK): string, Password: string, Email: string, Admin: bool, Footprint_totale: string]; operations=[getUsername(): string, setUsername(newUsername: string): void, getPassword(): string, setPassword(newPassword: string): void, getEmail(): string, setEmail(newEmail: string): void, getFootprint_totale(): string, setFootprint_totale(string val): void]
+- Dispositivo — kind=class; attributes=[ID (PK): int, Utente (FK): string, Nome: string, Modello: string, Footprint_produzione: string, Footprint_totale: string]; operations=[getID(): int, setID(newID: int): void, getUtente(): string, setUtente(newUtente: string): void, getNome(): string, setNome(newNome: string): void, getModello(): string, setModello(newModello: string): void, getFootprintProduzione(): string, setFootprintProduzione(newFootprintProduzione: string): void, getFootprintTotale(): string, setFootprintTotale(newFootprintTotale: string): void]
+- Materiale — kind=class; attributes=[Formula_chimica (PK): string, Dispositivo (FK): int, Percentuale_presenza: int, Carbon_footprint: string]; operations=[getFormulaChimica(): string, setFormulaChimica(newFormulaChimica: string): void, getDispositivo(): int, setDispositivo(newDispositivo: int): void, getPercentualePresenza(): int, setPercentualePresenza(newPercentualePresenza: int): void, getCarbonFootprint(): string, setCarbonFootprint(newCarbonFootprint: string): void]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Dispositivo — type=association; label=""; explanation="User association with device"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Dispositivo
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models three classes: Utente, Dispositivo, and Materiale.
+- The Utente class represents user entities with attributes such as username, password, email, admin status, and total footprint.
+- The Dispositivo class represents devices associated with users, with attributes for ID, user, name, model, production footprint, and total footprint.
+- The Materiale class represents materials with attributes for chemical formula, device, percentage presence, and carbon footprint.
+- There is an association between Utente and Dispositivo, indicating a relationship where a user can have multiple devices.
+- The diagram does not show any complex conditions, branches, or loops.
+
+===== Report_4_uml_pages.pdf | Page 2 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; role=User
+- Applicazione — kind=component; role=Application
+- Database — kind=component; role=Database
+
+Actors / Lifelines:
+- Utente
+- Applicazione
+- Database
+
+Relationships / Links:
+- Utente -> Applicazione — type=message; label="Inizio Login"; explanation="User initiates login process"
+- Applicazione -> Database — type=message; label="Verifica se l'utente è registrato"; explanation="Application checks if user is registered"
+- Database -> Applicazione — type=message; label="Registrato?"; explanation="Database checks user registration status"
+- Applicazione -> Database — type=message; label="Richiedi registrazione"; explanation="Application requests registration"
+- Database -> Applicazione — type=message; label="Consenti accesso"; explanation="Database grants access"
+- Applicazione -> Utente — type=message; label="Homepage"; explanation="Application redirects to homepage"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Applicazione — "Inizio Login" -> Applicazione -> Database — "Verifica se l'utente è registrato" -> Database -> Applicazione — "Registrato?" -> Applicazione -> Database — "Richiedi registrazione" -> Database -> Applicazione — "Consenti accesso" -> Applicazione -> Utente — "Homepage"
+
+Conditions / Branches:
+- Database -> Applicazione — "Registrato?" — yes: "Consenti accesso" — no: "Richiedi registrazione"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This diagram models the login process within an application system involving a user, an application, and a database.
+- The main flow starts with the user initiating the login process.
+- The application then verifies if the user is registered with the database.
+- Depending on the user's registration status, either access is granted or a registration request is made.
+- If the user is not registered, they are redirected to the registration page.
+- If the user is registered, they are redirected to the homepage.
+- There is a conditional branch for checking user registration status, leading to either granting access or requesting registration.
+
+===== Report_4_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- Main — kind=participant; attributes=[]; operations=[]; role=interface
+- Applicazione — kind=participant; attributes=[]; operations=[]; role=interface
+- Database — kind=participant; attributes=[]; operations=[]; role=interface
+
+Actors / Lifelines:
+- Main
+- Applicazione
+- Database
+
+Relationships / Links:
+- Main -> Applicazione — type=message; label="Richiede modifica dati"; explanation="Main requests data modification"
+- Applicazione -> Database — type=message; label="Richiedi dati attuali"; explanation="Applicazione requests current data"
+- Database -> Applicazione — type=message; label="Fornisce dati attuali"; explanation="Database provides current data"
+- Applicazione -> Main — type=message; label="Mostra dati attuali"; explanation="Applicazione shows current data"
+- Main -> Applicazione — type=message; label="Invia nuovi dati"; explanation="Main sends new data"
+- Applicazione -> Database — type=message; label="Aggiorna dati utente"; explanation="Applicazione updates user data"
+- Database -> Applicazione — type=message; label="Conferma aggiornamento"; explanation="Database confirms update"
+
+Main Flows (step by step):
+- Flow 1: Main -> Applicazione — "Richiede modifica dati"
+- Applicazione -> Database — "Richiedi dati attuali"
+- Database -> Applicazione — "Fornisce dati attuali"
+- Applicazione -> Main — "Mostra dati attuali"
+- Main -> Applicazione — "Invia nuovi dati"
+- Applicazione -> Database — "Aggiorna dati utente"
+- Database -> Applicazione — "Conferma aggiornamento"
+- Applicazione -> Main — "Aggiornamento effettuato"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a data modification process involving three components: Main, Applicazione, and Database.
+- The process starts with Main requesting data modification from Applicazione.
+- Applicazione then retrieves current data from the Database.
+- Applicazione displays the current data to Main.
+- Main sends new data to Applicazione.
+- Applicazione updates the user data in the Database.
+- The Database confirms the update to Applicazione.
+- Finally, Applicazione informs Main that the update has been performed successfully.
+- The process ensures that data is fetched, modified, and updated in a sequential manner.
+
+===== Report_4_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=action; role=main process
+- Applicazione — kind=action; role=application process
+- Database — kind=action; role=database process
+
+Actors / Lifelines:
+- Main
+- Applicazione
+- Database
+
+Relationships / Links:
+- Main -> Applicazione — type=association; label="Esegue scansione dispositivo"; explanation="Main initiates device scan"
+- Applicazione -> Database — type=association; label="Esegui scansione hardware"; explanation="Application performs hardware scan"
+- Database -> Applicazione — type=association; label="Nome e Impatto componente"; explanation="Database provides component name and impact"
+- Applicazione -> Main — type=association; label="return result"; explanation="Application returns scan results"
+- Applicazione -> Main — type=association; label="return nome, impatto componente, diagnostica dispositivo"; explanation="Application returns component name, impact, and device diagnostics"
+
+Main Flows (step by step):
+- Flow 1: Main -> Applicazione — "Esegue scansione dispositivo" -> Applicazione -> Database — "Esegui scansione hardware" -> Database -> Applicazione — "Nome e Impatto componente" -> Applicazione -> Main — "return result" -> Main
+- Flow 2: Main -> Applicazione — "Esegue scansione dispositivo" -> Applicazione -> Database — "Esegui scansione hardware" -> Database -> Applicazione — "Nome e Impatto componente" -> Applicazione -> Main — "return nome, impatto componente, diagnostica dispositivo" -> Main
+
+Conditions / Branches:
+- Database -> Applicazione — "Componenti funzionanti?" — "Si, ricavo impatto sostituzione componente" — "no" — "Se ci sono componenti difettosi si calcola quanto impatto ha cambiarlo"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- "Se ci sono componenti difettosi si calcola quanto impatto ha cambiarlo"
+
+Observations:
+- This activity diagram models a device scanning process involving three main components: Main, Application, and Database.
+- The Main component initiates the device scan.
+- The Application component performs the hardware scan and retrieves the component name, impact, and device diagnostics from the Database.
+- The Application then returns the scan results to the Main component.
+- If the Database indicates that some components are functioning, it calculates the impact of replacing them.
+- If there are defective components, the impact of changing them is calculated.
+- The diagram outlines the flow of data and control between the components, highlighting the main steps and conditions for different scenarios.
+
+===== Report_4_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Main — kind=action; attributes=[]; operations=[]; role=main process
+- Applicazione — kind=action; attributes=[]; operations=[]; role=application process
+
+Actors / Lifelines:
+- Main
+- Applicazione
+
+Relationships / Links:
+- Main -> Applicazione — type=association; label="Esegui scansione hardware"; explanation="Execute hardware scan"
+- Applicazione -> Main — type=association; label="return result"; explanation="Return result"
+
+Main Flows (step by step):
+- Flow 1: Main -> Applicazione — "Esegui scansione hardware" -> Applicazione -> Main — "return result"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "ASPETTATIVA DI VITA" — title
+
+Observations:
+- This activity diagram models a process involving two main components: "Main" and "Applicazione".
+- The "Main" component initiates the process by executing a hardware scan through the "Applicazione" component.
+- The "Applicazione" component then performs a speed and health scan of components and calculates the life expectancy.
+- The results are returned to the "Main" component.
+- The process is linear with no branching or looping conditions visible in the diagram.
+
+
+======================================================================

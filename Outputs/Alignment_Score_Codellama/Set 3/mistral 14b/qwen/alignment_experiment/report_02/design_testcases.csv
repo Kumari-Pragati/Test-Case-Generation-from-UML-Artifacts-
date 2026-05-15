@@ -1,0 +1,115 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,First-time user registration flow,User Authentication,1,"- User opens the app for the first time.
+- No prior registration exists for the user.","- Valid email: `testuser@example.com`
+- Valid password: `SecurePass123!`
+- Confirm password: `SecurePass123!`","1. User launches the app (ACCESSO ALL'APP).
+2. System detects first access (1° ACCESSO → NO).
+3. User is redirected to registration (REGISTRAZIONE).
+4. User enters valid email, password, and confirms.
+5. User submits registration form.","- Registration succeeds.
+- User is redirected to HOME page.
+- System marks user as registered (UTENTE GIA' REGISTRATO? → SI)."
+TC-AUTHENTICATION-002,Returning user login flow,User Authentication,"1, 5","- User is registered (UTENTE GIA' REGISTRATO? → SI).
+- User has not logged out.","- Registered email: `testuser@example.com`
+- Correct password: `SecurePass123!`","1. User launches the app (ACCESSO ALL'APP).
+2. System detects prior registration (1° ACCESSO → SI).
+3. User is redirected to login (LOGIN).
+4. User enters valid credentials and submits.
+5. Application sends credentials to server (Page 5: Utente → Applicazione → Server).
+6. Server verifies credentials with database (Server → Database → Server).
+7. Server confirms match (dati trovati).
+8. Application notifies user of successful login (login avvenuto).","- User is redirected to HOME page.
+- Session is established (no further login prompts)."
+TC-AUTHENTICATION-003,Invalid login attempt (wrong password),User Authentication,"1, 5",- User is registered.,"- Registered email: `testuser@example.com`
+- Incorrect password: `WrongPass123!`","1. User launches the app → login screen (LOGIN).
+2. User enters email and incorrect password → submits.
+3. Application sends credentials to server.
+4. Server verifies with database → no match.
+5. Server returns failure to application.
+6. Application displays error: ""Invalid credentials. Try again.""","- User remains on LOGIN screen.
+- No redirection to HOME.
+- Error message is shown."
+TC-AUTHENTICATION-004,Unregistered user attempts login,User Authentication,1,- User is not registered.,"- Non-existent email: `nonexistent@example.com`
+- Any password: `Test123!`","1. User launches app → login screen (LOGIN).
+2. User enters non-existent email and password → submits.
+3. System detects user is not registered (UTENTE GIA' REGISTRATO? → NO).
+4. Application shows error: ""User not found. Please register.""","- User is redirected to REGISTRAZIONE.
+- No HOME access granted."
+TC-JOURNEY-001,Start a new journey from HOME,Journey Tracking,2,"- User is logged in (on HOME page).
+- No ongoing journey exists.",,"1. User navigates to HOME.
+2. System checks TRAGITTO IN CORSO? → NO.
+3. User selects ""Start Journey"" (implicit action).
+4. System transitions to AVVIA TRAGITTO.
+5. User confirms journey start.
+6. System checks TRAGITTO TERMINATO? → NO (ongoing).","- Journey starts successfully.
+- User sees journey progress (e.g., map/route UI).
+- No emissions calculation yet."
+TC-JOURNEY-002,Complete a journey and calculate emissions,Journey Tracking,"2, 6","- User has an ongoing journey (TRAGITTO IN CORSO? → SI).
+- Journey data is collected (e.g., distance, time).",,"1. User completes journey (e.g., arrives at destination).
+2. System checks TRAGITTO TERMINATO? → SI.
+3. System triggers CALCOLO EMISSIONI.
+4. Application sends route data to server (Page 6: Applicazione → Server).
+5. Server processes data with database (Server → Database → Server).
+6. Server calculates emissions and returns to application.
+7. Application displays emissions to user (emissioni CO2).","- Emissions value (e.g., ""12.5 kg CO2"") is shown.
+- Journey is marked as completed.
+- User can start a new journey or return to HOME."
+TC-JOURNEY-003,User declines to change section after journey completion,Journey Tracking,2,"- User completes a journey (TRAGITTO TERMINATO? → SI).
+- System prompts: ""Vuoi cambiare sezione?"" (Change section?).",,"1. User selects ""No"" to section change.
+2. System transitions to HOME (NO → HOME).","- User is redirected to HOME.
+- No menu or section change occurs."
+TC-JOURNEY-004,User changes section during journey tracking,Journey Tracking,2,- User is on HOME with no ongoing journey.,,"1. User selects ""Change Section"" (VUOI CAMBIARE SEZIONE?).
+2. System shows MENU ORRIZZONTALE.
+3. User selects ""Statistics"" from menu.","- User is redirected to STATISTICHE section.
+- No journey is started."
+TC-STATISTICS-001,Generate weekly report from STATISTICHE,Statistics,3,"- User is on STATISTICHE page.
+- User has journey history for the week.",,"1. User selects ""Visualizza Report Settimanale?"" → SI.
+2. System generates REPORT SETTIMANALE.
+3. Report is displayed (e.g., PDF/chart).
+4. User confirms report viewing.","- Report is generated and shown.
+- User returns to STATISTICHE after viewing.
+- Report includes summary of weekly emissions/journeys."
+TC-STATISTICS-002,User declines weekly report,Statistics,3,- User is on STATISTICHE page.,,"1. User selects ""Visualizza Report Settimanale?"" → NO.","- User remains on STATISTICHE.
+- No report is generated."
+TC-STATISTICS-003,User changes section from STATISTICHE,Statistics,3,- User is on STATISTICHE page.,,"1. User selects ""Vuoi cambiare sezione?"" → SI.
+2. System shows MENU ORRIZZONTALE.
+3. User selects ""Profile"" from menu.","- User is redirected to PROFILLO (personal data).
+- Section change is logged."
+TC-PROFILE-001,Update personal account data,Profile Management,4,- User is on VISUALIZZA DATI PERSONALI.,"- Current name: ""John Doe""
+- New name: ""Johnathan Doe""
+- New phone: ""+1234567890""","1. User selects ""Vuoi aggiornare l'account?"" → SI.
+2. User enters new name and phone → submits (INSEERISCI NUOVI DATI).
+3. System validates and updates data (AGGIORNA DATI).
+4. User confirms update.","- Data is updated in the database.
+- User sees updated profile (e.g., ""Johnathan Doe"").
+- Success message: ""Profile updated successfully."""
+TC-PROFILE-002,Logout from account,Profile Management,4,- User is logged in (on VISUALIZZA DATI PERSONALI).,,"1. User selects ""Vuoi uscire dall'account?"" → SI.
+2. System initiates LOGOUT.
+3. User confirms logout.","- Session is terminated.
+- User is redirected to ACCESSO ALL'APP (login/registration screen).
+- All session data is cleared."
+TC-PROFILE-003,User declines to update account data,Profile Management,4,- User is on VISUALIZZA DATI PERSONALI.,,"1. User selects ""Vuoi aggiornare l'account?"" → NO.","- User remains on VISUALIZZA DATI PERSONALI.
+- No data changes occur."
+TC-EDGE-001,Network failure during login,Authentication,5,"- User is on LOGIN screen.
+- Device has no internet connection.",,"1. User enters credentials → submits.
+2. Application fails to send data to server (no network).
+3. System retries 3 times → fails.","- Error message: ""Network unavailable. Please check connection.""
+- User remains on LOGIN screen.
+- No credentials are sent to server."
+TC-EDGE-002,Empty journey data submission,Journey Tracking,"2, 6",- User attempts to calculate emissions with no journey data.,,"1. User forces CALCOLO EMISSIONI without starting a journey.
+2. Application detects missing data.","- Error message: ""No journey data found. Please start a journey.""
+- User is redirected to HOME.
+- No emissions are calculated."
+TC-EDGE-003,Concurrent journey start while another is ongoing,Journey Tracking,2,- User has an ongoing journey (TRAGITTO IN CORSO? → SI).,,"1. User attempts to start a new journey (AVVIA TRAGITTO).
+2. System detects ongoing journey.","- Error message: ""A journey is already in progress. Please complete it first.""
+- User remains on current journey screen."
+TC-INTEGRATION-001,End-to-end flow: Register → Start Journey → Calculate Emissions → Logout,Full User Flow,"1, 2, 4, 6",- Fresh app install (no user data).,,"1. **Registration (Page 1):**
+   - User registers with valid credentials → redirected to HOME.
+2. **Journey (Page 2):**
+   - User starts a journey → completes it.
+3. **Emissions (Page 6):**
+   - System calculates emissions → displays result.
+4. **Profile (Page 4):**
+   - User navigates to PROFILLO → selects LOGOUT.","- All steps complete successfully.
+- User is logged out and returned to ACCESSO ALL'APP.
+- No data leaks or session persistence."

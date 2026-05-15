@@ -1,0 +1,48 @@
+flow
+"datamanager -> inserimento/modifica piante - type=association; label=""insert/modify plants"""
+"datamanager -> lettura piante - type=association; label=""read plants"""
+"datamanager -> informazioni utente - type=association; label=""user information"""
+"datamanager -> operazioni di accesso - type=association; label=""access operations"""
+"datamanager -> inserimento/modifica diario - type=association; label=""insert/modify diary"""
+"datamanager -> lettura diario - type=association; label=""read diary"""
+flow 1: datamanager -> inserimento/modifica piante -> lettura piante -> datamanager -> inserimento/modifica diario -> lettura diario -> datamanager -> informazioni utente -> operazioni di accesso -> datamanager
+"the diagram models a centralized data management system with various components for managing plants, user information, access operations, and diaries."
+"the main flow involves creating or modifying plants, reading plants, creating or modifying diaries, reading diaries, accessing user information, and performing operations."
+there are no visible decisions or loops in the diagram.
+"home -> diario — type=association; label=""""; explanation="" """
+"diario -> anabli pianta — type=association; label=""""; explanation="" """
+"anabli pianta -> fotocamera — type=association; label=""""; explanation="" """
+"le mie piantle -> fotocamera — type=association; label=""""; explanation="" """
+"authentication -> gemini ai — type=association; label=""""; explanation="" """
+"gemini ai -> shared preference — type=association; label=""""; explanation="" """
+"firebase/storage/manager -> storage/ref — type=association; label=""""; explanation="" """
+home -> diario -> anabli pianta -> fotocamera -> le mie piantle -> authentication -> gemini ai -> shared preference -> firebase/storage/manager -> storage/ref
+the diagram models a system for managing and sharing photos.
+"the main flow starts with the user accessing the home page, then moving to the diary, and finally to the camera."
+"the authentication process is handled by the gemini ai, which also handles shared preferences."
+the system uses firebase/storage/manager to store and manage data.
+"main -> localuser — type: message; label: ""token = gettoken()""; explanation: ""get token from main"""
+"localuser -> authentication — type: message; label: ""token = gettoken()""; explanation: ""send token to authentication"""
+"authentication -> localuser — type: message; label: ""token = gettoken()""; explanation: ""send token back to localuser"""
+"localuser -> main — type: message; label: ""done""; explanation: ""done with authentication"""
+flow 1: main -> localuser -> authentication -> localuser -> main
+"the diagram models the login process, where the main component initiates the process by getting a token, which is then sent to the localuser and then to the authentication component. the localuser then requests a new localuser, and the process is completed when the done message is sent back to the main component."
+"the main flows are straightforward, with the main component initiating the process and the localuser and authentication components responding accordingly."
+there are no loops or repetitions in the diagram.
+main -> firebase storage — type=association; label=; explanation=inserimento della specie nello storage
+main -> gemini ai api — type=association; label=; explanation=conferma di inserimento
+main -> firebase storage — type=association; label=; explanation=caricamento nuova foto nella cartella corretta
+main -> gemini ai api — type=association; label=; explanation=download url della foto caricata
+flow 1: main -> newfoto -> richiesta specie nella foto -> risposta con la specie -> inserimento della specie nello storage -> conferma di inserimento -> caricamento nuova foto nella cartella corretta -> download url della foto caricata
+the diagram models the process of uploading a new species photo and storing it in firebase storage.
+the main component is responsible for initiating the process and handling the new photo.
+the gemini ai api is used for confirming the insertion and downloading the url of the uploaded photo.
+"the process involves a series of steps, including inserting the species into storage, confirming the insertion, and downloading the url of the uploaded photo."
+"main -> firebase storage — type=association; label=""request personal storage""; explanation=""request personal storage"""
+"main -> firebase storage — type=association; label=""request foto per ogni specie presente""; explanation=""request foto per ogni specie presente"""
+"main -> firebase storage — type=association; label=""download url di ogni foto richiesta""; explanation=""download url di ogni foto richiesta"""
+flow 1: main -> request personal storage -> firebase storage -> request foto per ogni specie presente -> download url di ogni foto richiesta
+the diagram models a sequence of interactions between the main and firebase storage components.
+"the main component requests personal storage, then requests a photo for each species present, and finally downloads the url of each requested photo."
+the firebase storage component responds to these requests by providing the requested data.
+======================================================================

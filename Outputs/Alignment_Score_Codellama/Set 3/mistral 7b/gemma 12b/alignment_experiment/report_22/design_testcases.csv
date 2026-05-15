@@ -1,0 +1,53 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Create a new user,User,1,None,"- ID: user1
+- NomeCognome: John Doe
+- email: john.doe@example.com","1. Create a new user with the provided data.
+2. Verify that the user is created successfully.",
+TC-USER-002,Check password,User,1,User has been created.,"- ID: user1
+- Password: password123","1. Retrieve the user with ID ""user1"".
+2. Attempt to check the password with the provided password.
+3. Verify that the password check is successful.",
+TC-USER-003,Reset password,User,1,User has been created.,"- ID: user1
+- New password: newPassword123","1. Retrieve the user with ID ""user1"".
+2. Request a password reset for the user.
+3. Provide the new password.
+4. Verify that the password is successfully reset.",
+TC-USER-004,Get all users,User,1,Users have been created.,,"1. Retrieve a list of all users.
+2. Verify that the list contains all created users.",
+TC-DEVICE-001,Get device info,Device,1,Device has been configured.,,"1. Retrieve the device info for a configured device.
+2. Verify that the retrieved info matches the device's configuration.",
+TC-CONFIG-001,Get configuration,Config,1,Configuration has been set.,,"1. Retrieve the current configuration.
+2. Verify that the retrieved configuration matches the set configuration.",
+TC-CONFIG-002,Set configuration,Config,1,None,"- New configuration: water=true, max_temp=30.0, max_soil_hum=50.0, min_temp=10.0, min_soil_hum=20.0, max_lum=1000.0, min_lum=500.0","1. Set the configuration with the provided data.
+2. Verify that the configuration has been successfully set.",
+TC-CONFIG-003,Set water,Config,1,None,- water: true,"1. Set the water status to the provided value.
+2. Verify that the water status has been successfully set.",
+TC-CONFIG-004,Set temperature,Config,1,None,- max_temp: 35.0,"1. Set the maximum temperature to the provided value.
+2. Verify that the maximum temperature has been successfully set.",
+TC-CONFIG-005,Set soil humidity,Config,1,None,- max_soil_hum: 60.0,"1. Set the maximum soil humidity to the provided value.
+2. Verify that the maximum soil humidity has been successfully set.",
+TC-ALERT-001,Get alert message,Alert,1,An alert has been set.,,"1. Retrieve the alert message.
+2. Verify that the retrieved message matches the set alert message.",
+TC-ALERT-002,Update alert message,Alert,1,An alert has been set.,- New alert message: Alert updated,"1. Update the alert message with the provided data.
+2. Verify that the alert message has been successfully updated.",
+TC-HISTORY-001,Get history,History,1,Historical data has been collected.,,"1. Retrieve the historical data.
+2. Verify that the retrieved data matches the collected historical data.",
+TC-HISTORY-002,Update history,History,1,None,"- Data: 2023-03-01
+- Soil humidity: 40.0
+- Temperature: 25.0
+- Luminosity: 800.0","1. Update the history with the provided data.
+2. Verify that the history has been successfully updated.",
+TC-GREENHOUSE-001,Connect to greenhouse,Greenhouse,4,None,,"1. Connect to a greenhouse.
+2. Verify that the connection is successful.",
+TC-GREENHOUSE-002,Click Configuration,Greenhouse,4,Connected to a greenhouse.,,"1. Click the ""Configuration"" button.
+2. Verify that the configuration page is displayed.",
+TC-GREENHOUSE-003,Check fields,Greenhouse,4,Configuration page is displayed.,,"1. Enter incorrect data for the fields.
+2. Verify that an error message is displayed.",
+TC-GREENHOUSE-004,Save configuration,Greenhouse,4,Configuration page is displayed with correct data.,,"1. Save the configuration with the correct data.
+2. Verify that the configuration has been successfully saved.",
+TC-GREENHOUSE-005,Display list of greenhouses,Greenhouse,2,User has accessed the system.,,"1. Display the list of greenhouses.
+2. Verify that the list contains at least one greenhouse.",
+TC-GREENHOUSE-006,Add devices,Greenhouse,3,User has accessed the system.,- Device title: Greenhouse 1,"1. Add a new device with the provided title.
+2. Verify that the device has been successfully added.",
+TC-GREENHOUSE-007,Add devices with incorrect data,Greenhouse,3,User has accessed the system.,- Device title:,"1. Attempt to add a device with an empty title.
+2. Verify that an error message is displayed.",

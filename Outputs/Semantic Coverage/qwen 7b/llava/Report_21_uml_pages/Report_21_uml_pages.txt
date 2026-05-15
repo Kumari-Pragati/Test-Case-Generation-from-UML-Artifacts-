@@ -1,0 +1,629 @@
+REPORT: Report_21_uml_pages.pdf
+======================================================================
+
+===== Report_21_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=User
+- Admin — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=Admin
+- Product — kind=class; attributes=[name: String, description: String]; operations=[add(name: String, description: String): void, remove(name: String): void]; role=Product
+- Cart — kind=class; attributes=[items: List<Item>]; operations=[add(item: Item): void, remove(item: Item): void]; role=Cart
+- Item — kind=class; attributes=[name: String, price: Double]; role=Item
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=association; label=""; explanation="User is associated with Admin"
+- User -> Product — type=association; label=""; explanation="User is associated with Product"
+- User -> Cart — type=association; label=""; explanation="User is associated with Cart"
+- Admin -> Product — type=association; label=""; explanation="Admin is associated with Product"
+- Admin -> Cart — type=association; label=""; explanation="Admin is associated with Cart"
+- Product -> Cart — type=association; label=""; explanation="Product is associated with Cart"
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> Product -> Cart -> Admin -> User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple class model for an e-commerce system.
+- The User and Admin classes are the main actors in the system.
+- The User can log in and out, while the Admin can also add and remove products.
+- The Product class is associated with both the User and Admin, indicating that both roles can interact with products.
+- The Cart class is associated with both the User and Admin, indicating that both roles can interact with carts.
+- The Item class is not directly associated with any other class, but it is part of the Cart class, which is associated with both the User and Admin.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, etc.
+  * In the components bullet, list all activities exactly as written, including type and return type if visible.
+  * In Relationships / Links, list all visible relationships (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between activities (use "association", "inheritance", etc.).
+
+- For SEQUENCE
+
+===== Report_21_uml_pages.pdf | Page 2 =====
+UML Type: Sequence Diagram
+
+Components:
+- User: kind=Actor; attributes=[]; operations=[login(): Ret, checkUser(): Ret, createUser(): Ret, getCurrentUser(): Ret]; role=User
+- FirebaseAuth: kind=Object; attributes=[]; operations=[getCurrentUser(): Ret, getUser(): Ret, getUserEmail(): Ret, getUserPassword(): Ret]; role=FirebaseAuth
+
+Actors / Lifelines:
+- User
+- FirebaseAuth
+  (if none are explicitly shown, write "- None")
+
+Relationships / Links:
+- User -> FirebaseAuth: association; label="login() -> getCurrentUser()"; explanation="User logs in and gets current user from FirebaseAuth"
+- User -> FirebaseAuth: association; label="checkUser() -> getCurrentUser()"; explanation="User checks user status and gets current user from FirebaseAuth"
+- User -> FirebaseAuth: association; label="createUser() -> getCurrentUser()"; explanation="User creates a new user and gets current user from FirebaseAuth"
+- User -> FirebaseAuth: association; label="getCurrentUser() -> getUser()"; explanation="User gets current user from FirebaseAuth"
+- User -> FirebaseAuth: association; label="getCurrentUser() -> getUserEmail()"; explanation="User gets current user's email from FirebaseAuth"
+- User -> FirebaseAuth: association; label="getCurrentUser() -> getUserPassword()"; explanation="User gets current user's password from FirebaseAuth"
+
+Main Flows (step by step):
+- Flow 1: User -> FirebaseAuth -> User (login() -> getCurrentUser() -> checkUser() -> getUser() -> getCurrentUser() -> getUserEmail() -> getUserPassword())
+- Flow 2: User -> FirebaseAuth -> User (checkUser() -> getCurrentUser() -> getUser() -> getCurrentUser() -> getUserEmail() -> getUserPassword())
+  (if none, write "- None")
+
+Conditions / Branches:
+- None (if none are explicitly shown, write "- None")
+
+Loops / Repetitions:
+- None (if none are explicitly shown, write "- None")
+
+Notes / Annotations:
+- None (if none are explicitly shown, write "- None")
+
+Observations:
+- The sequence diagram shows the interactions between a user and FirebaseAuth.
+- The user logs in and gets the current user from FirebaseAuth.
+- The user checks the user status and gets the current user from FirebaseAuth.
+- The user creates a new user and gets the current user from FirebaseAuth.
+- The user gets the current user's email and password from FirebaseAuth.
+- The sequence diagram does not show any decision points or loops.
+- The sequence diagram does not show any conditions or branches.
+- The sequence diagram does not show any notes or annotations.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For SEQUENCE diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type.
+  * In Relations / Links, list associations, aggregations, etc.
+  * Main Flows can describe likely collaboration between components based only on visible methods and return types.
+  * Conditions / Branches:
+  * None
+  * None
+  * None
+  * None
+
+Observations:
+- None
+
+Guidelines:
+- None
+
+Observations:
+- None
+
+Diagram di Sequenza
+
+===== Report_21_uml_pages.pdf | Page 3 =====
+UML Type:
+- Sequence Diagram
+
+Components:
+- Application
+- System
+- Database
+
+Actors / Lifelines:
+- User
+
+Relationships / Links:
+- Application -> System: invoke
+- System -> Database: query
+
+Main Flows (step by step):
+- Flow 1: User -> Application -> System -> Database (query)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- None
+
+===== Report_21_uml_pages.pdf | Page 4 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Ret, logout(): Ret]
+- Server — kind=class; attributes=[port: int]; operations=[start(): Ret, stop(): Ret]
+- Database — kind=class; attributes=[connection: DatabaseConnection]; operations=[connect(): Ret, disconnect(): Ret]
+
+Actors / Lifelines:
+- User
+- Server
+
+Relationships / Links:
+- User -> Server — type=association; label="login"; explanation="User logs in to the server"
+- User -> Database — type=association; label="connect"; explanation="User connects to the database"
+- Server -> Database — type=association; label="start"; explanation="Server starts the database connection"
+- Server -> Database — type=association; label="stop"; explanation="Server stops the database connection"
+
+Main Flows (step by step):
+- Flow 1: User -> Server -> Database
+  - User logs in to the server.
+  - Server starts the database connection.
+  - User connects to the database.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a simple login system where a user logs in to a server, which in turn starts a database connection for the user.
+- The main flow is the sequence of actions a user takes to log in, which includes logging in to the server, starting the database connection, and connecting to the database.
+- The server is responsible for managing the login process and starting the database connection.
+- The database is responsible for handling the connection to the server.
+- There are no decision points or loops in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio login" -> "Utente con successo al servizio" -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For STATEMENT
+  * None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+- None
+
+===== Report_21_uml_pages.pdf | Page 5 =====
+UML Type:
+- class
+
+Components:
+- Application — kind=class; attributes=[a: String]; operations=[op(args): void]; role=User
+- GestoreCalendario — kind=class; attributes=[a: String]; operations=[op(args): void]; role=Manager
+- Database — kind=class; attributes=[a: String]; operations=[op(args): void]; role=DataStorage
+
+Actors / Lifelines:
+- User
+- Manager
+  (if none are explicitly shown, write "- None")
+
+Relationships / Links:
+- User -> Application — type=association; label=""; explanation="User interacts with Application"
+- User -> GestoreCalendario — type=association; label=""; explanation="User interacts with GestoreCalendario"
+- User -> Database — type=association; label=""; explanation="User interacts with Database"
+
+Main Flows (step by step):
+- Flow 1: User -> Application -> GestoreCalendario -> Database -> User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a simple application where a user interacts with an application that manages a calendar, and the application interacts with a database to store calendar data.
+- The main flow shows the user interacting with the application, which in turn interacts with the GestoreCalendario and the Database.
+- There are no decision points or loops visible in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links must capture each message with its order and arrow direction.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components include use cases (ellipses).
+  * Relationships / Links capture the sequence of interactions between use cases.
+  * Main Flows should describe the main flow from top to bottom.
+
+- For STATEMENT
+
+===== Report_21_uml_pages.pdf | Page 6 =====
+UML Type:
+- class
+
+Components:
+- Calendario — kind=class; attributes=[a: tipo_di_calendario, ...]; operations=[op(args): Ret, ...]; role=Calendario
+
+Actors / Lifelines:
+- Utente
+- Sistema
+
+Relationships / Links:
+- Utente -> Sistema — type=association; label="avvia calendario"; explanation="Utente avvia il calendario"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Sistema -> Calendario -> Sistema -> Calendario -> Utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a simple class for a calendar, with an association between an 'Utente' (User) and a 'Sistema' (System) to manage the calendar.
+- The main flow shows that the User initiates the calendar by interacting with the System, which then manages the calendar.
+- There are no decision points or loops visible in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links must capture each message with its order and arrow direction.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", "general", "specific", etc.
+
+- For STATE_MACHINE diagrams:
+  * Components are states and initial/final markers.
+  * Relationships / Links are transitions with event/guard labels.
+
+- For COMPONENT diagrams:
+  * Components are components, nodes, and roles.
+  * Relationships / Links are connections, dependencies, etc.
+
+- For OBJECT diagrams:
+  * Components are objects, and roles.
+  * Relationships / Links are associations, etc.
+
+GENERAL RULES:
+- None
+
+- None
+
+===== Report_21_uml_pages.pdf | Page 7 =====
+UML Type:
+- class
+
+Components:
+- User — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=User
+- Admin — kind=class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): boolean, logout(): void]; role=Admin
+- Restaurant — kind=class; attributes=[name: String, location: String]; operations=[addMenu(name: String, price: Double): void, removeMenu(name: String): void]; role=Restaurant
+- Menu — kind=class; attributes=[name: String, price: Double]; operations=[addRestaurant(name: String, location: String): void, removeRestaurant(name: String): void]; role=Menu
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Restaurant — type=association; label=""; explanation="User is associated with Restaurant"
+- User -> Menu — type=association; label=""; explanation="User is associated with Menu"
+- Admin -> Restaurant — type=association; label=""; explanation="Admin is associated with Restaurant"
+- Admin -> Menu — type=association; label=""; explanation="Admin is associated with Menu"
+
+Main Flows (step by step):
+- Flow 1: User -> Restaurant -> Menu -> Admin -> Restaurant -> Menu -> User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This class diagram represents a simple system where users and admins can manage menus in a restaurant.
+- Users can log in and log out, while admins can also add and remove menus.
+- The User and Admin classes are associated with the Restaurant and Menu classes, indicating that each user or admin is associated with one or more restaurants and menus.
+- The main flow of the system involves a user logging in, accessing a restaurant, and then accessing a menu, which is then associated with an admin who can add or remove the menu.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should describe the sequence of activities and their order.
+
+- For SEQUENCE diagrams:
+  * Components are actions, decisions, merges, loops, etc.
+  * Main Flows should describe the sequence of actions and their order.
+
+- For STATEMENT:
+  * None
+
+- For STATEMENT:
+  * None
+
+- For STATEMENT:
+  * None
+
+===== Report_21_uml_pages.pdf | Page 8 =====
+UML Type:
+- class
+
+Components:
+- Train: kind=class; attributes=[id: int, name: string, status: string]; operations=[start(), stop()]
+- Station: kind=class; attributes=[id: int, name: string, status: string]; operations=[displayTrains()]
+- Calendar: kind=class; attributes=[id: int, name: string, status: string]; operations=[getTrains()]
+- Payload: kind=class; attributes=[id: int, name: string, status: string]; operations=[displayPayload()]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Train -> Station: type=association; label="start() -> stop()"; explanation="Train starts at a station and stops at another station."
+- Train -> Calendar: type=association; label="getTrains() -> start()"; explanation="Train retrieves its schedule from the calendar."
+- Payload -> Train: type=association; label="displayPayload() -> start()"; explanation="Payload is displayed on the train."
+
+Main Flows (step by step):
+- Flow 1: Train -> Station -> Calendar -> Payload -> Train
+- Flow 2: None
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a simple system where trains start and stop at stations, and passengers can view the train's schedule on a calendar.
+- The Train class has a start() and stop() method, indicating that a train can be started and stopped.
+- The Station class has a displayTrains() method, which implies that the station can show the trains that are currently at the station.
+- The Calendar class has a getTrains() method, which suggests that the calendar can retrieve the trains that are scheduled for a given time.
+- The Payload class has a displayPayload() method, which implies that the payload can be displayed on the train.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente" -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start() -> "start()
+
+===== Report_21_uml_pages.pdf | Page 9 =====
+UML Type:
+- class
+
+Components:
+- <Name> — kind=<kind>; attributes=[a: Type, ...]; operations=[op(args): Ret, ...]; role=<short role/meaning using only visible labels>
+
+Actors / Lifelines:
+- <actor or lifeline name 1>
+- <actor or lifeline name 2>
+  (if none are explicitly shown, write "- None")
+
+Relationships / Links:
+- <Source> -> <Target> — type=<association/message/transition/etc>; label="<edge label if visible>"; explanation="<short explanation using only visible text>"
+
+Main Flows (step by step):
+- Flow 1: <step-by-step description from start to end using only component names and edge labels>
+- Flow 2: <only if another distinct flow is clearly visible>
+  (you can add Flow 3, Flow 4 if they clearly exist; otherwise stop at Flow 1)
+
+Conditions / Branches:
+- <describe each decision/guard and its outgoing labeled branches, using ONLY labels visible in the diagram>
+  (if there are no decisions, write "- None")
+
+Loops / Repetitions:
+- <describe any loops or repeated behaviour where arrows return to earlier nodes or messages repeat>
+  (if none, write "- None")
+
+Notes / Annotations:
+- <any textual notes, stereotypes, constraints, or comments shown>
+  (if none, write "- None")
+
+Observations:
+- <2–6 bullets giving an overall high-level description of what this diagram models,
+  how the main flows behave, and any key edge cases or error paths, using ONLY
+  information from labels in the diagram.>
+
+Guidelines by diagram type (KEEP IT GENERIC):
+
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written,
+    including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions,
+    and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only
+    on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links capture each message with its order and direction.
+  * Main Flows should describe the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Components are use cases (SCENARIO
+  * Actors
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  * Components
+  *
+
+
+======================================================================

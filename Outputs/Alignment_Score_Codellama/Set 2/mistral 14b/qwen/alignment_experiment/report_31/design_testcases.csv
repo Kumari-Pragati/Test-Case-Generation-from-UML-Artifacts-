@@ -1,0 +1,87 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-DATA-SYNC-001,Verify Firebase data synchronization for new user registration,Data Synchronization,1,"- Firebase database is accessible and empty for test data.
+- Local user interface is open and connected to the Data Organizer.
+- No existing users in the system.","- Valid user: `nickname=""TestUser123""`, `password=""SecurePass123!""`, `pos_lat=40.7128`, `pos_lon=-74.0060`, `tokens=0`, `rate=0.0`
+- Invalid user: `nickname=""""`, `password=""weak""`, `pos_lat=999.999`, `pos_lon=-999.999`","1. User enters valid credentials in the Local User interface.
+2. System attempts to register the user via Data Organizer → Firebase.
+3. Verify Firebase database now contains the user record with correct attributes.
+4. Repeat Step 1 with invalid credentials (empty nickname, weak password, invalid coordinates).
+5. System rejects registration and displays error: ""Invalid input. Check nickname, password, and location.""","- Valid user is successfully synced to Firebase with all attributes.
+- Invalid user registration fails; error message appears locally.
+- Firebase database remains unchanged for invalid attempts."
+TC-DATA-SYNC-002,Verify offline data retrieval and sync after reconnection,Data Synchronization,1,"- Firebase is offline (simulated).
+- Data Organizer has cached data (e.g., 3 test messages in a chat).
+- Local user is active and attempts to retrieve data.","- Cached chat: `id=1`, `usr1=""UserA""`, `usr2=""UserB""`
+- Cached messages: `id=101,102,103`, `chat_id=1`, `receiver=""UserB""`, `text=""Test message 1/2/3""`","1. Local user requests to view chat messages via Data Display → Data Organizer.
+2. System retrieves messages from local cache (no Firebase call).
+3. Simulate Firebase reconnection.
+4. Data Organizer syncs cached messages to Firebase.
+5. Verify Firebase now contains the 3 messages with correct metadata.","- Messages are displayed locally without errors during offline mode.
+- All cached messages are synced to Firebase upon reconnection.
+- No data loss or duplication in Firebase."
+TC-CHAT-001,Verify chat creation and message sending between users,Chat Functionality,2,"- Two users (`UserA`, `UserB`) exist in the system with valid relations.
+- Firebase database is populated with user records.","- Chat: `id=1`, `usr1=""UserA""`, `usr2=""UserB""`
+- Message: `id=201`, `chat_id=1`, `receiver=""UserB""`, `text=""Hello!""`, `date=""2023-10-01T12:00:00Z""`","1. UserA creates a new chat with UserB via Local User → Data Organizer.
+2. Verify `Chat` record is created in Firebase with `usr1` and `usr2` linked.
+3. UserA sends a message to UserB in the chat.
+4. Verify `Message` record is created in Firebase with correct `chat_id`, `receiver`, and `text`.
+5. UserB opens the chat and sees the message in Data Display.","- Chat record is created with correct foreign keys to users.
+- Message is stored with timestamp and linked to the chat.
+- UserB’s Data Display shows the message in real-time (if online) or after sync."
+TC-CHAT-002,Verify message deletion and relation cleanup,Chat Functionality,"2, 3","- A chat exists with 2 messages between UserA and UserB.
+- Firebase contains the `Chat`, `Message`, and `Relation` records.","- Message to delete: `id=201`, `chat_id=1`, `text=""Hello!""`
+- Relation to verify: `chat=1`, `user=""UserA""`","1. UserA deletes message `id=201` via Local User → Data Organizer.
+2. Data Organizer sends `RimuoviProdotto()`-style request to Firebase to delete the message.
+3. Verify message `id=201` is removed from Firebase.
+4. Check if the `Chat` record remains intact (not deleted).
+5. UserB refreshes the chat and confirms the message is gone.","- Message is deleted from Firebase without affecting the chat or other messages.
+- Chat record persists; no cascading deletions occur.
+- UserB’s UI reflects the deletion after sync."
+TC-FRIDGE-001,Verify fridge post creation and association with user,Fridge Management,2,"- UserA exists with a fridge (`id=1`, `name=""Home Fridge""`, `nickname=""UserA""`).
+- Firebase is online and accessible.","- Post: `id=301`, `nickname=""UserA""`, `fridge=1`, `qty=5`, `cost=2`
+- Fridge: `id=1`, `name=""Home Fridge""`, `nickname=""UserA""`, `sale=true`, `bbe=""2023-10-10""`","1. UserA creates a new post for `fridge=1` with `qty=5` and `cost=2`.
+2. Verify `Post` record is created in Firebase with correct `nickname`, `fridge`, and attributes.
+3. Verify `Fridge` record’s `qty_inv` is updated (if system logic requires it).
+4. UserB searches for posts and sees UserA’s post in Data Display.","- Post is linked to the correct fridge and user.
+- Fridge inventory reflects the post (if applicable).
+- Post appears in global search results for other users."
+TC-FRIDGE-002,Verify product removal from fridge (end-to-end),Fridge Management,"1, 3","- UserA has a fridge with 3 posts: `id=301,302,303`.
+- Firebase contains the `Fridge` and `Post` records.
+- Local user is on the fridge fragment.",,"1. UserA navigates to the fridge fragment via `ChangeFragment()`.
+2. UserA selects post `id=302` to remove.
+3. System calls `RimuoviProdotto()` to Firebase to delete the post.
+4. Verify post `id=302` is removed from Firebase.
+5. Verify `Fridge` record’s `qty_inv` is decremented (if applicable).
+6. UserA refreshes the fridge and confirms post `id=302` is gone.","- Post is deleted from Firebase without affecting other posts.
+- Fridge inventory is updated correctly (if logic requires it).
+- UI reflects the removal immediately (or after sync)."
+TC-USER-001,Verify user location update and token management,User Profile,2,"- UserA exists with initial location `pos_lat=40.7128`, `pos_lon=-74.0060`.
+- Firebase contains the user record.","- Updated location: `pos_lat=34.0522`, `pos_lon=-118.2437` (Los Angeles)
+- Token increment: `tokens=5` (after adding 5 to current `tokens=0`)","1. UserA updates their location via Local User → Data Organizer.
+2. Verify Firebase user record updates with new `pos_lat` and `pos_lon`.
+3. UserA performs an action that increases `tokens` (e.g., sharing a post).
+4. Verify `tokens` increments by 5 in Firebase.
+5. UserA’s profile displays updated location and token count.","- Location updates successfully in Firebase.
+- Tokens increment correctly without overflow/underflow.
+- UI reflects changes in real-time."
+TC-ERROR-001,Verify system behavior during Firebase connectivity loss,Data Synchronization,1,"- Firebase is offline (simulated).
+- Data Organizer has pending changes (e.g., new message, updated post).",,"1. User attempts to send a message or update a post while offline.
+2. System caches the action locally.
+3. Simulate Firebase reconnection.
+4. System syncs all pending changes to Firebase.
+5. Verify no data is lost or duplicated.","- Local actions succeed with offline mode enabled.
+- All pending changes sync upon reconnection.
+- No errors or conflicts in Firebase after sync."
+TC-VALIDATION-001,Verify input validation for fridge post creation,Fridge Management,2,- UserA is logged in and viewing the fridge fragment.,"- Valid post: `qty=3`, `cost=1.50`, `bbe=""2023-10-15""`
+- Invalid posts:
+  - `qty=-1`, `cost=""abc""`, `bbe=""invalid-date""`
+  - `qty=0`, `cost=0`, `bbe=""past-date""`","1. UserA attempts to create a post with valid data.
+2. System accepts the post and syncs to Firebase.
+3. UserA attempts to create a post with invalid `qty` (negative).
+4. System rejects and displays: ""Quantity must be positive.""
+5. UserA attempts to create a post with invalid `cost` (non-numeric).
+6. System rejects and displays: ""Cost must be a number.""
+7. UserA attempts to create a post with expired `bbe`.
+8. System rejects and displays: ""Expiry date cannot be in the past.""","- Valid post is created and synced.
+- All invalid inputs are rejected with specific error messages.
+- Firebase remains unchanged for invalid attempts."

@@ -1,0 +1,112 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in with correct credentials,Login,"2,3",User has registered with a valid username and password.,"- Username: testuser
+- Password: testpassword","1. Enter the username ""testuser"" in the login form.
+2. Enter the password ""testpassword"".
+3. Click the login button.",The system grants access to the user.
+TC-Login-002,User logs in with incorrect credentials,Login,"2,3",User has registered with a valid username and password.,"- Username: testuser
+- Password: wrongpassword","1. Enter the username ""testuser"" in the login form.
+2. Enter the password ""wrongpassword"".
+3. Click the login button.",The system prompts the user to re-enter their credentials.
+TC-Login-003,User logs in with empty fields,Login,"2,3",User has registered with a valid username and password.,"- Username: 
+- Password:","1. Leave both the username and password fields empty.
+2. Click the login button.",The system prompts the user to enter valid credentials.
+TC-ObjectCreation-001,Object creation with valid data,Object Creation,"4,5,6,7",User is logged in and has permissions to create objects.,"- Object name: TestObject
+- Description: This is a test object.","1. Enter the object name ""TestObject"".
+2. Enter the object description ""This is a test object"".
+3. Click the create object button.",The object is created successfully and a success message is displayed.
+TC-ObjectCreation-002,Object creation with invalid data,Object Creation,"4,5,6,7",User is logged in and has permissions to create objects.,"- Object name: 
+- Description: This is a test object.","1. Leave the object name field empty.
+2. Enter the object description ""This is a test object"".
+3. Click the create object button.",The system displays an error message indicating that the object name is required.
+TC-ServiceCreation-001,Service creation with valid data,Service Creation,"4,5,6",User is logged in and has permissions to create services.,"- Service name: TestService
+- Description: This is a test service.","1. Enter the service name ""TestService"".
+2. Enter the service description ""This is a test service"".
+3. Click the create service button.",The service is created successfully and a success message is displayed.
+TC-ServiceCreation-002,Service creation with invalid data,Service Creation,"4,5,6",User is logged in and has permissions to create services.,"- Service name: 
+- Description: This is a test service.","1. Leave the service name field empty.
+2. Enter the service description ""This is a test service"".
+3. Click the create service button.",The system displays an error message indicating that the service name is required.
+TC-AnnouncementCreation-001,Announcement creation with valid data,Announcement Creation,"4,5,7",User is logged in and has permissions to create announcements.,"- Announcement title: TestAnnouncement
+- Description: This is a test announcement.","1. Enter the announcement title ""TestAnnouncement"".
+2. Enter the announcement description ""This is a test announcement"".
+3. Click the create announcement button.",The announcement is created successfully and a success message is displayed.
+TC-AnnouncementCreation-002,Announcement creation with invalid data,Announcement Creation,"4,5,7",User is logged in and has permissions to create announcements.,"- Announcement title: 
+- Description: This is a test announcement.","1. Leave the announcement title field empty.
+2. Enter the announcement description ""This is a test announcement"".
+3. Click the create announcement button.",The system displays an error message indicating that the announcement title is required.
+TC-AnnouncementRemoval-001,Removal of an announcement with valid data,Announcement Removal,"8,9",User is logged in and has permissions to remove announcements.,- Announcement ID: 1,"1. Select the announcement with ID 1.
+2. Click the remove announcement button.",The announcement is removed successfully and a success message is displayed.
+TC-AnnouncementRemoval-002,Removal of an announcement with invalid data,Announcement Removal,"8,9",User is logged in and has permissions to remove announcements.,- Announcement ID:,"1. Leave the announcement ID field empty.
+2. Click the remove announcement button.",The system displays an error message indicating that the announcement ID is required.
+TC-ObjectRemoval-001,Removal of an object with valid data,Object Removal,"8,9",User is logged in and has permissions to remove objects.,- Object ID: 1,"1. Select the object with ID 1.
+2. Click the remove object button.",The object is removed successfully and a success message is displayed.
+TC-ObjectRemoval-002,Removal of an object with invalid data,Object Removal,"8,9",User is logged in and has permissions to remove objects.,- Object ID:,"1. Leave the object ID field empty.
+2. Click the remove object button.",The system displays an error message indicating that the object ID is required.
+TC-ServiceRemoval-001,Removal of a service with valid data,Service Removal,"8,9",User is logged in and has permissions to remove services.,- Service ID: 1,"1. Select the service with ID 1.
+2. Click the remove service button.",The service is removed successfully and a success message is displayed.
+TC-ServiceRemoval-002,Removal of a service with invalid data,Service Removal,"8,9",User is logged in and has permissions to remove services.,- Service ID:,"1. Leave the service ID field empty.
+2. Click the remove service button.",The system displays an error message indicating that the service ID is required.
+TC-QuerySuccess-001,Database query with valid data,Query Execution,"4,5,6,7,8,9",User is logged in and has permissions to execute queries.,- Query: SELECT * FROM objects WHERE id = 1,"1. Enter the query ""SELECT * FROM objects WHERE id = 1"".
+2. Click the execute query button.",The query is executed successfully and a success message is displayed.
+TC-QuerySuccess-002,Database query with invalid data,Query Execution,"4,5,6,7,8,9",User is logged in and has permissions to execute queries.,- Query: SELECT * FROM non_existent_table,"1. Enter the query ""SELECT * FROM non_existent_table"".
+2. Click the execute query button.",The system displays an error message indicating that the query failed.
+TC-QueryRetry-001,Retry after failed database query,Query Execution,"8,9",User is logged in and has permissions to execute queries.,- Query: SELECT * FROM objects WHERE id = 1,"1. Enter the query ""SELECT * FROM objects WHERE id = 1"".
+2. Click the execute query button.
+3. If the query fails, click the retry button.","The query is retried and either succeeds or fails again, displaying the appropriate success or error message."
+TC-QueryRetry-002,Retry after failed database query with invalid data,Query Execution,"8,9",User is logged in and has permissions to execute queries.,- Query: SELECT * FROM non_existent_table,"1. Enter the query ""SELECT * FROM non_existent_table"".
+2. Click the execute query button.
+3. If the query fails, click the retry button.","The query is retried and either succeeds or fails again, displaying the appropriate success or error message."
+TC-UserManagement-001,User registration with valid data,User Management,1,System is operational.,"- Username: testuser
+- Password: testpassword
+- Email: test@example.com
+- Name: John
+- Surname: Doe
+- Position: Admin","1. Enter the username ""testuser"".
+2. Enter the password ""testpassword"".
+3. Enter the email ""test@example.com"".
+4. Enter the name ""John"".
+5. Enter the surname ""Doe"".
+6. Enter the position ""Admin"".
+7. Click the register button.",The user is registered successfully and a success message is displayed.
+TC-UserManagement-002,User registration with invalid data,User Management,1,System is operational.,"- Username: 
+- Password: testpassword
+- Email: test@example.com
+- Name: John
+- Surname: Doe
+- Position: Admin","1. Leave the username field empty.
+2. Enter the password ""testpassword"".
+3. Enter the email ""test@example.com"".
+4. Enter the name ""John"".
+5. Enter the surname ""Doe"".
+6. Enter the position ""Admin"".
+7. Click the register button.",The system displays an error message indicating that the username is required.
+TC-UserManagement-003,User modification with valid data,User Management,1,User is logged in and has permissions to modify users.,"- User ID: 1
+- New Username: testuser2
+- New Password: testpassword2
+- New Email: test2@example.com
+- New Name: John2
+- New Surname: Doe2
+- New Position: Admin2","1. Enter the user ID ""1"".
+2. Enter the new username ""testuser2"".
+3. Enter the new password ""testpassword2"".
+4. Enter the new email ""test2@example.com"".
+5. Enter the new name ""John2"".
+6. Enter the new surname ""Doe2"".
+7. Enter the new position ""Admin2"".
+8. Click the modify user button.",The user is modified successfully and a success message is displayed.
+TC-UserManagement-004,User modification with invalid data,User Management,1,User is logged in and has permissions to modify users.,"- User ID: 1
+- New Username: 
+- New Password: testpassword2
+- New Email: test2@example.com
+- New Name: John2
+- New Surname: Doe2
+- New Position: Admin2","1. Enter the user ID ""1"".
+2. Leave the new username field empty.
+3. Enter the new password ""testpassword2"".
+4. Enter the new email ""test2@example.com"".
+5. Enter the new name ""John2"".
+6. Enter the new surname ""Doe2"".
+7. Enter the new position ""Admin2"".
+8. Click the modify user button.",The system displays an error message indicating that the username is required.
+TC-UserManagement-005,User deletion with valid data,User Management,1,User is logged in and has permissions to delete users.,- User ID: 1,"1. Enter the user ID ""1"".
+2. Click the delete user button",

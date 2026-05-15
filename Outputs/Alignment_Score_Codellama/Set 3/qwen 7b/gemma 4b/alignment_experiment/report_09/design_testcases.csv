@@ -1,0 +1,91 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User successfully logs in,Login/Registration,3,User is not logged in.,"- Email: test@example.com
+- Password: testpassword","1. User enters their email and password.
+2. System checks if the user exists in the database.
+3. System verifies the password using bcrypt.
+4. System generates a JWT token.
+5. System revokes any existing tokens for the user.
+6. System inserts a new token into the database.
+7. System sends the JWT token to the client.",User is logged in and receives a valid JWT token.
+TC-Login-002,User fails to log in due to incorrect credentials,Login/Registration,3,User is not logged in.,"- Email: test@example.com
+- Password: wrongpassword","1. User enters their email and password.
+2. System checks if the user exists in the database.
+3. System verifies the password using bcrypt.
+4. System returns an error message.",User receives an error message indicating incorrect credentials.
+TC-Login-003,User fails to log in due to non-existent user,Login/Registration,3,User is not logged in.,"- Email: nonexistente@example.com
+- Password: testpassword","1. User enters their email and password.
+2. System checks if the user exists in the database.
+3. System returns an error message.",User receives an error message indicating the user does not exist.
+TC-CreazioneEmergenza-001,Coordinator successfully creates an emergency,Emergency Creation,4,Coordinator is authenticated.,"- Description: ""Test Emergency""
+- Region: ""Lombardy""
+- Province: ""Milan""","1. Coordinator enters the emergency details.
+2. System checks if the details are complete.
+3. System creates the emergency.",Emergency is created successfully.
+TC-CreazioneEmergenza-002,Coordinator fails to create an emergency due to incomplete details,Emergency Creation,4,Coordinator is authenticated.,"- Description: ""Test Emergency""
+- Region: ""Lombardy""","1. Coordinator enters the emergency details.
+2. System checks if the details are complete.
+3. System prompts to update the details.",Coordinator is prompted to update the missing details.
+TC-CreazioneEmergenza-003,Coordinator fails to create an emergency due to unauthenticated access,Emergency Creation,4,Coordinator is not authenticated.,"- Description: ""Test Emergency""
+- Region: ""Lombardy""
+- Province: ""Milan""","1. Coordinator tries to create an emergency.
+2. System returns an error message.",Coordinator receives an error message indicating unauthenticated access.
+TC-VolontarioRimozione-001,Coordinator successfully removes a volunteer,Volunteer Removal,5,Coordinator is authenticated and a volunteer is assigned.,- Emergency ID: 123,"1. Coordinator clicks ""Visualize emergency"".
+2. System checks if the coordinator is authenticated.
+3. System checks if a volunteer is assigned.
+4. System removes the volunteer.",Volunteer is removed successfully.
+TC-VolontarioRimozione-002,Coordinator fails to remove a volunteer due to unauthenticated access,Volunteer Removal,5,Coordinator is not authenticated.,- Emergency ID: 123,"1. Coordinator tries to remove a volunteer.
+2. System returns an error message.",Coordinator receives an error message indicating unauthenticated access.
+TC-VolontarioRimozione-003,Coordinator fails to remove a volunteer due to no volunteer assigned,Volunteer Removal,5,Coordinator is authenticated but no volunteer is assigned.,- Emergency ID: 123,"1. Coordinator tries to remove a volunteer.
+2. System returns an error message.",Coordinator receives an error message indicating no volunteer is assigned.
+TC-NuovoCompito-001,Client successfully creates a new task,Task Creation,6,Client is logged in.,"- Name: ""New Task""
+- Description: ""This is a new task""
+- Region: ""Lombardy""
+- Province: ""Milan""","1. Client sends a POST request to /nuovoCompito.
+2. Server inserts the new task into the database.
+3. Server returns a success message.",New task is created successfully.
+TC-NuovoCompito-002,Client fails to create a new task due to invalid input,Task Creation,6,Client is logged in.,"- Name: """"
+- Description: ""This is a new task""
+- Region: ""Lombardy""
+- Province: ""Milan""","1. Client sends a POST request to /nuovoCompito.
+2. Server returns an error message.",Client receives an error message indicating invalid input.
+TC-TerminaEmergenza-001,Client successfully terminates an emergency,Emergency Termination,8,Emergency exists and is assigned to a volunteer.,- Emergency ID: 123,"1. Client sends a POST request to /terminaEmergenza.
+2. Server verifies the token.
+3. Database updates the status of the emergency.
+4. Server returns a success message.",Emergency is terminated successfully.
+TC-TerminaEmergenza-002,Client fails to terminate an emergency due to invalid token,Emergency Termination,8,Emergency exists and is assigned to a volunteer.,- Emergency ID: 123,"1. Client sends a POST request to /terminaEmergenza.
+2. Server returns an error message.",Client receives an error message indicating invalid token.
+TC-TerminaEmergenza-003,Client fails to terminate an emergency due to no assigned volunteer,Emergency Termination,8,Emergency exists but no volunteer is assigned.,- Emergency ID: 123,"1. Client sends a POST request to /terminaEmergenza.
+2. Server returns an error message.",Client receives an error message indicating no volunteer is assigned.
+TC-VisualizzazioneEmergenze-001,Authenticated user successfully visualizes emergencies,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System checks if emergencies are available.
+3. System displays the available emergencies.",User sees a list of available emergencies.
+TC-VisualizzazioneEmergenze-002,Unauthenticated user fails to visualize emergencies,Emergency Visualization,2,User is not authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message.",User receives an error message indicating unauthenticated access.
+TC-VisualizzazioneEmergenze-003,No emergencies available,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System checks if emergencies are available.
+3. System displays a message indicating no emergencies are available.",User sees a message indicating no emergencies are available.
+TC-VisualizzazioneEmergenze-004,User fails to visualize emergencies due to no internet connection,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to no internet connection.",User receives an error message indicating no internet connection.
+TC-VisualizzazioneEmergenze-005,User fails to visualize emergencies due to server error,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to server error.",User receives an error message indicating server error.
+TC-VisualizzazioneEmergenze-006,User fails to visualize emergencies due to database error,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to database error.",User receives an error message indicating database error.
+TC-VisualizzazioneEmergenze-007,User fails to visualize emergencies due to network timeout,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to network timeout.",User receives an error message indicating network timeout.
+TC-VisualizzazioneEmergenze-008,User fails to visualize emergencies due to invalid URL,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to invalid URL.",User receives an error message indicating invalid URL.
+TC-VisualizzazioneEmergenze-009,User fails to visualize emergencies due to unauthorized access,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to unauthorized access.",User receives an error message indicating unauthorized access.
+TC-VisualizzazioneEmergenze-010,User fails to visualize emergencies due to expired token,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to expired token.",User receives an error message indicating expired token.
+TC-VisualizzazioneEmergenze-011,User fails to visualize emergencies due to token revocation,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to token revocation.",User receives an error message indicating token revocation.
+TC-VisualizzazioneEmergenze-012,User fails to visualize emergencies due to token invalidation,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to token invalidation.",User receives an error message indicating token invalidation.
+TC-VisualizzazioneEmergenze-013,User fails to visualize emergencies due to token corruption,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to token corruption.",User receives an error message indicating token corruption.
+TC-VisualizzazioneEmergenze-014,User fails to visualize emergencies due to token tampering,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to token tampering.",User receives an error message indicating token tampering.
+TC-VisualizzazioneEmergenze-015,User fails to visualize emergencies due to token expiration,Emergency Visualization,2,User is authenticated.,,"1. User clicks ""Visualizza emergenze"".
+2. System returns an error message due to token expiration.",User receives an error message indicating token expiration.
+TC-VisualizzazioneEmergenze-016,,,,,,,

@@ -1,0 +1,106 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-AccessoApp-001","First-time user registration","Accesso App","1","Application is launched for the first time.","User is not registered.","1. User launches the application.
+2. System prompts the user to register.
+3. User completes the registration process.","User is redirected to the HOME state after successful registration."
+"TC-AccessoApp-002","Existing user login","Accesso App","1","Application is launched and user is registered.","Valid user credentials.","1. User launches the application.
+2. System prompts the user to log in.
+3. User enters valid credentials.
+4. System verifies credentials with the server.
+5. Server confirms credentials with the database.
+6. Application receives confirmation from the server.
+7. Application informs the user that login was successful.","User is redirected to the HOME state after successful login."
+"TC-AccessoApp-003","Invalid login attempt","Accesso App","1, 5","Application is launched and user is registered.","Invalid user credentials.","1. User launches the application.
+2. System prompts the user to log in.
+3. User enters invalid credentials.
+4. Application sends credentials to the server.
+5. Server queries the database for verification.
+6. Database returns no match.
+7. Server informs the application that credentials are invalid.
+8. Application informs the user that login failed.","User remains on the login screen with an error message."
+"TC-TripManagement-001","Start a new trip","Trip Management","2","User is logged in and on the HOME state.","User wants to start a trip.","1. User navigates to the HOME state.
+2. User selects to start a new trip.
+3. System transitions to the Tragitto in corso state.","User is now in the Tragitto in corso state."
+"TC-TripManagement-002","Complete a trip and calculate emissions","Trip Management","2","User is logged in and has an ongoing trip.","User completes a trip.","1. User is in the Tragitto in corso state.
+2. User marks the trip as completed.
+3. System transitions to the Tragitto terminato state.
+4. System transitions to the Calcolo emissioni state.
+5. Server calculates CO2 emissions based on the trip data.
+6. Application displays the calculated emissions.","User sees the calculated CO2 emissions for the completed trip."
+"TC-TripManagement-003","Return to HOME state without changing section","Trip Management","2","User is logged in and on the HOME state.","User does not want to change section.","1. User navigates to the HOME state.
+2. User selects not to change section.
+3. System remains in the HOME state.","User remains on the HOME state."
+"TC-Statistics-001","View weekly report","Statistics","3","User is logged in and on the Statistiche state.","User wants to view a weekly report.","1. User navigates to the Statistiche state.
+2. User selects to view a weekly report.
+3. System transitions to the Report Settimanale state.
+4. Application displays the weekly report.","User sees the weekly report."
+"TC-Statistics-002","Return to Statistiche state without viewing report","Statistics","3","User is logged in and on the Statistiche state.","User does not want to view a weekly report.","1. User navigates to the Statistiche state.
+2. User selects not to view a weekly report.
+3. System remains in the Statistiche state.","User remains on the Statistiche state."
+"TC-Profile-001","View personal data","Profile","4","User is logged in and on the Profilo state.","User wants to view personal data.","1. User navigates to the Profilo state.
+2. User selects to view personal data.
+3. System remains in the Profilo state.","User sees their personal data."
+"TC-Profile-002","Update account details","Profile","4","User is logged in and on the Profilo state.","User wants to update account details.","1. User navigates to the Profilo state.
+2. User selects to update account details.
+3. User inputs new data.
+4. Application sends updated data to the server.
+5. Server updates the database.
+6. Application confirms data update.","User sees a confirmation message indicating that their account details have been updated."
+"TC-Profile-003","Logout from the application","Profile","4","User is logged in and on the Profilo state.","User wants to logout.","1. User navigates to the Profilo state.
+2. User selects to logout.
+3. Application sends logout request to the server.
+4. Server logs out the user.
+5. Application redirects the user to the START state.","User is redirected to the START state."
+"TC-Profile-004","Change section within the application","Profile","4","User is logged in and on the Profilo state.","User wants to change section.","1. User navigates to the Profilo state.
+2. User selects to change section.
+3. System transitions to the Menu Orizzontale state.","User sees the Menu Orizzontale state."
+"TC-LoginSequence-001","Successful login sequence","Login Sequence","5","User is attempting to log in.","Valid user credentials.","1. User provides valid credentials to the application.
+2. Application sends credentials to the server.
+3. Server queries the database for verification.
+4. Database confirms credentials.
+5. Server sends confirmation to the application.
+6. Application confirms login success to the user.","User is successfully logged in and redirected to the HOME state."
+"TC-LoginSequence-002","Failed login sequence due to invalid credentials","Login Sequence","5","User is attempting to log in.","Invalid user credentials.","1. User provides invalid credentials to the application.
+2. Application sends credentials to the server.
+3. Server queries the database for verification.
+4. Database returns no match.
+5. Server informs the application that credentials are invalid.
+6. Application informs the user that login failed.","User sees an error message indicating login failure."
+"TC-EmissionCalculation-001","Calculate CO2 emissions for a trip","Emission Calculation","6","User is logged in and has initiated a trip.","User completes a trip.","1. User initiates a trip.
+2. Application sends trip data to the server.
+3. Server stores the trip data in the database.
+4. Server calculates CO2 emissions based on the trip data.
+5. Server sends the calculated emissions back to the application.
+6. Application displays the calculated emissions to the user.","User sees the calculated CO2 emissions for the completed trip."
+"TC-EmissionCalculation-002","Store trip data in the database","Emission Calculation","6","User is logged in and has initiated a trip.","User completes a trip.","1. User initiates a trip.
+2. Application sends trip data to the server.
+3. Server stores the trip data in the database.
+4. Server confirms the storage of trip data.","Server confirms that the trip data has been stored in the database."
+"TC-EmissionCalculation-003","Display calculated emissions to the user","Emission Calculation","6","User is logged in and has completed a trip.","Calculated CO2 emissions.","1. User completes a trip.
+2. Server calculates CO2 emissions based on the trip data.
+3. Server sends the calculated emissions back to the application.
+4. Application displays the calculated emissions to the user.","User sees the calculated CO2 emissions for the completed trip."
+"TC-Profile-005","Cancel account update","Profile","4","User is logged in and on the Profilo state.","User does not want to update account details.","1. User navigates to the Profilo state.
+2. User selects to update account details.
+3. User cancels the update process.
+4. System remains in the Profilo state.","User remains on the Profilo state without any changes made."
+"TC-Profile-006","Stay on Profilo state without changing section","Profile","4","User is logged in and on the Profilo state.","User does not want to change section.","1. User navigates to the Profilo state.
+2. User selects not to change section.
+3. System remains in the Profilo state.","User remains on the Profilo state."
+"TC-Profile-007","Stay on Profilo state without logging out","Profile","4","User is logged in and on the Profilo state.","User does not want to logout.","1. User navigates to the Profilo state.
+2. User selects not to logout.
+3. System remains in the Profilo state.","User remains on the Profilo state."
+"TC-Profile-008","Stay on Profilo state without viewing personal data","Profile","4","User is logged in and on the Profilo state.","User does not want to view personal data.","1. User navigates to the Profilo state.
+2. User selects not to view personal data.
+3. System remains in the Profilo state.","User remains on the Profilo state."
+"TC-Statistics-003","Stay on Statistiche state without viewing report","Statistics","3","User is logged in and on the Statistiche state.","User does not want to view a weekly report.","1. User navigates to the Statistiche state.
+2. User selects not to view a weekly report.
+3. System remains in the Statistiche state.","User remains on the Statistiche state."
+"TC-Statistics-004","Stay on Statistiche state without changing section","Statistics","3","User is logged in and on the Statistiche state.","User does not want to change section.","1. User navigates to the Statistiche state.
+2. User selects not to change section.
+3. System remains in the Statistiche state.","User remains on the Statistiche state."
+"TC-TripManagement-004","Stay on HOME state without starting a trip","Trip Management","2","User is logged in and on the HOME state.","User does not want to start a trip.","1. User navigates to the HOME state.
+2. User selects not to start a trip.
+3. System remains in the HOME state.","User remains on the HOME state."
+"TC-TripManagement-005","Stay on HOME state without changing section","Trip Management","2","User is logged in and on the HOME state.","User does not want to change section.","1. User navigates to the HOME state.
+2. User selects not to change section.
+3. System remains in the HOME state.","User remains on the HOME state."

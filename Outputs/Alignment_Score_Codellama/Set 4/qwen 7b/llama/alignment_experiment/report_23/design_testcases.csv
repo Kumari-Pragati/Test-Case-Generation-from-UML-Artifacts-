@@ -1,0 +1,72 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login as Client","Login","2","User has registered as a Client.","Username: testclient, Password: testpassword","1. Enter username ""testclient"" in the login form.
+2. Enter password ""testpassword"" in the password field.
+3. Click the login button.","The system should return the user data and allow the user to access the application."
+"TC-Login-002","Failed Login due to Incorrect Password","Login","2","User has registered as a Client.","Username: testclient, Password: wrongpassword","1. Enter username ""testclient"" in the login form.
+2. Enter password ""wrongpassword"" in the password field.
+3. Click the login button.","The system should display an error message indicating incorrect login credentials."
+"TC-Login-003","Failed Login due to Non-Existent User","Login","2","User has not registered yet.","Username: nonexistentuser, Password: testpassword","1. Enter username ""nonexistentuser"" in the login form.
+2. Enter password ""testpassword"" in the password field.
+3. Click the login button.","The system should display an error message indicating that the user does not exist."
+"TC-ProductModification-001","Modify Product with Correct Fields","Product Modification","3, 4","User is logged in as a Vendor.","Product Name: New Product, Price: 19.99, Description: This is a new product.","1. Click on a product.
+2. Click the ""Modify"" button.
+3. Fill in the product details: Name, Price, Description.
+4. Click the ""Apply"" button.","The system should update the product details and reflect the changes."
+"TC-ProductModification-002","Modify Product with Incorrect Fields","Product Modification","3, 4","User is logged in as a Vendor.","Product Name: , Price: 19.99, Description: This is a new product.","1. Click on a product.
+2. Click the ""Modify"" button.
+3. Fill in the product details: Name, Price, Description.
+4. Click the ""Apply"" button.","The system should display an error message indicating that the fields are not correctly filled."
+"TC-ProductModification-003","Add Product with Correct Fields","Product Addition","4","User is logged in as a Vendor.","Product Name: New Product, Price: 19.99, Description: This is a new product.","1. Click the ""Add Product"" button.
+2. Fill in the product details: Name, Price, Description.
+3. Click the ""Add"" button.","The system should add the product and display a confirmation message."
+"TC-ProductModification-004","Add Product with Incorrect Fields","Product Addition","4","User is logged in as a Vendor.","Product Name: , Price: 19.99, Description: This is a new product.","1. Click the ""Add Product"" button.
+2. Fill in the product details: Name, Price, Description.
+3. Click the ""Add"" button.","The system should display an error message indicating that the fields are not correctly filled."
+"TC-Notification-001","Send Push Notification","Notification Management","5, 6","User is logged in as a Vendor.","None","1. Click the ""Push Notification"" button.
+2. Confirm the notification settings.","The system should send a push notification to the user's device."
+"TC-Notification-002","Send In-App Notification","Notification Management","5, 6","User is logged in as a Vendor.","None","1. Click the ""In-App Notification"" button.
+2. Confirm the notification settings.","The system should send an in-app notification to the user."
+"TC-Notification-003","Send Push Notification with Invalid Settings","Notification Management","5, 6","User is logged in as a Vendor.","None","1. Click the ""Push Notification"" button.
+2. Enter invalid settings.","The system should display an error message indicating invalid settings."
+"TC-Notification-004","Send In-App Notification with Invalid Settings","Notification Management","5, 6","User is logged in as a Vendor.","None","1. Click the ""In-App Notification"" button.
+2. Enter invalid settings.","The system should display an error message indicating invalid settings."
+"TC-VendorPreference-001","Mark Vendor as Preferred","Vendor Preference","1","User is logged in as a Client.","Vendor ID: 123","1. Select a vendor from the list.
+2. Click the ""Mark as Preferred"" button.","The system should mark the selected vendor as a preferred vendor for the user."
+"TC-VendorPreference-002","Unmark Vendor as Preferred","Vendor Preference","1","User has marked a vendor as preferred.","Vendor ID: 123","1. Select the preferred vendor from the list.
+2. Click the ""Unmark as Preferred"" button.","The system should unmark the selected vendor as a preferred vendor for the user."
+"TC-VendorPreference-003","Mark Vendor as Preferred with Invalid Vendor ID","Vendor Preference","1","User is logged in as a Client.","Vendor ID: 999","1. Enter an invalid vendor ID.
+2. Click the ""Mark as Preferred"" button.","The system should display an error message indicating an invalid vendor ID."
+"TC-VendorPreference-004","Unmark Vendor as Preferred with Invalid Vendor ID","Vendor Preference","1","User has marked a vendor as preferred.","Vendor ID: 999","1. Enter an invalid vendor ID.
+2. Click the ""Unmark as Preferred"" button.","The system should display an error message indicating an invalid vendor ID."
+"TC-UserAccount-001","Create User Account","User Account Creation","2","System is ready to accept new user registrations.","Username: testuser, Password: testpassword, Email: test@example.com","1. Click the ""Register"" button.
+2. Fill in the registration form with the provided data.
+3. Click the ""Submit"" button.","The system should create a new user account and redirect the user to the login page."
+"TC-UserAccount-002","Create User Account with Existing Username","User Account Creation","2","System is ready to accept new user registrations.","Username: testuser, Password: testpassword, Email: test@example.com","1. Click the ""Register"" button.
+2. Fill in the registration form with the provided data.
+3. Click the ""Submit"" button.","The system should display an error message indicating that the username already exists."
+"TC-UserAccount-003","Create User Account with Invalid Email","User Account Creation","2","System is ready to accept new user registrations.","Username: testuser, Password: testpassword, Email: invalidemail","1. Click the ""Register"" button.
+2. Fill in the registration form with the provided data.
+3. Click the ""Submit"" button.","The system should display an error message indicating that the email is invalid."
+"TC-UserAccount-004","Create User Account with Empty Fields","User Account Creation","2","System is ready to accept new user registrations.","Username: , Password: , Email:","1. Click the ""Register"" button.
+2. Fill in the registration form with empty fields.
+3. Click the ""Submit"" button.","The system should display an error message indicating that all fields are required."
+"TC-Logout-001","Logout Successfully","Logout","2","User is logged in.","None","1. Click the ""Logout"" button.","The system should log out the user and redirect them to the login page."
+"TC-Logout-002","Attempt to Logout Without Being Logged In","Logout","2","User is not logged in.","None","1. Click the ""Logout"" button.","The system should display an error message indicating that the user is not logged in."
+"TC-UserAccount-005","Update User Profile","User Profile Update","2","User is logged in.","New Name: John Doe, New Email: john.doe@example.com","1. Click the ""Edit Profile"" button.
+2. Fill in the updated profile information.
+3. Click the ""Save"" button.","The system should update the user's profile and reflect the changes."
+"TC-UserAccount-006","Update User Profile with Empty Fields","User Profile Update","2","User is logged in.","New Name: , New Email:","1. Click the ""Edit Profile"" button.
+2. Fill in the updated profile information.
+3. Click the ""Save"" button.","The system should display an error message indicating that all fields are required."
+"TC-UserAccount-007","Update User Profile with Invalid Email","User Profile Update","2","User is logged in.","New Name: John Doe, New Email: invalidemail","1. Click the ""Edit Profile"" button.
+2. Fill in the updated profile information.
+3. Click the ""Save"" button.","The system should display an error message indicating that the email is invalid."
+"TC-UserAccount-008","Update User Profile with Invalid Name","User Profile Update","2","User is logged in.","New Name: 123, New Email: john.doe@example.com","1. Click the ""Edit Profile"" button.
+2. Fill in the updated profile information.
+3. Click the ""Save"" button.","The system should display an error message indicating that the name is invalid."
+"TC-UserAccount-009","Update User Profile with Empty Password","User Profile Update","2","User is logged in.","New Name: John Doe, New Email: john.doe@example.com, New Password:","1. Click the ""Edit Profile"" button.
+2. Fill in the updated profile information.
+3. Click the ""Save"" button.","The system should display an error message indicating that the password is required."
+"TC-UserAccount-010","Update User Profile with Empty Password Confirmation","User Profile Update","2","User is logged in.","New Name: John Doe, New Email: john.doe@example.com, New Password: newpassword, New Password Confirmation:","1. Click the ""Edit Profile"" button.
+2. Fill in the updated profile information.
+3. Click the ""Save"" button.","The system should display an error message indicating that the password confirmation is required."

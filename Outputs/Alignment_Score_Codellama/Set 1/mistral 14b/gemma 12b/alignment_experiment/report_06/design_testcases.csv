@@ -1,0 +1,118 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- User account exists in FirebaseFirestore with valid credentials.
+- Network connection is active.","- Email: `user@example.com`
+- Password: `SecurePass123!`","1. User enters email and password in the UI.
+2. UI validates input format (non-empty, valid email).
+3. UI sends `sign(email, password)` to FirebaseAuthentication.
+4. FirebaseAuthentication validates credentials and returns a token.
+5. FirebaseFirestore retrieves user data using the token.
+6. FirebaseAuthentication returns the token to the UI.","- UI displays ""Accesso effettuato con successo"" (Login successful).
+- User session is established (e.g., token stored locally)."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,2,- Network connection is active.,"- Email: `user@example.com`
+- Password: `WrongPass123!` (incorrect)","1. User enters email and password in the UI.
+2. UI validates input format (non-empty, valid email).
+3. UI sends `sign(email, password)` to FirebaseAuthentication.
+4. FirebaseAuthentication detects invalid credentials.
+5. FirebaseAuthentication returns `[Credenziali errate]` to the UI.","- UI displays ""Mostra messaggio di errore"" (e.g., ""Email o password errati"").
+- No session is established."
+TC-AUTHENTICATION-003,Login with empty password field,Authentication,2,- Network connection is active.,"- Email: `user@example.com`
+- Password: (empty)","1. User enters email but leaves password field empty.
+2. UI detects empty password and rejects input.
+3. UI displays validation error (e.g., ""Inserisci una password"").","- No request is sent to FirebaseAuthentication.
+- User cannot proceed until password is provided."
+TC-REGISTRATION-001,Successful user registration with valid data,Registration,3,"- Email is not already registered in FirebaseAuthentication.
+- Network connection is active.","- Email: `newuser@example.com`
+- Password: `NewPass123!`
+- Name: `John Doe`","1. User enters registration data (email, password, name) in the UI.
+2. UI validates input (non-empty fields, valid email, strong password).
+3. UI sends `creaAccount(email, password)` to FirebaseAuthentication.
+4. FirebaseAuthentication validates data and calls `valida()`.
+5. FirebaseAuthentication saves user data (`salvaUtente`) to FirebaseStore.
+6. FirebaseStore confirms saving.
+7. FirebaseAuthentication returns token and confirmation to UI.","- UI displays ""Conferma registrazione avvenuta"" (Registration successful).
+- User session is established with the returned token."
+TC-REGISTRATION-002,Failed registration with weak password,Registration,3,- Network connection is active.,"- Email: `newuser@example.com`
+- Password: `weak` (too short/weak)
+- Name: `John Doe`","1. User enters registration data with weak password.
+2. UI detects weak password and rejects input.
+3. UI displays error (e.g., ""Password troppo debole"").","- No request is sent to FirebaseAuthentication.
+- User cannot proceed until password meets requirements."
+TC-REGISTRATION-003,Registration with existing email,Registration,3,"- Email `existing@example.com` is already registered.
+- Network connection is active.","- Email: `existing@example.com`
+- Password: `NewPass123!`
+- Name: `John Doe`","1. User enters registration data with an existing email.
+2. UI validates input and sends `creaAccount` to FirebaseAuthentication.
+3. FirebaseAuthentication detects duplicate email and returns `[Errore registrazione]`.","- UI displays error (e.g., ""Email già registrata"").
+- No user data is saved in FirebaseStore."
+TC-REPORT-SUBMISSION-001,Successful report submission with valid data and image,Report Submission,4,"- User is logged in (valid session).
+- Network connection is active.","- Description: `Broken streetlight on Maple Ave`
+- Image: `streetlight.jpg` (valid file)
+- Coordinates: `40.7128, -74.0060` (New York)
+- Urgency: `High`","1. User enters report details (description, image, coordinates, urgency) in the UI.
+2. UI validates input (non-empty fields, valid coordinates, valid image).
+3. UI uploads image to FirebaseStorage via `FirebasePrestora`.
+4. FirebaseStorage returns `URL_immagine salvata`.
+5. UI searches for the nearest authority based on coordinates and urgency.
+6. UI saves report data (`salvaSegnalazione`) with image URL and authority details.
+7. UI confirms submission to the user.","- Report is saved in the system with status (e.g., ""In Progress"").
+- User sees confirmation: ""Conferma invio a segnalazione con ente assegnato"".
+- Image is stored in FirebaseStorage with a public URL."
+TC-REPORT-SUBMISSION-002,Report submission with invalid coordinates,Report Submission,4,"- User is logged in.
+- Network connection is active.","- Description: `Broken streetlight`
+- Image: `streetlight.jpg`
+- Coordinates: `abc, def` (invalid format)
+- Urgency: `High`","1. User enters report details with invalid coordinates.
+2. UI detects invalid coordinates and rejects input.
+3. UI displays error (e.g., ""Coordinate non valide"").","- No image is uploaded to FirebaseStorage.
+- No report is saved.
+- User must correct coordinates before resubmitting."
+TC-REPORT-SUBMISSION-003,Report submission without an image,Report Submission,4,"- User is logged in.
+- Network connection is active.","- Description: `Pothole on Oak St`
+- Image: (none selected)
+- Coordinates: `34.0522, -118.2437` (Los Angeles)
+- Urgency: `Medium`","1. User enters report details but does not attach an image.
+2. UI detects missing image and rejects input.
+3. UI displays error (e.g., ""Carica un'immagine"").","- No image is uploaded to FirebaseStorage.
+- No report is saved.
+- User must attach an image before resubmitting."
+TC-REPORT-SUBMISSION-004,Report submission with corrupted image file,Report Submission,4,"- User is logged in.
+- Network connection is active.","- Description: `Graffiti on wall`
+- Image: `corrupted.jpg` (file is not a valid image)
+- Coordinates: `51.5074, -0.1278` (London)
+- Urgency: `Low`","1. User selects a corrupted image file.
+2. UI attempts to upload the file to FirebaseStorage.
+3. FirebaseStorage rejects the file due to corruption.
+4. UI detects failure and displays error (e.g., ""Immagine non valida"").","- No image is stored in FirebaseStorage.
+- No report is saved.
+- User must select a valid image before resubmitting."
+TC-DATA-INTEGRITY-001,"Verify report associations with user, category, and area",Data Model,1,"- A report exists in the system with `userId`, `categoryId`, and linked `areaId`.","- Report ID: `1001`
+- User ID: `501`
+- Category ID: `3` (e.g., ""Infrastructure"")
+- Area ID: `7` (e.g., ""Downtown"")","1. Query the `Reports` entity to retrieve report `1001`.
+2. Verify `userId` matches an existing `Users.id`.
+3. Verify `categoryId` matches an existing `Categories.id`.
+4. Verify `areaId` matches an existing `Areas.id`.","- All associations (`Reports -> Users`, `Reports -> Categories`, `Areas -> Reports`) are valid.
+- No orphaned records exist."
+TC-DATA-INTEGRITY-002,Verify notification association with user,Data Model,1,- A notification exists in the system with a `userId`.,"- Notification ID: `2001`
+- User ID: `502`","1. Query the `Notifications` entity to retrieve notification `2001`.
+2. Verify `userId` matches an existing `Users.id`.","- Association `Notifications -> Users` is valid.
+- No orphaned notification exists."
+TC-EDGE-CASE-001,Report submission during network outage,Report Submission,4,"- User is logged in.
+- Network connection is lost during submission.",,"1. User enters report details and clicks submit.
+2. UI attempts to upload image to FirebaseStorage but fails due to network outage.
+3. UI detects timeout and displays error (e.g., ""Impossibile connettersi al server"").","- No image is uploaded.
+- No report is saved.
+- UI allows user to retry submission after reconnecting."
+TC-EDGE-CASE-002,Login with maximum password length,Authentication,2,- Network connection is active.,"- Email: `user@example.com`
+- Password: `A` repeated 64 times (Firebase’s max length)","1. User enters email and a 64-character password.
+2. UI validates input and sends `sign(email, password)` to FirebaseAuthentication.
+3. FirebaseAuthentication processes the request.","- Authentication succeeds if the password is accepted by Firebase.
+- UI displays login success message."
+TC-EDGE-CASE-003,Report with maximum description length,Report Submission,4,"- User is logged in.
+- Network connection is active.","- Description: `A` repeated 1000 times (assuming max length is 1000 chars).
+- Image: `valid.jpg`
+- Coordinates: `40.7128, -74.0060`
+- Urgency: `High`","1. User enters a 1000-character description.
+2. UI validates input and proceeds with submission.
+3. UI uploads image and saves report.","- Report is saved with the full description (if system allows).
+- No truncation errors occur."

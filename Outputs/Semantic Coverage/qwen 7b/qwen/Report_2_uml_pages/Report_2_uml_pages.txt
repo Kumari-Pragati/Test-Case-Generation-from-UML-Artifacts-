@@ -1,0 +1,297 @@
+REPORT: Report_2_uml_pages.pdf
+======================================================================
+
+===== Report_2_uml_pages.pdf | Page 1 =====
+UML Type:
+- activity
+
+Components:
+- ACCESSO ALL'APP — kind=initial_node; role=Start point
+- 1° ACCESSO — kind=decision_node; attributes=[NO, SI]; operations=[ ]; role=First access check
+- START — kind=activity_final_node; role=End point
+- UTENTE GIA' REGISTRATO? — kind=decision_node; attributes=[NO, SI]; operations=[ ]; role=User registered check
+- REGISTRAZIONE — kind=activity_node; role=Registration process
+- HOME — kind=activity_node; role=Home page
+- LOGIN — kind=activity_node; role=Login process
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- ACCESSO ALL'APP -> 1° ACCESSO — type=transition; label=""; explanation="First access check"
+- 1° ACCESSO -> NO — type=transition; label="NO"; explanation="No first access"
+- 1° ACCESSO -> SI — type=transition; label="SI"; explanation="Yes first access"
+- 1° ACCESSO -> START — type=transition; label=""; explanation="Start process"
+- START -> UTENTE GIA' REGISTRATO? — type=transition; label=""; explanation="Check user registration"
+- UTENTE GIA' REGISTRATO? -> NO — type=transition; label="NO"; explanation="Not registered"
+- UTENTE GIA' REGISTRATO? -> SI — type=transition; label="SI"; explanation="Registered"
+- NO -> REGISTRAZIONE — type=transition; label=""; explanation="Go to registration"
+- SI -> LOGIN — type=transition; label=""; explanation="Go to login"
+- REGISTRAZIONE -> HOME — type=transition; label=""; explanation="Go to home"
+- LOGIN -> HOME — type=transition; label=""; explanation="Go to home"
+
+Main Flows (step by step):
+- Flow 1: ACCESSO ALL'APP -> 1° ACCESSO -> NO -> REGISTRAZIONE -> HOME
+- Flow 2: ACCESSO ALL'APP -> 1° ACCESSO -> SI -> START -> UTENTE GIA' REGISTRATO? -> SI -> LOGIN -> HOME
+
+Conditions / Branches:
+- 1° ACCESSO: NO -> No first access; SI -> Yes first access
+- UTENTE GIA' REGISTRATO?: NO -> Not registered; SI -> Registered
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This activity diagram models the access process for an application.
+- The main flow starts with accessing the app and checks if it's the first access.
+- If it's the first access, it proceeds to the registration process.
+- If the user is already registered, it proceeds to the login process.
+- Both registration and login lead to the home page.
+- There are two decision points to check if it's the first access and if the user is registered.
+- The diagram ensures that users either register or log in before reaching the home page.
+
+===== Report_2_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- TRAGITTO IN CORSO? — kind=decision; role=Check if journey is ongoing
+- VUOI CAMBIARE SEZIONE? — kind=decision; role=Check if section change is desired
+- AVVIA TRAGITTO — kind=action; role=Start journey
+- MENU ORRIZZONTALE — kind=action; role=Horizontal menu
+- TRAGITTO TERMINATO? — kind=decision; role=Check if journey is completed
+- CALCOLO EMISSIONI — kind=action; role=Calculate emissions
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- TRAGITTO IN CORSO? -> SI — type=transition; label="SI"; explanation="Yes"
+- TRAGITTO IN CORSO? -> NO — type=transition; label="NO"; explanation="No"
+- VUOI CAMBIARE SEZIONE? -> SI — type=transition; label="SI"; explanation="Yes"
+- VUOI CAMBIARE SEZIONE? -> NO — type=transition; label="NO"; explanation="No"
+- SI -> AVVIA TRAGITTO — type=transition; label="SI"; explanation="Start journey"
+- SI -> TRAGITTO TERMINATO? — type=transition; label="SI"; explanation="Check journey completion"
+- SI -> CALCOLO EMISSIONI — type=transition; label="SI"; explanation="Calculate emissions"
+- NO -> HOME — type=transition; label="HOME"; explanation="Return to home"
+
+Main Flows (step by step):
+- Flow 1: HOME -> TRAGITTO IN CORSO? -> SI -> AVVIA TRAGITTO -> TRAGITTO TERMINATO? -> SI -> CALCOLO EMISSIONI
+- Flow 2: HOME -> TRAGITTO IN CORSO? -> NO -> VUOI CAMBIARE SEZIONE? -> SI -> MENU ORRIZZONTALE
+- Flow 3: HOME -> TRAGITTO IN CORSO? -> NO -> VUOI CAMBIARE SEZIONE? -> NO -> HOME
+
+Conditions / Branches:
+- TRAGITTO IN CORSO?: SI -> AVVIA TRAGITTO; NO -> VUOI CAMBIARE SEZIONE?
+- VUOI CAMBIARE SEZIONE?: SI -> MENU ORRIZZONTALE; NO -> HOME
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- HOME is the starting point of the activity.
+- The diagram checks if a journey is ongoing and starts it if necessary.
+- It also checks if the user wants to change sections and provides a horizontal menu if so.
+- The journey is checked for completion and emissions are calculated if the journey is finished.
+- There is a loop back to the home screen if the user does not want to change sections.
+
+Observations:
+- This activity diagram models a process involving journeys and emission calculations.
+- It checks if a journey is ongoing and starts it if needed.
+- It allows the user to change sections and provides a horizontal menu for this purpose.
+- The journey's completion is checked, and emissions are calculated upon completion.
+- There is a loop back to the home screen if the user does not want to change sections.
+- Key edge cases include checking if a journey is ongoing, changing sections, and calculating emissions.
+
+===== Report_2_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- STATISTICHE — kind=action; role=main action
+- VISUALIZZA REPORT SETTIMANALE? — kind=decision; attributes=[none]; operations=[none]; role=question
+- VUOI CAMBIARE SEZIONE? — kind=decision; attributes=[none]; operations=[none]; role=question
+- REPORT SETTIMANALE — kind=action; role=report generation
+- MENU ORRIZZONTALE — kind=action; role=menu selection
+- NO — kind=action; role=end condition
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- STATISTICHE -> VISUALIZZA REPORT SETTIMANALE? — type=association; label=""; explanation="flow to weekly report question"
+- VISUALIZZA REPORT SETTIMANALE? -> SI — type=association; label="SI"; explanation="yes to weekly report"
+- VISUALIZZA REPORT SETTIMANALE? -> NO — type=association; label="NO"; explanation="no to weekly report"
+- VISUALIZZA REPORT SETTIMANALE? -> STATISTICHE — type=association; label=""; explanation="return to statistics menu"
+- VUOI CAMBIARE SEZIONE? -> SI — type=association; label="SI"; explanation="yes to section change"
+- VUOI CAMBIARE SEZIONE? -> NO — type=association; label="NO"; explanation="no to section change"
+- VUOI CAMBIARE SEZIONE? -> STATISTICHE — type=association; label=""; explanation="return to statistics menu"
+- SI -> REPORT SETTIMANALE — type=association; label=""; explanation="generate weekly report"
+- SI -> MENU ORRIZZONTALE — type=association; label=""; explanation="select horizontal menu"
+- NO -> STATISTICHE — type=association; label=""; explanation="stay in statistics menu"
+
+Main Flows (step by step):
+- Flow 1: STATISTICHE -> VISUALIZZA REPORT SETTIMANALE? -> SI -> REPORT SETTIMANALE -> STATISTICHE
+- Flow 2: STATISTICHE -> VISUALIZZA REPORT SETTIMANALE? -> NO -> STATISTICHE
+- Flow 3: STATISTICHE -> VUOI CAMBIARE SEZIONE? -> SI -> MENU ORRIZZONTALE -> STATISTICHE
+- Flow 4: STATISTICHE -> VUOI CAMBIARE SEZIONE? -> NO -> STATISTICHE
+
+Conditions / Branches:
+- VISUALIZZA REPORT SETTIMANALE?: SI -> REPORT SETTIMANALE; NO -> STATISTICHE
+- VUOI CAMBIARE SEZIONE?: SI -> MENU ORRIZZONTALE; NO -> STATISTICHE
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram represents a flow for viewing statistics, with options to view a weekly report or change sections.
+
+Observations:
+- The user can choose to view a weekly report or change sections.
+- If the user chooses to view a weekly report, it generates the report and returns to the statistics menu.
+- If the user chooses not to view a weekly report, they stay in the statistics menu.
+- If the user chooses to change sections, they select a horizontal menu and return to the statistics menu.
+- There is a loop back to the statistics menu if the user does not want to view a report or change sections.
+
+===== Report_2_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- VISUALIZZA DATI PERSONALI — kind=action; role=display personal data
+- VUOI AGGIORNARE L'ACCOUNT? — kind=decision; role=check account update
+- INSEERISCI NUOVI DATI — kind=action; role=input new data
+- AGGIORNA DATI — kind=action; role=update data
+- VUOI USCIRE DALL'ACCOUNT? — kind=decision; role=check logout
+- LOGOUT — kind=action; role=logout
+- VUOI CAMBIARE SEZIONE? — kind=decision; role=check section change
+- MENU ORRIZZONTALE — kind=action; role=horizontal menu
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- VISUALIZZA DATI PERSONALI -> VUOI AGGIORNARE L'ACCOUNT?
+- VUOI AGGIORNARE L'ACCOUNT? -> SI
+- SI -> INSEERISCI NUOVI DATI
+- INSEERISCI NUOVI DATI -> AGGIORNA DATI
+- VISUALIZZA DATI PERSONALI -> VUOI USCIRE DALL'ACCOUNT?
+- VUOI USCIRE DALL'ACCOUNT? -> SI
+- SI -> LOGOUT
+- VISUALIZZA DATI PERSONALI -> VUOI CAMBIARE SEZIONE?
+- VUOI CAMBIARE SEZIONE? -> SI
+- SI -> MENU ORRIZZONTALE
+- NO -> VISUALIZZA DATI PERSONALI
+
+Main Flows (step by step):
+- Flow 1: VISUALIZZA DATI PERSONALI -> VUOI AGGIORNARE L'ACCOUNT? -> SI -> INSEERISCI NUOVI DATI -> AGGIORNA DATI
+- Flow 2: VISUALIZZA DATI PERSONALI -> VUOI USCIRE DALL'ACCOUNT? -> SI -> LOGOUT
+- Flow 3: VISUALIZZA DATI PERSONALI -> VUOI CAMBIARE SEZIONE? -> SI -> MENU ORRIZZONTALE
+
+Conditions / Branches:
+- VUOI AGGIORNARE L'ACCOUNT?: SI -> INSEERISCI NUOVI DATI; NO -> VISUALIZZA DATI PERSONALI
+- VUOI USCIRE DALL'ACCOUNT?: SI -> LOGOUT; NO -> VISUALIZZA DATI PERSONALI
+- VUOI CAMBIARE SEZIONE?: SI -> MENU ORRIZZONTALE; NO -> VISUALIZZA DATI PERSONALI
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- PROFILLO — kind=state; role=profile management
+
+Observations:
+- This activity diagram models a profile management process within a system.
+- The main flows involve viewing personal data, updating the account, logging out, and changing sections.
+- Decisions determine whether to proceed with account updates, logout, or change sections.
+- The diagram includes a loop back to the main profile view if the user does not want to perform any action.
+- Key edge cases include updating data, logging out, and changing sections.
+
+===== Report_2_uml_pages.pdf | Page 5 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; attributes=[]; operations=[]; role=Actor
+- Applicazione — kind=participant; attributes=[]; operations=[]; role=Application
+- Server — kind=participant; attributes=[]; operations=[]; role=Server
+- Database — kind=participant; attributes=[]; operations=[]; role=Database
+
+Actors / Lifelines:
+- Utente
+- Applicazione
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> Applicazione — type=message; label="dispatch"; explanation="User initiates login process"
+- Applicazione -> Server — type=message; label="invio credenziali"; explanation="Application sends credentials"
+- Server -> Database — type=message; label="verifica dati"; explanation="Server verifies data"
+- Database -> Server — type=message; label="dati trovati"; explanation="Data found"
+- Server -> Applicazione — type=message; label="confronto con quelli inseriti"; explanation="Comparison with entered data"
+- Applicazione -> Utente — type=message; label="login avvenuto"; explanation="Login successful"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Applicazione (dispatch) -> Applicazione -> Server (invio credenziali) -> Server -> Database (verifica dati) -> Database -> Server (dati trovati) -> Server -> Applicazione (confronto con quelli inseriti) -> Applicazione -> Utente (login avvenuto)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- This diagram models the sequence of events during a login process. The user initiates the login by dispatching a request to the application, which then sends the credentials to the server for verification. The server checks the database for the provided credentials and compares them with the stored data. Upon successful comparison, the server sends a confirmation back to the application, which then informs the user that the login was successful.
+
+===== Report_2_uml_pages.pdf | Page 6 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; role=client
+- Applicazione — kind=participant; role=application
+- Server — kind=participant; role=server
+- Database — kind=participant; role=database
+
+Actors / Lifelines:
+- Utente
+- Applicazione
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> Applicazione — type=message; label="dispatch"; explanation="Utente dispatches request"
+- Applicazione -> Server — type=message; label="avvio percorso"; explanation="Applicazione starts route"
+- Server -> Database — type=message; label="calcolo e invio dati"; explanation="Server calculates and sends data"
+- Server -> Applicazione — type=message; label="aggiunta percorso"; explanation="Server adds route"
+- Applicazione -> Server — type=message; label="nuovo percorso"; explanation="Applicazione provides new route"
+- Server -> Applicazione — type=message; label="ritorna emissioni"; explanation="Server returns emissions"
+- Applicazione -> Utente — type=message; label="emissioni CO2"; explanation="Application returns CO2 emissions"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Applicazione -> Server -> Database -> Server -> Applicazione -> Server -> Applicazione -> Utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Sequenza Calcolo emissioni" — title
+
+Observations:
+- This diagram models the sequence of interactions for calculating emissions.
+- The process starts with the user dispatching a request to the application.
+- The application then initiates a route calculation and sends data to the server.
+- The server calculates the emissions and sends them back to the application.
+- The application then returns the calculated CO2 emissions to the user.
+- There are no conditions or branches visible in the diagram.
+- The process involves multiple steps of data exchange between the user, application, server, and database.
+
+
+======================================================================

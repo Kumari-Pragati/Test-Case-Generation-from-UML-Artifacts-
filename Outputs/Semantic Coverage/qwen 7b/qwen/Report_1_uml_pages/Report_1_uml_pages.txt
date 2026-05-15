@@ -1,0 +1,204 @@
+REPORT: Report_1_uml_pages.pdf
+======================================================================
+
+===== Report_1_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[Username: string, Email: string, Password: string, Punti: int]; operations=[GetUsername(): string, SetUsername(newUsername: string), GetEmail(): string, SetEmail(newEmail: string), GetPunti(): int, SetPunti(NewPunti: int)]
+- Ranking — kind=class; attributes=[Id: int, Titolo: string, Superato: bool]; operations=[GetId(): int, SetId(NewId: Int), GetTitolo(): string, SetTitolo(NewTitolo: String), GetSuperato(): bool, SetSuperato(NewSuperato: bool)]
+- Tip — kind=class; attributes=[Id: int, Titolo: string, Descrizione: string]; operations=[GetId(): int, SetId(NewId: Int), GetTitolo(): string, SetTitolo(NewTitolo: String), GetDescrizione(): string, SetDescrizione(NewDescrizione: string)]
+- Mission — kind=class; attributes=[Id: int, Titolo: string, Superato: bool, Descrizione: string]; operations=[GetId(): int, SetId(NewId: Int), GetTitolo(): string, SetTitolo(NewTitolo: String), GetSuperato(): bool, SetSuperato(NewSuperato: bool), GetDescrizione(): string, SetDescrizione(NewDescrizione: string)]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Ranking — type=association; label="è superata"; explanation="Utente ha superato Ranking"
+- Utente -> Tip — type=association; label="è completata"; explanation="Utente ha completato Tip"
+- Utente -> Mission — type=association; label="è completata"; explanation="Utente ha completato Mission"
+
+Main Flows (step by step):
+- Flow 1: Utente -> Ranking ("è superata") -> Utente -> Tip ("è completata") -> Utente -> Mission ("è completata")
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a system with four classes: Utente, Ranking, Tip, and Mission. The Utente class interacts with Ranking, Tip, and Mission through associations labeled "è superata," "è completata," and "è completata," respectively. The main flow involves an Utente instance interacting with Ranking, Tip, and Mission in a sequential manner, indicating a process where an Utente completes tasks represented by Ranking, Tip, and Mission.
+
+===== Report_1_uml_pages.pdf | Page 2 =====
+UML Type:
+- sequence
+
+Components:
+- MAIN — kind=participant; attributes=[]; operations=[]; role=Application
+- FIREBASE AUTHENTICATION — kind=participant; attributes=[]; operations=[]; role=Authentication Service
+
+Actors / Lifelines:
+- MAIN
+- FIREBASE AUTHENTICATION
+
+Relationships / Links:
+- MAIN -> FIREBASE AUTHENTICATION — type=message; label="signInWithEmailAndPassword(String, String)"; explanation="User attempts to sign in"
+- FIREBASE AUTHENTICATION -> MAIN — type=message; label="if(Response != Error) { return FirebaseUser }"; explanation="Firebase returns user data if successful"
+- FIREBASE AUTHENTICATION -> MAIN — type=message; label="crea response"; explanation="Firebase creates response for application"
+
+Main Flows (step by step):
+- Flow 1: MAIN -> FIREBASE AUTHENTICATION — "signInWithEmailAndPassword(String, String)"
+- Flow 2: FIREBASE AUTHENTICATION -> MAIN — "if(Response != Error) { return FirebaseUser }"
+- Flow 3: FIREBASE AUTHENTICATION -> MAIN — "crea response"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "email.isEmpty(), password.isEmpty()" — check for empty fields
+- "crea Token che identifica il dispositivo" — create device token
+
+Observations:
+- This diagram models the login process using Firebase Authentication.
+- The main flow starts with the application (MAIN) attempting to sign in the user with email and password.
+- If the Firebase authentication is successful, it returns the FirebaseUser object to the application.
+- The application then creates a response.
+- There are checks for empty email and password fields before attempting to sign in.
+- A device token is created to identify the device.
+
+===== Report_1_uml_pages.pdf | Page 3 =====
+UML Type:
+- Activity
+
+Components:
+- MAIN — kind=action; attributes=[email, password]; operations=[isEmpty(), length()]; role=main process
+- FIREBASE AUTHENTICATION — kind=action; attributes=[FirebaseUser, UserID]; operations=[CreateUserWithEmailAndPassword(String, String), setValue(HashMap<String, Object>)]; role=firebase authentication service
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- MAIN -> FIREBASE AUTHENTICATION — type=association; label="CreateUserWithEmailAndPassword(String, String)"; explanation="create user with email and password"
+- FIREBASE AUTHENTICATION -> MAIN — type=association; label="return FirebaseUser, UserID"; explanation="return firebase user and user ID"
+- MAIN -> FIREBASE AUTHENTICATION — type=association; label="setValue(HashMap<String, Object>)"; explanation="set value in database"
+- FIREBASE AUTHENTICATION -> MAIN — type=association; label="login FirebaseUser"; explanation="login firebase user"
+
+Main Flows (step by step):
+- Flow 1: MAIN -> FIREBASE AUTHENTICATION — CreateUserWithEmailAndPassword(String, String)
+- Flow 2: FIREBASE AUTHENTICATION -> MAIN — return FirebaseUser, UserID
+- Flow 3: MAIN -> FIREBASE AUTHENTICATION — setValue(HashMap<String, Object>)
+- Flow 4: FIREBASE AUTHENTICATION -> MAIN — login FirebaseUser
+
+Conditions / Branches:
+- email.isEmpty(), password.length() < 8 — branch="false" -> "none"
+- Response != Error — branch="true" -> "return FirebaseUser, UserID"
+- Response != Error — branch="true" -> "login FirebaseUser"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Ingegneria del Software 2024/25 – docente: prof. Agostino Cortesi
+
+Observations:
+- This activity diagram models the registration process for a Firebase application.
+- The main process starts with checking the email and password inputs.
+- If valid, it creates a user with email and password and returns the Firebase user and user ID.
+- The Firebase user is then logged in.
+- If any step fails, the process stops without creating the user.
+- The diagram includes error handling for invalid email and password lengths.
+
+===== Report_1_uml_pages.pdf | Page 4 =====
+UML Type:
+- sequence
+
+Components:
+- MAIN — kind=component; attributes=[HashMap<String, Object>]; operations=[put(), gestisce la risposta]; role=main application logic
+- REALTIME DATABASE — kind=component; attributes=[]; operations=[]; role=real-time database
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- MAIN -> REALTIME DATABASE — type=message; label="Conversione da HashMap a JSON, viene mandata una REST/HTTP/2 request"; explanation="data conversion and request sending"
+- REALTIME DATABASE -> MAIN — type=message; label="RISPOSTA ASINCRONA"; explanation="asynchronous response received"
+
+Main Flows (step by step):
+- Flow 1: MAIN -> REALTIME DATABASE — "Conversione da HashMap a JSON, viene mandata una REST/HTTP/2 request"
+- Flow 2: REALTIME DATABASE -> MAIN — "RISPOSTA ASINCRONA"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Inserisce i dati aggiornati tramite put()"
+- "Gestisce la risposta"
+- "5.2.3. Missione o Rank Completato (i dati nel database vanno aggiornati)"
+- "Ingegneria del Software 2024/25 – docente: prof. Agostino Cortesi"
+
+Observations:
+- This sequence diagram models the interaction between a main application component and a real-time database.
+- The main application component updates the database with new data through a `HashMap`.
+- The updated data is converted to JSON and sent as a REST/HTTP/2 request to the real-time database.
+- An asynchronous response is received back from the real-time database.
+- The diagram highlights the process of updating the database and handling the response asynchronously.
+- Key edge cases include ensuring proper data conversion and handling asynchronous responses effectively.
+
+===== Report_1_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- MAIN — kind=activity; attributes=[]; operations=[]; role=main application flow
+- FIREBASE SDK — kind=activity; attributes=[]; operations=[]; role=Firebase SDK interaction
+- REALTIME DATABASE — kind=activity; attributes=[]; operations=[]; role=Realtime Database interaction
+
+Actors / Lifelines:
+- MAIN
+- FIREBASE SDK
+- REALTIME DATABASE
+
+Relationships / Links:
+- MAIN -> FIREBASE SDK — type=association; label="addValueEventListener("Mission")"; explanation="adds listener for Mission"
+- FIREBASE SDK -> MAIN — type=message; label="onDataChange()"; explanation="data change notification"
+- FIREBASE SDK -> REALTIME DATABASE — type=association; label="addValueEventListener("Mission")"; explanation="adds listener for Mission"
+- REALTIME DATABASE -> FIREBASE SDK — type=message; label="manda la risposta con i dati richiesti"; explanation="sends response with requested data"
+- REALTIME DATABASE -> MAIN — type=message; label="controlla il token e raccoglie i dati richiesti"; explanation="controls token and collects requested data"
+
+Main Flows (step by step):
+- Flow 1: MAIN -> FIREBASE SDK — adds listener for Mission
+- Flow 2: FIREBASE SDK -> MAIN — onDataChange()
+- Flow 3: FIREBASE SDK -> REALTIME DATABASE — adds listener for Mission
+- Flow 4: REALTIME DATABASE -> FIREBASE SDK — manda la risposta con i dati richiesti
+- Flow 5: REALTIME DATABASE -> MAIN — controlla il token e raccoglie i dati richiesti
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- NOTA: Il funzionamento è analogo sia nel caso di una "Mission" che nel caso di un "Trofeo".
+
+Observations:
+- This activity diagram illustrates the flow of reading data from a database, specifically from Firebase and Realtime Database.
+- The MAIN application initiates by adding a listener for the "Mission" in both Firebase and Realtime Database.
+- Data changes trigger notifications to the MAIN application.
+- The Firebase SDK then sends a response with the requested data to the MAIN application.
+- The Realtime Database also adds a listener for the "Mission" and controls the token to collect the requested data.
+- The process is similar for both "Mission" and "Trofeo".
+
+
+======================================================================

@@ -1,0 +1,106 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Compito-001,Test Compito creation,Compito,1,User is authenticated,"- id: 1
+- nome: ""Test Compito""
+- descrizione: ""This is a test Compito""
+- terminale: ""Test Terminale""
+- regione: ""Test Region""
+- provincia: ""Test Province""
+- citta: ""Test City""
+- isActive: true","1. Create a new Compito with the provided test data
+2. Verify that the Compito is created with the correct attributes",- The Compito is created with the provided test data
+TC-Compito-002,Test Compito modification,Compito,1,User is authenticated and the Compito exists,"- id: 1
+- nome: ""Modified Test Compito""
+- descrizione: ""This is a modified test Compito""
+- terminale: ""Modified Test Terminale""
+- regione: ""Modified Test Region""
+- provincia: ""Modified Test Province""
+- citta: ""Modified Test City""
+- isActive: true","1. Retrieve the Compito with id 1
+2. Modify the Compito with the provided test data
+3. Verify that the Compito is modified with the correct attributes",- The Compito is modified with the provided test data
+TC-Compito-003,Test Compito termination,Compito,1,User is authenticated and the Compito exists,None,"1. Retrieve the Compito with id 1
+2. Terminate the Compito
+3. Verify that the Compito is terminated",- The Compito is terminated
+TC-Compito-004,Test Compito deletion,Compito,1,User is authenticated and the Compito exists,None,"1. Retrieve the Compito with id 1
+2. Delete the Compito
+3. Verify that the Compito is deleted",- The Compito is deleted
+TC-Emergenza-001,Test Emergenza creation,Emergenza,1,User is authenticated,"- idEmergenza: 1
+- nome: ""Test Emergenza""
+- descrizione: ""This is a test Emergenza""
+- regione: ""Test Region""
+- provincia: ""Test Province""
+- dataF: ""2023-03-01""
+- dataF_me: ""2023-03-02""
+- isActive: true","1. Create a new Emergenza with the provided test data
+2. Verify that the Emergenza is created with the correct attributes",- The Emergenza is created with the provided test data
+TC-Emergenza-002,Test Emergenza modification,Emergenza,1,User is authenticated and the Emergenza exists,"- idEmergenza: 1
+- nome: ""Modified Test Emergenza""
+- descrizione: ""This is a modified test Emergenza""
+- regione: ""Modified Test Region""
+- provincia: ""Modified Test Province""
+- dataF: ""2023-03-03""
+- dataF_me: ""2023-03-04""
+- isActive: true","1. Retrieve the Emergenza with id 1
+2. Modify the Emergenza with the provided test data
+3. Verify that the Emergenza is modified with the correct attributes",- The Emergenza is modified with the provided test data
+TC-Emergenza-003,Test Emergenza termination,Emergenza,1,User is authenticated and the Emergenza exists,None,"1. Retrieve the Emergenza with id 1
+2. Terminate the Emergenza
+3. Verify that the Emergenza is terminated",- The Emergenza is terminated
+TC-Emergenza-004,Test Emergenza deletion,Emergenza,1,User is authenticated and the Emergenza exists,None,"1. Retrieve the Emergenza with id 1
+2. Delete the Emergenza
+3. Verify that the Emergenza is deleted",- The Emergenza is deleted
+TC-Utente-001,Test Utente creation,Utente,1,None,"- idUtente: 1
+- nome: ""Test User""
+- cognome: ""Test Surname""
+- password: ""TestPassword123""
+- cellulare: ""333-444-5555""
+- email: ""testuser@example.com""
+- Dati: ""Test Data""
+- regione: ""Test Region""
+- provincia: ""Test Province""
+- isActive: true","1. Create a new Utente with the provided test data
+2. Verify that the Utente is created with the correct attributes",- The Utente is created with the provided test data
+TC-Utente-002,Test Utente modification,Utente,1,The Utente exists,"- idUtente: 1
+- nome: ""Modified Test User""
+- cognome: ""Modified Test Surname""
+- password: ""ModifiedTestPassword123""
+- cellulare: ""666-777-8888""
+- email: ""modifiedtestuser@example.com""
+- Dati: ""Modified Test Data""
+- regione: ""Modified Test Region""
+- provincia: ""Modified Test Province""
+- isActive: true","1. Retrieve the Utente with id 1
+2. Modify the Utente with the provided test data
+3. Verify that the Utente is modified with the correct attributes",- The Utente is modified with the provided test data
+TC-Utente-003,Test Utente deletion,Utente,1,The Utente exists,None,"1. Retrieve the Utente with id 1
+2. Delete the Utente
+3. Verify that the Utente is deleted",- The Utente is deleted
+TC-Appartiene a-001,Test Appartiene a association,Appartiene a,1,"A Compito, Emergenza, and Utente exist","- Compito id: 1
+- Emergenza idEmergenza: 1
+- Utente idUtente: 1","1. Associate the Compito with the Emergenza and the Utente
+2. Verify that the Compito, Emergenza, and Utente are associated correctly","- The Compito, Emergenza, and Utente are associated correctly"
+TC-Appartiene a-002,Test Appartiene a disassociation,Appartiene a,1,"A Compito, Emergenza, and Utente are associated",None,"1. Disassociate the Compito from the Emergenza and the Utente
+2. Verify that the Compito, Emergenza, and Utente are disassociated correctly","- The Compito, Emergenza, and Utente are disassociated correctly"
+TC-Risguarda-001,Test Risguarda association,Risguarda,1,A Utente exists,- Utente idUtente: 1,"1. Associate the Utente with another Utente
+2. Verify that the Utente is associated correctly",- The Utente is associated correctly
+TC-Risguarda-002,Test Risguarda disassociation,Risguarda,1,A Utente is associated,None,"1. Disassociate the Utente from the associated Utente
+2. Verify that the Utente is disassociated correctly",- The Utente is disassociated correctly
+TC-Coordinate-001,Test Coordinate association,Coordinate,1,A Utente exists,- Utente idUtente: 1,"1. Associate the Utente with another Utente
+2. Verify that the Utente is associated correctly",- The Utente is associated correctly
+TC-Coordinate-002,Test Coordinate disassociation,Coordinate,1,A Utente is associated,None,"1. Disassociate the Utente from the associated Utente
+2. Verify that the Utente is disassociated correctly",- The Utente is disassociated correctly
+TC-Svolto da-001,Test Svolto da association,Svolto da,1,A Svolto and a Utente exist,"- Svolto id: 1
+- Utente idUtente: 1","1. Associate the Svolto with the Utente
+2. Verify that the Svolto is associated correctly",- The Svolto is associated correctly
+TC-Svolto da-002,Test Svolto da disassociation,Svolto da,1,A Svolto and a Utente are associated,None,"1. Disassociate the Svolto from the Utente
+2. Verify that the Svolto is disassociated correctly",- The Svolto is disassociated correctly
+TC-Login-001,Test Login,Login,2,None,"- email: ""testuser@example.com""
+- password: ""TestPassword123""","1. Send a login request with the provided test data
+2. Verify that the login is successful",- The login is successful
+TC-Login-002,Test Login with incorrect email,Login,2,None,"- email: ""incorrectemail@example.com""
+- password: ""TestPassword123""","1. Send a login request with the provided test data
+2. Verify that the login fails",- The login fails
+TC-Login-003,Test Login with incorrect password,Login,2,None,"- email: ""testuser@example.com""
+- password: ""incorrectPassword""","1. Send a login request with the provided test data
+2. Verify that the login fails",- The login fails
+TC-Login-004,Test Login with revoked token,Login,2,User is authenticated and the token is revoked,None,1. Send a login,

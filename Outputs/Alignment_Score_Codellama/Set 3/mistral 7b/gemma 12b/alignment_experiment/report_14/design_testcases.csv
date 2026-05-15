@@ -1,0 +1,63 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-PostComment-001","Test creating a new post comment","PostComment","1","A user is logged in and has a post to comment on.","User ID: 1, Post ID: 1, Content: ""Test comment"", Creation Date: 2023-01-01 12:00:00, Last Update Date: 2023-01-01 12:00:00, Hashcode: 123456","1. Navigate to the post with ID 1.
+2. Click the ""Comment"" button.
+3. Enter the test comment in the comment field.
+4. Click the ""Submit"" button.","The new comment with the provided data is displayed under the post."
+"TC-Post-001","Test creating a new post","Post","1","A user is logged in.","User ID: 1, Content: ""Test post"", Neighborhood: ""Test Neighborhood"", Creation Date: 2023-01-01 12:00:00, Last Update Date: 2023-01-01 12:00:00, Hashcode: 123456","1. Navigate to the ""Create Post"" page.
+2. Enter the test post content in the content field.
+3. Select ""Test Neighborhood"" from the neighborhood dropdown.
+4. Click the ""Submit"" button.","The new post with the provided data is displayed on the user's profile page."
+"TC-User-001","Test creating a new user","User","1","None","Name: Test User, Surname: Test, Email: test@example.com, Neighborhood: ""Test Neighborhood"", Hashcode: 123456","1. Navigate to the ""Create User"" page.
+2. Enter the test user name in the name field.
+3. Enter the test surname in the surname field.
+4. Enter the test email in the email field.
+5. Select ""Test Neighborhood"" from the neighborhood dropdown.
+6. Click the ""Submit"" button.","The new user with the provided data is saved in the system."
+"TC-User-002","Test creating a new user with invalid email","User","1","None","Name: Test User, Surname: Test, Email: invalid.email, Neighborhood: ""Test Neighborhood"", Hashcode: 123456","1. Navigate to the ""Create User"" page.
+2. Enter the test user name in the name field.
+3. Enter the test surname in the surname field.
+4. Enter an invalid email in the email field.
+5. Select ""Test Neighborhood"" from the neighborhood dropdown.
+6. Click the ""Submit"" button.","An error message is displayed, and the user is not saved."
+"TC-User-003","Test creating a new user with a long neighborhood name","User","1","None","Name: Test User, Surname: Test, Email: test@example.com, Neighborhood: ""A"" * 256, Hashcode: 123456","1. Navigate to the ""Create User"" page.
+2. Enter the test user name in the name field.
+3. Enter the test surname in the surname field.
+4. Enter an extremely long neighborhood name in the neighborhood field.
+5. Click the ""Submit"" button.","An error message is displayed, and the user is not saved."
+"TC-ChatList-001","Test adding a chat to a user's chat list","ChatList","1","A user is logged in.","User ID: 1, Chat ID: 1","1. Navigate to the user's profile page.
+2. Click the ""Chats"" tab.
+3. Click the ""Add Chat"" button.
+4. Select the test chat from the dropdown.
+5. Click the ""Submit"" button.","The test chat is added to the user's chat list."
+"TC-ChatList-002","Test adding an invalid chat to a user's chat list","ChatList","1","A user is logged in.","User ID: 1, Chat ID: -1","1. Navigate to the user's profile page.
+2. Click the ""Chats"" tab.
+3. Click the ""Add Chat"" button.
+4. Select an invalid chat ID from the dropdown.
+5. Click the ""Submit"" button.","An error message is displayed, and the chat is not added to the user's chat list."
+"TC-ChatList-003","Test removing a chat from a user's chat list","ChatList","1","A user is logged in and has a chat in their chat list.","User ID: 1, Chat ID: 1","1. Navigate to the user's profile page.
+2. Click the ""Chats"" tab.
+3. Find the test chat in the chat list.
+4. Click the ""Remove"" button next to the test chat.","The test chat is removed from the user's chat list."
+"TC-Neighborhood-001","Test creating a new neighborhood","Neighborhood","1","None","Google Code: test_code","1. Navigate to the ""Create Neighborhood"" page.
+2. Enter the test neighborhood Google code in the Google Code field.
+3. Click the ""Submit"" button.","The new neighborhood with the provided data is saved in the system."
+"TC-Neighborhood-002","Test creating a new neighborhood with an existing Google code","Neighborhood","1","A neighborhood with the same Google code already exists.","Google Code: existing_code","1. Navigate to the ""Create Neighborhood"" page.
+2. Enter the existing neighborhood Google code in the Google Code field.
+3. Click the ""Submit"" button.","An error message is displayed, and the neighborhood is not saved."
+"TC-Neighborhood-003","Test creating a new neighborhood with a long Google code","Neighborhood","1","None","Google Code: A"" * 256","1. Navigate to the ""Create Neighborhood"" page.
+2. Enter an extremely long Google code in the Google Code field.
+3. Click the ""Submit"" button.","An error message is displayed, and the neighborhood is not saved."
+"TC-User-BusinessUser-001","Test creating a new business user","BusinessUser","1","A user is logged in.","User ID: 1, Company Name: Test Company, Company Description: Test Description, Photo: test_photo.jpg","1. Navigate to the user's profile page.
+2. Click the ""Edit Profile"" button.
+3. Click the ""Switch to Business User"" button.
+4. Enter the test company name in the company name field.
+5. Enter the test company description in the company description field.
+6. Upload the test photo.
+7. Click the ""Submit"" button.","The user is updated to a business user with the provided data."
+"TC-User-BusinessUser-002","Test creating a new business user with an invalid photo","BusinessUser","1","A user is logged in.","User ID: 1, Company Name: Test Company, Company Description: Test Description, Photo: invalid_photo","1. Navigate to the user's profile page.
+2. Click the ""Edit Profile"" button.
+3. Click the ""Switch to Business User"" button.
+4. Enter the test company name in the company name field.
+5. Enter the test company description in the company description field.
+6. Upload an invalid photo.
+7. Click the ""Submit"" button.","An error message is displayed, and the user is not updated to a business user."

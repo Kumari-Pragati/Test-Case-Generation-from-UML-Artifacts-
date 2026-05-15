@@ -1,0 +1,82 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-PERSON-001,Validate `Person` class attribute getters and setters,Person,1,"`Person` object is instantiated with default values (name: null, age: 0, gender: null).","- Valid name: ""John Doe""
+- Valid age: 30
+- Valid gender: ""Male""
+- Invalid age: -5, 150
+- Invalid gender: ""M"", ""male"", ""MALE"", ""123""","1. Create a new `Person` object.
+2. Call `setAge(-5)` and verify behavior.
+3. Call `setAge(150)` and verify behavior.
+4. Call `setAge(30)` and verify `getAge()` returns 30.
+5. Call `setGender(""M"")` and verify `getGender()` returns ""M"" (or original value if rejected).
+6. Call `setGender(""Male"")` and verify `getGender()` returns ""Male"".
+7. Call `getName()` and verify it returns `null` (no setter provided).
+8. Call `setGender(""123"")` and verify behavior.","- `setAge(-5)` and `setAge(150)` either throw exceptions or silently fail (no negative/out-of-range ages).
+- `setAge(30)` succeeds; `getAge()` returns 30.
+- `setGender(""Male"")` succeeds; `getGender()` returns ""Male"".
+- `getName()` returns `null` (no setter).
+- `setGender(""M"")` or `setGender(""123"")` either rejects input or normalizes it (e.g., to ""Male"" or ""Unknown"")."
+TC-PERSON-002,Edge cases for `Person` class,Person,1,`Person` object exists.,"- Empty string for gender: """"
+- Null for gender: `null`
+- Maximum `int` age: `Integer.MAX_VALUE`
+- Minimum `int` age: `Integer.MIN_VALUE`","1. Call `setGender("""")` and verify `getGender()` behavior.
+2. Call `setGender(null)` and verify `getGender()` behavior.
+3. Call `setAge(Integer.MAX_VALUE)` and verify `getAge()` behavior.
+4. Call `setAge(Integer.MIN_VALUE)` and verify `getAge()` behavior.","- Empty string or `null` for gender is either rejected or stored as-is (e.g., `null` or empty string).
+- `Integer.MAX_VALUE` and `Integer.MIN_VALUE` are either accepted or rejected (e.g., clamped to valid range or throw exceptions)."
+TC-MAP-001,Validate `Map` and `Mapppa` class interactions,Map,3,`Map` and `Mapppa` objects are instantiated.,"- Key-value pairs: `(""NY"", ""New York"")`, `(""LA"", ""Los Angeles"")`
+- Non-existent key: `""SF""`
+- Null key/value: `null`","1. Add `(""NY"", ""New York"")` to `Mapppa` and verify `Map` reflects the addition.
+2. Check if `Map` contains `""NY""` and verify it returns `true`.
+3. Remove `""NY""` from `Mapppa` and verify `Map` reflects the removal.
+4. Check size of `Map` after removal and verify it returns `0`.
+5. Attempt to add `null` key/value and verify behavior.
+6. Check for non-existent key `""SF""` and verify `Map` returns `false`.","- Key-value pairs are correctly added/removed in both `Map` and `Mapppa`.
+- Size updates correctly after additions/removals.
+- `null` keys/values are either rejected or handled gracefully (e.g., ignored).
+- Non-existent keys return `false` for containment checks."
+TC-MAP-002,Edge cases for `Map` operations,Map,3,"`Map` object with 1 entry: `(""NY"", ""New York"")`.","- Duplicate key: `(""NY"", ""New York City"")`
+- Empty key: `("""")`
+- Empty value: `(""LA"", """")`","1. Add duplicate key `(""NY"", ""New York City"")` and verify behavior (overwrite or reject).
+2. Add empty key `("""")` and verify behavior.
+3. Add empty value `(""LA"", """")` and verify behavior.
+4. Check if empty key/value are stored or rejected.","- Duplicate keys either overwrite the value or are rejected.
+- Empty keys/values are either rejected or stored as-is (e.g., `null` or empty string)."
+TC-UPDATE-WIDGET-001,Validate `Utente` interaction with `UpdateAppWidget` and `UpdateWidget`,Widget Update,7,"`Utente`, `UpdateAppWidget`, and `UpdateWidget` objects are instantiated.","- Valid update trigger: User action (e.g., button click).
+- Invalid update trigger: `null` or corrupted data.","1. Simulate user triggering `UpdateAppWidget` via `Utente`.
+2. Verify `UpdateAppWidget` forwards the request to `UpdateWidget`.
+3. Verify `UpdateWidget` processes the update and reflects changes.
+4. Simulate invalid trigger (e.g., `null` data) and verify error handling.","- Valid trigger propagates through `Utente` → `UpdateAppWidget` → `UpdateWidget` and updates successfully.
+- Invalid trigger is either ignored or throws an exception with appropriate error message."
+TC-AIR-VISUAL-API-001,Validate `MapActivity` interaction with `AirVisualAPI`,Air Quality Data,8,`MapActivity` and `AirVisualAPI` are connected; user is on `MapView`.,"- Valid location: `""New York""`
+- Invalid location: `""""`, `null`, `""123""`
+- API response: Success (200 OK), Failure (500 Internal Error)","1. User initiates `MapActivity` and requests data for `""New York""`.
+2. Verify `MapActivity` sends request to `AirVisualAPI`.
+3. Verify `AirVisualAPI` returns success response with air quality data.
+4. Verify `MapView` updates with the new data.
+5. Repeat with invalid location (`""""` or `null`) and verify error handling.
+6. Simulate API failure (500 error) and verify `MapActivity` handles it gracefully.","- Valid location fetches data successfully; `MapView` updates.
+- Invalid location triggers error (e.g., toast message, default data).
+- API failure shows user-friendly error (e.g., ""Failed to load data. Retry?"")."
+TC-MAIN-ACTIVITY-001,Validate `User` → `MainActivity` → `Server` flow,Activity Flow,5,User and server are connected; `MainActivity` is ready.,"- Valid activity: User opens app.
+- Invalid activity: Network failure, server timeout.","1. User initiates `MainActivity`.
+2. Verify `MainActivity` sends activity to server.
+3. Verify server acknowledges receipt.
+4. Simulate network failure during transmission and verify retry/fallback.
+5. Simulate server timeout and verify user feedback.","- Valid activity completes successfully (user sees loaded screen).
+- Network failure shows offline mode or retry prompt.
+- Server timeout shows error message (e.g., ""Server unavailable. Try later."")."
+TC-LOAD-COUNTRY-001,Validate `LoadCountries` activity with location input,Country Loading,6 (assumed from context),`LoadCountries` activity is ready; user has location permissions.,"- Valid location: `""USA""`
+- Invalid location: `""""`, `null`, `""999""`
+- No location: `null` input.","1. Call `LoadCountries(""USA"")` and verify countries list loads.
+2. Call `LoadCountries("""")` and verify error handling.
+3. Call `LoadCountries(null)` and verify behavior.
+4. Call `LoadCountries(""999"")` and verify invalid input handling.","- Valid location loads countries successfully.
+- Invalid/empty location shows error (e.g., ""Invalid location"").
+- `null` input either defaults to current location or shows error."
+TC-SUGGESTION-SCREEN-001,Validate `Mappa iniziale` → `Schermata suggerimento` flow,Suggestion Screen,4,`Mappa iniziale` is active; user has not dismissed suggestions.,"- Valid suggestion trigger: User interaction (e.g., long press).
+- No trigger: User does nothing.","1. User interacts with `Mappa iniziale` (e.g., long press).
+2. Verify transition to `Schermata suggerimento`.
+3. Verify suggestions are displayed.
+4. User dismisses suggestions and verifies return to `Mappa iniziale`.","- Valid trigger shows suggestions screen with data.
+- Dismissal returns to initial map state.
+- No trigger keeps user on `Mappa iniziale`."

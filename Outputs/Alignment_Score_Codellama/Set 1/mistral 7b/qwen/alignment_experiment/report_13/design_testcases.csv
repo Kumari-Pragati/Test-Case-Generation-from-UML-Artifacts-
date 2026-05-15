@@ -1,0 +1,35 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Environment-001,Verify system initialization,Environment,1,None,None,"1. Launch the system.
+2. Observe the system's initial state.","The system should be in a ready state, with all components initialized."
+TC-Register-001,Verify user registration,Register activity,1,None,"- Valid username: test_user
+- Valid email: test_user@example.com
+- Valid password: Test1234
+- Confirm password: Test1234",,"The user should be successfully registered, and the system should display a confirmation message."
+TC-Register-002,Verify invalid username,Register activity,1,TC-Register-001,- Invalid username: test_user123,,The system should display an error message and prevent the user from registering.
+TC-Register-003,Verify invalid email,Register activity,1,TC-Register-001,- Invalid email: test_user@example,,The system should display an error message and prevent the user from registering.
+TC-Register-004,Verify invalid password,Register activity,1,TC-Register-001,- Invalid password: Test12,,The system should display an error message and prevent the user from registering.
+TC-Login-001,Verify user login with valid credentials,Login activity,1,TC-Register-001,"- Valid username: test_user
+- Valid password: Test1234",,"The user should be successfully logged in, and the system should display the dashboard."
+TC-Login-002,Verify user login with invalid credentials,Login activity,1,TC-Register-001,"- Invalid username: test_user123
+- Valid password: Test1234",,The system should display an error message and prevent the user from logging in.
+TC-Login-003,Verify user login with invalid password,Login activity,1,TC-Register-001,"- Valid username: test_user
+- Invalid password: Test123",,The system should display an error message and prevent the user from logging in.
+TC-Newsletter-001,Verify newsletter management,Newsletter activity,1,TC-Login-001,"- Newsletter title: Test Newsletter
+- Newsletter content: Test newsletter content",,The newsletter should be successfully created and sent to subscribed users.
+TC-Create-Event-001,Verify event creation,Create event,1,TC-Login-001,"- Event title: Test Event
+- Event description: Test event description
+- Event date: 2023-01-01
+- Event time: 12:00 PM
+- Event location: Test Location",,The event should be successfully created and displayed in the event list.
+TC-Join-View-Event-001,Verify event joining and viewing,Join/View event,1,TC-Create-Event-001,- User: test_user,,The user should be able to join the event and view its details.
+TC-Profile-001,Verify user profile management,Profile,1,TC-Login-001,"- New username: test_user_updated
+- New email: test_user_updated@example.com
+- New password: Test1234_updated",,The user's profile should be successfully updated.
+TC-Exit-001,Verify system exit,Exit,1,TC-Login-001,,"1. Click on the exit button.
+2. Observe the system's state.","The user should be logged out, and the system should close."
+TC-Notification-001,Verify notification handling,Notification center,1,TC-Newsletter-001,- New newsletter: Test Newsletter,,The user should receive a notification about the new newsletter.
+TC-Flash-001,Verify flash activity handling,Flash activity,1,TC-Newsletter-001,- Flash message: Test flash message,,The user should see the flash message for a short period before it disappears.
+TC-Database-001,Verify database management,Postgresql,1,TC-Register-001,- SQL query: SELECT * FROM users;,,The system should return the list of registered users.
+TC-Newsletter-Management-001,Verify newsletter management,Newsletter management,1,TC-Login-001,"- Newsletter title: Test Newsletter
+- Newsletter content: Test newsletter content
+- Recipients: test_user",,The newsletter should be successfully created and sent to the specified recipient.

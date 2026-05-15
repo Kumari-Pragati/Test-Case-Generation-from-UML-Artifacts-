@@ -1,0 +1,324 @@
+{
+  "concepts": [
+    "puntina della mappa",
+    "suggerimento",
+    "schermata iniziale",
+    "selezioniamo lo stato, la regione e la città",
+    "seleziona la tua posizione attuale",
+    "viene effettuata la richiesta al server",
+    "presenta i dati ritornati",
+    "- none",
+    "mappa iniziale",
+    "ricaricare i dati scrollando giu",
+    "il server riceve la richiesta e invia dati nuovi",
+    "mappa aggiornata",
+    "mappa inziale",
+    "premere il pulsante per i suggerimenti",
+    "schermata suggerimenti",
+    "utente",
+    "airquality activity",
+    "main activity",
+    "airvisual api",
+    "widget provider",
+    "map activity",
+    "posizione",
+    "tips",
+    "activitytips"
+  ],
+  "flows": [
+    "puntina della mappa — association — target=suggerimento; label=\"n\"; explanation=\"n\"",
+    "flow 1: puntina della mappa -> suggerimento",
+    "this diagram models two classes: \"puntina della mappa\" and \"suggerimento\". the \"puntina della mappa\" class contains attributes for geographical coordinates, air quality, temperature, weather status, humidity, wind speed, pressure, and a category indicating environmental conditions. it also has methods to set and get these attributes. the \"suggerimento\" class includes attributes for title, text, image, and a category, along with methods to set and get these attributes. there is an association between the two classes indicated by \"n\" on both sides, suggesting a many-to-many relationship.",
+    "schermata iniziale -> selezioniamo lo stato, la regione e la città — type=control_flow; label=\"\"; explanation=\"flow to select state, region, city\"",
+    "schermata iniziale -> seleziona la tua posizione attuale — type=control_flow; label=\"\"; explanation=\"flow to select current position\"",
+    "selezioniamo lo stato, la regione e la città -> viene effettuata la richiesta al server — type=control_flow; label=\"\"; explanation=\"request sent to server\"",
+    "seleziona la tua posizione attuale -> viene effettuata la richiesta al server — type=control_flow; label=\"\"; explanation=\"request sent to server\"",
+    "viene effettuata la richiesta al server -> presenta i dati ritornati — type=control_flow; label=\"\"; explanation=\"data presented\"",
+    "flow 1: schermata iniziale -> selezioniamo lo stato, la regione e la città -> viene effettuata la richiesta al server -> presenta i dati ritornati",
+    "flow 2: schermata iniziale -> seleziona la tua posizione attuale -> viene effettuata la richiesta al server -> presenta i dati ritornati",
+    "this activity diagram models a process for selecting a location (state, region, city or current position) and then presenting the returned data.",
+    "the process starts with an initial screen.",
+    "users can either select a state, region, and city or select their current position.",
+    "after selection, a request is sent to the server.",
+    "finally, the returned data is presented.",
+    "there are two main flows: one for selecting a location and one for selecting the current position.",
+    "mappa iniziale -> ricaricare i dati scrollando giu — type=flow; label=\"->\"; explanation=\"start to data loading\"",
+    "ricaricare i dati scrollando giu -> il server riceve la richiesta e invia dati nuovi — type=flow; label=\"->\"; explanation=\"request received and new data sent\"",
+    "il server riceve la richiesta e invia dati nuovi -> mappa aggiornata — type=flow; label=\"->\"; explanation=\"data updated and sent back\"",
+    "flow 1: mappa iniziale -> ricaricare i dati scrollando giu -> il server riceve la richiesta e invia dati nuovi -> mappa aggiornata",
+    "this activity diagram models the process of updating a map.",
+    "the initial state is the \"mappa iniziale\" (initial map state).",
+    "the process involves loading new data by scrolling down (\"ricaricare i dati scrollando giu\").",
+    "the server receives the request and sends new data (\"il server riceve la richiesta e invia dati nuovi\").",
+    "the final state is the \"mappa aggiornata\" (updated map state).",
+    "there are no conditions or branches in the diagram.",
+    "the process is linear and does not involve any loops or repetitions.",
+    "mappa inziale -> premere il pulsante per i suggerimenti — type=control-flow; label=\"->\"; explanation=\"flow from initial map to button press\"",
+    "premere il pulsante per i suggerimenti -> schermata suggerimenti — type=control-flow; label=\"->\"; explanation=\"flow from button press to suggestions screen\"",
+    "flow 1: mappa inziale -> premere il pulsante per i suggerimenti -> schermata suggerimenti",
+    "this activity diagram models a process involving three steps: starting with an initial map, pressing a button to trigger suggestions, and displaying the suggestions screen.",
+    "the process begins with the initial map and progresses through pressing a button to access the suggestions screen.",
+    "there are no conditions, branches, or loops visible in the diagram.",
+    "utente -> airquality activity — type=message; label=\"avvia applicazione\"; explanation=\"user starts application\"",
+    "airquality activity -> main activity — type=message; label=\"loadcountries()\"; explanation=\"activity loads countries\"",
+    "main activity -> airquality activity — type=message; label=\"loadcountries()\"; explanation=\"activity loads countries\"",
+    "airquality activity -> main activity — type=message; label=\"recupera gli stati\"; explanation=\"activity retrieves states\"",
+    "main activity -> airquality activity — type=message; label=\"loadstates()\"; explanation=\"activity loads states\"",
+    "airquality activity -> main activity — type=message; label=\"recupera le regioni\"; explanation=\"activity retrieves regions\"",
+    "airquality activity -> main activity — type=message; label=\"recupera le città\"; explanation=\"activity retrieves cities\"",
+    "main activity -> airquality activity — type=message; label=\"intent(airqualityactivity.this, mainactivity.class)\"; explanation=\"activity initiates intent to mainactivity\"",
+    "airquality activity -> main activity — type=message; label=\"gethttpdata()\"; explanation=\"activity gets http data\"",
+    "main activity -> airquality activity — type=message; label=\"il server ritorna i dati\"; explanation=\"server returns data\"",
+    "airquality activity -> main activity — type=message; label=\"handlemessage() presenta i dati recuperati dalla richiesta http\"; explanation=\"activity handles message presenting retrieved data\"",
+    "flow 1: utente -> airquality activity — avvia applicazione -> main activity — loadcountries() -> airquality activity — recupera gli stati -> main activity — loadstates() -> airquality activity — recupera le regioni -> main activity — loadcountries() -> airquality activity — recupera le città -> main activity — intent(airqualityactivity.this, mainactivity.class) -> airquality activity — gethttpdata() -> main activity — il server ritorna i dati -> airquality activity — handlemessage() presenta i dati recuperati dalla richiesta http",
+    "this sequence diagram illustrates the interaction between a user, an air quality activity, and a main activity within an application. the user starts the application, which then loads countries, retrieves states, regions, and cities. an intent is initiated to the main activity, which retrieves http data from the server and presents it to the user through a message handler. the diagram highlights the flow of data and control between these components, emphasizing the retrieval of geographical data and the handling of http requests.",
+    "airquality activity -> main activity — type=message; label=\"loadcountries()\"; explanation=\"load countries\"",
+    "main activity -> airvisual api — type=message; label=\"loadcountries()\"; explanation=\"load countries\"",
+    "main activity -> airvisual api — type=message; label=\"recupera gli stati\"; explanation=\"retrieve states\"",
+    "main activity -> airvisual api — type=message; label=\"loadstates()\"; explanation=\"load states\"",
+    "main activity -> airvisual api — type=message; label=\"recupera le regioni\"; explanation=\"retrieve regions\"",
+    "main activity -> airvisual api — type=message; label=\"recupera le città\"; explanation=\"retrieve cities\"",
+    "main activity -> airvisual api — type=message; label=\"intent(airqualityactivity.this, mainactivity.class)\"; explanation=\"start mainactivity\"",
+    "main activity -> airvisual api — type=message; label=\"gethttpdata()\"; explanation=\"get http data\"",
+    "main activity -> airvisual api — type=message; label=\"il server ritorna i dati\"; explanation=\"server returns data\"",
+    "main activity -> airquality activity — type=message; label=\"handlemessage() presenta i dati recuperati dalla richiesta http\"; explanation=\"handle message presenting retrieved data\"",
+    "flow 1: utente -> airquality activity -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airquality activity -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> air",
+    "utente -> widget provider — type=message; label=\"onenable()\"; explanation=\"user enables widget\"",
+    "widget provider -> widget provider — type=message; label=\"onupdate()\"; explanation=\"widget updates itself\"",
+    "widget provider -> airvisual api — type=message; label=\"updateappwidget()\"; explanation=\"widget requests data update\"",
+    "airvisual api -> widget provider — type=message; label=\"recupera i dati\"; explanation=\"api retrieves data\"",
+    "flow 1: utente -> widget provider — onenable() -> widget provider -> widget provider — onupdate() -> widget provider -> airvisual api — updateappwidget() -> airvisual api -> widget provider — recupera i dati -> widget provider -> utente — presenta i dati all'utente",
+    "a user enables a widget, which then updates itself periodically.",
+    "the widget provider sends a request to the airvisual api to retrieve data.",
+    "the api returns the data, which is then presented to the user through the widget.",
+    "the process is continuous, with the widget updating itself and requesting new data from the api.",
+    "utente -> map activity — type=message; label=\"l'utente vuole visualizzare la mappa\"; explanation=\"user requests map display\"",
+    "map activity -> map activity — type=message; label=\"la web view effettua il refresh dei dati\"; explanation=\"webview refreshes data\"",
+    "map activity -> airvisual api — type=message; label=\"vengono ritornati i nuovi dati\"; explanation=\"returns new data\"",
+    "flow 1: utente -> map activity — \"l'utente vuole visualizzare la mappa\" -> map activity -> map activity — \"la web view effettua il refresh dei dati\" -> map activity -> map activity — \"vengono ritornati i nuovi dati\"",
+    "this sequence diagram models the interaction between a user, a map activity, and an airvisual api.",
+    "the user initiates the request to visualize the map.",
+    "the map activity then refreshes the data via the web view.",
+    "new data is returned to the map activity, which updates the map accordingly.",
+    "the process is iterative, with the web view continuously refreshing the data.",
+    "utente -> posizione — type=association; label=\"l'utente decide la nazione, la regione e la città di interesse\"; explanation=\"user selects country, region, and city of interest\"",
+    "posizione -> tips — type=association; label=\"dalla posizione otteniamo l'aqi della città\"; explanation=\"get city's aqi from position\"",
+    "tips -> activitytips — type=association; label=\"getconsigliperaqi(int aqi)\"; explanation=\"get tips for aqi level\"",
+    "activitytips -> utente — type=association; label=\"ritorna dati\"; explanation=\"return data to user\"",
+    "flow 1: utente -> posizione -> tips -> activitytips -> utente",
+    "this activity diagram models a process where a user selects a country, region, and city of interest.",
+    "the selected location's air quality index (aqi) is retrieved from the position service.",
+    "based on the aqi, tips are fetched from the tips service.",
+    "finally, the activity tips are returned to the user.",
+    "the diagram does not show any branching conditions or loops.",
+    "======================================================================"
+  ],
+  "validations": [
+    "- none"
+  ],
+  "pages": [
+    {
+      "page_no": 1,
+      "uml_type": "- class",
+      "concepts": [
+        "puntina della mappa",
+        "suggerimento"
+      ],
+      "flows": [
+        "puntina della mappa — association — target=suggerimento; label=\"n\"; explanation=\"n\"",
+        "flow 1: puntina della mappa -> suggerimento",
+        "this diagram models two classes: \"puntina della mappa\" and \"suggerimento\". the \"puntina della mappa\" class contains attributes for geographical coordinates, air quality, temperature, weather status, humidity, wind speed, pressure, and a category indicating environmental conditions. it also has methods to set and get these attributes. the \"suggerimento\" class includes attributes for title, text, image, and a category, along with methods to set and get these attributes. there is an association between the two classes indicated by \"n\" on both sides, suggesting a many-to-many relationship."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 2,
+      "uml_type": "- activity",
+      "concepts": [
+        "schermata iniziale",
+        "selezioniamo lo stato, la regione e la città",
+        "seleziona la tua posizione attuale",
+        "viene effettuata la richiesta al server",
+        "presenta i dati ritornati",
+        "- none"
+      ],
+      "flows": [
+        "schermata iniziale -> selezioniamo lo stato, la regione e la città — type=control_flow; label=\"\"; explanation=\"flow to select state, region, city\"",
+        "schermata iniziale -> seleziona la tua posizione attuale — type=control_flow; label=\"\"; explanation=\"flow to select current position\"",
+        "selezioniamo lo stato, la regione e la città -> viene effettuata la richiesta al server — type=control_flow; label=\"\"; explanation=\"request sent to server\"",
+        "seleziona la tua posizione attuale -> viene effettuata la richiesta al server — type=control_flow; label=\"\"; explanation=\"request sent to server\"",
+        "viene effettuata la richiesta al server -> presenta i dati ritornati — type=control_flow; label=\"\"; explanation=\"data presented\"",
+        "flow 1: schermata iniziale -> selezioniamo lo stato, la regione e la città -> viene effettuata la richiesta al server -> presenta i dati ritornati",
+        "flow 2: schermata iniziale -> seleziona la tua posizione attuale -> viene effettuata la richiesta al server -> presenta i dati ritornati",
+        "this activity diagram models a process for selecting a location (state, region, city or current position) and then presenting the returned data.",
+        "the process starts with an initial screen.",
+        "users can either select a state, region, and city or select their current position.",
+        "after selection, a request is sent to the server.",
+        "finally, the returned data is presented.",
+        "there are two main flows: one for selecting a location and one for selecting the current position."
+      ],
+      "validations": [
+        "- none"
+      ]
+    },
+    {
+      "page_no": 3,
+      "uml_type": "- activity",
+      "concepts": [
+        "mappa iniziale",
+        "ricaricare i dati scrollando giu",
+        "il server riceve la richiesta e invia dati nuovi",
+        "mappa aggiornata"
+      ],
+      "flows": [
+        "mappa iniziale -> ricaricare i dati scrollando giu — type=flow; label=\"->\"; explanation=\"start to data loading\"",
+        "ricaricare i dati scrollando giu -> il server riceve la richiesta e invia dati nuovi — type=flow; label=\"->\"; explanation=\"request received and new data sent\"",
+        "il server riceve la richiesta e invia dati nuovi -> mappa aggiornata — type=flow; label=\"->\"; explanation=\"data updated and sent back\"",
+        "flow 1: mappa iniziale -> ricaricare i dati scrollando giu -> il server riceve la richiesta e invia dati nuovi -> mappa aggiornata",
+        "this activity diagram models the process of updating a map.",
+        "the initial state is the \"mappa iniziale\" (initial map state).",
+        "the process involves loading new data by scrolling down (\"ricaricare i dati scrollando giu\").",
+        "the server receives the request and sends new data (\"il server riceve la richiesta e invia dati nuovi\").",
+        "the final state is the \"mappa aggiornata\" (updated map state).",
+        "there are no conditions or branches in the diagram.",
+        "the process is linear and does not involve any loops or repetitions."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 4,
+      "uml_type": "- activity",
+      "concepts": [
+        "mappa inziale",
+        "premere il pulsante per i suggerimenti",
+        "schermata suggerimenti"
+      ],
+      "flows": [
+        "mappa inziale -> premere il pulsante per i suggerimenti — type=control-flow; label=\"->\"; explanation=\"flow from initial map to button press\"",
+        "premere il pulsante per i suggerimenti -> schermata suggerimenti — type=control-flow; label=\"->\"; explanation=\"flow from button press to suggestions screen\"",
+        "flow 1: mappa inziale -> premere il pulsante per i suggerimenti -> schermata suggerimenti",
+        "this activity diagram models a process involving three steps: starting with an initial map, pressing a button to trigger suggestions, and displaying the suggestions screen.",
+        "the process begins with the initial map and progresses through pressing a button to access the suggestions screen.",
+        "there are no conditions, branches, or loops visible in the diagram."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 5,
+      "uml_type": "- sequence",
+      "concepts": [
+        "utente",
+        "airquality activity",
+        "main activity",
+        "airvisual api"
+      ],
+      "flows": [
+        "utente -> airquality activity — type=message; label=\"avvia applicazione\"; explanation=\"user starts application\"",
+        "airquality activity -> main activity — type=message; label=\"loadcountries()\"; explanation=\"activity loads countries\"",
+        "main activity -> airquality activity — type=message; label=\"loadcountries()\"; explanation=\"activity loads countries\"",
+        "airquality activity -> main activity — type=message; label=\"recupera gli stati\"; explanation=\"activity retrieves states\"",
+        "main activity -> airquality activity — type=message; label=\"loadstates()\"; explanation=\"activity loads states\"",
+        "airquality activity -> main activity — type=message; label=\"recupera le regioni\"; explanation=\"activity retrieves regions\"",
+        "airquality activity -> main activity — type=message; label=\"recupera le città\"; explanation=\"activity retrieves cities\"",
+        "main activity -> airquality activity — type=message; label=\"intent(airqualityactivity.this, mainactivity.class)\"; explanation=\"activity initiates intent to mainactivity\"",
+        "airquality activity -> main activity — type=message; label=\"gethttpdata()\"; explanation=\"activity gets http data\"",
+        "main activity -> airquality activity — type=message; label=\"il server ritorna i dati\"; explanation=\"server returns data\"",
+        "airquality activity -> main activity — type=message; label=\"handlemessage() presenta i dati recuperati dalla richiesta http\"; explanation=\"activity handles message presenting retrieved data\"",
+        "flow 1: utente -> airquality activity — avvia applicazione -> main activity — loadcountries() -> airquality activity — recupera gli stati -> main activity — loadstates() -> airquality activity — recupera le regioni -> main activity — loadcountries() -> airquality activity — recupera le città -> main activity — intent(airqualityactivity.this, mainactivity.class) -> airquality activity — gethttpdata() -> main activity — il server ritorna i dati -> airquality activity — handlemessage() presenta i dati recuperati dalla richiesta http",
+        "this sequence diagram illustrates the interaction between a user, an air quality activity, and a main activity within an application. the user starts the application, which then loads countries, retrieves states, regions, and cities. an intent is initiated to the main activity, which retrieves http data from the server and presents it to the user through a message handler. the diagram highlights the flow of data and control between these components, emphasizing the retrieval of geographical data and the handling of http requests."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 6,
+      "uml_type": "- sequence",
+      "concepts": [
+        "utente",
+        "airquality activity",
+        "main activity",
+        "airvisual api"
+      ],
+      "flows": [
+        "utente -> airquality activity — type=message; label=\"avvia applicazione\"; explanation=\"user starts application\"",
+        "airquality activity -> main activity — type=message; label=\"loadcountries()\"; explanation=\"load countries\"",
+        "main activity -> airvisual api — type=message; label=\"loadcountries()\"; explanation=\"load countries\"",
+        "main activity -> airvisual api — type=message; label=\"recupera gli stati\"; explanation=\"retrieve states\"",
+        "main activity -> airvisual api — type=message; label=\"loadstates()\"; explanation=\"load states\"",
+        "main activity -> airvisual api — type=message; label=\"recupera le regioni\"; explanation=\"retrieve regions\"",
+        "main activity -> airvisual api — type=message; label=\"recupera le città\"; explanation=\"retrieve cities\"",
+        "main activity -> airvisual api — type=message; label=\"intent(airqualityactivity.this, mainactivity.class)\"; explanation=\"start mainactivity\"",
+        "main activity -> airvisual api — type=message; label=\"gethttpdata()\"; explanation=\"get http data\"",
+        "main activity -> airvisual api — type=message; label=\"il server ritorna i dati\"; explanation=\"server returns data\"",
+        "main activity -> airquality activity — type=message; label=\"handlemessage() presenta i dati recuperati dalla richiesta http\"; explanation=\"handle message presenting retrieved data\"",
+        "flow 1: utente -> airquality activity -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airquality activity -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> airvisual api -> main activity -> air"
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 7,
+      "uml_type": "- sequence",
+      "concepts": [
+        "utente",
+        "widget provider",
+        "airvisual api"
+      ],
+      "flows": [
+        "utente -> widget provider — type=message; label=\"onenable()\"; explanation=\"user enables widget\"",
+        "widget provider -> widget provider — type=message; label=\"onupdate()\"; explanation=\"widget updates itself\"",
+        "widget provider -> airvisual api — type=message; label=\"updateappwidget()\"; explanation=\"widget requests data update\"",
+        "airvisual api -> widget provider — type=message; label=\"recupera i dati\"; explanation=\"api retrieves data\"",
+        "flow 1: utente -> widget provider — onenable() -> widget provider -> widget provider — onupdate() -> widget provider -> airvisual api — updateappwidget() -> airvisual api -> widget provider — recupera i dati -> widget provider -> utente — presenta i dati all'utente",
+        "a user enables a widget, which then updates itself periodically.",
+        "the widget provider sends a request to the airvisual api to retrieve data.",
+        "the api returns the data, which is then presented to the user through the widget.",
+        "the process is continuous, with the widget updating itself and requesting new data from the api."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 8,
+      "uml_type": "- sequence",
+      "concepts": [
+        "utente",
+        "map activity",
+        "airvisual api"
+      ],
+      "flows": [
+        "utente -> map activity — type=message; label=\"l'utente vuole visualizzare la mappa\"; explanation=\"user requests map display\"",
+        "map activity -> map activity — type=message; label=\"la web view effettua il refresh dei dati\"; explanation=\"webview refreshes data\"",
+        "map activity -> airvisual api — type=message; label=\"vengono ritornati i nuovi dati\"; explanation=\"returns new data\"",
+        "flow 1: utente -> map activity — \"l'utente vuole visualizzare la mappa\" -> map activity -> map activity — \"la web view effettua il refresh dei dati\" -> map activity -> map activity — \"vengono ritornati i nuovi dati\"",
+        "this sequence diagram models the interaction between a user, a map activity, and an airvisual api.",
+        "the user initiates the request to visualize the map.",
+        "the map activity then refreshes the data via the web view.",
+        "new data is returned to the map activity, which updates the map accordingly.",
+        "the process is iterative, with the web view continuously refreshing the data."
+      ],
+      "validations": []
+    },
+    {
+      "page_no": 9,
+      "uml_type": "- activity",
+      "concepts": [
+        "utente",
+        "posizione",
+        "tips",
+        "activitytips"
+      ],
+      "flows": [
+        "utente -> posizione — type=association; label=\"l'utente decide la nazione, la regione e la città di interesse\"; explanation=\"user selects country, region, and city of interest\"",
+        "posizione -> tips — type=association; label=\"dalla posizione otteniamo l'aqi della città\"; explanation=\"get city's aqi from position\"",
+        "tips -> activitytips — type=association; label=\"getconsigliperaqi(int aqi)\"; explanation=\"get tips for aqi level\"",
+        "activitytips -> utente — type=association; label=\"ritorna dati\"; explanation=\"return data to user\"",
+        "flow 1: utente -> posizione -> tips -> activitytips -> utente",
+        "this activity diagram models a process where a user selects a country, region, and city of interest.",
+        "the selected location's air quality index (aqi) is retrieved from the position service.",
+        "based on the aqi, tips are fetched from the tips service.",
+        "finally, the activity tips are returned to the user.",
+        "the diagram does not show any branching conditions or loops.",
+        "======================================================================"
+      ],
+      "validations": []
+    }
+  ]
+}

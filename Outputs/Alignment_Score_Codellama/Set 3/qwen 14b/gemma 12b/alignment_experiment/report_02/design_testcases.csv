@@ -1,0 +1,139 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-ACCESS-001","First-time access flow","Access","1","User has never accessed the app before.","N/A","1. User accesses the app.
+2. System checks if it's the first access.
+3. System starts the application.
+4. System checks if the user is already registered.
+5. Since it's the first access, the user is not registered.
+6. System directs the user to the registration process.
+7. User completes registration.
+8. System redirects the user to the home screen.","User successfully registers and lands on the home screen."
+"TC-ACCESS-002","Returning user login flow","Access","1","User has previously accessed the app and is registered.","Valid username and password.","1. User accesses the app.
+2. System checks if it's the first access.
+3. System starts the application.
+4. System checks if the user is already registered.
+5. Since the user is registered, the system prompts for login.
+6. User enters valid credentials.
+7. System verifies credentials with the server.
+8. Server confirms credentials with the database.
+9. Server sends confirmation back to the application.
+10. Application informs the user that login is successful.
+11. System redirects the user to the home screen.","User logs in successfully and lands on the home screen."
+"TC-ACCESS-003","Invalid login attempt","Access","1, 5","User has previously accessed the app but entered incorrect credentials.","Invalid username and password.","1. User accesses the app.
+2. System checks if it's the first access.
+3. System starts the application.
+4. System checks if the user is already registered.
+5. Since the user is registered, the system prompts for login.
+6. User enters invalid credentials.
+7. System verifies credentials with the server.
+8. Server fails to confirm credentials with the database.
+9. Server sends failure message back to the application.
+10. Application informs the user that login failed.","User receives a login failure message and remains on the login screen."
+"TC-ROUTE-001","Route in progress flow","Route","2","User is logged in and has started a route.","N/A","1. User navigates to the home screen.
+2. System checks if a route is in progress.
+3. Since a route is in progress, the system prompts to start the route.
+4. User confirms to start the route.
+5. System checks if the route is finished.
+6. Since the route is not finished, the system returns to the home screen.","User stays on the home screen until the route is completed."
+"TC-ROUTE-002","Route completion flow","Route","2","User is logged in and has completed a route.","N/A","1. User navigates to the home screen.
+2. System checks if a route is in progress.
+3. Since a route is in progress, the system prompts to start the route.
+4. User confirms to start the route.
+5. System checks if the route is finished.
+6. Since the route is finished, the system calculates emissions.
+7. System returns to the home screen.","User sees emissions calculated and lands on the home screen."
+"TC-ROUTE-003","Change section flow","Route","2","User is logged in and wants to change sections.","N/A","1. User navigates to the home screen.
+2. System checks if a route is in progress.
+3. Since no route is in progress, the system asks if the user wants to change sections.
+4. User confirms to change sections.
+5. System displays the horizontal menu.
+6. User selects a section.
+7. System returns to the home screen.","User sees the horizontal menu and lands back on the home screen after selecting a section."
+"TC-STATISTICS-001","Weekly report visualization flow","Statistics","3","User is logged in and wants to view statistics.","N/A","1. User navigates to the statistics page.
+2. System prompts to visualize a weekly report.
+3. User confirms to visualize the report.
+4. System displays the report.
+5. System asks if the user wants to change sections.
+6. User confirms to change sections.
+7. System displays the horizontal menu.
+8. User selects a section.
+9. System returns to the statistics page.","User views the weekly report and lands back on the statistics page after selecting a section."
+"TC-STATISTICS-002","No weekly report visualization flow","Statistics","3","User is logged in and does not want to view a weekly report.","N/A","1. User navigates to the statistics page.
+2. System prompts to visualize a weekly report.
+3. User declines to visualize the report.
+4. System displays the horizontal menu.
+5. System asks if the user wants to change sections.
+6. User confirms to change sections.
+7. System displays the horizontal menu.
+8. User selects a section.
+9. System returns to the statistics page.","User sees the horizontal menu and lands back on the statistics page after selecting a section."
+"TC-PROFILE-001","Profile view and data update flow","Profile","4","User is logged in and wants to update their profile.","New personal data.","1. User navigates to the profile view.
+2. System displays personal data.
+3. System asks if the user wants to update their account.
+4. User confirms to update the account.
+5. System prompts to enter new data.
+6. User enters new data.
+7. System updates the data.
+8. System returns to the profile view.","User sees updated personal data on the profile view."
+"TC-PROFILE-002","Logout flow","Profile","4","User is logged in and wants to log out.","N/A","1. User navigates to the profile view.
+2. System asks if the user wants to log out.
+3. User confirms to log out.
+4. System performs logout.
+5. System returns to the profile view.","User is logged out and sees the profile view."
+"TC-PROFILE-003","Change section flow from profile view","Profile","4","User is logged in and wants to change sections from the profile view.","N/A","1. User navigates to the profile view.
+2. System asks if the user wants to change sections.
+3. User confirms to change sections.
+4. System displays the horizontal menu.
+5. User selects a section.
+6. System returns to the profile view.","User sees the horizontal menu and lands back on the profile view after selecting a section."
+"TC-LOGIN-001","Successful login sequence","Login","5","User has valid credentials.","Valid username and password.","1. User initiates login process.
+2. Application requests credentials.
+3. Application sends credentials to the server.
+4. Server requests data verification from the database.
+5. Database returns data found.
+6. Server compares data with the credentials.
+7. Server confirms successful login to the application.
+8. Application informs the user that login is successful.","User logs in successfully and receives a confirmation message."
+"TC-LOGIN-002","Failed login sequence","Login","5","User has invalid credentials.","Invalid username and password.","1. User initiates login process.
+2. Application requests credentials.
+3. Application sends credentials to the server.
+4. Server requests data verification from the database.
+5. Database returns data not found.
+6. Server confirms failed login to the application.
+7. Application informs the user that login failed.","User receives a login failure message."
+"TC-ROUTE-CALCULATION-001","Route calculation and emissions display sequence","Route Calculation","6","User is logged in and wants to start a route.","Route details.","1. User initiates a route.
+2. Application sends data for calculation to the server.
+3. Server adds the route to the database.
+4. Database returns the new route.
+5. Server calculates emissions and returns data to the application.
+6. Application displays CO2 emissions to the user.","User sees the calculated CO2 emissions for the route."
+"TC-ROUTE-CALCULATION-002","Route calculation failure sequence","Route Calculation","6","User is logged in but the route cannot be processed.","Invalid route details.","1. User initiates a route.
+2. Application sends data for calculation to the server.
+3. Server attempts to add the route to the database.
+4. Database fails to process the route.
+5. Server returns an error message to the application.
+6. Application informs the user that the route calculation failed.","User receives an error message indicating that the route calculation failed."
+"TC-ROUTE-CALCULATION-003","Edge case - Empty route details","Route Calculation","6","User is logged in and tries to start a route with empty details.","Empty route details.","1. User initiates a route with empty details.
+2. Application sends data for calculation to the server.
+3. Server detects empty route details.
+4. Server returns an error message to the application.
+5. Application informs the user that the route details are invalid.","User receives a message indicating that the route details are invalid."
+"TC-ROUTE-CALCULATION-004","Edge case - Maximum route length exceeded","Route Calculation","6","User is logged in and tries to start a route exceeding maximum length.","Route details exceeding maximum length.","1. User initiates a route with details exceeding maximum length.
+2. Application sends data for calculation to the server.
+3. Server detects route length exceeds maximum limit.
+4. Server returns an error message to the application.
+5. Application informs the user that the route length exceeds the maximum allowed.","User receives a message indicating that the route length exceeds the maximum allowed."
+"TC-ROUTE-CALCULATION-005","Edge case - Minimum route length not met","Route Calculation","6","User is logged in and tries to start a route below minimum length.","Route details below minimum length.","1. User initiates a route with details below minimum length.
+2. Application sends data for calculation to the server.
+3. Server detects route length below minimum limit.
+4. Server returns an error message to the application.
+5. Application informs the user that the route length is too short.","User receives a message indicating that the route length is too short."
+"TC-ROUTE-CALCULATION-006","Edge case - Invalid route coordinates","Route Calculation","6","User is logged in and tries to start a route with invalid coordinates.","Invalid route coordinates.","1. User initiates a route with invalid coordinates.
+2. Application sends data for calculation to the server.
+3. Server detects invalid route coordinates.
+4. Server returns an error message to the application.
+5. Application informs the user that the route coordinates are invalid.","User receives a message indicating that the route coordinates are invalid."
+"TC-ROUTE-CALCULATION-007","Edge case - Duplicate route entry","Route Calculation","6","User is logged in and tries to start a duplicate route.","Duplicate route details.","1. User initiates a route with duplicate details.
+2. Application sends data for calculation to the server.
+3. Server detects duplicate route entry.
+4. Server returns an error message to the application.
+5. Application informs the user that the route already exists.","User receives a message indicating that the route already exists."

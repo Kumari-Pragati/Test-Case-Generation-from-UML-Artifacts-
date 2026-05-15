@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User logs in successfully,Authentication,"1,2,7",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters the username and password.
+2. User clicks the login button.
+3. System verifies the credentials.
+4. System displays a successful login message.",User is logged in successfully.
+TC-Login-002,User logs in with invalid credentials,Authentication,"1,2,7",User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters the username and password.
+2. User clicks the login button.
+3. System verifies the credentials.
+4. System displays an error message.",Login fails and an error message is displayed.
+TC-Logout-001,User logs out successfully,Authentication,"1,2,7",User is logged in.,- No specific data required.,"1. User clicks the logout button.
+2. System logs the user out.
+3. System displays a logout confirmation message.",User is logged out successfully.
+TC-AddProduct-001,Admin adds a product,Product Management,"1,7",Admin is logged in.,"- Product Name: New Product
+- Product Description: This is a new product.","1. Admin logs in.
+2. Admin navigates to the product management section.
+3. Admin clicks the ""Add Product"" button.
+4. Admin enters the product name and description.
+5. Admin clicks the ""Save"" button.
+6. System saves the product.",Product is added successfully.
+TC-RemoveProduct-001,Admin removes a product,Product Management,"1,7",Admin is logged in and a product exists.,- Product Name: Old Product,"1. Admin logs in.
+2. Admin navigates to the product management section.
+3. Admin selects the product to remove.
+4. Admin clicks the ""Remove"" button.
+5. System removes the product.",Product is removed successfully.
+TC-AddToCart-001,User adds an item to the cart,Cart Management,"1,7",User is logged in and an item exists.,"- Item Name: Item1
+- Item Price: 10.00","1. User logs in.
+2. User navigates to the product page.
+3. User clicks the ""Add to Cart"" button.
+4. System adds the item to the cart.",Item is added to the cart successfully.
+TC-RemoveFromCart-001,User removes an item from the cart,Cart Management,"1,7",User is logged in and an item exists in the cart.,- Item Name: Item1,"1. User logs in.
+2. User navigates to the cart page.
+3. User selects the item to remove.
+4. User clicks the ""Remove"" button.
+5. System removes the item from the cart.",Item is removed from the cart successfully.
+TC-StartServer-001,Server starts the database connection,Server Management,4,Server is not already running.,- No specific data required.,"1. Server starts.
+2. Server attempts to connect to the database.
+3. System confirms the database connection.",Database connection is established successfully.
+TC-StopServer-001,Server stops the database connection,Server Management,4,Server is running and connected to the database.,- No specific data required.,"1. Server stops.
+2. Server disconnects from the database.
+3. System confirms the database disconnection.",Database connection is terminated successfully.
+TC-UserConnectToDatabase-001,User connects to the database,Database Connection,4,User is logged in.,- No specific data required.,"1. User logs in.
+2. User attempts to connect to the database.
+3. System confirms the database connection.",User is connected to the database successfully.
+TC-UserDisconnectFromDatabase-001,User disconnects from the database,Database Connection,4,User is connected to the database.,- No specific data required.,"1. User attempts to disconnect from the database.
+2. System confirms the database disconnection.",User is disconnected from the database successfully.
+TC-UserInteractsWithCalendar-001,User interacts with the calendar,Calendar Management,"5,6",User is logged in.,- No specific data required.,"1. User logs in.
+2. User initiates the calendar.
+3. User interacts with the calendar.",User successfully interacts with the calendar.
+TC-AdminAddMenu-001,Admin adds a menu,Menu Management,7,Admin is logged in.,"- Menu Name: New Menu
+- Menu Price: 20.00","1. Admin logs in.
+2. Admin navigates to the menu management section.
+3. Admin clicks the ""Add Menu"" button.
+4. Admin enters the menu name and price.
+5. Admin clicks the ""Save"" button.
+6. System saves the menu.",Menu is added successfully.
+TC-AdminRemoveMenu-001,Admin removes a menu,Menu Management,7,Admin is logged in and a menu exists.,- Menu Name: Old Menu,"1. Admin logs in.
+2. Admin navigates to the menu management section.
+3. Admin selects the menu to remove.
+4. Admin clicks the ""Remove"" button.
+5. System removes the menu.",Menu is removed successfully.
+TC-TrainStartsAtStation-001,Train starts at a station,Train Management,8,Train is at a station.,- No specific data required.,"1. Train is at a station.
+2. Train starts.",Train starts successfully.
+TC-TrainStopsAtStation-001,Train stops at a station,Train Management,8,Train is moving.,- No specific data required.,"1. Train is moving.
+2. Train stops.",Train stops successfully.
+TC-PayloadDisplayedOnTrain-001,Payload is displayed on the train,Payload Management,8,Train is moving.,- No specific data required.,"1. Train is moving.
+2. Payload is displayed on the train.",Payload is displayed on the train successfully.
+TC-InvalidLogin-001,User logs in with an empty username,Authentication,"1,2,7",User has an empty username.,"- Username: 
+- Password: testpassword","1. User enters the username and password.
+2. User clicks the login button.
+3. System verifies the credentials.
+4. System displays an error message.",Login fails and an error message is displayed.
+TC-InvalidLogin-002,User logs in with an empty password,Authentication,"1,2,7",User has an empty password.,"- Username: testuser
+- Password:","1. User enters the username and password.
+2. User clicks the login button.
+3. System verifies the credentials.
+4. System displays an error message.",Login fails and an error message is displayed.
+TC-EmptyProductName-001,Admin tries to add a product with an empty name,Product Management,"1,7",Admin is logged in.,"- Product Name: 
+- Product Description: This is a new product.","1. Admin logs in.
+2. Admin navigates to the product management section.
+3. Admin clicks the ""Add Product"" button.
+4. Admin enters the product name and description.
+5. Admin clicks the ""Save"" button.
+6. System displays an error message.",Product addition fails and an error message is displayed.
+TC-EmptyProductDescription-001,Admin tries to add a product with an empty description,Product Management,"1,7",Admin is logged in.,"- Product Name: New Product
+- Product Description:","1. Admin logs in.
+2. Admin navigates to the product management section.
+3. Admin clicks the ""Add Product"" button.
+4. Admin enters the product name and description.
+5. Admin clicks the ""Save"" button.
+6. System displays an error message.",Product addition fails and an error message is displayed.
+TC-EmptyItemName-001,User tries to add an item with an empty name,Cart Management,"1,7",User is logged in.,"- Item Name: 
+- Item Price: 10.00","1. User logs in.
+2. User navigates to the product page.
+3. User clicks the ""Add to Cart"" button.
+4. System displays an error message.",Item addition fails and an error message is displayed.
+TC-EmptyItemPrice-001,User tries to add an item with an empty price,Cart Management,"1,7",User is logged in.,"- Item Name: Item1
+- Item Price:","1. User logs in.
+2. User navigates to the product page.
+3. User clicks the ""Add to Cart"" button.
+4. System displays an error message.",Item addition fails and an error message is displayed.
+TC-EmptyMenuName-001,Admin tries to add a menu with an empty name,Menu Management,7,Admin is logged in.,"- Menu Name: 
+- Menu Price: 20.00","1. Admin logs in.
+2. Admin navigates to the menu management section.
+3. Admin clicks the ""Add Menu"" button.
+4. Admin enters the menu name and price.
+5. Admin clicks the ""Save"" button.
+6. System displays an error message.",Menu addition fails and an error message is displayed.
+TC-EmptyMenuPrice-001,Admin tries to add a menu with an empty price,Menu Management,7,Admin is logged in.,"- Menu Name: New Menu
+- Menu Price:","1. Admin logs in.
+2. Admin navigates to the menu management section.
+3. Admin clicks the ""Add Menu"" button.
+4. Admin enters the menu name and price.
+5. Admin clicks the ""Save"" button.
+6. System displays an error message.",Menu addition fails and an error message is displayed.
+TC-InvalidCartItem-001,User tries to add an invalid item to the cart,Cart Management,"1,7",User is logged in.,"- Item Name: Invalid Item
+- Item Price: 10.00","1. User logs in.
+2. User navigates to the product page.
+3. User clicks the ""Add to Cart"" button.
+4. System displays an error message.",Item addition fails and an error message is displayed.
+TC-InvalidMenu-001,Admin tries to add an invalid menu,Menu Management,7,Admin is logged in.,"- Menu Name: Invalid Menu
+- Menu Price: 20.00","1. Admin logs in.
+2. Admin navigates to the menu management section.
+3. Admin clicks the ""Add Menu""",

@@ -1,0 +1,112 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-SignUp-001,User Creation Process,SignUp,"1, 2",System is running and ready to accept requests.,"- Username: testuser
+- Password: password123
+- Email: test@example.com","1. Navigate to the sign-up page.
+2. Enter the username, password, and email.
+3. Submit the form.","- User is created successfully.
+- Confirmation message is displayed."
+TC-SignUp-002,Duplicate User Creation Attempt,SignUp,"1, 2",User 'testuser' already exists in the system.,"- Username: testuser
+- Password: password123
+- Email: test@example.com","1. Navigate to the sign-up page.
+2. Enter the existing username, password, and email.
+3. Submit the form.",- Error message indicating the username is already taken is displayed.
+TC-Login-001,Successful Login,Login,"1, 2",User 'testuser' is registered and active.,"- Username: testuser
+- Password: password123","1. Navigate to the login page.
+2. Enter the correct username and password.
+3. Click the login button.","- User is logged in successfully.
+- Redirected to the dashboard."
+TC-Login-002,Invalid Login Credentials,Login,"1, 2",User 'testuser' is registered and active.,"- Username: testuser
+- Incorrect Password: wrongpassword","1. Navigate to the login page.
+2. Enter the correct username and incorrect password.
+3. Click the login button.",- Error message indicating invalid credentials is displayed.
+TC-Geolocation-001,Geolocation Flow,Geolocation,"1, 3",User is logged in.,"- User location: New York, NY","1. User triggers the geolocation feature.
+2. System retrieves the user's location.
+3. System uses the location to filter announcements.","- Announcements are filtered based on the user's location.
+- Filtered announcements are displayed."
+TC-AnnouncementCreation-001,Announcement Creation Process,AnnouncementCreation,"1, 4",User is logged in.,"- Title: Test Announcement
+- Description: This is a test announcement.","1. User navigates to the announcement creation page.
+2. User fills in the announcement details.
+3. User submits the form.","- Announcement is created successfully.
+- Confirmation message is displayed."
+TC-AnnouncementCreation-002,Failed Announcement Creation,AnnouncementCreation,"1, 4",User is logged in.,"- Title: Test Announcement
+- Description: This is a test announcement.","1. User navigates to the announcement creation page.
+2. User fills in the announcement details but leaves a required field empty.
+3. User submits the form.",- Error message indicating missing required fields is displayed.
+TC-AnnouncementModification-001,Announcement Modification Process,AnnouncementModification,"1, 14",User is logged in and has an existing announcement.,"- Title: Updated Announcement
+- Description: This is an updated announcement.","1. User navigates to the announcement modification page.
+2. User updates the announcement details.
+3. User submits the form.","- Announcement is updated successfully.
+- Confirmation message is displayed."
+TC-AnnouncementModification-002,Failed Announcement Modification,AnnouncementModification,"1, 14",User is logged in and has an existing announcement.,"- Title: Updated Announcement
+- Description: This is an updated announcement.","1. User navigates to the announcement modification page.
+2. User updates the announcement details but leaves a required field empty.
+3. User submits the form.",- Error message indicating missing required fields is displayed.
+TC-AnnouncementDeletion-001,Announcement Deletion Process,AnnouncementDeletion,"1, 15",User is logged in and has an existing announcement.,- Announcement ID: 12345,"1. User navigates to the announcement deletion page.
+2. User confirms the deletion.
+3. User submits the form.","- Announcement is deleted successfully.
+- Confirmation message is displayed."
+TC-AnnouncementDeletion-002,Failed Announcement Deletion,AnnouncementDeletion,"1, 15",User is logged in but does not have an existing announcement.,- Announcement ID: 12345,"1. User navigates to the announcement deletion page.
+2. User attempts to delete a non-existent announcement.
+3. User submits the form.",- Error message indicating the announcement does not exist is displayed.
+TC-AnnouncementViewing-001,Viewing Announcement Details,AnnouncementViewing,"1, 5",User is logged in and has an existing announcement.,- Announcement ID: 12345,"1. User navigates to the announcement viewing page.
+2. User views the announcement details.",- Announcement details are displayed correctly.
+TC-AnnouncementViewing-002,Viewing Announcement Details with Filters,AnnouncementViewing,"1, 5",User is logged in and has an existing announcement.,"- Announcement ID: 12345
+- Filter: Location: New York, NY","1. User navigates to the announcement viewing page.
+2. User applies a filter.
+3. User views the announcement details.",- Announcement details are displayed correctly after applying the filter.
+TC-AnnouncementBooking-001,Announcement Booking Process,AnnouncementBooking,"1, 6",User is logged in and has an existing announcement.,- Announcement ID: 12345,"1. User navigates to the announcement booking page.
+2. User confirms the booking.
+3. User submits the form.","- Announcement is booked successfully.
+- Confirmation message is displayed."
+TC-AnnouncementBooking-002,Failed Announcement Booking,AnnouncementBooking,"1, 6",User is logged in but does not have an existing announcement.,- Announcement ID: 12345,"1. User navigates to the announcement booking page.
+2. User attempts to book a non-existent announcement.
+3. User submits the form.",- Error message indicating the announcement does not exist is displayed.
+TC-ProfileView-001,Viewing Own Profile,ProfileView,"1, 3",User is logged in.,- User ID: 12345,"1. User navigates to the profile viewing page.
+2. User views their profile details.",- Profile details are displayed correctly.
+TC-ProfileView-002,Viewing Other User's Profile,ProfileView,"1, 3",User is logged in and has access to another user's profile.,- User ID: 67890,"1. User navigates to the profile viewing page.
+2. User views another user's profile details.",- Another user's profile details are displayed correctly.
+TC-ProfileModification-001,Profile Modification Process,ProfileModification,"1, 8",User is logged in.,- New Email: newemail@example.com,"1. User navigates to the profile modification page.
+2. User updates the profile details.
+3. User submits the form.","- Profile is updated successfully.
+- Confirmation message is displayed."
+TC-ProfileModification-002,Failed Profile Modification,ProfileModification,"1, 8",User is logged in.,- New Email: newemail@example.com,"1. User navigates to the profile modification page.
+2. User updates the profile details but leaves a required field empty.
+3. User submits the form.",- Error message indicating missing required fields is displayed.
+TC-Logout-001,Successful Logout,Logout,"1, 3",User is logged in.,- User ID: 12345,"1. User navigates to the logout page.
+2. User clicks the logout button.","- User is logged out successfully.
+- Redirected to the login page."
+TC-Logout-002,Logout After Announcement Modification,Logout,"1, 3",User is logged in and has just modified an announcement.,- User ID: 12345,"1. User navigates to the announcement modification page.
+2. User modifies an announcement.
+3. User clicks the logout button.","- User is logged out successfully.
+- Redirected to the login page."
+TC-Logout-003,Logout After Announcement Deletion,Logout,"1, 3",User is logged in and has just deleted an announcement.,- User ID: 12345,"1. User navigates to the announcement deletion page.
+2. User deletes an announcement.
+3. User clicks the logout button.","- User is logged out successfully.
+- Redirected to the login page."
+TC-Logout-004,Logout After Announcement Viewing,Logout,"1, 3",User is logged in and has just viewed an announcement.,- User ID: 12345,"1. User navigates to the announcement viewing page.
+2. User views an announcement.
+3. User clicks the logout button.","- User is logged out successfully.
+- Redirected to the login page."
+TC-UserManagement-001,User Management Process,UserManagement,"10, 11",System is running and ready to accept requests.,"- Username: testuser
+- Password: password123
+- Email: test@example.com","1. Application sends a ""Create User"" request to the user management component.
+2. User management component maps the user data to the database.
+3. Database saves the user data.
+4. User management component maps the data back to the application.
+5. Application notifies the user that the user already exists.","- User is created successfully.
+- Confirmation message is displayed."
+TC-UserManagement-002,User Management Process with Existing User,UserManagement,"10, 11",User 'testuser' already exists in the system.,"- Username: testuser
+- Password: password123
+- Email: test@example.com","1. Application sends a ""Create User"" request to the user management component.
+2. User management component checks if the user already exists.
+3. Application receives a notification that the user already exists.",- Error message indicating the username is already taken is displayed.
+TC-AnnouncementLifecycle-001,Announcement Lifecycle Process,AnnouncementLifecycle,9,User is logged in and has an existing announcement.,- Announcement ID: 12345,"1. Announcement is in the ""Created"" state.
+2. User modifies the announcement.
+3. User books the announcement.
+4. User accepts the booking.
+5. Booking moves to ""Accepted"" state.
+6. Booking moves to ""InProgress"" state.
+7. Points are assigned.
+8. Announcement is removed.","- Announcement progresses through all states as expected.
+- Final state is ""Removed""."
+TC,,,,,,,

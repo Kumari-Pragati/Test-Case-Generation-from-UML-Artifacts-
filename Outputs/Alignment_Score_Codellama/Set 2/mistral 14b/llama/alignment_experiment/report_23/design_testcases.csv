@@ -1,0 +1,132 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- User account exists in the database with valid email and password.
+- Client application is open and connected to the server.","- Username: `testuser@example.com`
+- Password: `SecurePass123!`","1. User enters `testuser@example.com` in the email field.
+2. User enters `SecurePass123!` in the password field.
+3. User clicks the ""Login"" button.","- Server retrieves user data from the database.
+- Server validates credentials and returns success.
+- Client receives user data and grants access to the system."
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,2,"- User account exists in the database with valid email but incorrect password.
+- Client application is open and connected to the server.","- Username: `testuser@example.com`
+- Password: `WrongPass123!`","1. User enters `testuser@example.com` in the email field.
+2. User enters `WrongPass123!` in the password field.
+3. User clicks the ""Login"" button.","- Server retrieves user data from the database.
+- Server validates credentials and returns a ""login failed"" error.
+- Client displays an error message: ""Invalid email or password."""
+TC-AUTHENTICATION-003,Failed login with non-existent email,Authentication,2,"- No user account exists with the provided email.
+- Client application is open and connected to the server.","- Username: `nonexistent@example.com`
+- Password: `SecurePass123!`","1. User enters `nonexistent@example.com` in the email field.
+2. User enters `SecurePass123!` in the password field.
+3. User clicks the ""Login"" button.","- Server queries the database and finds no matching user.
+- Server returns a ""login failed"" error.
+- Client displays an error message: ""Invalid email or password."""
+TC-AUTHENTICATION-004,User logout,Authentication,2,- User is logged in to the system.,,"1. User clicks the ""Logout"" button.","- Server processes the logout request.
+- User session is terminated.
+- Client redirects to the login screen or home page."
+TC-USER-MANAGEMENT-001,Create a new user account,User Management,"1, 2","- Client application is open and connected to the server.
+- No existing account with the provided email.","- Name: `John`
+- Surname: `Doe`
+- Email: `john.doe@example.com`
+- Password: `NewPass123!`
+- IsSeller: `false`","1. User clicks the ""Sign Up"" button.
+2. User fills in the registration form with the provided data.
+3. User clicks the ""Create Account"" button.","- Server validates input fields (non-empty, valid email format).
+- Server creates a new user record in the database.
+- Server returns success confirmation.
+- Client displays a success message: ""Account created successfully."""
+TC-USER-MANAGEMENT-002,Create a user account with invalid email format,User Management,"1, 2",- Client application is open and connected to the server.,"- Name: `John`
+- Surname: `Doe`
+- Email: `invalid-email`
+- Password: `NewPass123!`
+- IsSeller: `false`","1. User clicks the ""Sign Up"" button.
+2. User fills in the registration form with the provided data.
+3. User clicks the ""Create Account"" button.","- Server detects invalid email format.
+- Server returns an error message: ""Please enter a valid email address.""
+- Client highlights the email field in red and prevents account creation."
+TC-USER-MANAGEMENT-003,Update user profile (name and surname),User Management,1,"- User is logged in.
+- User profile exists with initial name and surname.","- Current Name: `John`
+- Current Surname: `Doe`
+- New Name: `Jonathan`
+- New Surname: `Doe-Smith`","1. User navigates to the ""Profile"" section.
+2. User clicks the ""Edit"" button.
+3. User updates the name to `Jonathan` and surname to `Doe-Smith`.
+4. User clicks the ""Save"" button.","- Server validates the new name and surname (non-empty).
+- Server updates the user record in the database.
+- Client displays a success message: ""Profile updated successfully."""
+TC-USER-MANAGEMENT-004,Set user as a seller,User Management,1,- User is logged in and not currently a seller (`isVenditore = false`).,,"1. User navigates to the ""Profile"" section.
+2. User toggles the ""Become a Seller"" switch to `true`.
+3. User clicks the ""Save"" button.","- Server updates `isVenditore` to `true`.
+- Server sends a confirmation email to the user (if applicable).
+- Client displays a success message: ""You are now a registered seller."""
+TC-PRODUCT-MANAGEMENT-001,Add a new product (valid input),Product Management,4,"- User is logged in as a seller.
+- User is on the ""Add Product"" page.","- Product Name: `Wireless Headphones`
+- Price: `99.99`
+- Description: `Noise-cancelling wireless headphones with 30-hour battery life.`","1. User clicks the ""Add Product"" button.
+2. User fills in the product details with the provided data.
+3. User clicks the ""Save"" button.","- Server validates all fields (non-empty, valid price format).
+- Server creates a new product record in the database.
+- Client displays a success message: ""Product added successfully."""
+TC-PRODUCT-MANAGEMENT-002,Add a product with empty fields,Product Management,4,"- User is logged in as a seller.
+- User is on the ""Add Product"" page.","- Product Name: `` (empty)
+- Price: `` (empty)
+- Description: `` (empty)","1. User clicks the ""Add Product"" button.
+2. User clicks the ""Save"" button without filling any fields.","- Server detects empty fields.
+- Client displays error messages for each empty field:
+- ""Product name is required.""
+- ""Price is required.""
+- ""Description is required.""
+- Product is not added to the database."
+TC-PRODUCT-MANAGEMENT-003,Modify an existing product (valid input),Product Management,3,"- User is logged in as a seller.
+- A product exists with the following details:
+- Name: `Wireless Headphones`
+- Price: `99.99`
+- Description: `Noise-cancelling wireless headphones with 30-hour battery life.`","- New Name: `Premium Wireless Headphones`
+- New Price: `129.99`
+- New Description: `Noise-cancelling wireless headphones with 40-hour battery life and built-in microphone.`","1. User clicks on the existing product.
+2. User clicks the ""Modify"" button.
+3. User updates the product details with the provided data.
+4. User clicks the ""Save Changes"" button.","- Server validates all fields (non-empty, valid price format).
+- Server updates the product record in the database.
+- Client displays a success message: ""Product updated successfully."""
+TC-PRODUCT-MANAGEMENT-004,Modify a product with invalid price format,Product Management,3,"- User is logged in as a seller.
+- A product exists with valid details.","- New Name: `Premium Wireless Headphones`
+- New Price: `abc` (invalid)
+- New Description: `Updated description.`","1. User clicks on the existing product.
+2. User clicks the ""Modify"" button.
+3. User updates the product details with the provided data.
+4. User clicks the ""Save Changes"" button.","- Server detects invalid price format.
+- Client highlights the price field in red and displays an error message: ""Please enter a valid price.""
+- Product details are not updated in the database."
+TC-PREFERRED-SELLER-001,Mark a seller as preferred,Preferred Seller Management,1,"- User is logged in as a client.
+- A seller exists with a product.",,"1. User views a product sold by a seller.
+2. User clicks the ""Mark as Preferred Seller"" button.
+3. User assigns a rating (e.g., 5 stars).
+4. User confirms the action.","- Server creates a `VenditorePreferito` record linking the client and seller.
+- Server updates the seller's vote (e.g., `getVoto()` returns `5`).
+- Client displays a success message: ""Seller added to your preferences."""
+TC-PREFERRED-SELLER-002,View preferred sellers list,Preferred Seller Management,1,"- User is logged in as a client.
+- User has marked at least one seller as preferred.",,"1. User navigates to the ""Preferred Sellers"" section.","- Client displays a list of preferred sellers with their:
+- Seller name.
+- Voto (rating).
+- Number of products sold (if available).
+- User can click on a seller to view their products."
+TC-NOTIFICATION-001,Send push notification to user,Notification Management,"5, 6","- User is logged in.
+- User has enabled push notifications.
+- A new product is added by a preferred seller.",,"1. Server detects a new product from a preferred seller.
+2. Server triggers the `push()` operation for the new product.","- Server sends a push notification to the user's device.
+- Client receives the notification with details:
+- Title: ""New product from your preferred seller!""
+- Body: ""Check out the latest product from [Seller Name]."""
+TC-NOTIFICATION-002,Send in-app notification for new product,Notification Management,"5, 6","- User is logged in.
+- A new product is added by any seller.",,"1. Server detects a new product.
+2. Server triggers the `inAppNotification()` operation for the new product.","- Client displays an in-app notification banner at the top of the screen.
+- Notification content:
+- Title: ""New Product Available!""
+- Body: ""A new product has been added. Tap to view.""
+- User can dismiss the notification or tap to view the product."
+TC-NOTIFICATION-003,Disable push notifications,Notification Management,5,"- User is logged in.
+- Push notifications are currently enabled.",,"1. User navigates to the ""Settings"" section.
+2. User toggles the ""Push Notifications"" switch to `false`.
+3. User clicks ""Save.""","- Server updates the user's notification preferences.
+- Client displays a confirmation message: ""Push notifications disabled.""
+- No further push notifications are"

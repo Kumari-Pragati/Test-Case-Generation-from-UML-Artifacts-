@@ -1,0 +1,187 @@
+REPORT: Report_6_uml_pages.pdf
+======================================================================
+
+===== Report_6_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Entities — kind=class; attributes=[id: int, name: string, description: string, creationDate: datetime, lastUpdateDate: datetime]; operations=[]; role=Represents data entities
+- Users — kind=class; attributes=[id: int, username: string, passwordHash: string, email: string, firstName: string, lastName: string, registrationDate: datetime, lastLogin: datetime, isActive: boolean]; operations=[]; role=Represents user accounts
+- Notifications — kind=class; attributes=[id: int, userId: int, message: string, timestamp: datetime, read: boolean]; operations=[]; role=Represents notifications
+- Reports — kind=class; attributes=[id: int, userId: int, reportDate: datetime, title: string, description: string, categoryId: int, status: string]; operations=[]; role=Represents user-generated reports
+- Areas — kind=class; attributes=[id: int, name: string, description: string, creationDate: datetime, lastUpdateDate: datetime]; operations=[]; role=Represents geographical areas
+- Categories — kind=class; attributes=[id: int, name: string, description: string]; operations=[]; role=Represents report categories
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Entities -> Users — type=association; label=""; explanation="Entities are associated with Users"
+- Notifications -> Users — type=association; label=""; explanation="Notifications are associated with Users"
+- Reports -> Users — type=association; label=""; explanation="Reports are associated with Users"
+- Reports -> Categories — type=association; label=""; explanation="Reports are associated with Categories"
+- Areas -> Reports — type=association; label=""; explanation="Areas are associated with Reports"
+
+Main Flows:
+- Flow 1: Entities -> Users -> Notifications -> Reports -> Categories -> Areas
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system with entities, users, notifications, reports, areas, and categories.
+- The main flow shows associations between these classes, indicating relationships between them.
+- Reports are linked to Users, Categories, and Areas, suggesting a reporting system with user accountability and categorization.
+- Notifications are linked to Users, indicating a notification system for user interactions.
+
+===== Report_6_uml_pages.pdf | Page 2 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; attributes=[]; operations=[]; role=User
+- UI — kind=lifeline; attributes=[]; operations=[]; role=User Interface
+- FirebaseAuthentication — kind=lifeline; attributes=[]; operations=[sign(email, password): ]; role=Authentication Service
+- FirebaseFirestore — kind=lifeline; attributes=[]; operations=[]; role=Data Storage
+
+Actors / Lifelines:
+- Utente
+- UI
+- FirebaseAuthentication
+- FirebaseFirestore
+
+Relationships / Links:
+- Utente -> UI — type=message; label="Inserisci credenziali (email, password)"; explanation="User enters credentials"
+- UI -> UI — type=message; label="Validazione input"; explanation="UI validates input"
+- UI -> FirebaseAuthentication — type=message; label="sign(email, password)"; explanation="UI sends credentials to Authentication Service"
+- FirebaseAuthentication -> FirebaseAuthentication — type=message; label="[Credenziali valide]"; explanation="Authentication Service validates credentials"
+- FirebaseAuthentication -> FirebaseFirestore — type=message; label="Recupera dati utente (UID dal Token)"; explanation="Authentication Service retrieves user data"
+- FirebaseFirestore -> FirebaseAuthentication — type=message; label="Restituisci dati utente"; explanation="Data Storage returns user data"
+- FirebaseAuthentication -> UI — type=message; label="Restituisci Token"; explanation="Authentication Service returns token"
+- FirebaseAuthentication -> UI — type=message; label="[Credenziali errate]"; explanation="Authentication Service returns error"
+- UI -> UI — type=message; label="[Login riuscito]"; explanation="Login successful"
+- UI -> UI — type=message; label="Accesso effettuato con successo"; explanation="UI displays success message"
+- UI -> UI — type=message; label="[Login fallito]"; explanation="Login failed"
+- UI -> UI — type=message; label="Mostra messaggio di errore"; explanation="UI displays error message"
+
+Main Flows:
+- Flow 1: Utente -> UI (Inserisci credenziali (email, password)) -> UI (Validazione input) -> FirebaseAuthentication (sign(email, password)) -> FirebaseAuthentication ([Credenziali valide]) -> FirebaseFirestore (Recupera dati utente (UID dal Token)) -> FirebaseAuthentication (Restituisci dati utente) -> FirebaseAuthentication (Restituisci Token) -> UI ([Login riuscito]) -> UI (Accesso effettuato con successo)
+- Flow 2: UI -> FirebaseAuthentication (sign(email, password)) -> FirebaseAuthentication ([Credenziali errate]) -> UI ([Login fallito]) -> UI (Mostra messaggio di errore)
+
+Conditions / Branches:
+- Decision node after FirebaseAuthentication (sign(email, password)):
+  - [Credenziali valide] -> Flow 1
+  - [Credenziali errate] -> UI (Mostra messaggio di errore)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user login sequence involving a user, a UI, a Firebase Authentication service, and a Firebase Firestore database.
+- The main flow involves the user entering credentials, validation, authentication, data retrieval, and successful login.
+- An alternative flow handles the case of invalid credentials, displaying an error message to the user.
+- The diagram highlights the interaction between the UI and the Firebase services for authentication and data retrieval.
+
+===== Report_6_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; attributes=[]; operations=[]; role=User
+- UI — kind=component; attributes=[]; operations=[inserisci dati registrazione()]; role=User Interface
+- FirebaseAuthentication — kind=component; attributes=[]; operations=[creaAccount(email, password), valida(), salvaUtente(nome, email, token), conferma salvataggio()]; role=Authentication Service
+- FirebaseStore — kind=component; attributes=[]; operations=[]; role=Data Storage
+
+Actors / Lifelines:
+- Utente
+- UI
+- FirebaseAuthentication
+- FirebaseStore
+
+Relationships / Links:
+- Utente -> UI — type=message; label="inserisci dati registrazione"; explanation="User provides registration data"
+- UI -> FirebaseAuthentication — type=message; label="creaAccount(email, password)"; explanation="UI sends registration request"
+- FirebaseAuthentication -> FirebaseAuthentication — type=message; label="valida()"; explanation="Authentication service validates data"
+- FirebaseAuthentication -> FirebaseStore — type=message; label="salvaUtente(nome, email, token)"; explanation="Authentication service saves user data"
+- FirebaseStore -> FirebaseAuthentication — type=message; label="conferma salvataggio"; explanation="Data storage confirms saving"
+- FirebaseAuthentication -> UI — type=message; label="Conferma registrazione avvenuta o errore"; explanation="Authentication service confirms registration or reports error"
+- FirebaseAuthentication -> UI — type=message; label="[Dati validi] Token di autenticazione"; explanation="Authentication service returns authentication token"
+- FirebaseAuthentication -> FirebaseStore — type=message; label="[Errore registrazione]"; explanation="Authentication service reports an error"
+
+Main Flows:
+- Flow 1: Utente -> UI (inserisci dati registrazione) -> FirebaseAuthentication (creaAccount(email, password)) -> FirebaseAuthentication (valida()) -> FirebaseStore (salvaUtente(nome, email, token)) -> FirebaseStore (conferma salvataggio) -> FirebaseAuthentication -> UI (Conferma registrazione avvenuta o errore) and FirebaseAuthentication -> UI ([Dati validi] Token di autenticazione)
+
+Conditions / Branches:
+- FirebaseAuthentication: "valida()" - If [Dati validi] then FirebaseStore (salvaUtente(nome, email, token)) else FirebaseAuthentication -> UI ([Errore registrazione])
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the user registration process within a system using Firebase Authentication and Firebase Store.
+- The user provides registration data through the UI, which is then sent to the Firebase Authentication service.
+- The authentication service validates the data and, if valid, saves the user information to the Firebase Store.
+- The Firebase Store confirms the save operation, and the authentication service returns a confirmation or an error message to the UI.
+- An error path is present if the validation fails, leading to an error message being displayed to the user.
+
+===== Report_6_uml_pages.pdf | Page 4 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; attributes=[]; operations=[]; role=User
+- UI — kind=component; attributes=[]; operations=[]; role=User Interface
+- FirebasePrestora — kind=component; attributes=[]; operations=[]; role=Firebase Storage
+- FirebaseStorage — kind=component; attributes=[]; operations=[]; role=Firebase Storage
+
+Actors / Lifelines:
+- Utente
+- UI
+- FirebasePrestora
+- FirebaseStorage
+
+Relationships / Links:
+- Utente -> UI — type=message; label="Inserisci segnalazione (descrizione, immagine, coordinate, urgenza)"; explanation="User provides report details"
+- UI -> UI — type=message; label="Validazione dati input"; explanation="UI validates input data"
+- UI -> Utente — type=message; label="Dati incompleti o errati"; explanation="UI informs user of invalid data"
+- Utente -> UI — type=message; label="Correggi e reinvia"; explanation="User corrects and resubmits data"
+- UI -> FirebasePrestora — type=message; label="Carica immagine(immagine)"; explanation="UI uploads image to Firebase Storage"
+- FirebasePrestora -> FirebaseStorage — type=message; label="URL_immagine salvata"; explanation="Firebase Storage returns URL of saved image"
+- UI -> UI — type=message; label="Cerca ente competente più vicino(coordinate, urgenza)"; explanation="UI searches for the appropriate authority"
+- UI -> UI — type=message; label="salvaSegnalazione(datiSegnalazione + URL immagine + dati ente)"; explanation="UI saves the report data"
+- UI -> Utente — type=message; label="Conferma invio a segnalazione con ente assegnato"; explanation="UI confirms report submission with assigned authority"
+
+Main Flows:
+- Flow 1: Utente -> UI (Inserisci segnalazione) -> UI (Validazione dati input) -> UI -> Utente (Dati incompleti o errati) -> Utente -> UI (Correggi e reinvia) -> UI -> FirebasePrestora (Carica immagine) -> FirebaseStorage (URL_immagine salvata) -> UI (Cerca ente competente) -> UI (salvaSegnalazione) -> UI -> Utente (Conferma invio a segnalazione)
+
+Conditions / Branches:
+- UI (Validazione dati input) -> UI -> Utente (Dati incompleti o errati) if data is incomplete or incorrect.
+
+Loops / Repetitions:
+- The "Inserisci segnalazione (descrizione, immagine, coordinate, urgenza)" and "Validazione dati input" steps are in a loop until the data is valid.
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the sequence of interactions involved in a user submitting a report through a UI, including image uploading and authority assignment.
+- The process involves data validation and correction loops to ensure data integrity.
+- The image is uploaded to Firebase Storage, and its URL is used in the report data.
+- The UI searches for the appropriate authority based on coordinates and urgency.
+- The final step confirms the report submission with the assigned authority.
+
+
+======================================================================

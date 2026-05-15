@@ -1,0 +1,96 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,"1, 2, 4","- User account exists in FirebaseAuth with valid credentials.
+- Server and database connections are active.","- Username: `john_doe`
+- Password: `SecurePass123!`","1. User invokes `login(username: ""john_doe"", password: ""SecurePass123!"")` on the `User` class.
+2. `User` forwards credentials to `FirebaseAuth.getCurrentUser()`.
+3. `FirebaseAuth` validates credentials and returns `true`.
+4. `User` calls `Server.start()` to establish a connection.
+5. `Server` initiates `Database.connect()`.
+6. `User` receives confirmation of successful login.","- `login()` returns `true`.
+- Database connection is established.
+- User session is active (verified via `getCurrentUser()`)."
+TC-AUTHENTICATION-002,Failed login with invalid credentials,Authentication,"1, 2, 4","- User account exists, but credentials are incorrect.","- Username: `john_doe`
+- Password: `WrongPass456`","1. User invokes `login(username: ""john_doe"", password: ""WrongPass456"")`.
+2. `FirebaseAuth.getCurrentUser()` rejects credentials.
+3. `User` receives `false` from `login()`.","- `login()` returns `false`.
+- No database connection is established.
+- User session remains inactive."
+TC-AUTHENTICATION-003,User logout functionality,Authentication,"1, 4",- User is logged in (`login()` returned `true`).,,"1. User invokes `logout()`.
+2. `User` calls `Server.stop()` to terminate session.
+3. `Server` calls `Database.disconnect()`.","- `logout()` executes without errors.
+- Database connection is closed.
+- `getCurrentUser()` returns `null` (verified via `FirebaseAuth`)."
+TC-PRODUCT-MANAGEMENT-001,Admin adds a new product to the system,Product Management,"1, 7","- Admin is logged in.
+- Database connection is active.","- Product name: `Wireless Headphones`
+- Description: `Noise-cancelling, 30-hour battery`
+- Price: `99.99`","1. Admin invokes `Product.add(name: ""Wireless Headphones"", description: ""Noise-cancelling, 30-hour battery"")`.
+2. `Product` validates input (non-empty name/description, valid price).
+3. `Product` persists data to `Database` via `Server`.
+4. Admin verifies product exists in the system.","- Product is added to the database.
+- `add()` returns without errors.
+- Product is retrievable via `getProducts()` (assumed method)."
+TC-PRODUCT-MANAGEMENT-002,Admin removes an existing product,Product Management,"1, 7","- Product `Wireless Headphones` exists in the system.
+- Admin is logged in.",,"1. Admin invokes `Product.remove(name: ""Wireless Headphones"")`.
+2. `Product` queries `Database` to confirm existence.
+3. `Product` deletes the product and updates `Database`.","- Product is removed from the database.
+- `remove()` returns without errors.
+- Product is no longer retrievable."
+TC-PRODUCT-MANAGEMENT-003,Remove non-existent product (negative case),Product Management,"1, 7",- Admin is logged in.,- Product name: `NonExistentProduct`,"1. Admin invokes `Product.remove(name: ""NonExistentProduct"")`.
+2. `Product` queries `Database` and finds no match.","- `remove()` returns an error (e.g., `ProductNotFoundException`).
+- Database remains unchanged."
+TC-CART-001,User adds an item to the cart,Cart Management,1,"- User is logged in.
+- Product `Wireless Headphones` exists.",- Item: `Wireless Headphones` (price: `99.99`),"1. User retrieves the item (assumed via `getProduct()`).
+2. User invokes `Cart.add(item: Wireless Headphones)`.
+3. `Cart` validates item existence and updates `items` list.","- Item is added to `Cart.items`.
+- `add()` returns without errors."
+TC-CART-002,User removes an item from the cart,Cart Management,1,"- Cart contains `Wireless Headphones`.
+- User is logged in.",,"1. User invokes `Cart.remove(item: Wireless Headphones)`.
+2. `Cart` validates item existence in `items` list.
+3. `Cart` removes the item.","- Item is removed from `Cart.items`.
+- `remove()` returns without errors."
+TC-CART-003,Remove non-existent item from cart (negative case),Cart Management,1,"- Cart is empty.
+- User is logged in.",- Item: `NonExistentItem`,"1. User invokes `Cart.remove(item: NonExistentItem)`.
+2. `Cart` finds no match in `items` list.","- `remove()` returns an error (e.g., `ItemNotFoundException`).
+- Cart remains empty."
+TC-RESTAURANT-MENU-001,Admin adds a menu item to a restaurant,Restaurant Menu Management,7,"- Admin is logged in.
+- Restaurant `Pizza Palace` exists.","- Menu name: `Margherita Pizza`
+- Price: `12.99`","1. Admin invokes `Restaurant.addMenu(name: ""Margherita Pizza"", price: 12.99)`.
+2. `Restaurant` validates input and persists to `Database`.
+3. Admin verifies menu item exists.","- Menu item is added to `Pizza Palace`.
+- `addMenu()` returns without errors."
+TC-RESTAURANT-MENU-002,Admin removes a menu item,Restaurant Menu Management,7,"- Menu item `Margherita Pizza` exists in `Pizza Palace`.
+- Admin is logged in.",,"1. Admin invokes `Restaurant.removeMenu(name: ""Margherita Pizza"")`.
+2. `Restaurant` validates existence and removes the item.","- Menu item is removed.
+- `removeMenu()` returns without errors."
+TC-FIREBASEAUTH-001,Verify FirebaseAuth user retrieval,Authentication Integration,2,- User `john_doe` exists in FirebaseAuth.,,"1. User invokes `FirebaseAuth.getCurrentUser()`.
+2. `FirebaseAuth` returns user data (email, password).","- `getCurrentUser()` returns user object with `email` and `password`.
+- No errors occur."
+TC-FIREBASEAUTH-002,FirebaseAuth user creation,Authentication Integration,2,- No user exists with `new_user@example.com`.,"- Email: `new_user@example.com`
+- Password: `NewPass789!`","1. User invokes `FirebaseAuth.createUser(email: ""new_user@example.com"", password: ""NewPass789!"")`.
+2. `FirebaseAuth` creates the user and returns confirmation.
+3. User verifies `getCurrentUser()` returns the new user.","- User is created in FirebaseAuth.
+- `createUser()` returns `true`.
+- `getCurrentUser()` retrieves the new user."
+TC-DATABASE-CONNECTION-001,Server establishes database connection,Database Integration,4,"- Database server is running.
+- Server is started.",,"1. `Server` invokes `Database.connect()`.
+2. `Database` establishes connection and returns success.","- Connection is active (verified via `Database.connection` attribute).
+- No errors occur."
+TC-DATABASE-CONNECTION-002,Failed database connection (negative case),Database Integration,4,- Database server is down.,,"1. `Server` invokes `Database.connect()`.
+2. `Database` fails to connect (timeout/error).","- `connect()` throws an exception (e.g., `ConnectionFailedException`).
+- `Database.connection` remains `null`."
+TC-EDGE-CASE-001,Empty product name during addition,Product Management,"1, 7",- Admin is logged in.,"- Name: `` (empty string)
+- Description: `Valid description`
+- Price: `19.99`","1. Admin invokes `Product.add(name: """", description: ""Valid description"", price: 19.99)`.
+2. `Product` validates input and rejects empty name.","- `add()` throws `InvalidInputException`.
+- Product is not added to the database."
+TC-EDGE-CASE-002,Negative price for product,Product Management,"1, 7",- Admin is logged in.,"- Name: `Invalid Product`
+- Price: `-9.99`","1. Admin invokes `Product.add(name: ""Invalid Product"", price: -9.99)`.
+2. `Product` rejects negative price.","- `add()` throws `InvalidInputException`.
+- Product is not added."
+TC-INTEGRATION-001,End-to-end user workflow: Login → Add to Cart → Checkout,Full User Journey,"1, 2, 4","- User `john_doe` exists.
+- Product `Wireless Headphones` exists.",,"1. User logs in with valid credentials (`login()`).
+2. User adds `Wireless Headphones` to cart (`Cart.add()`).
+3. User logs out (`logout()`).
+4. User logs back in and verifies cart persists (assumed persistence).","- All steps complete without errors.
+- Cart retains items after logout/login.
+- Database connections are managed correctly."

@@ -1,0 +1,131 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new User account,Utente,1,None,"- nome: John Doe
+- cognome: Smith
+- email: john.doe@example.com
+- password: Test123
+- isVenditore: false
+- immagine: ""default.jpg""","1. Navigate to the registration page.
+2. Enter the provided data into the respective fields.
+3. Click on the ""Register"" button.",A new user account should be created with the provided details.
+TC-Utente-002,Update User profile information,Utente,1,User account already exists.,"- new nome: Jane Doe
+- new cognome: Doe
+- new email: jane.doe@example.com
+- new password: NewPassword123
+- new isVenditore: true
+- new immagine: ""newimage.jpg""","1. Log in to the existing user account.
+2. Navigate to the profile update page.
+3. Enter the new data into the respective fields.
+4. Click on the ""Update Profile"" button.",The user profile should be updated with the new information.
+TC-Cliente-001,Create a new Client account,Cliente,1,None,"- notifica: ""email""","1. Navigate to the registration page.
+2. Enter the provided data into the respective fields.
+3. Click on the ""Register"" button.",A new client account should be created with the provided notification preference.
+TC-Segnalazione-001,Create a new Report,Segnalazione,"1, 2",User is logged in as a Client.,"- titolo: ""Broken Product""
+- descrizione: ""The product is not working properly.""
+- cliente: ""John Doe""
+- venditore: ""Vendor X""","1. Log in as a client.
+2. Navigate to the report creation page.
+3. Enter the provided data into the respective fields.
+4. Click on the ""Submit Report"" button.",A new report should be created with the provided details.
+TC-Segnalazione-002,Update a Report,Segnalazione,"1, 2",Report already exists.,"- new titolo: ""Updated Report""
+- new descrizione: ""The product is still not working.""","1. Log in as a client.
+2. Navigate to the report management page.
+3. Select the existing report to edit.
+4. Enter the new data into the respective fields.
+5. Click on the ""Update Report"" button.",The selected report should be updated with the new information.
+TC-Recensione-001,Create a new Review,Recensione,"1, 2",User is logged in as a Client.,"- titolo: ""Great Product""
+- descrizione: ""I really liked the product.""
+- voto: 5
+- cliente: ""John Doe""
+- venditore: ""Vendor X""","1. Log in as a client.
+2. Navigate to the review creation page.
+3. Enter the provided data into the respective fields.
+4. Click on the ""Submit Review"" button.",A new review should be created with the provided details.
+TC-Recensione-002,Update a Review,Recensione,"1, 2",Review already exists.,"- new titolo: ""Improved Product""
+- new descrizione: ""The product has improved since last time.""
+- new voto: 4","1. Log in as a client.
+2. Navigate to the review management page.
+3. Select the existing review to edit.
+4. Enter the new data into the respective fields.
+5. Click on the ""Update Review"" button.",The selected review should be updated with the new information.
+TC-Prodotto-001,Modify a Product listing,Prodotto,"1, 3",User is logged in as a Vendor.,"- new nome: ""New Product Name""
+- new categoria: ""Electronics""
+- new prezzo: 99.99
+- new descrizione: ""A high-quality electronic device.""
+- new scadenza: ""2023-12-31""","1. Log in as a vendor.
+2. Navigate to the product modification page.
+3. Enter the new data into the respective fields.
+4. Click on the ""Apply Changes"" button.",The product listing should be modified with the new information.
+TC-Prodotto-002,Add a New Product,Prodotto,"1, 4",User is logged in as a Vendor.,"- nome: ""New Product""
+- categoria: ""Clothing""
+- prezzo: 29.99
+- descrizione: ""A stylish clothing item.""
+- scadenza: ""2023-12-31""","1. Log in as a vendor.
+2. Navigate to the product addition page.
+3. Enter the provided data into the respective fields.
+4. Click on the ""Add Product"" button.",A new product should be added with the provided details.
+TC-Map-001,Access User Position and Create List,Map,2,User location is accessible.,- None,"1. Navigate to the map-based feature page.
+2. Ensure the user's position is accessible.
+3. Click on the ""Create List"" button.",A list should be created based on the user's position.
+TC-Map-002,Handle Inaccessible User Position,Map,2,User location is not accessible.,- None,"1. Navigate to the map-based feature page.
+2. Ensure the user's position is not accessible.
+3. Click on the ""Create List"" button.",An error message should be displayed.
+TC-ModificaProdotto-001,Validate Form Fields During Product Modification,Modifica prodotto,3,User is logged in as a Vendor.,"- new nome: ""Product Name""
+- new categoria: ""Electronics""
+- new prezzo: 99.99
+- new descrizione: ""A high-quality electronic device.""
+- new scadenza: ""2023-12-31""","1. Log in as a vendor.
+2. Navigate to the product modification page.
+3. Enter the provided data into the respective fields.
+4. Click on the ""Modify"" button.
+5. Verify that the form validation occurs.",The form should validate the entered data and apply the changes if correct.
+TC-ModificaProdotto-002,Handle Invalid Form Fields During Product Modification,Modifica prodotto,3,User is logged in as a Vendor.,"- new nome: """"
+- new categoria: """"
+- new prezzo: -10.00
+- new descrizione: """"
+- new scadenza: ""2023-12-31""","1. Log in as a vendor.
+2. Navigate to the product modification page.
+3. Enter the invalid data into the respective fields.
+4. Click on the ""Modify"" button.
+5. Verify that the form validation fails and an error is reported.",An error message should be displayed due to invalid form fields.
+TC-AggiungiProdotto-001,Validate Form Fields During Product Addition,Aggiungi prodotto,4,User is logged in as a Vendor.,"- nome: ""New Product""
+- categoria: ""Clothing""
+- prezzo: 29.99
+- descrizione: ""A stylish clothing item.""
+- scadenza: ""2023-12-31""","1. Log in as a vendor.
+2. Navigate to the product addition page.
+3. Enter the provided data into the respective fields.
+4. Click on the ""Add"" button.
+5. Verify that the form validation occurs.",The form should validate the entered data and add the product if correct.
+TC-AggiungiProdotto-002,Handle Invalid Form Fields During Product Addition,Aggiungi prodotto,4,User is logged in as a Vendor.,"- nome: """"
+- categoria: """"
+- prezzo: -10.00
+- descrizione: """"
+- scadenza: ""2023-12-31""","1. Log in as a vendor.
+2. Navigate to the product addition page.
+3. Enter the invalid data into the respective fields.
+4. Click on the ""Add"" button.
+5. Verify that the form validation fails and an error is reported.",An error message should be displayed due to invalid form fields.
+TC-GestioneNotifiche-001,Send Push Notifications,Gestione notifiche,5,User is logged in.,- None,"1. Navigate to the notification management page.
+2. Click on the ""Push Notification"" option.
+3. Click on the ""Send Push Notifications"" button.",Push notifications should be sent to all subscribed users.
+TC-GestioneNotifiche-002,Send In-App Notifications,Gestione notifiche,5,User is logged in.,- None,"1. Navigate to the notification management page.
+2. Click on the ""In App Notification"" option.
+3. Click on the ""Send In-App Notifications"" button.",In-app notifications should be sent to all subscribed users.
+TC-ManageNotifications-001,Enable Both Push and In-App Notifications,Manage Notifications,6,User is logged in.,- None,"1. Navigate to the notification settings page.
+2. Enable both ""Push Notification"" and ""In App Notification"".
+3. Save the settings.",Both push and in-app notifications should be enabled for the user.
+TC-ManageNotifications-002,Disable Push Notifications Only,Manage Notifications,6,User is logged in.,- None,"1. Navigate to the notification settings page.
+2. Disable ""Push Notification"".
+3. Save the settings.",Push notifications should be disabled while in-app notifications remain enabled for the user.
+TC-ManageNotifications-003,Disable In-App Notifications Only,Manage Notifications,6,User is logged in.,- None,"1. Navigate to the notification settings page.
+2. Disable ""In App Notification"".
+3. Save the settings.",In-app notifications should be disabled while push notifications remain enabled for the user.
+TC-ManageNotifications-004,Disable Both Notifications,Manage Notifications,6,User is logged in.,- None,"1. Navigate to the notification settings page.
+2. Disable both ""Push Notification"" and ""In App Notification"".
+3. Save the settings.",Both push and in-app notifications should be disabled for the user.
+TC-ManageNotifications-005,Re-enable Both Notifications,Manage Notifications,6,User is logged in.,- None,"1. Navigate to the notification settings page.
+2. Re-enable both ""Push Notification"" and ""In App Notification"".
+3. Save the settings.",Both push and in-app notifications should be re-enabled for the user.
+TC-ManageNotifications-006,Re-enable Push Notifications Only,Manage Notifications,6,User is logged in.,- None,"1. Navigate to the notification settings page.
+2. Re-enable ""Push Notification"".
+3. Save the settings.",Push notifications should be re-enabled

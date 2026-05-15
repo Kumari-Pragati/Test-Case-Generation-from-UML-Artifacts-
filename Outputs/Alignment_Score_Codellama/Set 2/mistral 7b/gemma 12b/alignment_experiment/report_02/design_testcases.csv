@@ -1,0 +1,76 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-ACCESS-001,First Access Flow,Access,1,Application is launched,None,"1. Launch the application
+2. Check if the ""Accesso all'app"" node is displayed
+3. Proceed with the flow
+4. Check if the ""Start"" action is executed
+5. Check if the ""Utente gia' registrato?"" decision node is reached","- The application starts
+- The ""Start"" action is executed
+- The ""Utente gia' registrato?"" decision node is reached"
+TC-ACCESS-002,First Access Flow - No Access,Access,1,Application is launched,None,"1. Launch the application
+2. Check if the ""Accesso all'app"" node is displayed
+3. Proceed with the flow
+4. Check if the ""1° Accesso"" decision node is reached
+5. Check if the ""Registrazione"" action is executed","- The application starts
+- The ""1° Accesso"" decision node is reached
+- The ""Registrazione"" action is executed"
+TC-HOME-001,Home Screen Flow,Home,2,User is logged in,None,"1. Reach the home screen
+2. Check if the ""HOME"" node is displayed
+3. Check if the ""TRAGITTO IN CORSO?"" decision node is reached","- The home screen is displayed
+- The ""HOME"" node is displayed
+- The ""TRAGITTO IN CORSO?"" decision node is reached"
+TC-HOME-002,Home Screen Flow - Route in Progress,Home,2,User is logged in and a route is in progress,None,"1. Reach the home screen
+2. Check if the ""HOME"" node is displayed
+3. Check if the ""AVVIA TRAGITTO"" action is executed
+4. Check if the ""TRAGITTO TERMINATO?"" decision node is reached","- The home screen is displayed
+- The ""AVVIA TRAGITTO"" action is executed
+- The ""TRAGITTO TERMINATO?"" decision node is reached"
+TC-HOME-003,Home Screen Flow - Route Not in Progress,Home,2,User is logged in and no route is in progress,,"1. Reach the home screen
+2. Check if the ""HOME"" node is displayed
+3. Check if the ""CALCOLO EMISSIONI"" action is executed
+4. Check if the ""TRAGITTO TERMINATO?"" decision node is reached","- The home screen is displayed
+- The ""CALCOLO EMISSIONI"" action is executed
+- The ""TRAGITTO TERMINATO?"" decision node is reached"
+TC-HOME-004,Home Screen Flow - Change Section,Home,2,User is logged in,None,"1. Reach the home screen
+2. Check if the ""HOME"" node is displayed
+3. Choose to change section
+4. Check if the ""MENU ORIZZONTALE"" action is executed","- The home screen is displayed
+- The ""MENU ORIZZONTALE"" action is executed"
+TC-STATISTICHE-001,Statistics Flow,Statistics,3,User is logged in,None,"1. Reach the statistics screen
+2. Check if the ""STATISTICHE"" action is executed
+3. Check if the ""VISUALIZZA REPORT SETTIMANALE?"" decision node is reached","- The statistics screen is displayed
+- The ""STATISTICHE"" action is executed
+- The ""VISUALIZZA REPORT SETTIMANALE?"" decision node is reached"
+TC-STATISTICHE-002,Statistics Flow - Weekly Report,Statistics,3,User is logged in,None,"1. Reach the statistics screen
+2. Choose to visualize the weekly report
+3. Check if the ""REPORT SETTIMANALE"" action is executed
+4. Check if the ""VUOI CAMBIARE SEZIONE?"" decision node is reached","- The weekly report is displayed
+- The ""REPORT SETTIMANALE"" action is executed
+- The ""VUOI CAMBIARE SEZIONE?"" decision node is reached"
+TC-PROFILO-001,Profile View,Profile,4,User is logged in,None,"1. Reach the profile screen
+2. Check if the ""4.2.5 PROFILO"" action is executed
+3. Check if the ""VISUALIZZA DATI PERSONALI"" action is executed","- The profile screen is displayed
+- The ""4.2.5 PROFILO"" action is executed
+- The ""VISUALIZZA DATI PERSONALI"" action is executed"
+TC-PROFILO-002,Account Update Flow,Profile,4,User is logged in,New personal data,"1. Reach the profile screen
+2. Choose to update the account
+3. Enter new personal data
+4. Check if the ""AGGIORNA DATI"" action is executed","- The user's personal data is updated
+- The ""AGGIORNA DATI"" action is executed"
+TC-PROFILO-003,Logout Flow,Profile,4,User is logged in,None,"1. Reach the profile screen
+2. Choose to logout
+3. Check if the ""LOGOUT"" action is executed","- The user is logged out
+- The ""LOGOUT"" action is executed"
+TC-LOGIN-001,Login Sequence,Login,5,None,Valid credentials,"1. Launch the application
+2. Enter valid credentials
+3. Check if the ""login avvenuto"" message is displayed","- The user is logged in
+- The ""login avvenuto"" message is displayed"
+TC-LOGIN-002,Login Sequence - Invalid Credentials,Login,5,None,Invalid credentials,"1. Launch the application
+2. Enter invalid credentials
+3. Check if an error message is displayed","- The login fails
+- An error message is displayed"
+TC-ROUTE-001,Route Calculation Flow,Route,6,User is logged in,Route data,"1. Start a route
+2. Check if the ""calcolo e invio dati"" message is sent
+3. Check if the route is added to the database
+4. Check if the emissions data is returned
+5. Check if the emissions data is displayed to the user","- The route is calculated and added to the database
+- The emissions data is returned and displayed to the user"

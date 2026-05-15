@@ -1,0 +1,113 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user,Utente,1,None,"- id: 1
+- Password: ""password123""
+- Email: ""test@example.com""
+- Nome: ""John""
+- Cognome: ""Doe""","1. Call the constructor Utente() with the provided data.
+2. Verify that the object is created successfully.",- A new Utente object is created with the specified attributes.
+TC-Utente-002,Set and get user password,Utente,1,User object exists,"- New password: ""newpassword456""","1. Call setPassword(newPassword) with the new password.
+2. Call getNome() to retrieve the name.","- The password is updated successfully.
+- The name is retrieved correctly."
+TC-Utente-003,Set and get user name,Utente,1,User object exists,"- New name: ""Jane""","1. Call setNome(newNome) with the new name.
+2. Call getNome() to retrieve the name.","- The name is updated successfully.
+- The name is retrieved correctly."
+TC-Prodotto-001,Create a new product,Prodotto,1,None,"- Nome: ""Laptop""
+- Luogo: ""Italy""
+- Descrizione: ""High-performance laptop""
+- Immagine: ""laptop.jpg""
+- Prezzo: 999.99
+- Proprietario: Utente object with id 1","1. Call the constructor Prodotto() with the provided data.
+2. Verify that the object is created successfully.",- A new Prodotto object is created with the specified attributes.
+TC-Prodotto-002,Set and get product name,Prodotto,1,Product object exists,"- New name: ""Desktop""","1. Call setNome(newNome) with the new name.
+2. Call getNome() to retrieve the name.","- The name is updated successfully.
+- The name is retrieved correctly."
+TC-Prodotto-003,Set and get product price,Prodotto,1,Product object exists,- New price: 1299.99,"1. Call setPrezzo(newPrezzo) with the new price.
+2. Call getPrezzo() to retrieve the price.","- The price is updated successfully.
+- The price is retrieved correctly."
+TC-Segnalazione-001,Create a new report,Segnalazione,1,None,"- Tipo: true
+- id: 1
+- Titolo: ""Spamming""
+- Descrizione: ""User is spamming the forum.""
+- UtenteSegnalato: Utente object with id 2
+- Autore: Utente object with id 1","1. Call the constructor Segnalazione() with the provided data.
+2. Verify that the object is created successfully.",- A new Segnalazione object is created with the specified attributes.
+TC-Segnalazione-002,Set and get report title,Segnalazione,1,Report object exists,"- New title: ""Harassment""","1. Call setTitolo(newTitolo) with the new title.
+2. Call getTitolo() to retrieve the title.","- The title is updated successfully.
+- The title is retrieved correctly."
+TC-Segnalazione-003,Set and get report description,Segnalazione,1,Report object exists,"- New description: ""User is harassing others.""","1. Call setDescrizione(newDescrizione) with the new description.
+2. Call getDescrizione() to retrieve the description.","- The description is updated successfully.
+- The description is retrieved correctly."
+TC-Utente-004,Associate user with product as owner,Utente,1,User and product objects exist,"- User: Utente object with id 1
+- Product: Prodotto object with id 1","1. Call setProprietario(newProprietario) on the product with the user object.
+2. Call getProprietario() on the product to verify the association.","- The user is associated with the product as the owner.
+- The correct user is retrieved as the owner."
+TC-Utente-005,Associate user with report as reported user,Utente,1,User and report objects exist,"- User: Utente object with id 2
+- Report: Segnalazione object with id 1","1. Call setUtenteSegnalato(newUtenteSegnalato) on the report with the user object.
+2. Call getUtenteSegnalato() on the report to verify the association.","- The user is associated with the report as the reported user.
+- The correct user is retrieved as the reported user."
+TC-Utente-006,Associate user with report as author,Utente,1,User and report objects exist,"- User: Utente object with id 1
+- Report: Segnalazione object with id 1","1. Call setAutore(newAutore) on the report with the user object.
+2. Call getAutore() on the report to verify the association.","- The user is associated with the report as the author.
+- The correct user is retrieved as the author."
+TC-Utente-007,Negative test case - Invalid email format,Utente,1,None,"- id: 1
+- Password: ""password123""
+- Email: ""invalidemail""
+- Nome: ""John""
+- Cognome: ""Doe""",1. Attempt to call the constructor Utente() with an invalid email format.,- An error is thrown indicating an invalid email format.
+TC-Prodotto-004,Negative test case - Invalid price format,Prodotto,1,None,"- Nome: ""Laptop""
+- Luogo: ""Italy""
+- Descrizione: ""High-performance laptop""
+- Immagine: ""laptop.jpg""
+- Prezzo: ""invalidprice""
+- Proprietario: Utente object with id 1",1. Attempt to call the constructor Prodotto() with an invalid price format.,- An error is thrown indicating an invalid price format.
+TC-Segnalazione-004,Negative test case - Invalid report type,Segnalazione,1,None,"- Tipo: ""invalidtype""
+- id: 1
+- Titolo: ""Spamming""
+- Descrizione: ""User is spamming the forum.""
+- UtenteSegnalato: Utente object with id 2
+- Autore: Utente object with id 1",1. Attempt to call the constructor Segnalazione() with an invalid report type.,- An error is thrown indicating an invalid report type.
+TC-Utente-008,Edge case - Empty string for name,Utente,1,User object exists,"- New name: """"","1. Call setNome(newNome) with an empty string.
+2. Call getNome() to retrieve the name.","- The name is not updated (empty strings are not allowed).
+- The original name is retrieved correctly."
+TC-Prodotto-005,Edge case - Empty string for description,Prodotto,1,Product object exists,"- New description: """"","1. Call setDescrizione(newDescrizione) with an empty string.
+2. Call getDescrizione() to retrieve the description.","- The description is not updated (empty strings are not allowed).
+- The original description is retrieved correctly."
+TC-Segnalazione-005,Edge case - Empty string for title,Segnalazione,1,Report object exists,"- New title: """"","1. Call setTitolo(newTitolo) with an empty string.
+2. Call getTitolo() to retrieve the title.","- The title is not updated (empty strings are not allowed).
+- The original title is retrieved correctly."
+TC-Utente-009,Edge case - Null value for email,Utente,1,None,"- id: 1
+- Password: ""password123""
+- Email: null
+- Nome: ""John""
+- Cognome: ""Doe""",1. Attempt to call the constructor Utente() with a null email.,- An error is thrown indicating a null email value.
+TC-Prodotto-006,Edge case - Null value for image,Prodotto,1,None,"- Nome: ""Laptop""
+- Luogo: ""Italy""
+- Descrizione: ""High-performance laptop""
+- Immagine: null
+- Prezzo: 999.99
+- Proprietario: Utente object with id 1",1. Attempt to call the constructor Prodotto() with a null image.,- An error is thrown indicating a null image value.
+TC-Segnalazione-006,Edge case - Null value for description,Segnalazione,1,None,"- Tipo: true
+- id: 1
+- Titolo: ""Spamming""
+- Descrizione: null
+- UtenteSegnalato: Utente object with id 2
+- Autore: Utente object with id 1",1. Attempt to call the constructor Segnalazione() with a null description.,- An error is thrown indicating a null description value.
+TC-Utente-010,Positive test case - Valid user creation with all attributes,Utente,1,None,"- id: 1
+- Password: ""password123""
+- Email: ""test@example.com""
+- Nome: ""John""
+- Cognome: ""Doe""","1. Call the constructor Utente() with the provided data.
+2. Verify that the object is created successfully.",- A new Utente object is created with all attributes set correctly.
+TC-Prodotto-011,Positive test case - Valid product creation with all attributes,Prodotto,1,None,"- Nome: ""Laptop""
+- Luogo: ""Italy""
+- Descrizione: ""High-performance laptop""
+- Immagine: ""laptop.jpg""
+- Prezzo: 999.99
+- Proprietario: Utente object with id 1","1. Call the constructor Prodotto() with the provided data.
+2. Verify that the object is created successfully.",- A new Prodotto object is created with all attributes set correctly.
+TC-Segnalazione-012,Positive test case - Valid report creation with all attributes,Segnalazione,1,None,"- Tipo: true
+- id: 1
+- Titolo: ""Spamming""
+- Descrizione: ""User is spamming the forum.""
+- UtenteSegnalato: Utente object with id 2
+- Autore: Utente object with id 1",1. Call the constructor Segnalazione() with the provided,

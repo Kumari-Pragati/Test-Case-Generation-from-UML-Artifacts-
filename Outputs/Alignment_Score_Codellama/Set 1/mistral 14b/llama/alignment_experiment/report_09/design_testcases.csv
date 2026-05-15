@@ -1,0 +1,113 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,"2, 3, 6","- User account exists in the database with valid credentials (email: `volunteer@example.com`, password: `SecurePass123!`).
+- Network connection is active.","- Email: `volunteer@example.com`
+- Password: `SecurePass123!`","1. User clicks ""Login"" and enters email and password.
+2. System validates credentials via `bcrypt compareSync()`.
+3. Server generates a JWT token and updates the `Tokens` table to revoke any existing tokens for this user.
+4. System redirects to the home page.","- Login succeeds.
+- JWT token is returned to the client.
+- User is redirected to the home page with a success message.
+- No errors in the `Logger`."
+TC-AUTHENTICATION-002,Failed login with incorrect password,Authentication,"3, 6","- User account exists in the database (email: `volunteer@example.com`, password: `SecurePass123!`).","- Email: `volunteer@example.com`
+- Password: `WrongPass123!`","1. User clicks ""Login"" and enters email and password.
+2. System attempts `bcrypt compareSync()` validation.
+3. Server detects password mismatch.
+4. System returns an error response.","- Login fails with an error message (e.g., ""Invalid credentials"").
+- No JWT token is generated.
+- User remains on the login page.
+- No token revocation occurs."
+TC-AUTHENTICATION-003,Failed login with non-existent email,Authentication,"3, 6",- No user account exists with the provided email.,"- Email: `nonexistent@example.com`
+- Password: `AnyPassword123!`","1. User clicks ""Login"" and enters email and password.
+2. Server queries the database (`SELECT * FROM Utenti WHERE email =?`).
+3. Database returns `user length = 0`.
+4. System returns an error response.","- Login fails with an error message (e.g., ""User not found"").
+- No JWT token is generated.
+- User remains on the login page."
+TC-EMERGENCY-CREATION-001,Successful emergency creation by authenticated coordinator,Emergency Management,4,"- Coordinator is logged in (valid JWT token).
+- Coordinator role is set in the `Utente` class.","- Emergency details:
+- `idEmergenza`: `1001`
+- `nome`: ""Forest Fire""
+- `descrizione`: ""Fire in Pine Valley""
+- `regione`: ""Lombardia""
+- `provincia`: ""Bergamo""
+- `dataF`: `2023-10-15`
+- `dataF_me`: `2023-10-16`","1. Coordinator clicks ""Inserisci emergenza"".
+2. System checks `Coordinatore autenticato?` (returns `Yes`).
+3. Coordinator enters all emergency details.
+4. System validates `Informazioni complete?` (returns `Yes`).
+5. System creates the emergency in the database.","- Emergency is successfully created with `isActive = true`.
+- Coordinator sees a success message (e.g., ""Emergency created"").
+- Emergency appears in the ""Visualizza emergenze"" list."
+TC-EMERGENCY-CREATION-002,Failed emergency creation by unauthenticated user,Emergency Management,4,- User is logged in but lacks coordinator role.,- Emergency details (same as TC-EMERGENCY-CREATION-001).,"1. User clicks ""Inserisci emergenza"".
+2. System checks `Coordinatore autenticato?` (returns `No`).
+3. System displays an error message.","- Emergency is **not** created.
+- User sees an error message (e.g., ""Unauthorized: Only coordinators can create emergencies"").
+- User is redirected to the home page or remains on the same page."
+TC-EMERGENCY-CREATION-003,Emergency creation with incomplete details,Emergency Management,4,- Coordinator is logged in.,- Emergency details (missing `dataF` and `descrizione`).,"1. Coordinator clicks ""Inserisci emergenza"".
+2. System checks `Coordinatore autenticato?` (returns `Yes`).
+3. Coordinator submits incomplete details.
+4. System validates `Informazioni complete?` (returns `No`).
+5. System prompts to update missing fields.","- Emergency is **not** created.
+- User sees a validation error (e.g., ""Please fill in all required fields"").
+- User is redirected to the form with missing fields highlighted."
+TC-TASK-ASSIGNMENT-001,Successful task assignment to a volunteer,Task Management,"1, 5","- Emergency `1001` exists and is active.
+- Task `T1001` exists and is assigned to emergency `1001`.
+- Volunteer `V001` is logged in and not already assigned to `T1001`.","- Emergency ID: `1001`
+- Task ID: `T1001`
+- Volunteer ID: `V001`","1. Coordinator clicks ""Visualizza emergenza"" and selects emergency `1001`.
+2. Coordinator selects task `T1001`.
+3. System checks `Volontario assegnato?` (returns `No`).
+4. System assigns volunteer `V001` to task `T1001` via `Appartiene a` relationship.
+5. System updates `Svolto da` and `Svolto` tables.","- Task `T1001` is now associated with volunteer `V001` in `Appartiene a`.
+- Volunteer `V001` sees the task in their assigned list.
+- Coordinator sees the assignment confirmation."
+TC-TASK-ASSIGNMENT-002,Remove volunteer from a task,Task Management,"1, 5",- Task `T1001` is assigned to volunteer `V001`.,,"1. Coordinator clicks ""Visualizza emergenza"" and selects emergency `1001`.
+2. Coordinator selects task `T1001`.
+3. System checks `Volontario assegnato?` (returns `Yes`).
+4. Coordinator clicks ""Rimuovi volontario"".
+5. System removes the assignment via `deleteAppartiene()`.","- Volunteer `V001` is no longer associated with task `T1001`.
+- Task `T1001` appears as unassigned in the system.
+- Coordinator sees a confirmation message (e.g., ""Volunteer removed successfully"")."
+TC-TASK-COMPLETION-001,Volunteer completes a task,Task Management,"1, 7","- Volunteer `V001` is assigned to task `T1001`.
+- Task `T1001` has `isActive = true`.",,"1. Volunteer `V001` logs in.
+2. Volunteer navigates to their assigned tasks and selects `T1001`.
+3. Volunteer marks the task as completed (e.g., via `modifyUserCompito()`).
+4. System updates `isActive = false` for the task.
+5. System logs the completion in `Svolto` and `Svolto da`.","- Task `T1001` is marked as completed (`isActive = false`).
+- Volunteer sees a confirmation message (e.g., ""Task completed"").
+- Coordinator sees the task status updated in the emergency dashboard."
+TC-TASK-COMPLETION-002,Volunteer attempts to complete an already completed task,Task Management,"1, 7",- Task `T1001` is already completed (`isActive = false`).,,"1. Volunteer `V001` logs in.
+2. Volunteer attempts to mark `T1001` as completed again.","- System rejects the action with an error (e.g., ""Task already completed"").
+- Task status remains unchanged.
+- Volunteer sees an error message."
+TC-EMERGENCY-TERMINATION-001,Successful emergency termination by coordinator,Emergency Management,"1, 8","- Emergency `1001` exists with `isActive = true`.
+- Coordinator is logged in.",,"1. Coordinator clicks ""Termina emergenza"" for emergency `1001`.
+2. Server verifies the JWT token.
+3. Server executes `UPDATE` to set `isActive = false` for emergency `1001`.
+4. Server returns the count of terminated emergencies (`result = 1`).","- Emergency `1001` is marked as inactive.
+- Coordinator sees a message: ""1 emergenza terminata"".
+- All tasks under this emergency are automatically marked as completable (if not already completed)."
+TC-EMERGENCY-TERMINATION-002,Terminate non-existent emergency,Emergency Management,"1, 8",- No emergency exists with ID `9999`.,,"1. Coordinator attempts to terminate emergency `9999`.
+2. Server verifies the token.
+3. Server executes `UPDATE` and receives `result = 0`.","- No emergency is terminated.
+- Coordinator sees a message: ""Nessuna emergenza terminata"".
+- No changes to the database."
+TC-EMERGENCY-VIEW-001,View emergencies with no active emergencies,Emergency Dashboard,2,- No active emergencies exist in the system.,,"1. User logs in and clicks ""Visualizza emergenze"".
+2. System checks for active emergencies (`isActive = true`).
+3. System displays ""Nessuna emergenza"" message.","- User sees a message: ""Nessuna emergenza disponibile"".
+- No emergency list is displayed.
+- User can still navigate to other sections."
+TC-TASK-CREATION-001,Successful task creation for an emergency,Task Management,"1, 7","- Emergency `1001` exists and is active.
+- Coordinator is logged in.","- Task details:
+- `id`: `T1002`
+- `nome`: ""Evacuate residents""
+- `descrizione`: ""Assist 20 families to safety""
+- `terminale`: ""Pine Valley""
+- `regione`: ""Lombardia""","1. Coordinator navigates to emergency `1001`.
+2. Coordinator clicks ""Crea compito"" and enters task details.
+3. Server verifies the JWT token.
+4. Server inserts the task into the `Compito` table with `isActive = true`.
+5. Server associates the task with emergency `1001` via `Ha assegnazione`.","- Task `T1002` is created and linked to emergency `1001`.
+- Coordinator sees a success message (e.g., ""Task created"").
+- Task appears in the emergency details page."
+TC-TASK-CREATION-002,Task creation with invalid emergency ID,Task Management,"1, 7",- Emergency `9999` does not exist.,,1. Coordinator attempts to create a,

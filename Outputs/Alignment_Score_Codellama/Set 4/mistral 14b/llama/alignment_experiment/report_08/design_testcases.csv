@@ -1,0 +1,71 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Verify successful user registration flow,User Authentication,2,"- User has not registered before.
+- Network connection is stable.","- Valid credentials: `username=testuser123`, `password=SecurePass123!`","1. Launch the application.
+2. Enter `username=testuser123` and `password=SecurePass123!`.
+3. Submit registration.
+4. Wait for system response.","- System confirms registration success.
+- User is redirected to the main application flow (e.g., vehicle addition or distribution list)."
+TC-AUTHENTICATION-002,Verify failed user registration flow,User Authentication,2,- User attempts registration with invalid data.,"- Invalid credentials: `username=`, `password=123`","1. Launch the application.
+2. Enter empty `username` and weak `password=123`.
+3. Submit registration.
+4. Observe error message.","- System displays error: *""Invalid credentials. Username and password must meet requirements.""*
+- User remains on registration screen."
+TC-AUTHENTICATION-003,Verify unregistered user access denial,User Authentication,2,- User is not registered.,,"1. Launch the application.
+2. Attempt to access vehicle addition or settings without registering.","- System redirects to registration screen with message: *""Please register to continue.""*"
+TC-VEHICLE-ADDITION-001,Add vehicle manually (positive flow),Vehicle Addition,1,"- User is registered.
+- Application is launched.","- Vehicle details: `type=Sedan`, `doors=4`, `model=Toyota Camry`","1. Select **""Aggiungere veicolo""** (Add Vehicle).
+2. Choose **""Inserisci il veicolo manuale/porte""** (Manual Input).
+3. Enter `type=Sedan`, `doors=4`, `model=Toyota Camry`.
+4. Submit.
+5. System searches dataset (implicit step).
+6. Confirm selection in **""Selezione e aggiungere il veicolo""**.","- Vehicle is added to the system.
+- Confirmation message: *""Vehicle added successfully.""*"
+TC-VEHICLE-ADDITION-002,Add vehicle via dataset search (positive flow),Vehicle Addition,1,"- User is registered.
+- Dataset contains `model=Honda Civic`.",- Search query: `model=Honda Civic`,"1. Select **""Aggiungere veicolo""**.
+2. Choose **""Cerca il veicolo del dataset""** (Search Dataset).
+3. Enter `model=Honda Civic`.
+4. System returns match: `Honda Civic, type=Hatchback, doors=5`.
+5. Select the match and confirm addition.","- Vehicle is added to the system.
+- Confirmation message: *""Honda Civic added from dataset.""*"
+TC-VEHICLE-ADDITION-003,Add vehicle with invalid manual input,Vehicle Addition,1,- User is registered.,"- Invalid vehicle details: `type=`, `doors=abc`, `model=`","1. Select **""Aggiungere veicolo""**.
+2. Choose **""Inserisci il veicolo manuale/porte""**.
+3. Enter invalid data (`type=`, `doors=abc`, `model=`).
+4. Submit.","- System displays error: *""Invalid input. Type and doors must be valid, model cannot be empty.""*
+- User remains on manual input screen."
+TC-VEHICLE-ADDITION-004,Search for non-existent vehicle in dataset,Vehicle Addition,1,"- User is registered.
+- Dataset has no `model=NonExistentCar`.",- Search query: `model=NonExistentCar`,"1. Select **""Aggiungere veicolo""**.
+2. Choose **""Cerca il veicolo del dataset""**.
+3. Enter `model=NonExistentCar`.
+4. Submit.","- System displays: *""No matches found. Add manually?""*
+- Option to return to manual input or cancel."
+TC-SETTINGS-001,Access and modify vowel list in settings,Settings Management,3,- User is registered and authenticated.,"- Original vowel list: `A, E, I, O, U`
+- Modified list: `A, E, I, O, U, Y`","1. Navigate to **""Accesso pagina impostazioni""** (Settings Page).
+2. View current settings under **""Visualizza le impostazioni""**.
+3. Select **""Modifica lista dei vocali""** (Edit Vowel List).
+4. Add `Y` to the list.
+5. Save changes.
+6. Navigate to **""Accesso pagina statistiche""** (Statistics Page).","- Vowel list updates to `A, E, I, O, U, Y`.
+- Statistics page reflects changes (e.g., vowel count increases by 1)."
+TC-SETTINGS-002,Verify settings modification without saving,Settings Management,3,- User is registered.,"- Original vowel list: `A, E, I, O, U`
+- Temporary change: Remove `E`.","1. Navigate to **""Accesso pagina impostazioni""**.
+2. Select **""Modifica lista dei vocali""**.
+3. Remove `E` from the list.
+4. **Do not save**; navigate directly to **""Accesso pagina statistiche""**.","- Original vowel list (`A, E, I, O, U`) persists.
+- Statistics page shows unchanged vowel count."
+TC-NAVIGATION-001,Access distribution list and other diagrams,Navigation,1,- User is registered.,,"1. Launch the application.
+2. Select **""Accesso lista distribuzione""** (Distribution List).
+3. Verify list is displayed.
+4. Select **""Vedi altri diagrammi""** (View Other Diagrams).","- Distribution list loads with sample entries (e.g., `Vehicle A, Vehicle B`).
+- Other diagrams (e.g., activity/sequence diagrams) are accessible via a menu."
+TC-EDGE-001,System behavior during manual input timeout,Vehicle Addition,1,"- User is registered.
+- Network latency simulates slow dataset search.","- Manual input: `type=Truck`, `doors=2`.
+- Simulated delay: 30 seconds for dataset search.","1. Select **""Aggiungere veicolo""**.
+2. Choose **""Inserisci il veicolo manuale/porte""**.
+3. Enter `type=Truck`, `doors=2`.
+4. Submit and wait for timeout.","- System displays: *""Searching dataset... (timeout after 30s)""*.
+- User can cancel or retry search."
+TC-EDGE-002,Empty vowel list modification,Settings Management,3,- User is registered.,"- Original list: `A, E, I, O, U`
+- Action: Clear all vowels.","1. Navigate to **""Modifica lista dei vocali""**.
+2. Delete all vowels (`A, E, I, O, U`).
+3. Save changes.","- System enforces minimum 1 vowel: *""List cannot be empty. Added default: A.""*
+- Final list: `A`."

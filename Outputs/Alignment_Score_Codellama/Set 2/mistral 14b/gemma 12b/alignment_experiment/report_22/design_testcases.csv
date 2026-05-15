@@ -1,0 +1,71 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-MGMT-001,Create a new user with valid credentials,User Management,1,System is running; no user with the same email exists.,"- ID: ""user123""
+- nomeCognome: ""Mario Rossi""
+- email: ""mario.rossi@example.com""
+- password: ""SecurePass123""","1. Call `createUtente(""Mario Rossi"", ""mario.rossi@example.com"", ""SecurePass123"")`.
+2. Verify the user is created in the system.",Method returns `true`; user is added to `getUtenti()` list.
+TC-USER-MGMT-002,Create a user with invalid email format,User Management,1,System is running.,"- nomeCognome: ""Luigi Bianchi""
+- email: ""invalid-email"" (no @ or domain)
+- password: ""Pass123""","1. Call `createUtente(""Luigi Bianchi"", ""invalid-email"", ""Pass123"")`.
+2. Check system logs for errors.",Method returns `false`; user is not added.
+TC-USER-MGMT-003,Check password validation for a registered user,User Management,1,"User ""user123"" exists with password ""SecurePass123"".","- Correct password: ""SecurePass123""
+- Incorrect password: ""WrongPass""","1. Call `checkPassword(""user123"", ""SecurePass123"")`.
+2. Call `checkPassword(""user123"", ""WrongPass"")`.","- First call returns `true`.
+- Second call returns `false`."
+TC-USER-MGMT-004,Reset password for a user,User Management,1,"User ""user123"" exists with password ""SecurePass123"".","- Old password: ""SecurePass123""
+- New password: ""NewSecurePass456""","1. Call `resetPassword(""user123"", ""SecurePass123"", ""NewSecurePass456"")`.
+2. Verify `checkPassword(""user123"", ""NewSecurePass456"")` returns `true`.",Method returns `true`; password is updated.
+TC-USER-MGMT-005,Reset password with incorrect old password,User Management,1,"User ""user123"" exists with password ""SecurePass123"".","- Old password: ""WrongOldPass""
+- New password: ""NewSecurePass456""","1. Call `resetPassword(""user123"", ""WrongOldPass"", ""NewSecurePass456"")`.",Method returns `false`; password remains unchanged.
+TC-DEVICE-MGMT-001,Associate a device to a user,Device Management,1,"User ""user123"" exists; no device with ID ""device456"" is associated.","- Device ID: ""device456""
+- Device title: ""Greenhouse A""","1. Simulate user ""user123"" associating device ""device456"" (via UI or API).
+2. Call `getDeviceInfo()` for ""device456"".",Device is listed in user’s associated devices; `getDeviceInfo()` returns device details.
+TC-DEVICE-MGMT-002,Add a device with invalid title (empty string),Device Management,3,"User ""user123"" is logged in; ""Add Devices"" flow is active.","- Device ID: ""device789""
+- Title: """" (empty string)","1. Click ""Add Devices"" and submit empty title.
+2. Observe error handling.","System shows ""valore errato"" message; device is not added; loop back to ""Add Devices""."
+TC-DEVICE-MGMT-003,Add a device with valid data,Device Management,3,"User ""user123"" is logged in; ""Add Devices"" flow is active.","- Device ID: ""device789""
+- Title: ""Greenhouse B""","1. Click ""Add Devices"" and submit valid data.
+2. Verify device appears in `getDeviceInfo()`.","""Operazione eseguita"" is displayed; device is added successfully."
+TC-CONFIG-MGMT-001,Set valid configuration for a device,Configuration Management,"1, 4","Device ""device456"" is associated with user ""user123""; device is connected.","- max_temp: 35.0
+- min_temp: 15.0
+- max_soil_hum: 80.0
+- min_soil_hum: 30.0","1. Call `setMaxTemp(35.0)` and `setMinTemp(15.0)` for ""device456"".
+2. Call `getconfig()` to verify settings.",Methods return `true`; `getconfig()` reflects updated values.
+TC-CONFIG-MGMT-002,Set invalid temperature range (max_temp < min_temp),Configuration Management,"1, 4","Device ""device456"" is connected.","- max_temp: 10.0
+- min_temp: 20.0","1. Call `setMaxTemp(10.0)` followed by `setMinTemp(20.0)`.
+2. Call `getconfig()`.",At least one method returns `false`; `getconfig()` shows previous valid values.
+TC-CONFIG-MGMT-003,Toggle water system on/off,Configuration Management,"1, 4","Device ""device456"" is connected; initial `isConnected` is `true`.",- water: `false` (then `true`),"1. Call `setWater(false)`.
+2. Call `setWater(true)`.
+3. Verify `getconfig()` reflects changes.",Both calls return `true`; `getconfig()` shows updated `water` status.
+TC-ALERT-MGMT-001,Trigger and update an alert message,Alert Management,1,"User ""user123"" is logged in; device ""device456"" is connected.","- Initial message: ""High temperature alert""
+- Updated message: ""Temperature normalized""","1. User signals an alert via UI/API with ""High temperature alert"".
+2. Call `updateMessage(""Temperature normalized"")`.
+3. Call `getMessage()`.",`updateMessage()` returns `true`; `getMessage()` returns updated message.
+TC-HISTORY-MGMT-001,Record and retrieve historical data,History Management,1,"Device ""device456"" is connected; user ""user123"" is logged in.","- Timestamp: ""2023-10-01T12:00:00""
+- soil_humidity: 45.2
+- temperature: 25.5
+- luminosity: 750.0","1. Call `updateHistory(""2023-10-01T12:00:00"", 45.2, 25.5, 750.0)`.
+2. Call `getHistory()`.",`updateHistory()` returns `true`; `getHistory()` includes the new entry.
+TC-UI-FLOW-001,Display greenhouses list when at least one is associated,UI Flow,2,"User ""user123"" has 2 associated devices (""device456"", ""device789"").",,"1. User logs in (""Accesso eseguito"").
+2. System displays ""Visualizzazione messaggio default"".
+3. System checks ""almeno 1 serra associata"" (returns ""Si"").
+4. User clicks ""Serre"".
+5. System displays ""Visualizzazione elenco serre"".",List of 2 greenhouses is shown; flow loops back to start.
+TC-UI-FLOW-002,Handle no associated greenhouses,UI Flow,2,"User ""newuser"" has no associated devices.",,"1. User ""newuser"" logs in (""Accesso eseguito"").
+2. System displays ""Visualizzazione messaggio default"".
+3. System checks ""almeno 1 serra associata"" (returns ""No"").
+4. User clicks ""Serre"".",Empty list or placeholder message is shown; flow loops back to start.
+TC-CONFIG-UI-001,Validate and apply configuration changes,Configuration UI,4,"Device ""device456"" is connected; user is on configuration screen.","- Valid inputs: max_temp=30.0, min_temp=10.0
+- Invalid input: max_temp=5.0 (below min_temp)","1. Enter valid values and click ""Configuration"".
+2. System validates (""campi inseriti correttamente"" = ""Si"").
+3. Enter invalid values (max_temp=5.0) and click ""Configuration"".
+4. System validates (""campi inseriti correttamente"" = ""No"").","- Step 2: ""Operazione eseguita"" is displayed; config is updated.
+- Step 4: ""valore errato"" is shown; user returns to ""Click Configuration""."
+TC-EDGE-CASE-001,Boundary values for temperature and humidity,Configuration Validation,"1, 4","Device ""device456"" is connected.","- max_temp: 0.0 (minimum possible)
+- min_temp: 100.0 (maximum possible)
+- max_soil_hum: 101.0 (above 100%)
+- min_soil_hum: -1.0 (below 0%)","1. Call `setMaxTemp(0.0)` and `setMinTemp(100.0)`.
+2. Call `setMaxSoilHum(101.0)` and `setMinSoilHum(-1.0)`.
+3. Call `getconfig()`.","- Temperature methods return `false` (invalid range).
+- Humidity methods return `false` (invalid range).
+- `getconfig()` shows previous valid values."

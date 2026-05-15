@@ -1,0 +1,72 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,User Login Test,User,1,User exists in the database.,Valid email and password.,"1. Navigate to the login page.
+2. Enter a valid email and password.
+3. Click the login button.",User is successfully logged in.
+TC-USER-002,User Login Test with Invalid Email,User,1,User exists in the database.,Invalid email and valid password.,"1. Navigate to the login page.
+2. Enter an invalid email and valid password.
+3. Click the login button.","An error message is displayed, and the user is not logged in."
+TC-USER-003,User Login Test with Invalid Password,User,1,User exists in the database.,Valid email and invalid password.,"1. Navigate to the login page.
+2. Enter a valid email and invalid password.
+3. Click the login button.","An error message is displayed, and the user is not logged in."
+TC-USER-004,User Registration Test,User,1,None.,"Valid email, password, and name.","1. Navigate to the registration page.
+2. Enter a valid email, password, and name.
+3. Click the register button.",A new user is created in the database.
+TC-USER-005,User Registration Test with Existing Email,User,1,User with the same email already exists in the database.,"Existing email, password, and name.","1. Navigate to the registration page.
+2. Enter an existing email, password, and name.
+3. Click the register button.","An error message is displayed, and the user is not created."
+TC-USER-006,User Logout Test,User,1,User is logged in.,,"1. Navigate to the user profile page.
+2. Click the logout button.",User is successfully logged out.
+TC-ADMIN-001,Admin Add User Test,Admin,1,Admin is logged in.,"Valid email, password, and name.","1. Navigate to the admin panel.
+2. Click the add user button.
+3. Enter a valid email, password, and name.
+4. Click the save button.",A new user is created in the database.
+TC-ADMIN-002,Admin Delete User Test,Admin,1,"Admin is logged in, and a user exists in the database.",User to be deleted.,"1. Navigate to the admin panel.
+2. Select the user to be deleted.
+3. Click the delete user button.",The selected user is deleted from the database.
+TC-MAP-001,Map Test,Map,4,None.,,"1. Initialize the map, random, request, and response objects.
+2. Call the map's method to associate a random number with a request object.
+3. Call the map's method to associate a response object with the random number.
+4. Verify that the response object contains the correct random number.",The response object contains the correct random number.
+TC-MAP-002,Map Test with Invalid Request,Map,4,None.,,"1. Initialize the map, random, request, and response objects.
+2. Call the map's method with an invalid request object.",An error is thrown.
+TC-MAP-003,Map Test with Multiple Requests,Map,4,None.,,"1. Initialize the map, random, request, and response objects multiple times.
+2. Call the map's method to associate random numbers with request objects.
+3. Call the map's method to associate response objects with random numbers.
+4. Verify that each response object contains the correct random number.",Each response object contains the correct random number.
+TC-FIREBASE-001,Firebase Authentication Test,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with valid email and password.
+3. Verify that the user is created in the Firebase RealTime Database.",The user is created in the Firebase RealTime Database.
+TC-FIREBASE-002,Firebase Authentication Test with Existing Email,Firebase,"2, 3",A user with the same email already exists in the Firebase RealTime Database.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with an existing email and password.",An error is thrown.
+TC-FIREBASE-003,Firebase Authentication Test with Invalid Email,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with an invalid email and password.",An error is thrown.
+TC-FIREBASE-004,Firebase Authentication Test with Invalid Password,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and an invalid password.",An error is thrown.
+TC-FIREBASE-005,Firebase Authentication Test with Missing Email,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with missing email and password.",An error is thrown.
+TC-FIREBASE-006,Firebase Authentication Test with Missing Password,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and missing password.",An error is thrown.
+TC-FIREBASE-007,Firebase Authentication Test with Empty Email,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with an empty email and password.",An error is thrown.
+TC-FIREBASE-008,Firebase Authentication Test with Empty Password,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and an empty password.",An error is thrown.
+TC-FIREBASE-009,Firebase Authentication Test with Null Email,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a null email and password.",An error is thrown.
+TC-FIREBASE-010,Firebase Authentication Test with Null Password,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and a null password.",An error is thrown.
+TC-FIREBASE-011,Firebase Authentication Test with Invalid Password Length,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and an invalid password length.",An error is thrown.
+TC-FIREBASE-012,Firebase Authentication Test with Password Length Less Than Minimum,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and a password length less than the minimum.",An error is thrown.
+TC-FIREBASE-013,Firebase Authentication Test with Password Length Greater Than Maximum,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email and a password length greater than the maximum.",An error is thrown.
+TC-FIREBASE-014,Firebase Authentication Test with Special Characters in Email,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with an email containing special characters.",An error is thrown.
+TC-FIREBASE-015,Firebase Authentication Test with Invalid Email Format,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with an invalid email format.",An error is thrown.
+TC-FIREBASE-016,Firebase Authentication Test with Empty Password Confirmation,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email, password, and an empty password confirmation.",An error is thrown.
+TC-FIREBASE-017,Firebase Authentication Test with Mismatched Passwords,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email, password, and a mismatched password confirmation.",An error is thrown.
+TC-FIREBASE-018,Firebase Authentication Test with Null Password Confirmation,Firebase,"2, 3",None.,,"1. Initialize the Firebase object.
+2. Call the Firebase's createUserWithEmail method with a valid email, password, and a null password confirmation.",

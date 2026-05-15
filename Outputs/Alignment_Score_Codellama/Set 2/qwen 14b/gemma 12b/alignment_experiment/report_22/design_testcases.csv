@@ -1,0 +1,75 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,User Creation,Utente,1,System is initialized and ready for user creation.,"- Valid: ID = ""u123"", nomeCognome = ""John Doe"", email = ""john.doe@example.com""
+- Invalid: ID = """", nomeCognome = """", email = """"","1. Call createUtente with valid data.
+2. Call createUtente with invalid data.","- For valid data: Returns true and user is created.
+- For invalid data: Returns false and user is not created."
+TC-Utente-002,Password Check,Utente,1,User is created and has a password.,"- Valid: ID = ""u123"", password = ""password123""
+- Invalid: ID = ""u123"", password = ""wrongpassword""","1. Call checkPassword with valid credentials.
+2. Call checkPassword with invalid credentials.","- For valid credentials: Returns true.
+- For invalid credentials: Returns false."
+TC-Utente-003,Password Reset,Utente,1,User exists and has a current password.,"- Valid: ID = ""u123"", oldPassword = ""password123"", newPassword = ""newpassword123""
+- Invalid: ID = ""u123"", oldPassword = ""wrongpassword"", newPassword = ""newpassword123""","1. Call resetPassword with valid old and new passwords.
+2. Call resetPassword with invalid old password and valid new password.","- For valid data: Returns true and password is updated.
+- For invalid data: Returns false and password is not updated."
+TC-Utente-004,Get All Users,Utente,1,At least one user exists in the system.,None,1. Call getUtenti.,- Returns a list containing all user IDs.
+TC-Devices-001,Device Information Retrieval,Devices,1,At least one device exists in the system.,None,1. Call getDeviceInfo.,- Returns a list containing device information.
+TC-Config-001,Get Configuration Settings,Config,1,Configuration settings exist in the system.,None,1. Call getconfig.,- Returns a list containing all configuration settings.
+TC-Config-002,Set Water Configuration,Config,1,Configuration settings exist in the system.,"- Valid: True
+- Invalid: False (assuming invalid means an unexpected value)","1. Call setWater with valid data.
+2. Call setWater with invalid data.","- For valid data: Returns true and water setting is updated.
+- For invalid data: Returns false and water setting is not updated."
+TC-Config-003,Set Temperature Configuration,Config,1,Configuration settings exist in the system.,"- Valid: 25.0
+- Invalid: -100.0 (out of expected range)","1. Call setTemp with valid data.
+2. Call setTemp with invalid data.","- For valid data: Returns true and temperature setting is updated.
+- For invalid data: Returns false and temperature setting is not updated."
+TC-Alert-001,Get Alert Message,Alert,1,An alert message exists in the system.,None,1. Call getMessage.,- Returns the current alert message.
+TC-Alert-002,Update Alert Message,Alert,1,An alert message exists in the system.,"- Valid: ""New alert message""
+- Invalid: """" (empty string)","1. Call updateMessage with valid data.
+2. Call updateMessage with invalid data.","- For valid data: Returns true and alert message is updated.
+- For invalid data: Returns false and alert message is not updated."
+TC-History-001,Get Historical Data,History,1,Historical data exists in the system.,None,1. Call getHistory.,- Returns a list containing historical data.
+TC-History-002,Update Historical Data,History,1,Historical data exists in the system.,"- Valid: data = ""2023-10-01"", soil_humidity = 30.0, temperature = 25.0, luminosity = 500.0
+- Invalid: data = """", soil_humidity = -100.0, temperature = 1000.0, luminosity = -500.0","1. Call updateHistory with valid data.
+2. Call updateHistory with invalid data.","- For valid data: Returns true and historical data is updated.
+- For invalid data: Returns false and historical data is not updated."
+TC-GreenhouseList-001,Display Default Message,GreenhouseList,2,User has accessed the system.,None,"1. Execute Accesso eseguito.
+2. Execute Visualizzazione messaggio default.",- Displays a default message.
+TC-GreenhouseList-002,Display Greenhouse List,GreenhouseList,2,User has accessed the system and at least one greenhouse is associated.,None,"1. Execute Accesso eseguito.
+2. Execute Visualizzazione messaggio default.
+3. Execute almeno 1 serra associata (returns ""Si"").
+4. Execute Click ""Serre"".
+5. Execute Visualizzazione elenco serre.
+6. Loop back to Accesso eseguito.",- Displays the list of greenhouses and loops back to the start.
+TC-GreenhouseList-003,No Associated Greenhouses,GreenhouseList,2,User has accessed the system and no greenhouses are associated.,None,"1. Execute Accesso eseguito.
+2. Execute Visualizzazione messaggio default.
+3. Execute almeno 1 serra associata (returns ""No"").
+4. Execute Click ""Serre"".
+5. Loop back to Accesso eseguito.",- Displays a message indicating no greenhouses are associated and loops back to the start.
+TC-AddDevice-001,Add Device with Valid Input,AddDevice,3,User has accessed the system.,"- Valid: Device ID = ""d123"", Device Title = ""Greenhouse Sensor""","1. Execute Accesso eseguito.
+2. Execute Click ""Add Devices"".
+3. Execute campo inserito correttamente (returns ""Si"").
+4. Execute Operazione eseguita.",- Device is added successfully.
+TC-AddDevice-002,Add Device with Invalid Input,AddDevice,3,User has accessed the system.,"- Invalid: Device ID = """", Device Title = """"","1. Execute Accesso eseguito.
+2. Execute Click ""Add Devices"".
+3. Execute campo inserito correttamente (returns ""No"").
+4. Execute valore errato.
+5. Loop back to Click ""Add Devices"".",- Device is not added and user is prompted to re-enter data.
+TC-DeviceConfiguration-001,Configure Device with Valid Input,DeviceConfiguration,4,User has accessed the system and connected to a greenhouse.,"- Valid: Water = True, Max Temp = 30.0, Min Temp = 10.0, Max Soil Hum = 50.0, Min Soil Hum = 10.0, Max Lum = 1000.0, Min Lum = 100.0","1. Execute Accesso eseguito.
+2. Execute Serra connessa.
+3. Execute Click ""Configuration"".
+4. Execute campi inseriti correttamente (returns ""Si"").
+5. Execute Operazione eseguita.",- Device configuration is updated successfully.
+TC-DeviceConfiguration-002,Configure Device with Invalid Input,DeviceConfiguration,4,User has accessed the system and connected to a greenhouse.,"- Invalid: Water = False, Max Temp = -10.0, Min Temp = 1000.0, Max Soil Hum = -50.0, Min Soil Hum = 1000.0, Max Lum = -1000.0, Min Lum = 10000.0","1. Execute Accesso eseguito.
+2. Execute Serra connessa.
+3. Execute Click ""Configuration"".
+4. Execute campi inseriti correttamente (returns ""No"").
+5. Execute valore errato.
+6. Loop back to Click ""Configuration"".",- Device configuration is not updated and user is prompted to re-enter data.
+TC-DeviceAssociation-001,Associate User with Device,DeviceAssociation,1,User and device exist in the system.,"- Valid: User ID = ""u123"", Device ID = ""d123""",1. Call associa with valid data.,- Returns true and user is associated with the device.
+TC-DeviceAssociation-002,Associate User with Nonexistent Device,DeviceAssociation,1,User exists in the system but device does not.,"- Invalid: User ID = ""u123"", Device ID = ""d999""",1. Call associa with invalid data.,- Returns false and user is not associated with the device.
+TC-UserAlert-001,Signal Alert from User,UserAlert,1,User exists in the system.,"- Valid: User ID = ""u123"", Alert Message = ""High temperature detected""",1. Call segnala with valid data.,- Returns true and alert is signaled.
+TC-UserAlert-002,Signal Empty Alert from User,UserAlert,1,User exists in the system.,"- Invalid: User ID = ""u123"", Alert Message = """"",1. Call segnala with invalid data.,- Returns false and alert is not signaled.
+TC-UserHistory-001,Collect Historical Data from User,UserHistory,1,User exists in the system.,"- Valid: User ID = ""u123"", Data = ""2023-10-01"", Soil Humidity = 30.0, Temperature = 25.0, Luminosity = 500.0",1. Call raccolge informazioni with valid data.,- Returns true and historical data is collected.
+TC-UserHistory-002,Collect Invalid Historical Data from User,UserHistory,1,User exists in the system.,"- Invalid: User ID = ""u123"", Data = """", Soil Humidity = -100.0, Temperature = 1000.0, Luminosity = -500.0",1. Call raccolge informazioni with invalid data.,- Returns false and historical data is not collected.
+TC-DeviceConfigAssociation-001,Configure Device with Associated User,DeviceConfigAssociation,"1, 4","User and device exist in the system and are associated.
+Test Data",,,

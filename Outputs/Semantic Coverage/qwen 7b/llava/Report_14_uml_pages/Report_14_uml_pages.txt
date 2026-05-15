@@ -1,0 +1,339 @@
+REPORT: Report_14_uml_pages.pdf
+======================================================================
+
+===== Report_14_uml_pages.pdf | Page 1 =====
+UML Type: Class
+
+Components:
+- User — kind=Class; attributes=[id: int, name: string, email: string, password: string]; operations=[login(email: string, password: string): Ret, logout(): Ret]
+- BusinessUser — kind=Class; attributes=[id: int, name: string, email: string, password: string]; operations=[login(email: string, password: string): Ret, logout(): Ret]
+- Post — kind=Class; attributes=[id: int, title: string, content: string]; operations=[create(title: string, content: string): Ret, delete(): Ret]
+- Neighborhood — kind=Class; attributes=[id: int]; operations=[addUser(User): Ret, removeUser(User): Ret]
+- ChatList — kind=Class; attributes=[id: int, name: string]; operations=[addUser(User): Ret, removeUser(User): Ret]
+- Chat — kind=Class; attributes=[id: int, name: string]; operations=[addUser(User): Ret, removeUser(User): Ret]
+- NeighborhoodList — kind=Class; attributes=[id: int, neighborhoodId: int]; operations=[addNeighborhood(Neighborhood): Ret, removeNeighborhood(Neighborhood): Ret]
+- ChatList — kind=Class; attributes=[id: int, chatId: int]; operations=[addChat(Chat): Ret, removeChat(Chat): Ret]
+- User — kind=Class; attributes=[id: int, name: string, email: string, password: string]; operations=[login(email: string, password: string): Ret, logout(): Ret]
+- BusinessUser — kind=Class; attributes=[id: int, name: string, email: string, password: string]; operations=[login(email: string, password: string): Ret, logout(): Ret]
+- Post — kind=Class; attributes=[id: int, title: string, content: string]; operations=[create(title: string, content: string): Ret, delete(): Ret]
+- Neighborhood — kind=Class; attributes=[id: int]; operations=[addUser(User): Ret, removeUser(User): Ret]
+- ChatList — kind=Class; attributes=[id: int, chatId: int]; operations=[addChat(Chat): Ret, removeChat(Chat): Ret]
+- Chat — kind=Class; attributes=[id: int, name: string]; operations=[addUser(User): Ret, removeUser(User): Ret]
+
+Actors / Lifelines:
+- User
+- BusinessUser
+- Neighborhood
+- ChatList
+- Chat
+
+Relationships / Links:
+- User -> User — type=association; label=""; explanation="User can login and logout from the system."
+- User -> BusinessUser — type=association; label=""; explanation="User can login and logout from the system."
+- BusinessUser -> BusinessUser — type=association; label=""; explanation="User can login and logout from the system."
+- User -> Neighborhood — type=association; label=""; explanation="User can add and remove a neighborhood."
+- User -> NeighborhoodList — type=association; label=""; explanation="User can add and remove a neighborhoodList."
+- User -> ChatList — type=association; label=""; explanation="User can add and remove a chatList."
+- User -> ChatList — type=association; label=""; explanation="User can add and remove a chatList."
+- User -> ChatList — type=association; label=""; explanation="User can add and remove a chatList."
+- User -> ChatList — type=association; label=""; explanation="User can add and remove a chatList."
+
+MainFlow
+
+===== Report_14_uml_pages.pdf | Page 2 =====
+UML Type:
+- Class
+
+Components:
+- User — kind=Class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=User
+- Admin — kind=Class; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Admin
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Admin — type=Association; label=""; explanation="User can create/edit/delete Admin";
+
+Main Flows (step by step):
+- Flow 1: User -> Admin -> User (create/edit/delete Admin)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a system with two roles: User and Admin.
+- Users can create, edit, and delete Admins.
+- Admins can create, edit, and delete Users.
+- There is a one-to-many relationship between Users and Admins, as one Admin can manage multiple Users.
+- There is a many-to-one relationship between Admins and Users, as multiple Users can be managed by one Admin.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links must capture each message with its order and arrow direction.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", "extends", "generalizes", "generalizes", "specializes", "uses", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports", "supports",
+
+===== Report_14_uml_pages.pdf | Page 3 =====
+UML Type:
+- Class
+
+Components:
+- User — kind=Class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Boolean, logout(): void]; role=User
+- Admin — kind=Class; attributes=[username: String, password: String]; operations=[login(username: String, password: String): Boolean, logout(): void]; role=Admin
+- Map — kind=Class; attributes=[id: Integer, name: String, description: String]; operations=[getMap(): Map, addMap(name: String, description: String): void]; role=Map
+- Profile — kind=Class; attributes=[id: Integer, name: String, description: String]; operations=[getProfile(): Profile, updateProfile(name: String, description: String): void]; role=Profile
+
+Actors / Lifelines:
+- User
+- Admin
+
+Relationships / Links:
+- User -> Map — type=Association; label=""; explanation="User has a Map"
+- User -> Profile — type=Association; label=""; explanation="User has a Profile"
+- Admin -> Map — type=Association; label=""; explanation="Admin has a Map"
+- Admin -> Profile — type=Association; label=""; explanation="Admin has a Profile"
+
+Main Flows (step by step):
+- Flow 1: User -> Map -> Profile -> Admin -> Map -> User
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a system with two main roles: User and Admin.
+- Users can log in and out, and they have a Map and a Profile.
+- Admins can log in and out, and they have a Map and a Profile.
+- The Map and Profile classes are associated with both User and Admin roles.
+- The User and Admin classes have a login operation, and the Map class has a getMap and addMap operation.
+- The Profile class has a getProfile and updateProfile operation.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (use "association", "inheritance", etc.).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvv. Avv. Utente effettu. Avv. Utente effettu. Avv. Avv. Utente effettu. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv. Avv.
+
+===== Report_14_uml_pages.pdf | Page 4 =====
+UML Type:
+- Class
+
+Components:
+- GeneralDashboard
+  - kind=Class; attributes=[a: String, ...]; operations=[op(args): Ret, ...]; role=Dashboard
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- None
+
+Main Flows (step by step):
+- Flow 1:
+  - GeneralDashboard -> Section
+  - Section -> SpecificSection
+  - SpecificSection -> Section
+  - Section -> GeneralDashboard
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a class hierarchy for dashboards, with a general dashboard class and specific section classes.
+- The main flow involves a sequence of operations to navigate from a general dashboard to a specific section and back.
+- There are no decisions, branches, or loops visible in this diagram.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For CLASS diagrams:
+  * Treat each class box as a component with kind="class".
+  * In the component bullet, list all attributes and operations exactly as written, including type and return type if visible.
+  * In Relationships / Links, list associations, aggregations, compositions, and inheritances between classes (use "association", "inheritance", etc.).
+  * Main Flows can describe likely collaboration between classes based only on visible methods and relationships (no guessing new names).
+
+- For ACTIVITY diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like:
+    "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For SEQUENCE diagrams:
+  * Actors / Lifelines should list all participants (Client, Server, Database, Logger, etc.).
+  * Components can repeat these lifelines plus important fragments (alt, loop, etc.).
+  * Relationships / Links must capture each message with its order and arrow direction.
+  * Main Flows should narrate the interaction from top to bottom.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", associations, etc.
+
+- For STATE_MACHINE diagrams:
+  * Components are states and initial/final markers.
+  * Relationships / Links are transitions with event/guard labels.
+
+- For COMPONENT / DEPLOYMENT diagrams:
+  * Components are components, nodes, objects, or packages respectively.
+  * Relationships / Links describe connections, dependencies, etc.
+
+- For OBJECT diagrams:
+  * Components are objects, nodes, or packages respectively.
+  * Relationships / Links describe containment, etc.
+
+General RULES:
+- None
+
+Observations:
+- None
+
+===== Report_14_uml_pages.pdf | Page 5 =====
+UML Type: Activity
+
+Components:
+- BusinessProfile — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- Profile — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileResident — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[op(args): void, ...]; role=Profile
+- ProfileProfessionist — kind=Activity; attributes=[a: String, ...]; operations=[a: void; operations=[a: String]; operations=[a: String]; operations=[a: Profile; operations=[a: Profile; operations=[a: Profile; profile; profile; profile; profile; profile; profile; profile; profile; profile; profile
+
+===== Report_14_uml_pages.pdf | Page 6 =====
+UML Type: SEQUENCE DIAGRAM
+
+Components:
+- User: kind=User; attributes=[]
+- UserCreateProcess: kind=UseCase; attributes=[]
+- UserCreateProcess->User: type=message; label="create new entry"; explanation="User creates a new entry"
+- User->UserCreateProcess: type=message; label="validate credentials"; explanation="User validates credentials"
+- UserCreateProcess->User: type=message; label="authorization"; explanation="User is authorized"
+- User->UserCreateProcess: type=message; label="authentication"; explanation="User is authenticated"
+
+Actors / Lifelines:
+- User
+
+Relationships / Links:
+- UserCreateProcess -> User: type=message; label="create new entry"; explanation="User creates a new entry"
+- User -> UserCreateProcess: type=message; label="validate credentials"; explanation="User validates credentials"
+- UserCreateProcess -> User: type=message; label="authorization"; explanation="User is authorized"
+- User -> UserCreateProcess: type=message; label="authentication"; explanation="User is authenticated"
+
+Main Flows (step by step):
+- Flow 1: User -> UserCreateProcess -> User (create new entry)
+- Flow 2: User -> UserCreateProcess -> User (validate credentials)
+- Flow 3: User -> UserCreateProcess -> User (authorization)
+- Flow 4: User -> UserCreateProcess -> User (authentication)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The sequence diagram shows the interaction between a user and a use case for creating a new entry.
+- The user first sends a message to the use case to create a new entry.
+- The use case then validates the user's credentials and, if successful, authorizes the user.
+- Finally, the use case authenticates the user.
+- The diagram does not show any decision points or loops.
+
+Guidelines by diagram type (KEEP IT GENERIC):
+- For SEQUENCE diagrams:
+  * Components are actions, decisions, merges, initial nodes, final nodes, etc.
+  * Relationships / Links correspond to control-flow arrows.
+  * Main Flows should be explicit sequences like: "Avvio app" -> "Utente registrato con successo al servizio?" (SI) -> ...
+  * Conditions / Branches summarize each decision node and its labeled exits.
+
+- For USE-CASE diagrams:
+  * Actors are external users or systems.
+  * Components include use cases (ellipses) and actors.
+  * Relationships / Links capture "includes", "extends", associations, etc.
+
+- For STATE_MACHINE diagrams:
+  * Components are states and initial/final nodes.
+  * Relationships / Links are transitions with event/guard labels.
+
+- For COMPONENT diagrams:
+  * Components are components, nodes, and edges.
+  * Relationships / Links are associations, aggregates, and composites, and dependencies.
+
+- For OBJECT diagrams:
+  * Components are objects, and attributes.
+  * Relationships / Links are associations, and dependencies.
+
+- For CLASS
+  * Components are components, and attributes.
+
+- For CLASS
+  * Components are components, and attributes.
+
+- For PACK
+
+
+======================================================================

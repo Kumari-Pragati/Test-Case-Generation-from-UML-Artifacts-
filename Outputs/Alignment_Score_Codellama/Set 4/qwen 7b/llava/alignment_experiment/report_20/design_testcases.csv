@@ -1,0 +1,36 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Client-001","Client sends a valid request to the Broker","Client","1","Client is connected to the Broker.","Valid request data.","1. Client sends a valid request to the Broker.
+2. Broker receives the request.
+3. Broker forwards the request to the Storage Manager.
+4. Storage Manager processes the request and stores the data in the Local Storage.","The request is successfully processed and stored in the Local Storage."
+"TC-Client-002","Client sends an invalid request to the Broker","Client","1","Client is connected to the Broker.","Invalid request data.","1. Client sends an invalid request to the Broker.
+2. Broker receives the invalid request.
+3. Broker forwards the invalid request to the Storage Manager.
+4. Storage Manager processes the invalid request and returns an error.","The invalid request is rejected, and an error is returned to the Client."
+"TC-Broker-001","Broker forwards a valid request to the Storage Manager","Broker","1","Broker is connected to the Storage Manager.","Valid request data.","1. Broker receives a valid request.
+2. Broker forwards the valid request to the Storage Manager.
+3. Storage Manager processes the request and stores the data in the Local Storage.","The request is successfully processed and stored in the Local Storage."
+"TC-Broker-002","Broker forwards an invalid request to the Storage Manager","Broker","1","Broker is connected to the Storage Manager.","Invalid request data.","1. Broker receives an invalid request.
+2. Broker forwards the invalid request to the Storage Manager.
+3. Storage Manager processes the invalid request and returns an error.","The invalid request is rejected, and an error is returned to the Broker."
+"TC-StorageManager-001","Storage Manager stores valid data in the Local Storage","Storage Manager","1","Storage Manager is connected to the Local Storage.","Valid data.","1. Storage Manager receives a valid request.
+2. Storage Manager stores the valid data in the Local Storage.","The data is successfully stored in the Local Storage."
+"TC-StorageManager-002","Storage Manager stores invalid data in the Local Storage","Storage Manager","1","Storage Manager is connected to the Local Storage.","Invalid data.","1. Storage Manager receives an invalid request.
+2. Storage Manager attempts to store the invalid data in the Local Storage.
+3. Local Storage rejects the invalid data.","The invalid data is not stored in the Local Storage, and an error is returned to the Storage Manager."
+"TC-Settings-001","User reads settings from the Settings class","Settings","3","User is connected to the Settings class.","No specific data required.","1. User calls the readSettings() method on the Settings class.","The settings are successfully retrieved and returned to the User."
+"TC-Settings-002","User fails to read settings from the Settings class due to invalid credentials","Settings","3","User is connected to the Settings class.","Invalid credentials.","1. User calls the readSettings() method on the Settings class with invalid credentials.","An error is returned to the User indicating that the credentials are invalid."
+"TC-User-001","User logs in as Admin","User","4","User is connected to the Admin class.","Valid username and password for Admin.","1. User calls the login method with valid Admin credentials.","The User is logged in as Admin."
+"TC-User-002","User fails to log in as Admin due to invalid credentials","User","4","User is connected to the Admin class.","Invalid username and password for Admin.","1. User calls the login method with invalid Admin credentials.","An error is returned to the User indicating that the credentials are invalid."
+"TC-Estimate-001","Estimate validates valid input data","Estimate","5","Estimate is connected to the Broker and API.","Valid input data.","1. Estimate validates the valid input data.","The input data is considered valid."
+"TC-Estimate-002","Estimate fails to validate invalid input data","Estimate","5","Estimate is connected to the Broker and API.","Invalid input data.","1. Estimate attempts to validate the invalid input data.","The input data is considered invalid, and an error is shown."
+"TC-Broker-003","Broker processes valid input data","Broker","5","Broker is connected to the API.","Valid input data.","1. Broker processes the valid input data.","The input data is processed correctly and forwarded to the API."
+"TC-Broker-004","Broker fails to process invalid input data","Broker","5","Broker is connected to the API.","Invalid input data.","1. Broker attempts to process the invalid input data.","The invalid input data is rejected, and an error is returned to the Broker."
+"TC-API-001","API processes valid input data","API","5","API is connected to the Broker.","Valid input data.","1. API processes the valid input data.","The input data is processed correctly and produces a valid output."
+"TC-API-002","API fails to process invalid input data","API","5","API is connected to the Broker.","Invalid input data.","1. API attempts to process the invalid input data.","The invalid input data is rejected, and an error is returned to the API."
+"TC-LocalStorage-001","Local Storage stores valid data","Local Storage","1","Local Storage is connected to the Storage Manager.","Valid data.","1. Local Storage receives valid data from the Storage Manager.
+2. Local Storage stores the valid data.","The data is successfully stored in the Local Storage."
+"TC-LocalStorage-002","Local Storage fails to store invalid data","Local Storage","1","Local Storage is connected to the Storage Manager.","Invalid data.","1. Local Storage receives invalid data from the Storage Manager.
+2. Local Storage attempts to store the invalid data.","The invalid data is not stored in the Local Storage, and an error is returned to the Storage Manager."
+"TC-Admin-001","Admin logs in","Admin","4","Admin is connected to the Admin class.","Valid username and password for Admin.","1. Admin calls the login method with valid Admin credentials.","The Admin is logged in."
+"TC-Admin-002","Admin fails to log in due to invalid credentials","Admin","4","Admin is connected to the Admin class.","Invalid username and password for Admin.","1. Admin calls the login method with invalid Admin credentials.","An error is returned to the Admin indicating that the credentials are invalid."

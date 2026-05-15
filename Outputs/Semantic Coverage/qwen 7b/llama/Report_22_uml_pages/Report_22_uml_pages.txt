@@ -1,0 +1,202 @@
+REPORT: Report_22_uml_pages.pdf
+======================================================================
+
+===== Report_22_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+* **Utente**
+  - kind: class
+  - attributes: [name: String, email: String]
+  - operations: [createUser(String, String): bool, checkUser(String, String): bool, resetPassword(String, String): bool, addDevices(String): bool, getUserInfo(): List<String>]
+  - role: User
+
+* **Devices**
+  - kind: class
+  - attributes: [ID: String, title: String]
+  - operations: [getDeviceInfo(): List<String>]
+  - role: Device
+
+* **Alert**
+  - kind: class
+  - attributes: [message: String]
+  - operations: [getMessage(): String, updateMessage(): String]
+  - role: Alert
+
+* **History**
+  - kind: class
+  - attributes: [date: String, air_humidity: float, soil_humidity: float, air_temperature: float, luminosity: float]
+  - operations: [getHistory(): List<String>, updateHistory(String, float, float): bool]
+  - role: History
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Utente -> Devices - type: association; label: "associazione"; explanation: "raccoglie informazioni"
+* Devices -> Config - type: configuration; label: "configurato"; explanation: "configurato"
+* Alert -> History - type: signal; label: "segnaia"; explanation: "raccoglie informazioni"
+* History -> Devices - type: association; label: "associazione"; explanation: "raccoglie informazioni"
+
+**Main Flows:**
+
+* Flow 1: Utente -> Devices -> Config -> History -> Alert
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram represents a system with a user, devices, configuration, history, and alert components.
+* The main flow involves the user creating a device, configuring it, and then the device sending an alert and history.
+* The system appears to be designed for monitoring and controlling devices based on user input and environmental conditions.
+
+===== Report_22_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   Accesso eseguito: kind=action; attributes=[ ]; operations=[ ]; role=access
+*   Click "Serre": kind=action; attributes=[ ]; operations=[ ]; role=click
+*   Visualizzazione elenco serre: kind=action; attributes=[ ]; operations=[ ]; role=display
+*   Visualizzazione messaggio default: kind=action; attributes=[ ]; operations=[ ]; role=default message
+*   aimeno 1 serra associata: kind=action; attributes=[ ]; operations=[ ]; role=associate
+*   almeno 1 serra associata: kind=action; attributes=[ ]; operations=[ ]; role=associate
+
+**Actors / Lifelines:**
+
+*   None
+
+**Relationships / Links:**
+
+*   Accesso eseguito -> Click "Serre" — type=association; label=""; explanation=""
+*   Click "Serre" -> Visualizzazione elenco serre — type=association; label=""; explanation=""
+*   Visualizzazione elenco serre -> Visualizzazione messaggio default — type=association; label=""; explanation=""
+*   Visualizzazione messaggio default -> aimeno 1 serra associata — type=association; label=""; explanation=""
+*   aimeno 1 serra associata -> almeno 1 serra associata — type=association; label=""; explanation=""
+
+**Main Flows:**
+
+*   Flow 1: Accesso eseguito -> Click "Serre" -> Visualizzazione elenco serre -> Visualizzazione messaggio default -> aimeno 1 serra associata -> almeno 1 serra associata
+
+**Conditions / Branches:**
+
+*   Visualizzazione messaggio default: No -> Visualizzazione messaggio default
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models a sequence of actions related to accessing and displaying information.
+*   The main flow involves a series of actions that lead to the association of one or more serra.
+*   The decision to display a default message is not taken, and the flow continues to the association of one serra.
+*   The process ends with the association of at least one serra.
+
+===== Report_22_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   Accesso eseguito: kind=operation; attributes=[a: Accesso eseguito]; operations=[Click "Add Devices": Add Devices]; role=Access
+*   Click "Add Devices": kind=operation; attributes=[a: Click "Add Devices"]; operations=[Add Devices: Add Devices]; role=Click
+*   Operazione eseguita: kind=operation; attributes=[a: Operazione eseguita]; operations=[Operazione eseguita: Operazione eseguita]; role=Operazione
+
+**Actors / Lifelines:**
+
+*   User
+*   System
+
+**Relationships / Links:**
+
+*   Accesso eseguito -> Click "Add Devices" — type=call; label="Click 'Add Devices'"; explanation="Click 'Add Devices' to add devices"
+*   Click "Add Devices" -> Operazione eseguita — type=call; label="Add Devices"; explanation="Add devices"
+*   Accesso eseguito -> Operazione eseguita — type=call; label="Accesso eseguito"; explanation="Accesso eseguito"
+
+**Main Flows:**
+
+*   Flow 1: Accesso eseguito -> Click "Add Devices" -> Operazione eseguita
+
+**Conditions / Branches:**
+
+*   Accesso eseguito -> Click "Add Devices" — condition=Accesso eseguito; branch=Yes
+*   Click "Add Devices" -> Operazione eseguita — condition=Click "Add Devices"; branch=Yes
+
+**Loops / Repetitions:**
+
+*   None
+
+**Notes / Annotations:**
+
+*   None
+
+**Observations:**
+
+*   The diagram models the process of accessing and adding devices.
+*   The main flow involves accessing, clicking "Add Devices," and then performing the operation.
+*   The decision to add devices is based on the access being executed.
+*   The process is a sequence of actions that can be repeated.
+
+===== Report_22_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Accesso eseguito - kind=action; attributes=[ ]; operations=[ ]; role=access
+* Serra connessa - kind=action; attributes=[ ]; operations=[ ]; role=connection
+* Click "Configuration" - kind=action; attributes=[ ]; operations=[ ]; role=configuration
+* Operazione eseguita - kind=action; attributes=[ ]; operations=[ ]; role=operation
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Accesso eseguito -> Serra connessa — type=association; label=; explanation=
+* Serra connessa -> Click "Configuration" — type=association; label=; explanation=
+* Click "Configuration" -> Operazione eseguita — type=association; label=; explanation=
+* Operazione eseguita -> Accesso eseguito — type=association; label=; explanation=
+
+**Main Flows:**
+
+* Flow 1: Accesso eseguito -> Serra connessa -> Click "Configuration" -> Operazione eseguita -> Accesso eseguito
+
+**Conditions / Branches:**
+
+* No
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of actions related to accessing and configuring a server.
+* The main flow represents a continuous cycle of access, connection, configuration, and operation.
+* There are no visible conditions or branches in the diagram.
+* The diagram does not show any loops or repeated behavior.
+
+
+======================================================================

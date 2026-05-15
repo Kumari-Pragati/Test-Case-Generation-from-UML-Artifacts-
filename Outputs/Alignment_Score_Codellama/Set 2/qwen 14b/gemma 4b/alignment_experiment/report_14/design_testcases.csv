@@ -1,0 +1,135 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Creation Process,User,"1, 2",No existing user with the same username,"- Username: testuser
+- Name: John
+- Surname: Doe
+- Brand Photo: valid image URL
+- Company Name: TestCompany
+- User Number: 1234567890","1. User attempts to create a new account with provided details.
+2. System verifies if the user already exists.
+3. System creates a new user entry if the user does not exist.
+4. System verifies the user's localization.","- New user created successfully.
+- User localization verified successfully.
+- User redirected to HOME state."
+TC-User-002,User Creation Failure,User,"1, 2",Existing user with the same username,"- Username: testuser
+- Name: John
+- Surname: Doe
+- Brand Photo: valid image URL
+- Company Name: TestCompany
+- User Number: 1234567890","1. User attempts to create a new account with provided details.
+2. System verifies if the user already exists.
+3. System detects that the user already exists.","- Error message indicating that the user already exists.
+- User not created.
+- User remains on the creation page."
+TC-User-003,Localization Verification Success,User,2,User created successfully,- Valid location data,"1. User completes the user creation process.
+2. System verifies the user's localization.
+3. System confirms successful localization verification.","- User localization verified successfully.
+- User redirected to HOME state."
+TC-User-004,Localization Verification Failure,User,2,User created successfully,- Invalid location data,"1. User completes the user creation process.
+2. System verifies the user's localization.
+3. System detects invalid localization data.","- Error message indicating failed localization verification.
+- User remains on the creation page."
+TC-Post-001,Create Post,Post,1,User logged in,"- Content: ""Hello World!""
+- Author: testuser
+- Post Date: current date","1. User logs in.
+2. User navigates to the post creation page.
+3. User enters post content and submits.
+4. System creates a new post with the provided details.","- Post created successfully.
+- Post displayed in the user's feed."
+TC-Post-002,Add Comment to Post,PostComment,"1, 4",Post created and user logged in,"- Comment: ""Great post!""
+- Author: testuser
+- Post ID: 1","1. User logs in.
+2. User navigates to the post feed.
+3. User clicks on a specific post.
+4. User adds a comment to the post.
+5. System saves the comment.","- Comment added successfully.
+- Comment displayed under the post."
+TC-Post-003,Edit Post,Post,1,Post created and user logged in,"- Original Content: ""Hello World!""
+- Updated Content: ""Updated post!""
+- Author: testuser
+- Post ID: 1","1. User logs in.
+2. User navigates to the post feed.
+3. User clicks on the post to edit.
+4. User updates the post content.
+5. User submits the updated post.","- Post updated successfully.
+- Updated post content displayed in the feed."
+TC-Post-004,Delete Post,Post,1,Post created and user logged in,- Post ID: 1,"1. User logs in.
+2. User navigates to the post feed.
+3. User clicks on the post to delete.
+4. User confirms deletion.","- Post deleted successfully.
+- Post no longer displayed in the feed."
+TC-Chat-001,Join Chat List,ChatList,1,User logged in,- Chat List ID: 1,"1. User logs in.
+2. User navigates to the chat list section.
+3. User joins a chat list.","- User joined the chat list successfully.
+- User can see the chat list in their participation list."
+TC-Chat-002,Send Message in Chat,Chat,1,User logged in and joined a chat list,"- Message: ""Hi there!""
+- Chat ID: 1","1. User logs in.
+2. User navigates to the chat list.
+3. User sends a message in the chat.","- Message sent successfully.
+- Message displayed in the chat."
+TC-Chat-003,Leave Chat List,ChatList,1,User logged in and joined a chat list,- Chat List ID: 1,"1. User logs in.
+2. User navigates to the chat list section.
+3. User leaves the chat list.","- User left the chat list successfully.
+- User no longer sees the chat list in their participation list."
+TC-Menu-001,Navigate to Profile,Profile,3,User logged in,- User ID: 1,"1. User logs in.
+2. User navigates to the Home screen.
+3. User clicks on their profile picture.","- User navigated to the Profile screen successfully.
+- User's profile information displayed."
+TC-Menu-002,Navigate to Notifications,NotificationSection,3,User logged in,- User ID: 1,"1. User logs in.
+2. User navigates to the Home screen.
+3. User clicks on the notification icon.","- User navigated to the NotificationSection screen successfully.
+- User's notifications displayed."
+TC-Menu-003,Navigate to Map,MapFullScreenAPI,3,User logged in,- User ID: 1,"1. User logs in.
+2. User navigates to the Home screen.
+3. User interacts with the map.","- User navigated to the MapFullScreenAPI screen successfully.
+- Interactive map displayed."
+TC-Menu-004,Navigate to Menu,Menu,3,User logged in,- User ID: 1,"1. User logs in.
+2. User navigates to the Home screen.
+3. User interacts with the menu.","- User navigated to the Menu screen successfully.
+- Menu options displayed."
+TC-Menu-005,Navigate to Chat Section,ChatSection,3,User logged in,- User ID: 1,"1. User logs in.
+2. User navigates to the Profile screen.
+3. User clicks on the chat icon.","- User navigated to the ChatSection screen successfully.
+- User's chats displayed."
+TC-Menu-006,Navigate to General Dashboard,GeneralDashboard,"3, 4",User logged in,- User ID: 1,"1. User logs in.
+2. User navigates to the ChatSection screen.
+3. User clicks on the general dashboard icon.","- User navigated to the GeneralDashboard screen successfully.
+- User's general dashboard displayed."
+TC-BusinessProfile-001,Access Business Profile,BusinessProfile,5,User logged in,- Business Profile ID: 1,"1. User logs in.
+2. User searches for a result item.
+3. User clicks on the business profile link.","- User navigated to the BusinessProfile screen successfully.
+- Business profile information displayed."
+TC-BusinessProfile-002,Access Calendar from Business Profile,Calendar,5,User logged in and accessed a business profile,- Business Profile ID: 1,"1. User logs in.
+2. User accesses a business profile.
+3. User clicks on the calendar link.","- User navigated to the Calendar screen successfully.
+- Business profile calendar displayed."
+TC-BusinessProfile-003,Access Write Operation from Business Profile,AttendOperationDiScritturaSulDb,5,User logged in and accessed a business profile,- Business Profile ID: 1,"1. User logs in.
+2. User accesses a business profile.
+3. User clicks on the write operation link.","- User navigated to the AttendOperationDiScritturaSulDb screen successfully.
+- Write operation interface displayed."
+TC-BusinessProfile-004,Confirm Successful Operation from Business Profile,ConfermaRiuscita,5,User logged in and accessed a business profile,- Business Profile ID: 1,"1. User logs in.
+2. User accesses a business profile.
+3. User clicks on the confirm successful operation link.","- User navigated to the ConfermaRiuscita screen successfully.
+- Confirmation of successful operation displayed."
+TC-SearchResults-001,Search Results Display,ItemResultSearch,5,User logged in,"- Search Query: ""test""","1. User logs in.
+2. User performs a search query.
+3. System displays search results as ResultItems.","- Search results displayed as ResultItems.
+- Each ResultItem links to relevant actions (Chat, BusinessProfile, etc.)."
+TC-SearchResults-002,Initiate Chat from Search Results,Chat,5,User logged in and viewed search results,- ResultItem ID: 1,"1. User logs in.
+2. User views search results.
+3. User clicks on the chat link from a ResultItem.","- User navigated to the Chat screen successfully.
+- Chat initiation interface displayed."
+TC-SearchResults-003,View Unsold Items from Search Results,ViewUnSold,5,User logged in and viewed search results,- ResultItem ID: 1,"1. User logs in.
+2. User views search results.
+3. User clicks on the view unsold items link from a ResultItem.","- User navigated to the ViewUnSold screen successfully.
+- Unsold items displayed."
+TC-SearchResults-004,View Promotions from Search Results,ViewPromotions,5,User logged in and viewed search results,- ResultItem ID: 1,"1. User logs in.
+2. User views search results.
+3. User clicks on the view promotions link from a ResultItem.","- User navigated to the ViewPromotions screen successfully.
+- Promotions displayed."
+TC-Database-001,Authorization Check,StoredDataDB,6,User attempting to log in,"- Username: testuser
+- Password: password123","1. User attempts to log in.
+2. System checks for user authorization.
+3. System verifies if the user exists.
+4. System verifies if the credentials are valid.","- User authorized successfully if both conditions met.
+- User denied access if either condition fails."
+TC-Database-002,Create New User Entry,UserCreateProcedure,6,User does not exist in the database,- Username:,,

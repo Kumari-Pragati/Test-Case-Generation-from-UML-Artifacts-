@@ -1,0 +1,154 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,User Account Creation,Utente,1,None,"- nomeCognome = ""John Doe""
+- email = ""johndoe@example.com""
+- password = ""securepassword""
+Steps:
+1. Call Utente.creaUtente(""John Doe"", ""johndoe@example.com"", true)
+2. Verify that the user account is created successfully.",,A new user account is created with the provided details.
+TC-Utente-002,User Password Check,Utente,1,User account exists,"- currentPassword = ""securepassword""
+- newPassword = ""newsecurepassword""
+Steps:
+1. Call Utente.checkPassword(""securepassword"", ""newsecurepassword"", true)
+2. Verify that the password check returns true.",,The password check returns true indicating the password matches.
+TC-Utente-003,User Password Reset,Utente,1,User account exists,"- oldPassword = ""securepassword""
+- newPassword = ""newsecurepassword""
+Steps:
+1. Call Utente.resetPassword(""securepassword"", true)
+2. Verify that the password is reset successfully.",,"The password is reset to ""newsecurepassword""."
+TC-Utente-004,User Get Info,Utente,1,"User account exists
+Steps:
+1. Call Utente.getUtenteInfo()
+2. Verify that the user information is returned as expected.",,,"User information is returned including id, nomeCognome, and email."
+TC-Device-001,Device Information Retrieval,Devices,1,"Device exists
+Steps:
+1. Call Devices.getDeviceInfo()
+2. Verify that the device information is returned as expected.",,,Device information is returned including id and titolo.
+TC-Device-002,Device Configuration Update,Devices,1,Device exists and is connected,"- config = [true, false, true, 25.0, 15.0, 60.0, 40.0, 80.0, 60.0, 100.0, 40.0, 80.0]
+Steps:
+1. Call Devices.configura(config, true)
+2. Verify that the device configuration is updated successfully.",,The device configuration is updated with the provided values.
+TC-Device-003,Device Configuration Retrieval,Devices,1,"Device exists and has a configuration
+Steps:
+1. Call Devices.getConfig()
+2. Verify that the device configuration is returned as expected.",,,The device configuration is returned as a list of boolean and float values.
+TC-Device-004,Device Event Reporting,Devices,1,Device exists and is configured,"- alertMessage = ""Temperature exceeded maximum limit""
+Steps:
+1. Call Devices.segnala(alertMessage)
+2. Verify that the alert message is sent to the alert system.",,The alert message is sent to the alert system.
+TC-Alert-001,Alert Message Update,Alert,1,Alert exists,"- newMessage = ""New alert message""
+Steps:
+1. Call Alert.updateMessage(newMessage)
+2. Verify that the alert message is updated successfully.",,"The alert message is updated to ""New alert message""."
+TC-History-001,History Record Update,History,1,History exists,"- data = ""2023-10-01 12:00:00""
+- temperature = 25.0
+- humidity = 60.0
+- luminosity = 80.0
+Steps:
+1. Call History.updateHistory(data, temperature, humidity)
+2. Verify that the history record is updated successfully.",,"The history record is updated with the provided data, temperature, and humidity."
+TC-Access-001,User Access Flow - No Serres,Accesso eseguito,2,"User attempts to access the system
+Steps:
+1. User clicks on ""Serre""
+2. Verify that the default message is displayed.",,,The default message is displayed indicating no serres are associated.
+TC-Access-002,User Access Flow - With Serres,Accesso eseguito,2,"User attempts to access the system and at least one serre is associated
+Steps:
+1. User clicks on ""Serre""
+2. Verify that the list of serres is displayed.",,,The list of serres is displayed.
+TC-AddDevice-001,Add Device - Correct Value,Aggiunta Serra,3,User attempts to add a device,"- deviceDetails = ""correct_device_details""
+Steps:
+1. User enters ""correct_device_details""
+2. Verify that the device is added successfully.",,The device is added with the provided details.
+TC-AddDevice-002,Add Device - Incorrect Value,Aggiunta Serra,3,User attempts to add a device,"- deviceDetails = ""incorrect_device_details""
+Steps:
+1. User enters ""incorrect_device_details""
+2. Verify that the user is prompted to enter the correct value.",,The user is prompted to enter the correct value.
+TC-Connection-001,Device Connection - Successful,Serra connessa,4,"Device is not connected
+Steps:
+1. User attempts to connect the device
+2. Verify that the device is connected successfully.",,,The device is connected successfully.
+TC-Connection-002,Device Connection - Unsuccessful,Serra connessa,4,"Device is already connected
+Steps:
+1. User attempts to connect the device again
+2. Verify that the device connection fails.",,,The device connection fails.
+TC-Configuration-001,Configuration - Fields Entered Correctly,Campi inseriti correttamente,4,"Device is connected and configuration fields are entered
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the configuration operation is executed successfully.",,,The configuration operation is executed successfully.
+TC-Configuration-002,Configuration - Fields Entered Incorrectly,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the user is prompted to enter the correct values.",,,The user is prompted to enter the correct values.
+TC-Configuration-003,Configuration - Incorrect Value Loop,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User enters incorrect values
+2. User is prompted to enter correct values
+3. User enters correct values
+4. Verify that the configuration operation is executed successfully.",,,The configuration operation is executed successfully after entering correct values.
+TC-Configuration-004,Configuration - No Configuration Fields Entered,Valore errato,4,"Device is connected and no configuration fields are entered
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the user is prompted to enter the correct values.",,,The user is prompted to enter the correct values.
+TC-Configuration-005,Configuration - No Configuration Operation Executed,Valore errato,4,"Device is connected and no configuration fields are entered
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the configuration operation is not executed.",,,The configuration operation is not executed.
+TC-Configuration-006,Configuration - Configuration Operation Failed,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the configuration operation fails.",,,The configuration operation fails.
+TC-Configuration-007,Configuration - Configuration Operation Success,Operazione eseguita,4,"Device is connected and configuration fields are entered correctly
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the configuration operation is successful.",,,The configuration operation is successful.
+TC-Configuration-008,Configuration - Configuration Operation Failure,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. Verify that the configuration operation fails.",,,The configuration operation fails.
+TC-Configuration-009,Configuration - Configuration Operation Success After Retry,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to enter correct values
+3. User enters correct values
+4. Verify that the configuration operation is successful.",,,The configuration operation is successful after entering correct values.
+TC-Configuration-010,Configuration - Configuration Operation Failure After Retry,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to enter correct values
+3. User enters incorrect values again
+4. Verify that the configuration operation fails.",,,The configuration operation fails after entering incorrect values again.
+TC-Configuration-011,Configuration - Configuration Operation Success After Multiple Retries,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to enter correct values
+3. User enters incorrect values
+4. User is prompted to enter correct values again
+5. User enters correct values
+6. Verify that the configuration operation is successful.",,,The configuration operation is successful after multiple retries with correct values.
+TC-Configuration-012,Configuration - Configuration Operation Failure After Multiple Retries,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to enter correct values
+3. User enters incorrect values
+4. User is prompted to enter correct values again
+5. User enters incorrect values again
+6. Verify that the configuration operation fails.",,,The configuration operation fails after multiple retries with incorrect values.
+TC-Configuration-013,Configuration - Configuration Operation Success After Multiple Retries with Correct Values,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to enter correct values
+3. User enters incorrect values
+4. User is prompted to enter correct values again
+5. User enters correct values
+6. Verify that the configuration operation is successful.",,,The configuration operation is successful after multiple retries with correct values.
+TC-Configuration-014,Configuration - Configuration Operation Failure After Multiple Retries with Incorrect Values,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to enter correct values
+3. User enters incorrect values
+4. User is prompted to enter correct values again
+5. User enters incorrect values again
+6. Verify that the configuration operation fails.",,,The configuration operation fails after multiple retries with incorrect values.
+TC-Configuration-015,Configuration - Configuration Operation Success After Multiple Retries with Correct Values,Valore errato,4,"Device is connected and configuration fields are entered incorrectly
+Steps:
+1. User clicks ""Configuration""
+2. User is prompted to",,,

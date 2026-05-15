@@ -1,0 +1,151 @@
+REPORT: Report_27_uml_pages.pdf
+======================================================================
+
+===== Report_27_uml_pages.pdf | Page 1 =====
+UML Type:
+- Other
+
+Components:
+- User — kind=User; attributes=[email: "sebastianocavalet@gmail.com", familyCode: "5Rqbuh0N9S", fullName: "Sebastiano Cavalet", pictureUrl: "https://lh3.googleusercontent.com/a/AEdFTp4JQ6GJ4tw4Bc"]; operations=[Avvia raccolta, Aggiungi documento, Aggiungi campo]; role=Parent user
+- Allattamento — kind=Allattamento; attributes=[Data: "15/01/2023-06:19", Left: "5", Right: "5"]; operations=[Avvia raccolta, Aggiungi documento, Aggiungi campo]; role=Child user
+- Famiglia — kind=Famiglia; attributes=[]; operations=[Avvia raccolta, Aggiungi documento, Aggiungi campo]; role=Family
+
+Actors / Lifelines:
+- User
+- Allattamento
+- Famiglia
+
+Relationships / Links:
+- User -> Allattamento — type=association; label=""; explanation="Parent-child relationship"
+- User -> Famiglia — type=association; label=""; explanation="Parent-family relationship"
+- Allattamento -> Famiglia — type=association; label=""; explanation="Child-family relationship"
+
+Main Flows (step by step):
+- Flow 1: User -> Avvia raccolta -> Allattamento -> Avvia raccolta -> Famiglia -> Avvia raccolta
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Ingegneria del Software 2022/23 – docente: prof. Agostino Cortesi"
+
+Observations:
+- This diagram models a parent-child relationship within a family context, where a parent user interacts with their child's data and family information.
+- The main flow involves the parent user initiating data collection for both the child and the family.
+- There are no conditions or branches visible in the diagram.
+- The diagram does not show any loops or repetitions.
+- The annotations indicate that this is related to a software engineering course taught by Prof. Agostino Cortesi.
+
+===== Report_27_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- HOME — kind=action; attributes=[]; operations=[]; role=initial action
+- Accesso al menu a fondo — kind=decision; attributes=[]; operations=[]; role=access check
+- Sezione di monitoraggio — kind=action; attributes=[]; operations=[]; role=monitoring section
+- Note — kind=action; attributes=[]; operations=[]; role=notes section
+- Ritorno alla home — kind=action; attributes=[]; operations=[]; role=return to home
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- HOME -> Accesso al menu a fondo — type=association; label="SI"; explanation="access check"
+- Accesso al menu a fondo -> Sezione di monitoraggio — type=association; label="SI"; explanation="yes path"
+- Accesso al menu a fondo -> Note — type=association; label="NO"; explanation="no path"
+- Note -> Ritorno alla home — type=association; label="NO"; explanation="no path"
+
+Main Flows (step by step):
+- Flow 1: HOME -> Accesso al menu a fondo (SI) -> Sezione di monitoraggio
+- Flow 2: HOME -> Accesso al menu a fondo (NO) -> Note -> Ritorno alla home
+
+Conditions / Branches:
+- Accesso al menu a fondo: SI -> Sezione di monitoraggio
+- Accesso al menu a fondo: NO -> Note -> Ritorno alla home
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- MENU' A FONDO PAGINA
+- Ingegneria del Software 2022/23 – docente: prof. Agostino Cortesi
+
+Observations:
+- This activity diagram models a menu navigation process at the bottom of a page.
+- The process starts at the HOME action.
+- There is a decision point to access the menu at the bottom of the page.
+- If the access is confirmed (SI), it leads to the monitoring section.
+- If the access is denied (NO), it leads to the notes section, which then returns to the home.
+- The diagram includes a clear flow for both yes and no paths, ensuring a structured navigation experience.
+
+===== Report_27_uml_pages.pdf | Page 3 =====
+UML Type:
+- class
+
+Components:
+- LoginActivity — kind=class; attributes=[handleSignInTask(Task<GoogleSignInAccount> task)]; operations=[handleSignInTask(Task<GoogleSignInAccount> task)]
+- FamilyActivity — kind=class; attributes=[]; operations=[]
+- JoinFamilyActivity — kind=class; attributes=[checkCode(String code)]; operations=[]
+- CreaFamilyActivity — kind=class; attributes=[createFamily(String name, String surname, String MaleFemale, String date), initializeFamily(String code), randomGenerator(int n), getDate()]; operations=[]
+- HomeActivity — kind=class; attributes=[hideFragments(), replaceFragment(Fragment fragment)]; operations=[]
+- NoteFragment — kind=class; attributes=[]; operations=[]
+- MonitorFragment — kind=class; attributes=[]; operations=[]
+- MenuNoteFragment — kind=class; attributes=[]; operations=[]
+- EditNoteFragment — kind=class; attributes=[]; operations=[]
+- ProfileActivity — kind=class; attributes=[abbandona(String userId, GoogleSignInClient googleSignInClient)]; operations=[]
+- GraphSonnoFragment — kind=class; attributes=[]; operations=[graphSonno(View view)]
+- GraphAllattamentoFragment — kind=class; attributes=[]; operations=[graphAllattamento(View view)]
+- GraphCrescitaFragment — kind=class; attributes=[]; operations=[graphCrescita(View view)]
+- AllattamentoFragment — kind=class; attributes=[]; operations=[resetLeft(View view), resetRight(View view), startStopLeft(View view), startStopRight(View view), setButtonUILeft(int color), setButtonUIRight(int color), startTimerLeft(), startTimerRight(), getTimerTextLeft(), getTimerTextRight(), formatTime(int seconds, int minutes, int hours)]
+- SonnoFragment — kind=class; attributes=[]; operations=[]
+- CrescitaFragment — kind=class; attributes=[]; operations=[]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- LoginActivity -> FamilyActivity — type=association; label=""; explanation="LoginActivity transitions to FamilyActivity"
+- HomeActivity -> HomeFragment — type=association; label=""; explanation="HomeActivity manages HomeFragment"
+- HomeActivity -> MonitorFragment — type=association; label=""; explanation="HomeActivity manages MonitorFragment"
+- HomeActivity -> NoteFragment — type=association; label=""; explanation="HomeActivity manages NoteFragment"
+- HomeActivity -> MenuNoteFragment — type=association; label=""; explanation="HomeActivity manages MenuNoteFragment"
+- HomeActivity -> EditNoteFragment — type=association; label=""; explanation="HomeActivity manages EditNoteFragment"
+- ProfileActivity -> GraphSonnoFragment — type=association; label=""; explanation="ProfileActivity manages GraphSonnoFragment"
+- ProfileActivity -> GraphAllattamentoFragment — type=association; label=""; explanation="ProfileActivity manages GraphAllattamentoFragment"
+- ProfileActivity -> GraphCrescitaFragment — type=association; label=""; explanation="ProfileActivity manages GraphCrescitaFragment"
+- AllattamentoFragment -> SonnoFragment — type=association; label=""; explanation="AllattamentoFragment manages SonnoFragment"
+- AllattamentoFragment -> CrescitaFragment — type=association; label=""; explanation="AllattamentoFragment manages CrescitaFragment"
+
+Main Flows (step by step):
+- Flow 1: LoginActivity -> FamilyActivity
+- Flow 2: HomeActivity -> HomeFragment
+- Flow 3: HomeActivity -> MonitorFragment
+- Flow 4: HomeActivity -> NoteFragment
+- Flow 5: HomeActivity -> MenuNoteFragment
+- Flow 6: HomeActivity -> EditNoteFragment
+- Flow 7: ProfileActivity -> GraphSonnoFragment
+- Flow 8: ProfileActivity -> GraphAllattamentoFragment
+- Flow 9: ProfileActivity -> GraphCrescitaFragment
+- Flow 10: AllattamentoFragment -> SonnoFragment
+- Flow 11: AllattamentoFragment -> CrescitaFragment
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram represents a class structure for a mobile application related to family management and monitoring.
+- The main flows involve transitioning between different activities and fragments within the app.
+- Key components include
+
+
+======================================================================

@@ -1,0 +1,144 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration with valid credentials,Authentication,"1, 7","- User is not logged in.
+- System is online and database is accessible.","- Username: `testuser123`
+- Password: `SecurePass123!`
+- Email: `testuser@example.com`
+- Privacy document acceptance: `Yes`","1. User navigates to the registration page.
+2. User enters valid username, password, email, and accepts privacy terms.
+3. User submits the registration form.
+4. System processes the request and stores user data in the database.
+5. System returns a success response.","- User account is created in the database.
+- User is redirected to the login page or home page with a success message.
+- No errors are displayed."
+TC-AUTHENTICATION-002,Failed user registration with invalid email format,Authentication,"1, 7","- User is not logged in.
+- System is online.","- Username: `testuser123`
+- Password: `SecurePass123!`
+- Email: `invalid-email` (missing @ and domain)
+- Privacy document acceptance: `Yes`","1. User navigates to the registration page.
+2. User enters invalid email format and submits the form.
+3. System validates the input.","- System displays an error message: ""Invalid email format.""
+- User data is not stored in the database.
+- User remains on the registration page."
+TC-AUTHENTICATION-003,Successful user login with valid credentials,Authentication,"1, 8","- User is registered and exists in the database.
+- System is online.","- Username: `testuser123`
+- Password: `SecurePass123!`","1. User navigates to the login page.
+2. User enters valid username and password.
+3. User submits the login form.
+4. System verifies credentials with the database.
+5. System returns a success response.","- User is redirected to the home page (`HOME` state).
+- User session is established.
+- No errors are displayed."
+TC-AUTHENTICATION-004,Failed user login with incorrect password,Authentication,"1, 8","- User is registered and exists in the database.
+- System is online.","- Username: `testuser123`
+- Password: `WrongPass123!` (incorrect)","1. User navigates to the login page.
+2. User enters valid username but incorrect password.
+3. User submits the login form.
+4. System verifies credentials with the database.
+5. System returns a failure response.","- System displays an error message: ""Invalid username or password.""
+- User remains on the login page.
+- No session is established."
+TC-AUTHENTICATION-005,User attempts to access home page without logging in,Authentication,1,"- User is not logged in.
+- System is online.",,"1. User directly accesses the home page URL.
+2. System checks if the user is logged in.","- System redirects the user to the login/registration page (`Fragment richiesta Login / registrazione`).
+- No home page content is displayed."
+TC-PROFILE-001,Successful profile data modification,Profile Management,"5, 17","- User is logged in.
+- System is online.","- Current name: `John Doe`
+- Updated name: `John Smith`
+- Updated email: `john.smith@example.com`","1. User navigates to the profile section (`Activity visualizzazione profilo`).
+2. User clicks the ""Modify Data"" option (`Fragment modifica dati personali`).
+3. User enters updated name and email.
+4. User submits the changes.
+5. System validates and saves the data to the database.
+6. System returns a success response.","- Updated profile data is displayed to the user.
+- User is redirected to the home page (`HOME` state).
+- No errors are displayed."
+TC-PROFILE-002,Failed profile data modification with invalid email,Profile Management,"5, 17","- User is logged in.
+- System is online.","- Current name: `John Doe`
+- Updated name: `John Smith`
+- Updated email: `invalid-email` (invalid format)","1. User navigates to the profile section.
+2. User clicks the ""Modify Data"" option.
+3. User enters updated name and invalid email.
+4. User submits the changes.
+5. System validates the input.","- System displays an error message: ""Invalid email format.""
+- User remains on the profile modification page.
+- No data is saved to the database."
+TC-PROFILE-003,User views profile without modification,Profile Management,"5, 17","- User is logged in.
+- System is online.",,"1. User navigates to the profile section.
+2. System retrieves and displays user data from the database.","- User’s current profile data (name, email, etc.) is displayed.
+- No errors are shown.
+- User can choose to modify data or return to home."
+TC-ITEM-MANAGEMENT-001,Successful insertion of a new item,Item Management,"3, 10","- User is logged in.
+- System is online.","- Item name: `Laptop`
+- Item description: `High-performance laptop`
+- Item image: `laptop.jpg` (valid file)","1. User clicks the ""Insert New Item"" button.
+2. User fills in item details (name, description, image).
+3. User submits the form.
+4. System validates and saves the item to the database.
+5. System returns a success response.","- New item is added to the database.
+- Updated list of items is displayed to the user.
+- User is redirected to the home page or item list.
+- No errors are displayed."
+TC-ITEM-MANAGEMENT-002,Failed insertion of an item with missing description,Item Management,"3, 10","- User is logged in.
+- System is online.","- Item name: `Laptop`
+- Item description: (empty)
+- Item image: `laptop.jpg`","1. User clicks the ""Insert New Item"" button.
+2. User fills in item name and image but leaves description empty.
+3. User submits the form.
+4. System validates the input.","- System displays an error message: ""Description is required.""
+- Item is not saved to the database.
+- User remains on the item insertion page."
+TC-ITEM-MANAGEMENT-003,Successful deletion of an item with confirmation,Item Management,"3, 11","- User is logged in.
+- System has at least one item in the database.",,"1. User views the list of items (`Fragment elenco offerte`).
+2. User selects an item to delete.
+3. System prompts for confirmation: ""Are you sure you want to delete this item?""
+4. User confirms deletion.
+5. System deletes the item from the database.
+6. System returns a success response.","- Deleted item is removed from the database.
+- Updated list of items is displayed without the deleted item.
+- User is redirected to the home page or item list.
+- No errors are displayed."
+TC-ITEM-MANAGEMENT-004,Cancel deletion of an item,Item Management,"3, 11","- User is logged in.
+- System has at least one item in the database.",,"1. User views the list of items.
+2. User selects an item to delete.
+3. System prompts for confirmation.
+4. User cancels the deletion.","- Item remains in the database.
+- User is redirected back to the item list.
+- No errors are displayed."
+TC-ITEM-MANAGEMENT-005,Filtering items by category,Item Management,"4, 16","- User is logged in.
+- System has multiple items in the database (e.g., ""Electronics,"" ""Books"").",- Filter category: `Electronics`,"1. User views the list of items.
+2. User applies a filter for ""Electronics.""
+3. System retrieves items matching the filter from the database.
+4. System displays the filtered list.","- Only items in the ""Electronics"" category are displayed.
+- Filter option remains active.
+- No errors are displayed."
+TC-EXCHANGE-PROPOSAL-001,Successful creation of an exchange proposal,Exchange Proposal,"2, 13","- User is logged in.
+- System is online.","- Proposal title: `Exchange Laptop for Books`
+- Description: `Looking for books in exchange for my laptop.`","1. User navigates to the exchange proposal page.
+2. User fills in proposal details (title, description).
+3. User submits the proposal.
+4. System saves the proposal to the database.
+5. System returns a success response.","- New exchange proposal is added to the database.
+- User is redirected to the exchange list or home page.
+- No errors are displayed."
+TC-EXCHANGE-PROPOSAL-002,Accepting an exchange proposal,Exchange Proposal,"2, 15","- User is logged in.
+- System has at least one exchange proposal in the database.",,"1. User views the list of exchange proposals (`Fragment elenco proposte ricevute`).
+2. User selects a proposal to accept.
+3. System prompts for confirmation: ""Are you sure you want to accept this proposal?""
+4. User confirms acceptance.
+5. System updates the proposal status to ""Accepted"" in the database.","- Proposal status is updated to ""Accepted.""
+- User is redirected to the proposal details or home page.
+- No errors are displayed."
+TC-EXCHANGE-PROPOSAL-003,Rejecting an exchange proposal,Exchange Proposal,"2, 15","- User is logged in.
+- System has at least one exchange proposal in the database.",,"1. User views the list of exchange proposals.
+2. User selects a proposal to reject.
+3. System prompts for confirmation: ""Are you sure you want to reject this proposal?""
+4. User confirms rejection.
+5. System updates the proposal status to ""Rejected"" in the database.","- Proposal status is updated to ""Rejected.""
+- User is redirected back to the proposal list.
+- No errors are displayed."
+TC-EXCHANGE-PROPOSAL-004,Viewing exchange proposals without data,Exchange Proposal,"2, 14","- User is logged in.
+- System has no exchange proposals in the database.",,"1. User navigates to the exchange proposal page.
+2. System checks for available proposals (`Ho reperito i dati delle proposte?`).","- System displays a message: ""No exchange proposals found.""
+- User is redirected to the home page or prompted to create a proposal.
+- No errors are displayed."
+TC-SAVED-ITEMS-001,Viewing saved items,Saved Items,"6, 9",- User,,,

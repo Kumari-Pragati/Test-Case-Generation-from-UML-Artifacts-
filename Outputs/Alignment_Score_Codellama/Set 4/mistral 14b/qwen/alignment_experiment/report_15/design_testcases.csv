@@ -1,0 +1,122 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with existing token,Authentication,"1, 3","- User has a valid token stored locally.
+- Firebase Authentication service is operational.","- Valid token: `""abc123xyz456""`
+- User email: `""user@example.com""`","1. Main process calls `getToken()` on LocalUser.
+2. LocalUser returns the stored token (`""abc123xyz456""`).
+3. LocalUser sends the token to Authentication service via `request(token)`.
+4. Authentication verifies the token and returns `status = ""SUCCESS""`.
+5. Authentication requests user data (`dati utente`).
+6. LocalUser creates a new `LocalUser` instance with fetched data.
+7. Authentication sends `""done""` confirmation.","- LocalUser instance is created successfully.
+- User is logged in with access to all authenticated features.
+- No error messages or crashes."
+TC-AUTHENTICATION-002,Failed login with invalid token,Authentication,"1, 3","- User has an invalid/expired token stored locally.
+- Firebase Authentication service is operational.","- Invalid token: `""invalidtoken123""`
+- User email: `""user@example.com""`","1. Main process calls `getToken()` on LocalUser.
+2. LocalUser returns the invalid token (`""invalidtoken123""`).
+3. LocalUser sends the token to Authentication service via `request(token)`.
+4. Authentication rejects the token and returns `status = ""FAILURE""`.
+5. LocalUser does **not** create a new `LocalUser` instance.","- Authentication process fails gracefully.
+- User remains unauthenticated; no crash or data leakage.
+- System prompts user to re-authenticate (e.g., login screen)."
+TC-AUTHENTICATION-003,New user registration and login,Authentication,"1, 2, 3","- Firebase Authentication service is operational.
+- No existing user with email `""newuser@example.com""`.","- Email: `""newuser@example.com""`
+- Password: `""SecurePass123!""`","1. User navigates to **Home** page (Page 2).
+2. User clicks ""Register"" (triggering `createUserWithEmailAndPassword`).
+3. Authentication service creates a new user and returns `status = ""SUCCESS""`.
+4. Main process calls `getToken()`; LocalUser receives a new valid token.
+5. LocalUser sends token to Authentication for verification.
+6. Authentication returns `status = ""SUCCESS""` and user data.
+7. LocalUser creates a new `LocalUser` instance.","- New user account is created in Firebase.
+- User is logged in automatically.
+- Shared Preferences (Page 2) stores the token for future sessions."
+TC-AUTHENTICATION-004,Password change for authenticated user,Authentication,"1, 2","- User is logged in (`currentUser` exists in Authentication).
+- Old password: `""OldPass123""`; New password: `""NewPass456!""`.",,"1. User navigates to **Settings** (via Home or Diary page).
+2. User enters old password (`""OldPass123""`) and new password (`""NewPass456!""`).
+3. Authentication service calls `updatePassword(""OldPass123"", ""NewPass456!"")`.
+4. Authentication returns `status = ""SUCCESS""`.
+5. User logs out (`signOut`) and logs back in with the new password.","- Password is updated in Firebase.
+- User can log in with the new password.
+- Old password is rejected on subsequent login attempts."
+TC-AUTHENTICATION-005,Logout and token clearance,Authentication,"1, 2, 3",- User is logged in with a valid token.,,"1. User clicks ""Logout"" (triggering `signOut`).
+2. Authentication service clears `currentUser` and invalidates the token.
+3. Main process calls `getToken()`; LocalUser returns `null`.
+4. LocalUser does not attempt to send a token to Authentication.
+5. User navigates to **Home** page; system redirects to login screen.","- User is logged out successfully.
+- No token is stored in Shared Preferences.
+- All authenticated features (e.g., Diary, Plant Analysis) are inaccessible."
+TC-PLANT-MANAGEMENT-001,Successful plant insertion via camera and AI analysis,Plant Insertion,"1, 2, 4","- User is logged in.
+- Camera permission is granted.
+- Firebase Storage and Gemini AI API are operational.","- Uploaded image: `plant_sample.jpg` (contains a ""Rose"" plant).","1. User navigates to **Camera** page (Page 2).
+2. User takes a photo of a plant and clicks ""Analyze.""
+3. Main sends `newFoto + ""richiesta specie pianta nella foto""` to Gemini AI API.
+4. Gemini AI API identifies the plant as `""Rose""` and sends response to Firebase Storage.
+5. Firebase Storage inserts `""Rose""` into storage and confirms insertion.
+6. Firebase Storage uploads `plant_sample.jpg` to user’s personal folder (e.g., `users/user123/rose/plant_sample.jpg`).
+7. Firebase Storage returns download URL: `""https://storage.example.com/users/user123/rose/plant_sample.jpg""`.","- Plant species (`""Rose""`) is stored in the database.
+- Image is uploaded to the correct folder with metadata.
+- Download URL is displayed in the **Diary** or **Plant Analysis** page.
+- User sees confirmation: `""Pianta aggiunta: Rose""`."
+TC-PLANT-MANAGEMENT-002,Failed plant insertion due to AI API error,Plant Insertion,"1, 4","- User is logged in.
+- Camera permission is granted.
+- Gemini AI API is **unavailable** (simulated).",- Uploaded image: `plant_sample.jpg` (contains an unidentifiable plant).,"1. User navigates to **Camera** page and takes a photo.
+2. Main sends request to Gemini AI API; API returns `error = ""SERVICE_UNAVAILABLE""`.
+3. Main does not proceed with Firebase Storage operations.
+4. User sees error message: `""Impossibile identificare la pianta. Riprova più tardi.""`.","- No data is stored in Firebase Storage.
+- Image is **not** uploaded.
+- User can retry or cancel the operation."
+TC-PLANT-MANAGEMENT-003,Manual plant insertion (without AI),Plant Insertion,"1, 2","- User is logged in.
+- User has manually selected a plant species (e.g., via dropdown).","- Plant name: `""Sunflower""`
+- Image: `sunflower.jpg` (previously uploaded to user’s storage).","1. User navigates to **Inserimento/Modifica Piante** (Page 1).
+2. User selects `""Sunflower""` from a dropdown list.
+3. User uploads `sunflower.jpg` from local storage.
+4. DataManager validates input and stores:
+   - Species: `""Sunflower""`
+   - Image URL: `""https://storage.example.com/users/user123/sunflower/sunflower.jpg""`
+5. User confirms insertion.","- Plant is added to the database with correct metadata.
+- Image is linked to the plant record.
+- User sees confirmation: `""Pianta aggiunta: Sunflower""`."
+TC-PLANT-MANAGEMENT-004,Plant modification (update species name),Plant Modification,"1, 2, 5","- User has a stored plant: `""Lily""` with image `lily.jpg`.
+- User is logged in.","- Old species: `""Lily""`
+- New species: `""Tiger Lily""`","1. User navigates to **Lettura Piante** (Page 1) and selects `""Lily""`.
+2. User clicks ""Modifica"" and changes species to `""Tiger Lily""`.
+3. DataManager updates the record in Firebase Storage.
+4. Main requests updated plant data from Firebase Storage.
+5. Firebase Storage returns the modified record with new species name.","- Plant species is updated to `""Tiger Lily""` in the database.
+- Image URL remains unchanged.
+- User sees confirmation: `""Pianta aggiornata: Tiger Lily""`."
+TC-PLANT-MANAGEMENT-005,Plant deletion,Plant Deletion,"1, 5","- User has a stored plant: `""Fern""` with image `fern.jpg`.
+- User is logged in.",,"1. User navigates to **Lettura Piante** and selects `""Fern""`.
+2. User clicks ""Elimina.""
+3. DataManager deletes the plant record from Firebase Storage.
+4. Main requests updated plant list from Firebase Storage.
+5. Firebase Storage confirms deletion and returns the updated list (excluding `""Fern""`).","- Plant record and associated image are deleted from storage.
+- Plant no longer appears in **Lettura Piante** or **Diario**.
+- User sees confirmation: `""Pianta eliminata: Fern""`."
+TC-DIARY-001,Successful diary entry creation,Diary,"1, 2","- User is logged in.
+- User has at least one stored plant (e.g., `""Rose""`).","- Diary entry: `""Pruned rose today. Added fertilizer.""`
+- Date: `""2023-10-15""`
+- Associated plant: `""Rose""`","1. User navigates to **Diario** page (Page 2).
+2. User selects `""Rose""` from the plant dropdown.
+3. User enters text: `""Pruned rose today. Added fertilizer.""` and sets date.
+4. DataManager stores the entry in Firebase Storage under user’s diary.
+5. User confirms submission.","- Diary entry is saved with:
+  - Text: `""Pruned rose today. Added fertilizer.""`
+  - Date: `""2023-10-15""`
+  - Plant: `""Rose""`
+- Entry appears in **Lettura Diario** (Page 1).
+- User sees confirmation: `""Appunto salvato""`."
+TC-DIARY-002,Diary entry modification,Diary,"1, 2","- User has a diary entry: `""Watered plants.""` (created on `""2023-10-14""`).
+- User is logged in.","- Old entry: `""Watered plants.""`
+- New entry: `""Watered plants. Added mulch.""`","1. User navigates to **Lettura Diario** and selects the entry.
+2. User clicks ""Modifica"" and updates the text.
+3. DataManager updates the entry in Firebase Storage.
+4. User confirms changes.","- Diary entry is updated to `""Watered plants. Added mulch.""`.
+- Date remains `""2023-10-14""`.
+- Updated entry appears in the list.
+- User sees confirmation: `""Appunto aggiornato""`."
+TC-DIARY-003,Diary entry deletion,Diary,"1, 2","- User has a diary entry: `""Test entry.""` (created on `""2023-10-13""`).
+- User is logged in.",,"1. User navigates to **Lettura Diario** and selects the entry.
+2. User clicks ""Elimina.""
+3. DataManager deletes the entry from Firebase Storage.
+4. User confirms deletion.",- Diary entry is

@@ -1,0 +1,68 @@
+flow
+"user -> database — type=association; label=""user registration""; explanation=""user registration"""
+"user -> material — type=association; label=""user material""; explanation=""user material"""
+"database -> material — type=association; label=""material database""; explanation=""material database"""
+"flow 1: user -> database -> material -> user — user registers, database creates new user, material is added to user's account"
+the diagram models a user registration system where users can register and access their own materials.
+the database stores user information and material details.
+the system allows users to access their own materials but not others.
+the system has a user-friendly interface for registration and material management.
+"utente -> applicazione — type=association; label=""login""; explanation=""user logs in"""
+"applicazione -> database — type=association; label=""verifyuser""; explanation=""application verifies user"""
+"applicazione -> utente — type=association; label=""register""; explanation=""application registers user"""
+"applicazione -> database — type=association; label=""adduser""; explanation=""application adds user to database"""
+"applicazione -> database — type=association; label=""addapplication""; explanation=""application adds itself to database"""
+flow 1: utente -> applicazione -> database -> utente -> applicazione -> database
+utente logs in
+applicazione verifies user
+"if user is registered, applicazione registers user"
+applicazione adds user to database
+"if user is not registered, applicazione asks if user wants to register"
+"if user agrees, applicazione registers user"
+the diagram models the interaction between a user and an application.
+the application verifies the user's registration and allows them to register if they are not already registered.
+the application adds the user to the database after registration.
+the user can log in and access the application's services.
+"main -> applicazione — type=association; label=""richiedi dati""; explanation=""richiede dati"""
+"applicazione -> database — type=association; label=""richiedi dati""; explanation=""richiedi dati"""
+"applicazione -> main — type=association; label=""mostra dati""; explanation=""mostra dati"""
+"main -> applicazione — type=association; label=""invia nuovi dati""; explanation=""invia nuovi dati"""
+"applicazione -> main — type=association; label=""conferma aggiornamento""; explanation=""conferma aggiornamento"""
+flow 1: main -> applicazione -> database -> main -> applicazione -> main
+flow 2: applicazione -> main -> applicazione -> database -> main -> applicazione
+"the diagram models a sequence of events where the main component requests data from the application, which then requests data from the database, and the process repeats."
+"the application shows data, sends new data, and confirms the update."
+the main component is the starting point and the end point of the sequence.
+the application and database are the middle components that interact with each other and with the main component.
+"main -> applicazione — type=association; label=""esegue scansione dispositivo""; explanation=""main executes the device scan"""
+"applicazione -> database — type=association; label=""esegue scansione hardware""; explanation=""application executes hardware scan"""
+"main -> esegue scansione dispositivo — type=call; label=""esegue scansione dispositivo""; explanation=""main executes device scan"""
+"esegue scansione hardware -> esegue scansione hardware — type=call; label=""esegue scansione hardware""; explanation=""hardware scan is executed"""
+"esegue scansione hardware -> componenti funzionanti? — type=decision; label=""componenti funzionanti?""; explanation=""are components functioning?"""
+"componenti funzionanti? -> si, ricavo impatto sostituzione componente — type=flow; label=""si, ricavo impatto sostituzione componente""; explanation=""yes, i retrieve the impact of component replacement"""
+"si, ricavo impatto sostituzione componente -> nome e impatto componente — type=flow; label=""nome e impatto componente""; explanation=""name and impact of component"""
+"componenti funzionanti? -> no — type=flow; label=""no""; explanation=""no"""
+"no -> return result — type=flow; label=""return result""; explanation=""return result"""
+"return result -> return nome, impatto componente, diagnostica dispositivo — type=flow; label=""return nome, impatto componente, diagnostica dispositivo""; explanation=""return name, impact component, diagnostic device"""
+"main -> esegue scansione dispositivo -> esegue scansione hardware -> componenti funzionanti? -> si, ricavo impatto sostituzione componente -> nome e impatto componente -> return result -> return nome, impatto componente, diagnostica dispositivo"
+"the diagram models the flow of a device scan, where the main application executes the device scan, which then checks if the hardware is functioning. if it is, it retrieves the impact of component replacement; otherwise, it returns a result with the name, impact component, and diagnostic device. the flow is a sequence of events that can be tested by checking the conditions and branches. the diagram does not show any loops or repetitions. the note suggests that if there are defective components, the impact of the change should be calculated."
+main -> esegui scansione hardware
+type: message
+label: esegui scansione hardware
+explanation: main sends a message to hardware to execute a scan
+esegui scansione hardware -> scansione velocità e salute componenti
+label: scansione velocità e salute componenti
+explanation: hardware responds with component speed and health
+scansione velocità e salute componenti -> calcolo aspettativa di vita
+label: calcolo aspettativa di vita
+explanation: component speed and health are calculated
+calcolo aspettativa di vita -> return result
+label: return result
+explanation: the result of the calculation is returned
+main -> esegui scansione hardware -> scansione velocità e salute componenti -> calcolo aspettativa di vita -> return result
+the diagram models the flow of data between the main application and hardware.
+the main application sends a request to the hardware to perform a scan.
+the hardware responds with the component's speed and health.
+the application calculates the expected life of the component based on this information.
+the result is then returned to the main application.
+======================================================================

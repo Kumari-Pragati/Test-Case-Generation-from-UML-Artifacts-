@@ -1,0 +1,317 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Registration","Authentication","5","User has internet access and a compatible device.","Valid email address, strong password, user details (name, surname, date of birth).","1. User opens the MyFood application.
+2. User selects the ""Register"" option.
+3. User fills in the registration form with valid email, password, name, surname, and date of birth.
+4. User confirms submission by clicking ""Register.""","User account is successfully created, and a confirmation message is displayed. User is redirected to the login screen."
+"TC-Authentication-002","User Login","Authentication","5","User has a registered account.","Valid email and password.","1. User opens the MyFood application.
+2. User selects the ""Login"" option.
+3. User enters valid email and password.
+4. User confirms submission by clicking ""Login.""","User is successfully logged in, and the application redirects to the home screen."
+"TC-Authentication-003","Invalid Login Attempt","Authentication","5","User has a registered account.","Valid email and incorrect password.","1. User opens the MyFood application.
+2. User selects the ""Login"" option.
+3. User enters valid email and incorrect password.
+4. User confirms submission by clicking ""Login.""","System displays an error message: ""Invalid email or password. Please try again."""
+"TC-FoodTracking-004","Add New Food Item","Food Tracking","5","User is logged in.","Name of food item, quantity, expiration date, storage location.","1. User opens the MyFood application.
+2. User navigates to the ""Add Food"" section.
+3. User enters the name of the food item, quantity, expiration date, and storage location.
+4. User confirms submission by clicking ""Add.""","Food item is successfully added to the user's inventory, and a confirmation message is displayed."
+"TC-FoodTracking-005","View Food Inventory","Food Tracking","5","User is logged in and has added at least one food item.","None","1. User opens the MyFood application.
+2. User navigates to the ""Inventory"" section.","All added food items are displayed with their details (name, quantity, expiration date, storage location)."
+"TC-FoodTracking-006","Update Food Item Details","Food Tracking","5","User is logged in and has at least one food item in inventory.","Updated quantity, updated expiration date.","1. User opens the MyFood application.
+2. User navigates to the ""Inventory"" section.
+3. User selects a food item to update.
+4. User modifies the quantity and expiration date.
+5. User confirms submission by clicking ""Update.""","Food item details are successfully updated, and a confirmation message is displayed."
+"TC-FoodTracking-007","Delete Food Item","Food Tracking","5","User is logged in and has at least one food item in inventory.","None","1. User opens the MyFood application.
+2. User navigates to the ""Inventory"" section.
+3. User selects a food item to delete.
+4. User confirms deletion by clicking ""Delete.""","Food item is successfully removed from the inventory, and a confirmation message is displayed."
+"TC-Notifications-008","Expiration Date Alert","Notifications","5","User is logged in and has added at least one food item with an expiration date.","Food item with expiration date set to tomorrow.","1. User adds a food item with an expiration date set to tomorrow.
+2. User logs out and waits until the next day.
+3. User logs back in.","System displays a notification alerting the user about the expiring food item."
+"TC-Reporting-009","Generate Food Waste Report","Reporting","5","User is logged in and has added at least one food item that has expired.","None","1. User opens the MyFood application.
+2. User navigates to the ""Reports"" section.
+3. User selects the option to generate a ""Food Waste Report.""","System generates and displays a report listing all expired food items, including their names, expiration dates, and quantities."
+"TC-Usability-010","Application Accessibility for Screen Readers","Usability","6.1.1","User has enabled screen reader on the device.","None","1. User opens the MyFood application with screen reader enabled.
+2. User navigates through the main sections (Login, Register, Inventory).","Screen reader correctly reads out all interactive elements and navigation options. All text fields and buttons are properly labeled and accessible."
+"TC-Efficiency-011","Application Response Time","Efficiency","6.1.2","User has a stable internet connection.","None","1. User opens the MyFood application.
+2. User performs a common action (e.g., logging in, adding a food item).","The application responds within 2 seconds for all primary actions."
+"TC-Portability-012","Application Compatibility with Different Devices","Portability","6.1.3","None","None","1. User installs the MyFood application on an Android device.
+2. User installs the MyFood application on an iOS device.
+3. User logs in and performs basic actions (e.g., adding a food item, viewing inventory) on both devices.","The application functions correctly on both Android and iOS devices with no significant performance or display issues."
+"TC-Authentication-013","Launch Screen Functionality","Authentication","7,8","The app is installed on the device","None","1. Open the app
+2. Observe the splash screen with the app logo
+3. Verify the login and registration buttons are visible","The splash screen displays the logo and provides options to login or register"
+"TC-Authentication-014","Successful User Registration","Authentication","8","User has a valid email and internet access","Valid email, new password, personal details","1. Click the registration button
+2. Enter valid email, password, and personal details
+3. Submit the form","User account is created and data is stored in the database"
+"TC-Authentication-015","Duplicate Email Registration Attempt","Authentication","8","User has a valid email and internet access","Email already registered in the system","1. Click the registration button
+2. Enter an email already in use
+3. Submit the form","System prompts user to login or change email"
+"TC-Authentication-016","Registration While Already Authenticated","Authentication","8","User is already logged in","None","1. Attempt to access registration screen","System redirects user to main page or login screen without showing registration"
+"TC-Authentication-017","Auto-Login via Token","Authentication","8,9","User has previously logged in without logging out","None","1. Launch the app
+2. Observe the login process","User is automatically logged in and directed to the main page"
+"TC-Authentication-018","Failed Auto-Login via Token","Authentication","9","User has not logged in previously or session expired","None","1. Launch the app
+2. Observe the login process fails","System prompts user to login manually"
+"TC-Authentication-019","Successful Login via Email and Password","Authentication","9,10","User has registered previously","Valid email and password","1. Click the login button
+2. Enter valid email and password
+3. Submit the form","User is logged in and directed to the main page"
+"TC-Authentication-020","Invalid Credentials Login Attempt","Authentication","10","User has registered previously","Invalid email or password","1. Click the login button
+2. Enter invalid email or password
+3. Submit the form","System prompts user to re-enter credentials"
+"TC-Authentication-021","Database Connection Error During Login","Authentication","10","User has registered previously","None (simulate database connection failure)","1. Click the login button
+2. Enter valid email and password
+3. Simulate database connection failure","System displays an error message"
+"TC-Authentication-022","Successful Login via Google Account","Authentication","9,10","User has a Google account","None","1. Click the Google login button
+2. Authenticate via Google account","User is logged in and directed to the main page"
+"TC-Navigation-023","Access Main Page After Login","Navigation","10,11","User has logged in successfully","None","1. Login to the app
+2. Observe the main page","User can access Frigorifero, Cerca, Messaggi, product insertion, and Profilo"
+"TC-ProductManagement-024","Access Frigorifero Page","Product Management","10,11","User has logged in","None","1. Click the Frigorifero icon in the navigation bar","User sees their products (in sale or not) and can manage them"
+"TC-ProductManagement-025","Empty Frigorifero Warning","Product Management","11","User has logged in and no products added","None","1. Click the Frigorifero icon","User sees a warning message and suggestion to add products"
+"TC-ProductManagement-026","Search Products in Frigorifero","Product Management","11,12","User has logged in and added products","Valid search term","1. Click the Frigorifero icon
+2. Click the search icon
+3. Enter a search term
+4. Submit the search","User sees filtered products matching the search term"
+"TC-ProductManagement-027","No Results in Search","Product Management","11","User has logged in and added products","Non-existent search term","1. Click the Frigorifero icon
+2. Click the search icon
+3. Enter a non-existent search term
+4. Submit the search","System displays a message indicating no results found"
+"TC-ProductManagement-028","Modify Product via Search in Frigorifero","Product Management","11,12","User has logged in and added at least one product","Valid product details for modification","1. Click the Frigorifero icon
+2. Click the search icon
+3. Enter a search term to find a product
+4. Select the product
+5. Modify product details
+6. Save changes","Product details are updated successfully"
+"TC-ProductManagement-029","Modify Product Without Search","Product Management","12","User has logged in and added at least one product","Valid product details for modification","1. Click the Frigorifero icon
+2. Select a product directly from the list
+3. Modify product details
+4. Save changes","Product details are updated successfully"
+"TC-ProductManagement-030","Sell Product via Search in Frigorifero","Product Management","12","User has logged in and added at least one product","Valid product to sell","1. Click the Frigorifero icon
+2. Click the search icon
+3. Enter a search term to find a product
+4. Select the product
+5. Click the ""vendi"" (sell) button","Product is listed for sale in the system"
+"TC-Frigorifero-031","Modify Product in Frigorifero","Frigorifero","13","At least one product must be inserted in the frigorifero.","A product already present in the frigorifero database.","1. Open the frigorifero screen.
+2. Select a product from the list.
+3. Click the ""modifica"" (modify) button next to the product.
+4. Update the product details (e.g., name, barcode, expiration date).
+5. Confirm the changes.","The product details in the database are updated successfully."
+"TC-Frigorifero-032","Sell Product from Frigorifero","Frigorifero","13","At least one product must be present in the frigorifero.","A product already in the frigorifero.","1. Open the frigorifero screen.
+2. Select a product from the list.
+3. Click the ""vendi"" (sell) button.","The product is added to the list of purchasable products."
+"TC-Frigorifero-033","Add Product to Frigorifero","Frigorifero","14","None (but requires a valid barcode and expiration date).","A product with a valid barcode and expiration date.","1. Click the ""+"" (add) button from the main screen or frigorifero screen.
+2. Enter the product details (barcode, expiration date, and other required fields).
+3. Confirm the submission.","The product is added to the frigorifero database."
+"TC-Frigorifero-034","Remove Product from Frigorifero","Frigorifero","14","At least one product must be present in the frigorifero.","A product already in the frigorifero.","1. Open the frigorifero screen.
+2. Select a product from the list.
+3. Click the ""rimuovi"" (remove) button.
+4. Confirm the removal in the pop-up dialog.","The product is removed from the frigorifero database."
+"TC-Messaggi-035","View List of Chats","Messaggi","15","User must have logged in.","None.","1. Click the ""messaggio"" (message) icon.","The user is redirected to the list of chats with other users."
+"TC-Messaggi-036","Search for a Chat in Messaggi","Messaggi","15","User must have logged in.","A valid nickname of another user.","1. Click the ""messaggio"" (message) icon.
+2. Type the nickname of another user in the search bar.","The chat with the searched user is displayed, or an alert is shown if the chat does not exist."
+"TC-Messaggi-037","View User Profile from Chat Search","Messaggi","15,16","User must have logged in.","A valid nickname of another user.","1. Click the ""messaggio"" (message) icon.
+2. Type the nickname of another user in the search bar.","The chat with the searched user is displayed, or an alert is shown if the chat does not exist."
+"TC-Messaggi-038","Start or Continue Chat with a User","Messaggi","16","User must have searched for the profile of another user.","A valid nickname of another user.","1. Search for the user’s nickname in the search bar.
+2. Click the message icon next to the user’s profile.","The chat with the selected user opens."
+"TC-Messaggi-039","Access Recent Chats","Messaggi","17","User must have at least one active chat.","None.","1. Click the ""messaggio"" (message) icon.
+2. Click on a recent chat from the list.","The selected chat opens."
+"TC-Messaggi-040","View User Profile from Chat","Messaggi","17","User must have a recent chat with another user.","None.","1. Click the ""messaggio"" (message) icon.
+2. Open a recent chat.
+3. Click the user’s profile icon in the chat.","The user’s profile is displayed."
+"TC-Messaggi-041","Send a Message in Chat","Messaggi","18","User must have a recent chat with another user.","A message text.","1. Click the ""messaggio"" (message) icon.
+2. Open a recent chat.
+3. Click on the message input field.
+4. Type a message.
+5. Send the message.","The message is sent and appears in the chat."
+"TC-Profilo-042","Access User Profile Settings","Profilo","18","User must have logged in.","None.","1. Click the profile icon.","The user profile page is displayed, showing settings that can be viewed and modified."
+"TC-Settings-043","Visualizzare e modificare le impostazioni dell’applicazione","Settings","19","User has executed login","None","1. User clicks on the “impostazioni” button from the profile section","The settings page is displayed, showing all configurable app settings"
+"TC-Settings-044","Modificare le impostazioni dell’applicazione","Settings","19","User has executed login and is on the settings page","None","1. User selects a setting field (e.g., notification preference)
+2. User modifies the value (e.g., enables/disables notifications)
+3. User clicks ""Salva"" (Save) or applies changes","The modified setting is saved, and the change is reflected in the application behavior"
+"TC-Payments-045","Visualizzare prodotti comprati dall’utente","Payments","19","User has executed login and has purchased products before","None","1. User clicks on the “pagamenti” button","The user is redirected to a page displaying a list of previously purchased products"
+"TC-Authentication-046","Eseguire logout dell’utente","Authentication","20","User has executed login","None","1. User clicks on the “logout” button","User is redirected to the login page, and the session is terminated"
+"TC-Search-047","Eseguire ricerca di un prodotto","Search","20","User has executed login","Valid product name or description (e.g., ""latte"")","1. User types a product name or description in the search bar on the main page
+2. User presses Enter or clicks the search button","A query is executed, and a results page displays all matching products"
+"TC-Search-048","Ricerca senza risultati","Search","20","User has executed login","Non-existent product name (e.g., ""xyz123"")","1. User types a non-existent product name in the search bar
+2. User presses Enter or clicks the search button","No products are displayed, and a message indicates no results found"
+"TC-ProductListing-049","Visualizzare informazioni riassuntive del prodotto","Product Listing","21","User has executed login and has performed a search","A product name that exists in the database","1. User performs a search and selects a product from the results","A rectangular panel displays the product’s basic information (e.g., name, price, brief description)"
+"TC-ProductListing-050","Visualizzare prodotti del proprio frigo","Product Listing","21","User has executed login and has products in their ""frigo"" section","None","1. User searches for a product in their ""frigo"" section","The product’s basic information is displayed in a rectangular panel"
+"TC-ProductDetails-051","Visualizzare informazioni complete del prodotto","Product Details","21","User has executed login and has performed a search","A product name that exists in the database","1. User performs a search
+2. User clicks on the product image","A new page displays all detailed information about the product"
+"TC-ProductRequest-052","Richiedere un prodotto dopo la ricerca","Product Request","22","User has executed login and has performed a search","A product name that exists in the database","1. User performs a search
+2. User clicks on the product image to view details
+3. User clicks the ""Richiedi"" (Request) button","A chat window opens with an automatic message requesting the product"
+"TC-Messaging-053","Avviare una chat con l’utente che offre il prodotto","Messaging","22","User has executed login, performed a search, and opened the product page","A product with an active seller","1. User opens the product page
+2. User clicks on the chat icon of the product","A chat window opens between the user and the product seller"
+"TC-Messaging-054","Accedere a una chat esistente tramite la pagina dei messaggi","Messaging","22","User has executed login and has an existing chat with a seller","None","1. User navigates to the messages page
+2. User selects the existing chat with the seller","The chat window opens, showing the conversation history"
+"TC-UserProfile-055","Visualizzare il profilo dell’utente che offre il prodotto","User Profile","23","User has executed login, performed a search, and opened the product page","A product with an active seller","1. User opens the product page
+2. User clicks on the seller’s profile icon","The seller’s profile page opens, displaying their main information (e.g., name, profile picture, bio)"
+"TC-UserProfile-056","Accedere al profilo tramite una chat esistente","User Profile","23","User has executed login and has an existing chat with a seller","None","1. User opens the existing chat with the seller
+2. User clicks on the seller’s profile icon in the chat","The seller’s profile page opens, displaying their main information"
+"TC-TokenManagement-057","Accedere alla schermata di acquisto token","Token Management","23","User has executed login and is not on the settings page","None","1. User clicks on the token button from any page except settings","The token purchase and redemption screen is displayed"
+"TC-TokenPurchase-058","Acquistare token con metodo di pagamento valido","Token Purchase","24","User has executed login and has a valid payment method with sufficient balance","Amount of money to convert to tokens (e.g., 10 EUR)","1. User clicks on the token button
+2. User selects the amount of money to convert
+3. User clicks the ""Compra"" (Buy) button
+4. User completes the payment process via the payment service","The selected tokens are credited to the user’s account"
+"TC-TokenPurchase-059","Fallimento acquisto token per pagamento non andato a buon fine","Token Purchase","24","User has executed login but has insufficient balance or invalid payment method","Amount of money exceeding balance or invalid payment details","1. User clicks on the token button
+2. User selects an amount to convert
+3. User clicks the ""Compra"" (Buy) button
+4. Payment fails (e.g., insufficient funds or declined transaction)","The payment process is aborted, and no tokens are credited to the user’s account"
+"TC-ProductListing-060","Accedere alla sezione per pubblicare un annuncio","Product Listing","24","User has executed login and is not on the settings page","None","1. User clicks on the ""+"" (Add) button","The screen for creating a new product listing opens"
+"TC-ProductListing-061","Aggiungere un prodotto nella sezione frigorifero e creare l’annuncio","Product Listing","24","User has executed login, is not on the settings page, and has a product in their ""frigo"" section not yet listed","A product in the user’s ""frigo"" section","1. User clicks on the ""+"" (Add) button
+2. User selects the option to add a product from the ""frigo"" section
+3. User confirms the selection","The product is added to the listing, and the announcement creation screen opens for further details"
+"TC-AnnouncementCreation-062","Create announcement for an existing product","Announcement Creation","25","User has logged in and has at least one product in their fridge","Product name: ""Milk"", Quantity: 2","1. User navigates to the ""Add Announcement"" screen
+2. User clicks on the ""Existing"" button
+3. User selects the product ""Milk"" from the list of products in their fridge","The announcement creation screen for the selected product (""Milk"") is displayed"
+"TC-AnnouncementCreation-063","Select product from fridge for announcement","Announcement Creation","25,26","User has logged in and has at least one product in their fridge","Product name: ""Eggs"", Quantity: 12","1. User navigates to the ""Add Announcement"" screen
+2. User clicks on the ""Existing"" button
+3. User sees a list of products in their fridge
+4. User clicks on the product ""Eggs""","The announcement for the product ""Eggs"" is published successfully"
+"TC-AnnouncementCreation-064","Create announcement for a new product","Announcement Creation","26,27","User has logged in and has a physical product at home","Product name: ""Bread"", Quantity: 1","1. User navigates to the ""Add Announcement"" screen
+2. User clicks on the ""New"" button","The screen for creating a new product announcement is displayed"
+"TC-AnnouncementCreation-065","Enter product name in announcement creation","Announcement Creation","27","User has clicked on the ""Add New Product"" button","Product name: ""Butter""","1. User clicks on the text field for the product name
+2. User types ""Butter""","The product name ""Butter"" is displayed in the field and saved"
+"TC-AnnouncementCreation-066","Add optional product description in announcement creation","Announcement Creation","27","User has clicked on the ""Add New Product"" button","Description: ""Organic butter, 250g""","1. User clicks on the text field for the product description
+2. User types ""Organic butter, 250g""","The description ""Organic butter, 250g"" is displayed in the field and saved"
+"TC-AnnouncementCreation-067","Add optional product photo in announcement creation","Announcement Creation","28","User has clicked on the ""Add New Product"" button","Photo: Image of butter package","1. User clicks on the ""Add Photo"" button
+2. User selects an image from their device gallery","The selected photo is displayed and associated with the product"
+"TC-FridgeManagement-068","Put product in sale from fridge","Fridge Management","30","User has logged in and has at least one product in their fridge","Product name: ""Yogurt"", Quantity: 6","1. User navigates to the ""Fridge"" section
+2. User selects the product ""Yogurt""
+3. User clicks on the ""Sell"" option","The product ""Yogurt"" is marked as ""In Sale"" and visible in other users' homepages"
+"TC-FridgeManagement-069","Modify product in fridge","Fridge Management","30","User has logged in and has at least one product in their fridge","Product name: ""Apples"", Quantity: 5, New Quantity: 3","1. User navigates to the ""Fridge"" section
+2. User selects the product ""Apples""
+3. User clicks on the ""Modify"" option
+4. User changes the quantity to 3","The product ""Apples"" is updated with the new quantity (3) in the fridge"
+"TC-Homepage-070","Display recommended products on homepage","Homepage","28","Multiple users have added products in sale","None","1. User logs in
+2. User navigates to the homepage","A list of recommended products from other users is displayed on the homepage"
+"TC-FridgeManagement-071","Add Product to Fridge with ""In Sale"" Flag","Fridge Management","31","User is logged in and on the fridge product list screen","Product name: ""Milk"", Expiration date: 2024-12-31, Quantity: 2, ""In sale"" flag: checked","1. Navigate to the ""Add Product"" option in the fridge section
+2. Fill in the product details: name, expiration date, quantity
+3. Check the ""In sale"" checkbox
+4. Confirm the addition by tapping ""Save""","Product ""Milk"" appears in the fridge list with ""In sale"" status, and the database is updated accordingly"
+"TC-FridgeManagement-072","Add Product to Fridge with ""Not in Sale"" Flag","Fridge Management","31","User is logged in and on the fridge product list screen","Product name: ""Bread"", Expiration date: 2024-11-15, Quantity: 1, ""In sale"" flag: unchecked","1. Navigate to the ""Add Product"" option in the fridge section
+2. Fill in the product details: name, expiration date, quantity
+3. Ensure the ""In sale"" checkbox is unchecked
+4. Confirm the addition by tapping ""Save""","Product ""Bread"" appears in the fridge list with ""Not in sale"" status, and the database is updated accordingly"
+"TC-FridgeManagement-073","Modify Existing Product in Fridge","Fridge Management","31","User has added a product (e.g., ""Eggs"") to the fridge and is on the product details screen","Original product: ""Eggs"", Expiration date: 2024-10-10, Quantity: 6; Modified product: Quantity: 4, Expiration date: 2024-10-15","1. Open the product details for ""Eggs""
+2. Select the ""Edit"" option
+3. Update the quantity to 4 and expiration date to 2024-10-15
+4. Confirm changes by tapping ""Save""","Product ""Eggs"" is updated in the fridge list with new quantity and expiration date, and the database reflects these changes"
+"TC-Messaging-074","Send Message to Another User","Messaging","32","User is logged in, has at least one product marked as ""In sale,"" and is on the messaging screen","Recipient: ""UserB"", Message: ""Can you pick up the milk tomorrow?""","1. Navigate to the messaging section
+2. Select ""UserB"" from the contact list
+3. Type the message: ""Can you pick up the milk tomorrow?""
+4. Tap ""Send""","Message is sent to ""UserB,"" and the message is saved in the database for both sender and recipient"
+"TC-TokenManagement-075","Purchase Tokens","Token Management","32","User is logged in, has sufficient balance, and is on the token purchase screen","Token amount: 10","1. Navigate to the token purchase section
+2. Select the amount: 10 tokens
+3. Confirm the purchase","Tokens are deducted from the user's balance (if applicable) and added to the user's token wallet; the transaction is reflected in the database"
+"TC-Notifications-076","Receive Message Received Notification","Notifications","32","User has enabled notifications and another user has sent a message","Sender: ""UserA"", Message: ""Hello, can we discuss the eggs?""","1. ""UserA"" sends a message to the user
+2. Check the notification center","User receives a notification indicating a new message from ""UserA"""
+"TC-Database-077","Verify Firebase Database Security and Reliability","Database","37","Firebase database is initialized and connected to the app","None","1. Attempt to read, write, or delete data from the Firebase database without proper authentication.
+2. Verify that unauthorized access attempts are blocked.
+3. Simulate a network interruption during a database operation (e.g., adding a product).
+4. Check if the app handles the interruption gracefully (e.g., retry mechanism, error message).","1. All unauthorized access attempts are rejected.
+2. No data is altered or exposed without proper authentication.
+3. The app displays an appropriate error message and does not crash.
+4. The operation resumes or completes successfully after reconnection.
+--"
+"TC-Database-078","Verify Product Data Persistence in Firebase","Database","37, 42","User is logged in and has at least one product in the frigorifero","A sample product (e.g., ""Milk"", expiry date: 2024-12-31, quantity: 2)","1. Add a product to the frigorifero via the ""Aggiungi prodotto"" function.
+2. Log out of the app and clear app data (or reinstall the app).
+3. Log back in and navigate to the frigorifero section.
+4. Verify the previously added product is still present.","1. The product is successfully added to the frigorifero and the database.
+2. The product data persists after logout and app data clearance.
+3. The product appears in the frigorifero section upon relogin.
+--"
+"TC-Database-079","Verify Token Credit Updates in Firebase","Database","37","User has a balance of tokens (e.g., 100) in the app","A product priced at 50 tokens","1. Purchase the product using tokens.
+2. Verify the token balance updates in real-time in the app.
+3. Check the Firebase database to confirm the token balance is deducted.","1. The token balance decreases by 50 after purchase.
+2. The updated balance is displayed correctly in the app.
+3. The database reflects the new token balance.
+--"
+"TC-Connectivity-080","Verify App Functionality Without Internet Connection","Connectivity","38","App is installed and user is logged in","None","1. Disable internet connection on the device.
+2. Attempt to perform any app action requiring internet (e.g., add a product, view products, modify a product).
+3. Check if the app displays an error message or disables the functionality.","1. All actions requiring internet fail gracefully.
+2. The app displays a clear error message (e.g., ""No internet connection"").
+3. No crashes or unexpected behavior occur.
+--"
+"TC-Privacy-081","Verify User Data Deletion (Right to Erasure)","Privacy","38","User account exists with personal data, chat history, and at least one product listed for sale","User credentials and product details","1. Navigate to account settings and select the ""Delete Account"" option.
+2. Confirm the deletion request.
+3. Verify the app prompts for final confirmation (e.g., ""Are you sure you want to delete your account?"").
+4. After confirmation, check if all user data (profile, chat history, products) is removed from the app.
+5. Log in to Firebase database and verify the user data is deleted.","1. The app prompts for confirmation before deletion.
+2. All user data, chat history, and products are removed from the app.
+3. The Firebase database no longer contains the user’s data.
+--"
+"TC-Privacy-082","Verify GDPR Compliance in Data Handling","Privacy","38, 39","User is logged in and has provided personal data (e.g., name, email)","User’s personal information","1. Navigate to the profile section and view personal data.
+2. Attempt to export personal data (if applicable) or verify data is stored securely.
+3. Check if the app provides options to correct or delete personal data.
+4. Verify that data is encrypted during transmission and storage.","1. Personal data is displayed securely and can be edited or deleted by the user.
+2. The app does not expose sensitive data unnecessarily.
+3. Data is encrypted in transit and at rest (if applicable).
+--"
+"TC-Performance-083","Verify App Response Time","Performance","39","Device has stable internet connection","None","1. Measure the time taken for the app to load the homepage after login.
+2. Measure the time taken to load a product detail page after selection.
+3. Measure the time taken to add a product to the frigorifero.","1. Homepage loads within 8 seconds.
+2. Product detail page loads within 8 seconds.
+3. Product addition completes within 8 seconds.
+--"
+"TC-Compatibility-084","Verify App Compatibility with Android 10+","Compatibility","39","Android emulator or device with Android 10+","None","1. Install the app on an Android 10+ device/emulator.
+2. Attempt to perform basic actions (e.g., login, navigate to frigorifero, add a product).
+3. Verify the app functions without crashes or compatibility issues.","1. The app installs successfully on Android 10+.
+2. All basic functionalities work as expected.
+3. No compatibility errors or crashes occur.
+--"
+"TC-Compatibility-085","Verify App Disinstallation Leaves No Residual Files","Compatibility","39","App is installed on the device","None","1. Uninstall the app from the device.
+2. Manually check the device storage for leftover files or folders related to the app.
+3. Verify no residual data or cache is left behind.","1. The app uninstalls completely without errors.
+2. No leftover files or folders are found in the device storage.
+--"
+"TC-UserInterface-086","Verify Intuitiveness of Homepage Navigation","User Interface","40","User is logged in and on the homepage","None","1. Observe the homepage layout and available navigation options.
+2. Attempt to access different sections (e.g., frigorifero, product listings) via buttons/icons.
+3. Verify that the navigation is clear and requires minimal user effort.","1. All navigation options are clearly labeled or icon-based.
+2. The user can access all sections without confusion.
+3. No unnecessary steps are required to navigate.
+--"
+"TC-Frigorifero-087","Verify Frigorifero Functionality","Frigorifero","41","User is logged in and on the homepage","None","1. Click the frigorifero icon from the homepage.
+2. Verify the frigorifero page loads with options to manage products.
+3. Attempt to add a product (if no products exist) or verify existing products are displayed.","1. The frigorifero page loads successfully.
+2. Options to manage products (e.g., add, modify, delete) are visible.
+3. Existing products (if any) are displayed correctly.
+--"
+"TC-ProductManagement-088","Verify Product Detail Visualization","Product Management","41","At least one product is listed in the frigorifero or search results","A sample product (e.g., ""Bread"", expiry date: 2024-11-15)","1. Search for the product or navigate to it via the frigorifero.
+2. Click on the product image to view details.
+3. Verify all product information (name, expiry date, description, etc.) is displayed.","1. The product detail page loads successfully.
+2. All product information is displayed accurately.
+3. No errors or missing data are present.
+--"
+"TC-ProductManagement-089","Verify Product Selling Functionality","Product Management","41, 42","User has a product in the frigorifero","A sample product (e.g., ""Eggs"", price: 20 tokens)","1. Navigate to the frigorifero and select the product to sell.
+2. Click the ""Metti in vendita"" (Put up for sale) option.
+3. Fill in the required details (e.g., price, description) and confirm.
+4. Verify the product appears in the ""In vendita"" (For sale) section.","1. The product is successfully put up for sale.
+2. The product details page for sale includes all entered information.
+3. The product is visible in the ""In vendita"" section.
+--"
+"TC-ProductManagement-090","Verify Product Modification","Product Management","42","User has a product in the frigorifero or for sale","A sample product (e.g., ""Cheese"", current price: 30 tokens)","1. Navigate to the product detail page.
+2. Click the ""Modifica"" (Modify) button.
+3. Change one or more details (e.g., price to 25 tokens, description).
+4. Save the changes and verify the updates.","1. The modification page loads with the current product details.
+2. Changes are saved successfully.
+3. The updated details are reflected in the product listing and database.
+--"
+"TC-ProductManagement-091","Verify Product Addition to Frigorifero","Product Management","42","User is on the homepage or frigorifero page","A new product (e.g., ""Yogurt"", expiry date: 2024-12-10)","1. Click the ""+"" button to add a product.
+2. Fill in all required fields (name, expiry date, quantity).
+3. Confirm the addition.
+4. Verify the product appears in the frigorifero.","1. The product addition form loads correctly.
+2. The product is added successfully to the frigorifero.
+3. A confirmation message or notification appears.
+4. The product is visible in the frigorifero section."
+"TC-Frigorifero-092","Remove Product from Fridge List","Frigorifero","43","User is logged in and currently on the fridge page with at least one product listed.","A product already added to the fridge list (e.g., ""Milk"").","1. Locate the product ""Milk"" in the fridge list.
+2. Click the ""Rimuovi"" (Remove) icon/button next to the product.","A visual notification confirming the removal of ""Milk"" appears, and the product is no longer visible in the fridge list."
+"TC-Frigorifero-093","Verify Product Removal from Database","Frigorifero","43","Product ""Milk"" has been removed from the fridge list (TC-FRIGORIFERO-001).","None (system-level check).","1. Log in as another user (if multi-user testing is possible) or verify via backend/database check.","The product ""Milk"" is no longer accessible or visible to any user in the fridge list."
+"TC-Messaggi-094","Open Chat List from Main Page","Messaggi","43","User is on the main page and has at least one chat interaction.","A chat with another user (e.g., ""UserX"").","1. Click the ""Messaggi"" (Messages) icon on the main page.","The list of chats appears, showing ""UserX"" and other interactions."
+"TC-Messaggi-095","Open Selected Chat","Messaggi","43","User is on the chat list page with at least one chat (e.g., ""UserX"").","A chat with ""UserX"" containing messages.","1. Click on the chat with ""UserX"".","The chat page opens, displaying messages exchanged with ""UserX""."
+"TC-CompraToken-096","Navigate to Token Purchase Page","Compra Token","43,44","User is on the main page.","None.","1. Click the ""Token"" icon on the main page.","The token purchase page opens, showing available token options."
+"TC-CompraToken-097","Update User Balance After Token Purchase","Compra Token","44","User is on the token purchase page with a selected token amount (e.g., 10 tokens) and payment successful.","Initial balance: 0 tokens; selected tokens: 10; payment method: valid.","1. Select 10 tokens.
+2. Complete the payment process.","The user’s balance updates to 10 tokens, and the new balance is displayed."
+"TC-Notifiche-098","Display Notification on Event","Notifiche","43","User has an active event triggering a notification (e.g., new message or product sale).","None (system-generated event).","1. Wait for or simulate an event (e.g., a new message arrives).","A notification appears on the screen."
+"TC-Notifiche-099","Open Specific Page from Notification","Notifiche","43","A notification is displayed (e.g., ""New message from UserX"").","A notification with a clickable action.","1. Click the notification.","The relevant page (e.g., chat with ""UserX"") opens."

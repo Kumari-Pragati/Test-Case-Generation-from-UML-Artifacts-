@@ -1,0 +1,47 @@
+flow
+"start -> utente creato? — type=control_flow; label=""""; explanation=""check if user created"""
+"utente creato? -> creazione utente — type=control_flow; label=""""; explanation=""create user if not created"""
+"creazione utente -> creazione corretta? — type=control_flow; label=""""; explanation=""check if user creation correct"""
+"creazione corretta? -> home — type=control_flow; label=""""; explanation=""go to home page if creation correct"""
+"creazione corretta? -> creazione utente — type=control_flow; label=""""; explanation=""retry user creation if incorrect"""
+flow 1: start -> utente creato? -> creazione utente -> creazione corretta? -> home
+flow 2: start -> utente creato? -> creazione utente -> creazione corretta? -> creazione utente
+this activity diagram models the process of accessing a system after user creation.
+"the main flow starts at the initial node ""start,"" checks if a user has been created (""utente creato?""), and proceeds to create a user if necessary (""creazione utente"")."
+"after creating the user, it verifies if the creation was successful (""creazione corretta?"") and navigates to the home page if so."
+"if the user creation fails, it retries the process."
+"key edge cases include the scenario where a user is already created, leading directly to the home page without further action."
+"home -> accesso alla creazione? — type=control_flow; label=""si""; explanation=""yes"""
+"accesso alla creazione? -> creazione commissione? — type=control_flow; label=""si""; explanation=""yes"""
+"creazione commissione? -> creazione commissione — type=control_flow; label=""si""; explanation=""yes"""
+"creazione commissione? -> creazione offerta? — type=control_flow; label=""no""; explanation=""no"""
+"creazione offerta? -> creazione offerta — type=control_flow; label=""si""; explanation=""yes"""
+"creazione offerta? -> creazione corretta? — type=control_flow; label=""no""; explanation=""no"""
+"creazione corretta? -> creazione corretta? — type=control_flow; label=""no""; explanation=""no"""
+"creazione corretta? -> creazione corretta? — type=control_flow; label=""si""; explanation=""yes"""
+flow 1: home -> accesso alla creazione? -> creazione commissione? -> creazione commissione -> creazione corretta? -> creazione corretta?
+flow 2: home -> accesso alla creazione? -> creazione offerta? -> creazione offerta -> creazione corretta? -> creazione corretta?
+the process starts at the home page.
+users can either access commission creation or offer creation.
+each creation process includes a check for correctness.
+there are two main paths: one for commission creation and one for offer creation.
+a loop exists for checking the correctness of the created item.
+"home -> accesso ad ""menu""? — type=transition; label=""si""; explanation=""yes"""
+"home -> accesso ad ""menu""? — type=transition; label=""no""; explanation=""no"""
+"accesso ad ""menu""? -> accesso a profilo? — type=transition; label=""si""; explanation=""yes"""
+"accesso ad ""menu""? -> accesso a profilo? — type=transition; label=""no""; explanation=""no"""
+"accesso a profilo? -> informazioni profilo — type=transition; label=""si""; explanation=""yes"""
+"accesso a profilo? -> accesso a guida? — type=transition; label=""no""; explanation=""no"""
+"accesso a guida? -> guida — type=transition; label=""si""; explanation=""yes"""
+"accesso a guida? -> - none — type=transition; label=""no""; explanation=""no"""
+"flow 1: home -> accesso ad ""menu""? -> accesso a profilo? -> informazioni profilo"
+"flow 2: home -> accesso ad ""menu""? -> accesso a profilo? -> accesso a guida? -> guida"
+this activity diagram models a menu navigation process.
+the user starts at the home action.
+the first decision checks for access to the menu.
+"if access is granted, it proceeds to check for profile access."
+"if profile access is granted, it displays profile information."
+"if profile access is denied, it checks for guide access."
+"if guide access is granted, it displays the guide."
+"if neither profile nor guide access is granted, the process ends without displaying any content."
+======================================================================

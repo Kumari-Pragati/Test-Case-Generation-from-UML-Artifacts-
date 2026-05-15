@@ -1,0 +1,55 @@
+{
+  "file_path": "/content/drive/MyDrive/All_Code_Files_1/Code_File2/Ecodriving/app/src/main/java/com/example/ecodriving/MainActivity.java",
+  "rel_file": "Ecodriving/app/src/main/java/com/example/ecodriving/MainActivity.java",
+  "language": "java",
+  "stats": {
+    "classes": 1,
+    "methods": 1,
+    "ui": 1
+  },
+  "classes": [
+    {
+      "language": "java",
+      "kind": "class",
+      "name": "MainActivity",
+      "signature": "MainActivity",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/MainActivity.java",
+      "start_line": 16,
+      "end_line": 16,
+      "modifiers": [],
+      "is_testable": false,
+      "evidence": "class MainActivity"
+    }
+  ],
+  "methods": [
+    {
+      "language": "java",
+      "kind": "method",
+      "name": "onCreate",
+      "signature": "protected void onCreate(Bundle savedInstanceState) {         super.onCreate(savedInstanceState);          binding = ActivityMainBinding.inflate(getLayoutInflater());         setContentView(binding.getRoot());         getWindow().addFlags(WindowManager.Lay",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/MainActivity.java",
+      "start_line": 20,
+      "end_line": 20,
+      "modifiers": [
+        "protected"
+      ],
+      "is_testable": true,
+      "evidence": "protected void onCreate(Bundle savedInstanceState) {         super.onCreate(savedInstanceState);          binding = ActivityMainBinding.inflate(getLayoutInflate"
+    }
+  ],
+  "ui_actions": [
+    {
+      "language": "java",
+      "kind": "ui_component",
+      "name": "nav_view",
+      "signature": "findViewById",
+      "file": "Ecodriving/app/src/main/java/com/example/ecodriving/MainActivity.java",
+      "start_line": 27,
+      "end_line": 27,
+      "modifiers": [],
+      "is_testable": true,
+      "evidence": "BottomNavigationView navView = findViewById(R.id.nav_view);"
+    }
+  ],
+  "code_preview": "package com.example.ecodriving;\n\nimport android.os.Bundle;\nimport android.view.WindowManager;\n\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\n\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.navigation.NavController;\nimport androidx.navigation.Navigation;\nimport androidx.navigation.ui.AppBarConfiguration;\nimport androidx.navigation.ui.NavigationUI;\n\nimport com.example.ecodriving.databinding.ActivityMainBinding;\n\npublic class MainActivity extends AppCompatActivity {\n\n    private ActivityMainBinding binding;\n    public static String ip = \"192.168.1.4\";\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n\n        binding = ActivityMainBinding.inflate(getLayoutInflater());\n        setContentView(binding.getRoot());\n        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);\n        BottomNavigationView navView = findViewById(R.id.nav_view);\n        // Passing each menu ID as a set of Ids because each\n        // menu should be considered as top level destinations.\n        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(\n                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)\n                .build();\n        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);\n        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);\n        NavigationUI.setupWithNavController(binding.navView, navController);\n    }\n\n}"
+}

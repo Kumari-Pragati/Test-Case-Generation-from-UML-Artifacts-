@@ -1,0 +1,234 @@
+REPORT: Report_29_uml_pages.pdf
+======================================================================
+
+===== Report_29_uml_pages.pdf | Page 1 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **Start**: kind=Start; attributes=[]; operations=[]; role=Start
+* **Utente registrato con successo**: kind=Utente registrato con successo; attributes=[]; operations=[]; role=Utente registrato con successo
+* **Utente registrato?**: kind=Utente registrato?; attributes=[]; operations=[]; role=Utente registrato?
+* **Creazione di un nuovo utente**: kind=Creazione di un nuovo utente; attributes=[]; operations=[]; role=Creazione di un nuovo utente
+* **Homepage**: kind=Homepage; attributes=[]; operations=[]; role=Homepage
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Start -> Utente registrato con successo — type=No; label=NO; explanation=No
+* Utente registrato con successo -> Utente registrato? — type=Yes; label=SI; explanation=Yes
+* Utente registrato? -> Creazione di un nuovo utente — type=No; label=NO; explanation=No
+* Creazione di un nuovo utente -> Homepage — type=No; label=NO; explanation=No
+
+**Main Flows:**
+
+* Flow 1: Start -> Utente registrato con successo -> Utente registrato? -> Creazione di un nuovo utente -> Homepage
+
+**Conditions / Branches:**
+
+* Utente registrato con successo: NO
+* Utente registrato?: NO
+* Creazione di un nuovo utente: NO
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of user registration and creation of a new user.
+* The main flows represent the sequence of events from starting the process to creating a new user.
+* The conditions/branches are based on the user's registration status and the creation of a new user.
+* There are no loops or repetitions in the process.
+
+===== Report_29_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Home**: kind=menu; attributes=[a: none]; operations=[Click sui menù laterale: None]; role=main menu
+* **Click sui menù laterale**: kind=button; attributes=[a: none]; operations=[Click 'Homepage': None]; role=menu item
+* **Click 'Homepage'**: kind=page; attributes=[a: none]; operations=[Click 'Le mie segnalazioni': None]; role=page
+* **Click 'Le mie segnalazioni'**: kind=button; attributes=[a: none]; operations=[Click 'Impostazioni': None]; role=menu item
+* **Click 'Impostazioni'**: kind=page; attributes=[a: none]; operations=[Chiusura menù e apertura movva schemata: None]; role=page
+
+**Actors / Lifelines:**
+
+* **User**: None
+
+**Relationships / Links:**
+
+* **Home** -> **Click sui menù laterale** — type=association; label="Click sui menù laterale"; explanation="Navigate to menu"
+* **Click sui menù laterale** -> **Click 'Homepage'** — type=association; label="Click 'Homepage'"; explanation="Select homepage"
+* **Click 'Homepage'** -> **Click 'Le mie segnalazioni'** — type=association; label="Click 'Le mie segnalazioni'"; explanation="Select my signals"
+* **Click 'Le mie segnalazioni'** -> **Click 'Impostazioni'** — type=association; label="Click 'Impostazioni'"; explanation="Select settings"
+* **Click 'Impostazioni'** -> **Chiusura menù e apertura movva schemata** — type=association; label="Chiusura menù e apertura movva schemata"; explanation="Close menu and open schema"
+
+**Main Flows:**
+
+* Flow 1: Home -> Click sui menù laterale -> Click 'Homepage' -> Click 'Le mie segnalazioni' -> Click 'Impostazioni' -> Chiusura menù e apertura movva schemata
+
+**Conditions / Branches:**
+
+* **Click 'Le mie segnalazioni'** -> No: SI -> Click 'Impostazioni'
+* **Click 'Impostazioni'** -> No: SI -> Chiusura menù e apertura movva schemata
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a user navigating through a menu to reach a specific page.
+* The user can select different menu items to access various pages.
+* The user can also choose to close the menu and open a schema.
+* The diagram does not show any error paths or edge cases.
+
+===== Report_29_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Add Alert: kind=Add Alert; attributes=[Click 'Add Alert' nei menù laterale]; operations=[Add Alert]; role=Add Alert
+* Click 'Add Category': kind=Click 'Add Category'; attributes=[Apertura elenco categorie]; operations=[Click 'Add Category']; role=Click 'Add Category'
+* Apertura elenco categorie: kind=Apertura elenco categorie; attributes=[]; operations=[]; role=Apertura elenco categorie
+
+**Actors / Lifelines:**
+
+* User
+* System
+
+**Relationships / Links:**
+
+* Add Alert -> Click 'Add Category' — type=Add Alert; label=Add Alert; explanation=Add Alert
+* Click 'Add Category' -> Apertura elenco categorie — type=Click 'Add Category'; label=Click 'Add Category'; explanation=Click 'Add Category'
+* Apertura elenco categorie -> Add Alert — type=Apertura elenco categorie; label=Apertura elenco categorie; explanation=Apertura elenco categorie
+
+**Main Flows:**
+
+* Flow 1: Add Alert -> Click 'Add Category' -> Apertura elenco categorie -> Add Alert
+
+**Conditions / Branches:**
+
+* I primi 4 campi sono stati compilati correttamente? -> I primi 4 campi sono stati compilati correttamente? -> Compilare i primi 4 campi correttamente
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of actions performed by the user and the system.
+* The main flow represents the correct sequence of events.
+* The condition "I primi 4 campi sono stati compilati correttamente?" is a decision point that branches to either "Compilare i primi 4 campi correttamente" or the end of the sequence.
+
+===== Report_29_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **View Alerts**: kind=View; attributes=[a: View,...]; operations=[ViewAlerts(): None]; role=Alerts Viewer
+*   **Tutte le segnalazioni**: kind=All Alerts; attributes=[a: Alert,...]; operations=[GetAllAlerts(): None]; role=All Alerts
+*   **Una segnalazione**: kind=One Alert; attributes=[a: Alert,...]; operations=[GetOneAlert(): None]; role=One Alert
+
+**Actors / Lifelines:**
+
+*   **User**
+*   **System**
+
+**Relationships / Links:**
+
+*   **View Alerts** -> **Tutte le segnalazioni** — type=View; label="View All Alerts"; explanation="View all alerts"
+*   **Tutte le segnalazioni** -> **Una segnalazione** — type=Get; label="Get One Alert"; explanation="Get one alert"
+*   **Una segnalazione** -> **View Alerts** — type=View; label="View One Alert"; explanation="View one alert"
+
+**Main Flows:**
+
+*   **Flow 1:** View Alerts -> View All Alerts -> Get One Alert -> View One Alert
+
+**Conditions / Branches:**
+
+*   **View All Alerts** -> **Get One Alert** — condition="User selects one alert"; label="Select One Alert"; explanation="Select one alert"
+*   **Get One Alert** -> **View One Alert** — condition="System returns one alert"; label="Return One Alert"; explanation="Return one alert"
+
+**Loops / Repetitions:**
+
+*   **View All Alerts** -> **View All Alerts** — loop="User views all alerts repeatedly"; label="View All Alerts"; explanation="View all alerts repeatedly"
+
+**Notes / Annotations:**
+
+*   **View All Alerts** has a "View" operation to view all alerts.
+*   **Get One Alert** has a "Get" operation to get one alert.
+*   **View One Alert** has a "View" operation to view one alert.
+
+**Observations:**
+
+*   The diagram models the process of viewing all alerts and getting one alert.
+*   The user can view all alerts and select one to get it.
+*   The system returns one alert to the user.
+*   The user can view one alert repeatedly.
+
+===== Report_29_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Profile - kind=Profile; attributes=[menu laterale: menu; Profile: Profile]; operations=[Click "Profile" nel menu laterale: Profile]; role=Profile
+* Profile - kind=Profile; attributes=[menu laterale: menu; Profile: Profile]; operations=[Click su icona blu della casa: Profile]; role=Profile
+* Profile - kind=Profile; attributes=[menu laterale: menu; Profile: Profile]; operations=[Passa alla schermata delle abitazioni: Profile]; role=Profile
+
+**Actors / Lifelines:**
+
+* Profile
+* Profile
+* Profile
+
+**Relationships / Links:**
+
+* Profile -> Profile — type=association; label="Profile"; explanation="Click 'Profile' nel menu laterale"
+* Profile -> Profile — type=association; label="Profile"; explanation="Click su icona blu della casa"
+* Profile -> Profile — type=association; label="Profile"; explanation="Passa alla schermata delle abitazioni"
+* Profile -> Profile — type=association; label="Profile"; explanation="I campi sono correttamente compilati?"
+* Profile -> Profile — type=association; label="Profile"; explanation="Salva le modifiche oppure scartale"
+* Profile -> Profile — type=association; label="Profile"; explanation="Correggere i dati"
+
+**Main Flows:**
+
+* Flow 1: Click 'Profile' nel menu laterale -> Profile -> Click su icona blu della casa -> Passa alla schermata delle abitazioni -> I campi sono correttamente compilati? -> Salva le modifiche oppure scartale -> Correggere i dati
+
+**Conditions / Branches:**
+
+* I campi sono correttamente compilati? -> SI -> Salva le modifiche oppure scartale
+* I campi sono correttamente compilati? -> No -> Correggere i dati
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of creating a profile, which involves clicking on the profile in the lateral menu, clicking on the blue icon of the house, passing to the abitazioni screen, and then saving or discarding the changes.
+* The flow is a sequence of actions that lead to a decision point where the user is asked if the fields are correctly filled in.
+* If the fields are correct, the user can save the changes or discard them; if not, they are asked to correct the data.
+
+
+======================================================================

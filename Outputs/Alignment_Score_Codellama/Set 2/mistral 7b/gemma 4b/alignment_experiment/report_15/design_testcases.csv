@@ -1,0 +1,44 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login","Login","3","User has a valid account.","Valid email and password.","1. User enters email and password.
+2. User clicks the ""Login"" button.
+3. The system verifies the email and password.","User is logged in and redirected to the main page."
+"TC-Login-002","Invalid Email","Login","3","User has a valid account.","Invalid email.","1. User enters an invalid email.
+2. User clicks the ""Login"" button.
+3. The system displays an error message.","The system does not log in the user and displays an error message."
+"TC-Login-003","Invalid Password","Login","3","User has a valid account.","Invalid password.","1. User enters a valid email and an invalid password.
+2. User clicks the ""Login"" button.
+3. The system displays an error message.","The system does not log in the user and displays an error message."
+"TC-Upload-001","Successful Upload and Identification","Upload","4, 5","User is logged in.","A valid plant photo.","1. User selects a photo.
+2. The system sends the photo to the Gemini AI API for identification.
+3. The Gemini AI API identifies the plant species.
+4. The system stores the identified species in Firebase Storage.
+5. The system downloads the original photo with its URL.","The system stores the identified plant species and the original photo in the user's personal storage."
+"TC-Upload-002","Invalid Photo","Upload","4, 5","User is logged in.","An invalid plant photo (e.g., not a photo, too large, or corrupted).","1. User selects an invalid plant photo.
+2. The system sends the photo to the Gemini AI API for identification.
+3. The Gemini AI API fails to identify the plant species.","The system displays an error message and does not store the photo or the identified species."
+"TC-View-001","View Personal Storage","View","5","User is logged in.","None.","1. User navigates to the personal storage page.
+2. The system displays the user's personal storage.","The system displays the user's personal storage, including the photos and their associated plant species."
+"TC-View-002","View Non-Existent Storage","View","5","User is logged in.","A non-existent storage path.","1. User navigates to a non-existent storage path.
+2. The system displays an error message.","The system displays an error message."
+"TC-View-003","View Empty Storage","View","5","User is logged in.","An empty personal storage.","1. User navigates to the personal storage page.
+2. The system displays the user's personal storage.","The system displays an empty personal storage."
+"TC-DataManager-001","Successful Plant Insertion","DataManager","1","User is logged in.","A valid plant species and a valid diary entry.","1. User navigates to the plant insertion page.
+2. User enters the plant species and diary entry.
+3. The system inserts the plant and diary data.","The system inserts the plant and diary data into the database."
+"TC-DataManager-002","Invalid Plant Insertion","DataManager","1","User is logged in.","An invalid plant species or an empty diary entry.","1. User navigates to the plant insertion page.
+2. User enters invalid plant data or an empty diary entry.
+3. The system displays an error message.","The system does not insert the plant and diary data into the database and displays an error message."
+"TC-DataManager-003","Successful Diary Insertion","DataManager","1","User is logged in.","A valid diary entry.","1. User navigates to the diary insertion page.
+2. User enters the diary entry.
+3. The system inserts the diary data.","The system inserts the diary data into the database."
+"TC-DataManager-004","Invalid Diary Insertion","DataManager","1","User is logged in.","An invalid diary entry.","1. User navigates to the diary insertion page.
+2. User enters an invalid diary entry.
+3. The system displays an error message.","The system does not insert the diary data into the database and displays an error message."
+"TC-DataManager-005","Successful Plant Reading","DataManager","1","User is logged in.","None.","1. User navigates to the plant reading page.
+2. The system displays the user's plants.","The system displays the user's plants."
+"TC-DataManager-006","Successful Diary Reading","DataManager","1","User is logged in.","None.","1. User navigates to the diary reading page.
+2. The system displays the user's diary entries.","The system displays the user's diary entries."
+"TC-DataManager-007","Empty Plant Reading","DataManager","1","User is logged in.","None.","1. User navigates to the plant reading page.
+2. The system displays an empty list.","The system displays an empty list."
+"TC-DataManager-008","Empty Diary Reading","DataManager","1","User is logged in.","None.","1. User navigates to the diary reading page.
+2. The system displays an empty list.","The system displays an empty list."

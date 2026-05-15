@@ -1,0 +1,156 @@
+REPORT: Report_31_uml_pages.pdf
+======================================================================
+
+===== Report_31_uml_pages.pdf | Page 1 =====
+**UML Type:** 
+- **Component**
+
+**Components:**
+- **Firebase**
+  - kind: component
+  - attributes: Realtime database, Authentication, Firebase database
+  - operations: None
+  - role: Data storage and authentication management
+
+**Actors / Lifelines:**
+- **Local user**
+- **Data organizer**
+
+**Relationships / Links:**
+- **Data display** -> **Local user** — type=association; label="Data display"; explanation="User displays data"
+- **Data organizer** -> **Firebase** — type=association; label="Data organizer"; explanation="Organizer manages data"
+- **Local user** -> **Data organizer** — type=association; label="User interaction"; explanation="User interacts with organizer"
+
+**Main Flows:**
+- **Flow 1:** Local user -> Data display -> Data organizer -> Firebase -> Realtime database -> Authentication -> Firebase database
+
+**Conditions / Branches:**
+- **Data display** -> **Data organizer** (if data is valid)
+- **Data organizer** -> **Firebase** (if data is valid)
+
+**Loops / Repetitions:**
+- None
+
+**Notes / Annotations:**
+- None
+
+**Observations:**
+- The diagram models a system for managing and storing data.
+- The main flow involves a user interacting with a data organizer, which then stores the data in a Firebase database.
+- The system ensures data security through authentication and control over access.
+
+===== Report_31_uml_pages.pdf | Page 2 =====
+**UML Type:** Class
+
+**Components:**
+
+* Chat
+  - kind: class
+  - attributes: id (int), user1 (FK <<User>>, FK <<User>>, user2 (FK <<User>>)
+  - operations: None
+  - role: Chat
+
+* User
+  - kind: class
+  - attributes: nickname (string), password (string), pos_lat (float), pos_lon (float), tokens (site), site (float)
+  - operations: None
+  - role: User
+
+* Message
+  - kind: class
+  - attributes: id (int), chat_id (FK <<Chat>>, receiver (FK <<User>>, data (timestamp), text (string)
+  - operations: None
+  - role: Message
+
+* Fridge
+  - kind: class
+  - attributes: id (int), name (str), str (int), sale (bool), obe (nickname), FK <<User>>
+  - operations: None
+  - role: Fridge
+
+* Post
+  - kind: class
+  - attributes: id (int), nickname (FK <<User>>, fridge (FK <<Fridge>>, sty (int), cont (int)
+  - operations: None
+  - role: Post
+
+**Actors / Lifelines:**
+
+* User1
+* User2
+
+**Relationships / Links:**
+
+* Chat -> User — type: association; label: "FK <<Chat>>"; explanation: "User is associated with Chat"
+* User -> Message — type: association; label: "FK <<User>>"; explanation: "User is associated with Message"
+* User -> Fridge — type: association; label: "FK <<User>>"; explanation: "User is associated with Fridge"
+* Post -> Fridge — type: association; label: "FK <<Fridge>>"; explanation: "Post is associated with Fridge"
+* Chat -> User1 — type: association; label: "FK <<User>>"; explanation: "User1 is associated with Chat"
+* Chat -> User2 — type: association; label: "FK <<User>>"; explanation: "User2 is associated with Chat"
+
+**Main Flows:**
+
+* Flow 1: User -> Message -> Fridge -> Post -> User -> Chat -> User1 -> User2
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a simple chat system where users can send messages to each other, which are stored in a fridge.
+* The system has a one-to-many relationship between users and messages, and a many-to-one relationship between users and fridges.
+* The system has a one-to-one relationship between posts and fridges.
+* The system has a many-to-many relationship between users and chats.
+
+===== Report_31_uml_pages.pdf | Page 3 =====
+**UML Type:** Activity
+
+**Components:**
+
+*   **ChangeFragment0**: kind=Change; attributes=[a: Fragment]; operations=[Change(): void]; role=Change Fragment
+*   **RimuoviProdotto0**: kind=Rimovimento; attributes=[a: Product]; operations=[Rimuovi(): void]; role=Rimovimento
+*   **FirebaseDatabase**: kind=Database; attributes=[a: Data]; operations=[Get(): Data]; role=Database
+
+**Actors / Lifelines:**
+
+*   - None
+
+**Relationships / Links:**
+
+*   **ChangeFragment0** -> **RimuoviProdotto0** — type=Association; label="Change"; explanation="Change Fragment"
+*   **RimuoviProdotto0** -> **FirebaseDatabase** — type=Association; label="Rimuovi"; explanation="Rimovimento"
+
+**Main Flows:**
+
+*   Flow 1: ChangeFragment0 -> Change -> RimuoviProdotto0 -> Rimuovi -> FirebaseDatabase
+
+**Conditions / Branches:**
+
+*   - None
+
+**Loops / Repetitions:**
+
+*   - None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a process of changing a fragment and then removing a product from a database.
+*   The main flow involves changing a fragment, which leads to removing a product from the database.
+*   There are no visible conditions or branches in the diagram.
+*   The process does not involve any loops or repetitions.
+
+
+======================================================================

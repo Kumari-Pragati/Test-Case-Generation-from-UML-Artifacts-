@@ -1,0 +1,103 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login flow,Authentication,1,"- Device has internet connectivity.
+- User is on `MainActivity` (not logged in).","- Valid email: `testuser@example.com`
+- Valid password: `SecurePass123!`
+- Confirm password: `SecurePass123!`","1. User clicks **""Sign Up""** button in `MainActivity`.
+2. User enters `testuser@example.com` in email field.
+3. User enters `SecurePass123!` in password field.
+4. User re-enters `SecurePass123!` in confirm password field.
+5. User clicks **""Sign Up""** button in `SignUpActivity`.
+6. System redirects to `MainActivity` (login screen).
+7. User enters `testuser@example.com` and `SecurePass123!` in login fields.
+8. User clicks **""Login""** button.","- Registration succeeds (no errors).
+- JWT token and cookies are stored (`jh` and `ch` helpers update).
+- User is redirected to `DashboardActivity`.
+- Login succeeds; user sees dashboard UI."
+TC-AUTHENTICATION-002,Failed registration due to invalid email format,Authentication,1,"- Device has internet connectivity.
+- User is on `SignUpActivity`.","- Invalid email: `testuser@example` (missing `.com`)
+- Valid password: `SecurePass123!`","1. User enters `testuser@example` in email field.
+2. User enters `SecurePass123!` in password field.
+3. User re-enters `SecurePass123!` in confirm password field.
+4. User clicks **""Sign Up""** button.","- System shows error message: *""Invalid email format.""*
+- User remains on `SignUpActivity`.
+- No registration occurs."
+TC-AUTHENTICATION-003,Failed login with incorrect password,Authentication,1,"- User `testuser@example.com` exists (registered in TC-001).
+- User is on `MainActivity` (login screen).","- Email: `testuser@example.com`
+- Invalid password: `WrongPass123!`","1. User enters `testuser@example.com` in email field.
+2. User enters `WrongPass123!` in password field.
+3. User clicks **""Login""** button.","- System shows error message: *""Invalid email or password.""*
+- User remains on `MainActivity`.
+- No navigation to `DashboardActivity`."
+TC-NAVIGATION-001,Navigation from `MainActivity` to `UserListActivity` after login,Navigation,1,"- User is logged in (on `DashboardActivity`).
+- `CookieHelper` and `JwtHelper` are initialized with valid tokens.",,"1. User clicks **""User List""** button in `DashboardActivity`.
+2. System navigates to `UserListActivity`.
+3. `loadUsers()` is called automatically.","- `UserListActivity` loads successfully.
+- `RecyclerView` populates with a list of users (empty or populated).
+- No crashes or permission errors."
+TC-WEATHER-001,"Display current weather after clicking ""weather"" button",Weather,"2, 4","- User is on `Home` page (assumed part of `DashboardActivity`).
+- Device has location permissions granted.
+- Internet connectivity is available.",,"1. User clicks **""weather""** button on `Home` page.
+2. System displays **""Visualizzazione meteo della località attuale""** (current weather).
+3. Weather data (e.g., temperature: 22°C, conditions: ""Sunny"") is shown.","- Current weather data is fetched and displayed correctly.
+- UI shows temperature, conditions, and location (e.g., ""Rome, Italy"").
+- No errors or loading timeouts."
+TC-WEATHER-002,Search weather for another location after zoom decision,Weather,"2, 4","- Current weather is displayed (from TC-WEATHER-001).
+- User clicks the **""lente d'ingrandimento""** (magnifying glass) icon.",,"1. User clicks **""lente d'ingrandimento""** (zoom decision).
+2. System shows **""SI""** (Yes) branch option.
+3. User selects **""Ricerca meteo di altre località""**.
+4. User enters ""New York"" in search field.
+5. System displays weather for ""New York"" (e.g., 18°C, ""Cloudy"").","- Search functionality works.
+- Weather data for ""New York"" is fetched and displayed.
+- UI updates to show new location’s weather."
+TC-WEATHER-003,No action after declining zoom decision,Weather,2,- Current weather is displayed (from TC-WEATHER-001).,,"1. User clicks **""lente d'ingrandimento""** (zoom decision).
+2. User selects **""NO""** (No) branch.","- System returns to **""Visualizzazione meteo della località attuale""** (no navigation).
+- Current weather data remains unchanged."
+TC-WEATHER-004,Failed weather data fetch due to no internet,Weather,"2, 4","- Device has **no internet connectivity**.
+- User is on `Home` page.",,"1. User clicks **""weather""** button.
+2. System attempts to fetch weather data.","- Error message: *""Unable to fetch weather. Check your connection.""*
+- User remains on `Home` page.
+- No crash or unexpected behavior."
+TC-TREKKING-001,Successful province and route selection flow,Trekking,3,"- User clicks **""Trekking""** option in app.
+- Internet connectivity is available.",,"1. User clicks **""Trekking""** button.
+2. Application requests **""elenco province""** from server.
+3. Server responds with provinces: `[Piemonte, Lombardia, Toscana]`.
+4. User selects **""Piemonte""**.
+5. Application requests **""elenco percorsi""** for Piemonte.
+6. Server responds with routes: `[Monte Rosa, Gran Paradiso]`.
+7. User selects **""Monte Rosa""**.","- List of provinces is displayed and selectable.
+- After selecting Piemonte, list of routes appears.
+- Route details for ""Monte Rosa"" are shown (e.g., difficulty, distance).
+- No errors during server interactions."
+TC-TREKKING-002,Failed province fetch due to server error,Trekking,3,"- User clicks **""Trekking""** button.
+- Server returns **500 Internal Error** for province list.",,"1. User clicks **""Trekking""**.
+2. Application requests province list.
+3. Server returns error response.","- Error message: *""Failed to load provinces. Please try again.""*
+- User remains on trekking screen.
+- No crash; retry option is available."
+TC-HEALTH-001,Successful retrieval of past training data,Health,5,"- User clicks **""Health""** option.
+- User has past training data on server.
+- Internet connectivity is available.",,"1. User clicks **""Health""** button.
+2. Application requests **""dati allenamenti passati""** from server.
+3. Server responds with data: `[Run 5km, 2023-10-01], [Yoga, 2023-10-02]`.
+4. Application displays training list.","- List of past trainings is shown with dates and types.
+- UI is scrollable and readable.
+- No errors."
+TC-HEALTH-002,Empty training list when no data exists,Health,5,"- User clicks **""Health""** option.
+- Server returns empty training list.",,"1. User clicks **""Health""**.
+2. Application requests training data.
+3. Server responds with empty list.","- UI displays: *""No past trainings found.""*
+- No errors or crashes."
+TC-HEALTH-003,Failed health data fetch due to authentication issue,Health,5,"- User’s JWT token is **expired/invalid**.
+- User clicks **""Health""**.",,"1. User clicks **""Health""**.
+2. Application requests training data with invalid token.
+3. Server returns **401 Unauthorized**.","- Error message: *""Session expired. Please log in again.""*
+- User is redirected to `MainActivity` login screen.
+- No data is displayed."
+TC-INTEGRATION-001,End-to-end flow: Sign up → Login → Weather → Trekking,Integration,"1, 2, 3, 4","- Fresh device (no existing accounts).
+- Internet connectivity.",,"1. **Sign Up**: Register new user (`newuser@example.com`, `Pass123!`).
+2. **Login**: Log in with credentials.
+3. **Weather**: Click ""weather"" → View current weather → Search ""Paris"".
+4. **Trekking**: Click ""Trekking"" → Select ""Lazio"" → Select ""Terminillo"".","- All steps complete without errors.
+- JWT/Cookies persist across activities.
+- Weather and trekking data loads correctly.
+- Navigation between activities is smooth."

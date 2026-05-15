@@ -1,0 +1,101 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- Firebase Authentication service is active.
+- User account exists with valid email/password.","- Email: `user@example.com`
+- Password: `securePassword123`","1. MAIN calls `signInWithEmailAndPassword(""user@example.com"", ""securePassword123"")`.
+2. FIREBASE AUTHENTICATION processes the request and returns a non-error response.
+3. MAIN checks `Response != Error` and proceeds.
+4. MAIN creates a device token.","- FirebaseUser object is returned successfully.
+- Device token is generated and stored."
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,2,"- Firebase Authentication service is active.
+- User account exists with valid email but incorrect password.","- Email: `user@example.com`
+- Password: `wrongPassword`","1. MAIN calls `signInWithEmailAndPassword(""user@example.com"", ""wrongPassword"")`.
+2. FIREBASE AUTHENTICATION returns an error response.
+3. MAIN checks `Response != Error` and fails.","- No FirebaseUser is returned.
+- Device token is **not** created.
+- Error message is displayed (e.g., ""Invalid credentials"")."
+TC-AUTHENTICATION-003,Failed login with empty email,Authentication,"2, 3",- Firebase Authentication service is active.,"- Email: (empty)
+- Password: `securePassword123`","1. MAIN attempts to call `signInWithEmailAndPassword("""", ""securePassword123"")`.
+2. Validation check `email.isEmpty()` fails (implicit in Firebase or MAIN logic).","- No request is sent to FIREBASE AUTHENTICATION.
+- Error message: ""Email is required."""
+TC-REGISTRATION-001,Successful user registration with valid data,User Registration,3,- Firebase Authentication and Realtime Database are active.,"- Email: `newuser@example.com`
+- Password: `newSecurePass123`
+- UserID: `U12345`
+- HashMap: `{Username: ""TestUser"", Email: ""newuser@example.com"", Punti: 0}`","1. MAIN validates `email.isEmpty()` and `password.length() >= 8` (passes).
+2. MAIN calls `CreateUserWithEmailAndPassword(""newuser@example.com"", ""newSecurePass123"")`.
+3. FIREBASE AUTHENTICATION returns a non-error response.
+4. MAIN stores user data via `db.child(""U12345"").setValue(HashMap)`.
+5. Database confirms successful storage (`Response != Error`).
+6. MAIN logs in the user (`login FirebaseUser`).","- User account is created in Firebase Authentication.
+- User data is persisted in Realtime Database.
+- FirebaseUser is returned and logged in."
+TC-REGISTRATION-002,Failed registration due to weak password,User Registration,3,- Firebase Authentication is active.,"- Email: `newuser@example.com`
+- Password: `weak` (length < 8)","1. MAIN validates `password.length() < 8` (fails).
+2. MAIN does **not** call `CreateUserWithEmailAndPassword`.","- No user is created.
+- Error message: ""Password must be at least 8 characters."""
+TC-REGISTRATION-003,Failed registration due to empty email,User Registration,3,- Firebase Authentication is active.,"- Email: (empty)
+- Password: `securePassword123`","1. MAIN validates `email.isEmpty()` (fails).
+2. MAIN does **not** call `CreateUserWithEmailAndPassword`.","- No user is created.
+- Error message: ""Email is required."""
+TC-REGISTRATION-004,Failed database storage after successful user creation,User Registration,"3, 4","- Firebase Authentication is active.
+- Realtime Database is active but misconfigured (simulate failure).","- Email: `newuser@example.com`
+- Password: `securePassword123`
+- UserID: `U12345`
+- HashMap: `{Username: ""TestUser"", Email: ""newuser@example.com"", Punti: 0}`","1. MAIN validates inputs (passes).
+2. MAIN calls `CreateUserWithEmailAndPassword` → successful response.
+3. MAIN attempts `db.child(""U12345"").setValue(HashMap)`.
+4. Database returns an error (`Response == Error`).","- User is created in Firebase Authentication.
+- User data is **not** stored in Realtime Database.
+- Error message: ""Failed to save user data. Please try again."""
+TC-DATA-PERSISTENCE-001,Successful mission completion update,Data Persistence,4,"- User is logged in (`FirebaseUser` exists).
+- Realtime Database is active.","- UserID: `U12345`
+- MissionID: `M67890`
+- HashMap: `{Superato: true, Punti: 100}`","1. MAIN converts HashMap to JSON.
+2. MAIN sends a `PUT` request to `REALTIME DATABASE` with the JSON payload.
+3. Database processes the request and returns an asynchronous success response.","- Mission `M67890` is marked as `Superato: true` for user `U12345`.
+- User’s `Punti` is updated to `100`.
+- MAIN receives asynchronous confirmation."
+TC-DATA-PERSISTENCE-002,Failed mission completion due to invalid JSON,Data Persistence,4,"- User is logged in.
+- Realtime Database is active.","- UserID: `U12345`
+- MissionID: `M67890`
+- HashMap: `{InvalidKey: ""value""}` (malformed)","1. MAIN converts malformed HashMap to JSON.
+2. MAIN sends the `PUT` request.
+3. Database returns an error response.","- No data is updated in the database.
+- Error message: ""Invalid data format. Mission not updated."""
+TC-DATA-RETRIEVAL-001,Successful mission data retrieval via event listener,Data Retrieval,5,"- Realtime Database contains mission data for `Mission*`.
+- User is logged in.",,"1. MAIN calls `addValueEventListener(Mission*)` on FIREBASE SDK.
+2. FIREBASE SDK forwards the request to `REALTIME DATABASE`.
+3. Database returns mission data (e.g., `{id: ""M1"", Titolo: ""Test Mission"", Superato: false}`).
+4. FIREBASE SDK triggers `onDataChange()` with the data.
+5. MAIN receives the updated mission list.","- MAIN displays the mission list with correct attributes (`Titolo`, `Superato`).
+- No errors occur."
+TC-DATA-RETRIEVAL-002,Failed mission data retrieval due to network issue,Data Retrieval,5,"- Realtime Database is unreachable (simulated network error).
+- User is logged in.",,"1. MAIN calls `addValueEventListener(Mission*)`.
+2. FIREBASE SDK fails to connect to `REALTIME DATABASE`.
+3. Timeout occurs after 10 seconds.","- MAIN displays an error: ""Failed to load missions. Check your connection.""
+- No mission data is rendered."
+TC-USER-MISSION-001,User completes a mission and updates ranking,User-Mission Interaction,"1, 4","- User `U12345` exists with `Punti: 0`.
+- Mission `M1` exists with `Superato: false`.
+- Ranking `R1` exists with `Superato: false`.","- Mission completion payload: `{Superato: true, Punti: 50}`
+- Ranking update payload: `{Superato: true}` (if mission completion unlocks ranking)","1. User completes `Mission M1` (e.g., via in-app action).
+2. MAIN updates `Mission M1` to `Superato: true` and adds `50` to user’s `Punti`.
+3. MAIN checks if ranking `R1` can now be marked as `Superato` (e.g., requires `Punti >= 50`).
+4. MAIN updates `Ranking R1` to `Superato: true` if conditions are met.
+5. Data is persisted via `PUT` requests to `REALTIME DATABASE`.","- Mission `M1` is marked as completed for user `U12345`.
+- User’s `Punti` increases to `50`.
+- If applicable, `Ranking R1` is marked as `Superato: true`.
+- All updates are reflected in real-time across the app."
+TC-USER-MISSION-002,User attempts to complete an already completed mission,User-Mission Interaction,1,- User `U12345` has already completed `Mission M1` (`Superato: true`).,,"1. User attempts to ""complete"" `Mission M1` again.
+2. MAIN checks `Mission.M1.Superato` is already `true`.","- No update is made to the mission or user’s `Punti`.
+- Error message: ""Mission already completed."""
+TC-USER-RANKING-001,User unlocks a ranking by completing missions,User-Ranking Interaction,1,"- User `U12345` has `Punti: 0`.
+- Ranking `R1` requires `Punti >= 100` to unlock.
+- User completes 3 missions, each worth `50` points.",,"1. User completes `Mission M1` → `Punti: 50` (still < 100).
+2. MAIN checks `Ranking R1` requirements and finds them unmet.
+3. User completes `Mission M2` → `Punti: 100` (now >= 100).
+4. MAIN updates `Ranking R1` to `Superato: true`.","- After `Mission M2`, `Ranking R1` is automatically marked as completed.
+- User sees a notification: ""You’ve unlocked Ranking R1!"""
+TC-USER-RANKING-002,User fails to unlock ranking due to insufficient points,User-Ranking Interaction,1,"- User `U12345` has `Punti: 80`.
+- Ranking `R1` requires `Punti >= 100`.",,"1. User attempts to check `Ranking R1` status.
+2. MAIN compares `Punti: 80` with requirement `100`.","- `Ranking R1` remains `Superato: false`.
+- User sees: ""You need 20 more points to unlock this ranking."""
+TC-TIP-DISPLAY-001,Display mission description from Tip class,Tip Display,1,"- `Tip` with `id: 1`, `Titolo: ""Tutorial""`, `Descrizione: ""Complete 3 missions to start.""` exists.",,1. MAIN retrieves `Tip` data (,

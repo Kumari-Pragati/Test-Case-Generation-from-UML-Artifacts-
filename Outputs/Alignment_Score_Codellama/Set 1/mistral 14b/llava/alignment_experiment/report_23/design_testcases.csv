@@ -1,0 +1,86 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,1,"- User account exists in the system with valid credentials.
+- Network connection is active.","- Username: `john_doe`
+- Password: `SecurePass123`","1. User enters `john_doe` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- System validates credentials and grants access.
+- User is redirected to the home page with a success message."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,1,- User account exists with valid username but incorrect password.,"- Username: `john_doe`
+- Password: `WrongPass456`","1. User enters `john_doe` in the username field.
+2. User enters `WrongPass456` in the password field.
+3. User clicks the ""Login"" button.","- System displays an error message: ""Invalid username or password.""
+- User remains on the login page."
+TC-AUTHENTICATION-003,Admin Login as User,Authentication,1,- Admin account exists with valid credentials.,"- Username: `admin_user`
+- Password: `AdminPass789`","1. Admin enters `admin_user` in the username field.
+2. Admin enters `AdminPass789` in the password field.
+3. Admin selects the ""Login as Admin"" option.","- System grants admin privileges.
+- Admin is redirected to the admin dashboard."
+TC-PRODUCT-001,View Product Details,Product Management,"1, 6","- User is logged in.
+- At least one product exists in the system.",- Product: `Laptop Pro`,"1. User navigates to the ""Products"" section.
+2. User clicks on `Laptop Pro`.","- System displays product details (name, description, price).
+- No errors occur."
+TC-PRODUCT-002,Admin Edits Product,Product Management,"1, 6","- Admin is logged in.
+- A product exists in the system.","- Product: `Laptop Pro`
+- New Price: `999.99`
+- New Description: `Updated specs and warranty.`","1. Admin navigates to the ""Products"" section.
+2. Admin selects `Laptop Pro` and clicks ""Edit.""
+3. Admin updates the price to `999.99` and description to `Updated specs and warranty.`
+4. Admin clicks ""Save.""","- System updates the product details.
+- Admin sees a success message: ""Product updated successfully."""
+TC-CART-001,Add Product to Cart,Cart Management,1,"- User is logged in.
+- At least one product exists.",- Product: `Laptop Pro`,"1. User navigates to the ""Products"" section.
+2. User clicks ""Add to Cart"" for `Laptop Pro`.","- Product is added to the cart.
+- Cart total updates dynamically.
+- User sees a confirmation message: ""Added to cart."""
+TC-CART-002,Remove Product from Cart,Cart Management,1,"- User is logged in.
+- Cart contains at least one product.",- Product: `Laptop Pro`,"1. User navigates to the ""Cart"" section.
+2. User clicks ""Remove"" for `Laptop Pro`.","- Product is removed from the cart.
+- Cart total recalculates to `0.00`.
+- User sees a confirmation message: ""Removed from cart."""
+TC-CART-003,Calculate Cart Total (Edge Case: Empty Cart),Cart Management,1,"- User is logged in.
+- Cart is empty.",,"1. User navigates to the ""Cart"" section.
+2. User clicks ""Calculate Total.""","- System displays `0.00` as the total.
+- No errors occur."
+TC-ORDER-001,Place Order as Admin,Order Processing,1,"- Admin is logged in.
+- Cart contains at least one product.",- Cart: Contains `Laptop Pro` (Price: `999.99`),"1. Admin navigates to the ""Cart"" section.
+2. Admin clicks ""Place Order.""","- Order is created with status `Placed`.
+- Admin sees a confirmation message: ""Order placed successfully.""
+- Cart is cleared."
+TC-ORDER-002,Cancel Order as Admin,Order Processing,1,"- Admin is logged in.
+- At least one order exists with status `Placed`.","- Order ID: `ORD12345`
+- Status: `Placed`","1. Admin navigates to the ""Orders"" section.
+2. Admin selects `ORD12345` and clicks ""Cancel.""","- Order status updates to `Cancelled`.
+- Admin sees a confirmation message: ""Order cancelled successfully."""
+TC-SERVER-DATABASE-001,Successful Server-Database Query,Client-Server Interaction,2,"- User is logged in.
+- Database contains product data.",- Request: `GET /products`,"1. User sends a request to the server for product data.
+2. Server queries the database.
+3. Server sends a response to the user.","- User receives a successful response with product data.
+- No errors or timeouts occur."
+TC-SERVER-DATABASE-002,Failed Server-Database Query (Database Unavailable),Client-Server Interaction,2,"- User is logged in.
+- Database is temporarily unavailable.",- Request: `GET /products`,"1. User sends a request to the server for product data.
+2. Server attempts to query the database but fails.","- Server returns an error response: `Database unavailable. Please try again later.`
+- User sees an error message on the UI."
+TC-NOTIFICATION-001,Trigger and Send Notification,Notification Management,5,"- User is logged in.
+- Notification system is active.","- Notification Type: `Order Confirmation`
+- Message: `Your order #ORD12345 has been placed.`","1. User triggers a notification (e.g., places an order).
+2. System processes the `Premuto` event.
+3. `GestioneNotifica` handles the notification.
+4. `InviaNotifica` sends the notification to the user.","- User receives the notification: `Your order #ORD12345 has been placed.`
+- No errors occur in the notification workflow."
+TC-NOTIFICATION-002,Failed Notification (Invalid Recipient),Notification Management,5,"- User is logged in.
+- Notification system is active.","- Notification Type: `Order Confirmation`
+- Recipient: `invalid_email@example.com`","1. User triggers a notification with an invalid email.
+2. System processes the `Premuto` event.
+3. `GestioneNotifica` detects the invalid recipient.","- System logs an error: `Failed to send notification: Invalid recipient.`
+- User sees a warning: `Notification failed. Please check your email.`"
+TC-PRODUCT-AGGREGATION-001,Add New Product via Aggregation,Product Aggregation,4,"- Admin is logged in.
+- System is ready to accept new products.","- Product Name: `Smartphone X`
+- Description: `Latest model with advanced features.`
+- Price: `699.99`","1. Admin clicks ""Add New Product.""
+2. Admin enters `Smartphone X`, `Latest model with advanced features.`, and `699.99`.
+3. Admin clicks ""Save.""","- Product is added to the system.
+- Admin sees a success message: `Product added successfully.`
+- Product appears in the product list."
+TC-EDGE-CASE-001,Logout Functionality,Authentication,1,- User is logged in.,,"1. User clicks the ""Logout"" button.","- User session is terminated.
+- User is redirected to the login page.
+- All session data is cleared."

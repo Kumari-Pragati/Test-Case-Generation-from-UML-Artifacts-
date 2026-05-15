@@ -1,0 +1,155 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Registration for New Family","Authentication","4","User has an Android device with version 8.1 or higher, internet connection, and Firebase account integration enabled.","Valid email (e.g., ""testfamily@gmail.com""), strong password (e.g., ""SecurePass123!""), family name (e.g., ""Smith""), newborn name (e.g., ""John""), newborn birth date (e.g., ""15/01/2023"").","1. Open the NewBorn app.
+2. Navigate to the registration screen.
+3. Enter the family email, password, family name, newborn name, and birth date.
+4. Click the ""Register"" button.","User account is successfully created, and a confirmation message appears. The user is redirected to the login screen or home dashboard."
+"TC-Authentication-002","User Login with Valid Credentials","Authentication","4","A registered user account exists in the system.","Registered email (e.g., ""testfamily@gmail.com""), correct password (e.g., ""SecurePass123!"").","1. Open the NewBorn app.
+2. Navigate to the login screen.
+3. Enter the registered email and password.
+4. Click the ""Login"" button.","User is successfully logged in, and the home dashboard or family profile screen is displayed."
+"TC-Authentication-003","User Login with Invalid Credentials","Authentication","4","A registered user account exists in the system.","Registered email (e.g., ""testfamily@gmail.com""), incorrect password (e.g., ""WrongPass123!"").","1. Open the NewBorn app.
+2. Navigate to the login screen.
+3. Enter the registered email and incorrect password.
+4. Click the ""Login"" button.","Error message appears stating ""Invalid email or password."" User remains on the login screen."
+"TC-ChildMonitoring-004","Add Newborn Development Milestone","Child Monitoring","4","User is logged in to the NewBorn app.","Newborn name (e.g., ""John""), milestone type (e.g., ""Sleep""), milestone description (e.g., ""Slept 8 hours""), date (e.g., ""16/01/2023""), time (e.g., ""20:00"").","1. Open the NewBorn app and log in.
+2. Navigate to the ""Child Monitoring"" section.
+3. Select the newborn (e.g., ""John"").
+4. Click the ""Add Milestone"" button.
+5. Enter milestone type, description, date, and time.
+6. Click the ""Save"" button.","Milestone is successfully added to the newborn’s profile, and a confirmation message appears."
+"TC-ChildMonitoring-005","View Newborn Development History","Child Monitoring","4","User is logged in to the NewBorn app, and at least one milestone exists for the newborn.","Newborn name (e.g., ""John"").","1. Open the NewBorn app and log in.
+2. Navigate to the ""Child Monitoring"" section.
+3. Select the newborn (e.g., ""John"").
+4. Click the ""View History"" button.","A list of all recorded milestones for the newborn is displayed, sorted by date in descending order."
+"TC-ChildMonitoring-006","Edit Existing Newborn Milestone","Child Monitoring","4","User is logged in to the NewBorn app, and at least one milestone exists for the newborn.","Existing milestone (e.g., ""Slept 8 hours"" on ""16/01/2023""), updated description (e.g., ""Slept 9 hours"").","1. Open the NewBorn app and log in.
+2. Navigate to the ""Child Monitoring"" section.
+3. Select the newborn (e.g., ""John"").
+4. Click the ""View History"" button.
+5. Locate the milestone to edit and click the ""Edit"" button.
+6. Update the milestone description.
+7. Click the ""Save"" button.","Milestone is successfully updated, and a confirmation message appears. The updated milestone is reflected in the history list."
+"TC-ChildMonitoring-007","Delete Existing Newborn Milestone","Child Monitoring","4","User is logged in to the NewBorn app, and at least one milestone exists for the newborn.","Existing milestone (e.g., ""Slept 8 hours"" on ""16/01/2023"").","1. Open the NewBorn app and log in.
+2. Navigate to the ""Child Monitoring"" section.
+3. Select the newborn (e.g., ""John"").
+4. Click the ""View History"" button.
+5. Locate the milestone to delete and click the ""Delete"" button.
+6. Confirm deletion in the pop-up dialog.","Milestone is successfully deleted, and a confirmation message appears. The milestone no longer appears in the history list."
+"TC-DatabaseIntegration-008","Real-Time Data Sync Across Devices for Newborn Milestones","Database Integration","5","User is logged in on two different Android devices (Device A and Device B) with the same account, and at least one milestone exists for the newborn on Device A.","Newborn name (e.g., ""John""), milestone added on Device A (e.g., ""Fed at 12:00"").","1. On Device A, add a new milestone for the newborn.
+2. Wait for Firebase to sync the data (up to 5 seconds).
+3. On Device B, navigate to the ""Child Monitoring"" section.
+4. Select the newborn (e.g., ""John"").
+5. Click the ""View History"" button.","The newly added milestone appears on Device B within 5 seconds, confirming real-time synchronization."
+"TC-DatabaseIntegration-009","Data Persistence After App Restart","Database Integration","5","User is logged in to the NewBorn app, and at least one milestone exists for the newborn.","Newborn name (e.g., ""John""), existing milestone (e.g., ""Slept 8 hours"").","1. Open the NewBorn app and log in.
+2. Navigate to the ""Child Monitoring"" section.
+3. Select the newborn (e.g., ""John"").
+4. Verify the milestone exists in the history list.
+5. Close the app completely (swipe away from recent apps).
+6. Reopen the app and log in again.
+7. Navigate to the ""Child Monitoring"" section.
+8. Select the newborn (e.g., ""John"").
+9. Click the ""View History"" button.","The milestone remains visible in the history list after app restart, confirming data persistence."
+"TC-Authentication-010","Successful Account Creation via Google","Authentication","7,8","Application installed, user has a Google account","Valid Google credentials","1. Open the application for the first time.
+2. Press the ""Sign in with Google"" button.
+3. Log in with valid Google credentials.","User is automatically redirected to the family creation screen."
+"TC-Authentication-011","Automatic Login for Existing User","Authentication","7,8","User has an existing account","Valid Google credentials","1. Open the application.
+2. Press the ""Sign in with Google"" button.
+3. Log in with valid Google credentials.","User is automatically logged in without account creation prompts."
+"TC-FamilyManagement-012","Create New Family with Neonatal Data","Family Management","8","User has created an account","Neonatal name, birth date, gender","1. Press the ""Crea"" (Create) button for family creation.
+2. Enter neonatal information (name, birth date, gender).
+3. Confirm family creation.","Family is created, and user profile is automatically added to the family."
+"TC-FamilyManagement-013","Invite New Member to Existing Family","Family Management","8","User has created a family","Valid family secret key","1. Navigate to family settings.
+2. Select the option to invite new members.
+3. Share the family secret key with the new member.","New member can join the family by entering the shared key."
+"TC-Monitoring-014","Record Neonatal Sleep Hours","Monitoring","9,10","User is a member of a family","Sleep duration (e.g., 14 hours)","1. Navigate to the Monitoring section.
+2. Select the ""Ore di sonno"" (Sleep Hours) option.
+3. Press the ""registra"" (record) button.
+4. Enter sleep duration (e.g., 14 hours).","Data is recorded and displayed in the graph; data is consultable from the home screen."
+"TC-Monitoring-015","Record Neonatal Feeding Time","Monitoring","10,11","User is a member of a family","Feeding duration (e.g., 20 minutes)","1. Navigate to the Monitoring section.
+2. Select the ""Allattamento"" (Feeding) option.
+3. Press the ""registra"" (record) button.
+4. Enter feeding duration (e.g., 20 minutes).","Data is recorded and displayed in the graph; data is consultable from the home screen."
+"TC-Monitoring-016","Record Neonatal Growth Metrics","Monitoring","11","User is a member of a family","Weight (e.g., 4.5 kg), height (e.g., 50 cm)","1. Navigate to the Monitoring section.
+2. Select the ""Crescita bambino"" (Child Growth) option.
+3. Press the ""registra"" (record) button.
+4. Enter weight (e.g., 4.5 kg) and height (e.g., 50 cm).","Data is recorded and displayed in the graph; data is consultable from the home screen."
+"TC-Monitoring-017","Save and Retrieve Monitored Data","Monitoring","10","User has recorded data in Monitoring section","Previously recorded sleep/feeding/growth data","1. Navigate to the Monitoring section.
+2. View recorded data snapshots.
+3. Navigate to the home screen.
+4. Verify data is displayed in graphs.","Previously recorded data is saved and consultable from the home screen."
+"TC-FamilyManagement-018","Create a Family Profile","Family Management","13","User is logged in to the application","None","1. Navigate to the ""Create Family"" option in the app.
+2. Enter required family details (e.g., family name, members).
+3. Confirm creation by selecting ""Save"" or ""Create.""","Family profile is successfully created and saved in the system."
+"TC-SleepMonitoring-019","Record Sleep Duration","Sleep Monitoring","13","User has created a family profile and added a child","Start time: 20:00, End time: 06:00","1. Navigate to the ""Sleep Monitoring"" section.
+2. Select the child for whom sleep duration is to be recorded.
+3. Enter the start time of sleep (e.g., 20:00).
+4. Enter the end time of sleep (e.g., 06:00).
+5. Confirm by selecting ""Save"" or ""Record.""","Sleep duration (e.g., 10 hours) is recorded and displayed in the child’s sleep history."
+"TC-FeedingMonitoring-020","Record Breastfeeding Session with Right Breast Timer","Feeding Monitoring","13","User has created a family profile and added a child","Session duration: 15 minutes","1. Navigate to the ""Feeding Monitoring"" section.
+2. Select the child for whom feeding data is to be recorded.
+3. Start the timer for the right breast.
+4. Wait for 15 minutes, then stop the timer.
+5. Confirm by selecting ""Save"" or ""Record.""","Feeding session duration (15 minutes) for the right breast is recorded and displayed in the child’s feeding history."
+"TC-FeedingMonitoring-021","Record Breastfeeding Session with Left Breast Timer","Feeding Monitoring","13","User has created a family profile and added a child","Session duration: 10 minutes","1. Navigate to the ""Feeding Monitoring"" section.
+2. Select the child for whom feeding data is to be recorded.
+3. Start the timer for the left breast.
+4. Wait for 10 minutes, then stop the timer.
+5. Confirm by selecting ""Save"" or ""Record.""","Feeding session duration (10 minutes) for the left breast is recorded and displayed in the child’s feeding history."
+"TC-GrowthMonitoring-022","Record Growth Data","Growth Monitoring","14","User has created a family profile and added a child","Height: 75 cm, Weight: 8 kg, Date: 2023-10-01","1. Navigate to the ""Growth Monitoring"" section.
+2. Select the child for whom growth data is to be recorded.
+3. Enter height (e.g., 75 cm), weight (e.g., 8 kg), and date (e.g., 2023-10-01).
+4. Confirm by selecting ""Save"" or ""Record.""","Growth data is recorded and displayed in the child’s growth history."
+"TC-DataManagement-023","Verify Data Synchronization on App Close","Data Management","15","User has recorded data (e.g., sleep, feeding, growth) and is online","None","1. Record sample data (e.g., sleep duration, feeding session).
+2. Close the application.
+3. Reopen the application on the same device.
+4. Verify recorded data is still present.
+5. If applicable, log in to another device and verify the same data is present.","All recorded data is synchronized and accessible across devices after app closure."
+"TC-Compatibility-024","Verify App Compatibility with Android 8.1+","Compatibility","16","None","Android device with version 8.1 or higher","1. Install the application on an Android device with version 8.1 or higher.
+2. Attempt to open and navigate through the app.
+3. Test core functionalities (e.g., family creation, sleep monitoring).","Application installs successfully and all functionalities work without errors on Android 8.1+ devices."
+"TC-Performance-025","Verify Fluid Navigation in the App","Performance","16","Application is installed and opened","None","1. Navigate between different sections (e.g., Sleep Monitoring → Feeding Monitoring → Growth Monitoring).
+2. Perform actions in each section (e.g., record sleep, start feeding timer).
+3. Observe the time taken for transitions and actions.","Navigation and actions are performed without excessive delays (e.g., <2 seconds per transition/action)."
+"TC-Connectivity-026","Verify App Functionality Without Internet","Connectivity","18","Application is installed and opened","None","1. Disable internet connection on the device.
+2. Attempt to record new data (e.g., sleep duration, feeding session).
+3. Attempt to navigate to sections requiring cloud data (e.g., synchronized growth history).","App allows recording of data locally but prevents actions requiring cloud synchronization (e.g., syncing data across devices)."
+"TC-Security-027","Verify Data Privacy for Non-Shared Information","Security","18","User has recorded sensitive data (e.g., feeding sessions, growth metrics)","None","1. Record sensitive data (e.g., feeding duration, growth metrics) without sharing with other users.
+2. Attempt to access this data from another user account (if multi-user is supported).
+3. Verify data visibility in shared vs. non-shared scenarios.","Sensitive data remains private and is not accessible to other users unless explicitly shared."
+"TC-AccountManagement-028","Verify automatic data deletion on app uninstallation","Account Management","19","App installed on an Android device with Android 8.0 or higher","None","1. Install the application on an Android device.
+2. Register a new account using a Google account.
+3. Enter sample data (e.g., family creation, feeding logs).
+4. Uninstall the application from the device.","All user data entered in the application is automatically deleted."
+"TC-AccountManagement-029","Verify user registration and login with Google account","Account Management","21, 24","None","Valid Google account credentials","1. Open the application for the first time.
+2. Select the option to log in with Google.
+3. Enter valid Google account credentials.
+4. Complete the registration process.","User is successfully registered and redirected to the main menu."
+"TC-FamilyManagement-030","Verify family creation with newborn data","Family Management","21, 24","User is logged in with a valid Google account","Newborn details (name, birth date, etc.)","1. Navigate to the family creation option.
+2. Enter newborn details (e.g., name, birth date).
+3. Confirm family creation.","Family is created successfully, and the user is redirected to the home screen."
+"TC-FamilyManagement-031","Verify user invitation to an existing family using a family code","Family Management","21","A family already exists with a generated family code","Family code shared by an existing member","1. Navigate to the option to join an existing family.
+2. Enter the family code provided by an existing member.
+3. Confirm the invitation.","New user is added to the existing family, and the family group is updated."
+"TC-FeedingMonitoring-032","Verify feeding measurement registration","Feeding Monitoring","22","User is part of a family with a newborn","Feeding details (timestamp, duration, type of feeding)","1. Navigate to the feeding measurement section.
+2. Enter feeding details (e.g., timestamp, duration, type of feeding).
+3. Save the data.","Feeding data is registered and displayed in the monitoring section."
+"TC-SleepMonitoring-033","Verify sleep measurement registration","Sleep Monitoring","22","User is part of a family with a newborn","Sleep details (start time, end time, duration)","1. Navigate to the sleep measurement section.
+2. Enter sleep details (e.g., start time, end time).
+3. Save the data.","Sleep data is registered and displayed in the monitoring section."
+"TC-GrowthMonitoring-034","Verify growth measurement registration","Growth Monitoring","22, 23","User is part of a family with a newborn","Growth details (weight, height, date of measurement)","1. Navigate to the growth measurement section.
+2. Enter growth details (e.g., weight, height, date).
+3. Save the data.","Growth data is registered and displayed in the monitoring section."
+"TC-Performance-035","Verify user interaction response time","Performance","19","App is installed and running on an Android device","None","1. Perform a user interaction (e.g., clicking a button, navigating to a section).
+2. Measure the time taken for the interaction to complete.","Interaction completes within 3 seconds."
+"TC-Performance-036","Verify database response time for device communication","Performance","19, 20","App is connected to the internet","None","1. Trigger a database communication (e.g., saving feeding data).
+2. Measure the time taken for the database to respond.","Database response time does not exceed 3 seconds."
+"TC-Robustness-037","Verify simultaneous access by multiple users","Robustness","20","Multiple users are logged in to the same family","None","1. Log in with two different accounts belonging to the same family.
+2. Perform simultaneous actions (e.g., updating feeding data).","Both users can access and update data without conflicts."
+"TC-Portability-038","Verify app compatibility with Android 8.0 or higher","Portability","20, 23","None","Android devices with OS versions 8.0 (Oreo) and above","1. Install the app on an Android device with OS version 8.0 (Oreo).
+2. Install the app on an Android device with OS version higher than 8.0.
+3. Perform basic operations (e.g., login, family creation).","App installs and runs correctly on all tested Android versions."
+"TC-Portability-039","Verify app memory requirements","Portability","23","None","Android device with at least 30MB free memory","1. Check the device memory before installation.
+2. Install the app on the device.
+3. Verify the app occupies no more than 30MB of memory.","App installs successfully and occupies ≤30MB of memory."
+"TC-DataManagement-040","Verify data persistence until account deletion","Data Management","20","User has registered and entered data","Sample family and monitoring data","1. Register a new account and enter sample data (e.g., family creation, feeding logs).
+2. Log out and log back in.
+3. Delete the Google account used for registration.","Data remains accessible until account deletion; after deletion, data is permanently removed."

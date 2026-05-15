@@ -1,0 +1,233 @@
+REPORT: Report_1_uml_pages.pdf
+======================================================================
+
+===== Report_1_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+*   **Utente**
+    *   kind: class
+    *   attributes: [username: string, email: string, password: string, punt: int]
+    *   operations: [GetUsername(): string, SetUsername(newUsername: string), GetEmail(): string, SetEmail(newEmail: string), GetPunt(): int, SetPunt(NewPunt: int)]
+    *   role: User
+*   **Mission**
+    *   kind: class
+    *   attributes: [id: int, Titolo: string, Superato: bool, Descrizione: string]
+    *   operations: [GetId(): int, SetId(NewId: int), GetTitolo(): string, SetTitolo(NewTitolo: string), GetSuperato(): bool, SetSuperato(NewSuperato: bool), GetDescrizione(): string, SetDescrizione(NewDescrizione: string)]
+    *   role: Mission
+
+**Actors / Lifelines:**
+
+*   - None
+
+**Relationships / Links:**
+
+*   **Utente** -> **Mission** — type=association; label="ha superato"; explanation="User has completed the mission"
+*   **Utente** -> **Mission** — type=association; label="ha superato"; explanation="User has completed the mission"
+
+**Main Flows:**
+
+*   Flow 1: Utente -> Mission -> Mission
+
+**Conditions / Branches:**
+
+*   - None
+
+**Loops / Repetitions:**
+
+*   - None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a user's mission completion process.
+*   The user can have multiple missions.
+*   Each mission has a title, a boolean status, and a description.
+*   The user can get and set their username, email, and password.
+*   The user can get and set their point value.
+*   The user can get and set their mission's title, status, and description.
+*   The user can get and set their mission's ID.
+*   The user can get and set their mission's title and description.
+*   The user can get and set their mission's status.
+
+===== Report_1_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Main**: kind=main; attributes=[email: Empty, password: Empty]; operations=[signInWithEmailAndPassword(String, String): String]; role=main entry point
+* **Firebase Authentication**: kind=component; attributes=[response: String]; operations=[create response: void]; role=firewall authentication
+
+**Actors / Lifelines:**
+
+* **User**: user
+* **Main**: main
+
+**Relationships / Links:**
+
+* **Main** -> **Firebase Authentication** — type=association; label="sign in with email and password"; explanation="create response"
+* **email** -> **Main** — type=association; label="email is empty"; explanation="password is empty"
+* **password** -> **Main** — type=association; label="password is empty"; explanation="email is empty"
+* **signInWithEmailAndPassword** -> **Firebase Authentication** — type=association; label="sign in with email and password"; explanation="create response"
+* **create response** -> **Main** — type=association; label="create response"; explanation="if response is error return firebase user"
+
+**Main Flows:**
+
+* **Flow 1:** email is empty, password is empty -> sign in with email and password -> create response -> if response is error return firebase user
+
+**Conditions / Branches:**
+
+* **if response is error** -> return firebase user
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of user authentication using email and password.
+* The main flow starts with the user entering their email and password, which are then sent to the Firebase authentication component for verification.
+* If the response is an error, the user is returned to the main page.
+* The diagram does not show any loops or repeated behavior.
+
+===== Report_1_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **MAIN**
+	+ kind: Main
+	+ attributes: email, password
+	+ operations: CreateWithEmailAndPassword, if(Response!= Error)
+	+ role: Main entry point
+* **FIREBASE AUTHENTICATION**
+	+ kind: Firebase Authentication
+	+ attributes: None
+	+ operations: None
+	+ role: Authentication service
+
+**Actors / Lifelines:**
+
+* **email**
+* **password**
+* **Response**
+
+**Relationships / Links:**
+
+* email -> CreateWithEmailAndPassword - type: message; label: "Create User With Email And Password"; explanation: Creates a new user with email and password
+* CreateWithEmailAndPassword -> if(Response!= Error) - type: transition; label: "if(Response!= Error)"; explanation: If the response is not an error, proceed to the next step
+* if(Response!= Error) -> db.child(UserID).setValue(HashMap<String, Object>) - type: message; label: "db.child(UserID).setValue(HashMap<String, Object>)"; explanation: Sets the user's data in the database
+* db.child(UserID).setValue(HashMap<String, Object>) -> if(Response!= Error) - type: transition; label: "if(Response!= Error)"; explanation: If the response is not an error, proceed to the next step
+* if(Response!= Error) -> lugin FirebaseUser - type: message; label: "lugin FirebaseUser"; explanation: Logs in the user
+
+**Main Flows:**
+
+* Flow 1: email -> CreateWithEmailAndPassword -> if(Response!= Error) -> db.child(UserID).setValue(HashMap<String, Object>) -> if(Response!= Error) -> lugin FirebaseUser
+
+**Conditions / Branches:**
+
+* if(Response!= Error) - if the response is not an error, proceed to the next step
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the registration process, where a user creates an account with email and password, and then logs in.
+* The main flow is the sequence of events from creating a user to logging in.
+* The diagram does not show any error handling or loops.
+
+===== Report_1_uml_pages.pdf | Page 4 =====
+**UML Type:** 
+- **Sequence**
+
+**Components:**
+- **MAIN**
+  - kind: Main; attributes: none; operations: none; role: Main
+- **REALTIME DATABASE**
+  - kind: Realtime Database; attributes: none; operations: none; role: Realtime Database
+
+**Actors / Lifelines:**
+- **MAIN**
+- **REALTIME DATABASE**
+
+**Relationships / Links:**
+- **MAIN** -> **REALTIME DATABASE** — type=association; label=none; explanation=none
+- **RISPOSTA ASINCRONA** -> **REALTIME DATABASE** — type=association; label=none; explanation=none
+
+**Main Flows:**
+- Flow 1: **MAIN** -> **RISPOSTA ASINCRONA** -> **REALTIME DATABASE** -> **MAIN**
+
+**Conditions / Branches:**
+- **Gestisce la risposta** -> **Inserisce i dati aggiornati tramite put()** -> **Gestisce la risposta**
+
+**Loops / Repetitions:**
+- **RISPOSTA ASINCRONA** -> **RISPOSTA ASINCRONA** (loop)
+
+**Notes / Annotations:**
+- none
+
+**Observations:**
+- The diagram models a sequence of events where the main process interacts with the real-time database.
+- The main process sends a request to the real-time database, which responds with an asynchronous response.
+- The main process then handles the response.
+- The process repeats itself in a loop, indicating a continuous interaction between the main process and the real-time database.
+
+===== Report_1_uml_pages.pdf | Page 5 =====
+**UML Type:** Activity
+
+**Components:**
+
+* **Main**: kind=main; attributes=[]; operations=[onDataChange(): void]; role=main entry point
+* **Firebase SDK**: kind=component; attributes=[]; operations=[add/ValueEventListener("Mission"): void, add/ValueEventListener("Mission"): void]; role=mission listener
+* **Realtime Database**: kind=component; attributes=[]; operations=[controla il token e raccoglie i dati richiesti: void]; role=token control and data retrieval
+
+**Actors / Lifelines:**
+
+* **Main**
+* **Firebase SDK**
+* **Realtime Database**
+
+**Relationships / Links:**
+
+* **Main** -> **Firebase SDK** — type=association; label=add/ValueEventListener("Mission"); explanation=listen to mission events
+* **Firebase SDK** -> **Realtime Database** — type=association; label=add/ValueEventListener("Mission"); explanation=listen to mission events
+* **Main** -> **Realtime Database** — type=association; label=onDataChange(); explanation=handle data changes
+
+**Main Flows:**
+
+* **Flow 1:** Main -> add/ValueEventListener("Mission") -> onDataChange() -> manda la risposta con i dati richiesti -> controla il token e raccoglie i dati richiesti
+
+**Conditions / Branches:**
+
+* **onDataChange()** -> **manda la risposta con i dati richiesti** (if data change)
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a workflow that involves listening to mission events, handling data changes, and controlling tokens and retrieving data.
+* The main flow involves adding event listeners, handling data changes, and sending responses with requested data.
+* The system appears to be designed for real-time data management and mission control.
+
+
+======================================================================

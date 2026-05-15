@@ -1,0 +1,44 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Verify User Registration,User,1,None,"- Valid username: testuser
+- Valid password: testpassword
+- Valid name: Test User
+- Valid email: testuser@example.com","1. Call `registerUser()` with the provided user data.
+2. Verify that the user data is saved in the Users Database.",The user registration is successful.
+TC-User-002,Verify Invalid User Registration,User,1,None,"- Invalid username: testuser123
+- Valid password: testpassword
+- Valid name: Test User
+- Valid email: testuser@example.com","1. Call `registerUser()` with the provided user data.
+2. Verify that the user registration fails due to an invalid username.",The user registration is unsuccessful.
+TC-User-003,Verify User Login,User,"2, 3",User has been registered.,"- Valid email: testuser@example.com
+- Valid password: testpassword","1. Call `userLogin(email, password)`.
+2. Verify that the user is validated successfully.
+3. Verify that the user is logged in.",The user login is successful.
+TC-User-004,Verify Invalid User Login,User,"2, 3",User has been registered.,"- Invalid email: testuserinvalid@example.com
+- Valid password: testpassword","1. Call `userLogin(email, password)`.
+2. Verify that the user is not validated.
+3. Verify that the user is not logged in.",The user login is unsuccessful.
+TC-Trip-001,Create a New Trip,Trip,1,User is logged in.,"- City: New York
+- Country: USA
+- Final Date: 2023-12-31","1. Call `createTrip(city, country, finalDate)` as a logged-in user.
+2. Verify that a new trip is created with the provided data.",A new trip is created successfully.
+TC-Trip-002,Retrieve Trip Information,Trip,1,A trip exists.,None,"1. Call `getTrip()` for an existing trip.
+2. Verify that the trip information is returned correctly.",The trip information is returned correctly.
+TC-Plan-001,Create a New Plan,Plan,1,User is logged in.,None,"1. Call `createPlan()` as a logged-in user.
+2. Verify that a new plan is created.",A new plan is created successfully.
+TC-DailyPlan-001,Create a New Daily Plan,DailyPlan,1,A plan exists.,- Weather: Sunny,"1. Call `createDailyPlan(weather)` for an existing plan.
+2. Verify that a new daily plan is created with the provided weather data.",A new daily plan is created successfully.
+TC-Category-001,Create a New Category,Category,1,User is logged in.,- Name: Attractions,"1. Call `createCategory(name)` as a logged-in user.
+2. Verify that a new category is created with the provided name.",A new category is created successfully.
+TC-PlaceToVisit-001,Create a New Place to Visit,PlaceToVisit,1,A category exists.,"- Name: Statue of Liberty
+- Category: Attractions","1. Call `createPlaceToVisit(name, category)` for an existing category.
+2. Verify that a new place to visit is created with the provided name and category.",A new place to visit is created successfully.
+TC-Trip-003,Add a Place to Visit to a Trip,Trip,1,A trip exists and a place to visit exists.,- Place to Visit: Statue of Liberty,"1. Call `addPlaceToVisit(placeToVisit)` for an existing trip.
+2. Verify that the place to visit is added to the trip.",The place to visit is added to the trip successfully.
+TC-Trip-004,Retrieve Trip Details,Trip,1,A trip exists.,None,"1. Call `getTrip()` for an existing trip.
+2. Verify that the trip details are returned correctly.",The trip details are returned correctly.
+TC-User-005,Update User Profile,User,5,User is logged in.,"- New Name: Updated Test User
+- New Email: updatedtestuser@example.com","1. Call `changeProfile()`.
+2. Provide the new user data.
+3. Verify that the user profile is updated successfully.",The user profile is updated successfully.
+TC-User-006,Retrieve Updated User Profile,User,5,User has updated their profile.,None,"1. Call `getUserProfile()`.
+2. Verify that the updated user profile is returned correctly.",The updated user profile is returned correctly.

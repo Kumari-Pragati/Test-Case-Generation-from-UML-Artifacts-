@@ -1,0 +1,110 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Successful user registration with valid data,User Registration,2,"- User is not already registered in the system.
+- Database is accessible and `verifyValidData()` is functional.","- Username: `traveler123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `john.doe@example.com`","1. User calls `registerUser()` with valid credentials (username, password, name, email).
+2. Main system sends `verifyValidData()` to Users Database with the provided data.
+3. Database returns `y = true` (data is valid).
+4. Main system saves user data and sends `registerUser: ""ok""` to the user.","- User registration is successful.
+- User data is stored in the database.
+- User receives confirmation message: `""ok""`."
+TC-USER-REGISTRATION-002,Failed user registration with invalid email format,User Registration,2,"- User is not registered.
+- Database validation rejects invalid email formats.","- Username: `traveler123`
+- Password: `SecurePass123!`
+- Name: `John Doe`
+- Email: `johndoe@example` (missing `.com`)","1. User calls `registerUser()` with invalid email format.
+2. Main system sends `verifyValidData()` to Users Database.
+3. Database returns `y = false` (invalid email).
+4. Main system sends `registerUser: ""error""` to the user.","- User registration fails.
+- User receives error message: `""error""`.
+- No data is saved in the database."
+TC-USER-REGISTRATION-003,Failed user registration with duplicate username,User Registration,2,- User `traveler123` already exists in the database.,"- Username: `traveler123` (duplicate)
+- Password: `NewPass123!`
+- Name: `Jane Smith`
+- Email: `jane.smith@example.com`","1. User calls `registerUser()` with an existing username.
+2. Main system sends `verifyValidData()` to Users Database.
+3. Database returns `y = false` (duplicate username).
+4. Main system sends `registerUser: ""error""` to the user.","- User registration fails.
+- User receives error message: `""error""`.
+- No new user data is saved."
+TC-USER-LOGIN-001,Successful login with valid credentials,User Authentication,3,- User `john.doe@example.com` exists with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `SecurePass123!`","1. User calls `userLogin(email, password)` with valid credentials.
+2. Main system sends `validUser(email, password)` to Users Database.
+3. Database returns `x = true` (credentials match).
+4. Main system sends `userLogin: ""ok""` to the user.","- User login is successful.
+- User receives confirmation message: `""ok""`."
+TC-USER-LOGIN-002,Failed login with incorrect password,User Authentication,3,- User `john.doe@example.com` exists with password `SecurePass123!`.,"- Email: `john.doe@example.com`
+- Password: `WrongPass123!`","1. User calls `userLogin(email, password)` with incorrect password.
+2. Main system sends `validUser(email, password)` to Users Database.
+3. Database returns `x = false` (credentials do not match).
+4. Main system sends `userLogin: ""error""` to the user.","- User login fails.
+- User receives error message: `""error""`."
+TC-USER-LOGIN-003,Failed login with non-existent email,User Authentication,3,- No user exists with email `nonexistent@example.com`.,"- Email: `nonexistent@example.com`
+- Password: `AnyPassword123!`","1. User calls `userLogin(email, password)` with non-existent email.
+2. Main system sends `validUser(email, password)` to Users Database.
+3. Database returns `x = false` (user not found).
+4. Main system sends `userLogin: ""error""` to the user.","- User login fails.
+- User receives error message: `""error""`."
+TC-PROFILE-UPDATE-001,Successful profile update with valid data,User Profile Management,5,"- User `john.doe@example.com` is logged in.
+- Current name: `John Doe`, email: `john.doe@example.com`.","- New Name: `Johnathan Doe`
+- New Email: `johnathan.doe@example.com`","1. User calls `changeProfile()` with new name and email.
+2. Main system sends `verifyValidData(x)` to Users Database.
+3. Database returns `y = true` (data is valid and unique).
+4. Main system updates user data and sends `changeProfile(): ""ok""`.","- User profile is updated successfully.
+- Database reflects new name and email.
+- User receives confirmation: `""ok""`."
+TC-PROFILE-UPDATE-002,Failed profile update with invalid email format,User Profile Management,5,- User `john.doe@example.com` is logged in.,"- New Name: `John Doe`
+- New Email: `johndoe@example` (invalid format)","1. User calls `changeProfile()` with invalid email.
+2. Main system sends `verifyValidData(x)` to Users Database.
+3. Database returns `y = false` (invalid email).
+4. Main system sends `changeProfile(): ""error""`.","- Profile update fails.
+- User receives error message: `""error""`.
+- Original user data remains unchanged."
+TC-TRIP-CREATION-001,Create a trip with valid data and associate places/categories,Trip Management,"1, 4","- User `john.doe@example.com` is logged in.
+- Categories ""Museum"" (Id: 1) and ""Restaurant"" (Id: 2) exist.","- Trip: City = ""Paris"", Country = ""France"", BeginDate = ""2024-06-15"", FinishDate = ""2024-06-20""
+- Places to Visit:
+  - Name: ""Louvre Museum"", Category Id: 1, Trip Id: 1
+  - Name: ""Café de Flore"", Category Id: 2, Trip Id: 1","1. User creates a `Trip` with valid city, country, and dates.
+2. User adds `PlaceToVisit` entries linked to the trip and valid categories.
+3. Main system associates the trip with the user (`SetAuthor()`).
+4. User calls `updateTrip()` to save changes.
+5. Main system updates `Trips Database` with `updateTripData(x)`.
+6. User calls `listTrip()` to verify.","- Trip is created with Id assigned.
+- Places are linked to the trip and their respective categories.
+- User is set as the trip author.
+- `listTrip()` returns the newly created trip with places."
+TC-TRIP-CREATION-002,Failed trip creation with invalid date range,Trip Management,"1, 4",- User `john.doe@example.com` is logged in.,"- Trip: City = ""Paris"", Country = ""France"", BeginDate = ""2024-06-20"", FinishDate = ""2024-06-15"" (invalid: end before start)","1. User attempts to create a trip with `FinishDate` before `BeginDate`.
+2. Main system validates dates (assumed to be handled in `verifyValidData()`).
+3. Main system rejects the trip and sends an error.","- Trip creation fails.
+- User receives an error (e.g., `""Invalid date range""`).
+- No trip is created in the database."
+TC-TRIP-UPDATE-001,"Update trip details (e.g., change city and add a place)",Trip Management,"1, 4","- Trip with Id: 1 exists (City: ""Paris"", Country: ""France"").
+- User `john.doe@example.com` is the author.","- New City: ""London""
+- New Place: Name = ""Tower of London"", Category Id: 1, Trip Id: 1","1. User calls `updateTrip()` to modify trip details.
+2. Main system requests new data (`getNewData()`).
+3. User provides updated city and adds a new place.
+4. Main system updates `Trips Database` with `updateTripData(x)`.
+5. User calls `listTrip()` to verify changes.","- Trip city is updated to ""London"".
+- New place is added to the trip.
+- `listTrip()` reflects the updated trip and place."
+TC-TRIP-UPDATE-002,Failed trip update by unauthorized user,Trip Management,"1, 4","- Trip with Id: 1 exists (Author: `john.doe@example.com`).
+- User `jane.smith@example.com` is logged in but not the author.",- Attempt to update Trip Id: 1 (unauthorized).,"1. User `jane.smith@example.com` calls `updateTrip()` for Trip Id: 1.
+2. Main system checks if the user is the author (assumed validation).
+3. Main system rejects the update and sends an error.","- Trip update fails.
+- User receives error: `""Unauthorized: You are not the trip author""`.
+- Trip data remains unchanged."
+TC-DAILY-PLAN-001,Create a daily plan with weather reference,Trip Planning,1,"- Trip with Id: 1 exists.
+- Plan with Id: 1 is associated with the trip.
+- Weather data exists (e.g., Id: 101, High: 25.5, Low: 18.0).","- DailyPlan: PlanId = 1, Day = ""2024-06-15"", IdWeather = 101","1. User creates a `DailyPlan` for Trip Id: 1.
+2. System links the daily plan to the trip’s plan (`SetPlanId(1)`).
+3. System associates weather data (`SetIdWeather(101)`).
+4. User verifies the daily plan via `listTrip()`.","- Daily plan is created with correct PlanId, Day, and Weather reference.
+- `listTrip()` shows the daily plan under the trip."
+TC-DAILY-PLAN-002,Failed daily plan creation with invalid weather reference,Trip Planning,1,"- Trip with Id: 1 exists.
+- No weather data exists with Id: 999.","- DailyPlan: PlanId = 1, Day = ""2024-06-15"", IdWeather = 999 (invalid)","1. User attempts to create a daily plan with non-existent weather Id.
+2. System validates weather reference (assumed check).
+3. System rejects the daily plan and sends an error.","- Daily plan creation fails.
+- User receives error: `""Invalid weather reference""`.
+- No daily plan is created."
+TC-CATEGORY-MANAGEMENT-001,Add a,,,,,,

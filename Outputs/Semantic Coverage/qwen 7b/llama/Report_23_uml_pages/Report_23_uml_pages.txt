@@ -1,0 +1,301 @@
+REPORT: Report_23_uml_pages.pdf
+======================================================================
+
+===== Report_23_uml_pages.pdf | Page 1 =====
+**UML Type:** Class
+
+**Components:**
+
+*   **Utente**
+    *   kind: class
+    *   attributes: string nome, string cognome, string email, string password, bool isVenditore
+    *   operations: string immagine, string inmagine, void setNome, void setCognome, void setEmail, void setPassword, void setVenditore, bool isVenditore, void setImmagine, string getNome, string getCognome, string getEmail, string getPassword, void setVenditore, bool isVenditore, void setImmagine, string getImmagine
+    *   role: User
+*   **Cliente**
+    *   kind: class
+    *   attributes: string titolo, string descrizione, Cliente cliente, void setNotifica, NotificationType getNotifica
+    *   operations: string email, string password, void setNotifica, NotificationType getNotifica
+    *   role: Client
+*   **Venditore**
+    *   kind: class
+    *   attributes: string titolo, string descrizione, Cliente cliente, void setTitolo, string getTitolo, void setDescrizione, string getDescrizione, string getCliente, void setVoto, int getVoto
+    *   operations: string getIndirizzo, NotificationType notifica, void setNome, string getNome, void setIndirizzo, string getIndirizzo, void setVenditore, string getVenditore, void setIndirizzo, string getIndirizzo, void setVenditore, bool isVenditore, void setVenditore, string getVenditore, void setIndirizzo, string getIndirizzo
+    *   role: Seller
+*   **VenditorePreferito**
+    *   kind: class
+    *   attributes: Cliente cliente, void setVenditore, string getVenditore, string getVoto
+    *   operations: void setVoto, int getVoto
+    *   role: Preferred Seller
+
+**Actors / Lifelines:**
+
+*   - None
+
+**Relationships / Links:**
+
+*   **Utente** -> **Cliente** - type: association; label: "Eredita from"; explanation: "Eredita from"
+*   **Cliente** -> **Venditore** - type: association; label: "Eredita from"; explanation: "Eredita from"
+*   **Venditore** -> **VenditorePreferito** - type: association; label: "VenditorePreferito"; explanation: "VenditorePreferito"
+
+**Main Flows:**
+
+*   **Flow 1:** Utente -> Cliente -> Venditore -> VenditorePreferito
+
+**Conditions / Branches:**
+
+*   - None
+
+**Loops / Repetitions:**
+
+*   - None
+
+**Notes / Annotations:**
+
+*   - None
+
+**Observations:**
+
+*   The diagram models a system where users can create accounts and interact with clients and sellers.
+*   The system has a preference feature that allows users to select their preferred seller.
+*   The system sends notifications to users based on their interactions with clients and sellers.
+*   The system has a login feature that allows users to log in with their email and password.
+
+===== Report_23_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* **Client**: kind=actor; attributes=[id: string]; operations=[login(username: string, password: string): boolean; logout(): void]; role=Client
+* **Server**: kind=actor; attributes=[id: string; users: list of User]; operations=[login(username: string, password: string): User; logout(): void]; role=Server
+* **Database**: kind=actor; attributes=[users: list of User]; operations=[createUser(username: string, password: string): void; getUser(username: string): User]; role=Database
+
+**Actors / Lifelines:**
+
+* Client
+* Server
+* Database
+
+**Relationships / Links:**
+
+* Client -> Server — type=association; label="login"; explanation="Client requests login"
+* Server -> Database — type=association; label="get user"; explanation="Server retrieves user data"
+* Client -> Server — type=association; label="logout"; explanation="Client requests logout"
+* Server -> Database — type=association; label="create user"; explanation="Server creates new user"
+
+**Main Flows:**
+
+* Flow 1: Client -> Server -> Database -> Client -> Server -> Client
+* Flow 2: None
+
+**Conditions / Branches:**
+
+* If login fails: Server -> Client — type=association; label="login failed"; explanation="Server returns error message"
+* If login succeeds: Server -> Client — type=association; label="login success"; explanation="Server returns user data"
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a simple login process where the client requests login, the server checks the credentials, and if successful, returns the user's data. If the login fails, the server returns an error message.
+* The client can then choose to logout or continue using the system.
+* The server and database are separate entities that interact with each other and the client.
+
+===== Report_23_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Click su un prodotto
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Clicking on a product
+* Modifica prodotto
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Modifying a product
+* Premuto tasto "Modifica"
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Pressing the "Modify" button
+* I campi sono compilati correttamente?
+	+ Kind: Decision
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Are the fields correctly filled?
+* Applica modifiche prodotto
+	+ Kind: Action
+	+ Attributes: None
+	+ Operations: None
+	+ Role: Apply product modifications
+
+**Actors/Lifelines:**
+
+* None
+
+**Relationships/Links:**
+
+* Click su un prodotto -> Modifica prodotto: Association
+* Modifica prodotto -> Premuto tasto "Modifica": Association
+* Premuto tasto "Modifica" -> I campi sono compilati correttamente?: Transition
+* I campi sono compilati correttamente? -> No: Transition
+* I campi sono compilati correttamente? -> Si: Transition
+* I campi sono compilati correttamente? -> Applica modifiche prodotto: Transition
+
+**Main Flows:**
+
+* Flow 1: Click su un prodotto -> Modifica prodotto -> Premuto tasto "Modifica" -> I campi sono compilati correttamente? -> No -> Segnala errore
+* Flow 2: I campi sono compilati correttamente? -> Si -> Applica modifiche prodotto
+
+**Conditions/Branches:**
+
+* I campi sono compilati correttamente?: If the fields are correctly filled, then apply product modifications; otherwise, signal an error
+
+**Loops/Repetitions:**
+
+* None
+
+**Notes/Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of actions and decisions related to modifying a product.
+* The main flows involve clicking on a product, modifying it, and applying the modifications.
+* The decision point checks if the fields are correctly filled, and if so, applies the modifications; otherwise, it signals an error.
+
+===== Report_23_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Click su pulsante: kind=button; attributes=[*]; operations=[*]; role=clicking a button
+* Aggiungi prodotto: kind=product; attributes=[*]; operations=[*]; role=adding a product
+* Premuto tasto "Aggiungi": kind=button; attributes=[*]; operations=[*]; role=pressing the "Add" button
+* I campi sono compilati correttamente?: kind=question; attributes=[*]; operations=[*]; role=checking if fields are filled correctly
+* Segnala errore: kind=error; attributes=[*]; operations=[*]; role=indicating an error
+* Aggiungi prodotto: kind=product; attributes=[*]; operations=[*]; role=adding a product
+
+**Actors/Lifelines:**
+
+* None
+
+**Relationships/Links:**
+
+* Click su pulsante -> Aggiungi prodotto — type=association; label=""; explanation="clicking the button adds a product"
+* Aggiungi prodotto -> Premuto tasto "Aggiungi" — type=association; label=""; explanation="pressing the 'Add' button adds a product"
+* Premuto tasto "Aggiungi" -> I campi sono compilati correttamente? — type=association; label=""; explanation="pressing the 'Add' button checks if fields are filled correctly"
+* I campi sono compilati correttamente? -> Segnala errore — type=association; label=""; explanation="if fields are not filled correctly, an error is indicated"
+* Segnala errore -> Aggiungi prodotto — type=association; label=""; explanation="if an error is indicated, the product is not added"
+
+**Main Flows:**
+
+* Flow 1: Click su pulsante -> Aggiungi prodotto -> Premuto tasto "Aggiungi" -> I campi sono compilati correttamente? -> Aggiungi prodotto
+
+**Conditions/Branches:**
+
+* I campi sono compilati correttamente? -> Si: if fields are filled correctly, the product is added; No: if fields are not filled correctly, an error is indicated
+
+**Loops/Repetitions:**
+
+* None
+
+**Notes/Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of actions where a user clicks a button, adds a product, presses the "Add" button, checks if fields are filled correctly, and either adds the product or indicates an error.
+* The main flow is a linear sequence of actions.
+* There are no loops or repetitions in the diagram.
+* The diagram does not show any error handling or alternative paths.
+
+===== Report_23_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Click su: kind=button; attributes=[ ]; operations=[ ]; role=clicking
+* Gestione notifiche: kind=process; attributes=[ ]; operations=[ ]; role=notification management
+* Premuto "push notification": kind=push; attributes=[ ]; operations=[ ]; role=push notification
+* Premuto "In App Notification": kind=notification; attributes=[ ]; operations=[ ]; role=in-app notification
+* Invia notifiche in app: kind=push; attributes=[ ]; operations=[ ]; role=pushing notifications to app
+
+**Actors / Lifelines:**
+
+* None
+
+**Relationships / Links:**
+
+* Click su -> Gestione notifiche — type=trigger; label="Click su"; explanation="Clicking the button triggers the notification management process"
+* Gestione notifiche -> Premuto "push notification" — type=flow; label="Gestione notifiche"; explanation="The notification management process triggers the push notification"
+* Premuto "push notification" -> Invia notifiche in app — type=flow; label="Premuto 'push notification'"; explanation="The push notification triggers the push of notifications to the app"
+* Premuto "In App Notification" -> Invia notifiche in app — type=flow; label="Premuto 'In App Notification'"; explanation="The in-app notification triggers the push of notifications to the app"
+
+**Main Flows:**
+
+* Flow 1: Click su -> Gestione notifiche -> Premuto "push notification" -> Invia notifiche in app -> Premuto "In App Notification" -> Invia notifiche in app
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models the process of managing notifications, from clicking a button to pushing notifications to an app.
+* The main flow involves the sequence of events from clicking the button to pushing notifications to the app.
+* There are no decisions or branches in the flow.
+* The diagram does not show any loops or repeated behavior.
+
+===== Report_23_uml_pages.pdf | Page 6 =====
+**UML Type:** 
+- **Class**
+
+**Components:**
+- **New Product** — kind=class; attributes=[id: int, name: string, price: float]; operations=[push(): void, inAppNotification(): void]; role=New Product
+
+**Actors / Lifelines:**
+- **User**
+- **App**
+
+**Relationships / Links:**
+- **User** -> **New Product** — type=association; label="push"; explanation="push notification"
+- **New Product** -> **App** — type=association; label="inAppNotification"; explanation="in-app notification"
+
+**Main Flows:**
+- Flow 1: User -> New Product -> App
+
+**Conditions / Branches:**
+- **New Product** has a decision node with two branches: "Push" and "In App Notification"
+
+**Loops / Repetitions:**
+- None
+
+**Notes / Annotations:**
+- None
+
+**Observations:**
+- The diagram models the interaction between a user and a new product, where the user can either push or receive in-app notifications.
+- The main flow is a simple sequence of events where the user interacts with the new product, which then sends a push or in-app notification.
+- There are no loops or repeated behavior in the diagram.
+
+
+======================================================================

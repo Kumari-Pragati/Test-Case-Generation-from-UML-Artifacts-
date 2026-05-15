@@ -1,0 +1,64 @@
+flow
+"user -> trip — type=association; label=""creates""; explanation=""a user creates a trip."""
+"trip -> plan — type=composition; label=""contains""; explanation=""a trip contains one or more plans."""
+"plan -> dailyplan — type=composition; label=""contains""; explanation=""a plan contains one or more dailyplans."""
+"dailyplan -> weather — type=association; label=""references""; explanation=""a dailyplan references a weather."""
+"trip -> category — type=association; label=""includes""; explanation=""a trip includes one or more categories."""
+"placetovisit -> category — type=association; label=""belongs to""; explanation=""a placetovisit belongs to a category."""
+user -> creates trip -> trip is created -> trip contains plan -> plan contains dailyplan -> dailyplan references weather
+this diagram models a travel planning system.
+"users create trips, which contain plans."
+"each plan contains daily plans, which reference weather conditions."
+trips can be associated with categories.
+placetovisit is associated with a category.
+user -> main : registeruser();
+main -> users database : verifyvaliddata();
+main -> users database : saveuserdata();
+main -> user : registeruser.“ok”;
+main -> user : registeruser.“error”;
+user -> main : getdata();
+the diagram models the user registration process.
+the process starts with the user calling `registeruser()`.
+the main component validates the data and saves it to the database.
+"if the data is valid, the user receives a success message."
+"if the data is invalid, the user receives an error message."
+"sd user login -> user : userlogin(email, password);"
+"user -> main login : userlogin(email, password);"
+"main login -> users database : validuser(email, password);"
+users database -> main login : x = true;
+"main login -> sd user login : userlogin(""ok"");"
+"users database -> main login : userlogin(""error"");"
+the diagram models a user login process.
+the process starts with the user providing their email and password to the system.
+the system validates the credentials against a database.
+"if the credentials are valid, the system proceeds with a ""userlogin('ok')"" message."
+"if the credentials are invalid, the system returns an ""userlogin('error')"" message."
+"sd update trip data -> main — type=start event; label=""start""; explanation=""initiates the process"";"
+"main -> user — type=message; label=""updatetrip""; explanation=""calls the updatetrip function"";"
+"main -> trips database — type=message; label=""updatetripdata""; explanation=""updates the trip data in the database"";"
+"main -> user — type=message; label=""listtrip""; explanation=""lists the trips"";"
+start -> main -> user -> main -> trips database -> main -> user
+the diagram models the process of updating trip data.
+the user initiates the update process by calling the `updatetrip` function.
+the `updatetrip` function updates the data in the trips database.
+the user can then list the updated trips.
+"sd -> change user profile — type=initial node; label=""change user profile""; explanation=""start activity"""
+"change user profile -> main — type=fork; label=""getnewdata"""
+"main -> users database — type=invoke; label=""getnewdata"""
+"users database -> main — type=return; label=""x"""
+"main -> main — type=fork; label=""verifyvaliddata"""
+"main -> users database — type=invoke; label=""verifyvaliddata(x)"""
+"users database -> main — type=return; label=""y"""
+"main -> main — type=fork; label=""updateuserdata"""
+"main -> users database — type=invoke; label=""updateuserdata(y)"""
+"users database -> main — type=return; label=""ok"""
+"main -> change user profile — type=join; label=""ok"""
+"main -> change user profile — type=fork; label=""else"""
+"main -> change user profile — type=invoke; label=""error"""
+"change user profile -> change user profile — type=return; label=""error"""
+the activity models the process of changing a user profile.
+"the process starts with the ""change user profile"" activity."
+"it involves retrieving new data, validating the data, and updating the user data in the database."
+"there are two possible outcomes: success (""ok"") or error."
+"the validation step checks if the data is valid, and if not, an error is returned."
+======================================================================

@@ -1,0 +1,51 @@
+flow
+"avvio applicazione -> accesso lista distributori — type=control flow; label=""""; explanation=""process starts"""
+"avvio applicazione -> aggiungi veicolo — type=control flow; label=""""; explanation=""process starts"""
+"accesso lista distributori -> vedi altri diagrammi — type=control flow; label=""""; explanation=""go to other diagrams"""
+"aggiungi veicolo -> utente registrato con successo al servizio? — type=control flow; label=""""; explanation=""check user registration"""
+"utente registrato con successo al servizio? (si) -> cerca il veicolo nel dataset — type=control flow; label=""si""; explanation=""if user is registered, search for the vehicle"""
+"utente registrato con successo al servizio? (no) -> accesso lista distributori — type=control flow; label=""no""; explanation=""if user is not registered, go to distributor list"""
+"cerca il veicolo nel dataset -> hai trovato il veicolo? — type=control flow; label=""""; explanation=""search result"""
+"hai trovato il veicolo? (si) -> seleziona e aggiungi il veicolo — type=control flow; label=""si""; explanation=""if vehicle is found, select and add it"""
+"hai trovato il veicolo? (no) -> inserisci il veicolo manualmente — type=control flow; label=""no""; explanation=""if vehicle is not found, insert manually"""
+"seleziona e aggiungi il veicolo -> fine — type=control flow; label=""""; explanation=""vehicle added"""
+"inserisci il veicolo manualmente -> fine — type=control flow; label=""""; explanation=""vehicle manually inserted"""
+"cerca il veicolo nel dataset -> non esiste un altro veicolo? — type=control flow; label=""""; explanation=""check for other vehicles"""
+flow 1: avvio applicazione -> accesso lista distributori -> vedi altri diagrammi
+flow 2: avvio applicazione -> aggiungi veicolo -> utente registrato con successo al servizio? (si) -> cerca il veicolo nel dataset -> hai trovato il veicolo? (si) -> seleziona e aggiungi il veicolo -> fine
+flow 3: avvio applicazione -> aggiungi veicolo -> utente registrato con successo al servizio? (si) -> cerca il veicolo nel dataset -> hai trovato il veicolo? (no) -> inserisci il veicolo manualmente -> fine
+flow 4: avvio applicazione -> aggiungi veicolo -> utente registrato con successo al servizio? (no) -> accesso lista distributori -> vedi altri diagrammi
+"avvio app -> utente registrato con successo al servizio? — type=control flow; label=""""; explanation=""start of the process"""
+"utente registrato con successo al servizio? -> si — type=control flow; label=""si""; explanation=""if user is registered"""
+"utente registrato con successo al servizio? -> no — type=control flow; label=""no""; explanation=""if user is not registered"""
+"si -> accesso pagina distributori (schermata principale) — type=control flow; label=""""; explanation=""go to main distributor page"""
+"accesso pagina distributori (schermata principale) -> visualizza lista distributori — type=control flow; label=""""; explanation=""display distributor list"""
+"accesso pagina distributori (schermata principale) -> accesso pagina statistiche — type=control flow; label=""""; explanation=""access statistics page"""
+"accesso pagina distributori (schermata principale) -> vedi altri diagrammi — type=control flow; label=""""; explanation=""view other diagrams"""
+"accesso pagina distributori (schermata principale) -> visualizza parametri di configurazione — type=control flow; label=""""; explanation=""display configuration parameters"""
+"visualizza parametri di configurazione -> modifica parametri di configurazione — type=control flow; label=""""; explanation=""modify configuration parameters"""
+"modifica parametri di configurazione -> salva parametri di configurazione — type=control flow; label=""""; explanation=""save configuration parameters"""
+"accesso pagina distributori (schermata principale) -> apertura manuale dell'ordine — type=control flow; label=""""; explanation=""manually open an order"""
+"accesso pagina distributori (schermata principale) -> visualizza lista ordini in sospeso — type=control flow; label=""""; explanation=""display pending orders list"""
+"accesso pagina distributori (schermata principale) -> accesso pagina ordini — type=control flow; label=""""; explanation=""access orders page"""
+"accesso pagina ordini -> vedi altri diagrammi — type=control flow; label=""""; explanation=""view other diagrams"""
+flow 1: avvio app -> utente registrato con successo al servizio? (si) -> accesso pagina distributori (schermata principale) -> visualizza lista distributori
+flow 2: avvio app -> utente registrato con successo al servizio? (si) -> accesso pagina distributori (schermata principale) -> accesso pagina statistiche
+"accesso pagina impostazioni -> è un accesso alla pagina impostazioni? — type=control_flow; label=""""; explanation=""flow control"""
+"è un accesso alla pagina impostazioni? (si) -> valida le impostazioni — type=control_flow; label=""si""; explanation=""yes branch"""
+"è un accesso alla pagina impostazioni? (no) -> accesso lista distributori — type=control_flow; label=""no""; explanation=""no branch"""
+"valida le impostazioni -> hai modifiche da visualizzare? — type=control_flow; label=""""; explanation=""flow control"""
+"hai modifiche da visualizzare? (si) -> aggiungi lista di voci — type=control_flow; label=""si""; explanation=""yes branch"""
+"hai modifiche da visualizzare? (no) -> visualizza popup ""impostazioni effettuate"" — type=control_flow; label=""no""; explanation=""no branch"""
+"aggiungi lista di voci -> visualizza popup ""impostazioni effettuate"" — type=control_flow; label=""""; explanation=""flow control"""
+"accesso lista distributori -> accesso pagina statistiche — type=control_flow; label=""""; explanation=""flow control"""
+"accesso pagina statistiche -> accesso pagina impostazioni — type=control_flow; label=""""; explanation=""flow control"""
+"è un accesso alla pagina lista distributori? (si) -> accesso lista distributori — type=control_flow; label=""si""; explanation=""yes branch"""
+"è un accesso alla pagina lista distributori? (no) -> accesso pagina statistiche — type=control_flow; label=""no""; explanation=""no branch"""
+"è un accesso alla pagina statistiche? (si) -> accesso pagina statistiche — type=control_flow; label=""si""; explanation=""yes branch"""
+"è un accesso alla pagina statistiche? (no) -> accesso pagina impostazioni — type=control_flow; label=""no""; explanation=""no branch"""
+"flow 1: accesso pagina impostazioni -> è un accesso alla pagina impostazioni? (si) -> valida le impostazioni -> hai modifiche da visualizzare? (si) -> aggiungi lista di voci -> visualizza popup ""impostazioni effettuate"""
+flow 2: accesso pagina impostazioni -> è un accesso alla pagina impostazioni? (no) -> accesso lista distributori -> accesso pagina statistiche -> accesso pagina impostazioni
+"flow 3: accesso pagina impostazioni -> è un accesso alla pagina impostazioni? (si) -> valida le impostazioni -> hai modifiche da visualizzare? (no) -> visualizza popup ""impostazioni effettuate"""
+flow 4: accesso lista distributori -> accesso pagina statistiche -> accesso pagina impostazioni
+flow 5: accesso pagina statistiche -> accesso pagina impostazioni

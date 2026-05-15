@@ -1,0 +1,72 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User successfully logs in as Admin","Login","1","User knows admin credentials.","username=admin, password=admin_password","1. User enters ""admin"" as username and ""admin_password"" as password.
+2. User clicks login button.","User is logged in as Admin and redirected to the admin dashboard."
+"TC-Login-002","User fails to log in as Admin due to incorrect password","Login","1","User knows admin credentials.","username=admin, password=wrong_password","1. User enters ""admin"" as username and ""wrong_password"" as password.
+2. User clicks login button.","Login fails and an error message is displayed."
+"TC-Login-003","User fails to log in as Admin due to incorrect username","Login","1","User knows admin credentials.","username=wrong_username, password=admin_password","1. User enters ""wrong_username"" as username and ""admin_password"" as password.
+2. User clicks login button.","Login fails and an error message is displayed."
+"TC-ViewProduct-001","User successfully views a product","ViewProduct","1","User is logged in.","username=user, product_name=example_product","1. User logs in with valid credentials.
+2. User navigates to the product page with name ""example_product"".","User sees the product details."
+"TC-EditProduct-001","Admin successfully edits a product","EditProduct","1","Admin is logged in.","username=admin, product_name=example_product, new_description=""Updated description""","1. Admin logs in with valid credentials.
+2. Admin navigates to the product page with name ""example_product"".
+3. Admin edits the product description to ""Updated description"".","Product description is updated successfully."
+"TC-AddToCart-001","User successfully adds a product to cart","AddToCart","1","User is logged in.","username=user, product_name=example_product","1. User logs in with valid credentials.
+2. User navigates to the product page with name ""example_product"".
+3. User clicks ""Add to Cart"" button.","Product is added to the cart and the cart total is updated."
+"TC-RemoveFromCart-001","User successfully removes a product from cart","RemoveFromCart","1","User is logged in and has items in the cart.","username=user, product_name=example_product","1. User logs in with valid credentials.
+2. User navigates to the cart page.
+3. User selects ""example_product"" and clicks ""Remove"" button.","Product is removed from the cart and the cart total is updated."
+"TC-PlaceOrder-001","Admin successfully places an order","PlaceOrder","1","Admin is logged in and has items in the cart.","username=admin, cart_total=100.00","1. Admin logs in with valid credentials.
+2. Admin navigates to the cart page.
+3. Admin clicks ""Place Order"" button.","Order is placed successfully and the cart is cleared."
+"TC-CancelOrder-001","Admin successfully cancels an order","CancelOrder","1","Admin is logged in and has an order.","username=admin, order_id=12345","1. Admin logs in with valid credentials.
+2. Admin navigates to the order page with id ""12345"".
+3. Admin clicks ""Cancel Order"" button.","Order is canceled successfully."
+"TC-NotificationManagement-001","User successfully triggers a notification","NotificationManagement","5","User is logged in.","user_id=12345, message=""Hello, this is a test notification.""","1. User logs in with valid credentials.
+2. User triggers the notification process.
+3. User sends the notification with the message ""Hello, this is a test notification.""","Notification is sent successfully."
+"TC-NotificationManagement-002","User fails to trigger a notification due to invalid user ID","NotificationManagement","5","User is logged in.","user_id=invalid_user_id, message=""Hello, this is a test notification.""","1. User logs in with valid credentials.
+2. User triggers the notification process with an invalid user ID.
+3. User sends the notification with the message ""Hello, this is a test notification.""","Notification fails to send and an error message is displayed."
+"TC-ProductManagement-001","User successfully adds a new product","ProductManagement","6","User is logged in.","product_name=new_product, price=10.99, description=""New product description""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User adds a new product with name ""new_product"", price ""10.99"", and description ""New product description"".","New product is added successfully and the product list is updated."
+"TC-ProductManagement-002","User fails to add a new product due to empty product name","ProductManagement","6","User is logged in.","product_name="""", price=10.99, description=""New product description""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to add a new product with an empty product name.","Product addition fails and an error message is displayed."
+"TC-ProductManagement-003","User fails to add a new product due to invalid price","ProductManagement","6","User is logged in.","product_name=new_product, price=-10.99, description=""New product description""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to add a new product with a negative price.","Product addition fails and an error message is displayed."
+"TC-ProductManagement-004","User successfully removes a product","ProductManagement","6","User is logged in and has a product in the system.","product_name=existing_product","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User selects ""existing_product"" and clicks ""Remove"" button.","Product is removed successfully and the product list is updated."
+"TC-ProductManagement-005","User fails to remove a product due to non-existent product name","ProductManagement","6","User is logged in.","product_name=non_existent_product","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to remove a non-existent product.","Product removal fails and an error message is displayed."
+"TC-ProductManagement-006","User fails to remove a product due to invalid product name","ProductManagement","6","User is logged in.","product_name=""""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to remove a product with an empty product name.","Product removal fails and an error message is displayed."
+"TC-ProductManagement-007","User successfully updates a product","ProductManagement","6","User is logged in and has a product in the system.","product_name=existing_product, new_price=20.99, new_description=""Updated product description""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User selects ""existing_product"" and updates it with new price ""20.99"" and new description ""Updated product description"".","Product is updated successfully and the product list is updated."
+"TC-ProductManagement-008","User fails to update a product due to non-existent product name","ProductManagement","6","User is logged in.","product_name=non_existent_product, new_price=20.99, new_description=""Updated product description""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to update a non-existent product.","Product update fails and an error message is displayed."
+"TC-ProductManagement-009","User fails to update a product due to invalid product name","ProductManagement","6","User is logged in.","product_name="""", new_price=20.99, new_description=""Updated product description""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to update a product with an empty product name.","Product update fails and an error message is displayed."
+"TC-ProductManagement-010","User successfully retrieves a product","ProductManagement","6","User is logged in and has a product in the system.","product_name=existing_product","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User retrieves the product with name ""existing_product"".","Product details are displayed successfully."
+"TC-ProductManagement-011","User fails to retrieve a product due to non-existent product name","ProductManagement","6","User is logged in.","product_name=non_existent_product","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to retrieve a non-existent product.","Product retrieval fails and an error message is displayed."
+"TC-ProductManagement-012","User fails to retrieve a product due to invalid product name","ProductManagement","6","User is logged in.","product_name=""""","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to retrieve a product with an empty product name.","Product retrieval fails and an error message is displayed."
+"TC-ProductManagement-013","User successfully updates a product's price","ProductManagement","6","User is logged in and has a product in the system.","product_name=existing_product, new_price=20.99","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User selects ""existing_product"" and updates its price to ""20.99"".","Product price is updated successfully and the product list is updated."
+"TC-ProductManagement-014","User fails to update a product's price due to non-existent product name","ProductManagement","6","User is logged in.","product_name=non_existent_product, new_price=20.99","1. User logs in with valid credentials.
+2. User navigates to the product management page.
+3. User attempts to update a non-existent product's price.","Product price update fails and an error message is displayed."

@@ -1,0 +1,61 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-DataManager-001","Verify DataManager uses OperazioniDiAccesso","DataManager","1","DataManager and OperazioniDiAccesso are initialized.","N/A","1. Invoke DataManager's op() method.
+2. Observe that DataManager invokes OperazioniDiAccesso's op() method.","OperazioniDiAccesso's op() method is called successfully."
+"TC-LetturaPlantilla-002","Verify LetturaPlantilla uses LetturaDiaro","LetturaPlantilla","1","LetturaPlantilla and LetturaDiaro are initialized.","N/A","1. Invoke LetturaPlantilla's op() method.
+2. Observe that LetturaPlantilla invokes LetturaDiaro's op() method.","LetturaDiaro's op() method is called successfully."
+"TC-User-003","Successful User Login","User","3","User and Server are initialized.","Valid username: ""testuser"", valid password: ""password123""","1. User invokes login(""testuser"", ""password123"").
+2. Server receives the login request and invokes handleLogin(""testuser"", ""password123"").
+3. Server returns a successful login response to the User.","User is logged in successfully."
+"TC-User-004","Failed User Login","User","3","User and Server are initialized.","Invalid username: ""invaliduser"", invalid password: ""wrongpassword""","1. User invokes login(""invaliduser"", ""wrongpassword"").
+2. Server receives the login request and invokes handleLogin(""invaliduser"", ""wrongpassword"").
+3. Server returns a failed login response to the User.","User is not logged in and receives a failure message."
+"TC-User-005","User Logout","User","3","User is logged in.","N/A","1. User invokes logout().
+2. Server receives the logout request and invokes handleLogout().
+3. Server returns a logout confirmation to the User.","User is logged out successfully."
+"TC-LetturaPianta-006","LetturaPianta reads from Firebase Storage","LetturaPianta","5","LetturaPianta is initialized.","N/A","1. LetturaPianta invokes op().
+2. LetturaPianta sends a request to Firebase Storage.
+3. Firebase Storage responds to LetturaPianta.","Firebase Storage response is received by LetturaPianta."
+"TC-AgguntaPianta-007","Verify AgguntaPianta operation","AgguntaPianta","4","AgguntaPianta is initialized.","N/A","1. Invoke AgguntaPianta's op().
+2. Observe that the operation executes without errors.","Operation completes successfully without any exceptions."
+"TC-DataManager-008","Verify DataManager uses LetturaPlantilla","DataManager","1","DataManager and LetturaPlantilla are initialized.","N/A","1. Invoke DataManager's op() method.
+2. Observe that DataManager invokes LetturaPlantilla's op() method.","LetturaPlantilla's op() method is called successfully."
+"TC-User-009","User Login with Empty Username","User","3","User and Server are initialized.","Empty username: """", valid password: ""password123""","1. User invokes login("""", ""password123"").
+2. Server receives the login request and invokes handleLogin("""", ""password123"").
+3. Server returns a failure response to the User.","User is not logged in and receives a failure message due to empty username."
+"TC-User-010","User Login with Empty Password","User","3","User and Server are initialized.","Valid username: ""testuser"", empty password: """"","1. User invokes login(""testuser"", """").
+2. Server receives the login request and invokes handleLogin(""testuser"", """").
+3. Server returns a failure response to the User.","User is not logged in and receives a failure message due to empty password."
+"TC-User-011","User Logout After Failed Login","User","3","User and Server are initialized.","Invalid username: ""invaliduser"", invalid password: ""wrongpassword""","1. User invokes login(""invaliduser"", ""wrongpassword"").
+2. Server receives the login request and invokes handleLogin(""invaliduser"", ""wrongpassword"").
+3. Server returns a failed login response to the User.
+4. User invokes logout().
+5. Server receives the logout request and invokes handleLogout().
+6. Server returns a logout confirmation to the User.","User is logged out successfully despite the failed login attempt."
+"TC-LetturaPianta-012","LetturaPianta reads from Firebase Storage with Invalid Request","LetturaPianta","5","LetturaPianta is initialized.","N/A","1. LetturaPianta invokes op() with an invalid request.
+2. LetturaPianta sends a request to Firebase Storage.
+3. Firebase Storage responds with an error.","Firebase Storage returns an error response to LetturaPianta."
+"TC-AgguntaPianta-013","Verify AgguntaPianta operation with Invalid Input","AgguntaPianta","4","AgguntaPianta is initialized.","Invalid input: ""invalid_input""","1. Invoke AgguntaPianta's op() with invalid input.
+2. Observe that the operation fails with an exception.","Operation fails with an appropriate exception due to invalid input."
+"TC-DataManager-014","Verify DataManager uses OperazioniDiAccesso with Invalid Input","DataManager","1","DataManager and OperazioniDiAccesso are initialized.","Invalid input: ""invalid_input""","1. Invoke DataManager's op() method with invalid input.
+2. Observe that DataManager invokes OperazioniDiAccesso's op() method with invalid input.
+3. Observe that OperazioniDiAccesso's op() method fails with an exception.","OperazioniDiAccesso's op() method fails with an appropriate exception due to invalid input."
+"TC-User-015","User Login with Special Characters","User","3","User and Server are initialized.","Username with special characters: ""test@user"", valid password: ""password123""","1. User invokes login(""test@user"", ""password123"").
+2. Server receives the login request and invokes handleLogin(""test@user"", ""password123"").
+3. Server returns a successful login response to the User.","User is logged in successfully with a username containing special characters."
+"TC-LetturaPianta-016","LetturaPianta reads from Firebase Storage with Large Data","LetturaPianta","5","LetturaPianta is initialized.","Large data payload","1. LetturaPianta invokes op() with large data payload.
+2. LetturaPianta sends a request to Firebase Storage.
+3. Firebase Storage responds with the large data payload.","Firebase Storage returns the large data payload to LetturaPianta successfully."
+"TC-User-019","User Login with Long Username","User","3","User and Server are initialized.","Long username: ""averylongusername1234567890"", valid password: ""password123""","1. User invokes login(""averylongusername1234567890"", ""password123"").
+2. Server receives the login request and invokes handleLogin(""averylongusername1234567890"", ""password123"").
+3. Server returns a successful login response to the User.","User is logged in successfully with a long username."
+"TC-LetturaPianta-020","LetturaPianta reads from Firebase Storage with Edge Case Data","LetturaPianta","5","LetturaPianta is initialized.","Edge case data payload","1. LetturaPianta invokes op() with edge case data payload.
+2. LetturaPianta sends a request to Firebase Storage.
+3. Firebase Storage responds with the edge case data payload.","Firebase Storage returns the edge case data payload to LetturaPianta successfully."
+"TC-AgguntaPianta-021","Verify AgguntaPianta operation with Edge Case Input","AgguntaPianta","4","AgguntaPianta is initialized.","Edge case input: ""edge_case_input""","1. Invoke AgguntaPianta's op() with edge case input.
+2. Observe that the operation executes successfully.","Operation completes successfully with edge case input."
+"TC-DataManager-022","Verify DataManager uses OperazioniDiAccesso with Edge Case Input","DataManager","1","DataManager and OperazioniDiAccesso are initialized.","Edge case input: ""edge_case_input""","1. Invoke DataManager's op() method with edge case input.
+2. Observe that DataManager invokes OperazioniDiAccesso's op() method with edge case input.
+3. Observe that OperazioniDiAccesso's op() method executes successfully.","OperazioniDiAccesso's op() method completes successfully with edge case input."
+"TC-User-023","User Login with Long Password","User","3","User and Server are initialized.","Valid username: ""testuser"", long password: ""averylongpassword1234567890""","1. User invokes login(""testuser"", ""averylongpassword1234567890"").
+2. Server receives the login request and invokes handleLogin(""testuser"", ""averylongpassword1234567890"").
+3. Server returns a successful login response to the User.","User is logged in successfully with a long password."

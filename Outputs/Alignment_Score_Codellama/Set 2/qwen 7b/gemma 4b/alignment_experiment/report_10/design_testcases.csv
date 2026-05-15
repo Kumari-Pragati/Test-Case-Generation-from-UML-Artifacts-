@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,1,None,"- email: user@example.com
+- password: password123
+- username: testuser","1. Call the `setEmail` method with ""user@example.com"".
+2. Call the `setPassword` method with ""password123"".
+3. Call the `setUsername` method with ""testuser"".",The user's details should be stored correctly.
+TC-User-002,User Login,User,"1,2",User has been registered.,"- email: user@example.com
+- password: password123","1. Call the `getEmail` method and verify it returns ""user@example.com"".
+2. Call the `getPassword` method and verify it returns ""password123"".
+3. Call the `login` method with ""user@example.com"" and ""password123"".",The user should be logged in and redirected to the homepage.
+TC-City-001,Get City Name,City,1,None,"- city name: Rome
+- province: Lazio","1. Call the `setNome` method with ""Rome"".
+2. Call the `setProvincia` method with ""Lazio"".
+3. Call the `getNome` method.","The method should return ""Rome""."
+TC-POI-001,Get POI Name,POI,1,None,"- poi name: Colosseum
+- city: Rome
+- province: Lazio
+- tipologia: Historical Site
+- descrizione: Ancient Roman amphitheater","1. Call the `setNome` method with ""Colosseum"".
+2. Call the `setCittà` method with ""Rome"".
+3. Call the `setProvincia` method with ""Lazio"".
+4. Call the `setTipologia` method with ""Historical Site"".
+5. Call the `setDescrizione` method with ""Ancient Roman amphitheater"".
+6. Call the `getNome` method.","The method should return ""Colosseum""."
+TC-Event-001,Create Event,Event,"2,3",User is logged in.,"- event title: New Event
+- date: 2023-10-10
+- tipologia: Cultural
+- descrizione: Description of the event","1. Call the `getNome` method on the city object and verify it returns the correct city name.
+2. Call the `setTitle` method with ""New Event"".
+3. Call the `setData` method with ""2023-10-10"".
+4. Call the `setTipologia` method with ""Cultural"".
+5. Call the `setDescrizione` method with ""Description of the event"".
+6. Call the `createEvent` method.",The event should be created successfully.
+TC-Event-002,Modify Event,Event,4,User is logged in and an event exists.,"- event title: Modified Event
+- new date: 2023-10-11
+- new tipologia: Educational
+- new descrizione: Updated description of the event","1. Call the `getNome` method on the city object and verify it returns the correct city name.
+2. Call the `setTitle` method with ""Modified Event"".
+3. Call the `setData` method with ""2023-10-11"".
+4. Call the `setTipologia` method with ""Educational"".
+5. Call the `setDescrizione` method with ""Updated description of the event"".
+6. Call the `modifyEvent` method.",The event should be modified successfully.
+TC-Event-003,Cancel Event,Event,4,User is logged in and an event exists.,"- event title: Cancelled Event
+- action: ""?""","1. Call the `getNome` method on the city object and verify it returns the correct city name.
+2. Scroll down and press ""?"" to cancel the event.
+3. Call the `cancelEvent` method.",The event should be cancelled successfully.
+TC-Event-004,Invalid Event Creation,Event,3,User is logged in.,"- event title: Invalid Event
+- date: 2023-10-10
+- tipologia: Cultural
+- descrizione: Description of the event","1. Call the `getNome` method on the city object and verify it returns the correct city name.
+2. Call the `setTitle` method with ""Invalid Event"".
+3. Call the `setData` method with ""2023-10-10"".
+4. Call the `setTipologia` method with ""Cultural"".
+5. Call the `setDescrizione` method with ""Description of the event"".
+6. Call the `createEvent` method.",The event creation should fail due to invalid input.
+TC-Event-005,Invalid Event Modification,Event,4,User is logged in and an event exists.,"- event title: Invalid Event
+- new date: 2023-10-10
+- new tipologia: Cultural
+- new descrizione: Description of the event","1. Call the `getNome` method on the city object and verify it returns the correct city name.
+2. Call the `setTitle` method with ""Invalid Event"".
+3. Call the `setData` method with ""2023-10-10"".
+4. Call the `setTipologia` method with ""Cultural"".
+5. Call the `setDescrizione` method with ""Description of the event"".
+6. Call the `modifyEvent` method.",The event modification should fail due to invalid input.
+TC-Event-006,Invalid Event Deletion,Event,4,User is logged in and an event exists.,"- event title: Invalid Event
+- action: ""?""","1. Call the `getNome` method on the city object and verify it returns the correct city name.
+2. Scroll down and press ""?"" to cancel the event.
+3. Call the `cancelEvent` method.",The event cancellation should fail due to invalid input.
+TC-Login-002,Unregistered User Login,User,2,User is not registered.,"- email: user@example.com
+- password: password123","1. Call the `login` method with ""user@example.com"" and ""password123"".",The login should fail as the user is not registered.
+TC-Login-003,Incorrect Password Login,User,2,User is registered.,"- email: user@example.com
+- password: wrongpassword","1. Call the `login` method with ""user@example.com"" and ""wrongpassword"".",The login should fail due to incorrect password.
+TC-Login-004,Empty Email Login,User,2,User is registered.,"- email: 
+- password: password123","1. Call the `login` method with empty email and ""password123"".",The login should fail due to empty email.
+TC-Login-005,Empty Password Login,User,2,User is registered.,"- email: user@example.com
+- password:","1. Call the `login` method with ""user@example.com"" and empty password.",The login should fail due to empty password.
+TC-Registration-002,Duplicate Username Registration,User,1,User with the same username already exists.,"- email: user2@example.com
+- password: password123
+- username: testuser","1. Call the `setUsername` method with ""testuser"".
+2. Call the `register` method.",The registration should fail due to duplicate username.
+TC-Registration-003,Empty Username Registration,User,1,None,"- email: user@example.com
+- password: password123
+- username:","1. Call the `setUsername` method with empty username.
+2. Call the `register` method.",The registration should fail due to empty username.
+TC-Registration-004,Empty Email Registration,User,1,None,"- email: 
+- password: password123
+- username: testuser","1. Call the `setEmail` method with empty email.
+2. Call the `register` method.",The registration should fail due to empty email.
+TC-Registration-005,Empty Password Registration,User,1,None,"- email: user@example.com
+- password: 
+- username: testuser","1. Call the `setPassword` method with empty password.
+2. Call the `register` method.",The registration should fail due to empty password.
+TC-Search-001,Search for City,City,3,None,"- city name: Rome
+- province: Lazio","1. Call the `setNome` method with ""Rome"".
+2. Call the `setProvincia` method with ""Lazio"".
+3. Call the `searchCity` method.",The city should be found successfully.
+TC-Search-002,Search for Non-Existent City,City,3,None,"- city name: NonExistentCity
+- province: Lazio","1. Call the `setNome` method with ""NonExistentCity"".
+2. Call the `setProvincia` method with ""Lazio"".
+3. Call the `searchCity` method.",The city should not be found.
+TC-Search-003,Search for City with Invalid Input,City,3,None,"- city name: 
+- province: Lazio","1. Call the `setNome` method with empty city name.
+2. Call the `setProvincia` method with ""Lazio"".
+3. Call the `searchCity` method.",The search should fail due to invalid input.
+TC-Search-004,Search for City with Empty Province,City,3,None,"- city name: Rome
+- province:","1. Call the `setNome` method with ""Rome"".
+2. Call the `setProvincia` method with empty province.
+3. Call the `searchCity` method.",The search should fail due to invalid input.
+TC-POI-002,Get POI Details,POI,1,None,"- poi name: Colosseum
+- city: Rome
+- province: Lazio
+- tipologia: Historical Site
+- descrizione: Ancient Roman amphitheater","1. Call the `getNome` method.
+2. Call the `getCittà` method.
+3. Call the `getProvincia` method.
+4. Call the `getTipologia` method.
+5. Call the `getDescrizione` method.",All methods should return the correct values.
+TC-POI-003,Invalid POI Details,POI,1,None,"- poi name: 
+- city: Rome
+- province: Lazio",,

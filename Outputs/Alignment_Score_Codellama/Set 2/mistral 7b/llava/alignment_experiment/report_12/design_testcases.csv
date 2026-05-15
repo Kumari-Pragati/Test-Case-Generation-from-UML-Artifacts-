@@ -1,0 +1,81 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User can log in successfully,Login,1,User has a valid username and password,"Username: admin, Password: password","1. Navigate to the login page.
+2. Enter the username ""admin"" in the username field.
+3. Enter the password ""password"" in the password field.
+4. Click the ""Login"" button.",The user is logged in successfully and redirected to the main page.
+TC-Login-002,User cannot log in with invalid credentials,Login,1,User enters incorrect username or password,"Username: invalid, Password: password","1. Navigate to the login page.
+2. Enter the username ""invalid"" in the username field.
+3. Enter the password ""password"" in the password field.
+4. Click the ""Login"" button.","An error message is displayed, and the user is not logged in."
+TC-User-001,User can view their profile,User Profile,2,User is logged in,None,"1. Navigate to the user profile page.
+2. Verify that the user's name and email are displayed.",The user's name and email are displayed on the profile page.
+TC-User-002,User cannot view another user's profile,User Profile,2,"User is logged in as a regular user, not an admin",None,1. Navigate to another user's profile page.,"An error message is displayed, and the user is not able to view the other user's profile."
+TC-Noticeboard-001,User can view the noticeboard,Noticeboard,3,User is logged in,None,"1. Navigate to the noticeboard page.
+2. Verify that the latest notice is displayed at the top of the page.",The latest notice is displayed at the top of the noticeboard page.
+TC-Noticeboard-002,User can create a new notice,Noticeboard,3,User is logged in as an admin,"Title: Test Notice, Content: This is a test notice.","1. Navigate to the noticeboard page.
+2. Click the ""Create Notice"" button.
+3. Enter the title ""Test Notice"" in the title field.
+4. Enter the content ""This is a test notice."" in the content field.
+5. Click the ""Create"" button.",The new notice is created and displayed on the noticeboard page.
+TC-Noticeboard-003,User can edit an existing notice,Noticeboard,3,"User is logged in as an admin, and there is at least one notice on the noticeboard","Title: Updated Test Notice, Content: This is an updated test notice.","1. Navigate to the noticeboard page.
+2. Find the notice to be edited.
+3. Click the ""Edit"" button next to the notice.
+4. Enter the title ""Updated Test Notice"" in the title field.
+5. Enter the content ""This is an updated test notice."" in the content field.
+6. Click the ""Update"" button.",The edited notice is displayed on the noticeboard page.
+TC-Noticeboard-004,User can delete a notice,Noticeboard,3,"User is logged in as an admin, and there is at least one notice on the noticeboard",,"1. Navigate to the noticeboard page.
+2. Find the notice to be deleted.
+3. Click the ""Delete"" button next to the notice.
+4. Confirm the deletion in the popup.",The notice is removed from the noticeboard page.
+TC-Noticeboard-005,User cannot delete a notice they did not create,Noticeboard,3,"User is logged in as an admin, and there is at least one notice on the noticeboard",,"1. Navigate to the noticeboard page.
+2. Find a notice created by another user.
+3. Click the ""Delete"" button next to the notice.","An error message is displayed, and the notice is not deleted."
+TC-Noticeboard-006,User can view notice details,Noticeboard,3,User is logged in,,"1. Navigate to the noticeboard page.
+2. Find a notice and click on it.
+3. Verify that the notice details (title, content, and creation date) are displayed.",The notice details are displayed on the notice details page.
+TC-Noticeboard-007,User cannot view notice details for a notice they did not create,Noticeboard,3,"User is logged in as a regular user, and there is at least one notice on the noticeboard",,"1. Navigate to the noticeboard page.
+2. Find a notice created by another user and click on it.","An error message is displayed, and the user is not able to view the notice details."
+TC-Announcement-001,User can view announcements,Announcements,4,User is logged in,,"1. Navigate to the announcements page.
+2. Verify that the latest announcement is displayed at the top of the page.",The latest announcement is displayed at the top of the announcements page.
+TC-Announcement-002,User can create a new announcement,Announcements,4,User is logged in as an admin,"Title: Test Announcement, Content: This is a test announcement.","1. Navigate to the announcements page.
+2. Click the ""Create Announcement"" button.
+3. Enter the title ""Test Announcement"" in the title field.
+4. Enter the content ""This is a test announcement."" in the content field.
+5. Click the ""Create"" button.",The new announcement is created and displayed on the announcements page.
+TC-Announcement-003,User can edit an existing announcement,Announcements,4,"User is logged in as an admin, and there is at least one announcement on the announcements page","Title: Updated Test Announcement, Content: This is an updated test announcement.","1. Navigate to the announcements page.
+2. Find the announcement to be edited.
+3. Click the ""Edit"" button next to the announcement.
+4. Enter the title ""Updated Test Announcement"" in the title field.
+5. Enter the content ""This is an updated test announcement."" in the content field.
+6. Click the ""Update"" button.",The edited announcement is displayed on the announcements page.
+TC-Announcement-004,User can delete an announcement,Announcements,4,"User is logged in as an admin, and there is at least one announcement on the announcements page",,"1. Navigate to the announcements page.
+2. Find the announcement to be deleted.
+3. Click the ""Delete"" button next to the announcement.
+4. Confirm the deletion in the popup.",The announcement is removed from the announcements page.
+TC-Announcement-005,User cannot delete an announcement they did not create,Announcements,4,"User is logged in as an admin, and there is at least one announcement on the announcements page",,"1. Navigate to the announcements page.
+2. Find an announcement created by another user.
+3. Click the ""Delete"" button next to the announcement.","An error message is displayed, and the announcement is not deleted."
+TC-Announcement-006,User can view announcement details,Announcements,4,User is logged in,,"1. Navigate to the announcements page.
+2. Find an announcement and click on it.
+3. Verify that the announcement details (title, content, and creation date) are displayed.",The announcement details are displayed on the announcement details page.
+TC-Announcement-007,User cannot view announcement details for an announcement they did not create,Announcements,4,"User is logged in as a regular user, and there is at least one announcement on the announcements page",,"1. Navigate to the announcements page.
+2. Find an announcement created by another user and click on it.","An error message is displayed, and the user is not able to view the announcement details."
+TC-Notifications-001,User receives notifications for new announcements and notices,Notifications,5,User is logged in,,"1. Navigate to the notifications page.
+2. Verify that there are no notifications displayed.
+3. Create a new announcement or notice.
+4. Refresh the notifications page.
+5. Verify that there is at least one notification displayed.",The user receives a notification for the new announcement or notice.
+TC-Notifications-002,User can mark notifications as read,Notifications,5,User is logged in and has at least one unread notification,,"1. Navigate to the notifications page.
+2. Verify that there is at least one unread notification displayed.
+3. Click the ""Mark as read"" button next to the notification.
+4. Refresh the notifications page.
+5. Verify that the notification is no longer displayed.",The user can mark notifications as read.
+TC-Notifications-003,User cannot mark a notification as read if it has already been read,Notifications,5,User is logged in and has at least one read notification,,"1. Navigate to the notifications page.
+2. Verify that there is at least one read notification displayed.
+3. Click the ""Mark as read"" button next to the notification.","An error message is displayed, and the notification remains marked as read."
+TC-Notifications-004,User can view notification details,Notifications,5,User is logged in and has at least one notification,,"1. Navigate to the notifications page.
+2. Find a notification and click on it.
+3. Verify that the notification details (title, content, and creation date) are displayed.",The notification details are displayed on the notification details page.
+TC-Notifications-005,User cannot view notification details for a notification they did not create,Notifications,5,User is logged in as a regular user and has at least one notification,,"1. Navigate to the notifications page.
+2. Find a notification created by another user and click on it.","An error message is displayed, and the user is not able to view the notification details."
+TC-Points-001,User can earn points for creating and editing announcements and notices,Points,,,,,

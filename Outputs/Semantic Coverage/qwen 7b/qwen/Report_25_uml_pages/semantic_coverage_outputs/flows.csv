@@ -1,0 +1,139 @@
+flow
+"app -> pages — type=communication; label=""""; explanation=""communication between frontend and pages"""
+"pages -> repository / controllers — type=communication; label=""""; explanation=""communication between pages and repository/controllers"""
+"repository / controllers -> apihandler — type=communication; label=""""; explanation=""communication between repository/controllers and api handler"""
+"apihandler -> bunny.net — type=communication; label=""""; explanation=""communication between api handler and cdn"""
+"apihandler -> mysql — type=communication; label=""""; explanation=""communication between api handler and database"""
+"apihandler -> models — type=communication; label=""""; explanation=""communication between api handler and data models"""
+"apihandler -> controllers — type=communication; label=""""; explanation=""communication between api handler and controllers"""
+"apihandler -> jobs — type=communication; label=""""; explanation=""communication between api handler and background jobs"""
+"apihandler -> pusher — type=communication; label=""""; explanation=""communication between api handler and real-time communication service"""
+"apihandler -> one signal — type=communication; label=""""; explanation=""communication between api handler and push notifications system"""
+flow 1: app -> pages -> repository / controllers -> apihandler -> bunny.net
+flow 2: app -> pages -> repository / controllers -> apihandler -> mysql
+flow 3: app -> pages -> repository / controllers -> apihandler -> models
+flow 4: app -> pages -> repository / controllers -> apihandler -> controllers
+flow 5: app -> pages -> repository / controllers -> apihandler -> jobs
+flow 6: app -> pages -> repository / controllers -> apihandler -> pusher
+flow 7: app -> pages -> repository / controllers -> apihandler -> one signal
+"the diagram represents a system architecture with various components such as the frontend application, database, models, controllers, and services."
+communication flows between different components are depicted through arrows.
+"the system includes a frontend application, a backend with repositories/controllers, an api handler, a database, models, controllers, background jobs, real-time communication, and push notifications."
+the system uses a combination of direct and api-based communication.
+the architecture follows a layered design with clear separation of concerns.
+"utente -> app — type=message; label=""compilazione campi""; explanation=""user fills form fields"""
+"app -> server — type=message; label=""doregistration()""; explanation=""application initiates registration process"""
+"server -> database — type=message; label=""salvataggio dati""; explanation=""server saves data"""
+"server -> database — type=message; label=""conferma inserimento""; explanation=""server confirms insertion"""
+"server -> database — type=message; label=""generateotp()""; explanation=""server generates otp"""
+"server -> database — type=message; label=""salvataggio otp""; explanation=""server saves otp"""
+"server -> database — type=message; label=""chiede otp salvato""; explanation=""server requests saved otp"""
+"server -> database — type=message; label=""riceve otp salvato""; explanation=""server receives saved otp"""
+"server -> database — type=message; label=""$check = checkotp()""; explanation=""server checks saved otp"""
+"server -> app — type=message; label=""mail otp""; explanation=""server sends otp via email"""
+"server -> app — type=message; label=""sendotp()""; explanation=""server sends otp"""
+"server -> app — type=message; label=""[$check] : sendauthtoken()""; explanation=""server sends authentication token if otp is valid"""
+flow 1: utente -> app -> server -> database (registration process)
+flow 2: utente -> app -> server -> database (otp verification process)
+this sequence diagram models the registration process for a user interacting with an application through a server and database.
+"the user fills out form fields, which are then processed by the application, which in turn communicates with the server to save the data and generate an otp."
+"the server sends the otp via email and waits for the user to enter it back into the application, which then verifies the otp with the server."
+"if the otp is valid, the server sends an authentication token to the application."
+"the main flow involves the registration process, while the secondary flow involves the otp verification process."
+"utente -> app — type=message; label=""compilazione campi""; explanation=""user inputs data into the application"""
+"app -> server — type=message; label=""$checku: _emailvalidate()""; explanation=""application validates email"""
+"app -> server — type=message; label=""$checkp: _passwordvalidate()""; explanation=""application validates password"""
+"server -> app — type=message; label=""[{$checku and $checkp}: dologin()]"" explanation=""server processes login request"""
+"server -> database — type=message; label=""richiesta passwrod associata alla mail""; explanation=""server requests password associated with the email"""
+"database -> server — type=message; label=""invio password""; explanation=""database sends password"""
+"server -> app — type=message; label=""$check = checkpassword()""; explanation=""server checks password"""
+"server -> app — type=message; label=""[{$check} : generatetoken()]"" explanation=""server generates token"""
+"app -> server — type=message; label=""[{$check} : sendauthtoken()]"" explanation=""application sends authentication token"""
+"server -> app — type=message; label=""salvataggio authtoken()"" explanation=""server saves authentication token"""
+"app -> utente — type=message; label=""apertura schermata home""; explanation=""application opens home screen for user"""
+flow 1: utente -> app -> server -> database -> server -> app -> server -> app -> server -> app -> utente
+this sequence diagram models the login process in a software application.
+the user inputs their credentials into the application.
+the application validates the email and password.
+"if both validations succeed, the server processes the login request."
+the server then requests the password associated with the email from the database.
+the database sends the password back to the server.
+the server checks the password against the one provided by the user.
+"if the password is correct, the server generates a token and sends it to the application."
+the application saves the authentication token and opens the home screen for the user.
+"the main flow involves interactions between the user, application, server, and database."
+"utente -> app — type=message; label=""richiesta psw dimenticata""; explanation=""user requests password recovery"""
+"app -> server — type=message; label=""lostpswrequest()""; explanation=""application sends request to server"""
+"server -> database — type=message; label=""check mail""; explanation=""server checks email"""
+"database -> server — type=message; label=""$checkmail=risposta db""; explanation=""database responds to server"""
+"server -> app — type=message; label=""[{$checkmail==f}]""; explanation=""server checks email status"""
+"server -> app — type=message; label=""genera token recupero psw""; explanation=""server generates password recovery token"""
+"server -> app — type=message; label=""salvataggio token recupero psw""; explanation=""server saves recovery token"""
+"server -> app — type=message; label=""conferma salvataggio""; explanation=""server confirms saving"""
+"server -> app — type=message; label=""invio nuova password & token recupero psw""; explanation=""server sends new password and recovery token"""
+"app -> utente — type=message; label=""mail con link""; explanation=""application sends email with link"""
+"utente -> app — type=message; label=""comunicazione cambio password avvenuta""; explanation=""user communicates password change successful"""
+flow 1: utente -> app -> server -> database -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server -> app -> server ->
+"utente -> app — type=message; label=""apre homepage""; explanation=""user opens homepage"""
+"app -> server — type=message; label=""initcards(n:$preloadcount)""; explanation=""application initiates card loading"""
+"server -> database — type=message; label=""richiedi oggetti limit n""; explanation=""server requests n objects"""
+"database -> server — type=message; label=""riceve n oggetti""; explanation=""database receives n objects"""
+"server -> app — type=message; label=""n oggetti, riempie card""; explanation=""server sends n objects to fill cards"""
+"app -> server — type=message; label=""[remainigcard<n/2]: loadmorecards(n/2)""; explanation=""application loads more cards if needed"""
+"server -> app — type=message; label=""n/2 oggetti, riempie card""; explanation=""server sends n/2 objects to fill cards"""
+"server -> database — type=message; label=""richiedi oggetti limit n/2 offset n/2""; explanation=""server requests next set of n/2 objects"""
+"database -> server — type=message; label=""riceve n/2 oggetti""; explanation=""database receives n/2 objects"""
+flow 1: utente -> app -> server -> database -> server -> app -> utente
+user opens homepage
+application initiates card loading
+server requests n objects
+database receives n objects
+server sends n objects to fill cards
+application loads more cards if needed
+server requests next set of n/2 objects
+database receives n/2 objects
+server sends n/2 objects to fill cards
+this diagram models a user interaction with a mobile application that fetches data from a server and database.
+"the main flow involves the user opening the homepage, which triggers the application to request and receive data from the server and database."
+the application then displays the received data and continues to fetch more data as needed.
+there is a condition for loading more cards if the remaining number of cards is less than half the total requested.
+"the diagram highlights the interaction between the user, application, server, and database, ensuring efficient data retrieval and display."
+"utente 1 -> app utente 1 — type=message; label=""swipe card dx utente 2""; explanation=""user 1 swipes card for user 2"""
+"app utente 1 -> server — type=message; label=""trackobjectpref(true)""; explanation=""track object preference"""
+"server -> database — type=message; label=""salvataggio preferenza""; explanation=""save preference"""
+"database -> server — type=message; label=""conferma salvataggio""; explanation=""confirm save"""
+"server -> app utente 2 — type=message; label=""chiede se ci sono match""; explanation=""ask if there are matches"""
+"app utente 2 -> server — type=message; label=""riceve risposta""; explanation=""receive response"""
+"server -> database — type=message; label=""$check = checkmatch()""; explanation=""check for matches"""
+"database -> server — type=message; label=""(false in questo caso)""; explanation=""false case"""
+"server -> app utente 1 — type=message; label=""chiede se ci sono match""; explanation=""ask if there are matches"""
+"app utente 1 -> server — type=message; label=""riceve risposta""; explanation=""receive response"""
+"database -> server — type=message; label=""(true in questo caso)""; explanation=""true case"""
+"server -> app utente 1 — type=message; label=""[$check]: schermata match""; explanation=""display match screen"""
+"server -> app utente 2 — type=message; label=""[$check]: schermata match""; explanation=""display match screen"""
+"app utente 1 -> server — type=message; label=""[$check]: notifica match e apertura chat""; explanation=""notify match and open chat"""
+"app utente 2 -> server — type=message; label=""[$check]: notifica match e apertura chat""; explanation=""notify match and open chat"""
+flow 1: utente 1 swipes card for utente 2 -> app utente 1 tracks object preference -> server saves preference -> server asks if there are matches -> server receives response -> server checks for matches -> server displays match screen -> app utente 1 notifies match and opens chat
+flow 2: utente 2 swipes card for utente 1 -> app utente 2 tracks object preference -> server saves preference -> server asks if there are matches -> server receives response -> server checks for matches -> server displays match screen -> app utente 2 notifies match and opens chat
+"this diagram models a sequence of interactions between users and their apps, the server, and the database in a matchmaking scenario."
+"users swipe cards to indicate interest, which triggers the server to check for matches."
+"the server saves preferences and asks if there are matches, receiving responses and checking for matches again."
+"if matches are found, the server displays the match screen, and the user's app notifies them and opens a chat."
+"there are two distinct flows, one for each user swiping a card."
+the condition
+"utente1 -> app1 — type=message; label=""digita messaggio""; explanation=""user inputs message"""
+"app1 -> app2 — type=message; label=""$token1: sendmessage()""; explanation=""application sends message"""
+"app2 -> server — type=message; label=""$token1: sendmessage()""; explanation=""application sends message to server"""
+"server -> database — type=message; label=""salva messaggio""; explanation=""server saves message"""
+"server -> app2 — type=message; label=""conferma salvataggio""; explanation=""server confirms saving"""
+"app2 -> utente2 — type=message; label=""mostra notifica""; explanation=""application shows notification"""
+"app2 -> utente2 — type=message; label=""apre chat""; explanation=""application opens chat"""
+"app2 -> server — type=message; label=""$token2: getmessage()""; explanation=""application gets message"""
+"server -> app2 — type=message; label=""retrivedmessage()""; explanation=""server retrieves message"""
+"app2 -> utente2 — type=message; label=""visualizza messaggi""; explanation=""application displays messages"""
+"flow 1: utente1 -> app1 -> app2 -> server -> database — ""user inputs message, application sends message, server saves message, application retrieves message, user receives message"""
+this diagram models the process of sending a message between two users through applications and a server.
+"the main flow involves a user inputting a message, which is then sent to the server for saving, and finally retrieved by the recipient user."
+notifications are also sent to the recipient user upon message receipt.
+"the diagram highlights the interaction between the user, applications, server, and database in a messaging scenario."
+======================================================================

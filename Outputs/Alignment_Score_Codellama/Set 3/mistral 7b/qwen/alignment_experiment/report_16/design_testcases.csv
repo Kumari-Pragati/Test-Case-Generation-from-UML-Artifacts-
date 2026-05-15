@@ -1,0 +1,63 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Test User Creation,Utente,1,None,"- Valid Inputs:
+  - Id: 1
+  - Password: password123
+  - Email: user@example.com
+  - Nome: John
+  - Cognome: Doe
+- Invalid Inputs:
+  - Id: 0 (negative)
+  - Password: empty string
+  - Email: invalid_email@
+  - Nome: too_long_name (longer than 50 characters)
+  - Cognome: too_long_surname (longer than 50 characters)","1. Navigate to the user registration page.
+2. Enter the valid user details.
+3. Click the ""Register"" button.
+4. Verify that the user is successfully created and displayed on the user list page.
+5. Repeat steps 2-4 with invalid user details to ensure error handling.","- The system should create a new user with the provided valid details and display it on the user list page.
+- The system should not create a user with invalid details and display an error message."
+TC-Utente-002,Test User Login,Utente,1,A user has been created.,"- Valid Inputs:
+  - Id: 1
+  - Password: password123
+- Invalid Inputs:
+  - Id: 0 (negative)
+  - Password: wrong_password","1. Navigate to the user login page.
+2. Enter the valid user credentials.
+3. Click the ""Login"" button.
+4. Verify that the user is successfully logged in and redirected to the dashboard.
+5. Repeat steps 2-4 with invalid user credentials to ensure error handling.","- The system should log in the user with the provided valid credentials and redirect them to the dashboard.
+- The system should not log in the user with invalid credentials and display an error message."
+TC-Prodotto-001,Test Product Creation,Prodotto,1,A user is logged in.,"- Valid Inputs:
+  - Nome: Product 1
+  - Luogo: Location 1
+  - Descrizione: Description 1
+  - Immagine: image1.jpg
+  - Prezzo: 10.00
+- Invalid Inputs:
+  - Nome: too_long_name (longer than 50 characters)
+  - Luogo: too_long_location (longer than 50 characters)
+  - Descrizione: too_long_description (longer than 255 characters)
+  - Immagine: invalid_image_format
+  - Prezzo: negative_price (-1.00)","1. Log in as a user.
+2. Navigate to the product creation page.
+3. Enter the valid product details.
+4. Click the ""Create Product"" button.
+5. Verify that the product is successfully created and displayed on the product list page.
+6. Repeat steps 2-5 with invalid product details to ensure error handling.","- The system should create a new product with the provided valid details and display it on the product list page.
+- The system should not create a product with invalid details and display an error message."
+TC-Segnalazione-001,Test Report Creation,Segnalazione,1,A user is logged in.,"- Valid Inputs:
+  - Tipo: true (positive)
+  - Titolo: Report 1
+  - Descrizione: Description of the issue
+  - UtenteSegnalato: User 1 (another user)
+- Invalid Inputs:
+  - Tipo: false (negative)
+  - Titolo: too_long_title (longer than 255 characters)
+  - Descrizione: too_long_description (longer than 255 characters)
+  - UtenteSegnalato: invalid_user (non-existent user)","1. Log in as a user.
+2. Navigate to the report creation page.
+3. Enter the valid report details.
+4. Click the ""Create Report"" button.
+5. Verify that the report is successfully created and displayed on the report list page.
+6. Repeat steps 2-5 with invalid report details to ensure error handling.","- The system should create a new report with the provided valid details and display it on the report list page.
+- The system should not create a report with invalid details and display an error message."

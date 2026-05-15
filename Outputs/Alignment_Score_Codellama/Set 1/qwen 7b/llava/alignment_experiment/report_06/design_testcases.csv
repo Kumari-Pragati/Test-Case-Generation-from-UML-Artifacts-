@@ -1,0 +1,102 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Valid User Login,Login,"2,3",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters ""testuser"" as the username.
+2. User enters ""testpassword"" as the password.
+3. User clicks the login button.",User receives a successful login response from the Server.
+TC-Login-002,Invalid User Login,Login,"2,3",User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters ""wronguser"" as the username.
+2. User enters ""wrongpassword"" as the password.
+3. User clicks the login button.",User receives a failed login response from the Server.
+TC-Login-003,Empty Username and Password,Login,"2,3",User does not enter any username or password.,"- Username: 
+- Password:","1. User leaves the username field empty.
+2. User leaves the password field empty.
+3. User clicks the login button.",User receives an error message indicating that both fields are required.
+TC-AddUser-001,Admin Adds a New User,User Management,"1,3",Admin has a valid username and password.,"- New User's Username: newUser
+- New User's Password: newpassword","1. Admin logs in.
+2. Admin navigates to the ""Add User"" section.
+3. Admin enters ""newUser"" as the username.
+4. Admin enters ""newpassword"" as the password.
+5. Admin clicks the ""Add User"" button.",Admin receives a confirmation message that the new user has been added successfully.
+TC-AddUser-002,Admin Attempts to Add a User with Existing Username,User Management,"1,3",Admin has a valid username and password.,"- New User's Username: existingUser
+- New User's Password: existingpassword","1. Admin logs in.
+2. Admin navigates to the ""Add User"" section.
+3. Admin enters ""existingUser"" as the username.
+4. Admin enters ""existingpassword"" as the password.
+5. Admin clicks the ""Add User"" button.",Admin receives an error message indicating that the username already exists.
+TC-RemoveUser-001,Admin Removes a User,User Management,"1,3",Admin has a valid username and password.,- User to Remove: testuser,"1. Admin logs in.
+2. Admin navigates to the ""Remove User"" section.
+3. Admin selects ""testuser"" from the list of users.
+4. Admin clicks the ""Remove User"" button.",Admin receives a confirmation message that the user has been removed successfully.
+TC-RemoveUser-002,Admin Attempts to Remove a Non-Existent User,User Management,"1,3",Admin has a valid username and password.,- User to Remove: nonExistentUser,"1. Admin logs in.
+2. Admin navigates to the ""Remove User"" section.
+3. Admin selects ""nonExistentUser"" from the list of users.
+4. Admin clicks the ""Remove User"" button.",Admin receives an error message indicating that the user does not exist.
+TC-Logout-001,User Logs Out Successfully,Logout,"1,3",User has logged in.,- No specific data required.,"1. User logs in.
+2. User clicks the logout button.",User receives a confirmation message that they have been logged out successfully.
+TC-Logout-002,User Attempts to Log Out Without Logging In,Logout,"1,3",User has not logged in.,- No specific data required.,1. User tries to click the logout button.,User receives an error message indicating that they are not logged in.
+TC-DatabaseQuery-001,Successful Database Query,Database Interaction,"3,4",User has logged in.,- Query: SELECT * FROM users,"1. User logs in.
+2. User sends the query ""SELECT * FROM users"" to the Database.
+3. Database processes the query.
+4. Database returns the results to the User.",User receives the results of the query from the Database.
+TC-DatabaseQuery-002,Failed Database Query,Database Interaction,"3,4",User has logged in.,- Query: UPDATE users SET password = 'newpassword' WHERE id = 1,"1. User logs in.
+2. User sends the query ""UPDATE users SET password = 'newpassword' WHERE id = 1"" to the Database.
+3. Database processes the query.
+4. Database returns the results to the User.",User receives a confirmation message that the update was successful.
+TC-DatabaseUpdate-001,Successful Database Update,Database Interaction,"3,4",User has logged in.,"- User ID: 1
+- New Password: newpassword","1. User logs in.
+2. User sends the update ""UPDATE users SET password = 'newpassword' WHERE id = 1"" to the Database.
+3. Database processes the update.
+4. Database returns the results to the User.",User receives a confirmation message that the update was successful.
+TC-DatabaseUpdate-002,Failed Database Update,Database Interaction,"3,4",User has logged in.,"- User ID: 100
+- New Password: newpassword","1. User logs in.
+2. User sends the update ""UPDATE users SET password = 'newpassword' WHERE id = 100"" to the Database.
+3. Database processes the update.
+4. Database returns the results to the User.",User receives an error message indicating that the user does not exist.
+TC-ServerRequestHandling-001,Successful Server Request Handling,Server Interaction,"3,4",User has logged in.,- Request: Login request with valid credentials,"1. User logs in.
+2. User sends a login request to the Server.
+3. Server processes the request.
+4. Server returns the response to the User.",User receives a successful login response from the Server.
+TC-ServerRequestHandling-002,Failed Server Request Handling,Server Interaction,"3,4",User has logged in.,- Request: Login request with invalid credentials,"1. User logs in.
+2. User sends a login request to the Server with invalid credentials.
+3. Server processes the request.
+4. Server returns the response to the User.",User receives a failed login response from the Server.
+TC-ServerResponseHandling-001,Successful Server Response Handling,Server Interaction,"3,4",User has logged in.,- Response: Successful login response,"1. User logs in.
+2. User receives a successful login response from the Server.
+3. User processes the response.",User is logged in successfully.
+TC-ServerResponseHandling-002,Failed Server Response Handling,Server Interaction,"3,4",User has logged in.,- Response: Failed login response,"1. User logs in.
+2. User receives a failed login response from the Server.
+3. User processes the response.",User is not logged in and receives an error message.
+TC-UserToServerAssociation-001,User Sends Login Request to Server,User to Server Communication,"2,3,4",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters ""testuser"" as the username.
+2. User enters ""testpassword"" as the password.
+3. User clicks the login button.",User sends a login request to the Server.
+TC-UserToServerAssociation-002,User Sends Query to Database,User to Database Communication,"2,3,4",User has a valid username and password.,- Query: SELECT * FROM users,"1. User logs in.
+2. User sends the query ""SELECT * FROM users"" to the Database.
+3. Database processes the query.
+4. Database returns the results to the User.",User receives the results of the query from the Database.
+TC-UserToServerAssociation-003,User Sends Update to Database,User to Database Communication,"2,3,4",User has a valid username and password.,"- User ID: 1
+- New Password: newpassword","1. User logs in.
+2. User sends the update ""UPDATE users SET password = 'newpassword' WHERE id = 1"" to the Database.
+3. Database processes the update.
+4. Database returns the results to the User.",User receives a confirmation message that the update was successful.
+TC-UserToServerAssociation-004,User Attempts to Send Invalid Query to Database,User to Database Communication,"2,3,4",User has a valid username and password.,- Query: UPDATE users SET password = 'newpassword' WHERE id = 100,"1. User logs in.
+2. User sends the query ""UPDATE users SET password = 'newpassword' WHERE id = 100"" to the Database.
+3. Database processes the query.
+4. Database returns the results to the User.",User receives an error message indicating that the user does not exist.
+TC-UserToServerAssociation-005,User Attempts to Send Invalid Update to Database,User to Database Communication,"2,3,4",User has a valid username and password.,"- User ID: 100
+- New Password: newpassword","1. User logs in.
+2. User sends the update ""UPDATE users SET password = 'newpassword' WHERE id = 100"" to the Database.
+3. Database processes the update.
+4. Database returns the results to the User.",User receives an error message indicating that the user does not exist.
+TC-UserToServerAssociation-006,User Attempts to Send Invalid Login Request to Server,User to Server Communication,"2,3,4",User has a valid username and password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters ""wronguser"" as the username.
+2. User enters ""wrongpassword"" as the password.
+3. User clicks the login button.",User receives a failed login response from the Server.
+TC-UserToServerAssociation-007,User Attempts to Send Empty Login Request to Server,User to Server Communication,"2,3,4",User has a valid username and password.,"- Username: 
+- Password:","1. User leaves the username field empty.
+2. User leaves the password field empty.
+3. User clicks the login button.",User receives an error message indicating that both fields are required.
+TC-UserToServerAssociation-008,User Attempts to Send Empty Query to Database,User to Database Communication,"2,3,4",User has a valid username and password.,- Query:,"1. User logs in.
+2. User sends an empty query to the Database.
+3. Database processes the query.
+4. Database returns the results to the User.",User receives an

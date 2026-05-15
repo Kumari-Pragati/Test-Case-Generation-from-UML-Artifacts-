@@ -1,0 +1,60 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOGIN-001,Successful Google Sign-In,Authentication,3,"- User has Google account linked to the app.
+- Internet connection is active.","- Valid Google credentials (e.g., `test.user@gmail.com`, password).","1. Launch the app and tap the **Login** button.
+2. Select **Google Sign-In** and enter valid credentials.
+3. Grant necessary permissions (e.g., profile access).","- User is redirected to **JoinFamilyActivity** (Page 3).
+- No error messages appear."
+TC-LOGIN-002,Failed Google Sign-In (Invalid Credentials),Authentication,3,- User attempts to log in with incorrect credentials.,"- Invalid email: `invalid.email@test.com`, wrong password.","1. Launch the app and tap **Login**.
+2. Select **Google Sign-In** and enter invalid credentials.
+3. Tap **Sign In**.","- Error message: *""Invalid email or password""* appears.
+- User remains on the **LoginActivity** screen."
+TC-FAMILY-CREATION-001,Create New Family Successfully,Family Management,"1, 3","- User is logged in via **LoginActivity**.
+- User navigates to **JoinFamilyActivity**.","- Family name: `Martini`, code: `FAM2024`, email: `mom@martini.com`, picture URL: `https://example.com/family.jpg`, child age: `1`, weight: `8`.","1. In **JoinFamilyActivity**, select **""Create New Family""**.
+2. Fill all fields with valid data (above).
+3. Tap **Submit**.","- Family is created; user is redirected to **FamilyActivity**.
+- Confirmation toast: *""Family created successfully!""* appears.
+- Family code (`FAM2024`) is displayed in **FamilyActivity**."
+TC-FAMILY-CREATION-002,Create Family with Missing Required Field,Family Management,"1, 3",- User is on **JoinFamilyActivity**.,"- Family name: `Martini`, code: *(empty)*, email: `mom@martini.com`.","1. Select **""Create New Family""**.
+2. Leave **FamilyCode** field empty; fill others.
+3. Tap **Submit**.","- Error message: *""Family code is required""* appears.
+- User remains on the **CreateFamilyActivity** screen."
+TC-DOCUMENT-ADDITION-001,Add Document with Valid Breastfeeding Data,Document Management,1,"- User is in **Arriva raccolta** (Page 1) after logging in.
+- Family is created (e.g., `FAM2024`).","- Email: `mom@martini.com`, FamilyCode: `FAM2024`, Nome: `Luca`, pictureurl: `https://example.com/luca.jpg`, Allattamento: `0001` (valid code).","1. Navigate to **Arriva raccolta** → **Aggiungi documento**.
+2. Fill all fields with valid data (above).
+3. Tap **Save**.","- Document is saved; toast: *""Document added successfully""* appears.
+- Data appears in the **Allattamento** (breastfeeding) section."
+TC-DOCUMENT-ADDITION-002,Add Document with Invalid Family Code,Document Management,1,- User is on **Aggiungi documento**.,"- FamilyCode: `INVALID123`, other fields valid.","1. Fill fields with invalid `FamilyCode`.
+2. Tap **Save**.","- Error message: *""Family code not found""* appears.
+- Document is **not** saved."
+TC-MONITORING-NAVIGATION-001,Navigate from Footer Menu to Monitoring Section,Footer Navigation,2,- User is on the **HomeActivity** screen.,,"1. Tap the **footer menu** (e.g., bottom bar icon).
+2. Select **Monitoring Section** (Decision: **SI**).","- User is redirected to **MonitorFragment** (Page 3).
+- Monitoring graphs (sleep/nutrition/growth) are visible."
+TC-MONITORING-NAVIGATION-002,Navigate from Monitoring to Notes via Footer Menu,Footer Navigation,2,- User is on **MonitorFragment**.,,"1. In **Sezione di monitoraggio**, tap the **footer menu**.
+2. Select **Notes** (Decision: **NO** → transition to **Note**).","- User is redirected to **NoteFragment**.
+- Empty note list is displayed."
+TC-NOTES-001,Create and Edit a Note,Notes Management,"2, 3",- User is on **NoteFragment**.,,"1. Tap **+ Add Note**.
+2. Enter title: *""Luca’s feeding""*, content: *""6:30 AM, 150ml""*.
+3. Tap **Save**.
+4. Tap the note to edit; change content to *""6:30 AM, 160ml""*.
+5. Tap **Update**.","- Note is created and displayed in **NoteFragment**.
+- Edited content is saved; toast: *""Note updated""* appears."
+TC-NOTES-002,Return to Home from Notes via Footer Menu,Footer Navigation,2,- User is on **NoteFragment** with no active edits.,,"1. Tap the **footer menu**.
+2. Select **Return to Home** (Decision: **NO** → **Ritorno alla home**).","- User is redirected to **HomeActivity**.
+- **HomeFragment** is displayed."
+TC-GRAPHS-001,View Sleep Graph in Profile,Health Monitoring,3,- User is on **ProfiloActivity**.,,"1. Tap **Sleep Graph** tab.
+2. Wait for graph to load.","- **GraphSonnoFragment** displays a sleep duration graph (e.g., bars for hours slept).
+- No errors or blank screens."
+TC-GRAPHS-002,View Growth Graph with No Data,Health Monitoring,3,- User has no growth data entered.,,1. Navigate to **ProfiloActivity** → **Growth Graph**.,"- Message: *""No growth data available""* appears.
+- Graph area is empty or shows a placeholder."
+TC-EDGE-CASE-001,Add Document with Empty Picture URL,Document Management,1,- User is on **Aggiungi documento**.,"- pictureurl: *(empty)*, other fields valid.","1. Fill all fields except **pictureurl**.
+2. Tap **Save**.","- Document is saved **without** a picture (default icon appears).
+- No error for missing URL."
+TC-EDGE-CASE-002,Cyclical Footer Menu Navigation,Footer Navigation,2,- User is on **HomeActivity**.,,"1. Access footer menu → **Monitoring** → **Notes** → **Return to Home**.
+2. Repeat step 1 **3 times**.","- User cycles through **Home → Monitoring → Notes → Home** without crashes.
+- No infinite loop or performance degradation."
+TC-INTEGRATION-001,End-to-End Flow: Login → Create Family → Add Document → View Graph,Full User Journey,1–3,- Fresh app install (no cached data).,,"1. **Login**: Sign in via Google.
+2. **Create Family**: Enter `FAM2024`, `Martini`, `mom@martini.com`.
+3. **Add Document**: Fill breastfeeding data (email, family code, `0001`).
+4. Navigate to **ProfiloActivity** → **Sleep Graph**.","- All steps complete without errors.
+- Document data is reflected in graphs (if linked).
+- User ends on **GraphSonnoFragment** with loaded data."

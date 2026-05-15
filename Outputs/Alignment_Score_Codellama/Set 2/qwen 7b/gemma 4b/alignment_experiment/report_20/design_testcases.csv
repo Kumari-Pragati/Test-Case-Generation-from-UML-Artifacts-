@@ -1,0 +1,90 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-API-001","API sends a valid request to Broker","API","1","API is initialized and connected to Broker.","A valid request payload.","1. API sends a valid request to Broker.
+2. Broker receives the request.
+3. Broker forwards the request to Client.
+4. Client processes the request and sends a response back to Broker.
+5. Broker forwards the response to API.","API receives a valid response from Broker."
+"TC-API-002","API sends an invalid request to Broker","API","1","API is initialized and connected to Broker.","An invalid request payload.","1. API sends an invalid request to Broker.
+2. Broker receives the invalid request.
+3. Broker forwards the invalid request to Client.
+4. Client processes the invalid request and sends an error response back to Broker.
+5. Broker forwards the error response to API.","API receives an error response from Broker."
+"TC-Broker-001","Broker forwards a valid request to Client","Broker","1","Broker is initialized and connected to Client.","A valid request payload.","1. Broker receives a valid request.
+2. Broker forwards the valid request to Client.
+3. Client processes the request and sends a response back to Broker.
+4. Broker forwards the response to the sender.","The sender (API or another component) receives a valid response from Broker."
+"TC-Broker-002","Broker forwards an invalid request to Client","Broker","1","Broker is initialized and connected to Client.","An invalid request payload.","1. Broker receives an invalid request.
+2. Broker forwards the invalid request to Client.
+3. Client processes the invalid request and sends an error response back to Broker.
+4. Broker forwards the error response to the sender.","The sender (API or another component) receives an error response from Broker."
+"TC-Client-001","Client processes a valid request from Broker","Client","1","Client is initialized and connected to Estimate Info and Local Storage.","A valid request payload.","1. Client receives a valid request from Broker.
+2. Client processes the request.
+3. Client sends a response back to Broker.","Broker receives a valid response from Client."
+"TC-Client-002","Client processes an invalid request from Broker","Client","1","Client is initialized and connected to Estimate Info and Local Storage.","An invalid request payload.","1. Client receives an invalid request from Broker.
+2. Client processes the invalid request and sends an error response back to Broker.","Broker receives an error response from Client."
+"TC-EstimateInfo-001","Client requests valid estimate information from Estimate Info","Estimate Info","1","Estimate Info is initialized and connected to Local Storage.","A valid request payload.","1. Client sends a valid request to Estimate Info.
+2. Estimate Info processes the request.
+3. Estimate Info retrieves the estimate information from Local Storage.
+4. Estimate Info sends the estimate information back to Client.","Client receives valid estimate information from Estimate Info."
+"TC-EstimateInfo-002","Client requests invalid estimate information from Estimate Info","Estimate Info","1","Estimate Info is initialized and connected to Local Storage.","An invalid request payload.","1. Client sends an invalid request to Estimate Info.
+2. Estimate Info processes the invalid request and sends an error response back to Client.","Client receives an error response from Estimate Info."
+"TC-LocalStorage-001","Local Storage retrieves valid data","Local Storage","1","Local Storage is initialized and contains valid data.","A valid request payload.","1. Estimate Info sends a valid request to Local Storage.
+2. Local Storage retrieves the requested data.
+3. Local Storage sends the data back to Estimate Info.","Estimate Info receives valid data from Local Storage."
+"TC-LocalStorage-002","Local Storage retrieves invalid data","Local Storage","1","Local Storage is initialized but does not contain valid data.","A valid request payload.","1. Estimate Info sends a valid request to Local Storage.
+2. Local Storage cannot find the requested data.
+3. Local Storage sends an error response back to Estimate Info.","Estimate Info receives an error response from Local Storage."
+"TC-Settings-001","Retrieve settings from file and convert to JSON","Settings","2","LocalStorage is initialized and contains 'settings.json'.","A call to getSettings().","1. Settings calls getSettings().
+2. LocalStorage reads 'settings.json'.
+3. LocalStorage converts the content to JSON.
+4. Settings fills fields with the JSON data.","Settings fields are filled with the JSON data from 'settings.json'."
+"TC-Settings-002","Handle missing settings file","Settings","2","LocalStorage is initialized but 'settings.json' does not exist.","A call to getSettings().","1. Settings calls getSettings().
+2. LocalStorage attempts to read 'settings.json' but finds it does not exist.
+3. LocalStorage returns default settings.
+4. Settings fills fields with the default settings.","Settings fields are filled with default settings."
+"TC-StorageManager-001","Save settings to file","StorageManager","3","Settings is initialized and contains valid settings.","A call to setSettings(fields) with valid settings.","1. Settings calls setSettings(fields).
+2. StorageManager writes the settings to 'settings.json'.","The settings are saved to 'settings.json'."
+"TC-StorageManager-002","Save invalid settings to file","StorageManager","3","Settings is initialized and contains invalid settings.","A call to setSettings(fields) with invalid settings.","1. Settings calls setSettings(fields).
+2. StorageManager writes the settings to 'settings.json'.","The settings are saved to 'settings.json', even if they are invalid."
+"TC-About-001","Retrieve and set information for About page","About","4","About is initialized and connected to EstimateInfo.","A call to get info(page).","1. About retrieves information from a page.
+2. About sets the title of the information.
+3. About sets the description of the information.","The title and description of the information are correctly set."
+"TC-Estimate-001","Validate and retrieve estimate","Estimate","5","Estimate is initialized and connected to Broker.","A valid request payload.","1. Estimate validates the data.
+2. If validation is successful, Estimate retrieves the estimate.
+3. Estimate shows the estimate.
+4. Estimate returns the output.","Estimate shows the estimate and returns the output."
+"TC-Estimate-002","Validate and handle invalid estimate","Estimate","5","Estimate is initialized and connected to Broker.","An invalid request payload.","1. Estimate validates the data.
+2. If validation fails, Estimate shows an error.
+3. Estimate returns the output.","Estimate shows an error and returns the output."
+"TC-Estimate-003","Format and request data","Broker","5","Broker is initialized and connected to API.","A valid request payload.","1. Broker formats the data.
+2. Broker requests the data from API.
+3. Broker formats the response from API.
+4. Broker returns the output.","Broker returns the formatted response from API."
+"TC-Estimate-004","Handle invalid data formatting","Broker","5","Broker is initialized and connected to API.","An invalid request payload.","1. Broker attempts to format the data.
+2. Broker requests the data from API.
+3. Broker formats the response from API.
+4. Broker returns the output.","Broker returns the output with any errors encountered during formatting."
+"TC-Estimate-005","Handle invalid API response","Broker","5","Broker is initialized and connected to API.","An invalid response from API.","1. Broker receives an invalid response from API.
+2. Broker formats the response.
+3. Broker returns the output.","Broker returns the output with any errors encountered during processing the API response."
+"TC-API-003","API handles invalid request","API","5","API is initialized and connected to Broker.","An invalid request payload.","1. API receives an invalid request.
+2. API processes the request and sends an error response to Broker.","Broker receives an error response from API."
+"TC-API-004","API handles valid request","API","5","API is initialized and connected to Broker.","A valid request payload.","1. API receives a valid request.
+2. API processes the request and sends a valid response to Broker.","Broker receives a valid response from API."
+"TC-Broker-003","Broker handles invalid request","Broker","5","Broker is initialized and connected to API.","An invalid request payload.","1. Broker receives an invalid request.
+2. Broker forwards the invalid request to API.
+3. Broker receives an error response from API.
+4. Broker forwards the error response to the sender.","The sender receives an error response from Broker."
+"TC-Broker-004","Broker handles valid request","Broker","5","Broker is initialized and connected to API.","A valid request payload.","1. Broker receives a valid request.
+2. Broker forwards the valid request to API.
+3. Broker receives a valid response from API.
+4. Broker forwards the valid response to the sender.","The sender receives a valid response from Broker."
+"TC-Client-003","Client handles invalid request","Client","5","Client is initialized and connected to Estimate Info and Local Storage.","An invalid request payload.","1. Client receives an invalid request.
+2. Client processes the invalid request and sends an error response to Broker.","Broker receives an error response from Client."
+"TC-Client-004","Client handles valid request","Client","5","Client is initialized and connected to Estimate Info and Local Storage.","A valid request payload.","1. Client receives a valid request.
+2. Client processes the request and sends a valid response to Broker.","Broker receives a valid response from Client."
+"TC-EstimateInfo-003","Estimate Info handles invalid request","Estimate Info","5","Estimate Info is initialized and connected to Local Storage.","An invalid request payload.","1. Estimate Info receives an invalid request.
+2. Estimate Info processes the invalid request and sends an error response to Client.","Client receives an error response from Estimate Info."
+"TC-EstimateInfo-004","Estimate Info handles valid request","Estimate Info","5","Estimate Info is initialized and connected to Local Storage.","A valid request payload.","1. Estimate Info receives a valid request.
+2. Estimate Info processes the request and retrieves the estimate information from Local Storage.
+3. Estimate Info sends the estimate information back to Client.","Client receives valid estimate information from Estimate Info."

@@ -1,0 +1,49 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","User Registration Success","Authentication","2,3","None","username=""testuser"", password=""password123""","1. User enters username and password in the registration form.
+2. App sends registration details to the server.
+3. Server validates the email and password.
+4. Server generates OTP and sends it to the user's email.
+5. User receives the OTP and enters it back into the app.
+6. Server verifies the OTP and saves the user data in the database.","User account is successfully created and OTP verification is successful."
+"TC-Authentication-002","User Registration Failure (Invalid Email)","Authentication","2,3","None","username=""testuser"", password=""password123"", email=""invalidemail""","1. User enters invalid email and password in the registration form.
+2. App sends registration details to the server.
+3. Server validates the email and password.","Registration fails due to invalid email format."
+"TC-Authentication-003","User Login Success","Authentication","4,5","User is registered and OTP verified.","email=""testuser@example.com"", password=""password123""","1. User enters email and password in the login form.
+2. App sends login details to the server.
+3. Server validates the email and password.
+4. Server generates a token and sends it to the user.
+5. User receives the token and stores it securely.","User is successfully logged in and receives a valid token."
+"TC-Authentication-004","User Login Failure (Incorrect Password)","Authentication","4,5","User is registered and OTP verified.","email=""testuser@example.com"", password=""wrongpassword""","1. User enters incorrect password in the login form.
+2. App sends login details to the server.
+3. Server validates the email and password.","Login fails due to incorrect password."
+"TC-ProductManagement-001","Create Product Success","Product Management","2","User is logged in.","name=""Product1"", price=10.99, description=""Description1""","1. User navigates to the product creation page.
+2. User enters product details.
+3. App sends product details to the server.
+4. Server validates the product details.
+5. Server saves the product in the database.","Product is successfully created and saved in the database."
+"TC-ProductManagement-002","Update Product Success","Product Management","2","Product exists in the database.","id=1, name=""UpdatedProduct"", price=15.99, description=""UpdatedDescription""","1. User navigates to the product update page.
+2. User enters updated product details.
+3. App sends updated product details to the server.
+4. Server validates the product details.
+5. Server updates the product in the database.","Product is successfully updated in the database."
+"TC-OrderManagement-001","Create Order Success","Order Management","2","User is logged in and has added products to the cart.","userId=1, productId=1, quantity=2","1. User navigates to the order creation page.
+2. User selects products from the cart.
+3. User enters the quantity for each selected product.
+4. App sends order details to the server.
+5. Server validates the order details.
+6. Server saves the order in the database.","Order is successfully created and saved in the database."
+"TC-OrderManagement-002","Update Order Success","Order Management","2","Order exists in the database.","orderId=1, userId=1, productId=1, quantity=3","1. User navigates to the order update page.
+2. User enters updated order details.
+3. App sends updated order details to the server.
+4. Server validates the order details.
+5. Server updates the order in the database.","Order is successfully updated in the database."
+"TC-Chat-001","Send Message Success","Chat","8","Two users are logged in and connected.","message=""Hello""","1. User1 enters a message in the chat input field.
+2. User1 clicks the send button.
+3. App1 sends the message to App2.
+4. App2 sends the notification to Server.
+5. Server retrieves the message from the database.
+6. Server sends the message to User2.
+7. User2 receives the message.","Message is successfully sent and received by both users."
+"TC-Chat-002","Send Message Failure (No Internet Connection)","Chat","8","Two users are logged in and connected.","message=""Hello""","1. User1 enters a message in the chat input field.
+2. User1 clicks the send button.
+3. App1 tries to send the message to App2 but fails due to no internet connection.","Message is not sent and an error message is displayed to the user."

@@ -1,0 +1,243 @@
+REPORT: Report_28_uml_pages.pdf
+======================================================================
+
+===== Report_28_uml_pages.pdf | Page 1 =====
+**UML Type:** Sequence
+
+**Components:**
+
+*   **Server**
+    *   kind=Server; attributes=[id: String, username: String, password: String]; operations=[login(username, password): void, register(username, password): void]; role=Server
+*   **User**
+    *   kind=User; attributes=[id: String, username: String, password: String]; operations=[login(username, password): void, register(username, password): void]; role=User
+*   **Service**
+    *   kind=Service; attributes=[id: String, postDate: Date, title: String, description: String, creator: String]; operations=[post(title, description, creator): void, getPost(id): String, getPosts(): void, getComments(id): String, getComments(): void, getLikes(id): String, getLikes(): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void, getComments(id, user): String, getComments(id, user): void, getLikes(id, user): String, getLikes(id, user): void,
+
+===== Report_28_uml_pages.pdf | Page 2 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main
+	+ kind: Main
+	+ attributes: none
+	+ operations: [token = getToken(): token; request: data utente]
+	+ role: Main
+* LocalUser
+	+ kind: LocalUser
+	+ attributes: none
+	+ operations: [token = null; request: token]
+	+ role: LocalUser
+* API_Manager
+	+ kind: API_Manager
+	+ attributes: none
+	+ operations: [return status]
+	+ role: API_Manager
+
+**Actors / Lifelines:**
+
+* Main
+* LocalUser
+* API_Manager
+
+**Relationships / Links:**
+
+* Main -> LocalUser — type=token; label="token = getToken()"; explanation="get token from Main"
+* LocalUser -> API_Manager — type=request; label="token = null; request: token"; explanation="send request with token"
+* API_Manager -> LocalUser — type=return status; label="return status"; explanation="return status from API_Manager"
+
+**Main Flows:**
+
+* Flow 1: Main -> LocalUser -> API_Manager -> LocalUser -> Main
+	+ Main gets token from LocalUser
+	+ LocalUser sends request with token to API_Manager
+	+ API_Manager returns status to LocalUser
+	+ LocalUser returns to Main
+
+**Conditions / Branches:**
+
+* [token = null; request: token] -> [token = null OR status = OK; richiedi dati utente]
+	+ If token is null, request token
+	+ If token is null or status is OK, request user data
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* La funzione request restituisce un stringa in formato JSON, con un campo status
+
+**Observations:**
+
+* The diagram models a login process where the Main component gets a token from the LocalUser, which then sends a request with the token to the API_Manager.
+* The API_Manager returns a status, which is then used to request user data.
+* The process is repeated if the token is null or the status is OK.
+* The function request returns a JSON string with a status field.
+
+===== Report_28_uml_pages.pdf | Page 3 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main
+	+ kind: Main
+	+ attributes: None
+	+ operations: None
+	+ role: Main
+* API_Manager
+	+ kind: API_Manager
+	+ attributes: None
+	+ operations: None
+	+ role: API_Manager
+* Service/Need/Report
+	+ kind: Service/Need/Report
+	+ attributes: None
+	+ operations: None
+	+ role: Service/Need/Report
+
+**Actors / Lifelines:**
+
+* Main
+* API_Manager
+* Service/Need/Report
+
+**Relationships / Links:**
+
+* Main -> API_Manager — type=Request; label="listJSON=request()"; explanation="for each entry in listJSON: new displayList()"
+* API_Manager -> Service/Need/Report — type=Service/Need/Report; label="Service/Need/Report"; explanation="Service/Need/Report"
+
+**Main Flows:**
+
+* Flow 1: Main -> API_Manager -> Service/Need/Report
+
+**Conditions / Branches:**
+
+* None
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where the Main component sends a request to the API_Manager, which then processes it and sends a Service/Need/Report to the Service/Need/Report component.
+* The Main component is the starting point of the sequence.
+* The API_Manager component is responsible for processing the request and sending the Service/Need/Report.
+* The Service/Need/Report component is the final destination of the sequence.
+* There are no loops or repetitions in the sequence.
+
+===== Report_28_uml_pages.pdf | Page 4 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main
+	+ kind: Main
+	+ attributes: none
+	+ operations: new, newEntry=toJSON(), request(newEntry), done
+	+ role: Main entry point
+* API_Manager
+	+ kind: API Manager
+	+ attributes: none
+	+ operations: Service/Need/Report
+	+ role: API Manager
+
+**Actors / Lifelines:**
+
+* Main
+* API_Manager
+
+**Relationships / Links:**
+
+* Main -> API_Manager — type= new; label="new"; explanation="new entry creation"
+* API_Manager -> Main — type= Service/Need/Report; label="Service/Need/Report"; explanation="service/need/report request"
+
+**Main Flows:**
+
+* Flow 1: new -> newEntry=toJSON() -> request(newEntry) -> done
+
+**Conditions / Branches:**
+
+* new -> newEntry=toJSON() -> request(newEntry) -> done: no conditions or branches
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events starting with a new entry creation, followed by a JSON entry creation, and then a request with the new entry.
+* The API Manager is involved in the service/need/report request.
+* The main flow is a straightforward sequence of events without any conditions or branches.
+
+===== Report_28_uml_pages.pdf | Page 5 =====
+**UML Type:** Sequence
+
+**Components:**
+
+* Main
+	+ kind: Main
+	+ attributes: None
+	+ operations: None
+	+ role: Main
+* API_Manager
+	+ kind: API Manager
+	+ attributes: None
+	+ operations: None
+	+ role: API Manager
+* Service/Need/Report
+	+ kind: Service/Need/Report
+	+ attributes: None
+	+ operations: None
+	+ role: Service/Need/Report
+
+**Actors / Lifelines:**
+
+* Main
+* API_Manager
+* Service/Need/Report
+
+**Relationships / Links:**
+
+* Main -> API_Manager -> Service/Need/Report — type=association; label="done"; explanation="done"
+* API_Manager -> Main — type=association; label="done"; explanation="done"
+* Service/Need/Report -> API_Manager — type=association; label="done"; explanation="done"
+
+**Main Flows:**
+
+* Flow 1: Main -> API_Manager -> Service/Need/Report -> Main -> API_Manager -> Service/Need/Report -> Main
+
+**Conditions / Branches:**
+
+* stampa dati a schema done
+* datiAggiornati = leggi/DatiInseriti
+* [for each dato in datiAggiornati] set(dato)
+* updateEntry= toJSON()
+* request(updateEntry)
+
+**Loops / Repetitions:**
+
+* None
+
+**Notes / Annotations:**
+
+* None
+
+**Observations:**
+
+* The diagram models a sequence of events where the Main component interacts with the API_Manager and Service/Need/Report components.
+* The API_Manager is responsible for processing data and updating entries.
+* The Service/Need/Report component is involved in the process, but its exact role is not clear from the diagram.
+* The main flow involves a sequence of actions that include data processing, updates, and requests.
+
+
+======================================================================

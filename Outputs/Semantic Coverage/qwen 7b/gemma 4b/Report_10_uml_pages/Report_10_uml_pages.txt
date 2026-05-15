@@ -1,0 +1,187 @@
+REPORT: Report_10_uml_pages.pdf
+======================================================================
+===== Report_10_uml_pages.pdf | Page 1 =====
+UML Type: class
+
+Components:
+- Utente — kind=class; attributes=[email: String, password: String, username: String]; operations=[getEmail(): return String, setEmail(args): void, getPassword(): return String, setPassword(args): void, getUsername(): return String, setUsername(args): void]; role=User
+- Eventi — kind=class; attributes=[titolo: String, data: Date, tipologia: String, creatore: String, descrizione: String]; operations=[getTitolo(): return String, setTitle(args): void, getData(): return String, setData(args): void, getTipologia(): return String, setTipologia(args): void, getCreatore(): return String, setCreatore(args): void, getDescrizione(): return String, setDescrizione(args): void]; role=Event
+- Città — kind=class; attributes=[nome: String, provincia: String]; operations=[getNome(): return String, getProvincia(): return String, setNome(args): void, setProvincia(args): void]; role=City
+- POI — kind=class; attributes=[nome: String, città: String, provincia: String, tipologia: String, descrizione: String]; operations=[getNome(): return String, getCittà(): return String, setNome(args): void, setCittà(args): void, getProvincia(): return String, setProvincia(args): void, getTipologia(): return String, setTipologia(args): void, getDescrizione(): return String, setDescrizione(args): void]; role=PointOfInterest
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Utente -> Città — type=association; label="città"; explanation="Utente è associato a una città"
+- POI -> Città — type=association; label="città"; explanation="POI è associato a una città"
+- POI -> Città — type=association; label="provincia"; explanation="POI è associato a una provincia"
+
+Main Flows (step by step):
+- Utente -> getEmail(): return String
+- Utente -> getPassword(): return String
+- Utente -> getUsername(): return String
+- Città -> getNome(): return String
+- Città -> getProvincia(): return String
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+-   This diagram models a system for managing events, users, cities, and points of interest (POIs).
+-   Users can be associated with cities.
+-   POIs are also associated with cities and provinces.
+-   The diagram defines the basic attributes and operations for each class.
+
+===== Report_10_uml_pages.pdf | Page 2 =====
+UML Type: Activity
+- Activity Diagram
+
+Components:
+- Avvio app — kind=action;
+- Utente registrato con successo al servizio? — kind=decision;
+- Utente loggato correttamente? — kind=decision;
+- Creazione di un nuovo utente — kind=action;
+- Homepage — kind=action;
+
+Actors / Lifelines:
+- Utente - None
+
+Relationships / Links:
+- Avvio app -> Utente registrato con successo al servizio? — type=transition; label="SI"; explanation="If the user is registered successfully";
+- Avvio app -> Creazione di un nuovo utente — type=transition; label="NO"; explanation="If the user is not registered";
+- Utente registrato con successo al servizio? (SI) -> Homepage — type=transition; label="SI"; explanation="If the user is registered successfully, go to Homepage";
+- Utente loggato correttamente? — type=decision;
+- Utente loggato correttamente? (SI) -> Homepage — type=transition; label="SI"; explanation="If the user is logged in correctly, go to Homepage";
+- Utente loggato correttamente? (NO) -> Creazione di un nuovo utente — type=transition; label="NO"; explanation="If the user is not logged in correctly, create a new user";
+
+Conditions / Branches:
+- Utente registrato con successo al servizio? — branch="SI", outgoing="Homepage", "Creazione di un nuovo utente";
+- Utente loggato correttamente? — branch="SI", outgoing="Homepage", "Creazione di un nuovo utente";
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the login/registration process of an application.
+- The user can either start the application and be directed to the homepage if already registered and logged in, or create a new user if not.
+- The flow includes a check for successful registration and correct login.
+
+===== Report_10_uml_pages.pdf | Page 3 =====
+UML Type: Activity
+- Inserimento Evento
+
+Components:
+- Avvio app — kind=action;
+- Utente registrato? — kind=decision;
+- Svolgi i passaggi per ricercare una città — kind=action;
+- Scorrgi l basso e premi "+" per aggiungere un evento — kind=action;
+- Compila i form — kind=action;
+- I campi sono corretti? — kind=decision;
+- Evento creato — kind=action
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Avvio app -> Utente registrato? — type=transition; label="Sì"; explanation="If the user is logged in";
+- Avvio app -> I campi sono corretti? — type=transition; label="No"; explanation="If the fields are not correct";
+- Utente registrato? -> Svolgi i passaggi per ricercare una città — type=transition; label="Sì"; explanation="If the user is logged in";
+- Utente registrato? -> Compila i form — type=transition; label="No"; explanation="If the user is not logged in";
+- Svolgi i passaggi per ricercare una città -> Scorrgi l basso e premi "+" per aggiungere un evento — type=transition; label="Sì"; explanation="If the user is searching for a city";
+- Svolgi i passaggi per ricercare una città -> I campi sono corretti? — type=transition; label="No"; explanation="If the fields are not correct";
+- Compila i form -> I campi sono corretti? — type=transition; label="Sì"; explanation="If the fields are correct";
+- Compila i form -> Evento creato — type=transition; label="No"; explanation="If the fields are not correct";
+- Scorrgi l basso e premi "+" per aggiungere un evento -> Evento creato — type=transition; label="Sì"; explanation="If the user adds an event";
+
+Conditions / Branches:
+- Utente registrato? — type=decision;
+  - label="Sì" -> Svolgi i passaggi per ricercare una città
+  - label="No" -> Compila i form
+- I campi sono corretti? — type=decision;
+  - label="Sì" -> Evento creato
+  - label="No" -> Avvio app
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- The diagram models the process of creating an event within an application.
+
+Observations:
+- The process starts with the application launch.
+- The user must first be logged in.
+- If the user is logged in, they can either search for a city or start filling out a form.
+- If the user is not logged in, they must first fill out a form.
+- The process continues until an event is created, which happens only if the fields are correct.
+- If the fields are not correct, the user is prompted to correct them, and the process restarts.
+
+===== Report_10_uml_pages.pdf | Page 4 =====
+UML Type: Activity
+- Modifica/Cancellazione Evento
+
+Components:
+- Avvio app — kind=action;
+- Utente registrato al servizio? — kind=decision;
+- Svolgi i passaggi per ricercare una città — kind=action;
+- È nella schermata di visualizzazione di una città? — kind=decision;
+- Campi sono corretti? — kind=decision;
+- Compila i form per modificare l'evento — kind=action;
+- Scorri in basso e premi "?" per rimuovere un evento o "A" per permettere la modifica — kind=action;
+- Evento modificato — kind=action;
+- Evento cancellato — kind=action;
+- Hai premuto "?"— kind=decision;
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Avvio app -> Utente registrato al servizio? — type=transition; label="No"; explanation="User not logged in"
+- Utente registrato al servizio? -> Svolgi i passaggi per ricercare una città — type=transition; label="Si"; explanation="User is logged in"
+- Svolgi i passaggi per ricercare una città -> È nella schermata di visualizzazione di una città? — type=transition; label="No"; explanation="Not in city view"
+- È nella schermata di visualizzazione di una città? -> Campi sono corretti? — type=transition; label="No"; explanation="Fields are not correct"
+- Campi sono corretti? -> Compila i form per modificare l'evento — type=transition; label="Si"; explanation="Fields are correct"
+- Compila i form per modificare l'evento -> Scorri in basso e premi "?" per rimuovere un evento o "A" per permettere la modifica — type=transition; label="No"; explanation="No action taken"
+- Scorri in basso e premi "?" per rimuovere un evento o "A" per permettere la modifica -> Hai premuto "?"— type=transition; label="No"; explanation="No action taken"
+- Hai premuto "?" -> Evento cancellato — type=transition; label="No"; explanation="Event not cancelled"
+- Hai premuto "?" -> Evento modificato — type=transition; label="Si"; explanation="Event cancelled"
+
+Conditions / Branches:
+- Utente registrato al servizio? —
+  - Si -> Svolgi i passaggi per ricercare una città
+  - No -> Avvio app
+- È nella schermata di visualizzazione di una città? —
+  - Si -> Campi sono corretti?
+  - No -> Svolgi i passaggi per ricercare una città
+- Campi sono corretti? —
+  - Si -> Compila i form per modificare l'evento
+  - No -> Avvio app
+- Hai premuto "?" —
+  - Si -> Evento cancellato
+  - No -> Evento modificato
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- The diagram models the process of modifying or cancelling an event. The user first needs to log in, then search for a city, and then either modify or cancel the event.
+
+Observations:
+- The process starts with the user launching the application.
+- The user must first be logged in to proceed.
+- The user can either cancel or modify the event.
+- The user needs to check if the fields are correct before modifying the event.
+- The user can cancel the event by scrolling down and pressing "?".
+- The user can modify the event by scrolling down and pressing "A".
+
+
+======================================================================

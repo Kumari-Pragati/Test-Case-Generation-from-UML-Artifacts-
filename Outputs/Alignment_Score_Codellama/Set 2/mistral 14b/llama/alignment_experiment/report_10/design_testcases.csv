@@ -1,0 +1,114 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user registration and login,Authentication,2,"- App is launched.
+- User has not registered before.","- Valid email: `testuser@example.com`
+- Valid username: `testuser123`
+- Valid password: `SecurePass123!`","1. Launch the app.
+2. Register with the provided email, username, and password.
+3. Confirm registration success (e.g., toast message or redirect).
+4. Log in with the same credentials.
+5. Verify redirection to the HOMEPAGE.","- Registration succeeds without errors.
+- Login succeeds, and the user is redirected to HOMEPAGE."
+TC-AUTHENTICATION-002,Failed login with incorrect credentials,Authentication,2,"- App is launched.
+- User is registered (email: `testuser@example.com`, password: `SecurePass123!`).",- Invalid password: `wrongpass`,"1. Launch the app.
+2. Attempt to log in with valid email (`testuser@example.com`) but invalid password.
+3. Observe error message or login failure.","- System rejects login and displays an error (e.g., ""Invalid credentials"").
+- User remains on the login screen."
+TC-AUTHENTICATION-003,Registration with invalid email format,Authentication,2,"- App is launched.
+- User attempts to register.","- Invalid email: `invalid-email`
+- Valid username: `testuser456`
+- Valid password: `SecurePass456!`","1. Launch the app.
+2. Attempt to register with the invalid email.
+3. Submit the form.","- System rejects registration and displays an error (e.g., ""Invalid email format"").
+- User remains on the registration screen."
+TC-EVENT-CREATION-001,Create a valid event in a city,Event Management,"1, 3","- User is logged in.
+- User is on a city’s view page (e.g., ""Rome"").","- Event details:
+  - `idlo`: `EVENT_001`
+  - `data`: `2023-12-15`
+  - `tipologia`: `Concert`
+  - `creatore`: `testuser123`
+  - `citta`: `Rome`
+  - `descrizione`: `Live music event at Piazza Navona`","1. Scroll to the bottom of the city page and tap the ""+"" button to add an event.
+2. Fill in all event fields with the provided data.
+3. Submit the form.","- Event is created successfully.
+- System confirms creation (e.g., toast message or redirect to event list).
+- Event appears in the city’s event list."
+TC-EVENT-CREATION-002,Create an event with missing required fields,Event Management,"1, 3","- User is logged in.
+- User is on a city’s view page.","- Event details (missing `tipologia` and `data`):
+  - `idlo`: `EVENT_002`
+  - `creatore`: `testuser123`
+  - `citta`: `Rome`
+  - `descrizione`: `Missing fields test`","1. Scroll to the bottom and tap ""+"" to add an event.
+2. Fill in only `idlo`, `creatore`, `citta`, and `descrizione`, leaving `tipologia` and `data` empty.
+3. Submit the form.","- System rejects submission and highlights missing fields (e.g., red borders or error messages).
+- User remains on the event creation screen."
+TC-EVENT-CREATION-003,Create an event with invalid date format,Event Management,"1, 3","- User is logged in.
+- User is on a city’s view page.","- Event details (invalid `data`):
+  - `data`: `15-12-2023` (DD-MM-YYYY instead of YYYY-MM-DD)","1. Scroll to the bottom and tap ""+"" to add an event.
+2. Fill in all fields except `data`, which is entered as `15-12-2023`.
+3. Submit the form.","- System rejects submission and displays an error (e.g., ""Invalid date format"").
+- User remains on the event creation screen."
+TC-EVENT-MODIFICATION-001,Modify an existing event successfully,Event Management,"1, 4","- User is logged in.
+- User has created an event (e.g., `EVENT_001` in Rome).
+- User is on the city’s view page where the event is listed.","- Original event:
+  - `tipologia`: `Concert`
+  - `descrizione`: `Live music event at Piazza Navona`
+- Updated event:
+  - `tipologia`: `Theater Play`
+  - `descrizione`: `Shakespeare play at Teatro Argentina`","1. Scroll to the event and tap the pencil icon to modify it.
+2. Update `tipologia` and `descrizione` with the new values.
+3. Submit the changes.","- Event is updated successfully.
+- System confirms changes (e.g., toast message).
+- Updated event details appear in the city’s event list."
+TC-EVENT-MODIFICATION-002,Attempt to modify an event without changes,Event Management,"1, 4","- User is logged in.
+- User has created an event (e.g., `EVENT_001`).",- No changes to event fields.,"1. Scroll to the event and tap the pencil icon.
+2. Leave all fields unchanged.
+3. Submit the form.","- System either:
+  - Rejects submission with a warning (e.g., ""No changes detected""), or
+  - Accepts submission and shows a confirmation (e.g., ""Event saved"").
+- Event details remain unchanged."
+TC-EVENT-DELETION-001,Delete an event successfully,Event Management,"1, 4","- User is logged in.
+- User has created an event (e.g., `EVENT_001`).
+- User is on the city’s view page where the event is listed.",,"1. Scroll to the event and tap the trash icon to delete it.
+2. Confirm deletion in the confirmation dialog.","- Event is deleted successfully.
+- System confirms deletion (e.g., toast message).
+- Event no longer appears in the city’s event list."
+TC-EVENT-DELETION-002,Attempt to delete an event without confirmation,Event Management,"1, 4","- User is logged in.
+- User has created an event (e.g., `EVENT_001`).",,"1. Scroll to the event and tap the trash icon.
+2. **Do not** confirm deletion (close the dialog without action).","- System cancels deletion and shows a message (e.g., ""Deletion cancelled"").
+- Event remains in the city’s event list."
+TC-CITY-POI-ASSOCIATION-001,Verify event is associated with the correct city,City/Event Association,1,"- User is logged in.
+- User has created an event in ""Rome"" (e.g., `EVENT_001`).",,"1. Navigate to the ""Rome"" city page.
+2. Verify that `EVENT_001` appears in the event list.
+3. Navigate to another city (e.g., ""Milan"") and verify `EVENT_001` does **not** appear.","- Event appears only in the city it was created for (""Rome"").
+- Event does not appear in unrelated cities (e.g., ""Milan"")."
+TC-CITY-POI-ASSOCIATION-002,Create a POI and associate it with a city,POI Management,1,"- User is logged in.
+- User is on a city’s view page (e.g., ""Rome"").","- POI details:
+  - `nome`: `Colosseum`
+  - `provincia`: `Rome`
+  - `tipologia`: `Historical`
+  - `descrizione`: `Ancient Roman amphitheater`","1. (Assume a UI element exists to add POIs; if not, infer from context.)
+2. Add the POI with the provided details.
+3. Verify the POI appears in the city’s POI list.","- POI is created and associated with ""Rome"".
+- POI appears in the city’s POI list and is accessible from the city page."
+TC-CITY-POI-ASSOCIATION-003,Attempt to create a POI with missing required fields,POI Management,1,"- User is logged in.
+- User is on a city’s view page.","- POI details (missing `tipologia`):
+  - `nome`: `MissingTypePOI`
+  - `provincia`: `Rome`
+  - `descrizione`: `Test POI without type`","1. Attempt to add the POI with missing `tipologia`.
+2. Submit the form.","- System rejects submission and highlights the missing field.
+- POI is not created."
+TC-USER-EVENT-LINK-001,Verify user is listed as event creator,User/Event Association,1,"- User is logged in as `testuser123`.
+- User has created an event (e.g., `EVENT_001`).",,"1. View the event details (e.g., tap on `EVENT_001`).
+2. Verify that `creatore` is listed as `testuser123`.","- Event details correctly show `testuser123` as the creator.
+- Creator field is not editable (or requires admin privileges)."
+TC-USER-EVENT-LINK-002,Attempt to create an event as an unauthenticated user,User/Event Association,"2, 3","- App is launched.
+- User is **not** logged in.",,"1. Attempt to navigate to a city page (e.g., ""Rome"").
+2. Attempt to add an event (scroll to bottom and tap ""+"").","- System redirects to the login/registration screen.
+- Event creation is blocked for unauthenticated users."
+TC-INVALID-INPUT-001,Set invalid tipologia for an event,Event Validation,1,"- User is logged in.
+- User is on a city’s view page.","- Invalid `tipologia`: `""""` (empty string)","1. Scroll to the bottom and tap ""+"" to add an event.
+2. Fill in all fields except `tipologia`, which is left empty.
+3. Submit the form.","- System rejects submission and displays an error (e.g., ""Tipologia is required"").
+- Event is not created."
+TC-INVALID-INPUT-002,Set invalid city for an event,Event Validation,1,"- User is logged in.
+- User is on a city’s view page (e.g., ""Rome"").",- Invalid `citta`: `NewYork` (user is not on this city’s page),1,

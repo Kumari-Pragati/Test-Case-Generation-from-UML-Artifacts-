@@ -1,0 +1,65 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,User Registration,User,1,None,"- Valid email: test@example.com
+- Valid password: Test1234
+- Valid username: TestUser","1. Navigate to the registration page
+2. Enter the email, password, and username
+3. Click the ""Register"" button",The user is successfully registered and redirected to the login page.
+TC-USER-002,User Login,User,1,User is registered,"- Valid email: test@example.com
+- Valid password: Test1234","1. Navigate to the login page
+2. Enter the email and password
+3. Click the ""Login"" button",The user is successfully logged in and redirected to the homepage.
+TC-USER-003,User Login with Invalid Credentials,User,1,User is registered,"- Invalid email: test@example.com (incorrect format)
+- Valid password: Test1234","1. Navigate to the login page
+2. Enter the email and password
+3. Click the ""Login"" button","The login fails, and an error message is displayed."
+TC-CITY-001,Search for a City,City,2,User is logged in,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button",The system displays the search results for the entered city name.
+TC-CITY-002,View City Details,City,3,User is logged in and a city is found in the search results,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results",The system displays the details of the selected city.
+TC-EVENT-001,Create an Event,Event,3,User is logged in and viewing a city's details,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results
+5. Scroll down and click the ""Add Event"" button
+6. Fill out the event form with valid data
+7. Click the ""Create Event"" button",The event is successfully created and displayed in the city's event list.
+TC-EVENT-002,Create an Event with Invalid Data,Event,3,User is logged in and viewing a city's details,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results
+5. Scroll down and click the ""Add Event"" button
+6. Fill out the event form with invalid data (e.g., empty fields)
+7. Click the ""Create Event"" button","The event creation fails, and an error message is displayed."
+TC-EVENT-003,Modify an Event,Event,4,User is logged in and viewing a city's event list,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results
+5. Scroll down to an event in the event list
+6. Click the ""Edit"" button next to the event
+7. Fill out the event form with valid data
+8. Click the ""Save"" button",The event is successfully modified and displayed in the city's event list.
+TC-EVENT-004,Modify an Event with Invalid Data,Event,4,User is logged in and viewing a city's event list,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results
+5. Scroll down to an event in the event list
+6. Click the ""Edit"" button next to the event
+7. Fill out the event form with invalid data (e.g., empty fields)
+8. Click the ""Save"" button","The event modification fails, and an error message is displayed."
+TC-EVENT-005,Delete an Event,Event,4,User is logged in and viewing a city's event list,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results
+5. Scroll down to an event in the event list
+6. Click the ""Delete"" button next to the event
+7. Confirm the deletion",The event is successfully deleted from the city's event list.
+TC-EVENT-006,Delete an Event with Confirmation Canceled,Event,4,User is logged in and viewing a city's event list,,"1. Navigate to the homepage
+2. Click the ""Search City"" button
+3. Enter a city name and click the ""Search"" button
+4. Click on a city from the search results
+5. Scroll down to an event in the event list
+6. Click the ""Delete"" button next to the event
+7. Do not confirm the deletion","The event is not deleted, and it remains in the city's event list."

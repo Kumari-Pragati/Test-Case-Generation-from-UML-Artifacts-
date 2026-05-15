@@ -1,0 +1,130 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,"1, 8","- User account exists in the database with valid credentials (e.g., `user@example.com` / `Password123`).
+- User is not already logged in.","- Username: `user@example.com`
+- Password: `Password123`","1. User opens the application and lands on the **HOME** page.
+2. System checks if the user is logged in (**Utente loggato?**).
+3. Since the user is not logged in, the system redirects to the **Fragment richiesta Login / registrazione**.
+4. User selects the **Fragment login** option.
+5. User enters valid credentials (`user@example.com` / `Password123`) and submits.
+6. System calls `signInWithEmailAndPassword()` on the **Database**.
+7. Database validates credentials and returns a **success** response.
+8. System redirects the user to the **HOME** page.","- User is successfully logged in.
+- **HOME** page is displayed with logged-in user context.
+- No error messages are shown."
+TC-AUTHENTICATION-002,Failed user login with invalid credentials,Authentication,"1, 8","- User account does not exist or credentials are invalid (e.g., `wrong@example.com` / `WrongPass`).
+- User is not logged in.","- Username: `wrong@example.com`
+- Password: `WrongPass`","1. User opens the application and lands on the **HOME** page.
+2. System checks if the user is logged in (**Utente loggato?**).
+3. User is not logged in, so the system redirects to **Fragment richiesta Login / registrazione**.
+4. User selects **Fragment login** and enters invalid credentials.
+5. System calls `signInWithEmailAndPassword()` on the **Database**.
+6. Database returns a **failure** response (invalid credentials).
+7. System displays an error message (e.g., ""Invalid email or password"").
+8. User remains on the login screen.","- Login attempt fails.
+- Error message is displayed to the user.
+- User is not redirected to **HOME** and remains on the login screen."
+TC-AUTHENTICATION-003,Successful user registration with valid data,Authentication,"1, 7","- User is not logged in.
+- No existing account with the provided email (`newuser@example.com`).","- Email: `newuser@example.com`
+- Password: `NewPass123`
+- Name: `John Doe`","1. User opens the application and lands on the **HOME** page.
+2. System checks if the user is logged in (**Utente loggato?**).
+3. User is not logged in, so the system redirects to **Fragment richiesta Login / registrazione**.
+4. User selects **Fragment registrazione**.
+5. User fills out the registration form with valid data and accepts the privacy document.
+6. System calls `insertUserInDataBase()` on the **Database** via the **User** object.
+7. Database validates data and returns a **success** response.
+8. System checks **Utente creato con successo?** and confirms success.
+9. User is redirected to the **HOME** page.","- New user account is created in the database.
+- User is redirected to **HOME** with a success message (e.g., ""Registration successful!"").
+- User is now logged in (if auto-login is enabled) or prompted to log in."
+TC-AUTHENTICATION-004,Failed user registration with invalid email format,Authentication,"1, 7",- User is not logged in.,"- Email: `invalid-email` (missing `@` and domain)
+- Password: `Pass123`
+- Name: `Jane Doe`","1. User opens the application and lands on the **HOME** page.
+2. System checks if the user is logged in (**Utente loggato?**).
+3. User is not logged in, so the system redirects to **Fragment richiesta Login / registrazione**.
+4. User selects **Fragment registrazione**.
+5. User fills out the registration form with an invalid email and submits.
+6. System validates the email format and detects it as invalid.
+7. System displays an error message (e.g., ""Please enter a valid email address"").
+8. User remains on the registration screen.","- Registration attempt fails.
+- Error message is displayed for the invalid email field.
+- User data is not submitted to the database."
+TC-AUTHENTICATION-005,User registration with existing email,Authentication,"1, 7","- An account already exists with the email `existinguser@example.com`.
+- User is not logged in.","- Email: `existinguser@example.com` (duplicate)
+- Password: `Pass123`
+- Name: `Duplicate User`","1. User opens the application and lands on the **HOME** page.
+2. System checks if the user is logged in (**Utente loggato?**).
+3. User is not logged in, so the system redirects to **Fragment richiesta Login / registrazione**.
+4. User selects **Fragment registrazione**.
+5. User fills out the registration form with an existing email and submits.
+6. System calls `insertUserInDataBase()` on the **Database**.
+7. Database detects the duplicate email and returns a **failure** response.
+8. System displays an error message (e.g., ""Email already registered. Please log in or use another email."").
+9. User remains on the registration screen.","- Registration attempt fails.
+- Error message is displayed indicating the email is already in use.
+- User data is not saved to the database."
+TC-EXCHANGE-PROPOSALS-001,View exchange proposals when data is available,Exchange Proposals,"2, 13, 14","- User is logged in.
+- Database contains at least one exchange proposal for the user.","- User: `user@example.com` (logged in)
+- Exchange proposals in database: 3 (e.g., ""Proposal 1"", ""Proposal 2"", ""Proposal 3"")","1. User is on the **HOME** page.
+2. User navigates to **Activity proposte di scambio**.
+3. System checks **Ho reperito i dati delle proposte?** and finds data.
+4. System displays **Fragment elenco proposte ricevute** with the 3 proposals.
+5. User selects one proposal (e.g., ""Proposal 1"") to view details (**Activity dettaglio proposta**).
+6. System displays the proposal details.
+7. User decides to **accept** the proposal (**Proposta accettata?** = SI).
+8. System updates the proposal status in the database and redirects to **Fragment elenco proposte inoltrate**.
+9. User sees the updated list of forwarded proposals.
+10. User returns to **HOME**.","- Proposals are displayed correctly.
+- Proposal details are shown accurately.
+- Accepted proposal is moved to the forwarded list.
+- User is redirected to **HOME** after acceptance."
+TC-EXCHANGE-PROPOSALS-002,View exchange proposals when no data is available,Exchange Proposals,"2, 14","- User is logged in.
+- Database contains no exchange proposals for the user.","- User: `user@example.com` (logged in)
+- Exchange proposals in database: 0","1. User is on the **HOME** page.
+2. User navigates to **Activity proposte di scambio**.
+3. System checks **Ho reperito i dati delle proposte?** and finds no data.
+4. System redirects to **HOME** with a message (e.g., ""No proposals available"").","- User sees a message indicating no proposals are available.
+- User is redirected back to **HOME**."
+TC-EXCHANGE-PROPOSALS-003,Reject an exchange proposal,Exchange Proposals,"2, 15","- User is logged in.
+- Database contains at least one exchange proposal for the user.","- User: `user@example.com` (logged in)
+- Exchange proposals in database: 2 (e.g., ""Proposal A"", ""Proposal B"")","1. User is on the **HOME** page.
+2. User navigates to **Activity proposte di scambio**.
+3. System displays **Fragment elenco proposte ricevute** with 2 proposals.
+4. User selects ""Proposal A"" to view details (**Activity dettaglio proposta**).
+5. User decides to **reject** the proposal (**Proposta accettata?** = NO).
+6. System updates the proposal status in the database (marked as rejected).
+7. User is redirected to **HOME**.","- Proposal is marked as rejected in the database.
+- User is redirected to **HOME** without errors.
+- Rejected proposal is no longer visible in the received list."
+TC-PERSONAL-BERRIES-001,Insert a new berry/offer successfully,Personal Berries/Offers,"3, 10","- User is logged in.
+- User has not reported any berries/offer yet (**No** = SI for insertion).","- User: `user@example.com` (logged in)
+- Berry/Offer details: `{""name"": ""Strawberry"", ""quantity"": 5, ""location"": ""Garden""}` (optional image)","1. User is on the **HOME** page.
+2. User navigates to **Activity bacche personale**.
+3. System checks **No** (reported berries?) and finds no existing reports (**SI** branch).
+4. User selects **Fragment inserimento**.
+5. User fills out the berry/offer details and optionally uploads an image.
+6. System validates the input and calls the **InsertNewItem** service.
+7. **InsertNewItem** requests confirmation from the user (if required).
+8. User confirms the insertion.
+9. **InsertNewItem** saves the data to the **Database**.
+10. Database returns a **success** response.
+11. System checks **Inserimento andato a buon fine?** and confirms success.
+12. User is redirected to **Fragment elenco offerte** with the new item.","- New berry/offer is added to the database.
+- User sees the updated list of offers in **Fragment elenco offerte**.
+- Success message is displayed (e.g., ""Berry/offer added successfully!"")."
+TC-PERSONAL-BERRIES-002,Failed insertion of berry/offer due to invalid data,Personal Berries/Offers,"3, 10","- User is logged in.
+- User has not reported any berries/offer yet.","- User: `user@example.com` (logged in)
+- Berry/Offer details: `{""name"": """", ""quantity"": -1, ""location"": """"}` (invalid)","1. User is on the **HOME** page.
+2. User navigates to **Activity bacche personale**.
+3. System checks **No** and finds no existing reports (**SI** branch).
+4. User selects **Fragment inserimento**.
+5. User submits invalid data (empty name, negative quantity).
+6. System validates the input and detects errors.
+7. System displays error messages (e.g., ""Name is required"", ""Quantity must be positive"").
+8. User remains on the insertion screen.","- Berry/offer is not saved to the database.
+- Error messages are displayed for each invalid field.
+- User can retry with corrected data."
+TC-PERSONAL-BERRIES-003,Delete an existing berry/offer,Personal Berries/Offers,"3, 11","- User is logged in.
+- User has at least one berry/offer in the system (**No** = NO for insertion, but offers exist).","- User: `user@example.com` (logged in)
+- Existing offers: `[""Strawberry"", ""Blueberry""]`
+**Test Steps",,

@@ -1,0 +1,109 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,3,None,"- Valid username: ""testuser""
+- Valid email: ""test@example.com""
+- Valid password: ""password123""","1. Navigate to the registration page.
+2. Enter the valid username, email, and password.
+3. Click the ""Register"" button.","- User is registered successfully.
+- Confirmation message is displayed."
+TC-User-002,User Login,User,"1, 6",User is registered.,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. Navigate to the login page.
+2. Enter the valid username and password.
+3. Click the ""Login"" button.","- User is logged in successfully.
+- Confirmation message is displayed."
+TC-User-003,Invalid User Login,User,"1, 6",User is registered.,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. Navigate to the login page.
+2. Enter the invalid username and password.
+3. Click the ""Login"" button.","- User is not logged in.
+- Error message is displayed."
+TC-User-004,Add Product to Cart,User,1,User is logged in.,"- Product name: ""Laptop""
+- Product price: 999.99","1. Navigate to the product page.
+2. Click the ""Add to Cart"" button.","- Product is added to the cart.
+- Confirmation message is displayed."
+TC-User-005,Remove Product from Cart,User,1,User has a product in the cart.,"- Product name: ""Laptop""","1. Navigate to the cart page.
+2. Click the ""Remove from Cart"" button next to the product.","- Product is removed from the cart.
+- Confirmation message is displayed."
+TC-Admin-001,Admin Login,Admin,1,Admin account exists.,"- Valid username: ""admin""
+- Valid password: ""adminpassword""","1. Navigate to the admin login page.
+2. Enter the valid username and password.
+3. Click the ""Login"" button.","- Admin is logged in successfully.
+- Confirmation message is displayed."
+TC-Admin-002,Admin Remove Product from Cart,Admin,1,Admin is logged in.,"- Product name: ""Laptop""","1. Navigate to the cart page.
+2. Click the ""Remove from Cart"" button next to the product.","- Product is removed from the cart.
+- Confirmation message is displayed."
+TC-Checkout-001,Proceed to Payment,Checkout,1,Admin is logged in and has items in the cart.,,"1. Navigate to the cart page.
+2. Click the ""Proceed to Payment"" button.","- Total amount is calculated.
+- Payment gateway is opened."
+TC-ClientServer-001,Client Sends Request to Server,ClientServer,"2, 6, 7, 8",None,"- Request payload: {""key"": ""value""}","1. Client sends a request to the server.
+2. Server processes the request.
+3. Server queries the database.
+4. Server returns the response to the client.","- Request is processed successfully.
+- Response is received by the client."
+TC-ClientServer-002,Client Sends Invalid Request to Server,ClientServer,"2, 6, 7, 8",None,"- Invalid request payload: {""invalid_key"": ""invalid_value""}","1. Client sends an invalid request to the server.
+2. Server processes the request.
+3. Server returns an error response to the client.","- Request is rejected.
+- Error message is returned to the client."
+TC-ClientServer-003,Server Logs Request,ClientServer,"2, 6, 7, 8",Client sends a request to the server.,,"1. Client sends a request to the server.
+2. Server logs the request.",- Request is logged successfully.
+TC-ClientServer-004,Server Queries Database,ClientServer,"2, 6, 7, 8",Client sends a request to the server.,- Query: SELECT * FROM table WHERE condition,"1. Client sends a request to the server.
+2. Server queries the database using the provided query.
+3. Server retrieves the results from the database.","- Database query is executed successfully.
+- Results are retrieved and processed by the server."
+TC-ClientServer-005,Server Handles Unauthorized Requests,ClientServer,6,Client sends an unauthorized request to the server.,"- Unauthorized request payload: {""unauthorized_key"": ""unauthorized_value""}","1. Client sends an unauthorized request to the server.
+2. Server checks if the request is authorized.
+3. Server denies the request.","- Unauthorized request is denied.
+- Error message is returned to the client."
+TC-ClientServer-006,Server Processes Multiple Requests,ClientServer,"2, 6, 7, 8",Multiple clients send requests to the server.,"- Multiple request payloads: [{""key1"": ""value1""}, {""key2"": ""value2""}]","1. Multiple clients send requests to the server.
+2. Server processes each request sequentially.
+3. Server queries the database for each request.
+4. Server returns responses to each client.","- Each request is processed successfully.
+- Responses are returned to the respective clients."
+TC-ClientServer-007,Server Logs Multiple Requests,ClientServer,"2, 6, 7, 8",Multiple clients send requests to the server.,,"1. Multiple clients send requests to the server.
+2. Server logs each request.",- Each request is logged successfully.
+TC-ClientServer-008,Server Handles Concurrent Requests,ClientServer,"2, 6, 7, 8",Multiple clients send concurrent requests to the server.,"- Concurrent request payloads: [{""key1"": ""value1""}, {""key2"": ""value2""}]","1. Multiple clients send concurrent requests to the server.
+2. Server processes each request concurrently.
+3. Server queries the database for each request.
+4. Server returns responses to each client.","- Each request is processed concurrently without conflicts.
+- Responses are returned to the respective clients."
+TC-ClientServer-009,Server Handles Large Requests,ClientServer,"2, 6, 7, 8",Client sends a large request to the server.,"- Large request payload: {""key"": ""very_large_value""}","1. Client sends a large request to the server.
+2. Server processes the large request.
+3. Server queries the database.
+4. Server returns the response to the client.","- Large request is processed successfully.
+- Response is received by the client."
+TC-ClientServer-010,Server Handles Edge Cases,ClientServer,"2, 6, 7, 8",Client sends an edge case request to the server.,"- Edge case request payload: {""edge_case_key"": ""edge_case_value""}","1. Client sends an edge case request to the server.
+2. Server processes the edge case request.
+3. Server queries the database.
+4. Server returns the response to the client.","- Edge case request is handled gracefully.
+- Response is received by the client."
+TC-VoltageRegulator-001,Voltage Regulator Operation,VoltageRegulator,5,None,,"1. Apply input voltage to the voltage regulator.
+2. Observe the output voltage.",- Output voltage is regulated as expected.
+TC-VoltageRegulator-002,Voltage Regulator with Invalid Input,VoltageRegulator,5,None,,"1. Apply an invalid input voltage to the voltage regulator.
+2. Observe the output voltage.",- Output voltage remains stable or within acceptable limits.
+TC-VoltageRegulator-003,Voltage Regulator with High Input Voltage,VoltageRegulator,5,None,,"1. Apply a high input voltage to the voltage regulator.
+2. Observe the output voltage.",- Output voltage is regulated to the specified level.
+TC-VoltageRegulator-004,Voltage Regulator with Low Input Voltage,VoltageRegulator,5,None,,"1. Apply a low input voltage to the voltage regulator.
+2. Observe the output voltage.",- Output voltage is regulated to the specified level.
+TC-VoltageRegulator-005,Voltage Regulator with No Input Voltage,VoltageRegulator,5,None,,"1. Disconnect input voltage from the voltage regulator.
+2. Observe the output voltage.",- Output voltage drops to zero or remains stable.
+TC-UserSystemInteraction-001,User Interacts with System,UserSystemInteraction,4,User is logged in.,,"1. User sends a message to the system.
+2. System responds to the user.","- Message is processed by the system.
+- Response is received by the user."
+TC-UserSystemInteraction-002,User Sends Invalid Message to System,UserSystemInteraction,4,User is logged in.,,"1. User sends an invalid message to the system.
+2. System responds to the user.","- Invalid message is handled by the system.
+- Error message is received by the user."
+TC-UserSystemInteraction-003,User Sends Multiple Messages to System,UserSystemInteraction,4,User is logged in.,,"1. User sends multiple messages to the system.
+2. System processes each message.
+3. System responds to each message.","- Each message is processed successfully.
+- Responses are received by the user."
+TC-UserSystemInteraction-004,User Sends Concurrent Messages to System,UserSystemInteraction,4,User is logged in.,,"1. User sends concurrent messages to the system.
+2. System processes each message concurrently.
+3. System responds to each message.","- Each message is processed concurrently without conflicts.
+- Responses are received by the user."
+TC-UserSystemInteraction-005,User Sends Edge Case Messages to System,UserSystemInteraction,4,User is logged in.,,"1. User sends edge case messages to the system.
+2. System processes each message.
+3. System responds to each message.","- Edge case messages are handled gracefully.
+- Responses are received by the user."
+TC-UserSystemInteraction-006,User Sends Large Messages to System,UserSystemInteraction,4,User is logged in.,,"1. User sends large messages to the system.
+2. System processes each message.
+3. System responds to each message.","- Large messages are processed successfully.
+- Responses are received by the user."
+TC-UserSystemInteraction-007,User Sends,,,,,,

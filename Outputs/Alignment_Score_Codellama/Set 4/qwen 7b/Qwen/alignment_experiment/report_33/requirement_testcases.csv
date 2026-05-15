@@ -1,0 +1,76 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-MapInteraction-001","User Interaction with Map on App Launch","Map Interaction","6","App is installed on an Android device (version 8.1 or higher)","None","1. Launch the app for the first time.
+2. Observe the default view.","The app automatically redirects the user to a map interface displaying air quality data for the user’s current location."
+"TC-MapInteraction-002","Text Search for Specific Location","Map Interaction","6","App is installed and launched","A known city or address (e.g., ""Venice, Italy"")","1. Navigate to the search bar on the map interface.
+2. Enter the test location (e.g., ""Venice, Italy"") into the search bar.
+3. Press the search or enter key.","The map centers on the searched location, and air quality data for that location is displayed."
+"TC-MapInteraction-003","Applying Filters on Map","Map Interaction","6","App is installed and launched","None","1. Open the map interface.
+2. Locate and select the filter option (e.g., AQI range, PM2.5 levels, or other available filters).
+3. Apply a specific filter (e.g., ""High AQI areas"").","The map updates to display only locations or areas matching the selected filter criteria."
+"TC-DataIntegration-004","Real-Time Air Quality Data Retrieval via AirVisual API","Data Integration","4","App is connected to the internet; AirVisual API is accessible","None","1. Launch the app and ensure the map is displayed.
+2. Allow the app to access GPS location (if prompted).
+3. Wait for data to load.","The app retrieves and displays real-time AQI, PM2.5 concentrations, temperature, and humidity data for the user’s current location."
+"TC-DataIntegration-005","Real-Time Weather Data Retrieval via OpenWeatherMap API","Data Integration","4","App is connected to the internet; OpenWeatherMap API is accessible","None","1. Launch the app and navigate to a location with weather data available.
+2. Ensure the app has permission to access location (if required).
+3. Wait for data to load.","The app retrieves and displays real-time weather data (e.g., temperature, humidity) for the selected location."
+"TC-Compatibility-006","App Launch on Android Device (Version 8.1 or Higher)","Compatibility","4","None","Android device with version 8.1 or higher","1. Install the app on the test device.
+2. Launch the app.","The app installs and launches successfully without errors on the specified Android version."
+"TC-Notifications-007","App Background Execution for Notifications","Notifications","4, 6","App is installed; user has enabled notifications","None","1. Launch the app and navigate to settings.
+2. Enable notification preferences for air quality alerts.
+3. Simulate a change in air quality (e.g., AQI threshold breach) via API.","The app sends a notification to the user’s device alerting them about the change in air quality."
+"TC-NotificationSystem-008","Receive Air Quality Notifications","Notification System","7, 11","User has granted permission to the app to send notifications","AQI value exceeding predefined safety threshold (e.g., 100)","1. User opens the app and ensures notification permissions are enabled.
+2. System detects AQI value exceeding the threshold (e.g., 100).
+3. App sends a push notification to the user’s device.","User receives a notification alerting them of the air quality change."
+"TC-NotificationSystem-009","Notification Triggered by Data Change","Notification System","7, 11","User has enabled notifications and is logged into the app","PM2.5 level exceeds safety threshold (e.g., 50 µg/m³)","1. User selects a location in the app.
+2. System monitors PM2.5 levels in real-time.
+3. PM2.5 level exceeds the predefined threshold.
+4. App triggers a notification.","User receives a notification indicating the PM2.5 level breach."
+"TC-PracticalTips-010","View Practical Emission Reduction Tips","Practical Tips","7, 8","App is installed on the user’s device","None","1. User opens the app and selects the ""Suggerimenti pratici"" (Practical Tips) icon.
+2. App loads the tips section.","User sees a list of suggestions for reducing atmospheric emissions."
+"TC-WidgetIntegration-011","Add Air Quality Widget to Home Screen","Widget Integration","7, 8, 12","App is installed on the user’s device","User’s preferred location (e.g., ""Roma"")","1. User opens the app and navigates to widget settings.
+2. User selects the air quality widget option.
+3. User chooses a location (e.g., ""Roma"").
+4. User adds the widget to the home screen.","Widget appears on the home screen displaying real-time AQI data for the selected location."
+"TC-WidgetIntegration-012","Widget Displays Correct Data","Widget Integration","7, 8, 12","Widget is added to the home screen with a selected location","AQI value for the selected location (e.g., 75)","1. User checks the widget on the home screen.
+2. System updates AQI data in real-time.","Widget displays the current AQI value for the selected location."
+"TC-AirQualityData-013","Real-Time AQI Visualization","Air Quality Data","11","User has selected a location (GPS or manual)","AQI value for the selected location (e.g., 60)","1. User opens the app and selects a location (GPS or manual).
+2. App fetches real-time AQI data from the API.
+3. App displays AQI value on the map or dashboard.","AQI value is displayed accurately for the selected location."
+"TC-AirQualityData-014","Automatic Data Update","Air Quality Data","11","User is viewing AQI data for a location","Updated AQI value (e.g., 80)","1. User views AQI data on the app.
+2. System fetches updated AQI data from the API.
+3. App refreshes the displayed AQI value automatically.","AQI value updates in real-time without manual refresh."
+"TC-APICommunication-015","Secure API Communication and Error Handling","API Communication","14","Application is installed and connected to an API","Simulated API failure (timeout, invalid response, server error)","1. Trigger an API request (e.g., fetch air quality data).
+2. Simulate an API error (e.g., timeout after 10 seconds).
+3. Observe system behavior during and after the error.","The application handles the exception gracefully without crashing, displays an appropriate error message to the user, and maintains data integrity."
+"TC-Performance-016","Response Time for User Interactions","Performance","14,18","Application is running on a smartphone/tablet with stable internet","User actions (e.g., button press, data refresh)","1. Measure time taken for a user interaction (e.g., tapping a button to refresh data).
+2. Measure time taken for data retrieval from API and display on screen.","The application responds to user interactions in <2 seconds and displays retrieved data within <5 seconds."
+"TC-Compatibility-017","Cross-Device Compatibility (Smartphone/Tablet)","Compatibility","14,18","Application installed on at least 3 different devices (1 smartphone, 2 tablets)","Standard user workflow (e.g., login, data retrieval, map interaction)","1. Perform a predefined workflow on each device.
+2. Verify all UI elements are correctly rendered and functional.
+3. Check for layout inconsistencies or missing features.","The application functions identically across all devices with no loss of features or usability issues."
+"TC-Usability-018","Clean and Responsive UI Design","Usability","15,18","Application installed on a smartphone/tablet","UI elements (buttons, menus, data displays)","1. Navigate through all main screens and interactions.
+2. Verify UI elements are uncluttered and follow responsive design principles.
+3. Check for visual errors (e.g., overlapping elements, misaligned text).","The interface is clean, intuitive, and free of visual errors on all supported devices."
+"TC-DataManagement-019","Data Deletion Upon Uninstallation","Data Management","13,18","Application installed and user data created (e.g., saved preferences, cached API responses)","None (system-generated data)","1. Uninstall the application from the device.
+2. Check device storage for residual application data.","No application-related data (e.g., caches, preferences) remains on the device after uninstallation."
+"TC-ExternalRequirements-020","Mandatory Internet Connection for Functionality","External Requirements","16,18","Application installed on a device with GPS and internet toggles","Disabled internet connection","1. Attempt to use a feature requiring internet (e.g., fetch air quality data).
+2. Observe system behavior when no internet is available.","The application displays a clear error message indicating the need for an internet connection and disables affected features."
+"TC-ExternalRequirements-021","GPS Dependency for User-Specific Data","External Requirements","16,18","Application installed on a device with GPS enabled/disabled","User location data (simulated or real)","1. Enable GPS and request location-based data (e.g., nearest air monitoring station).
+2. Disable GPS and repeat the request.","The feature works correctly with GPS enabled. With GPS disabled, the application either prompts the user to enable it or displays a fallback message (if applicable)."
+"TC-Robustness-022","Handling Concurrent API Requests","Robustness","18","Application connected to API with stable network","Two simultaneous API requests (e.g., fetch data for two different locations)","1. Initiate two concurrent API requests (e.g., via rapid button presses or automated script).
+2. Monitor system response and data integrity.","The application processes both requests without crashes, timeouts, or data loss. Responses are delivered in full."
+"TC-Robustness-023","Data Recovery After Connection Loss","Robustness","14,18","Application connected to API with active session","Simulated network disconnection/reconnection","1. Perform an API request while the connection is stable.
+2. Disconnect from the internet during data retrieval.
+3. Reconnect and observe system behavior.","Upon reconnection, the application automatically retrieves pending data or resumes the interrupted operation without data loss."
+"TC-Notifications-024","Enable Notifications Functionality","Notifications","19","User has not activated notifications previously","Valid user account, notification settings page accessible","1. User opens the application.
+2. User navigates to the notification settings section.
+3. User selects the option to enable notifications.","Notifications are activated, and the user can receive data without opening the app."
+"TC-Widgets-025","Add Widget to Home Screen","Widgets","20","User has not added any widget previously","Valid user account, home screen accessible, widget list available","1. User opens the application.
+2. User navigates to the widget selection menu.
+3. User selects a widget from the available options.
+4. User confirms the addition of the widget to the home screen.","The selected widget appears on the user’s home screen, allowing direct access to data without opening the app."
+"TC-SystemRequirements-026","Verify Minimum Device Requirements","System Requirements","21","None","Android device with API 24 or higher, 1GB RAM, 300MB free storage, GPS enabled","1. Install the application on a device meeting the specified requirements.
+2. Launch the application.
+3. Perform basic operations (e.g., open a widget or check notifications).","The application launches and operates without errors or performance issues."
+"TC-SystemRequirements-027","Verify Continuous Internet Connection Requirement","System Requirements","21","None","Device with stable internet connection, device without internet connection","1. Launch the application on a device with a stable internet connection.
+2. Perform operations requiring data access (e.g., fetch notifications or widget data).
+3. Disconnect the internet and attempt the same operations.","Application functions correctly with internet; operations fail or show errors without internet."

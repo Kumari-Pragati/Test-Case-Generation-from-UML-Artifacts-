@@ -1,0 +1,100 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User can successfully log in,User,"3, 4",User account exists in the database,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates login request with valid credentials.
+2. Server handles the login request and queries the database.
+3. Database verifies the credentials and returns a successful response.
+4. Server sends a successful login response to the user.",User is logged in successfully.
+TC-User-002,User cannot log in with invalid credentials,User,"3, 4",User account exists in the database,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User initiates login request with invalid credentials.
+2. Server handles the login request and queries the database.
+3. Database verifies the credentials and returns a failure response.
+4. Server sends a failed login response to the user.","User is not logged in, and an error message is displayed."
+TC-User-003,User can log out successfully,User,"3, 4",User is logged in,None,"1. User initiates logout request.
+2. Server handles the logout request.
+3. Server sends a successful logout response to the user.",User is logged out successfully.
+TC-User-004,User cannot log out if not logged in,User,"3, 4",User is not logged in,None,"1. User initiates logout request.
+2. Server handles the logout request and checks if the user is logged in.
+3. Server sends a failed logout response to the user.","User remains logged out, and an error message is displayed."
+TC-Admin-001,Admin can add a new user,Admin,1,Admin is logged in,"- New user details: name=""newuser"", email=""newuser@example.com""","1. Admin initiates addUser request with new user details.
+2. Server processes the addUser request.
+3. Server adds the new user to the database.
+4. Server sends a successful addUser response to the admin.",New user is added successfully.
+TC-Admin-002,Admin cannot add a duplicate user,Admin,1,"Admin is logged in, existing user with same email exists","- Duplicate user details: name=""duplicateuser"", email=""existinguser@example.com""","1. Admin initiates addUser request with duplicate user details.
+2. Server processes the addUser request and checks for duplicates.
+3. Server sends a failed addUser response to the admin.","Duplicate user addition fails, and an error message is displayed."
+TC-Admin-003,Admin can remove a user,Admin,1,"Admin is logged in, user exists","- User to be removed: name=""removeme"", email=""removeme@example.com""","1. Admin initiates removeUser request with user details.
+2. Server processes the removeUser request.
+3. Server removes the user from the database.
+4. Server sends a successful removeUser response to the admin.",User is removed successfully.
+TC-Admin-004,Admin cannot remove a non-existent user,Admin,1,"Admin is logged in, user does not exist","- Non-existent user details: name=""nonexistent"", email=""nonexistent@example.com""","1. Admin initiates removeUser request with non-existent user details.
+2. Server processes the removeUser request and checks if the user exists.
+3. Server sends a failed removeUser response to the admin.","Removal of non-existent user fails, and an error message is displayed."
+TC-Login-001,Successful login sequence,Login,2,User account exists in the database,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates login request with valid credentials.
+2. Server handles the login request and queries the database.
+3. Database verifies the credentials and returns a successful response.
+4. Server sends a successful login response to the user.",User is logged in successfully.
+TC-Login-002,Failed login sequence due to invalid credentials,Login,2,User account exists in the database,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User initiates login request with invalid credentials.
+2. Server handles the login request and queries the database.
+3. Database verifies the credentials and returns a failure response.
+4. Server sends a failed login response to the user.","User is not logged in, and an error message is displayed."
+TC-Login-003,Successful logout sequence,Login,2,User is logged in,None,"1. User initiates logout request.
+2. Server handles the logout request.
+3. Server sends a successful logout response to the user.",User is logged out successfully.
+TC-Login-004,Failed logout sequence due to user not being logged in,Login,2,User is not logged in,None,"1. User initiates logout request.
+2. Server handles the logout request and checks if the user is logged in.
+3. Server sends a failed logout response to the user.","User remains logged out, and an error message is displayed."
+TC-Database-001,Database query for user login,Database,"3, 4",User account exists in the database,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates login request with valid credentials.
+2. Server queries the database with the user's credentials.
+3. Database verifies the credentials and returns a successful response.
+4. Server sends a successful login response to the user.",User is logged in successfully.
+TC-Database-002,Database query for user login with invalid credentials,Database,"3, 4",User account exists in the database,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User initiates login request with invalid credentials.
+2. Server queries the database with the user's credentials.
+3. Database verifies the credentials and returns a failure response.
+4. Server sends a failed login response to the user.","User is not logged in, and an error message is displayed."
+TC-Database-003,Database update for user information,Database,4,User account exists in the database,"- User ID: 1
+- Updated data: ""newdata""","1. User initiates update request with user ID and updated data.
+2. Server queries the database with the user ID.
+3. Database updates the user's information.
+4. Database sends a successful update response to the server.
+5. Server sends a successful update response to the user.",User information is updated successfully.
+TC-Database-004,Database update for non-existent user,Database,4,User account does not exist in the database,"- User ID: 999
+- Updated data: ""newdata""","1. User initiates update request with non-existent user ID and updated data.
+2. Server queries the database with the user ID.
+3. Database verifies the user ID and returns a failure response.
+4. Server sends a failed update response to the user.","Update of non-existent user fails, and an error message is displayed."
+TC-Server-001,Server handles successful login request,Server,"3, 4",User account exists in the database,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates login request with valid credentials.
+2. Server handles the login request and queries the database.
+3. Database verifies the credentials and returns a successful response.
+4. Server sends a successful login response to the user.",User is logged in successfully.
+TC-Server-002,Server handles failed login request due to invalid credentials,Server,"3, 4",User account exists in the database,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User initiates login request with invalid credentials.
+2. Server handles the login request and queries the database.
+3. Database verifies the credentials and returns a failure response.
+4. Server sends a failed login response to the user.","User is not logged in, and an error message is displayed."
+TC-Server-003,Server handles successful logout request,Server,"3, 4",User is logged in,None,"1. User initiates logout request.
+2. Server handles the logout request.
+3. Server sends a successful logout response to the user.",User is logged out successfully.
+TC-Server-004,Server handles failed logout request due to user not being logged in,Server,"3, 4",User is not logged in,None,"1. User initiates logout request.
+2. Server handles the logout request and checks if the user is logged in.
+3. Server sends a failed logout response to the user.","User remains logged out, and an error message is displayed."
+TC-Server-005,Server handles successful addUser request,Server,1,Admin is logged in,"- New user details: name=""newuser"", email=""newuser@example.com""","1. Admin initiates addUser request with new user details.
+2. Server processes the addUser request.
+3. Server adds the new user to the database.
+4. Server sends a successful addUser response to the admin.",New user is added successfully.
+TC-Server-006,Server handles failed addUser request due to duplicate user,Server,1,"Admin is logged in, existing user with same email exists","- Duplicate user details: name=""duplicateuser"", email=""existinguser@example.com""","1. Admin initiates addUser request with duplicate user details.
+2. Server processes the addUser request and checks for duplicates.
+3. Server sends a failed addUser response to the admin.","Duplicate user addition fails, and an error message is displayed."
+TC-Server-007,Server handles successful removeUser request,Server,1,"Admin is logged in, user exists","- User to be removed: name=""removeme"", email=""removeme@example.com""","1. Admin initiates removeUser request with user details.
+2. Server processes the removeUser request.
+3. Server removes the user from the database.
+4. Server sends a successful removeUser response to the admin.",User is removed successfully.
+TC-Server-008,Server handles failed removeUser request due to non-existent user,Server,1,"Admin is logged in, user does not exist","- Non-existent user details: name=""nonexistent"", email=""nonexistent@example.com""","1. Admin initiates removeUser request with non-existent user details.
+2. Server processes the removeUser request and checks if the user exists.
+3. Server sends a failed removeUser response to the admin.","Removal of non-existent user fails, and an error message is displayed."
+TC-Sequence-001,User logs in and out successfully,Sequence,2,User account exists in the database,"- Valid username: ""testuser""
+- Valid password: ""password123""",1. User initiates login request,

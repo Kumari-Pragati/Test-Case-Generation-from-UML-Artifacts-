@@ -1,0 +1,113 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,Create a New User,User,1,Database is initialized and empty.,"- Valid username: ""testuser""
+- Valid password: ""password123""
+- Valid email: ""test@example.com""","1. Call the createUser method with the provided username, password, and email.
+2. Verify that the user is added to the database.","- User is successfully created and stored in the database.
+- A confirmation message is returned indicating successful creation."
+TC-User-002,Modify Existing User,User,1,A user exists in the database.,"- Existing username: ""testuser""
+- New password: ""newpassword123""
+- New email: ""newemail@example.com""","1. Call the modifyUser method with the existing username and new password and email.
+2. Verify that the user details are updated in the database.","- User details are successfully updated in the database.
+- A confirmation message is returned indicating successful modification."
+TC-User-003,Retrieve All Users,User,1,At least one user exists in the database.,None,"1. Call the getUsers method.
+2. Verify that the list of users is returned.","- A list of all users is returned.
+- The list contains at least one user."
+TC-User-004,Retrieve Non-Existent User,User,1,No users exist in the database.,"Invalid username: ""nonexistentuser""","1. Call the getUsers method with the invalid username.
+2. Verify that no user is found.",- An error message is returned indicating that the user does not exist.
+TC-User-005,Log In with Valid Credentials,User,2,A user exists in the database.,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. Call the log_In method with the valid username and password.
+2. Verify that the user is authenticated.","- User is successfully authenticated.
+- A confirmation message is returned indicating successful login."
+TC-User-006,Log In with Invalid Credentials,User,2,A user exists in the database.,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. Call the log_In method with the invalid username and password.
+2. Verify that the user is not authenticated.","- User authentication fails.
+- An error message is returned indicating incorrect credentials."
+TC-SignalManagement-001,Get Signalizations,SignalManagement,3,Signalizations exist in the database.,None,"1. Call the getSegnalazioni method from the Application.
+2. Forward the request to the Signal Management System.
+3. Forward the request to the Data Management System.
+4. Query the Database for signalizations.
+5. Return the list of signalizations to the Application.","- The list of signalizations is successfully retrieved from the database.
+- The list is displayed in the Application."
+TC-SignalManagement-002,Display Null Signalizations,SignalManagement,3,No signalizations exist in the database.,None,"1. Call the getSegnalazioni method from the Application.
+2. Forward the request to the Signal Management System.
+3. Forward the request to the Data Management System.
+4. Query the Database for signalizations.
+5. Return a null list to the Application.","- A null list is returned to the Application.
+- An appropriate message is displayed indicating no signalizations found."
+TC-VariationManagement-001,Get Train Variations,VariationManagement,4,Train variations exist in the database.,None,"1. Call the getVariazioni method from the Application.
+2. Forward the request to the Variation Management System.
+3. Forward the request to the Data Management System.
+4. Query the Database for train variations.
+5. Return the list of train variations to the Application.","- The list of train variations is successfully retrieved from the database.
+- The list is displayed in the Application."
+TC-VariationManagement-002,Display Null Train Variations,VariationManagement,4,No train variations exist in the database.,None,"1. Call the getVariazioni method from the Application.
+2. Forward the request to the Variation Management System.
+3. Forward the request to the Data Management System.
+4. Query the Database for train variations.
+5. Return a null list to the Application.","- A null list is returned to the Application.
+- An appropriate message is displayed indicating no train variations found."
+TC-CalendarManagement-001,Set Calendar,CalendarManagement,5,Calendar data can be set in the database.,"- Valid calendar data: ""calendar_data""","1. Call the setCalendario method with the valid calendar data.
+2. Forward the request to the Calendar Management System.
+3. Query the Database for the new calendar.
+4. Forward the outcome back to the Application.","- The calendar data is successfully set in the database.
+- The outcome is forwarded back to the Application."
+TC-CalendarManagement-002,Get Calendar,CalendarManagement,6,Calendar data exists in the database.,None,"1. Call the getCalendario method from the Application.
+2. Forward the request to the Calendar Management System.
+3. Forward the request to the Data Management System.
+4. Query the Database for the calendar.
+5. Return the calendar data to the Application.","- The calendar data is successfully retrieved from the database.
+- The calendar data is displayed in the Application."
+TC-CalendarManagement-003,Get Null Calendar,CalendarManagement,6,No calendar data exists in the database.,None,"1. Call the getCalendario method from the Application.
+2. Forward the request to the Calendar Management System.
+3. Forward the request to the Data Management System.
+4. Query the Database for the calendar.
+5. Return a null value to the Application.","- A null value is returned to the Application.
+- An appropriate message is displayed indicating no calendar data found."
+TC-TrainManagement-001,Get Trains,TrainManagement,7,Train data exists in the database.,"- Valid calendar: ""calendar_data""","1. Call the getTrains method with the valid calendar data.
+2. Forward the request to the Data Management System.
+3. Query the Database for the trains.
+4. Return the list of trains to the Application.","- The list of trains is successfully retrieved from the database.
+- The list is displayed in the Application."
+TC-TrainManagement-002,Get Null Trains,TrainManagement,7,No train data exists in the database.,"- Valid calendar: ""calendar_data""","1. Call the getTrains method with the valid calendar data.
+2. Forward the request to the Data Management System.
+3. Query the Database for the trains.
+4. Return a null list to the Application.","- A null list is returned to the Application.
+- An appropriate message is displayed indicating no trains found."
+TC-TrainManagement-003,Delete Preferred Train,TrainManagement,8,A preferred train exists in the database.,"- Valid train ID: ""train_id""","1. Call the deletePrefTrain method with the valid train ID.
+2. Forward the request to the Data Management System.
+3. Query the Database to delete the preferred train.
+4. Return the outcome to the Application.","- The preferred train is successfully deleted from the database.
+- The outcome is forwarded back to the Application."
+TC-NotificationManagement-001,Show Notification for Train Variations,NotificationManagement,9,Train variations exist in the database.,"- Valid train variations: ""variations_data""","1. Call the getVariazioni method from the Application.
+2. Process the train variations in the Variation Management System.
+3. Show notifications based on the train variations.","- Notifications are shown based on the train variations.
+- The notifications are displayed in the Application."
+TC-NotificationManagement-002,Show Null Notification for Train Variations,NotificationManagement,9,No train variations exist in the database.,None,"1. Call the getVariazioni method from the Application.
+2. Process the train variations in the Variation Management System.
+3. Show no notifications since there are no variations.","- No notifications are shown.
+- An appropriate message is displayed indicating no variations found."
+TC-UserManagement-007,Check User Login Status,UserManagement,2,A user is logged in.,None,"1. Call the checkIfLogin method from the Application.
+2. Verify that the user is logged in.","- The user is confirmed to be logged in.
+- A confirmation message is returned indicating the user is logged in."
+TC-UserManagement-008,Check User Not Logged In,UserManagement,2,No user is logged in.,None,"1. Call the checkIfLogin method from the Application.
+2. Verify that the user is not logged in.","- The user is confirmed to not be logged in.
+- An error message is returned indicating the user is not logged in."
+TC-UserManagement-009,Register and Log In User,UserManagement,2,No user exists in the database.,"- Valid username: ""newuser""
+- Valid password: ""password123""
+- Valid email: ""newuser@example.com""","1. Call the registerAndLogin method with the valid username, password, and email.
+2. Verify that the user is registered and logged in.","- The user is successfully registered and logged in.
+- A confirmation message is returned indicating successful registration and login."
+TC-UserManagement-010,Log Out User,UserManagement,2,A user is logged in.,None,"1. Call the logOut method from the Application.
+2. Verify that the user is logged out.","- The user is successfully logged out.
+- A confirmation message is returned indicating successful logout."
+TC-UserManagement-011,Get Current User,UserManagement,2,A user is logged in.,None,"1. Call the getCurrentUser method from the Application.
+2. Verify that the current user is returned.","- The current user is successfully retrieved.
+- The user details are returned."
+TC-UserManagement-012,Get Null Current User,UserManagement,2,No user is logged in.,None,"1. Call the getCurrentUser method from the Application.
+2. Verify that no user is returned.","- No user is returned.
+- An error message is returned indicating no user is logged in."
+TC-UserManagement-013,Sign In with Email and Password,UserManagement,2,A user exists in the database.,"- Valid email: ""testuser@example.com""
+- Valid password: ""password123""","1. Call the signInWithEmailAndPassword method with the valid email and password.
+2. Verify that the user is signed in.","- The user is successfully signed in.
+- A confirmation message is returned indicating successful sign-in."
+TC-UserManagement-014,Sign In with Invalid Email and Password,UserManagement,,,,,

@@ -1,0 +1,119 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,1,"- User account exists in the system with valid credentials (e.g., `username: john_doe`, `password: SecurePass123`).
+- System is operational and network/database connections are active.","- Valid username: `john_doe`
+- Valid password: `SecurePass123`","1. User enters `john_doe` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- System authenticates the user successfully.
+- User is redirected to the product catalog or home page.
+- `login()` method returns `Ret` (success status).
+- User session is established (e.g., session cookie set)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,1,- User account exists with valid username but incorrect password.,"- Valid username: `john_doe`
+- Invalid password: `wrongpass`","1. User enters `john_doe` in the username field.
+2. User enters `wrongpass` in the password field.
+3. User clicks the ""Login"" button.","- System rejects the login attempt.
+- Error message displayed: ""Invalid username or password.""
+- `login()` method returns error `Ret` (failure status).
+- No session is created."
+TC-AUTHENTICATION-003,Failed User Login (Non-Existent User),Authentication,1,- No user account exists with the provided username.,"- Non-existent username: `nonexistent_user`
+- Any password: `SecurePass123`","1. User enters `nonexistent_user` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- System rejects the login attempt.
+- Error message displayed: ""User not found.""
+- `login()` method returns error `Ret` (failure status).
+- No session is created."
+TC-AUTHENTICATION-004,Admin Login and Role Switch,Authentication,1,"- Admin account exists with valid credentials (e.g., `username: admin_user`, `password: AdminPass456`).","- Admin username: `admin_user`
+- Admin password: `AdminPass456`","1. Admin enters `admin_user` in the username field.
+2. Admin enters `AdminPass456` in the password field.
+3. Admin clicks the ""Login"" button.
+4. System detects Admin role and grants elevated privileges.","- Admin is authenticated and redirected to the Admin dashboard.
+- `login()` method returns `Ret` (success status).
+- Admin session is established with role-based permissions.
+- Admin can now interact with `Product` and `Cart` operations (e.g., remove products)."
+TC-AUTHENTICATION-005,User Logout,Authentication,1,- User is currently logged in (session active).,,"1. Logged-in user clicks the ""Logout"" button.
+2. System calls `logout()` method.","- User session is terminated.
+- User is redirected to the login page.
+- `logout()` method returns `Ret` (success status).
+- All session data (cookies, tokens) are cleared."
+TC-PRODUCT-001,User Adds Product to Cart,Product Management,1,"- User is logged in.
+- Product exists in the system (e.g., `name: Laptop`, `price: 999.99`).","- Product name: `Laptop`
+- Product price: `999.99`","1. User selects ""Laptop"" from the product catalog.
+2. User clicks ""Add to Cart.""
+3. System calls `addToCart(""Laptop"", 999.99)` on the `Product` class.
+4. `Product.addToCart()` triggers `Cart.addProduct()`.","- Product is added to the user's cart.
+- `Cart.items` list now includes the `Product` object.
+- Cart UI updates to show the added product.
+- `addToCart()` and `addProduct()` methods return `Ret` (success status)."
+TC-PRODUCT-002,Admin Removes Product from Cart,Product Management,1,"- Admin is logged in.
+- Product exists in the cart (e.g., `name: Laptop`, `price: 999.99`).",- Product name: `Laptop`,"1. Admin navigates to the cart.
+2. Admin selects ""Laptop"" and clicks ""Remove.""
+3. System calls `removeProduct(Product)` on the `Cart` class.","- Product is removed from the cart.
+- `Cart.items` list no longer includes the `Product` object.
+- Cart UI updates to reflect the removal.
+- `removeProduct()` method returns `Ret` (success status)."
+TC-PRODUCT-003,User Attempts to Remove Product from Cart (Unauthorized),Product Management,1,"- Regular user (non-Admin) is logged in.
+- Product exists in the cart (e.g., `name: Laptop`).",- Product name: `Laptop`,"1. User navigates to the cart.
+2. User attempts to remove ""Laptop"" (e.g., clicks ""Remove"" button).","- System denies the removal request.
+- Error message displayed: ""You do not have permission to remove this item.""
+- `removeProduct()` method returns error `Ret` (access denied).
+- Cart remains unchanged."
+TC-CART-001,Calculate Cart Total,Checkout,1,"- User is logged in.
+- Cart contains at least one product (e.g., `Laptop: 999.99`, `Mouse: 25.50`).",,"1. User clicks ""Proceed to Checkout.""
+2. System calls `calculateTotal()` on the `Checkout` class.","- Total is calculated as `999.99 + 25.50 = 1025.49`.
+- `Checkout.total` attribute is updated to `1025.49`.
+- UI displays the total amount.
+- `calculateTotal()` method returns `Ret` (success status)."
+TC-CART-002,Proceed to Payment with Empty Cart,Checkout,1,"- User is logged in.
+- Cart is empty.",,"1. User clicks ""Proceed to Checkout.""
+2. System calls `calculateTotal()` and finds `Cart.items` is empty.
+3. User clicks ""Proceed to Payment.""","- System displays an error: ""Your cart is empty. Add products to proceed.""
+- `calculateTotal()` returns `0.0` (or error `Ret`).
+- `proceedToPayment()` is blocked.
+- User is redirected to the product catalog."
+TC-CART-003,Proceed to Payment with Valid Cart,Checkout,1,"- User is logged in.
+- Cart contains products (e.g., `Laptop: 999.99`).
+- `Checkout.total` is `999.99`.",,"1. User clicks ""Proceed to Checkout.""
+2. System confirms `Checkout.total = 999.99`.
+3. User clicks ""Proceed to Payment.""
+4. System calls `proceedToPayment()`.","- User is redirected to the payment gateway.
+- Payment page displays `Total: $999.99`.
+- `proceedToPayment()` returns `Ret` (success status).
+- Cart is locked (items cannot be modified during payment)."
+TC-DATABASE-001,Database Query for User Authentication,Data Retrieval,4,"- Database contains user records (e.g., `username: john_doe`, `password: SecurePass123`).
+- System is connected to the database.",,"1. User enters credentials (`john_doe`, `SecurePass123`).
+2. System calls `Richiedi dati dal database` to verify credentials.
+3. Database returns user record or `null`.","- If credentials match, database returns user data.
+- `login()` method proceeds with authentication.
+- If credentials fail, database returns `null` or error.
+- `login()` method returns appropriate `Ret` status."
+TC-DATABASE-002,Database Query for Product Data,Data Retrieval,4,"- Database contains product records (e.g., `name: Laptop`, `price: 999.99`).",,"1. User selects ""Laptop"" from the catalog.
+2. System queries `Richiedi dati dal database` for product details.
+3. Database returns product data or error.","- If product exists, database returns `Product` object with `name` and `price`.
+- `addToCart()` populates cart with correct data.
+- If product does not exist, database returns error.
+- `addToCart()` fails with error `Ret`."
+TC-INTEGRATION-001,End-to-End User Flow: Login → Add to Cart → Checkout,Full Workflow,"1, 4","- User account exists (`john_doe`/`SecurePass123`).
+- Product exists in database (`Laptop`/`999.99`).",,"1. User logs in with `john_doe`/`SecurePass123`.
+2. User adds `Laptop` to cart.
+3. User proceeds to checkout.
+4. System calculates total (`999.99`).
+5. User proceeds to payment.","- All steps complete successfully.
+- Cart contains `Laptop`.
+- Payment page displays correct total.
+- No errors in database queries or method calls.
+- Final `Ret` status for all operations is success."
+TC-EDGE-001,Add Product with Negative Price,Product Validation,1,- User is logged in.,"- Product name: `InvalidProduct`
+- Product price: `-100.00`","1. User attempts to add `InvalidProduct` with price `-100.00`.
+2. System validates price before adding to cart.","- System rejects the product.
+- Error message: ""Price must be positive.""
+- `addToCart()` returns error `Ret`.
+- Product is not added to cart."
+TC-EDGE-002,Add Product with Empty Name,Product Validation,1,- User is logged in.,"- Product name: `` (empty string)
+- Product price: `999.99`","1. User attempts to add a product with empty name.
+2. System validates name before processing.","- System rejects the product.
+- Error message: ""Product name is required.""
+- `addToCart()` returns error `Ret`.
+- Product is not added to cart."
+TC-EDGE-003,Concurrent Cart Modifications,Cart Consistency,1,"- User is logged in.
+- Cart contains `Laptop: 999.99`.
+- Two users attempt to modify the cart simultaneously (e.g., User1 adds item, User2 removes item).
+**Test Steps",,,

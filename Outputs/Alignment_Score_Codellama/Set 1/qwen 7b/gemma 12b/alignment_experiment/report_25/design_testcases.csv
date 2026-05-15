@@ -1,0 +1,75 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-API-001","Verify API connection to User Interface Pages","API","1","None","None","1. Send a GET request to the API endpoint.
+2. Verify the response contains the expected user interface page data.","The API should return valid user interface page data."
+"TC-API-002","Validate API interaction with Repository/Controllers","API","1","None","None","1. Send a POST request to the API with sample data.
+2. Verify the Repository/Controllers component processes the request correctly.","The Repository/Controllers should process the request and return appropriate data."
+"TC-API-003","Ensure API communicates with MySQL Database","API","1","None","None","1. Send a query to the API to interact with the MySQL database.
+2. Verify the response from the database matches the expected results.","The API should return correct data from the MySQL database."
+"TC-API-004","Test API interaction with Bunny.io CDN","API","1","None","None","1. Send a request to the API to access a resource hosted on Bunny.io.
+2. Verify the response is served via Bunny.io CDN.","The resource should be served via Bunny.io CDN."
+"TC-API-005","Validate API interaction with Jobs Component","API","1","None","None","1. Send a request to the API to trigger a background job.
+2. Verify the job is processed by the Jobs component.","The background job should be successfully processed."
+"TC-API-006","Test API interaction with Real-time Communication Service","API","1","None","None","1. Send a request to the API to initiate real-time communication.
+2. Verify the real-time communication service is triggered.","Real-time communication should be initiated."
+"TC-API-007","Validate API interaction with Push Notifications System","API","1","None","None","1. Send a request to the API to send a push notification.
+2. Verify the push notification is delivered to the intended user.","The push notification should be successfully delivered."
+"TC-Jobs-001","Verify Job Creation and Execution","Jobs","1","None","None","1. Create a new job instance.
+2. Run the job.
+3. Verify the job status changes to completed.","The job should complete successfully."
+"TC-Jobs-002","Validate Job Batch Management","Jobs","1","None","None","1. Create a job batch.
+2. Add jobs to the batch.
+3. Execute the batch.
+4. Verify all jobs in the batch are completed.","All jobs in the batch should complete successfully."
+"TC-Jobs-003","Test Job Failure Handling","Jobs","1","None","None","1. Create a job that is expected to fail.
+2. Run the job.
+3. Verify the job status indicates failure.","The job should indicate a failure status."
+"TC-User-Reg-001","Validate User Registration Process","User Registration","2,3","None","Username: testuser, Email: test@example.com, Password: testpass","1. Provide user details in the application.
+2. Submit the registration form.
+3. Verify the server saves the user data.
+4. Verify the server generates and sends an OTP.
+5. Enter the received OTP.
+6. Verify the server confirms the OTP and returns an authentication token.","The user should be registered successfully, and an authentication token should be returned."
+"TC-User-Reg-002","Validate User Registration with Invalid Email","User Registration","2,3","None","Username: testuser, Email: invalidemail, Password: testpass","1. Provide user details in the application.
+2. Submit the registration form.
+3. Verify the server rejects the registration due to invalid email.","The server should reject the registration due to an invalid email."
+"TC-User-Reg-003","Validate User Registration with Duplicate Email","User Registration","2,3","None","Username: testuser, Email: test@example.com, Password: testpass","1. Register a user with the same email.
+2. Attempt to register another user with the same email.
+3. Verify the server rejects the second registration due to duplicate email.","The server should reject the second registration due to a duplicate email."
+"TC-User-Login-001","Validate User Login Process","User Login","4,5","User is registered and has a valid email and password.","Username: testuser, Email: test@example.com, Password: testpass","1. Provide user credentials in the application.
+2. Submit the login form.
+3. Verify the server validates the email and password.
+4. Verify the server generates and sends an authentication token.
+5. Verify the application saves the token.
+6. Verify the application opens the home screen.","The user should be logged in successfully, and the home screen should be opened."
+"TC-User-Login-002","Validate User Login with Invalid Credentials","User Login","4,5","User is registered but has incorrect email or password.","Username: testuser, Email: test@example.com, Password: wrongpass","1. Provide user credentials in the application.
+2. Submit the login form.
+3. Verify the server rejects the login due to invalid credentials.","The server should reject the login due to invalid credentials."
+"TC-User-Login-003","Validate User Login with Expired Token","User Login","4,5","User is logged in with a valid token.","Token: expiredtoken","1. Provide the expired token in the application.
+2. Submit the token.
+3. Verify the server rejects the login due to an expired token.","The server should reject the login due to an expired token."
+"TC-Password-Recovery-001","Validate Password Recovery Process","Password Recovery","5","User is registered and has a valid email.","Email: test@example.com","1. Request a password reset via the application.
+2. Verify the server checks the email.
+3. Verify the server generates and sends a reset token via email.
+4. Verify the server saves the reset token in the database.
+5. Verify the application sends the reset token to the user.","The user should receive an email with a password reset link."
+"TC-Password-Recovery-002","Validate Password Recovery with Invalid Email","Password Recovery","5","User is registered but has an invalid email.","Email: invalidemail","1. Request a password reset via the application.
+2. Verify the server rejects the request due to an invalid email.","The server should reject the password reset request due to an invalid email."
+"TC-Password-Recovery-003","Validate Password Recovery with Expired Token","Password Recovery","5","User has requested a password reset and received a valid token.","Token: expiredtoken","1. Submit the expired token and new password.
+2. Verify the server rejects the password change due to an expired token.","The server should reject the password change due to an expired token."
+"TC-Card-Loading-001","Validate Initial Card Loading","Card Loading","6","Application is initialized.","Preload Count: 10","1. Open the homepage.
+2. Verify the application requests 10 cards from the server.
+3. Verify the server requests 10 cards from the database.
+4. Verify the server returns 10 cards to the application.
+5. Verify the application displays the 10 cards.","The application should display 10 cards."
+"TC-Card-Loading-002","Validate Card Loading with Swipe","Card Loading","6","Application is displaying initial cards.","Swipe Count: 5","1. Swipe 5 cards.
+2. Verify the application requests 5 more cards with an offset.
+3. Verify the server requests 5 cards with an offset from the database.
+4. Verify the server returns 5 cards to the application.
+5. Verify the application displays the additional 5 cards.","The application should display 5 additional cards."
+"TC-Matching-Process-001","Validate Matching Process Between Two Users","Matching","7","Two users are registered and have profiles.","User 1: Profile1, User 2: Profile2","1. User 2 swipes right on User 1's profile.
+2. Verify the server saves the preference in the database.
+3. User 1 swipes right on User 2's profile.
+4. Verify the server saves the preference in the database.
+5. Verify the server checks for a match.
+6. Verify the server notifies User 1 of a match and opens the chat.
+7. Verify the application displays the match screen for both users.","Both users should be notified of a match and see the match screen."

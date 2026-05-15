@@ -1,0 +1,113 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 3, 4","- User account exists in the system.
+- Network connectivity is available.","- Valid username: `john_doe`
+- Valid password: `SecurePass123!`","1. Navigate to the login page.
+2. Enter `john_doe` in the username field.
+3. Enter `SecurePass123!` in the password field.
+4. Click the ""Login"" button.","- System redirects to the user dashboard.
+- Login status is confirmed (e.g., ""Welcome, john_doe!"").
+- Session is active (logout button appears)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Credentials),Authentication,"1, 3",- User account exists.,"- Invalid username: `john_doe_wrong`
+- Valid password: `SecurePass123!`","1. Navigate to the login page.
+2. Enter `john_doe_wrong` in the username field.
+3. Enter `SecurePass123!` in the password field.
+4. Click the ""Login"" button.","- System displays an error message: ""Invalid username or password.""
+- User remains on the login page.
+- No session is created."
+TC-AUTHENTICATION-003,Admin Login and Logout,Authentication,1,- Admin account exists.,"- Valid admin username: `admin_user`
+- Valid admin password: `AdminPass456!`","1. Navigate to the login page.
+2. Enter `admin_user` in the username field.
+3. Enter `AdminPass456!` in the password field.
+4. Click the ""Login"" button.
+5. Navigate to the admin dashboard.
+6. Click the ""Logout"" button.","- System redirects to the admin dashboard with admin-specific options (e.g., ""Edit Products"").
+- After logout, user is redirected to the login page.
+- Session is terminated (no admin privileges remain)."
+TC-PRODUCT-001,User Views Product Details,Product Management,1,"- User is logged in.
+- At least one product exists in the system (e.g., ""Laptop Pro"").","- Product name: ""Laptop Pro""
+- Product description: ""High-performance laptop with 16GB RAM.""","1. User logs in with valid credentials.
+2. User navigates to the ""Products"" section.
+3. User clicks on ""Laptop Pro.""","- Product details (name, description) are displayed.
+- User can view but not edit the product details."
+TC-PRODUCT-002,Admin Edits Product Details,Product Management,1,"- Admin is logged in.
+- A product exists (e.g., ""Smartphone X"").","- Original description: ""5G smartphone with 128GB storage.""
+- Updated description: ""5G smartphone with 256GB storage and wireless charging.""","1. Admin logs in with valid credentials.
+2. Admin navigates to the ""Products"" section.
+3. Admin selects ""Smartphone X"" and clicks ""Edit.""
+4. Admin updates the description to ""5G smartphone with 256GB storage and wireless charging.""
+5. Admin saves changes.","- System confirms the update: ""Product updated successfully.""
+- Updated description is reflected in the product listing and details."
+TC-CART-001,User Adds Product to Cart,Cart Management,1,"- User is logged in.
+- A product exists (e.g., ""Headphones"").","- Product: ""Headphones""
+- Quantity: 2","1. User logs in with valid credentials.
+2. User navigates to the ""Products"" section.
+3. User selects ""Headphones"" and clicks ""Add to Cart.""
+4. User confirms quantity as 2.
+5. User proceeds to the cart.","- Cart displays ""Headphones (x2)"" with correct total price.
+- Cart count updates in the UI (e.g., ""Cart (2)"")."
+TC-CART-002,Admin Removes Product from Cart,Cart Management,1,"- Admin is logged in.
+- A product exists in the cart (e.g., ""Tablet"").","- Product in cart: ""Tablet""","1. Admin logs in with valid credentials.
+2. Admin navigates to the cart.
+3. Admin selects ""Tablet"" and clicks ""Remove.""
+4. Admin confirms removal.","- ""Tablet"" is removed from the cart.
+- Cart count updates to 0 (if no other items exist).
+- System displays: ""Product removed successfully."""
+TC-CART-003,User Attempts to Add Invalid Quantity to Cart,Cart Management,1,"- User is logged in.
+- A product exists (e.g., ""Mouse"").","- Product: ""Mouse""
+- Invalid quantity: 0 (or -1)","1. User logs in with valid credentials.
+2. User navigates to the ""Products"" section.
+3. User selects ""Mouse"" and clicks ""Add to Cart.""
+4. User enters quantity as `0`.
+5. User clicks ""Add.""","- System displays an error: ""Quantity must be at least 1.""
+- Product is not added to the cart."
+TC-REGISTRATION-001,Successful User Registration,User Registration,"3, 4",- System allows new registrations.,"- Username: `new_user_123`
+- Password: `NewPass789!`
+- Confirm password: `NewPass789!`","1. User clicks ""Sign Up"" on the login page.
+2. User enters `new_user_123` as username.
+3. User enters `NewPass789!` as password.
+4. User confirms password.
+5. User clicks ""Register.""","- System displays: ""Registration successful! Please login.""
+- User is redirected to the login page.
+- New account is created in the database."
+TC-REGISTRATION-002,Failed Registration (Weak Password),User Registration,"3, 4",- System enforces password complexity.,"- Username: `weak_user`
+- Password: `123` (invalid)
+- Confirm password: `123`","1. User clicks ""Sign Up.""
+2. User enters `weak_user` as username.
+3. User enters `123` as password.
+4. User confirms password.
+5. User clicks ""Register.""","- System displays: ""Password must be at least 8 characters and include special characters.""
+- User remains on the registration page."
+TC-REGISTRATION-003,Registration Cancellation,User Registration,"3, 4",- User has started registration but not completed it.,"- Partially filled form (username entered, password empty).","1. User clicks ""Sign Up.""
+2. User enters `cancel_user` as username.
+3. User clicks ""Cancel"" before filling password.","- System redirects to the login page.
+- No new account is created.
+- System displays: ""Registration cancelled."""
+TC-SERVICE-DATABASE-001,Service Retrieves Product Data from Database,Service-Database Interaction,2,"- Database contains product records.
+- Service is running.",- Product ID: `PROD001`,"1. User requests product details for `PROD001`.
+2. Service queries the database for `PROD001`.
+3. Database returns product data (name, description).","- Service processes the data and returns it to the user.
+- No errors or timeouts occur.
+- Data integrity is maintained (e.g., no corrupted fields)."
+TC-SERVICE-DATABASE-002,Database Connection Failure,Service-Database Interaction,2,- Database is down or unreachable.,- N/A (simulated failure).,"1. User requests product details.
+2. Service attempts to query the database.
+3. Database connection times out.","- Service displays: ""Service unavailable. Please try again later.""
+- User is not locked out; can retry after some delay.
+- Error is logged for admin review."
+TC-EDGE-CASE-001,Concurrent Admin and User Cart Operations,Cart Management,1,"- User and admin are logged in simultaneously.
+- A product exists in the user's cart.",,"1. User adds ""Keyboard"" to their cart (quantity: 1).
+2. Admin logs in and removes ""Keyboard"" from the cart.
+3. User refreshes the cart page.","- User's cart is empty (admin removal takes precedence).
+- System logs the action: ""Admin removed item from user cart.""
+- No data inconsistency occurs."
+TC-EDGE-CASE-002,Empty Product Name Edit,Product Management,1,"- Admin is logged in.
+- A product exists with a name.","- Original name: ""Monitor""
+- Updated name: (empty string)","1. Admin edits ""Monitor"" and sets name to an empty string.
+2. Admin saves changes.","- System displays: ""Product name cannot be empty.""
+- Product name reverts to ""Monitor.""
+- No changes are saved to the database."
+TC-EDGE-CASE-003,Maximum Cart Quantity Limit,Cart Management,1,"- System enforces a max cart quantity (e.g., 100).
+- User is logged in.","- Product: ""Pen""
+- Quantity: 101 (exceeds limit)","1. User adds ""Pen"" to cart with quantity 101.
+2. User clicks ""Add.""","- System displays: ""Maximum quantity per item is 100.""
+- Cart quantity remains unchanged.
+- No error occurs on subsequent valid additions."

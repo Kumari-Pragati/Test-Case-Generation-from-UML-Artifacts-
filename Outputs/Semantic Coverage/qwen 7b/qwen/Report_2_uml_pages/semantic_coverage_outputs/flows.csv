@@ -1,0 +1,100 @@
+flow
+"accesso all'app -> 1° accesso — type=transition; label=""""; explanation=""first access check"""
+"1° accesso -> no — type=transition; label=""no""; explanation=""no first access"""
+"1° accesso -> si — type=transition; label=""si""; explanation=""yes first access"""
+"1° accesso -> start — type=transition; label=""""; explanation=""start process"""
+"start -> utente gia' registrato? — type=transition; label=""""; explanation=""check user registration"""
+"utente gia' registrato? -> no — type=transition; label=""no""; explanation=""not registered"""
+"utente gia' registrato? -> si — type=transition; label=""si""; explanation=""registered"""
+"no -> registrazione — type=transition; label=""""; explanation=""go to registration"""
+"si -> login — type=transition; label=""""; explanation=""go to login"""
+"registrazione -> home — type=transition; label=""""; explanation=""go to home"""
+"login -> home — type=transition; label=""""; explanation=""go to home"""
+flow 1: accesso all'app -> 1° accesso -> no -> registrazione -> home
+flow 2: accesso all'app -> 1° accesso -> si -> start -> utente gia' registrato? -> si -> login -> home
+this activity diagram models the access process for an application.
+the main flow starts with accessing the app and checks if it's the first access.
+"if it's the first access, it proceeds to the registration process."
+"if the user is already registered, it proceeds to the login process."
+both registration and login lead to the home page.
+there are two decision points to check if it's the first access and if the user is registered.
+the diagram ensures that users either register or log in before reaching the home page.
+"tragitto in corso? -> si — type=transition; label=""si""; explanation=""yes"""
+"tragitto in corso? -> no — type=transition; label=""no""; explanation=""no"""
+"vuoi cambiare sezione? -> si — type=transition; label=""si""; explanation=""yes"""
+"vuoi cambiare sezione? -> no — type=transition; label=""no""; explanation=""no"""
+"si -> avvia tragitto — type=transition; label=""si""; explanation=""start journey"""
+"si -> tragitto terminato? — type=transition; label=""si""; explanation=""check journey completion"""
+"si -> calcolo emissioni — type=transition; label=""si""; explanation=""calculate emissions"""
+"no -> home — type=transition; label=""home""; explanation=""return to home"""
+flow 1: home -> tragitto in corso? -> si -> avvia tragitto -> tragitto terminato? -> si -> calcolo emissioni
+flow 2: home -> tragitto in corso? -> no -> vuoi cambiare sezione? -> si -> menu orrizzontale
+flow 3: home -> tragitto in corso? -> no -> vuoi cambiare sezione? -> no -> home
+this activity diagram models a process involving journeys and emission calculations.
+it checks if a journey is ongoing and starts it if needed.
+it allows the user to change sections and provides a horizontal menu for this purpose.
+"the journey's completion is checked, and emissions are calculated upon completion."
+there is a loop back to the home screen if the user does not want to change sections.
+"key edge cases include checking if a journey is ongoing, changing sections, and calculating emissions."
+"statistiche -> visualizza report settimanale? — type=association; label=""""; explanation=""flow to weekly report question"""
+"visualizza report settimanale? -> si — type=association; label=""si""; explanation=""yes to weekly report"""
+"visualizza report settimanale? -> no — type=association; label=""no""; explanation=""no to weekly report"""
+"visualizza report settimanale? -> statistiche — type=association; label=""""; explanation=""return to statistics menu"""
+"vuoi cambiare sezione? -> si — type=association; label=""si""; explanation=""yes to section change"""
+"vuoi cambiare sezione? -> no — type=association; label=""no""; explanation=""no to section change"""
+"vuoi cambiare sezione? -> statistiche — type=association; label=""""; explanation=""return to statistics menu"""
+"si -> report settimanale — type=association; label=""""; explanation=""generate weekly report"""
+"si -> menu orrizzontale — type=association; label=""""; explanation=""select horizontal menu"""
+"no -> statistiche — type=association; label=""""; explanation=""stay in statistics menu"""
+flow 1: statistiche -> visualizza report settimanale? -> si -> report settimanale -> statistiche
+flow 2: statistiche -> visualizza report settimanale? -> no -> statistiche
+flow 3: statistiche -> vuoi cambiare sezione? -> si -> menu orrizzontale -> statistiche
+flow 4: statistiche -> vuoi cambiare sezione? -> no -> statistiche
+the user can choose to view a weekly report or change sections.
+"if the user chooses to view a weekly report, it generates the report and returns to the statistics menu."
+"if the user chooses not to view a weekly report, they stay in the statistics menu."
+"if the user chooses to change sections, they select a horizontal menu and return to the statistics menu."
+there is a loop back to the statistics menu if the user does not want to view a report or change sections.
+visualizza dati personali -> vuoi aggiornare l'account?
+vuoi aggiornare l'account? -> si
+si -> inseerisci nuovi dati
+inseerisci nuovi dati -> aggiorna dati
+visualizza dati personali -> vuoi uscire dall'account?
+vuoi uscire dall'account? -> si
+si -> logout
+visualizza dati personali -> vuoi cambiare sezione?
+vuoi cambiare sezione? -> si
+si -> menu orrizzontale
+no -> visualizza dati personali
+flow 1: visualizza dati personali -> vuoi aggiornare l'account? -> si -> inseerisci nuovi dati -> aggiorna dati
+flow 2: visualizza dati personali -> vuoi uscire dall'account? -> si -> logout
+flow 3: visualizza dati personali -> vuoi cambiare sezione? -> si -> menu orrizzontale
+this activity diagram models a profile management process within a system.
+"the main flows involve viewing personal data, updating the account, logging out, and changing sections."
+"decisions determine whether to proceed with account updates, logout, or change sections."
+the diagram includes a loop back to the main profile view if the user does not want to perform any action.
+"key edge cases include updating data, logging out, and changing sections."
+"utente -> applicazione — type=message; label=""dispatch""; explanation=""user initiates login process"""
+"applicazione -> server — type=message; label=""invio credenziali""; explanation=""application sends credentials"""
+"server -> database — type=message; label=""verifica dati""; explanation=""server verifies data"""
+"database -> server — type=message; label=""dati trovati""; explanation=""data found"""
+"server -> applicazione — type=message; label=""confronto con quelli inseriti""; explanation=""comparison with entered data"""
+"applicazione -> utente — type=message; label=""login avvenuto""; explanation=""login successful"""
+flow 1: utente -> applicazione (dispatch) -> applicazione -> server (invio credenziali) -> server -> database (verifica dati) -> database -> server (dati trovati) -> server -> applicazione (confronto con quelli inseriti) -> applicazione -> utente (login avvenuto)
+"this diagram models the sequence of events during a login process. the user initiates the login by dispatching a request to the application, which then sends the credentials to the server for verification. the server checks the database for the provided credentials and compares them with the stored data. upon successful comparison, the server sends a confirmation back to the application, which then informs the user that the login was successful."
+"utente -> applicazione — type=message; label=""dispatch""; explanation=""utente dispatches request"""
+"applicazione -> server — type=message; label=""avvio percorso""; explanation=""applicazione starts route"""
+"server -> database — type=message; label=""calcolo e invio dati""; explanation=""server calculates and sends data"""
+"server -> applicazione — type=message; label=""aggiunta percorso""; explanation=""server adds route"""
+"applicazione -> server — type=message; label=""nuovo percorso""; explanation=""applicazione provides new route"""
+"server -> applicazione — type=message; label=""ritorna emissioni""; explanation=""server returns emissions"""
+"applicazione -> utente — type=message; label=""emissioni co2""; explanation=""application returns co2 emissions"""
+flow 1: utente -> applicazione -> server -> database -> server -> applicazione -> server -> applicazione -> utente
+this diagram models the sequence of interactions for calculating emissions.
+the process starts with the user dispatching a request to the application.
+the application then initiates a route calculation and sends data to the server.
+the server calculates the emissions and sends them back to the application.
+the application then returns the calculated co2 emissions to the user.
+there are no conditions or branches visible in the diagram.
+"the process involves multiple steps of data exchange between the user, application, server, and database."
+======================================================================

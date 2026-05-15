@@ -1,0 +1,97 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User successfully logs in,Login,"1, 5",User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. User enters ""testuser"" into the username field.
+2. User enters ""testpassword"" into the password field.
+3. User clicks the login button.
+4. Server receives the login request.
+5. Server verifies the credentials.
+6. Server sends a success message to the user.",User is logged in successfully and redirected to the dashboard.
+TC-Login-002,User fails to log in due to invalid credentials,Login,"1, 5",User has an invalid username or password.,"- Username: wronguser
+- Password: wrongpassword","1. User enters ""wronguser"" into the username field.
+2. User enters ""wrongpassword"" into the password field.
+3. User clicks the login button.
+4. Server receives the login request.
+5. Server verifies the credentials.
+6. Server sends an error message to the user.",User is not logged in and sees an error message.
+TC-Login-003,User logs out,Logout,"1, 5",User is logged in.,- No specific data required.,"1. User clicks the logout button.
+2. Server receives the logout request.
+3. Server logs the user out.
+4. Server sends a confirmation message to the user.",User is logged out and redirected to the login page.
+TC-AddToCart-001,User adds a product to the cart,AddToCart,"1, 5",User is logged in.,"- Product name: Trekking Shoes
+- Product description: Lightweight hiking shoes","1. User clicks on the ""Trekking Shoes"" link.
+2. Server receives the request to add the product to the cart.
+3. Server adds the product to the user's cart.
+4. Server sends a confirmation message to the user.",Product is added to the user's cart.
+TC-RemoveFromCart-001,User removes a product from the cart,RemoveFromCart,"1, 5",User is logged in and has a product in the cart.,- Product name: Trekking Shoes,"1. User clicks on the ""Trekking Shoes"" link in the cart.
+2. Server receives the request to remove the product from the cart.
+3. Server removes the product from the user's cart.
+4. Server sends a confirmation message to the user.",Product is removed from the user's cart.
+TC-PlaceOrder-001,User places an order,PlaceOrder,"1, 5",User has items in the cart.,- Total amount: $100,"1. User clicks the ""Place Order"" button.
+2. Server calculates the total amount.
+3. Server sends the total amount to the checkout.
+4. Server processes the order.
+5. Server sends a confirmation message to the user.",Order is placed successfully and user is redirected to the order confirmation page.
+TC-GetWeather-001,User gets weather information,GetWeather,"1, 2, 5",User is logged in.,- Location: New York,"1. User clicks the ""Weather"" button.
+2. Server receives the request for weather information.
+3. Server sends the request to the weather service.
+4. Weather service retrieves the weather data.
+5. Weather service sends the weather data to the server.
+6. Server sends the weather data to the user.",User receives weather information for New York.
+TC-GetWeather-002,User fails to get weather information due to invalid location,GetWeather,"1, 2, 5",User is logged in.,- Location: InvalidLocation,"1. User clicks the ""Weather"" button.
+2. Server receives the request for weather information.
+3. Server sends the request to the weather service.
+4. Weather service returns an error.
+5. Server sends an error message to the user.",User receives an error message indicating the location is invalid.
+TC-DatabaseQuery-001,Server queries the database for weather data,DatabaseQuery,"1, 5",Server needs weather data.,- Query: SELECT * FROM WEATHER_DATA WHERE LOCATION = 'New York',"1. Server sends a query to the database.
+2. Database processes the query.
+3. Database sends the weather data to the server.",Server receives the weather data for New York.
+TC-DatabaseQuery-002,Server fails to query the database due to invalid query,DatabaseQuery,"1, 5",Server needs weather data.,- Query: SELECT * FROM INVALID_TABLE,"1. Server sends a query to the database.
+2. Database returns an error.",Server receives an error message from the database.
+TC-ServerHandleLogin-001,Server handles a successful login request,ServerHandleLogin,5,User sends a valid login request.,"- Username: testuser
+- Password: testpassword","1. User sends a login request to the server.
+2. Server verifies the credentials.
+3. Server sends a success message to the user.",User is logged in successfully.
+TC-ServerHandleLogin-002,Server handles an unsuccessful login request,ServerHandleLogin,5,User sends an invalid login request.,"- Username: wronguser
+- Password: wrongpassword","1. User sends a login request to the server.
+2. Server verifies the credentials.
+3. Server sends an error message to the user.",User is not logged in and sees an error message.
+TC-ServerHandleLogout-001,Server handles a successful logout request,ServerHandleLogout,5,User is logged in.,- No specific data required.,"1. User sends a logout request to the server.
+2. Server logs the user out.
+3. Server sends a confirmation message to the user.",User is logged out and redirected to the login page.
+TC-ServerHandleLogout-002,Server handles an unsuccessful logout request,ServerHandleLogout,5,User is not logged in.,- No specific data required.,"1. User sends a logout request to the server.
+2. Server checks if the user is logged in.
+3. Server sends a message indicating the user is already logged out.",User sees a message indicating they are already logged out.
+TC-ServerHandleAddProduct-001,Server adds a product to the cart,ServerHandleAddProduct,"1, 5",User sends a request to add a product to the cart.,"- Product name: Trekking Shoes
+- Product description: Lightweight hiking shoes","1. User sends a request to add the product to the cart.
+2. Server adds the product to the user's cart.
+3. Server sends a confirmation message to the user.",Product is added to the user's cart.
+TC-ServerHandleRemoveProduct-001,Server removes a product from the cart,ServerHandleRemoveProduct,"1, 5",User sends a request to remove a product from the cart.,- Product name: Trekking Shoes,"1. User sends a request to remove the product from the cart.
+2. Server removes the product from the user's cart.
+3. Server sends a confirmation message to the user.",Product is removed from the user's cart.
+TC-ServerHandlePlaceOrder-001,Server processes an order,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order.,- Total amount: $100,"1. User sends a request to place an order.
+2. Server calculates the total amount.
+3. Server processes the order.
+4. Server sends a confirmation message to the user.",Order is placed successfully and user is redirected to the order confirmation page.
+TC-ServerHandlePlaceOrder-002,Server fails to process an order due to insufficient funds,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order with insufficient funds.,- Total amount: $1000,"1. User sends a request to place an order.
+2. Server calculates the total amount.
+3. Server checks the user's balance.
+4. Server sends an error message to the user.",User sees an error message indicating insufficient funds.
+TC-ServerHandlePlaceOrder-003,Server fails to process an order due to invalid payment method,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order with an invalid payment method.,- Payment method: InvalidMethod,"1. User sends a request to place an order.
+2. Server checks the payment method.
+3. Server sends an error message to the user.",User sees an error message indicating an invalid payment method.
+TC-ServerHandlePlaceOrder-004,Server fails to process an order due to network issues,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order during a network outage.,- Network status: Offline,"1. User sends a request to place an order.
+2. Server attempts to process the order.
+3. Server sends an error message to the user.",User sees an error message indicating a network issue.
+TC-ServerHandlePlaceOrder-005,Server fails to process an order due to database failure,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order during a database failure.,- Database status: Down,"1. User sends a request to place an order.
+2. Server attempts to process the order.
+3. Server sends an error message to the user.",User sees an error message indicating a database failure.
+TC-ServerHandlePlaceOrder-006,Server fails to process an order due to server failure,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order during a server failure.,- Server status: Down,"1. User sends a request to place an order.
+2. Server attempts to process the order.
+3. Server sends an error message to the user.",User sees an error message indicating a server failure.
+TC-ServerHandlePlaceOrder-007,Server fails to process an order due to invalid product in cart,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order with an invalid product in the cart.,- Product name: InvalidProduct,"1. User sends a request to place an order.
+2. Server checks the product in the cart.
+3. Server sends an error message to the user.",User sees an error message indicating an invalid product in the cart.
+TC-ServerHandlePlaceOrder-008,Server fails to process an order due to expired session,ServerHandlePlaceOrder,"1, 5",User sends a request to place an order with an expired session.,- Session status: Expired,"1. User sends a request to place an order.
+2. Server checks the session status.
+3. Server sends an error message to the user.",User sees an error message indicating an expired session.
+TC-ServerHandlePlaceOrder-00,,,,,,,

@@ -1,0 +1,10 @@
+validation
+[token = null; request: token] -> [token = null or status = ok; richiedi dati utente]
+"if token is null, request token"
+"if token is null or status is ok, request user data"
+new -> newentry=tojson() -> request(newentry) -> done: no conditions or branches
+stampa dati a schema done
+datiaggiornati = leggi/datiinseriti
+[for each dato in datiaggiornati] set(dato)
+updateentry= tojson()
+request(updateentry)

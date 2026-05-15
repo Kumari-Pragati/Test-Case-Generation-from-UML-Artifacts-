@@ -1,0 +1,330 @@
+system
+You are a senior SDET and software test designer. Generate concrete, code-faithful test cases ONLY from the given code context. Do NOT invent features, methods, screens, APIs, or validations not shown. You MUST cover every method in MUST_COVER at least once (1 test per method minimum). If there are UI/CTA signals, include interaction tests relevant to those signals. Output ONLY a valid JSON array. No markdown. No extra text.
+user
+TARGET FILE: Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java
+
+MUST_COVER (ensure each appears in covered_methods at least once):
+- loginUser
+- onClick
+- onCreate
+- setSpan
+
+UI/CTA SIGNALS (use if present):
+- ui_component line 51: etEmail = findViewById(R.id.etEmail);
+- ui_component line 52: etPassword = findViewById(R.id.etPassword);
+- ui_component line 53: btnLogin = findViewById(R.id.btnLogin);
+- ui_component line 54: tvRegisterLink = findViewById(R.id.tvRegisterLink);
+- ui_action line 57: btnLogin.setOnClickListener(v -> loginUser());
+
+OUTPUT FORMAT (JSON array ONLY; EXACT keys):
+[
+  {
+    "test_case_id": "TC-<Module>-###",
+    "title": "...",
+    "module": "...",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["methodName1","methodName2"],
+    "preconditions": ["..."],
+    "test_data": ["..."],
+    "test_steps": ["..."],
+    "expected_result": ["..."]
+  }
+]
+
+RULES:
+- Keep total test cases <= 60 (merge coverage when needed).
+- Every MUST_COVER method must be in covered_methods somewhere.
+- Steps & expected_result must match code branches, UI actions, and backend outcomes visible.
+- Output ONLY the JSON array.
+
+FEW-SHOT EXAMPLE (how to cover UI + backend from code context):
+
+If code has:
+- Button confirmBt with setOnClickListener
+- Reads EditText newMail + confirmNewMail
+- Branch: empty/mismatch -> Toast error
+- Calls updateUserEmail(email)
+- Backend: getCurrentUser() null -> Toast unauthenticated
+- Backend: verifyBeforeUpdateEmail success -> save SharedPreferences + navigate
+- Backend: verifyBeforeUpdateEmail failure -> Toast failure
+
+Then tests must include covered_methods like:
+["onCreateView","updateUserEmail"] and steps for each branch.
+
+MISSING METHODS FROM PREVIOUS OUTPUT (ADD TESTS FOR THESE NOW):
+- onClick
+
+CONTEXT:
+FILE: Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java
+LANG: java
+
+CLASSES:
+- LoginActivity (Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:37-37)
+
+METHODS (must be covered):
+- onCreate | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:44-44
+  sig: protected void onCreate(Bundle savedInstanceState) {         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);         super.onCreate(savedInstanceState);         setContentView(R.layout.activity_logi
+- setSpan | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:62-62
+  sig: setSpan(new ClickableSpan() {             @Override             public void onClick(View widget) {                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);                 startActivity
+- onClick | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:63-63
+  sig: public void onClick(View widget) {                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);                 startActivity(intent);             }         }, 20, 30, Spanned.SPAN_EXCLUSIV
+- loginUser | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:72-72
+  sig: private void loginUser() {         String email = etEmail.getText().toString().trim();         String password = etPassword.getText().toString().trim();          if (TextUtils.isEmpty(email)) {             etEmail.setErr
+
+UI / CTA / INPUT SIGNALS:
+- ui_component etEmail | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:51 | etEmail = findViewById(R.id.etEmail);
+- ui_component etPassword | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:52 | etPassword = findViewById(R.id.etPassword);
+- ui_component btnLogin | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:53 | btnLogin = findViewById(R.id.btnLogin);
+- ui_component tvRegisterLink | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:54 | tvRegisterLink = findViewById(R.id.tvRegisterLink);
+- ui_action onClick | Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java:57 | btnLogin.setOnClickListener(v -> loginUser());
+
+CODE (snippet):
+package com.example.ecodriving;
+
+import static com.example.ecodriving.MainActivity.ip;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText etEmail, etPassword;
+    private Button btnLogin;
+    private TextView tvRegisterLink;
+    private OkHttpClient client = new OkHttpClient();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        // Inizializza i componenti
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        tvRegisterLink = findViewById(R.id.tvRegisterLink);
+
+        // Aggiungi listener per il pulsante di login
+        btnLogin.setOnClickListener(v -> loginUser());
+
+        // Testo da rendere cliccabile
+        String text = "Non hai un account? Registrati";
+        SpannableString spannableString = new SpannableString(text);
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        }, 20, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tvRegisterLink.setText(spannableString);
+        tvRegisterLink.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private void loginUser() {
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError("Inserisci la tua email");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Inserisci la tua password");
+            return;
+        }
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("email", email);
+            postData.put("password", password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(postData.toString(), JSON);
+        Request request = new Request.Builder()
+                .url("http://" + ip + ":8081/api/login")
+                .post(body)
+                .build();
+
+        new Thread(() -> {
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject responseJson = new JSONObject(responseData);
+
+                    runOnUiThread(() -> {
+                        try {
+                            if (responseJson.has("message") && responseJson.getString("message").equals("Login avvenuto con successo")) {
+                                Toast.makeText(LoginActivity.this, "Login avvenuto con successo", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Credenziali non valide", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    if (responseJson.has("user")) {
+                        String userId = responseJson.getJSONObject("user").getString("id");
+                        double co2Emission = responseJson.getJSONObject("user").getDouble("co2_emission");
+                        SharedPreferences sharedPreferences = getSharedPreferences("EcoDrivingPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("user_id", userId);
+                        editor.putFloat("co2_emission", (float) co2Emission);
+                        editor.apply();
+                    }
+                } else {
+                    runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Credenziali non valide", Toast.LENGTH_SHORT).show());
+                }
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Errore di connessione", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+}
+assistant
+```json
+[
+  {
+    "test_case_id": "TC-Login-001",
+    "title": "Test onCreate method",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["onCreate"],
+    "preconditions": ["Application is launched"],
+    "test_data": [],
+    "test_steps": [
+      "Launch the application",
+      "Verify that the activity is created without errors"
+    ],
+    "expected_result": ["The onCreate method should initialize the components and set up the listeners"]
+  },
+  {
+    "test_case_id": "TC-Login-002",
+    "title": "Test setSpan method",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["setSpan"],
+    "preconditions": ["Application is launched"],
+    "test_data": [],
+    "test_steps": [
+      "Launch the application",
+      "Verify that the clickable span is set on the registration link"
+    ],
+    "expected_result": ["The setSpan method should correctly apply the clickable span to the registration link"]
+  },
+  {
+    "test_case_id": "TC-Login-003",
+    "title": "Test onClick method - Navigate to RegistrationActivity",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["onClick"],
+    "preconditions": ["Application is launched"],
+    "test_data": [],
+    "test_steps": [
+      "Click on the 'Registrati' part of the registration link",
+      "Verify that the RegistrationActivity is started"
+    ],
+    "expected_result": ["The onClick method should start the RegistrationActivity"]
+  },
+  {
+    "test_case_id": "TC-Login-004",
+    "title": "Test loginUser method - Empty Email",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["loginUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": ["Empty email", "Valid password"],
+    "test_steps": [
+      "Enter an empty email and a valid password",
+      "Click on the login button",
+      "Verify that an error message is displayed for the email field"
+    ],
+    "expected_result": ["The loginUser method should display an error message for the email field if it is empty"]
+  },
+  {
+    "test_case_id": "TC-Login-005",
+    "title": "Test loginUser method - Empty Password",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["loginUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": ["Valid email", "Empty password"],
+    "test_steps": [
+      "Enter a valid email and an empty password",
+      "Click on the login button",
+      "Verify that an error message is displayed for the password field"
+    ],
+    "expected_result": ["The loginUser method should display an error message for the password field if it is empty"]
+  },
+  {
+    "test_case_id": "TC-Login-006",
+    "title": "Test loginUser method - Invalid Credentials",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["loginUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": ["Invalid email", "Invalid password"],
+    "test_steps": [
+      "Enter invalid email and password",
+      "Click on the login button",
+      "Verify that an error message is displayed indicating invalid credentials"
+    ],
+    "expected_result": ["The loginUser method should display an error message indicating invalid credentials"]
+  },
+  {
+    "test_case_id": "TC-Login-007",
+    "title": "Test loginUser method - Successful Login",
+    "module": "LoginActivity",
+    "source_files": ["Ecodriving/app/src/main/java/com/example/ecodriving/LoginActivity.java"],
+    "covered_methods": ["loginUser"],
+    "preconditions": ["Application is launched"],
+    "test_data": ["Valid email", "Valid password"],
+    "test_steps": [
+      "Enter valid email and password",
+      "Click on the login button",
+      "Verify that a success message is displayed and the MainActivity is started"
+    ],
+    "expected_result": ["The loginUser method should display a success message and start the MainActivity upon successful login"]
+  }
+]
+```

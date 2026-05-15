@@ -1,0 +1,67 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-001,Verify successful user registration with valid credentials,User Management,1,System is running; no user with provided email exists.,"- Email: `test.user@example.com`
+- Password: `SecurePass123!`
+- Nome: `John`
+- Cognome: `Doe`","1. Call `Utente()` constructor with provided data.
+2. Verify `setPassword(""SecurePass123!"")` succeeds.
+3. Verify `setNome(""John"")` and `setCognome(""Doe"")` succeed.
+4. Attempt to retrieve `getNome()` and `getCognome()`.","- User object created with correct attributes.
+- No errors during setters/getters.
+- `getid()` returns a valid auto-generated integer."
+TC-USER-002,Validate password update with invalid format,User Management,1,User exists with password `OldPass123`.,"- Invalid password: `weak` (no special char, too short)","1. Call `setPassword(""weak"")` on existing user.
+2. Attempt to retrieve `getid()` (to confirm object integrity).","- `setPassword()` rejects input (throws exception or returns `false`).
+- User object remains unchanged (ID, email, etc. preserved)."
+TC-USER-003,Test user name update with empty string,User Management,1,"User exists with `Nome=""John""`.","- Invalid name: `""""` (empty string)","1. Call `setNome("""")`.
+2. Call `getNome()`.","- `setNome()` rejects input (throws exception or returns `false`).
+- `getNome()` still returns `""John""`."
+TC-PRODUCT-001,Create product with valid attributes and assign ownership,Product Management,1,User `user1` exists.,"- Nome: `Vintage Chair`
+- Luogo: `Milan, Italy`
+- Descrizione: `Solid oak, 1950s design`
+- Immagine: `chair.jpg`
+- Prezzo: `199.99`
+- Proprietario: `user1`","1. Create `Prodotto` object with provided data.
+2. Call `setProprietario(user1)`.
+3. Verify `getProprietario()` returns `user1`.
+4. Verify all getters return correct values.","- Product object created with all attributes set.
+- Ownership link (`Proprietario`) correctly established."
+TC-PRODUCT-002,Update product price with negative value,Product Management,1,Product exists with `Prezzo=199.99`.,- Invalid price: `-50.00`,"1. Call `setPrezzo(-50.00)`.
+2. Call `getPrezzo()`.","- `setPrezzo()` rejects input (throws exception or returns `false`).
+- `getPrezzo()` still returns `199.99`."
+TC-PRODUCT-003,Verify product ownership transfer,Product Management,1,"- Product `P1` owned by `user1`.
+- User `user2` exists.",,"1. Call `setProprietario(user2)` on `P1`.
+2. Verify `getProprietario()` returns `user2`.
+3. Verify `user1` no longer has `P1` in their owned products (if tracked externally).","- Ownership successfully transferred.
+- No data corruption in related user/product associations."
+TC-REPORT-001,Create valid report targeting another user,Reporting System,1,- User `user1` (author) and `user2` (target) exist.,"- Tipo: `true` (e.g., ""violation"")
+- Titolo: `Suspicious Activity`
+- Descrizione: `User2 posted fake products repeatedly`
+- UtenteSegnalato: `user2`
+- Autore: `user1`","1. Create `Segnalazione` object with provided data.
+2. Verify `getAutore()` returns `user1`.
+3. Verify `getUtenteSegnalato()` returns `user2`.
+4. Verify `getTipo()` returns `true`.","- Report object created with all attributes set.
+- Relationships (`Autore`/`UtenteSegnalato`) correctly linked."
+TC-REPORT-002,Attempt to create report with empty title,Reporting System,1,Users `user1` and `user2` exist.,"- Titolo: `""""` (empty string)","1. Call `setTitolo("""")` during `Segnalazione` creation.
+2. Attempt to call `getTitolo()`.","- `setTitolo()` rejects input (throws exception or returns `false`).
+- Report object remains incomplete (no title stored)."
+TC-REPORT-003,Verify report author cannot target themselves,Reporting System,1,User `user1` exists.,"- Autore: `user1`
+- UtenteSegnalato: `user1` (same user)","1. Create `Segnalazione` with `Autore=user1` and `UtenteSegnalato=user1`.
+2. Call `getUtenteSegnalato()`.","- System rejects the report (throws exception or returns `false`).
+- No report object created with self-targeting."
+TC-INTEGRATION-001,End-to-end: User reports another user’s product,System Integration,1,"- User `user1` owns product `P1`.
+- User `user2` exists.",,"1. `user2` creates a `Segnalazione` with:
+   - `Autore=user2`
+   - `UtenteSegnalato=user1`
+   - `Titolo=""Fake Product""`
+   - `Descrizione=""P1 is a replica""`
+2. Verify `user1` is linked as `UtenteSegnalato` in the report.
+3. Verify `P1` is not automatically removed (business rule not specified; assume no auto-deletion).","- Report successfully created and linked to `user1`.
+- No side effects on `P1` or `user1`'s other products."
+TC-INTEGRATION-002,Edge case: Report with maximum description length,System Integration,1,Users `user1` and `user2` exist.,"- Descrizione: A string of 5000 characters (assuming no explicit limit, test boundary).","1. Create `Segnalazione` with `Descrizione` set to 5000-character string.
+2. Call `getDescrizione()`.","- System accepts input (no truncation or error).
+- Full description retrievable via getter."
+TC-INTEGRATION-003,Verify product deletion cascades ownership removal,System Integration,1,"- Product `P1` owned by `user1`.
+- `P1` has no reports or dependencies.",,"1. Delete `P1` (simulated via external system call).
+2. Verify `user1` no longer has `P1` in their owned products list.
+3. Verify no `Segnalazione` objects reference `P1` (if applicable).","- Ownership link removed from `user1`.
+- No orphaned references in `Segnalazione` (if `Prodotto` is not directly referenced in reports)."

@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOGIN-001,Successful User Registration,Login,7,User is not logged in.,"- Username: testuser
+- Password: Test@123
+- Email: test@example.com
+- Privacy Document Accepted: Yes","1. User inserts data and accepts privacy document.
+2. User attempts to insert themselves into the database.
+3. Database responds with success.",User is registered successfully and receives a success response.
+TC-LOGIN-002,Failed User Registration,Login,7,User is not logged in.,"- Username: testuser
+- Password: Test@123
+- Email: invalid_email
+- Privacy Document Accepted: Yes","1. User inserts data and accepts privacy document.
+2. User attempts to insert themselves into the database.
+3. Database responds with failure due to invalid email format.",User registration fails and receives a failure response.
+TC-LOGIN-003,Successful User Login,Login,8,User is registered and not logged in.,"- Username: testuser
+- Password: Test@123","1. User inserts username and password.
+2. User sends a sign-in request to the database.
+3. Database verifies credentials and responds with success.
+4. User is redirected to the main page.",User logs in successfully and is redirected to the main page.
+TC-LOGIN-004,Failed User Login,Login,8,User is registered but entered incorrect password.,"- Username: testuser
+- Password: IncorrectPassword","1. User inserts username and password.
+2. User sends a sign-in request to the database.
+3. Database verifies credentials and responds with failure.
+4. User remains on the login page.",User login fails and remains on the login page.
+TC-MYBOARD-001,Display User Items List,MyBoard,9,User is logged in.,- User ID: 123,"1. User initiates action to move to MyBoard activity.
+2. MyBoard requests user items from the database.
+3. Database sends user items to MyBoard.
+4. MyBoard displays the list of items to the user.",User sees a list of their items.
+TC-MYBOARD-002,Add New Item to Database,MyBoard,10,User is logged in.,"- Item Name: NewItem
+- Item Description: This is a new item
+- Image URL: http://example.com/image.jpg","1. User clicks on insert item button.
+2. InsertNewItem requests an image and item info from the database.
+3. Database inserts the item and sends a response back to the user.
+4. User displays the updated list of items.",New item is added to the database and shown in the list.
+TC-MYBOARD-003,Delete Item from Database,MyBoard,11,User is logged in and has items in the list.,- Item ID: 456,"1. User clicks on delete item button.
+2. InsertNewItem sends ""Requires confirmation"" message to Utente.
+3. Utente confirms.
+4. InsertNewItem sends ""Confirm"" message to Utente.
+5. InsertNewItem sends ""delete item from Database"" message to Database.
+6. Database sends ""Response"" message to InsertNewItem.
+7. InsertNewItem sends ""Show items list without the deleted one"" message to Utente.",Item is deleted from the database and removed from the list.
+TC-MYBOARD-004,Get Items List from Database,MyBoard,12,User is logged in.,- User ID: 123,"1. Utente sends ""Get items from Database"" message to Main.
+2. Main sends ""Get items from Database"" message to Database.
+3. Database sends ""Response"" message to Main.
+4. Main sends ""Show items list"" message to Utente.",User sees a list of items retrieved from the database.
+TC-EXCHANGE-001,Propose New Exchange,Exchange,13,User is logged in.,- Exchange Details: Offer A for B,"1. Utente proposes new exchange.
+2. Exchange saves exchange info in database.
+3. Database sends response.
+4. Exchange shows exchange list.",New exchange is proposed and saved in the database.
+TC-EXCHANGE-002,View Exchange List,Exchange,14,User is logged in.,- User ID: 123,"1. Utente navigates to the exchange page.
+2. Exchange requests exchange data from the database.
+3. Database sends response with exchange information.
+4. Exchange displays the list of exchanges to the user.",User sees a list of exchanges.
+TC-EXCHANGE-003,Accept or Reject Exchange Proposal,Exchange,15,User is logged in and has received an exchange proposal.,- Exchange ID: 789,"1. Utente views the exchange list.
+2. Exchange retrieves exchange information from the database.
+3. Utente clicks on accept/reject button.
+4. Exchange requires confirmation from Utente.
+5. Utente confirms.
+6. Exchange updates exchange status in the database.",Exchange status is updated in the database and reflected in the list.
+TC-FILTER-001,Filter Items List,Filter,16,User is logged in.,- Filter Criteria: Category: Electronics,"1. Utente sends ""Show items list"" message to Main.
+2. Main retrieves items from the database.
+3. Main displays items list to Utente.
+4. Utente inserts new filter criteria.
+5. Main retrieves filtered items from the database.
+6. Main displays filtered items list to Utente.",User sees a filtered list of items based on the specified criteria.
+TC-PROFILE-001,View Personal Information,Profile,17,User is logged in.,- User ID: 123,"1. Utente moves to personal info section.
+2. Profile retrieves info from the database.
+3. Profile displays info to Utente.",User sees their personal information.
+TC-PROFILE-002,Modify Personal Information,Profile,17,User is logged in.,"- User ID: 123
+- New Email: newemail@example.com","1. Utente moves to personal info section.
+2. Profile retrieves info from the database.
+3. Profile displays info to Utente.
+4. Utente clicks on modify info.
+5. Profile requests new info.
+6. Utente inserts new info.
+7. Profile saves new info in the database.
+8. Profile displays updated info to Utente.",User's personal information is updated and displayed correctly.
+TC-HOME-001,Navigate to Home Screen,Home,"1, 2, 3, 4, 5, 6",User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks if the user is logged in.
+3. If logged in, system directs to the home screen.",User lands on the home screen.
+TC-HOME-002,Handle Login/Registration Request,Home,1,User is not logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks if the user is logged in.
+3. If not logged in, system prompts for login or registration.",User is prompted to log in or register.
+TC-HOME-003,Process Proposals,Home,2,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks for available data.
+3. If data is available, system processes proposals.
+4. If proposal is accepted, system proceeds to detail the proposal.
+5. If proposal is not accepted, system returns to the proposal list.",Proposals are processed and handled accordingly.
+TC-HOME-004,Manage Offers,Home,3,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks if data from offers is available.
+3. If data is available, system lists offers.
+4. If data is not available, system returns to the home screen.
+5. User attempts to insert an offer.
+6. If insertion is successful, system returns to the home screen.
+7. If insertion fails, system attempts to delete an offer.
+8. If deletion is successful, system returns to the home screen.
+9. If deletion fails, system returns to the offer list.",Offers are managed and displayed correctly.
+TC-HOME-005,Filter Search Results,Home,4,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks if data from offers is available.
+3. If data is available, system lists offers.
+4. If data is not available, system filters search results.",Search results are filtered and displayed correctly.
+TC-HOME-006,Visualize Profile,Home,5,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. User selects to visualize profile.
+3. System checks if profile visualization is successful.
+4. If successful, system returns to the home screen.
+5. If unsuccessful, system redirects to data modification fragment.",Profile is visualized and managed correctly.
+TC-HOME-007,Open Saved Elements,Home,6,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. User opens saved elements.
+3. System checks if elements are opened successfully.
+4. If successful, system lists elements.
+5. If unsuccessful, system redirects to detailed offer activity.",Saved elements are opened and managed correctly.
+TC-HOME-008,Handle Element Removal,Home,6,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. User opens saved elements.
+3. System checks if elements are opened successfully.
+4. If successful, system lists elements.
+5. User attempts to remove an element.
+6. System checks if removal is successful.
+7. If successful, system ends the process.
+8. If unsuccessful, system returns to the element list.",Element removal is handled correctly.
+TC-HOME-009,Check Data Availability,Home,"2, 3, 4",User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks if data from proposals, offers, or search results is available.
+3. If data is available, system processes accordingly.
+4. If data is not available, system returns to the home screen.",Data availability is checked and handled correctly.
+TC-HOME-010,Manage Proposal Evaluation,Home,2,User is logged in.,- User ID: 123,"1. User navigates to the home screen.
+2. System checks for available data.
+3. If data is",

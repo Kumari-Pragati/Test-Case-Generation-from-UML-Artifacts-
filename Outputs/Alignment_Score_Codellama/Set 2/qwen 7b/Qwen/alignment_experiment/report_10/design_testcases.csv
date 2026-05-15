@@ -1,0 +1,164 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Registration,User,1,None,"- email: user@example.com
+- password: Password123
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.",The user should be registered successfully and redirected to the login page.
+TC-User-002,User Login,User,1,User is registered.,"- email: user@example.com
+- password: Password123","1. Open the application.
+2. Click on the login button.
+3. Enter the provided email and password.
+4. Submit the form.",The user should be logged in successfully and redirected to the home page.
+TC-User-003,Invalid User Login,User,1,User is registered.,"- email: invalid@example.com
+- password: Password123","1. Open the application.
+2. Click on the login button.
+3. Enter the provided email and password.
+4. Submit the form.","The login should fail, and an error message should be displayed."
+TC-Event-001,Create New Event,Event,"2, 3",User is logged in.,"- titolo: New Event
+- data: 2023-10-10
+- tipologia: Concert
+- creatore: TestUser
+- città: Rome
+- descrizione: This is a new event.","1. Navigate to the city view screen.
+2. Scroll down and click on the ""+"" button to add a new event.
+3. Fill in the form with the provided data.
+4. Validate the fields.
+5. Submit the form.",The event should be created successfully and displayed on the city view screen.
+TC-Event-002,Create New Event with Invalid Data,Event,"2, 3",User is logged in.,"- titolo: 
+- data: 2023-10-10
+- tipologia: 
+- creatore: TestUser
+- città: Rome
+- descrizione: This is a new event.","1. Navigate to the city view screen.
+2. Scroll down and click on the ""+"" button to add a new event.
+3. Fill in the form with the provided data.
+4. Validate the fields.
+5. Submit the form.","The form validation should fail, and an error message should be displayed."
+TC-Event-003,Delete Event,Event,"3, 4",User is logged in and has an event created.,- event title: New Event,"1. Navigate to the city view screen.
+2. Scroll down and find the event titled ""New Event"".
+3. Click on the ""-"" button to delete the event.
+4. Confirm the deletion.","The event should be deleted successfully, and the event list should no longer display the deleted event."
+TC-Event-004,Modify Event,Event,"3, 4",User is logged in and has an event created.,"- event title: New Event
+- new data: 2023-10-11
+- new tipologia: Festival","1. Navigate to the city view screen.
+2. Scroll down and find the event titled ""New Event"".
+3. Click on the ""penna"" (pen) icon to edit the event.
+4. Modify the event data as provided.
+5. Validate the fields.
+6. Submit the form.","The event should be modified successfully, and the updated event details should be displayed on the city view screen."
+TC-City-001,Search for a City,City,"3, 4",User is logged in.,- city name: Rome,"1. Navigate to the city search screen.
+2. Enter the provided city name.
+3. Submit the search query.",The city view screen for Rome should be displayed.
+TC-POI-001,Add POI,POI,1,User is logged in.,"- nome: Colosseum
+- città: Rome
+- provincia: Lazio
+- tipologia: Historical Site
+- descrizione: This is the Colosseum.","1. Navigate to the city view screen.
+2. Click on the ""+"" button to add a new POI.
+3. Fill in the form with the provided data.
+4. Validate the fields.
+5. Submit the form.",The POI should be added successfully and displayed on the city view screen.
+TC-POI-002,Add POI with Invalid Data,POI,1,User is logged in.,"- nome: 
+- città: Rome
+- provincia: Lazio
+- tipologia: 
+- descrizione: This is the Colosseum.","1. Navigate to the city view screen.
+2. Click on the ""+"" button to add a new POI.
+3. Fill in the form with the provided data.
+4. Validate the fields.
+5. Submit the form.","The form validation should fail, and an error message should be displayed."
+TC-POI-003,Delete POI,POI,1,User is logged in and has a POI added.,- poi name: Colosseum,"1. Navigate to the city view screen.
+2. Find the POI named ""Colosseum"".
+3. Click on the ""-"" button to delete the POI.
+4. Confirm the deletion.","The POI should be deleted successfully, and the POI list should no longer display the deleted POI."
+TC-POI-004,Modify POI,POI,1,User is logged in and has a POI added.,"- poi name: Colosseum
+- new name: Roman Amphitheater
+- new provincia: Lazio","1. Navigate to the city view screen.
+2. Find the POI named ""Colosseum"".
+3. Click on the ""penna"" (pen) icon to edit the POI.
+4. Modify the POI data as provided.
+5. Validate the fields.
+6. Submit the form.","The POI should be modified successfully, and the updated POI details should be displayed on the city view screen."
+TC-Login-Registration-001,User Registration and Login,User,1,None,"- email: user@example.com
+- password: Password123
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The user should be registered and logged in successfully, and redirected to the home page."
+TC-Login-Registration-002,User Registration and Login with Invalid Email,User,1,None,"- email: invalidemail
+- password: Password123
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-003,User Registration and Login with Invalid Password,User,1,None,"- email: user@example.com
+- password: invalidpassword
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-004,User Registration and Login with Invalid Username,User,1,None,"- email: user@example.com
+- password: Password123
+- username:","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-005,User Registration and Login with Empty Fields,User,1,None,"- email: 
+- password: 
+- username:","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-006,User Registration and Login with Duplicate Username,User,1,User with the same username already exists.,"- email: user@example.com
+- password: Password123
+- username: ExistingUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-007,User Registration and Login with Duplicate Email,User,1,User with the same email already exists.,"- email: existinguser@example.com
+- password: Password123
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-008,User Registration and Login with Short Password,User,1,None,"- email: user@example.com
+- password: short
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-009,User Registration and Login with Long Password,User,1,None,"- email: user@example.com
+- password: verylongpasswordthatexceedsthecharacterlimit
+- username: TestUser","1. Open the application.
+2. Click on the registration button.
+3. Enter the provided email, password, and username.
+4. Submit the form.
+5. Click on the login button.
+6. Enter the provided email and password.
+7. Submit the form.","The registration and login should fail, and appropriate error messages should be displayed."
+TC-Login-Registration-010,User Registration and,,,,,,

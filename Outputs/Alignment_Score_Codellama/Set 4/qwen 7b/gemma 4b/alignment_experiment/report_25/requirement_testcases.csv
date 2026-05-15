@@ -1,0 +1,70 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Authentication-001","Create Account Functionality","Authentication","7","User has a valid email address and password, internet connection","Email: testuser@example.com, Password: SecurePass123!, Confirm Password: SecurePass123!","1. Open the app and navigate to the registration screen.
+2. Enter the email address ""testuser@example.com"".
+3. Enter the password ""SecurePass123!"".
+4. Re-enter the password ""SecurePass123!"".
+5. Click the ""Create Account"" button.","Account creation confirmation message appears, and a verification email is sent to the provided email address."
+"TC-Authentication-002","Email Confirmation for Account Creation","Authentication","7","User has created an account but not confirmed email","Email: testuser@example.com, Verification link: <link from email>","1. Check the email inbox for ""testuser@example.com"".
+2. Locate the verification email from ECO-DIGIFY.
+3. Click the verification link in the email.","User account is confirmed, and the app displays a success message upon next login."
+"TC-ObjectManagement-003","Add Object to System","Object Management","8","User is logged in, has a verified account","Object name: ""Old Laptop"", Description: ""Functional, 8GB RAM"", Category: Electronics, Condition: Good","1. Navigate to the ""Add Object"" screen.
+2. Enter ""Old Laptop"" in the object name field.
+3. Enter ""Functional, 8GB RAM"" in the description field.
+4. Select ""Electronics"" as the category.
+5. Select ""Good"" as the condition.
+6. Click the ""Add Object"" button.","Object is successfully added to the user's profile and appears in their list of available objects."
+"TC-ObjectBrowsing-004","View Another User’s Object","Object Browsing","8","User is logged in, another user has added an object","Object: ""Vintage Book"", Owner: User2","1. Navigate to the ""Browse Objects"" screen.
+2. Locate the object ""Vintage Book"" owned by User2.
+3. Click on the object card.","Object details (name, description, category, condition, owner info) are displayed."
+"TC-UserInteraction-005","Express Interest in an Object","User Interaction","9","User is logged in, another user has added an object","Object: ""Vintage Book"", Owner: User2","1. Navigate to the ""Browse Objects"" screen.
+2. Locate the object ""Vintage Book"".
+3. Swipe the object card to the right (express interest).","System notifies the owner (User2) of the interest, and the object card disappears from the user's browse feed."
+"TC-MatchingSystem-006","Match Between Two Users","Matching System","9","User1 has expressed interest in User2’s object, User2 has expressed interest in User1’s object","User1’s object: ""Old Laptop"", User2’s object: ""Vintage Book""","1. User1 swipes User2’s object (""Vintage Book"") to the right.
+2. User2 swipes User1’s object (""Old Laptop"") to the right.","A match notification appears for both users, and a chat option is enabled for coordination."
+"TC-Communication-007","Initiate Chat After Match","Communication","10","A match exists between User1 and User2","Match: User1 (Old Laptop) and User2 (Vintage Book)","1. Open the match notification for User1 and User2.
+2. Click the ""Chat"" button.","Chat interface opens, allowing both users to message each other."
+"TC-SwapManagement-008","Swap Objects After Agreement","Swap Management","10","Users have agreed via chat to swap objects, match is active","User1’s object: ""Old Laptop"", User2’s object: ""Vintage Book""","1. Both users confirm the swap in the chat.
+2. User1 clicks the ""Confirm Swap"" button in the match details.","Objects are marked as swapped in the system, and both users receive a confirmation notification. Objects are removed from available listings."
+"TC-AccountCreation-009","Create New Account","Account Creation","7","Application is installed on the device","Valid email, password, name, and other required fields","1. Open the application for the first time
+2. Fill in the registration form with valid data
+3. Submit the form","User receives an email with a confirmation link and account creation is pending until email confirmation"
+"TC-ObjectManagement-010","Add New Object to Profile","Object Management","8","User is logged into the application","Valid object details (name, description, images)","1. Navigate to the ""Add Object"" section
+2. Fill in the required fields (name, description, images)
+3. Submit the form","New object is added to the user’s profile and is available for barter"
+"TC-ObjectManagement-011","Incomplete Object Form Submission","Object Management","8","User is logged into the application","Missing required fields (e.g., no name or description)","1. Navigate to the ""Add Object"" section
+2. Fill in only some of the required fields
+3. Attempt to submit the form","Form submission is rejected, and an error message is displayed"
+"TC-Authentication-012","Successful Login with Valid Credentials","Authentication","14","User account exists in the system with valid credentials","Registered username and correct password","1. Open the application.
+2. Navigate to the login screen.
+3. Enter the registered username.
+4. Enter the correct password.
+5. Click the ""Login"" button.","User is successfully logged in and redirected to the home screen."
+"TC-Compatibility-013","Application Installation on Supported Devices","Compatibility","17","None","Android device with version >=7.1 or iOS device with version >=12","1. Download the application from the official store.
+2. Install the application on the device.
+3. Open the application.","Application installs successfully and runs without errors on the specified devices."
+"TC-UserRegistration-014","Successful User Profile Creation","User Registration","22","App installed, email not registered, registration screen displayed","Valid name, surname, birthdate, phone, unique email, password, location","1. User opens registration screen.
+2. User fills all required fields with valid data.
+3. User submits the form.","New user record created in the database, user can log in and use the app."
+"TC-UserRegistration-015","Registration with Duplicate Email","User Registration","22","App installed, registration screen displayed","Existing registered email, other valid fields","1. User opens registration screen.
+2. User fills all fields, including an already registered email.
+3. User submits the form.","Error message displayed, no new user record created."
+"TC-ObjectManagement-016","Successful Object Insertion","Object Management","23","User logged in, object insertion screen displayed","Valid object name, description, photo","1. User opens object insertion screen.
+2. User fills all required fields with valid data.
+3. User submits the form.","New object record created in the database, object available for barter."
+"TC-MatchingSystem-017","Match Notification and Chat Creation","Matching System","23,24","Two users logged in, both have objects available, mutual interest expressed","User A swipes right on User B’s object, User B swipes right on User A’s object","1. User A swipes right on User B’s object.
+2. User B swipes right on User A’s object.
+3. System detects mutual interest.","Notification sent to both users, chat created and stored in the database, users can start messaging."
+"TC-ChatSystem-018","Chat Access After Match","Chat System","24","Match occurred between User A and User B","None","1. User A opens the app and checks notifications.
+2. User A clicks on the match notification.","Chat screen opens between User A and User B, users can exchange messages."
+"TC-Authentication-019","Successful User Login","Authentication","24","User registered, login screen displayed","Valid email and password","1. User opens login screen.
+2. User enters valid email and password.
+3. User submits credentials.","User logged in, token generated for API requests, user profile displayed."
+"TC-NetworkDependency-020","App Functionality Without Internet","Network Dependency","19,20","App installed, no internet connection","None","1. User opens the app without internet.
+2. User attempts to log in or perform any action requiring API calls.","Error message displayed, no functionality requiring internet works."
+"TC-DataSecurity-021","User Access to Own Data Only","Data Security","19","User logged in, multiple users in the system","User credentials, other users’ data","1. User A logs in.
+2. User A attempts to access User B’s data.","User A can only access their own data, no access to other users’ data."
+"TC-Performance-022","Response Time for User Actions","Performance","20","User logged in, stable internet connection","None","1. User performs an action (e.g., swipe, login).
+2. System records response time.","Action completed in less than 2 seconds."
+"TC-Portability-023","App Compatibility on Supported OS","Portability","20","App installed on Android 7.1+ or iOS 12+","None","1. User installs the app on Android 7.1 or iOS 12.
+2. User attempts to use the app.","App functions correctly, no crashes or compatibility issues."
+"TC-Authentication-024","User Logout Functionality","Authentication","25","The user is logged in.","None","1. User taps the logout button.","The previously assigned token is removed, and the user is redirected to the login screen. No side effects occur."

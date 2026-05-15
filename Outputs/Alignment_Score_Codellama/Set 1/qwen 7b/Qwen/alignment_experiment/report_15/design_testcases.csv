@@ -1,0 +1,77 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UseCase-001,Insertion of Plant Data,Inserimento/Modifica Piante,"1,2,3",User is authenticated and has permission to modify plant data.,"Plant name, species, location, and image.","1. Navigate to the ""Inserimento/Modifica Piante"" page.
+2. Enter the plant name, species, and location.
+3. Upload an image of the plant.
+4. Click the ""Save"" button.","The plant data is successfully inserted into the database, and a confirmation message is displayed."
+TC-UseCase-002,Modification of Plant Data,Inserimento/Modifica Piante,"1,2,3",User is authenticated and has permission to modify plant data.,"Updated plant name, species, and location.","1. Navigate to the ""Lettura Piante"" page.
+2. Select a plant to modify.
+3. Edit the plant name, species, and location.
+4. Click the ""Save"" button.","The plant data is successfully updated in the database, and a confirmation message is displayed."
+TC-UseCase-003,Reading Plant Data,Lettura Piante,"1,2,3",User is authenticated and has permission to read plant data.,,"1. Navigate to the ""Lettura Piante"" page.
+2. View the list of plants.
+3. Select a plant to view its details.","The selected plant's details are displayed, including name, species, location, and image."
+TC-UseCase-004,Insertion of Diary Entry,Inserimento/Modifica Diario,"1,2,3",User is authenticated and has permission to modify diary entries.,Diary entry text.,"1. Navigate to the ""Inserimento/Modifica Diario"" page.
+2. Enter the diary entry text.
+3. Click the ""Save"" button.","The diary entry is successfully inserted into the database, and a confirmation message is displayed."
+TC-UseCase-005,Reading Diary Entries,Lettura Diario,"1,2,3",User is authenticated and has permission to read diary entries.,,"1. Navigate to the ""Lettura Diario"" page.
+2. View the list of diary entries.
+3. Select a diary entry to view its details.",The selected diary entry's details are displayed.
+TC-UseCase-006,User Authentication,Operazioni di Accesso,"1,2,3,4",User credentials are provided.,Username and password.,"1. Navigate to the ""Home"" page.
+2. Click the ""Login"" button.
+3. Enter the username and password.
+4. Click the ""Submit"" button.","The user is authenticated, and the home page is displayed."
+TC-UseCase-007,Invalid User Authentication,Operazioni di Accesso,"1,2,3,4",User credentials are incorrect.,Incorrect username and password.,"1. Navigate to the ""Home"" page.
+2. Click the ""Login"" button.
+3. Enter the incorrect username and password.
+4. Click the ""Submit"" button.",An error message is displayed indicating invalid credentials.
+TC-UseCase-008,User Logout,Operazioni di Accesso,"1,2,3,4",User is logged in.,,"1. Navigate to the ""Home"" page.
+2. Click the ""Logout"" button.","The user is logged out, and the login page is displayed."
+TC-UseCase-009,Plant Species Identification,AGGIUNTA PIANTA,4,User has taken a photo of a plant.,Photo of a plant.,"1. Navigate to the ""Analisi Pianta"" page.
+2. Upload the photo of the plant.
+3. Click the ""Identify Plant"" button.","The plant species is identified, and the result is displayed."
+TC-UseCase-010,Invalid Plant Species Identification,AGGIUNTA PIANTA,4,User has taken a photo of a non-existent plant.,Photo of a non-existent plant.,"1. Navigate to the ""Analisi Pianta"" page.
+2. Upload the photo of the non-existent plant.
+3. Click the ""Identify Plant"" button.",An error message is displayed indicating that the plant species could not be identified.
+TC-UseCase-011,Download URL of Uploaded Photo,AGGIUNTA PIANTA,4,User has uploaded a photo of a plant.,Photo of a plant.,"1. Navigate to the ""Analisi Pianta"" page.
+2. Upload the photo of the plant.
+3. Click the ""Identify Plant"" button.
+4. Wait for the plant species to be identified.
+5. Click the ""Download"" button.",The download URL of the uploaded photo is displayed.
+TC-UseCase-012,Reading Personal Storage Path,Lettura Pianta,5,User is authenticated.,,"1. Navigate to the ""Home"" page.
+2. Click the ""Settings"" button.
+3. Click the ""Personal Storage"" button.",The personal storage path is displayed.
+TC-UseCase-013,Reading Photos for Each Species Present,Lettura Pianta,5,User is authenticated.,,"1. Navigate to the ""Home"" page.
+2. Click the ""Photos"" button.
+3. View the list of photos for each species present.",The list of photos for each species present is displayed with their respective download URLs.
+TC-UseCase-014,Edge Case - No Photos for Any Species,Lettura Pianta,5,User is authenticated.,,"1. Navigate to the ""Home"" page.
+2. Click the ""Photos"" button.",A message indicating that there are no photos for any species is displayed.
+TC-UseCase-015,Edge Case - No Personal Storage Path,Lettura Pianta,5,User is authenticated.,,"1. Navigate to the ""Home"" page.
+2. Click the ""Settings"" button.
+3. Click the ""Personal Storage"" button.",A message indicating that there is no personal storage path is displayed.
+TC-UseCase-016,Edge Case - No Diary Entries,Lettura Diario,3,User is authenticated.,,"1. Navigate to the ""Lettura Diario"" page.",A message indicating that there are no diary entries is displayed.
+TC-UseCase-017,Edge Case - No Plant Data,Lettura Piante,3,User is authenticated.,,"1. Navigate to the ""Lettura Piante"" page.",A message indicating that there is no plant data is displayed.
+TC-UseCase-018,Edge Case - No Authentication,Operazioni di Accesso,"1,2,3,4",User is not authenticated.,,"1. Navigate to the ""Home"" page.",The user is prompted to log in before accessing any other functionality.
+TC-UseCase-019,Edge Case - No Plant Species Identified,AGGIUNTA PIANTA,4,User has taken a photo of a plant but it cannot be identified.,,"1. Navigate to the ""Analisi Pianta"" page.
+2. Upload the photo of the plant.
+3. Click the ""Identify Plant"" button.",A message indicating that the plant species could not be identified is displayed.
+TC-UseCase-020,Edge Case - No Photos for Plant Species,AGGIUNTA PIANTA,4,User has identified a plant species but no photos are available for that species.,,"1. Identify a plant species using the ""Analisi Pianta"" feature.
+2. Navigate to the ""Photos"" page.",A message indicating that there are no photos for the identified plant species is displayed.
+TC-UseCase-021,Edge Case - No Diary Entry Text,Inserimento/Modifica Diario,3,User attempts to save a diary entry without entering any text.,,"1. Navigate to the ""Inserimento/Modifica Diario"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that the diary entry text cannot be empty.
+TC-UseCase-022,Edge Case - No Plant Name Entered,Inserimento/Modifica Piante,3,User attempts to save a plant record without entering a name.,,"1. Navigate to the ""Inserimento/Modifica Piante"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that the plant name cannot be empty.
+TC-UseCase-023,Edge Case - No Species Entered,Inserimento/Modifica Piante,3,User attempts to save a plant record without entering a species.,,"1. Navigate to the ""Inserimento/Modifica Piante"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that the plant species cannot be empty.
+TC-UseCase-024,Edge Case - No Location Entered,Inserimento/Modifica Piante,3,User attempts to save a plant record without entering a location.,,"1. Navigate to the ""Inserimento/Modifica Piante"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that the plant location cannot be empty.
+TC-UseCase-025,Edge Case - No Image Uploaded,Inserimento/Modifica Piante,3,User attempts to save a plant record without uploading an image.,,"1. Navigate to the ""Inserimento/Modifica Piante"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that an image must be uploaded.
+TC-UseCase-026,Edge Case - No Diary Entry Text Entered,Inserimento/Modifica Diario,3,User attempts to save a diary entry without entering any text.,,"1. Navigate to the ""Inserimento/Modifica Diario"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that the diary entry text cannot be empty.
+TC-UseCase-027,Edge Case - No Diary Entry Date Entered,Inserimento/Modifica Diario,3,User attempts to save a diary entry without entering a date.,,"1. Navigate to the ""Inserimento/Modifica Diario"" page.
+2. Click the ""Save"" button.",An error message is displayed indicating that the diary entry date cannot be empty.
+TC-UseCase-028,Edge Case - No Diary Entry Date Format,Inserimento/Modifica Diario,3,User attempts to save a diary entry with an invalid date format.,,"1. Navigate to the ""Inserimento/Modifica Diario"" page.
+2. Enter an invalid date format.
+3. Click the ""Save"" button.","An error message is displayed indicating that the date format is invalid. 
+
+Test Case ID"

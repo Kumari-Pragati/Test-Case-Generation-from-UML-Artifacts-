@@ -1,0 +1,201 @@
+REPORT: Report_1_uml_pages.pdf
+======================================================================
+
+===== Report_1_uml_pages.pdf | Page 1 =====
+UML Type: class
+- User, Ranking, Mission, Tip
+
+Components:
+- User — kind=class; attributes=[Username: string, Email: string, Password: string, Punti: int]; operations=[GetUsername(): string, SetUsername(newUsername: string), GetEmail(): string, SetEmail(newEmail: string), GetPunti(): int, SetPunti(newPunti: int)]; role=User
+- Ranking — kind=class; attributes=[id: int, Titolo: string, Superato: bool]; operations=[GetId(): int, SetId(newId: int), GetTitolo(): string, SetTitolo(newTitolo: string), GetSuperato(): bool, SetSuperato(newSuperato: bool)]; role=Ranking
+- Mission — kind=class; attributes=[id: int, Titolo: string, Superato: bool, Descrizione: string]; operations=[GetId(): int, SetId(newId: int), GetTitolo(): string, SetTitolo(newTitolo: string), GetSuperato(): bool, SetSuperato(newSuperato: bool), GetDescrizione(): string, SetDescrizione(newDescrizione: string)]; role=Mission
+- Tip — kind=class; attributes=[id: int, Titolo: string]; operations=[GetId(): int, SetId(newId: int), GetTitolo(): string, SetTitolo(newTitolo: string)]; role=Tip
+
+Relationships / Links:
+- User -> Ranking — type=«is superato» ; label="ha superato" ; explanation="A User can be superated by a Ranking"
+- Mission -> Tip — type=«è completata» ; label="ha completata" ; explanation="A Mission can be completed by a Tip"
+
+Main Flows (step by step):
+- User -> Ranking — type=«is superato» ; label="ha superato"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- This diagram models a system where users can be ranked, missions can be completed by tips.
+- The "ha superato" relationship indicates a user is ranked.
+- The "ha completata" relationship indicates a mission is completed by a tip.
+
+===== Report_1_uml_pages.pdf | Page 2 =====
+UML Type: Sequence
+
+Components:
+- MAIN — kind=component;
+- FIREBASE AUTHENTICATION — kind=component;
+
+Actors / Lifelines:
+- MAIN
+- FIREBASE AUTHENTICATION
+
+Relationships / Links:
+- MAIN -> FIREBASE AUTHENTICATION — type=synchronous message; label="signInWithEmailAndPassword(String, String)"; explanation="Main calls Firebase Authentication's signInWithEmailAndPassword method"
+- FIREBASE AUTHENTICATION -> MAIN — type=return message; label="Response"; explanation="Firebase Authentication returns a response"
+- MAIN -> MAIN — type=synchronous message; label="if (Response != Error) { return FirebaseAuthUser }"; explanation="Main checks the response and returns FirebaseAuthUser if no error"
+
+Main Flows (step by step):
+1. MAIN calls FIREBASE AUTHENTICATION with signInWithEmailAndPassword(String, String).
+2. FIREBASE AUTHENTICATION returns a Response.
+3. MAIN checks if Response != Error.
+4. If Response != Error, MAIN returns FirebaseAuthUser.
+
+Conditions / Branches:
+- if (Response != Error) -> Main returns FirebaseAuthUser
+- if (Response == Error) -> - None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+*   The diagram models the login process between a main application and Firebase Authentication.
+*   The main flow involves the main application initiating the login process with Firebase Authentication.
+*   The success path returns a user object, while an error results in no return value (implicitly).
+
+===== Report_1_uml_pages.pdf | Page 3 =====
+UML Type: Activity
+
+Components:
+- Main — kind=activity;
+- Firebase Authentication — kind=activity;
+
+Actors / Lifelines:
+- email — role=input;
+- password — role=input;
+- CreateUserWithEmailAndPassword — kind=activity;
+- db.child(UserID) — kind=activity;
+- login — kind=activity;
+- crea response — kind=activity;
+
+Relationships / Links:
+- Main -> CreateUserWithEmailAndPassword — type=message; label="CreateUserWithEmailAndPassword"; explanation="Calls the CreateUserWithEmailAndPassword activity";
+- CreateUserWithEmailAndPassword -> db.child(UserID) — type=message; label="setvalue(Hashmap<String, Object>)"; explanation="Sets the UserID in the database";
+- CreateUserWithEmailAndPassword -> login — type=message; label="login"; explanation="Calls the login activity";
+- CreateUserWithEmailAndPassword -> Main — type=message; label="return FirebaseUser, UserID"; explanation="Returns FirebaseUser and UserID";
+- db.child(UserID) -> CreateUserWithEmailAndPassword — type=message; label="Response"; explanation="Checks the response from the login activity";
+- db.child(UserID) -> crea response — type=message; label="crea response"; explanation="Sends the response to the crea response activity";
+- login -> crea response — type=message; label="crea response"; explanation="Sends the response to the crea response activity";
+
+Main Flows (step by step):
+- Flow 1: email.isEmpty() -> CreateUserWithEmailAndPassword
+- Flow 2: password.length() < 8 -> CreateUserWithEmailAndPassword
+- Flow 3: CreateUserWithEmailAndPassword -> db.child(UserID).setvalue(HashMap<String, Object>)
+- Flow 4: db.child(UserID).setvalue(HashMap<String, Object>) -> login
+- Flow 5: login -> crea response
+
+Conditions / Branches:
+- password.length() < 8 -> "False"
+- password.length() >= 8 -> "True"
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Inserisce i dati richieste tramite put()"
+
+Observations:
+- The diagram models the registration process, specifically the steps involved in creating a new user in Firebase Authentication.
+- The process checks for empty email and minimum password length.
+- It involves creating a user in the database and then attempting to log in.
+- The diagram shows a potential error path where the login fails.
+
+===== Report_1_uml_pages.pdf | Page 4 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=component;
+- Realtime Database — kind=component;
+- RISPOSTA ASINCRONA — kind=message;
+
+Actors / Lifelines:
+- Main
+- Realtime Database
+- - None
+
+Relationships / Links:
+- Main -> Realtime Database — message="HashMap<String, Object>"; explanation="Sends HashMap";
+- Realtime Database -> Main — message="Conversione da HashMap a JSON"; explanation="Converts to JSON";
+- Realtime Database -> Main — message="crea response"; explanation="Creates response";
+- Main -> Main — message="Gestisce la risposta"; explanation="Handles response";
+
+Main Flows (step by step):
+- Main sends a HashMap to the Realtime Database.
+- The Realtime Database converts the HashMap to a JSON.
+- The Realtime Database sends a response to the Main.
+- Main handles the response.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- The diagram shows an asynchronous process.
+
+Observations:
+- The Main component initiates the process by sending a HashMap to the Realtime Database.
+- The Realtime Database transforms the data into JSON format.
+- The process concludes with the Main component handling the received response.
+- The diagram highlights an asynchronous communication pattern between the Main and Realtime Database components.
+
+===== Report_1_uml_pages.pdf | Page 5 =====
+UML Type: Sequence
+
+Components:
+- MAIN — kind=component;
+- FIREBASE SDK — kind=component;
+- REALTIME DATABASE — kind=component
+
+Actors / Lifelines:
+- MAIN
+- FIREBASE SDK
+- REALTIME DATABASE
+
+Relationships / Links:
+- MAIN -> FIREBASE SDK: addValueEventlistener("Mission");
+- FIREBASE SDK -> REALTIME DATABASE: addValueEventlistener("Mission");
+- REALTIME DATABASE -> FIREBASE SDK: controllo il token e raccoglie i dati richiesti;
+- FIREBASE SDK -> REALTIME DATABASE: manda la risposta con i dati richiesti
+
+Main Flows:
+- MAIN -> FIREBASE SDK: addValueEventlistener("Mission");
+- FIREBASE SDK -> REALTIME DATABASE: addValueEventlistener("Mission");
+- REALTIME DATABASE -> FIREBASE SDK: controllo il token e raccoglie i dati richiesti
+- FIREBASE SDK -> REALTIME DATABASE: manda la risposta con i dati richiesti
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- NOTA: Il funzionamento è analogo a quello di una "Mission" che nel caso di un "Trofeo".
+
+Observations:
+- The diagram models a sequence of operations between a main application, a Firebase SDK, and a Realtime Database.
+- The main application initiates a listener for "Mission" events.
+- The Firebase SDK then adds a listener to the Realtime Database to receive data related to those missions.
+- The Realtime Database checks a token and collects the requested data.
+- Finally, the Firebase SDK sends the collected data back to the main application.
+
+
+======================================================================

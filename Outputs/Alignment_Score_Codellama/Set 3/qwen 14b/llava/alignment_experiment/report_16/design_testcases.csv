@@ -1,0 +1,71 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User logs in successfully","Login","1","User exists in the system","username: ""testuser"", password: ""password123""","1. User initiates login process with valid credentials
+2. System verifies user credentials
+3. System responds with successful login message","User is logged in successfully"
+"TC-Login-002","User logs in with invalid password","Login","1","User exists in the system","username: ""testuser"", password: ""wrongpassword""","1. User initiates login process with incorrect password
+2. System verifies user credentials
+3. System responds with failed login message","User is not logged in and receives a failure message"
+"TC-Login-003","User logs in with non-existent username","Login","1","No user with given username exists","username: ""nonexistentuser"", password: ""password123""","1. User initiates login process with non-existent username
+2. System verifies user credentials
+3. System responds with failed login message","User is not logged in and receives a failure message"
+"TC-Logout-004","User logs out successfully","Logout","1","User is logged in","N/A","1. User initiates logout process
+2. System logs out user
+3. System confirms logout","User is logged out successfully"
+"TC-AddProductToCart-005","User adds a product to their cart successfully","AddProductToCart","1","User is logged in, product exists","product name: ""Laptop"", product description: ""High-performance laptop""","1. User selects a product to add to cart
+2. User adds selected product to cart
+3. System confirms product addition to cart","Product is added to user's cart successfully"
+"TC-AddProductToCart-006","User attempts to add a non-existent product to their cart","AddProductToCart","1","User is logged in, product does not exist","product name: ""NonExistentProduct"", product description: ""Non-existent product""","1. User selects a non-existent product to add to cart
+2. User attempts to add selected product to cart
+3. System responds with error message","Product is not added to cart and user receives an error message"
+"TC-RemoveItemFromCart-007","User removes an item from their cart successfully","RemoveItemFromCart","1","User is logged in, item exists in cart","item name: ""Laptop"", item price: 999.99","1. User selects an item to remove from cart
+2. User removes selected item from cart
+3. System confirms item removal from cart","Item is removed from user's cart successfully"
+"TC-RemoveItemFromCart-008","User attempts to remove a non-existent item from their cart","RemoveItemFromCart","1","User is logged in, item does not exist in cart","item name: ""NonExistentItem"", item price: 999.99","1. User selects a non-existent item to remove from cart
+2. User attempts to remove selected item from cart
+3. System responds with error message","Item is not removed from cart and user receives an error message"
+"TC-AdminAddProduct-009","Admin adds a product to the system successfully","AdminAddProduct","1","Admin is logged in","product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin selects a product to add to the system
+2. Admin adds selected product to the system
+3. System confirms product addition to the system","Product is added to the system successfully"
+"TC-AdminRemoveItemFromCart-010","Admin removes an item from a user's cart successfully","AdminRemoveItemFromCart","1","Admin is logged in, item exists in user's cart","item name: ""Laptop"", item price: 999.99","1. Admin selects an item to remove from a user's cart
+2. Admin removes selected item from user's cart
+3. System confirms item removal from user's cart","Item is removed from user's cart successfully"
+"TC-AdminRemoveItemFromCart-011","Admin attempts to remove a non-existent item from a user's cart","AdminRemoveItemFromCart","1","Admin is logged in, item does not exist in user's cart","item name: ""NonExistentItem"", item price: 999.99","1. Admin selects a non-existent item to remove from a user's cart
+2. Admin attempts to remove selected item from user's cart
+3. System responds with error message","Item is not removed from user's cart and admin receives an error message"
+"TC-AdminAddItemToCart-012","Admin adds an item to a user's cart successfully","AdminAddItemToCart","1","Admin is logged in, product exists","product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin selects a product to add to a user's cart
+2. Admin adds selected product to user's cart
+3. System confirms product addition to user's cart","Product is added to user's cart successfully"
+"TC-AdminAddItemToCart-013","Admin attempts to add a non-existent product to a user's cart","AdminAddItemToCart","1","Admin is logged in, product does not exist","product name: ""NonExistentProduct"", product description: ""Non-existent product""","1. Admin selects a non-existent product to add to a user's cart
+2. Admin attempts to add selected product to user's cart
+3. System responds with error message","Product is not added to user's cart and admin receives an error message"
+"TC-EdgeCase-014","User logs in, adds a product to their cart, and logs out","EdgeCase","1","User exists in the system, product exists","username: ""testuser"", password: ""password123"", product name: ""Laptop"", product description: ""High-performance laptop""","1. User logs in with valid credentials
+2. User adds a product to their cart
+3. User logs out","User is logged in, product is added to cart, and user is logged out successfully"
+"TC-EdgeCase-015","Admin logs in, adds a product to the system, and logs out","EdgeCase","1","Admin exists in the system","admin username: ""adminuser"", admin password: ""adminpassword"", product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin logs in with valid credentials
+2. Admin adds a product to the system
+3. Admin logs out","Admin is logged in, product is added to the system, and admin is logged out successfully"
+"TC-EdgeCase-016","Admin logs in, adds an item to a user's cart, and logs out","EdgeCase","1","Admin exists in the system, user exists in the system, product exists","admin username: ""adminuser"", admin password: ""adminpassword"", user username: ""testuser"", product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin logs in with valid credentials
+2. Admin adds a product to a user's cart
+3. Admin logs out","Admin is logged in, product is added to user's cart, and admin is logged out successfully"
+"TC-EdgeCase-017","User logs in, adds a product to their cart, removes it, and logs out","EdgeCase","1","User exists in the system, product exists","username: ""testuser"", password: ""password123"", product name: ""Laptop"", product description: ""High-performance laptop""","1. User logs in with valid credentials
+2. User adds a product to their cart
+3. User removes the product from their cart
+4. User logs out","User is logged in, product is added to cart, product is removed from cart, and user is logged out successfully"
+"TC-EdgeCase-018","Admin logs in, adds a product to the system, removes it, and logs out","EdgeCase","1","Admin exists in the system","admin username: ""adminuser"", admin password: ""adminpassword"", product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin logs in with valid credentials
+2. Admin adds a product to the system
+3. Admin removes the product from the system
+4. Admin logs out","Admin is logged in, product is added to the system, product is removed from the system, and admin is logged out successfully"
+"TC-EdgeCase-019","Admin logs in, adds an item to a user's cart, removes it, and logs out","EdgeCase","1","Admin exists in the system, user exists in the system, product exists","admin username: ""adminuser"", admin password: ""adminpassword"", user username: ""testuser"", product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin logs in with valid credentials
+2. Admin adds a product to a user's cart
+3. Admin removes the product from the user's cart
+4. Admin logs out","Admin is logged in, product is added to user's cart, product is removed from user's cart, and admin is logged out successfully"
+"TC-EdgeCase-020","User logs in, adds a product to their cart, logs out, logs back in, and checks cart","EdgeCase","1","User exists in the system, product exists","username: ""testuser"", password: ""password123"", product name: ""Laptop"", product description: ""High-performance laptop""","1. User logs in with valid credentials
+2. User adds a product to their cart
+3. User logs out
+4. User logs back in with valid credentials
+5. User checks their cart","User is logged in, product is added to cart, user logs out, user logs back in, and sees the product in their cart"
+"TC-EdgeCase-021","Admin logs in, adds a product to the system, logs out, logs back in, and checks product","EdgeCase","1","Admin exists in the system","admin username: ""adminuser"", admin password: ""adminpassword"", product name: ""Smartphone"", product description: ""Latest smartphone model""","1. Admin logs in with valid credentials
+2. Admin adds a product to the system
+3. Admin logs out
+4. Admin logs back in with valid credentials
+5. Admin checks the product in the system","Admin is logged in, product is added to the system, admin logs out, admin logs back in, and sees the product in the system"

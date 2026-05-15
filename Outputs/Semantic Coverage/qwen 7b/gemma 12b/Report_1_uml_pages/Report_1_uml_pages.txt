@@ -1,0 +1,200 @@
+REPORT: Report_1_uml_pages.pdf
+======================================================================
+
+===== Report_1_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[Username: string, Email: string, Password: string, Punti: int, Utente(): ]; operations=[GetUsername(): string, SetUsername(newUsername: string): void, GetEmail(): string, SetEmail(newEmail: string): void, GetPunti(): int, SetPunti(newPunti: int): void]
+- Ranking — kind=class; attributes=[id: int, Titolo: string, Superato: bool, GetId(): int, SetId(newId: int): void, GetTitolo(): string, SetTitolo(newTitolo: string): void, GetSuperato(): bool, SetSuperato(newSuperato: bool): void]; operations=[GetSuperato(): bool, SetSuperato(newSuperato: bool): void]
+- Tip — kind=class; attributes=[id: int, Titolo: string, Descrizione: string, GetId(): int, SetId(newId: int): void, GetTitolo(): string, SetTitolo(newTitolo: string): void, GetDescrizione(): string, SetDescrizione(newDescrizione: string): void]; operations=[GetDescrizione(): string, SetDescrizione(newDescrizione: string): void]
+- Mission — kind=class; attributes=[id: int, Titolo: string, Superato: bool, Descrizione: string, GetId(): int, SetId(newId: int): void, GetTitolo(): string, SetTitolo(newTitolo: string): void, GetSuperato(): bool, SetSuperato(newSuperato: bool): void, GetDescrizione(): string, SetDescrizione(newDescrizione: string): void]; operations=[GetDescrizione(): string, SetDescrizione(newDescrizione: string): void]
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Ranking — type=association; label="ha superato"; explanation="A user has a ranking."
+- Utente -> Mission — type=association; label="ha completata"; explanation="A user has completed a mission."
+
+Main Flows:
+- Flow 1: Utente ha superato Ranking
+- Flow 2: Utente ha completata Mission
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system with classes representing Users, Rankings, Tips, and Missions.
+- Users can have rankings and complete missions.
+- The relationships between User and Ranking/Mission are one-to-many.
+- The diagram focuses on the data structure and relationships between these entities, without detailing any specific processes or interactions.
+
+===== Report_1_uml_pages.pdf | Page 2 =====
+UML Type:
+- sequence
+
+Components:
+- MAIN — kind=object; attributes=[]; operations=[email.isEmpty(), password.isEmpty(), signInWithEmailAndPassword(String, String)]; role=Main application component
+- FIREBASE AUTHENTICATION — kind=object; attributes=[]; operations=[create response]; role=Firebase authentication service
+
+Actors / Lifelines:
+- MAIN
+- FIREBASE AUTHENTICATION
+
+Relationships / Links:
+- MAIN -> FIREBASE AUTHENTICATION — type=message; label="signInWithEmailAndPassword(String, String)"; explanation="Main calls Firebase Authentication to sign in with email and password"
+- FIREBASE AUTHENTICATION -> MAIN — type=message; label="create response"; explanation="Firebase Authentication returns a response to Main"
+- MAIN -> MAIN — type=control flow; label="if(Response != Error) { return FirebaseUser }"; explanation="Conditional return of FirebaseUser based on response"
+- MAIN -> MAIN — type=control flow; label="crea Token che identifica il dispositivo"; explanation="Main creates a token to identify the device"
+
+Main Flows:
+- Flow 1: MAIN calls signInWithEmailAndPassword(String, String) to FIREBASE AUTHENTICATION. FIREBASE AUTHENTICATION returns create response to MAIN. MAIN checks if Response != Error and returns FirebaseUser. MAIN creates Token che identifica il dispositivo.
+
+Conditions / Branches:
+- if(Response != Error) { return FirebaseUser } — If Response is not an error, return FirebaseUser.
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a login sequence where the MAIN component interacts with the FIREBASE AUTHENTICATION service.
+- The `signInWithEmailAndPassword` method is called with email and password as arguments.
+- The flow proceeds only if the response from Firebase Authentication is not an error.
+- Upon successful authentication, a token is created to identify the device.
+- The diagram focuses on the core authentication flow and doesn't show error handling beyond the initial response check.
+
+===== Report_1_uml_pages.pdf | Page 3 =====
+UML Type:
+- Activity
+
+Components:
+- MAIN — kind=activity; attributes=[]; operations=[]; role=Main process
+- FIREBASE AUTHENTICATION — kind=activity; attributes=[]; operations=[]; role=Authentication service
+- email.isEmpty(), password.length() < 8 — kind=decision; attributes=[]; operations=[]; role=Validation check
+- CreateUserWithEmailAndPassword(String, String) — kind=action; attributes=[]; operations=[CreateUserWithEmailAndPassword(String, String)]; role=User creation
+- Response != Error — kind=decision; attributes=[]; operations=[]; role=Response validation
+- db.child(UserID).setValue(HashMap<String, Object>) — kind=action; attributes=[]; operations=[setValue(HashMap<String, Object>)]; role=Data storage
+- Response != Error — kind=decision; attributes=[]; operations=[]; role=Login validation
+- lugin FirebaseUser — kind=action; attributes=[]; operations=[]; role=Login action
+- crea response — kind=action; attributes=[]; operations=[]; role=Response creation
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- MAIN -> email.isEmpty(), password.length() < 8 — type=control_flow; label=""; explanation="Starts the process"
+- email.isEmpty(), password.length() < 8 -> CreateUserWithEmailAndPassword(String, String) — type=control_flow; label="if(Response != Error)"; explanation="If validation passes, create user"
+- CreateUserWithEmailAndPassword(String, String) -> Response != Error — type=control_flow; label=""; explanation="Check response"
+- Response != Error -> db.child(UserID).setValue(HashMap<String, Object>) — type=control_flow; label=""; explanation="Store user data"
+- db.child(UserID).setValue(HashMap<String, Object>) -> Response != Error — type=control_flow; label=""; explanation="Check storage response"
+- Response != Error -> lugin FirebaseUser — type=control_flow; label=""; explanation="Login user"
+- CreateUserWithEmailAndPassword(String, String) -> crea response — type=control_flow; label=""; explanation="Create response"
+
+Main Flows:
+- Flow 1: MAIN -> email.isEmpty(), password.length() < 8 -> CreateUserWithEmailAndPassword(String, String) -> Response != Error -> db.child(UserID).setValue(HashMap<String, Object>) -> Response != Error -> lugin FirebaseUser
+
+Conditions / Branches:
+- email.isEmpty(), password.length() < 8: if(Response != Error) -> CreateUserWithEmailAndPassword(String, String)
+- Response != Error: if(Response != Error) -> db.child(UserID).setValue(HashMap<String, Object>)
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a user registration process.
+- The process begins with validation of email and password.
+- If validation passes, a user is created via Firebase Authentication.
+- The user data is then stored in a database.
+- A successful registration results in a FirebaseUser being logged in.
+- Error handling is present through the Response != Error checks.
+
+===== Report_1_uml_pages.pdf | Page 4 =====
+UML Type:
+- Communication
+
+Components:
+- MAIN — kind=component; attributes=[]; operations=[Inserisce i dati tramite put(), Gestisce la risposta]; role=Main application
+- REALTIME DATABASE — kind=component; attributes=[]; operations=[crea response]; role=Database
+
+Actors / Lifelines:
+- MAIN
+- REALTIME DATABASE
+- None
+
+Relationships / Links:
+- MAIN -> REALTIME DATABASE — type=message; label="Conversione da HashMap a JSON, viene mandata una REST/HTTP/2 request"; explanation="Sends a request to the database"
+- REALTIME DATABASE -> MAIN — type=message; label="RISPOSTA ASINCRONA"; explanation="Sends an asynchronous response back to the main application"
+
+Main Flows:
+- Flow 1: MAIN -> REALTIME DATABASE (Conversione da HashMap a JSON, viene mandata una REST/HTTP/2 request) -> REALTIME DATABASE -> MAIN (RISPOSTA ASINCRONA)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram depicts an asynchronous communication flow between a MAIN component and a REALTIME DATABASE component.
+- The MAIN component sends a request to the REALTIME DATABASE after converting a HashMap to JSON.
+- The REALTIME DATABASE processes the request and sends an asynchronous response back to the MAIN component.
+- The diagram focuses on the data update process, specifically the interaction for completing a rank or mission.
+
+===== Report_1_uml_pages.pdf | Page 5 =====
+UML Type:
+- Communication
+
+Components:
+- MAIN — kind=participant; attributes=[]; operations=[]; role=Main application
+- FIREBASE SDK — kind=participant; attributes=[]; operations=[]; role=Firebase Software Development Kit
+- REALTIME DATABASE — kind=participant; attributes=[]; operations=[]; role=Realtime Database
+
+Actors / Lifelines:
+- MAIN
+- FIREBASE SDK
+- REALTIME DATABASE
+
+Relationships / Links:
+- MAIN -> FIREBASE SDK — type=message; label="addValueEventListener(Mission*)"; explanation="Sends a request to add a value event listener for 'Mission'"
+- FIREBASE SDK -> REALTIME DATABASE — type=message; label="addValueEventListener(Mission*)"; explanation="Sends a request to add a value event listener for 'Mission'"
+- REALTIME DATABASE -> FIREBASE SDK — type=message; label="manda la risposta con i dati richiesti"; explanation="Sends the requested data response"
+- FIREBASE SDK -> MAIN — type=message; label="onDataChange()"; explanation="Sends the data change notification to the main application"
+
+Main Flows:
+- Flow 1: MAIN -> FIREBASE SDK (addValueEventListener(Mission*)) -> REALTIME DATABASE (addValueEventListener(Mission*)) -> FIREBASE SDK (manda la risposta con i dati richiesti) -> MAIN (onDataChange())
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "NOTA: Il funzionamento è analogo sia nel caso di una “Mission” che nel caso di un “Trofeo”."
+
+Observations:
+- The diagram illustrates the data retrieval process from a Realtime Database using the Firebase SDK.
+- The MAIN component initiates the data request by sending a message to the FIREBASE SDK.
+- The FIREBASE SDK then forwards the request to the REALTIME DATABASE.
+- The REALTIME DATABASE responds with the requested data, which is then relayed back to the MAIN component via the FIREBASE SDK.
+- The `onDataChange()` message indicates a callback mechanism for handling data updates.
+
+
+======================================================================

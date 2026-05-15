@@ -1,0 +1,119 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-PostComment-001,Test creating a new PostComment,PostComment,1,A user is logged in and has a valid post.,"- Post ID: 1
+  - Author: John Doe
+  - Content: ""This is a test comment.""","1. Log in as a user.
+  2. Navigate to the post with ID 1.
+  3. Click the ""Add Comment"" button.
+  4. Enter the author as ""John Doe"".
+  5. Enter the content as ""This is a test comment."".
+  6. Click the ""Submit"" button.",A new PostComment is created with the provided author and content.
+TC-PostComment-002,Test creating a PostComment with empty content,PostComment,1,A user is logged in and has a valid post.,"- Post ID: 1
+  - Author: John Doe
+  - Content: """"","1. Log in as a user.
+  2. Navigate to the post with ID 1.
+  3. Click the ""Add Comment"" button.
+  4. Enter the author as ""John Doe"".
+  5. Enter the content as an empty string.
+  6. Click the ""Submit"" button.","An error message is displayed, and the PostComment is not created."
+TC-PostComment-003,Test creating a PostComment with invalid post ID,PostComment,1,A user is logged in.,"- Post ID: 0
+  - Author: John Doe
+  - Content: ""This is a test comment.""","1. Log in as a user.
+  2. Navigate to the post with ID 0.
+  3. Click the ""Add Comment"" button.
+  4. Enter the author as ""John Doe"".
+  5. Enter the content as ""This is a test comment."".
+  6. Click the ""Submit"" button.","An error message is displayed, and the PostComment is not created."
+TC-User-001,Test creating a new User,User,1,None,"- Name: John Doe
+  - Surname: Smith","1. Navigate to the user creation page.
+  2. Enter the name as ""John Doe"".
+  3. Enter the surname as ""Smith"".
+  4. Click the ""Submit"" button.",A new User is created with the provided name and surname.
+TC-User-002,Test creating a User with empty name,User,1,None,"- Name: """"
+  - Surname: Smith","1. Navigate to the user creation page.
+  2. Enter the name as an empty string.
+  3. Enter the surname as ""Smith"".
+  4. Click the ""Submit"" button.","An error message is displayed, and the User is not created."
+TC-User-003,Test creating a User with empty surname,User,1,None,"- Name: John Doe
+  - Surname: """"","1. Navigate to the user creation page.
+  2. Enter the name as ""John Doe"".
+  3. Enter the surname as an empty string.
+  4. Click the ""Submit"" button.","An error message is displayed, and the User is not created."
+TC-ChatList-001,Test creating a new ChatList,ChatList,1,None,- Name: Test ChatList,"1. Navigate to the chat list creation page.
+  2. Enter the name as ""Test ChatList"".
+  3. Click the ""Submit"" button.",A new ChatList is created with the provided name.
+TC-ChatList-002,Test creating a ChatList with empty name,ChatList,1,None,"- Name: """"","1. Navigate to the chat list creation page.
+  2. Enter the name as an empty string.
+  3. Click the ""Submit"" button.","An error message is displayed, and the ChatList is not created."
+TC-Chat-001,Test creating a new Chat,Chat,1,A valid User and ChatList exist.,"- User: John Doe
+  - ChatList: Test ChatList","1. Navigate to the chat creation page.
+  2. Select the User as ""John Doe"".
+  3. Select the ChatList as ""Test ChatList"".
+  4. Click the ""Submit"" button.",A new Chat is created with the selected User and ChatList.
+TC-Chat-002,Test creating a Chat with non-existent User,Chat,1,A valid ChatList exists.,"- User: NonExistentUser
+  - ChatList: Test ChatList","1. Navigate to the chat creation page.
+  2. Select the User as ""NonExistentUser"".
+  3. Select the ChatList as ""Test ChatList"".
+  4. Click the ""Submit"" button.","An error message is displayed, and the Chat is not created."
+TC-Chat-003,Test creating a Chat with non-existent ChatList,Chat,1,A valid User exists.,"- User: John Doe
+  - ChatList: NonExistentChatList","1. Navigate to the chat creation page.
+  2. Select the User as ""John Doe"".
+  3. Select the ChatList as ""NonExistentChatList"".
+  4. Click the ""Submit"" button.","An error message is displayed, and the Chat is not created."
+TC-Post-001,Test creating a new Post,Post,1,A valid User exists.,"- Content: ""This is a test post.""
+  - Author: John Doe","1. Navigate to the post creation page.
+  2. Select the User as ""John Doe"".
+  3. Enter the content as ""This is a test post."".
+  4. Click the ""Submit"" button.",A new Post is created with the provided content and author.
+TC-Post-002,Test creating a Post with empty content,Post,1,A valid User exists.,"- Content: """"
+  - Author: John Doe","1. Navigate to the post creation page.
+  2. Select the User as ""John Doe"".
+  3. Enter the content as an empty string.
+  4. Click the ""Submit"" button.","An error message is displayed, and the Post is not created."
+TC-Post-003,Test creating a Post with invalid User,Post,1,None,"- Content: ""This is a test post.""
+  - Author: NonExistentUser","1. Navigate to the post creation page.
+  2. Select the User as ""NonExistentUser"".
+  3. Enter the content as ""This is a test post."".
+  4. Click the ""Submit"" button.","An error message is displayed, and the Post is not created."
+TC-PostComment-004,Test editing an existing PostComment,PostComment,1,A valid PostComment exists.,"- Post ID: 1
+  - Comment ID: 1
+  - New Content: ""Updated test comment.""","1. Navigate to the post with ID 1.
+  2. Find the existing PostComment with ID 1.
+  3. Click the ""Edit"" button for the PostComment.
+  4. Enter the new content as ""Updated test comment."".
+  5. Click the ""Submit"" button.",The PostComment is updated with the new content.
+TC-PostComment-005,Test editing an existing PostComment with empty content,PostComment,1,A valid PostComment exists.,"- Post ID: 1
+  - Comment ID: 1
+  - New Content: """"","1. Navigate to the post with ID 1.
+  2. Find the existing PostComment with ID 1.
+  3. Click the ""Edit"" button for the PostComment.
+  4. Enter the new content as an empty string.
+  5. Click the ""Submit"" button.","An error message is displayed, and the PostComment is not updated."
+TC-PostComment-006,Test editing an existing PostComment with invalid Post ID,PostComment,1,A valid PostComment exists.,"- Post ID: 0
+  - Comment ID: 1
+  - New Content: ""Updated test comment.""","1. Navigate to the post with ID 0.
+  2. Find the existing PostComment with ID 1.
+  3. Click the ""Edit"" button for the PostComment.
+  4. Enter the new content as ""Updated test comment."".
+  5. Click the ""Submit"" button.","An error message is displayed, and the PostComment is not updated."
+TC-User-004,Test editing an existing User,User,1,A valid User exists.,"- User ID: 1
+  - New Name: Jane Doe
+  - New Surname: Johnson","1. Navigate to the user with ID 1.
+  2. Click the ""Edit"" button for the User.
+  3. Enter the new name as ""Jane Doe"".
+  4. Enter the new surname as ""Johnson"".
+  5. Click the ""Submit"" button.",The User is updated with the new name and surname.
+TC-User-005,Test editing an existing User with empty name,User,1,A valid User exists.,"- User ID: 1
+  - New Name: """"
+  - New Surname: Johnson","1. Navigate to the user with ID 1.
+  2. Click the ""Edit"" button for the User.
+  3. Enter the new name as an empty string.
+  4. Enter the new surname as ""Johnson"".
+  5. Click the ""Submit"" button.","An error message is displayed, and the User is not updated."
+TC-User-006,Test editing an existing User with empty surname,User,1,A valid User exists.,"- User ID: 1
+  - New Name: Jane Doe
+  - New Surname: """"","1. Navigate to the user with ID 1.
+  2. Click the ""Edit"" button for the User.
+  3. Enter the new name as ""Jane Doe"".
+  4. Enter the new surname as an empty string.
+  5. Click the ""Submit"" button.
+Expected Result",

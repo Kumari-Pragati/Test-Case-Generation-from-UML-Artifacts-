@@ -1,0 +1,66 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Server-001","Server: Verify successful login","Server","1","Server is running, User exists in the system","Valid username and password","1. Send a login request with valid username and password to the server
+2. Check the server's response for a successful login status","Server responds with a successful login status"
+"TC-Server-002","Server: Verify unsuccessful login (invalid username)","Server","1","Server is running, User exists in the system","Invalid username and valid password","1. Send a login request with invalid username and valid password to the server
+2. Check the server's response for an unsuccessful login status","Server responds with an unsuccessful login status"
+"TC-Server-003","Server: Verify unsuccessful login (invalid password)","Server","1","Server is running, User exists in the system","Valid username and invalid password","1. Send a login request with valid username and invalid password to the server
+2. Check the server's response for an unsuccessful login status","Server responds with an unsuccessful login status"
+"TC-Server-004","Server: Verify registration of a new user","Server","1","Server is running","Valid username and password","1. Send a registration request with valid username and password to the server
+2. Check the server's response for a successful registration status","Server responds with a successful registration status"
+"TC-Server-005","Server: Verify unsuccessful registration (existing username)","Server","1","Server is running, User with the given username already exists in the system","Existing username and valid password","1. Send a registration request with an existing username and valid password to the server
+2. Check the server's response for an unsuccessful registration status","Server responds with an unsuccessful registration status"
+"TC-Service-001","Service: Verify successful post creation","Service","2","Server is running, User is logged in","Valid post data (title, description, creator)","1. Log in as a user
+2. Send a post creation request with valid post data to the server
+3. Check the server's response for a successful post creation status
+4. Retrieve the created post from the server
+5. Verify that the retrieved post matches the original post data","Server responds with a successful post creation status, and the retrieved post matches the original post data"
+"TC-Service-002","Service: Verify unsuccessful post creation (missing title)","Service","2","Server is running, User is logged in","Invalid post data (missing title, valid description, creator)","1. Log in as a user
+2. Send a post creation request with invalid post data to the server
+3. Check the server's response for an unsuccessful post creation status","Server responds with an unsuccessful post creation status"
+"TC-Service-003","Service: Verify unsuccessful post creation (missing description)","Service","2","Server is running, User is logged in","Invalid post data (valid title, missing description, creator)","1. Log in as a user
+2. Send a post creation request with invalid post data to the server
+3. Check the server's response for an unsuccessful post creation status","Server responds with an unsuccessful post creation status"
+"TC-Service-004","Service: Verify unsuccessful post creation (missing creator)","Service","2","Server is running, User is logged in","Invalid post data (valid title, valid description, missing creator)","1. Log in as a user
+2. Send a post creation request with invalid post data to the server
+3. Check the server's response for an unsuccessful post creation status","Server responds with an unsuccessful post creation status"
+"TC-Service-005","Service: Verify successful post retrieval","Service","2","Server is running, Post exists in the system","Valid post ID","1. Retrieve the post with the given ID from the server
+2. Verify that the retrieved post matches the expected post data","Server responds with the expected post data"
+"TC-Service-006","Service: Verify unsuccessful post retrieval (invalid ID)","Service","2","Server is running, Post does not exist in the system with the given ID","Invalid post ID","1. Retrieve the post with the given ID from the server
+2. Check the server's response for an unsuccessful post retrieval status","Server responds with an unsuccessful post retrieval status"
+"TC-Service-007","Service: Verify successful post update","Service","3","Server is running, Post exists in the system, User is logged in","Valid post ID, updated post data (title, description, creator)","1. Log in as a user
+2. Retrieve the post with the given ID from the server
+3. Update the post with the given ID using the updated post data
+4. Check the server's response for a successful post update status
+5. Retrieve the updated post from the server
+6. Verify that the retrieved post matches the updated post data","Server responds with a successful post update status, and the retrieved post matches the updated post data"
+"TC-Service-008","Service: Verify unsuccessful post update (invalid ID)","Service","3","Server is running, Post does not exist in the system with the given ID","Invalid post ID, updated post data (title, description, creator)","1. Update the post with the given ID using the updated post data
+2. Check the server's response for an unsuccessful post update status","Server responds with an unsuccessful post update status"
+"TC-Service-009","Service: Verify successful post deletion","Service","3","Server is running, Post exists in the system, User is logged in","Valid post ID","1. Log in as a user
+2. Delete the post with the given ID from the server
+3. Check the server's response for a successful post deletion status
+4. Retrieve the deleted post from the server
+5. Check the server's response for an unsuccessful post retrieval status","Server responds with a successful post deletion status, and the retrieved post is not found"
+"TC-Service-010","Service: Verify unsuccessful post deletion (invalid ID)","Service","3","Server is running, Post does not exist in the system with the given ID","Invalid post ID","1. Delete the post with the given ID from the server
+2. Check the server's response for an unsuccessful post deletion status","Server responds with an unsuccessful post deletion status"
+"TC-Service-011","Service: Verify successful comment creation","Service","2","Server is running, Post exists in the system, User is logged in","Valid post ID, comment data (author, text)","1. Log in as a user
+2. Send a comment creation request with valid post ID and comment data to the server
+3. Check the server's response for a successful comment creation status
+4. Retrieve the created comment from the server
+5. Verify that the retrieved comment matches the original comment data","Server responds with a successful comment creation status, and the retrieved comment matches the original comment data"
+"TC-Service-012","Service: Verify unsuccessful comment creation (invalid post ID)","Service","2","Server is running, Post does not exist in the system with the given ID","Invalid post ID, comment data (author, text)","1. Send a comment creation request with invalid post ID and comment data to the server
+2. Check the server's response for an unsuccessful comment creation status","Server responds with an unsuccessful comment creation status"
+"TC-Service-013","Service: Verify successful comment retrieval","Service","2","Server is running, Comment exists in the system","Valid comment ID","1. Retrieve the comment with the given ID from the server
+2. Verify that the retrieved comment matches the expected comment data","Server responds with the expected comment data"
+"TC-Service-014","Service: Verify unsuccessful comment retrieval (invalid ID)","Service","2","Server is running, Comment does not exist in the system with the given ID","Invalid comment ID","1. Retrieve the comment with the given ID from the server
+2. Check the server's response for an unsuccessful comment retrieval status","Server responds with an unsuccessful comment retrieval status"
+"TC-Service-015","Service: Verify successful like creation","Service","2","Server is running, Post exists in the system, User is logged in","Valid post ID, user ID","1. Log in as a user
+2. Send a like creation request with valid post ID and user ID to the server
+3. Check the server's response for a successful like creation status
+4. Retrieve the updated post from the server
+5. Verify that the retrieved post has the correct number of likes and the like from the logged-in user is present","Server responds with a successful like creation status, and the retrieved post has the correct number of likes and the like from the logged-in user is present"
+"TC-Service-016","Service: Verify unsuccessful like creation (invalid post ID)","Service","2","Server is running, Post does not exist in the system with the given ID","Invalid post ID, user ID","1. Send a like creation request with invalid post ID and user ID to the server
+2. Check the server's response for an unsuccessful like creation status","Server responds with an unsuccessful like creation status"
+"TC-Service-017","Service: Verify successful like retrieval","Service","2","Server is running, Like exists in the system","Valid like ID","1. Retrieve the like with the given ID from the server
+2. Verify that the retrieved like matches the expected like data","Server responds with the expected like data"
+"TC-Service-018","Service: Verify unsuccessful like retrieval (invalid ID)","Service","2","Server is running, Like does not exist in the system with the given ID","Invalid like ID","1. Retrieve the like with the given ID from the server
+2. Check the server's response for an unsuccessful like retrieval status","Server responds with an unsuccessful like retrieval"

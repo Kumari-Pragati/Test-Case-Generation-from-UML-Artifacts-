@@ -1,0 +1,70 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USERCREATION-001,Verify user creation flow when user does not exist,User Creation,1,"- System is initialized with no existing user records.
+- User attempts to access the system for the first time.","- New user credentials: `username=testuser123`, `password=SecurePass123!`, `email=test@example.com`","1. System checks if user exists (""Utente creato?"").
+2. System detects no existing user and transitions to ""creazione utente"".
+3. User submits credentials for new account creation.
+4. System validates credentials (e.g., password strength, email format).
+5. System confirms successful creation (""creazione corretta?"" = ""Si"").","- User is created successfully.
+- System transitions to ""Home"" state.
+- User receives confirmation message: ""Account created successfully."""
+TC-USERCREATION-002,Verify user creation failure handling,User Creation,1,"- System is initialized.
+- User attempts to create an account with invalid data.","- Invalid credentials: `username=invalid`, `password=123`, `email=invalid-email`","1. System checks if user exists (""Utente creato?"").
+2. System detects no existing user and transitions to ""creazione utente"".
+3. User submits invalid credentials.
+4. System validates and rejects input (e.g., weak password, invalid email).
+5. System confirms failed creation (""creazione corretta?"" = ""No"").","- User creation fails.
+- System transitions to ""Home"" state.
+- User receives error message: ""Invalid credentials. Please correct and try again."""
+TC-USERCREATION-003,Verify existing user access flow,User Creation,1,"- System has a pre-existing user record (e.g., `username=existinguser`).
+- User attempts to log in.","- Existing user credentials: `username=existinguser`, `password=ExistingPass123!`","1. System checks if user exists (""Utente creato?"").
+2. System detects existing user and transitions directly to ""Home"".","- User is redirected to ""Home"" without creation steps.
+- User sees their dashboard or main page."
+TC-CREATIONWORKFLOW-001,Verify commission creation success flow,Commission/Offer Creation,2,"- User is logged in at ""Home"".
+- User has permission to create commissions.","- Commission details: `type=commission`, `amount=1000`, `client=ClientX`","1. User selects ""Accesso alla creazione"" (Yes).
+2. System checks if creation is a commission (""Creazione commissione"" = Yes).
+3. User submits valid commission details.
+4. System validates and confirms correct creation (""Creazione corretta"" = Yes).","- Commission is created successfully.
+- System transitions to success state (e.g., confirmation message: ""Commission created successfully"")."
+TC-CREATIONWORKFLOW-002,Verify commission creation failure flow,Commission/Offer Creation,2,"- User is logged in at ""Home"".
+- User attempts to create a commission with invalid data.","- Invalid commission details: `type=commission`, `amount=-500`, `client=`","1. User selects ""Accesso alla creazione"" (Yes).
+2. System checks if creation is a commission (""Creazione commissione"" = Yes).
+3. User submits invalid commission details.
+4. System validates and rejects input (""Creazione corretta"" = No).","- Commission creation fails.
+- System shows error message: ""Invalid commission data. Please correct and resubmit."""
+TC-CREATIONWORKFLOW-003,Verify offer creation success flow,Commission/Offer Creation,2,"- User is logged in at ""Home"".
+- User has permission to create offers.","- Offer details: `type=offer`, `amount=500`, `validity=30days`","1. User selects ""Accesso alla creazione"" (Yes).
+2. System checks if creation is an offer (""Creazione offerta"" = Yes).
+3. User submits valid offer details.
+4. System validates and confirms correct creation (""Creazione corretta"" = Yes).","- Offer is created successfully.
+- System transitions to success state (e.g., confirmation message: ""Offer created successfully"")."
+TC-CREATIONWORKFLOW-004,Verify no-access-to-creation flow,Commission/Offer Creation,2,"- User is logged in at ""Home"".
+- User does not have permission to create commissions/offers.",- N/A (user lacks permission).,"1. User selects ""Accesso alla creazione"" (No).
+2. System denies access to creation workflows.","- User is redirected to ""Home"" without creation options.
+- User sees message: ""You do not have permission to create commissions/offers."""
+TC-NAVIGATION-001,Verify menu access to profile information,Navigation,3,"- User is logged in at ""Home"".
+- User selects menu option.","- User action: Click ""Profile"" in menu.","1. User transitions from ""Home"" to ""Menu"".
+2. System checks ""Accesso ad ‘menu’?"" (Yes).
+3. System checks ""Accesso a profilo?"" (Yes).
+4. User is redirected to ""Informazioni profilo"".","- User sees their profile information (e.g., name, email, account details).
+- Process ends successfully."
+TC-NAVIGATION-002,Verify menu access to guide when profile is not selected,Navigation,3,"- User is logged in at ""Home"".
+- User selects menu option but does not choose profile.","- User action: Click ""Menu"" but select ""Help"" instead of ""Profile"".","1. User transitions from ""Home"" to ""Menu"".
+2. System checks ""Accesso ad ‘menu’?"" (Yes).
+3. System checks ""Accesso a profilo?"" (No).
+4. User is redirected to ""Guida"".","- User sees the help/guide page.
+- Process ends successfully."
+TC-NAVIGATION-003,Verify direct guide access when menu is not selected,Navigation,3,"- User is logged in at ""Home"".
+- User does not select menu option.","- User action: Click ""Help"" directly from ""Home"".","1. User transitions from ""Home"" to ""Menu"".
+2. System checks ""Accesso ad ‘menu’?"" (No).
+3. User is redirected to ""Guida"".","- User sees the help/guide page.
+- Process ends successfully."
+TC-USERCREATION-004,Verify duplicate username creation attempt,User Creation,1,"- System has an existing user with `username=duplicateuser`.
+- New user attempts to register with same username.","- Duplicate credentials: `username=duplicateuser`, `password=NewPass123!`, `email=new@example.com`","1. System checks if user exists (""Utente creato?"").
+2. System detects existing user and transitions to ""Home"".
+3. User receives error message.","- User creation is blocked.
+- System shows: ""Username already exists. Please choose another."""
+TC-CREATIONWORKFLOW-005,Verify empty creation submission,Commission/Offer Creation,2,"- User is logged in at ""Home"".
+- User attempts to submit empty creation form.",- Empty form submission: All fields blank.,"1. User selects ""Accesso alla creazione"" (Yes).
+2. User submits empty form.
+3. System validates and rejects input (""Creazione corretta"" = No).","- System shows error: ""All fields are required. Please fill in the details.""
+- User remains in creation workflow."

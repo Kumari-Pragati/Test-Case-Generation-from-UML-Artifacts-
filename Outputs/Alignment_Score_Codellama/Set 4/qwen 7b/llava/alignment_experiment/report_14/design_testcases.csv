@@ -1,0 +1,104 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User logs in successfully,User,1,User has registered an account with valid email and password.,"- Email: test@example.com
+- Password: testpassword","1. User enters their email and password into the login form.
+2. User clicks the login button.
+3. System verifies the credentials.
+4. System displays a success message and logs the user in.",User is logged in successfully.
+TC-User-002,User logs out successfully,User,1,User is logged in.,- No specific data required.,"1. User clicks the logout button.
+2. System logs the user out.
+3. System displays a success message.",User is logged out successfully.
+TC-User-003,User attempts to log in with invalid email,User,1,User has registered an account but uses an invalid email.,"- Email: invalidemail@example.com
+- Password: testpassword","1. User enters an invalid email and the correct password into the login form.
+2. User clicks the login button.
+3. System displays an error message indicating the email is invalid.",System displays an error message indicating the email is invalid.
+TC-User-004,User attempts to log in with invalid password,User,1,User has registered an account but uses an incorrect password.,"- Email: test@example.com
+- Password: wrongpassword","1. User enters their email and an incorrect password into the login form.
+2. User clicks the login button.
+3. System displays an error message indicating the password is invalid.",System displays an error message indicating the password is invalid.
+TC-User-005,User adds a neighborhood,User,1,User is logged in.,- Neighborhood name: TestNeighborhood,"1. User navigates to the neighborhood management page.
+2. User enters the name of the neighborhood.
+3. User clicks the add button.
+4. System adds the neighborhood to the user's list.",Neighborhood is added successfully to the user's list.
+TC-User-006,User removes a neighborhood,User,1,User is logged in and has at least one neighborhood.,- Neighborhood name: TestNeighborhood,"1. User navigates to the neighborhood management page.
+2. User selects the neighborhood to remove.
+3. User clicks the remove button.
+4. System removes the neighborhood from the user's list.",Neighborhood is removed successfully from the user's list.
+TC-User-007,User attempts to add a neighborhood with duplicate name,User,1,User is logged in and already has a neighborhood with the same name.,- Neighborhood name: TestNeighborhood,"1. User navigates to the neighborhood management page.
+2. User tries to enter the same name for a new neighborhood.
+3. System displays an error message indicating the neighborhood name is already in use.",System displays an error message indicating the neighborhood name is already in use.
+TC-User-008,User attempts to remove a non-existent neighborhood,User,1,User is logged in and does not have the specified neighborhood.,- Neighborhood name: NonExistentNeighborhood,"1. User navigates to the neighborhood management page.
+2. User tries to select a non-existent neighborhood to remove.
+3. System displays an error message indicating the neighborhood does not exist.",System displays an error message indicating the neighborhood does not exist.
+TC-Admin-001,Admin logs in successfully,Admin,1,Admin has registered an account with valid email and password.,"- Email: admin@example.com
+- Password: adminpassword","1. Admin enters their email and password into the login form.
+2. Admin clicks the login button.
+3. System verifies the credentials.
+4. System displays a success message and logs the admin in.",Admin is logged in successfully.
+TC-Admin-002,Admin logs out successfully,Admin,1,Admin is logged in.,- No specific data required.,"1. Admin clicks the logout button.
+2. System logs the admin out.
+3. System displays a success message.",Admin is logged out successfully.
+TC-Admin-003,Admin creates a new user,Admin,1,Admin is logged in.,"- Username: newUser
+- Password: newpassword","1. Admin navigates to the user management page.
+2. Admin enters the username and password for the new user.
+3. Admin clicks the create button.
+4. System creates the new user.",New user is created successfully.
+TC-Admin-004,Admin attempts to create a user with existing username,Admin,1,Admin is logged in and there is already a user with the same username.,"- Username: newUser
+- Password: newpassword","1. Admin navigates to the user management page.
+2. Admin tries to enter the same username for a new user.
+3. System displays an error message indicating the username is already in use.",System displays an error message indicating the username is already in use.
+TC-Admin-005,Admin edits a user's profile,Admin,1,Admin is logged in and there is a user whose profile needs to be edited.,"- New username: updatedUser
+- New password: updatedPassword","1. Admin navigates to the user management page.
+2. Admin selects the user whose profile needs to be edited.
+3. Admin enters the new username and password.
+4. Admin clicks the update button.
+5. System updates the user's profile.",User's profile is updated successfully.
+TC-Admin-006,Admin deletes a user,Admin,1,Admin is logged in and there is a user to be deleted.,- Username: deleteUser,"1. Admin navigates to the user management page.
+2. Admin selects the user to be deleted.
+3. Admin clicks the delete button.
+4. System deletes the user.",User is deleted successfully.
+TC-User-009,User creates a post,User,1,User is logged in.,"- Title: TestPost
+- Content: This is a test post.","1. User navigates to the post creation page.
+2. User enters the title and content for the post.
+3. User clicks the create button.
+4. System creates the post.",Post is created successfully.
+TC-User-010,User attempts to create a post with empty title,User,1,User is logged in.,"- Title: (empty)
+- Content: This is a test post.","1. User navigates to the post creation page.
+2. User enters an empty title and the content for the post.
+3. User clicks the create button.
+4. System displays an error message indicating the title cannot be empty.",System displays an error message indicating the title cannot be empty.
+TC-User-011,User deletes a post,User,1,User is logged in and there is a post to be deleted.,- Post ID: 1,"1. User navigates to the post management page.
+2. User selects the post to be deleted.
+3. User clicks the delete button.
+4. System deletes the post.",Post is deleted successfully.
+TC-User-012,User attempts to delete a non-existent post,User,1,User is logged in and there is no post with the specified ID.,- Post ID: 999,"1. User navigates to the post management page.
+2. User tries to select a non-existent post to delete.
+3. System displays an error message indicating the post does not exist.",System displays an error message indicating the post does not exist.
+TC-User-013,User adds a chat,User,1,User is logged in.,- Chat name: TestChat,"1. User navigates to the chat management page.
+2. User enters the name of the chat.
+3. User clicks the add button.
+4. System adds the chat to the user's list.",Chat is added successfully to the user's list.
+TC-User-014,User attempts to add a chat with duplicate name,User,1,User is logged in and already has a chat with the same name.,- Chat name: TestChat,"1. User navigates to the chat management page.
+2. User tries to enter the same name for a new chat.
+3. System displays an error message indicating the chat name is already in use.",System displays an error message indicating the chat name is already in use.
+TC-User-015,User removes a chat,User,1,User is logged in and has at least one chat.,- Chat name: TestChat,"1. User navigates to the chat management page.
+2. User selects the chat to remove.
+3. User clicks the remove button.
+4. System removes the chat from the user's list.",Chat is removed successfully from the user's list.
+TC-User-016,User attempts to remove a non-existent chat,User,1,User is logged in and does not have the specified chat.,- Chat name: NonExistentChat,"1. User navigates to the chat management page.
+2. User tries to select a non-existent chat to remove.
+3. System displays an error message indicating the chat does not exist.",System displays an error message indicating the chat does not exist.
+TC-User-017,User adds a map,User,3,User is logged in.,"- Map name: TestMap
+- Description: This is a test map.","1. User navigates to the map management page.
+2. User enters the name and description for the map.
+3. User clicks the add button.
+4. System adds the map to the user's list.",Map is added successfully to the user's list.
+TC-User-018,User attempts to add a map with duplicate name,User,3,User is logged in and already has a map with the same name.,"- Map name: TestMap
+- Description: This is a test map.","1. User navigates to the map management page.
+2. User tries to enter the same name for a new map.
+3. System displays an error message indicating the map name is already in use.",System displays an error message indicating the map name is already in use.
+TC-User-019,User removes a map,User,3,User is logged in and has at least one map.,- Map name: TestMap,"1. User navigates to the map management page.
+2. User selects the map to remove.
+3. User clicks the remove button.
+4. System removes the map from the user's list.",Map is removed successfully from the user's list.
+TC-User-020,User attempts to remove a non-existent map,User,3,User is logged in and does not have the specified map.,- Map name: NonExistentMap,"1. User navigates to the map management page.
+2. User",

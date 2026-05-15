@@ -1,0 +1,84 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user with valid details,Utente,1,None,"- id: 1
+- Password: ""password123""
+- Email: ""test@example.com""
+- Name: ""John""
+- Cognome: ""Doe""","1. Call the newId() method to generate a unique identifier.
+2. Set the password using setPassword(""password123"").
+3. Set the email using setEmail(""test@example.com"").
+4. Set the name using setName(""John"").
+5. Set the surname using setNome(""Doe"").","- A new user object is created with the specified attributes.
+- The generated id is correctly assigned.
+- All setter methods return true indicating successful updates."
+TC-Utente-002,Retrieve user's name and surname,Utente,1,User object exists with valid data,,"1. Call getName(""John"") to retrieve the name.
+2. Call getCognome() to retrieve the surname.","- getName(""John"") returns ""John"".
+- getCognome() returns ""Doe""."
+TC-Utente-003,Update user's email with invalid format,Utente,1,User object exists with valid data,"Invalid email ""invalidemail""","1. Attempt to set the email using setEmail(""invalidemail"").","- setEmail(""invalidemail"") returns false indicating failure due to invalid email format."
+TC-Prodotto-001,Create a new product with valid details,Prodotto,1,None,"- Name: ""Laptop""
+- Luogo: ""Italy""
+- Immagine: ""laptop.jpg""
+- Prezzo: 999.99
+- Proprietario: User with id 1","1. Call the new() method to create a new product.
+2. Set the product name using the constructor parameter.
+3. Set the location using the constructor parameter.
+4. Set the image using the constructor parameter.
+5. Set the price using the constructor parameter.
+6. Assign the owner using the constructor parameter.","- A new product object is created with the specified attributes.
+- The product is associated with the given user."
+TC-Prodotto-002,Retrieve product details,Prodotto,1,Product object exists with valid data,,"1. Retrieve the product name.
+2. Retrieve the location.
+3. Retrieve the image.
+4. Retrieve the price.
+5. Retrieve the owner.","- The product name is ""Laptop"".
+- The location is ""Italy"".
+- The image is ""laptop.jpg"".
+- The price is 999.99.
+- The owner is the user with id 1."
+TC-Prodotto-003,Create a product with invalid price,Prodotto,1,None,Invalid price -100,1. Attempt to create a new product with an invalid price.,"- The creation fails due to an invalid price value.
+- No product is created."
+TC-Utente-Prodotto-001,Associate a product with a user,Utente-Prodotto,1,User and product objects exist with valid data,,1. Assign the product to the user.,"- The product is successfully associated with the user.
+- The user's collection of products includes the newly added product."
+TC-Utente-Prodotto-002,Retrieve products owned by a user,Utente-Prodotto,1,User and product objects exist with valid data,,1. Retrieve all products owned by the user.,- The list of products returned includes the product associated with the user.
+TC-Utente-Prodotto-003,Attempt to associate a product with a non-existent user,Utente-Prodotto,1,Product object exists with valid data,,1. Attempt to assign the product to a non-existent user.,"- The assignment fails due to the non-existent user.
+- The product remains unassigned."
+TC-Utente-Prodotto-004,Remove a product from a user's collection,Utente-Prodotto,1,User and product objects exist with valid data,,1. Remove the product from the user's collection.,"- The product is successfully removed from the user's collection.
+- The user no longer owns the product."
+TC-Utente-Prodotto-005,Retrieve products owned by a user after removal,Utente-Prodotto,1,User and product objects exist with valid data,,1. Retrieve all products owned by the user after removing a product.,- The list of products returned does not include the removed product.
+TC-Utente-Prodotto-006,Associate a product with a user who already owns it,Utente-Prodotto,1,User and product objects exist with valid data,,1. Attempt to reassign the same product to the same user.,"- The operation is redundant and does not change the state.
+- The product remains associated with the user."
+TC-Utente-Prodotto-007,Associate a product with a user who does not own it,Utente-Prodotto,1,User and product objects exist with valid data,,1. Assign the product to a different user.,"- The product is successfully reassigned to the new user.
+- The original user no longer owns the product."
+TC-Utente-Prodotto-008,Retrieve products owned by a user after reassignment,Utente-Prodotto,1,User and product objects exist with valid data,,"1. Retrieve all products owned by the original user after reassignment.
+2. Retrieve all products owned by the new user after reassignment.","- The list of products for the original user does not include the reassigned product.
+- The list of products for the new user includes the reassigned product."
+TC-Utente-Prodotto-009,Associate a product with a user who owns another product,Utente-Prodotto,1,User and two product objects exist with valid data,,1. Assign the second product to the user.,"- The second product is successfully associated with the user.
+- The user now owns both products."
+TC-Utente-Prodotto-010,Retrieve products owned by a user after adding a second product,Utente-Prodotto,1,User and two product objects exist with valid data,,1. Retrieve all products owned by the user after adding the second product.,- The list of products returned includes both products associated with the user.
+TC-Utente-Prodotto-011,Associate a product with a user who owns multiple products,Utente-Prodotto,1,User and multiple product objects exist with valid data,,1. Assign a third product to the user.,"- The third product is successfully associated with the user.
+- The user now owns three products."
+TC-Utente-Prodotto-012,Retrieve products owned by a user after adding a third product,Utente-Prodotto,1,User and multiple product objects exist with valid data,,1. Retrieve all products owned by the user after adding the third product.,- The list of products returned includes all three products associated with the user.
+TC-Utente-Prodotto-013,Remove a product from a user who owns multiple products,Utente-Prodotto,1,User and multiple product objects exist with valid data,,1. Remove one of the products from the user's collection.,"- The specified product is successfully removed from the user's collection.
+- The user no longer owns the removed product."
+TC-Utente-Prodotto-014,Retrieve products owned by a user after removing one product,Utente-Prodotto,1,User and multiple product objects exist with valid data,,1. Retrieve all products owned by the user after removing one product.,- The list of products returned does not include the removed product but includes the remaining products.
+TC-Utente-Prodotto-015,Reassign a product from one user to another,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Assign the product to the first user.
+2. Reassign the product to the second user.","- The product is successfully reassigned from the first user to the second user.
+- The first user no longer owns the product.
+- The second user now owns the product."
+TC-Utente-Prodotto-016,Retrieve products owned by both users after reassignment,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Retrieve all products owned by the first user after reassignment.
+2. Retrieve all products owned by the second user after reassignment.","- The list of products for the first user does not include the reassigned product.
+- The list of products for the second user includes the reassigned product."
+TC-Utente-Prodotto-017,Reassign a product from one user to another who already owns it,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Assign the product to the first user.
+2. Reassign the product to the second user who already owns it.","- The reassignment fails due to the second user already owning the product.
+- The product remains associated with the first user."
+TC-Utente-Prodotto-018,Retrieve products owned by both users after failed reassignment,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Retrieve all products owned by the first user after failed reassignment.
+2. Retrieve all products owned by the second user after failed reassignment.","- The list of products for the first user includes the product.
+- The list of products for the second user does not include the product."
+TC-Utente-Prodotto-019,Reassign a product from one user to another who does not own any products,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Assign the product to the first user.
+2. Reassign the product to the second user who does not own any products.","- The product is successfully reassigned from the first user to the second user.
+- The first user no longer owns the product.
+- The second user now owns the product."
+TC-Utente-Prodotto-020,Retrieve products owned by both users after successful reassignment,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Retrieve all products owned by the first user after successful reassignment.
+2. Retrieve all products owned by the second user after successful reassignment.","- The list of products for the first user does not include the reassigned product.
+- The list of products for the second user includes the reassigned product."
+TC-Utente-Prodotto-021,Reassign a product from one user to another who owns multiple products,Utente-Prodotto,1,Two users and a product object exist with valid data,,"1. Assign the product to the first user.
+2. Reassign the product to the second user who owns multiple products.",-

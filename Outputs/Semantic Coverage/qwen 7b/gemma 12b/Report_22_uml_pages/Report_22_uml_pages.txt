@@ -1,0 +1,172 @@
+REPORT: Report_22_uml_pages.pdf
+======================================================================
+
+===== Report_22_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[ID: String, nomeCognome: String, email: String]; operations=[createUtente(String, String, String): bool, checkPassword(String, String): bool, resetPassword(String, String): bool, getUtenti(): List<String>]; role=Represents a user of the system
+- Devices — kind=class; attributes=[ID: String, titolo: String]; operations=[getDeviceInfo(): List<String>]; role=Represents a device
+- Config — kind=class; attributes=[isConnected: bool, water: bool, max_temp: float, max_soil_hum: float, min_temp: float, min_soil_hum: float, max_lum: float, min_lum: float]; operations=[getconfig(): List<String>, setConfig(String): bool, setWater(bool): bool, setTemp(float): bool, setSoilHum(float): bool, setMaxTemp(float): bool, setMaxSoilHum(float): bool, setMinTemp(float): bool, setMinSoilHum(float): bool, setMaxLum(float): bool, setMinLum(float): bool]; role=Configuration settings
+- Alert — kind=class; attributes=[message: String]; operations=[getMessage(): String, updateMessage(String): bool]; role=Represents an alert message
+- History — kind=class; attributes=[data: String, soil_humidity: float, temperature: float, luminosity: float]; operations=[getHistory(): List<String>, updateHistory(String, float, float, float): bool]; role=Represents historical data
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Devices — type=association; label="associa"; explanation="A user is associated with devices"
+- Utente -> Alert — type=association; label="segnala"; explanation="A user can signal an alert"
+- Utente -> History — type=association; label="raccolge informazioni"; explanation="A user collects information for history"
+- Devices -> Config — type=association; label="configurato"; explanation="Devices are configured"
+
+Main Flows:
+- Flow 1: Utente -> Devices (associa) -> Devices -> Config (configurato)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system with users, devices, configurations, alerts, and historical data.
+- Users are associated with devices and can configure them.
+- Users can signal alerts and collect historical data.
+- The system appears to track device configurations, including water, temperature, soil humidity, and luminosity.
+
+===== Report_22_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Accesso eseguito — kind=action; attributes=[]; operations=[]; role=Initial action
+- Click "Serre" — kind=action; attributes=[]; operations=[]; role=User action
+- Visualizzazione messaggio default — kind=action; attributes=[]; operations=[]; role=Display a default message
+- almeno 1 serra associata — kind=decision; attributes=[]; operations=[]; role=Decision point
+- Visualizzazione elenco serre — kind=action; attributes=[]; operations=[]; role=Display the list of greenhouses
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Accesso eseguito -> Visualizzazione messaggio default — type=control_flow; label=""; explanation="Flow of control"
+- Visualizzazione messaggio default -> almeno 1 serra associata — type=control_flow; label=""; explanation="Flow of control"
+- Visualizzazione messaggio default -> almeno 1 serra associata — type=control_flow; label="No"; explanation="Flow of control when no greenhouses are associated"
+- almeno 1 serra associata -> Click "Serre" — type=control_flow; label="Si"; explanation="Flow of control when at least one greenhouse is associated"
+- Click "Serre" -> Visualizzazione elenco serre — type=control_flow; label=""; explanation="Flow of control"
+- Visualizzazione elenco serre -> Accesso eseguito — type=control_flow; label=""; explanation="Loop back to the start"
+
+Main Flows:
+- Flow 1: Accesso eseguito -> Visualizzazione messaggio default -> almeno 1 serra associata (Si) -> Click "Serre" -> Visualizzazione elenco serre -> Accesso eseguito
+
+Conditions / Branches:
+- almeno 1 serra associata:
+  - Si: Proceeds to Click "Serre"
+  - No: Proceeds to Click "Serre"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a process for displaying a list of greenhouses after a user accesses the system.
+- The process first checks if at least one greenhouse is associated.
+- If no greenhouses are associated, the flow goes to Click "Serre".
+- If at least one greenhouse is associated, the user clicks "Serre" and the list of greenhouses is displayed.
+- The flow then loops back to the beginning.
+
+===== Report_22_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Accesso eseguito — kind=action; attributes=[]; operations=[]; role=Initial action
+- Click "Add Devices" — kind=action; attributes=[]; operations=[]; role=User action
+- Operazione eseguita — kind=action; attributes=[]; operations=[]; role=Successful operation
+- campo inserito correttamente — kind=decision; attributes=[]; operations=[]; role=Validation check
+- valore errato — kind=action; attributes=[]; operations=[]; role=Error handling
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Accesso eseguito -> Click "Add Devices" — type=control_flow; label=""; explanation="Flow of execution"
+- Click "Add Devices" -> campo inserito correttamente — type=control_flow; label=""; explanation="Flow of execution"
+- campo inserito correttamente -> Operazione eseguita — type=control_flow; label="Si"; explanation="Positive outcome of validation"
+- campo inserito correttamente -> valore errato — type=control_flow; label="No"; explanation="Negative outcome of validation"
+- valore errato -> Click "Add Devices" — type=control_flow; label=""; explanation="Loop back to re-enter data"
+
+Main Flows:
+- Flow 1: Accesso eseguito -> Click "Add Devices" -> campo inserito correttamente (Si) -> Operazione eseguita
+
+Conditions / Branches:
+- campo inserito correttamente:
+    - Si: Proceeds to Operazione eseguita
+    - No: Proceeds to valore errato
+
+Loops / Repetitions:
+- valore errato -> Click "Add Devices" indicates a potential loop where the user is prompted to re-enter data.
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models the process of adding devices, likely within a system.
+- The flow starts with accessing the system and clicking "Add Devices".
+- A validation check ("campo inserito correttamente") determines whether the input is valid.
+- If the input is valid ("Si"), the operation is executed.
+- If the input is invalid ("No"), the process loops back to the "Click 'Add Devices'" step, prompting the user to re-enter the data.
+
+===== Report_22_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Accesso eseguito — kind=action; attributes=[]; operations=[]; role=Initial action
+- Serra connessa — kind=action; attributes=[]; operations=[]; role=Connect to the greenhouse
+- Click "Configuration" — kind=action; attributes=[]; operations=[]; role=User action
+- campi inseriti correttamente — kind=decision; attributes=[]; operations=[]; role=Check if fields are correctly entered
+- Operazione eseguita — kind=action; attributes=[]; operations=[]; role=Final action
+- valore errato — kind=action; attributes=[]; operations=[]; role=Error handling
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Accesso eseguito -> Serra connessa — type=control_flow; label=""; explanation="Flow of control"
+- Serra connessa -> Click "Configuration" — type=control_flow; label=""; explanation="Flow of control"
+- Click "Configuration" -> campi inseriti correttamente — type=control_flow; label=""; explanation="Flow of control"
+- campi inseriti correttamente -> Operazione eseguita — type=control_flow; label="Si"; explanation="If fields are correctly entered"
+- campi inseriti correttamente -> valore errato — type=control_flow; label="No"; explanation="If fields are not correctly entered"
+- valore errato -> Click "Configuration" — type=control_flow; label=""; explanation="Return to configuration"
+
+Main Flows:
+- Flow 1: Accesso eseguito -> Serra connessa -> Click "Configuration" -> campi inseriti correttamente (Si) -> Operazione eseguita
+
+Conditions / Branches:
+- campi inseriti correttamente:
+  - Si -> Operazione eseguita
+  - No -> Click "Configuration"
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram depicts a workflow for modifying greenhouse settings.
+- The process starts with accessing and connecting to the greenhouse.
+- The user then clicks the "Configuration" button, which triggers a check for correct field input.
+- If the fields are entered correctly, the operation is executed. Otherwise, the process returns to the "Click Configuration" step, allowing the user to re-enter the data.
+- The diagram focuses on the core logic of the configuration process and error handling.
+
+
+======================================================================

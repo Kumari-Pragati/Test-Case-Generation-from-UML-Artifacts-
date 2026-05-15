@@ -1,0 +1,92 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User Login Success,User,"1, 4",User account exists and is active.,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User attempts to log in with valid credentials.
+2. System verifies the provided credentials against the stored ones.
+3. System returns true if the credentials match.",User successfully logs in and receives a confirmation message.
+TC-User-002,User Login Failure - Invalid Credentials,User,"1, 4",User account exists but with different credentials.,"- Invalid username: ""wronguser""
+- Invalid password: ""wrongpassword""","1. User attempts to log in with invalid credentials.
+2. System verifies the provided credentials against the stored ones.
+3. System returns false if the credentials do not match.",User fails to log in and receives an error message.
+TC-User-003,User Logout,User,"1, 4",User is logged in.,None,"1. User initiates the logout process.
+2. System clears the session and logs out the user.",User is logged out and receives a confirmation message.
+TC-Admin-001,Admin Login Success,Admin,"1, 4",Admin account exists and is active.,"- Valid username: ""adminuser""
+- Valid password: ""adminpassword""","1. Admin attempts to log in with valid credentials.
+2. System verifies the provided credentials against the stored ones.
+3. System returns true if the credentials match.",Admin successfully logs in and receives a confirmation message.
+TC-Admin-002,Admin Login Failure - Invalid Credentials,Admin,"1, 4",Admin account exists but with different credentials.,"- Invalid username: ""wrongadmin""
+- Invalid password: ""wrongpass""","1. Admin attempts to log in with invalid credentials.
+2. System verifies the provided credentials against the stored ones.
+3. System returns false if the credentials do not match.",Admin fails to log in and receives an error message.
+TC-Admin-003,Admin Logout,Admin,"1, 4",Admin is logged in.,None,"1. Admin initiates the logout process.
+2. System clears the session and logs out the admin.",Admin is logged out and receives a confirmation message.
+TC-Product-001,Add Product Success,Product,1,User/Admin is logged in.,"- Product name: ""New Product""
+- Product description: ""This is a new product.""","1. User/Admin adds a new product with valid details.
+2. System validates the input and adds the product to the inventory.",Product is added successfully and a confirmation message is displayed.
+TC-Product-002,Remove Product Success,Product,1,User/Admin is logged in and product exists.,"- Product name: ""Existing Product""","1. User/Admin removes an existing product.
+2. System validates the input and removes the product from the inventory.",Product is removed successfully and a confirmation message is displayed.
+TC-Product-003,Remove Nonexistent Product,Product,1,User/Admin is logged in.,"- Product name: ""Nonexistent Product""","1. User/Admin attempts to remove a nonexistent product.
+2. System validates the input and returns an error message.",Error message indicating the product does not exist is displayed.
+TC-Cart-001,Add Item to Cart Success,Cart,1,User is logged in and item exists.,"- Item name: ""Item A""
+- Item price: $10.00","1. User adds an item to the cart.
+2. System validates the input and adds the item to the cart.",Item is added successfully to the cart and a confirmation message is displayed.
+TC-Cart-002,Remove Item from Cart Success,Cart,1,User is logged in and item exists in the cart.,"- Item name: ""Item B""","1. User removes an item from the cart.
+2. System validates the input and removes the item from the cart.",Item is removed successfully from the cart and a confirmation message is displayed.
+TC-Cart-003,Remove Nonexistent Item from Cart,Cart,1,User is logged in.,"- Item name: ""Nonexistent Item""","1. User attempts to remove a nonexistent item from the cart.
+2. System validates the input and returns an error message.",Error message indicating the item does not exist in the cart is displayed.
+TC-FirebaseAuth-001,User Login via Firebase Authentication Success,FirebaseAuth,2,User account exists and is active.,"- Valid username: ""testuser""
+- Valid password: ""password123""","1. User initiates login process.
+2. System sends login request to FirebaseAuth.
+3. FirebaseAuth verifies the credentials and returns the current user.
+4. System retrieves the current user's details from FirebaseAuth.",User successfully logs in and receives a confirmation message.
+TC-FirebaseAuth-002,User Check Status via Firebase Authentication Success,FirebaseAuth,2,User is logged in.,None,"1. User initiates check status process.
+2. System sends check status request to FirebaseAuth.
+3. FirebaseAuth verifies the user status and returns the current user.
+4. System retrieves the current user's details from FirebaseAuth.",User status is confirmed and a confirmation message is displayed.
+TC-FirebaseAuth-003,User Create Account via Firebase Authentication Success,FirebaseAuth,2,User account does not exist.,"- New username: ""newuser""
+- New password: ""newpassword""","1. User initiates account creation process.
+2. System sends create account request to FirebaseAuth.
+3. FirebaseAuth verifies the credentials and creates a new user.
+4. System retrieves the newly created user's details from FirebaseAuth.",User account is created successfully and a confirmation message is displayed.
+TC-Application-001,User Interacts with Application Success,Application,5,User is logged in.,None,"1. User initiates interaction with the application.
+2. Application processes the user's request.
+3. Application interacts with GestoreCalendario.
+4. Application interacts with Database.",User's request is processed successfully and a confirmation message is displayed.
+TC-Calendario-001,User Starts Calendar Success,Calendario,6,User is logged in.,None,"1. User initiates calendar start process.
+2. System sends start request to Sistema.
+3. Sistema manages the calendar start process.
+4. Calendar is started successfully.",Calendar is started successfully and a confirmation message is displayed.
+TC-Restaurant-001,Add Menu to Restaurant Success,Restaurant,7,User/Admin is logged in and restaurant exists.,"- Menu name: ""New Menu""
+- Menu price: $20.00","1. User/Admin adds a new menu to the restaurant.
+2. System validates the input and adds the menu to the restaurant.",Menu is added successfully to the restaurant and a confirmation message is displayed.
+TC-Restaurant-002,Remove Menu from Restaurant Success,Restaurant,7,User/Admin is logged in and menu exists.,"- Menu name: ""Existing Menu""","1. User/Admin removes an existing menu from the restaurant.
+2. System validates the input and removes the menu from the restaurant.",Menu is removed successfully from the restaurant and a confirmation message is displayed.
+TC-Restaurant-003,Remove Nonexistent Menu from Restaurant,Restaurant,7,User/Admin is logged in.,"- Menu name: ""Nonexistent Menu""","1. User/Admin attempts to remove a nonexistent menu from the restaurant.
+2. System validates the input and returns an error message.",Error message indicating the menu does not exist is displayed.
+TC-Train-001,Train Starts at Station Success,Train,8,Train and station exist.,"- Train id: 1
+- Station name: ""Station A""","1. Train starts at the specified station.
+2. System updates the train's status to ""started"".
+3. System sends a notification to the station.",Train starts successfully and a confirmation message is displayed.
+TC-Train-002,Train Stops at Station Success,Train,8,Train and station exist.,"- Train id: 1
+- Station name: ""Station B""","1. Train stops at the specified station.
+2. System updates the train's status to ""stopped"".
+3. System sends a notification to the station.",Train stops successfully and a confirmation message is displayed.
+TC-Train-003,Train Retrieves Schedule from Calendar Success,Train,8,Train and calendar exist.,"- Train id: 1
+- Calendar name: ""Calendar A""","1. Train retrieves its schedule from the specified calendar.
+2. System fetches the train's schedule from the calendar.
+3. System updates the train's schedule.",Train's schedule is retrieved successfully and a confirmation message is displayed.
+TC-Payload-001,Display Payload on Train Success,Payload,8,Train and payload exist.,"- Train id: 1
+- Payload name: ""Payload A""","1. Payload is displayed on the specified train.
+2. System updates the train's payload display.
+3. System sends a notification to the train.",Payload is displayed successfully on the train and a confirmation message is displayed.
+TC-Database-001,Connect to Database Success,Database,4,User is logged in.,None,"1. User initiates database connection process.
+2. System sends connect request to Database.
+3. Database establishes a connection.",Database connection is established successfully and a confirmation message is displayed.
+TC-Database-002,Disconnect from Database Success,Database,4,User is connected to the database.,None,"1. User initiates database disconnection process.
+2. System sends disconnect request to Database.
+3. Database closes the connection.",Database connection is closed successfully and a confirmation message is displayed.
+TC-Server-001,Start Server Success,Server,4,Server is not running.,None,"1. User initiates server start process.
+2. System sends start request to Server.
+3. Server starts and initializes the database connection.",Server starts successfully and a confirmation message is displayed.
+TC-Server-002,Stop Server Success,Server,4,Server is running.,None,"1. User initiates server stop process.
+2. System sends stop request to Server.
+3. Server stops and closes the database connection.",Server stops successfully

@@ -1,0 +1,64 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login with Valid Credentials","LoginActivity","3","User has valid email and password.","Email: user@example.com, Password: validpassword","1. Enter the email address ""user@example.com"" in the login screen.
+2. Enter the password ""validpassword"".
+3. Click on the ""Sign In"" button.","The user should be successfully logged in and redirected to the HomeActivity."
+"TC-Login-002","Failed Login with Invalid Credentials","LoginActivity","3","User has invalid email and password.","Email: wrongemail@example.com, Password: wrongpassword","1. Enter the email address ""wrongemail@example.com"" in the login screen.
+2. Enter the password ""wrongpassword"".
+3. Click on the ""Sign In"" button.","An error message should be displayed indicating incorrect credentials."
+"TC-Login-003","Login with Empty Fields","LoginActivity","3","User leaves fields empty.","Email: , Password:","1. Leave the email field empty.
+2. Leave the password field empty.
+3. Click on the ""Sign In"" button.","An error message should be displayed indicating that both fields are required."
+"TC-Home-001","Navigating to Monitoring Section","HomeActivity","2","User is logged in and on the HomeActivity.","None","1. Tap on the ""Menu"" option.
+2. Select ""Monitoring"" from the menu options.","The user should be redirected to the Sezione di monitoraggio section."
+"TC-Home-002","Navigating Back to Home from Monitoring Section","HomeActivity","2","User is on the Sezione di monitoraggio section.","None","1. Tap on the ""Back"" button.","The user should be redirected back to the HomeActivity."
+"TC-Profile-001","Abandoning the Profile Activity","ProfileActivity","3","User is on the ProfileActivity.","None","1. Tap on the ""Abbandona"" button.","The user should be signed out and redirected to the LoginActivity."
+"TC-Graph-001","Displaying Connect Graph View","GraphConnectFragment","3","User is on the GraphConnectFragment.","None","1. Call the graphConnectView method.","The connect graph view should be displayed."
+"TC-Graph-002","Displaying Attamento Graph View","GraphAttamentoFragment","3","User is on the GraphAttamentoFragment.","None","1. Call the graphAttamentoView method.","The attamento graph view should be displayed."
+"TC-Graph-003","Displaying Crescita Graph View","GraphCrescitaFragment","3","User is on the GraphCrescitaFragment.","None","1. Call the graphCrescitaView method.","The crescita graph view should be displayed."
+"TC-Menu-001","Navigating to Note Section from Menu","MenuFragment","2","User is on the MenuFragment.","None","1. Tap on the ""Note"" option.","The user should be redirected to the NoteFragment."
+"TC-EditNote-001","Navigating to Edit Note Fragment","EditNoteFragment","3","User is on the NoteFragment.","None","1. Tap on the ""Edit"" button.","The user should be redirected to the EditNoteFragment."
+"TC-Sonno-001","Navigating to Sonno Fragment","SonnoFragment","3","User is on the NoteFragment.","None","1. Tap on the ""Sonno"" option.","The user should be redirected to the SonnoFragment."
+"TC-Document-001","Initiating Document Process","Avvia Documento","1","User is logged in.","None","1. Tap on the ""Avvia Documento"" action.
+2. Tap on the ""Aggiungi Documento"" action.","The document process should start and the user should be able to add documents."
+"TC-Document-002","Adding Document to Process","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description: This is a test document.","1. Enter the document name ""Test Document"".
+2. Enter the document description ""This is a test document"".
+3. Tap on the ""Save"" button.","The document should be added to the process and a success message should be displayed."
+"TC-Document-003","Adding Invalid Document","Aggiungi Documento","1","User is on the document process.","Document Name: , Document Description: This is a test document.","1. Leave the document name field empty.
+2. Enter the document description ""This is a test document"".
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document name is required. The document should not be added to the process."
+"TC-Document-004","Adding Document with Empty Description","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description:","1. Enter the document name ""Test Document"".
+2. Leave the document description field empty.
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document description is required. The document should not be added to the process."
+"TC-Document-005","Adding Document with Invalid Characters","Aggiungi Documento","1","User is on the document process.","Document Name: Test@Document, Document Description: This is a test document.","1. Enter the document name ""Test@Document"".
+2. Enter the document description ""This is a test document"".
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document name contains invalid characters. The document should not be added to the process."
+"TC-Document-006","Adding Multiple Documents","Aggiungi Documento","1","User is on the document process.","Document Name: Doc1, Document Description: Description1 Document Name: Doc2, Document Description: Description2","1. Enter the document name ""Doc1"" and description ""Description1"".
+2. Tap on the ""Add Another Document"" button.
+3. Enter the document name ""Doc2"" and description ""Description2"".
+4. Tap on the ""Save"" button.","Both documents should be added to the process and a success message should be displayed."
+"TC-Document-007","Adding Document with Long Name","Aggiungi Documento","1","User is on the document process.","Document Name: A very long document name that exceeds the maximum allowed length, Document Description: This is a test document.","1. Enter the document name ""A very long document name that exceeds the maximum allowed length"".
+2. Enter the document description ""This is a test document"".
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document name exceeds the maximum allowed length. The document should not be added to the process."
+"TC-Document-008","Adding Document with Long Description","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description: A very long description that exceeds the maximum allowed length.","1. Enter the document name ""Test Document"".
+2. Enter the document description ""A very long description that exceeds the maximum allowed length"".
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document description exceeds the maximum allowed length. The document should not be added to the process."
+"TC-Document-009","Adding Document with Special Characters","Aggiungi Documento","1","User is on the document process.","Document Name: Test!Document, Document Description: This is a test document.","1. Enter the document name ""Test!Document"".
+2. Enter the document description ""This is a test document"".
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document name contains special characters. The document should not be added to the process."
+"TC-Document-010","Adding Document with Spaces","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description: This is a test document.","1. Enter the document name ""Test Document"".
+2. Enter the document description ""This is a test document"".
+3. Tap on the ""Save"" button.","The document should be added to the process and a success message should be displayed."
+"TC-Document-011","Adding Document with Leading and Trailing Spaces","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description: This is a test document.","1. Enter the document name "" Test Document "".
+2. Enter the document description "" This is a test document "".
+3. Tap on the ""Save"" button.","The document should be added to the process and a success message should be displayed."
+"TC-Document-012","Adding Document with Only Spaces","Aggiungi Documento","1","User is on the document process.","Document Name: , Document Description:","1. Leave the document name field with only spaces.
+2. Leave the document description field with only spaces.
+3. Tap on the ""Save"" button.","An error message should be displayed indicating that the document name and description cannot be empty. The document should not be added to the process."
+"TC-Document-013","Adding Document with Invalid Date Format","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description: This is a test document, Date: 15/01/2023","1. Enter the document name ""Test Document"".
+2. Enter the document description ""This is a test document"".
+3. Enter an invalid date format ""15/01/2023"" (should be in YYYY-MM-DD format).
+4. Tap on the ""Save"" button.","An error message should be displayed indicating that the date format is invalid. The document should not be added to the process."
+"TC-Document-014","Adding Document with Valid Date Format","Aggiungi Documento","1","User is on the document process.","Document Name: Test Document, Document Description: This is a test document, Date: 2023-01-15","1. Enter the document name ""Test Document"".
+2. Enter the document description ""This is a test document"".
+3. Enter a valid date format ""2023-01-15"".
+4. Tap on the ""Save"" button.","The document should be added to the process and a success message should be displayed."

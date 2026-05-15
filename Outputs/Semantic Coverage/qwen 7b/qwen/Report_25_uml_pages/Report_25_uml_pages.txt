@@ -1,0 +1,390 @@
+REPORT: Report_25_uml_pages.pdf
+======================================================================
+
+===== Report_25_uml_pages.pdf | Page 1 =====
+UML Type:
+- Component
+
+Components:
+- App — kind=application; attributes=[ ]; operations=[ ]; role=Frontend application
+- Pages — kind=page; attributes=[ ]; operations=[ ]; role=Pages for user interface
+- Repository / Controllers — kind=repository/controllers; attributes=[ ]; operations=[ ]; role=Data access and business logic
+- ApiHandler — kind=handler; attributes=[ ]; operations=[ ]; role=API request handler
+- MySQL — kind=database; attributes=[ ]; operations=[ ]; role=Database management
+- Models — kind=model; attributes=[ ]; operations=[ ]; role=Data models
+- Controllers — kind=controller; attributes=[ ]; operations=[ ]; role=Controller logic
+- Jobs — kind=job; attributes=[ ]; operations=[ ]; role=Background jobs
+- CDN — kind=cdn; attributes=[ ]; operations=[ ]; role=Content delivery network
+- Bunny.net — kind=cdn; attributes=[ ]; operations=[ ]; role=CDN service
+- Pusher — kind=service; attributes=[ ]; operations=[ ]; role=Real-time communication service
+- One Signal — kind=service; attributes=[ ]; operations=[ ]; role=Push notifications system
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- App -> Pages — type=communication; label=""; explanation="Communication between frontend and pages"
+- Pages -> Repository / Controllers — type=communication; label=""; explanation="Communication between pages and repository/controllers"
+- Repository / Controllers -> ApiHandler — type=communication; label=""; explanation="Communication between repository/controllers and API handler"
+- ApiHandler -> Bunny.net — type=communication; label=""; explanation="Communication between API handler and CDN"
+- ApiHandler -> MySQL — type=communication; label=""; explanation="Communication between API handler and database"
+- ApiHandler -> Models — type=communication; label=""; explanation="Communication between API handler and data models"
+- ApiHandler -> Controllers — type=communication; label=""; explanation="Communication between API handler and controllers"
+- ApiHandler -> Jobs — type=communication; label=""; explanation="Communication between API handler and background jobs"
+- ApiHandler -> Pusher — type=communication; label=""; explanation="Communication between API handler and real-time communication service"
+- ApiHandler -> One Signal — type=communication; label=""; explanation="Communication between API handler and push notifications system"
+
+Main Flows (step by step):
+- Flow 1: App -> Pages -> Repository / Controllers -> ApiHandler -> Bunny.net
+- Flow 2: App -> Pages -> Repository / Controllers -> ApiHandler -> MySQL
+- Flow 3: App -> Pages -> Repository / Controllers -> ApiHandler -> Models
+- Flow 4: App -> Pages -> Repository / Controllers -> ApiHandler -> Controllers
+- Flow 5: App -> Pages -> Repository / Controllers -> ApiHandler -> Jobs
+- Flow 6: App -> Pages -> Repository / Controllers -> ApiHandler -> Pusher
+- Flow 7: App -> Pages -> Repository / Controllers -> ApiHandler -> One Signal
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Comunicazione tramite api
+- Comunicazione diretta
+- Legenda
+
+Observations:
+- The diagram represents a system architecture with various components such as the frontend application, database, models, controllers, and services.
+- Communication flows between different components are depicted through arrows.
+- The system includes a frontend application, a backend with repositories/controllers, an API handler, a database, models, controllers, background jobs, real-time communication, and push notifications.
+- The system uses a combination of direct and API-based communication.
+- The architecture follows a layered design with clear separation of concerns.
+
+===== Report_25_uml_pages.pdf | Page 2 =====
+UML Type:
+- class
+
+Components:
+- jobs — kind=class; attributes=[queue: varchar(255), payload: longtext, attempts: tinyint(3) unsigned, reserved_at: int(10) unsigned, available_at: int(10) unsigned, created_at: int(10) unsigned, id: bigint(20) unsigned]; operations=[none visible]; role=job queue management
+- pulse_values — kind=class; attributes=[timestamp: int(10) unsigned, type: varchar(255), key: mediumtext, key_hash: binary(16), value: mediumtext, id: bigint(20) unsigned]; operations=[none visible]; role=pulse value storage
+- pulse_aggregates — kind=class; attributes=[bucket: int(10) unsigned, period: mediumint(8) unsigned, type: varchar(255), key: mediumtext, key_hash: binary(16), aggregate: varchar(255), value: decimal(20,2), count: int(10) unsigned, id: bigint(20) unsigned]; operations=[none visible]; role=pulse aggregate storage
+- pulse_entries — kind=class; attributes=[timestamp: int(10) unsigned, type: varchar(255), key: mediumtext, key_hash: binary(16), value: bigint(20) unsigned, id: bigint(20) unsigned]; operations=[none visible]; role=pulse entry storage
+- personal_access_tokens — kind=class; attributes=[tokenable_type: varchar(255), tokenable_id: bigint(20) unsigned, name: varchar(255), token: varchar(64), abilities: text, last_used_at: timestamp, expires_at: timestamp, created_at: timestamp, updated_at: timestamp, id: bigint(20) unsigned]; operations=[none visible]; role=personal access tokens management
+- job_batches — kind=class; attributes=[name: varchar(255), total_jobs: int(11), pending_jobs: int(11), failed_jobs: int(11), failed_job_ids: longtext, options: mediumtext, cancelled_at: int(11), created_at: int(11), finished_at: int(11), id: varchar(255)]; operations=[none visible]; role=batch job management
+- cache_locks — kind=class; attributes=[owner: varchar(255), expiration: int(11), key: varchar(255)]; operations=[none visible]; role=cache locks management
+- cache — kind=class; attributes=[value: mediumtext, expiration: int(11), key: varchar(255)]; operations=[none visible]; role=cache storage
+- migrations — kind=class; attributes=[migration: varchar(255), batch: int(11), id: int(10) unsigned]; operations=[none visible]; role=migration tracking
+- categories — kind=class; attributes=[name: varchar(255), created_at: timestamp, updated_at: timestamp, id: bigint(20) unsigned]; operations=[none visible]; role=category management
+- products — kind=class; attributes=[title: varchar(255), description: text, main_image: varchar(255), created_at: timestamp, updated_at: timestamp, category_id: bigint(20) unsigned, user_id: bigint(20) unsigned, id: bigint(20) unsigned]; operations=[none visible]; role=product management
+- images — kind=class; attributes=[url: varchar(255), created_at: timestamp, updated_at: timestamp, product_id: bigint(20) unsigned, id: bigint(20) unsigned]; operations=[none visible]; role=image management
+- views — kind=class; attributes=[is_interested: tinyint(1), created_at: timestamp, updated_at: timestamp, user_id: bigint(20) unsigned, product_id: bigint(20) unsigned, id: bigint(20) unsigned]; operations=[none visible]; role=view tracking
+- errors_report — kind=class; attributes=[route: text, description: text
+
+===== Report_25_uml_pages.pdf | Page 3 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; role=client
+- App — kind=participant; role=application
+- Server — kind=participant; role=server
+- Database — kind=participant; role=data store
+
+Actors / Lifelines:
+- Utente
+- App
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> App — type=message; label="Compilazione campi"; explanation="User fills form fields"
+- App -> Server — type=message; label="doRegistration()"; explanation="Application initiates registration process"
+- Server -> Database — type=message; label="Salvataggio dati"; explanation="Server saves data"
+- Server -> Database — type=message; label="Conferma inserimento"; explanation="Server confirms insertion"
+- Server -> Database — type=message; label="generateOtp()"; explanation="Server generates OTP"
+- Server -> Database — type=message; label="Salvataggio otp"; explanation="Server saves OTP"
+- Server -> Database — type=message; label="Conferma inserimento"; explanation="Server confirms insertion"
+- Server -> Database — type=message; label="Chiede otp salvato"; explanation="Server requests saved OTP"
+- Server -> Database — type=message; label="Riceve otp salvato"; explanation="Server receives saved OTP"
+- Server -> Database — type=message; label="$check = checkOtp()"; explanation="Server checks saved OTP"
+- Server -> App — type=message; label="Mail otp"; explanation="Server sends OTP via email"
+- Server -> App — type=message; label="sendOtp()"; explanation="Server sends OTP"
+- Server -> App — type=message; label="[$check] : sendAuthToken()"; explanation="Server sends authentication token if OTP is valid"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database (registration process)
+- Flow 2: Utente -> App -> Server -> Database (OTP verification process)
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Ingegneria del Software 2024/25 – docente: prof. Agostino Cortesi"
+
+Observations:
+- This sequence diagram models the registration process for a user interacting with an application through a server and database.
+- The user fills out form fields, which are then processed by the application, which in turn communicates with the server to save the data and generate an OTP.
+- The server sends the OTP via email and waits for the user to enter it back into the application, which then verifies the OTP with the server.
+- If the OTP is valid, the server sends an authentication token to the application.
+- The main flow involves the registration process, while the secondary flow involves the OTP verification process.
+
+===== Report_25_uml_pages.pdf | Page 4 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; role=User
+- App — kind=participant; role=Application
+- Server — kind=participant; role=Server
+- Database — kind=participant; role=Database
+
+Actors / Lifelines:
+- Utente
+- App
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> App — type=message; label="Compilazione campi"; explanation="User inputs data into the application"
+- App -> Server — type=message; label="$checkU: _emailValidate()"; explanation="Application validates email"
+- App -> Server — type=message; label="$checkP: _passwordValidate()"; explanation="Application validates password"
+- Server -> App — type=message; label="[{$checkU and $checkP}: doLogin()]" explanation="Server processes login request"
+- Server -> Database — type=message; label="Richiesta passwrod associata alla mail"; explanation="Server requests password associated with the email"
+- Database -> Server — type=message; label="Invio password"; explanation="Database sends password"
+- Server -> App — type=message; label="$check = checkPassword()"; explanation="Server checks password"
+- Server -> App — type=message; label="[{$check} : generateToken()]" explanation="Server generates token"
+- App -> Server — type=message; label="[{$check} : sendAuthToken()]" explanation="Application sends authentication token"
+- Server -> App — type=message; label="Salvataggio AuthToken()" explanation="Server saves authentication token"
+- App -> Utente — type=message; label="Apertura schermata home"; explanation="Application opens home screen for user"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database -> Server -> App -> Server -> App -> Server -> App -> Utente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Ingegneria del Software 2024/25 – docente: prof. Agostino Cortesi"
+
+Observations:
+- This sequence diagram models the login process in a software application.
+- The user inputs their credentials into the application.
+- The application validates the email and password.
+- If both validations succeed, the server processes the login request.
+- The server then requests the password associated with the email from the database.
+- The database sends the password back to the server.
+- The server checks the password against the one provided by the user.
+- If the password is correct, the server generates a token and sends it to the application.
+- The application saves the authentication token and opens the home screen for the user.
+- The main flow involves interactions between the user, application, server, and database.
+
+===== Report_25_uml_pages.pdf | Page 5 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=participant; role=User
+- App — kind=participant; role=Application
+- Server — kind=participant; role=Server
+- Database — kind=participant; role=Database
+
+Actors / Lifelines:
+- Utente
+- App
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> App — type=message; label="Richiesta psw dimenticata"; explanation="User requests password recovery"
+- App -> Server — type=message; label="LostPSWRequest()"; explanation="Application sends request to server"
+- Server -> Database — type=message; label="Check mail"; explanation="Server checks email"
+- Database -> Server — type=message; label="$checkMail=risposta DB"; explanation="Database responds to server"
+- Server -> App — type=message; label="[{$checkMail==F}]"; explanation="Server checks email status"
+- Server -> App — type=message; label="genera token recupero psw"; explanation="Server generates password recovery token"
+- Server -> App — type=message; label="Salvataggio token recupero psw"; explanation="Server saves recovery token"
+- Server -> App — type=message; label="Conferma salvataggio"; explanation="Server confirms saving"
+- Server -> App — type=message; label="Invio nuova password & token recupero psw"; explanation="Server sends new password and recovery token"
+- App -> Utente — type=message; label="Mail con link"; explanation="Application sends email with link"
+- Utente -> App — type=message; label="Comunicazione cambio password avvenuta"; explanation="User communicates password change successful"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server -> App -> Server ->
+
+===== Report_25_uml_pages.pdf | Page 6 =====
+UML Type:
+- sequence
+
+Components:
+- Utente — kind=actor; role=User
+- App — kind=component; role=Application
+- Server — kind=component; role=Server
+- Database — kind=component; role=Database
+
+Actors / Lifelines:
+- Utente
+- App
+- Server
+- Database
+
+Relationships / Links:
+- Utente -> App — type=message; label="Apre homepage"; explanation="User opens homepage"
+- App -> Server — type=message; label="initCards(n:$preloadCount)"; explanation="Application initiates card loading"
+- Server -> Database — type=message; label="Richiedi oggetti limit n"; explanation="Server requests n objects"
+- Database -> Server — type=message; label="Riceve n oggetti"; explanation="Database receives n objects"
+- Server -> App — type=message; label="n oggetti, riempie card"; explanation="Server sends n objects to fill cards"
+- App -> Server — type=message; label="[remainigCard<n/2]: loadMoreCards(n/2)"; explanation="Application loads more cards if needed"
+- Server -> App — type=message; label="n/2 oggetti, riempie card"; explanation="Server sends n/2 objects to fill cards"
+- Server -> Database — type=message; label="Richiedi oggetti limit n/2 offset n/2"; explanation="Server requests next set of n/2 objects"
+- Database -> Server — type=message; label="Riceve n/2 oggetti"; explanation="Database receives n/2 objects"
+
+Main Flows (step by step):
+- Flow 1: Utente -> App -> Server -> Database -> Server -> App -> Utente
+  - User opens homepage
+  - Application initiates card loading
+  - Server requests n objects
+  - Database receives n objects
+  - Server sends n objects to fill cards
+  - Application loads more cards if needed
+  - Server requests next set of n/2 objects
+  - Database receives n/2 objects
+  - Server sends n/2 objects to fill cards
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Ingegneria del Software 2024/25 – docente: prof. Agostino Cortesi
+
+Observations:
+- This diagram models a user interaction with a mobile application that fetches data from a server and database.
+- The main flow involves the user opening the homepage, which triggers the application to request and receive data from the server and database.
+- The application then displays the received data and continues to fetch more data as needed.
+- There is a condition for loading more cards if the remaining number of cards is less than half the total requested.
+- The diagram highlights the interaction between the user, application, server, and database, ensuring efficient data retrieval and display.
+
+===== Report_25_uml_pages.pdf | Page 7 =====
+UML Type:
+- sequence
+
+Components:
+- Utente 1 — kind=participant; role=User 1
+- Utente 2 — kind=participant; role=User 2
+- App utente 1 — kind=participant; role=User 1's App
+- App utente 2 — kind=participant; role=User 2's App
+- Server — kind=participant; role=Server
+- Database — kind=participant; role=Database
+
+Actors / Lifelines:
+- Utente 1
+- Utente 2
+- App utente 1
+- App utente 2
+- Server
+- Database
+
+Relationships / Links:
+- Utente 1 -> App utente 1 — type=message; label="Swipe card dx utente 2"; explanation="User 1 swipes card for User 2"
+- App utente 1 -> Server — type=message; label="trackObjectPref(true)"; explanation="Track object preference"
+- Server -> Database — type=message; label="Salvataggio preferenza"; explanation="Save preference"
+- Database -> Server — type=message; label="Conferma salvataggio"; explanation="Confirm save"
+- Server -> App utente 2 — type=message; label="Chiede se ci sono match"; explanation="Ask if there are matches"
+- App utente 2 -> Server — type=message; label="Riceve risposta"; explanation="Receive response"
+- Server -> Database — type=message; label="$check = checkMatch()"; explanation="Check for matches"
+- Database -> Server — type=message; label="(False in questo caso)"; explanation="False case"
+- Server -> App utente 1 — type=message; label="Chiede se ci sono match"; explanation="Ask if there are matches"
+- App utente 1 -> Server — type=message; label="Riceve risposta"; explanation="Receive response"
+- Server -> Database — type=message; label="$check = checkMatch()"; explanation="Check for matches"
+- Database -> Server — type=message; label="(True in questo caso)"; explanation="True case"
+- Server -> App utente 1 — type=message; label="[$check]: schermata match"; explanation="Display match screen"
+- Server -> App utente 2 — type=message; label="[$check]: schermata match"; explanation="Display match screen"
+- App utente 1 -> Server — type=message; label="[$check]: notifica match e apertura chat"; explanation="Notify match and open chat"
+- App utente 2 -> Server — type=message; label="[$check]: notifica match e apertura chat"; explanation="Notify match and open chat"
+
+Main Flows (step by step):
+- Flow 1: Utente 1 swipes card for Utente 2 -> App utente 1 tracks object preference -> Server saves preference -> Server asks if there are matches -> Server receives response -> Server checks for matches -> Server displays match screen -> App utente 1 notifies match and opens chat
+- Flow 2: Utente 2 swipes card for Utente 1 -> App utente 2 tracks object preference -> Server saves preference -> Server asks if there are matches -> Server receives response -> Server checks for matches -> Server displays match screen -> App utente 2 notifies match and opens chat
+
+Conditions / Branches:
+- $check = checkMatch() — branches: False in questo caso, True in questo caso
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- Salvataggio preferenza
+- Conferma salvataggio
+- Chiede se ci sono match
+- Riceve risposta
+- [$check]: notifica match e apertura chat
+- [$check]: schermata match
+
+Observations:
+- This diagram models a sequence of interactions between users and their apps, the server, and the database in a matchmaking scenario.
+- Users swipe cards to indicate interest, which triggers the server to check for matches.
+- The server saves preferences and asks if there are matches, receiving responses and checking for matches again.
+- If matches are found, the server displays the match screen, and the user's app notifies them and opens a chat.
+- There are two distinct flows, one for each user swiping a card.
+- The condition
+
+===== Report_25_uml_pages.pdf | Page 8 =====
+UML Type:
+- sequence
+
+Components:
+- Utente1 — kind=participant; role=sender
+- Utente2 — kind=participant; role=receiver
+- App1 — kind=participant; role=application
+- App2 — kind=participant; role=application
+- Server — kind=participant; role=server
+- Database — kind=participant; role=database
+
+Actors / Lifelines:
+- Utente1
+- Utente2
+- App1
+- App2
+- Server
+- Database
+
+Relationships / Links:
+- Utente1 -> App1 — type=message; label="Digita messaggio"; explanation="User inputs message"
+- App1 -> App2 — type=message; label="$token1: sendMessage()"; explanation="Application sends message"
+- App2 -> Server — type=message; label="$token1: sendMessage()"; explanation="Application sends message to server"
+- Server -> Database — type=message; label="Salva messaggio"; explanation="Server saves message"
+- Server -> App2 — type=message; label="Conferma salvataggio"; explanation="Server confirms saving"
+- App2 -> Utente2 — type=message; label="Mostra notifica"; explanation="Application shows notification"
+- App2 -> Utente2 — type=message; label="Apre chat"; explanation="Application opens chat"
+- App2 -> Server — type=message; label="$token2: getMessage()"; explanation="Application gets message"
+- Server -> App2 — type=message; label="retrivedMessage()"; explanation="Server retrieves message"
+- App2 -> Utente2 — type=message; label="Visualizza messaggi"; explanation="Application displays messages"
+
+Main Flows (step by step):
+- Flow 1: Utente1 -> App1 -> App2 -> Server -> Database — "User inputs message, application sends message, server saves message, application retrieves message, user receives message"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Ingegneria del Software 2024/25 – docente: prof. Agostino Cortesi"
+
+Observations:
+- This diagram models the process of sending a message between two users through applications and a server.
+- The main flow involves a user inputting a message, which is then sent to the server for saving, and finally retrieved by the recipient user.
+- Notifications are also sent to the recipient user upon message receipt.
+- The diagram highlights the interaction between the user, applications, server, and database in a messaging scenario.
+
+
+======================================================================

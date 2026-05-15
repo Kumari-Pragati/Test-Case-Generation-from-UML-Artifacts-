@@ -1,0 +1,121 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful User Login,Authentication,"1, 3","- User account exists in the system with valid credentials.
+- System is operational.","- Username: `john_doe`
+- Password: `SecurePass123`","1. Navigate to the login screen.
+2. Enter `john_doe` in the username field.
+3. Enter `SecurePass123` in the password field.
+4. Click the ""Login"" button.","- User is successfully logged in.
+- System redirects to the product browsing page.
+- `login()` method returns `Ret` (success status)."
+TC-AUTHENTICATION-002,Failed User Login (Invalid Password),Authentication,"1, 3",- User account exists with valid username but incorrect password.,"- Username: `john_doe`
+- Password: `WrongPass456`","1. Navigate to the login screen.
+2. Enter `john_doe` in the username field.
+3. Enter `WrongPass456` in the password field.
+4. Click the ""Login"" button.","- System displays an error message: ""Invalid username or password.""
+- User remains on the login screen.
+- `login()` method returns `Ret` (failure status)."
+TC-AUTHENTICATION-003,Successful Admin Login,Authentication,"1, 3",- Admin account exists with valid credentials.,"- Username: `admin_user`
+- Password: `AdminPass789`","1. Navigate to the login screen.
+2. Enter `admin_user` in the username field.
+3. Enter `AdminPass789` in the password field.
+4. Click the ""Login"" button.","- Admin is successfully logged in.
+- System redirects to the admin dashboard (product management page).
+- `login()` method returns `Ret` (success status)."
+TC-AUTHENTICATION-004,User Logout,Authentication,"1, 3",- User is currently logged in.,,"1. Click the ""Logout"" button in the top-right corner.
+2. Confirm logout in the confirmation dialog (if prompted).","- User is logged out successfully.
+- System redirects to the login screen.
+- `logout()` method returns `Ret` (success status).
+- User session is invalidated."
+TC-PRODUCT-001,User Views Product Details,Product Management,"1, 3","- User is logged in.
+- At least one product exists in the system (e.g., ""Laptop Pro"").","- Product name: `Laptop Pro`
+- Description: `High-performance laptop with 16GB RAM`","1. Browse to the product listing page.
+2. Click on ""Laptop Pro.""
+3. Verify product details are displayed.","- Product name, description, and price are displayed correctly.
+- `view(username: String)` method executes without errors.
+- User can see the ""Add to Cart"" button."
+TC-PRODUCT-002,Admin Updates Product Description,Product Management,"1, 3","- Admin is logged in.
+- A product exists (e.g., ""Smartphone X"").","- Old description: `Latest smartphone with 5G support`
+- New description: `Latest smartphone with 5G, improved battery life`","1. Navigate to the product management page.
+2. Search for ""Smartphone X.""
+3. Click ""Edit"" next to the product.
+4. Update the description to: `Latest smartphone with 5G, improved battery life`.
+5. Click ""Save.""","- Product description is updated successfully.
+- `update(username: String, description: String)` method returns `Ret` (success status).
+- Updated description is reflected in the product listing."
+TC-PRODUCT-003,Admin Attempts to Update Product with Empty Description,Product Management,"1, 3","- Admin is logged in.
+- A product exists.",- New description: (empty field),"1. Navigate to the product management page.
+2. Search for a product and click ""Edit.""
+3. Leave the description field empty.
+4. Click ""Save.""","- System displays an error: ""Description cannot be empty.""
+- Product description remains unchanged.
+- `update()` method returns `Ret` (failure status)."
+TC-CART-001,User Adds Product to Cart,Cart Operations,"1, 3","- User is logged in.
+- At least one product exists (e.g., ""Wireless Headphones"").",,"1. Browse to the product listing page.
+2. Click ""Add to Cart"" for ""Wireless Headphones.""
+3. Verify the cart icon updates to show 1 item.","- Product is added to the cart.
+- `add(product: Product)` method returns `Ret` (success status).
+- Cart now contains ""Wireless Headphones."""
+TC-CART-002,User Removes Product from Cart,Cart Operations,"1, 3","- User is logged in.
+- Cart contains at least one product (e.g., ""Wireless Headphones"").",,"1. Navigate to the cart page.
+2. Click ""Remove"" next to ""Wireless Headphones.""
+3. Confirm removal in the dialog.","- Product is removed from the cart.
+- `remove(product: Product)` method returns `Ret` (success status).
+- Cart is now empty (or shows 0 items)."
+TC-CART-003,User Attempts to Remove Non-Existent Product from Cart,Cart Operations,"1, 3","- User is logged in.
+- Cart is empty.",,"1. Navigate to the cart page.
+2. Attempt to click ""Remove"" on a product not in the cart (e.g., manually trigger via dev tools).","- System displays an error: ""Product not found in cart.""
+- Cart remains empty.
+- `remove()` method returns `Ret` (failure status)."
+TC-CHECKOUT-001,Successful User Checkout,Checkout,"1, 3","- User is logged in.
+- Cart contains at least one product (e.g., ""Smartwatch"").",,"1. Navigate to the cart page.
+2. Click ""Proceed to Checkout.""
+3. Verify order summary matches cart contents.
+4. Click ""Confirm Checkout.""","- Checkout is successful.
+- `checkout()` method returns `Ret` (success status).
+- User sees an order confirmation page.
+- Cart is emptied."
+TC-CHECKOUT-002,Checkout with Empty Cart,Checkout,"1, 3","- User is logged in.
+- Cart is empty.",,"1. Navigate to the cart page.
+2. Click ""Proceed to Checkout.""","- System displays an error: ""Your cart is empty. Add items to checkout.""
+- User is redirected to the product listing page.
+- `checkout()` method returns `Ret` (failure status)."
+TC-UI-NAVIGATION-001,Menu-Driven Navigation (Yes/No Selection Flow),User Interface,2,"- User is on the home screen.
+- Menu options are visible (e.g., ""Do you want to browse products?"").",,"1. Click the menu option to start navigation.
+2. Select ""Yes"" when prompted: ""Add item to cart?""
+3. Select ""No"" when prompted: ""Remove this item?""
+4. Select ""Note"" (if applicable) for additional options.
+5. Verify redirection to the home screen.","- Each selection triggers the correct action:
+  - ""Yes"" → Product is added to cart.
+  - ""No"" → Cart remains unchanged.
+  - ""Note"" → Additional options (if any) are displayed.
+- Final step redirects to home screen (""Ritmo alla home"").
+- No errors occur during navigation."
+TC-UI-NAVIGATION-002,Invalid Menu Selection (Edge Case),User Interface,2,- User is on the menu screen.,,"1. Click the menu option to start navigation.
+2. Manually trigger an invalid selection (e.g., via dev tools to simulate a broken UI state).","- System handles the error gracefully (e.g., resets to the menu or shows a default option).
+- No crashes or unexpected behavior.
+- User can retry the selection."
+TC-INTEGRATION-001,End-to-End User Flow (Browse → Add to Cart → Checkout),System Integration,"1, 3","- User is logged in.
+- At least one product exists (e.g., ""Bluetooth Speaker"").",,"1. Browse to the product listing page.
+2. Click ""Add to Cart"" for ""Bluetooth Speaker.""
+3. Verify cart updates (1 item).
+4. Click ""Proceed to Checkout.""
+5. Confirm checkout.","- All steps complete successfully:
+  - Product is added to cart (`add()`).
+  - Cart is displayed correctly.
+  - Checkout is processed (`checkout()`).
+- User sees order confirmation.
+- Cart is emptied post-checkout."
+TC-INTEGRATION-002,Admin Product Update Affects User View,System Integration,"1, 3","- Admin is logged in.
+- User is logged in (separate session).
+- A product exists (e.g., ""Tablet"").",,"1. Admin updates the product description for ""Tablet"" to: ""New model with stylus support.""
+2. Log out as Admin and log in as User.
+3. Browse to the product listing and click on ""Tablet.""","- User sees the updated description: ""New model with stylus support.""
+- Changes are reflected in real-time (no caching issues).
+- `update()` and `view()` methods sync correctly."
+TC-EDGE-001,Concurrent Cart Modifications (Race Condition),Edge Cases,"1, 3","- Two users are logged in simultaneously.
+- Cart contains 1 item (e.g., ""Backpack"").",,"1. User1 adds another item to the cart (""Headphones"").
+2. Simultaneously, User2 removes the ""Backpack"" from their cart.
+3. User1 proceeds to checkout.","- System handles concurrent modifications without data corruption.
+- User1’s cart reflects only ""Headphones.""
+- No duplicate or missing items in the cart.
+- Checkout completes successfully for User1."

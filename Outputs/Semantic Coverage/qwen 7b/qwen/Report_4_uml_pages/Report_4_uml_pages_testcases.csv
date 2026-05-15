@@ -1,0 +1,60 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Utente-001","Verify User Registration","Utente","2","None","Username: testuser, Password: testpass, Email: test@example.com","1. User enters ""testuser"" as username, ""testpass"" as password, and ""test@example.com"" as email.
+2. User clicks on ""Register"" button.
+3. Application sends a request to the database to check if the user is registered.
+4. Database checks if the user is already registered.
+5. If the user is not registered, the database grants access and sends a confirmation back to the application.
+6. Application redirects the user to the homepage.","User is registered and redirected to the homepage."
+"TC-Utente-002","Verify User Login","Utente","2","User is registered.","Username: testuser, Password: testpass","1. User enters ""testuser"" as username and ""testpass"" as password.
+2. User clicks on ""Login"" button.
+3. Application sends a request to the database to verify the user's credentials.
+4. Database checks if the user is registered and if the password matches.
+5. If the credentials are correct, the database grants access and sends a confirmation back to the application.
+6. Application redirects the user to the homepage.","User is logged in and redirected to the homepage."
+"TC-Utente-003","Verify User Login with Incorrect Password","Utente","2","User is registered.","Username: testuser, Password: wrongpassword","1. User enters ""testuser"" as username and ""wrongpassword"" as password.
+2. User clicks on ""Login"" button.
+3. Application sends a request to the database to verify the user's credentials.
+4. Database checks if the user is registered and if the password matches.
+5. If the credentials are incorrect, the database denies access and sends a failure message back to the application.
+6. Application displays an error message to the user.","User is shown an error message indicating incorrect password."
+"TC-Utente-004","Update User Information","Utente","3","User is logged in.","New Username: newuser, New Email: newemail@example.com","1. User navigates to the settings page.
+2. User enters ""newuser"" as the new username and ""newemail@example.com"" as the new email.
+3. User clicks on ""Save Changes"" button.
+4. Application sends a request to the database to update the user information.
+5. Database updates the user information and confirms the update.
+6. Application redirects the user to the homepage.","User information is updated and the user is redirected to the homepage."
+"TC-Dispositivo-001","Add New Device","Dispositivo","3, 4","User is logged in.","Device Name: NewDevice, Device Model: ModelX, Device ID: 12345","1. User navigates to the device management page.
+2. User enters ""NewDevice"" as the device name, ""ModelX"" as the device model, and ""12345"" as the device ID.
+3. User selects the associated user from the dropdown list.
+4. User clicks on ""Add Device"" button.
+5. Application sends a request to the database to add the new device.
+6. Database adds the new device and confirms the addition.
+7. Application redirects the user to the device management page.","New device is added and the user is redirected to the device management page."
+"TC-Dispositivo-002","Update Device Information","Dispositivo","3, 4","User is logged in and has at least one device.","Device ID: 12345, New Device Name: UpdatedDevice, New Device Model: ModelY","1. User navigates to the device management page.
+2. User selects the device with ID ""12345"".
+3. User enters ""UpdatedDevice"" as the new device name and ""ModelY"" as the new device model.
+4. User clicks on ""Update Device"" button.
+5. Application sends a request to the database to update the device information.
+6. Database updates the device information and confirms the update.
+7. Application redirects the user to the device management page.","Device information is updated and the user is redirected to the device management page."
+"TC-Materiale-001","Add New Material","Materiale","3","User is logged in.","Chemical Formula: CH4, Device ID: 12345, Percentage Presence: 50, Carbon Footprint: 10","1. User navigates to the material management page.
+2. User enters ""CH4"" as the chemical formula, ""12345"" as the device ID, ""50"" as the percentage presence, and ""10"" as the carbon footprint.
+3. User clicks on ""Add Material"" button.
+4. Application sends a request to the database to add the new material.
+5. Database adds the new material and confirms the addition.
+6. Application redirects the user to the material management page.","New material is added and the user is redirected to the material management page."
+"TC-Materiale-002","Update Material Information","Materiale","3","User is logged in and has at least one material.","Material ID: 12345, New Chemical Formula: CH4, New Percentage Presence: 60, New Carbon Footprint: 15","1. User navigates to the material management page.
+2. User selects the material with ID ""12345"".
+3. User enters ""CH4"" as the new chemical formula, ""60"" as the new percentage presence, and ""15"" as the new carbon footprint.
+4. User clicks on ""Update Material"" button.
+5. Application sends a request to the database to update the material information.
+6. Database updates the material information and confirms the update.
+7. Application redirects the user to the material management page.","Material information is updated and the user is redirected to the material management page."
+"TC-Scan-001","Perform Device Scan","Scan","4, 5","User is logged in and has at least one device.","Device ID: 12345","1. User navigates to the device scan page.
+2. User selects the device with ID ""12345"".
+3. User clicks on ""Start Scan"" button.
+4. Application sends a request to the database to perform the hardware scan.
+5. Database performs the hardware scan and provides the component name and impact.
+6. Application receives the scan results and returns them to the user.
+7. Application also returns the component name, impact, and device diagnostics.
+8. User reviews the scan results.","Scan results are displayed to the user, including component name, impact, and device diagnostics."

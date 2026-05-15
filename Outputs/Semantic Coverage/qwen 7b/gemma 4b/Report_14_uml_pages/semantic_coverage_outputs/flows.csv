@@ -1,0 +1,90 @@
+flow
+"post -> postcomment — type=association; label=""contains""; explanation=""a post can contain multiple postcomments"""
+"user -> postcomment — type=association; label=""writes""; explanation=""a user writes postcomments"""
+"post -> postcomment — type=association; label=""has""; explanation=""a post has postcomments"""
+"user -> user — type=association; label=""is friend of""; explanation=""users can be friends"""
+"user -> chatlist — type=association; label=""participates in""; explanation=""a user participates in chatlists"""
+"chatlist -> chat — type=association; label=""contains""; explanation=""a chatlist contains chats"""
+"neighborgoogle -> chatlist — type=association; label=""uses""; explanation=""neighborgoogle uses chatlists"""
+user -> system: createpostcomment
+system -> postcomment: postcommentcopywithnil
+"this diagram models a system for managing posts, comments, users, and chat lists."
+the system allows users to create and write comments on posts.
+the system supports user friendships and chat list participation.
+the `postcommentcopywithnil` and `businessusercopywithnil` methods are used to create copies of objects with null values.
+"start -> utente? — type=transition; label=""utente?""; explanation=""checks if a user exists"""
+"utente? -> usercreateprocedure — type=transition; label=""no""; explanation=""if user does not exist, create user"""
+"usercreateprocedure -> utente creato con successo? — type=transition; label=""no""; explanation=""if user creation fails"""
+"utente creato con successo? -> verifylocalizationprocedure — type=transition; label=""si""; explanation=""if user creation is successful"""
+"verifylocalizationprocedure -> procedura completata con successo? — type=transition; label=""no""; explanation=""if localization verification fails"""
+"procedura completata con successo? -> home — type=transition; label=""si""; explanation=""if localization verification is successful"""
+"verifylocalizationprocedure -> home — type=transition; label=""si""; explanation=""if localization verification is successful"""
+start -> utente? (si) -> usercreateprocedure -> utente creato con successo? (no) -> home
+start -> utente? (si) -> usercreateprocedure -> utente creato con successo? (si) -> verifylocalizationprocedure -> procedura completata con successo? (no) -> home
+start -> utente? (si) -> usercreateprocedure -> utente creato con successo? (si) -> verifylocalizationprocedure -> procedura completata con successo? (si) -> home
+the diagram models the process of creating a user and verifying localization.
+"if a user already exists, the system proceeds to localization verification."
+"if user creation fails, the system returns to the home state."
+"if localization verification fails, the system returns to the home state."
+"home -> profile — transition=""cliccata foto profilo""; explanation=""if user clicks profile picture"";"
+"home -> notificationsection — transition=""cliccata icona notifiche""; explanation=""if user clicks notification icon"";"
+"home -> mapfullscreenapi — transition=""interazione con la mappa""; explanation=""if user interacts with the map"";"
+"home -> menu — transition=""interazione con il menu""; explanation=""if user interacts with the menu"";"
+"profile -> profile — transition=""cliccata icona accesso home""; explanation=""if user clicks home icon"";"
+"profile -> profile — transition=""cliccata icona accesso personale""; explanation=""if user clicks personal profile icon"";"
+"profile -> chatsection — transition=""cliccata icona accesso alle chat""; explanation=""if user clicks chat icon"";"
+"chatsection -> generaldashboard — transition=""cliccata icona accesso generale""; explanation=""if user clicks general dashboard icon"";"
+user -> home — start;
+"home -> profile — transition=""cliccata foto profilo"";"
+"home -> notificationsection — transition=""cliccata icona notifiche"";"
+"home -> mapfullscreenapi — transition=""interazione con la mappa"";"
+"home -> menu — transition=""interazione con il menu"";"
+"profile -> profile — transition=""cliccata icona accesso home"";"
+"profile -> profile — transition=""cliccata icona accesso personale"";"
+"profile -> chatsection — transition=""cliccata icona accesso alle chat"";"
+"chatsection -> generaldashboard — transition=""cliccata icona accesso generale"";"
+the user can start at the home screen.
+"the user can navigate to the profile, notificationsection, mapfullscreenapi, menu, chatsection, or generaldashboard based on their interactions."
+the diagram shows a branching flow based on user actions (clicking icons or interacting with elements).
+"generaldashboard -> section — type=flow; label=""scorri posts condivisi presenti in bacheca""; explanation=""scrolling through shared posts in the feed"""
+"section -> fullscreenpost — type=flow; label=""cliccato specifico post""; explanation=""clicking on a specific post"""
+"fullscreenpost -> leavecomment — type=flow; label=""aggiungi un commento""; explanation=""adding a comment"""
+"fullscreenpost -> attendisvataggio — type=flow; label=""attendi salvataggio""; explanation=""wait for saving"""
+"leavecomment -> attendisvataggio — type=flow; label=""attendi salvataggio""; explanation=""wait for saving"""
+flow 1: generaldashboard -> section — scorri posts condivisi presenti in bacheca
+flow 2: section -> fullscreenpost — cliccato specifico post
+flow 3: fullscreenpost -> leavecomment — aggiungi un commento
+flow 4: fullscreenpost -> attendisvataggio — attendi salvataggio
+flow 5: leavecomment -> attendisvataggio — attendi salvataggio
+the diagram models the user interaction flow within a dashboard when viewing and interacting with a post.
+"the user can scroll through posts, click on a specific post to view it in full screen, add a comment, and then wait for the changes to be saved."
+the diagram shows two distinct paths: one for adding a comment directly from the full-screen view and another for adding a comment after viewing the full-screen view and waiting for the save operation.
+itemresultsearch -> resultitem
+"type=association; label=""itemresultsearch""; explanation=""search results are displayed as resultitems"""
+resultitem -> chat
+"type=association; label=""chat""; explanation=""chat is initiated from resultitem"""
+resultitem -> businessprofile
+"type=association; label=""businessprofile""; explanation=""businessprofile is accessed from resultitem"""
+resultitem -> viewunsold
+"type=association; label=""viewunsold""; explanation=""viewunsold is accessed from resultitem"""
+resultitem -> viewpromotions
+"type=association; label=""viewpromotions""; explanation=""viewpromotions is accessed from resultitem"""
+businessprofile -> calendar
+"type=association; label=""calendar""; explanation=""calendar is accessed from businessprofile"""
+businessprofile -> attendoperationdiscritturasuldb
+"type=association; label=""attendoperationdiscritturasuldb""; explanation=""attendoperationdiscritturasuldb is accessed from businessprofile"""
+businessprofile -> confermariuscita
+"type=association; label=""confermariuscita""; explanation=""confermariuscita is accessed from businessprofile"""
+"main -> storeddatadb — transition=""authorization""; explanation=""request for authorization"";"
+"storeddatadb -> usercreateprocedure — transition=""not exist""; explanation=""user does not exist"";"
+"storeddatadb -> usercreateprocedure — transition=""valid credentials""; explanation=""valid credentials"";"
+"usercreateprocedure -> create new entry — transition=""create new entry""; explanation=""create new entry"""
+"main -> storeddatadb — transition=""authorization"";"
+"storeddatadb -> usercreateprocedure — transition=""not exist"";"
+"storeddatadb -> usercreateprocedure — transition=""valid credentials"";"
+usercreateprocedure -> create new entry
+the diagram models the process of creating a new user entry in a system.
+it involves an initial authorization check against a database.
+"if the user does not exist, the process branches to a ""not exist"" state."
+"if the credentials are valid, the process proceeds to create a new entry."
+======================================================================

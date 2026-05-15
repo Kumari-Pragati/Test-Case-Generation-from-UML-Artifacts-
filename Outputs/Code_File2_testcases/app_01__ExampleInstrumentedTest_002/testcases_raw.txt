@@ -1,0 +1,108 @@
+system
+You are a senior SDET and software test designer. Generate concrete, code-faithful test cases ONLY from the given code context. Do NOT invent features, methods, screens, APIs, or validations not shown. You MUST cover every method in MUST_COVER at least once (1 test per method minimum). If there are UI/CTA signals, include interaction tests relevant to those signals. Output ONLY a valid JSON array. No markdown. No extra text.
+user
+TARGET FILE: Ecodriving/app/src/androidTest/java/com/example/ecodriving/ExampleInstrumentedTest.java
+
+MUST_COVER (ensure each appears in covered_methods at least once):
+- useAppContext
+
+UI/CTA SIGNALS (use if present):
+- (none)
+
+OUTPUT FORMAT (JSON array ONLY; EXACT keys):
+[
+  {
+    "test_case_id": "TC-<Module>-###",
+    "title": "...",
+    "module": "...",
+    "source_files": ["Ecodriving/app/src/androidTest/java/com/example/ecodriving/ExampleInstrumentedTest.java"],
+    "covered_methods": ["methodName1","methodName2"],
+    "preconditions": ["..."],
+    "test_data": ["..."],
+    "test_steps": ["..."],
+    "expected_result": ["..."]
+  }
+]
+
+RULES:
+- Keep total test cases <= 60 (merge coverage when needed).
+- Every MUST_COVER method must be in covered_methods somewhere.
+- Steps & expected_result must match code branches, UI actions, and backend outcomes visible.
+- Output ONLY the JSON array.
+
+FEW-SHOT EXAMPLE (how to cover UI + backend from code context):
+
+If code has:
+- Button confirmBt with setOnClickListener
+- Reads EditText newMail + confirmNewMail
+- Branch: empty/mismatch -> Toast error
+- Calls updateUserEmail(email)
+- Backend: getCurrentUser() null -> Toast unauthenticated
+- Backend: verifyBeforeUpdateEmail success -> save SharedPreferences + navigate
+- Backend: verifyBeforeUpdateEmail failure -> Toast failure
+
+Then tests must include covered_methods like:
+["onCreateView","updateUserEmail"] and steps for each branch.
+
+
+CONTEXT:
+FILE: Ecodriving/app/src/androidTest/java/com/example/ecodriving/ExampleInstrumentedTest.java
+LANG: java
+
+CLASSES:
+- ExampleInstrumentedTest (Ecodriving/app/src/androidTest/java/com/example/ecodriving/ExampleInstrumentedTest.java:19-19)
+
+METHODS (must be covered):
+- useAppContext | Ecodriving/app/src/androidTest/java/com/example/ecodriving/ExampleInstrumentedTest.java:20-20
+  sig: public void useAppContext() {         // Context of the app under test.         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();         assertEquals("com.example.ecodriving", appCont
+
+UI / CTA / INPUT SIGNALS:
+
+CODE (snippet):
+package com.example.ecodriving;
+
+import android.content.Context;
+
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
+
+/**
+ * Instrumented test, which will execute on an Android device.
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+@RunWith(AndroidJUnit4.class)
+public class ExampleInstrumentedTest {
+    @Test
+    public void useAppContext() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        assertEquals("com.example.ecodriving", appContext.getPackageName());
+    }
+}
+assistant
+```json
+[
+  {
+    "test_case_id": "TC-ExampleInstrumentedTest-001",
+    "title": "Verify app context package name",
+    "module": "ExampleInstrumentedTest",
+    "source_files": ["Ecodriving/app/src/androidTest/java/com/example/ecodriving/ExampleInstrumentedTest.java"],
+    "covered_methods": ["useAppContext"],
+    "preconditions": ["None"],
+    "test_data": ["None"],
+    "test_steps": [
+      "Get the target context using InstrumentationRegistry.",
+      "Retrieve the package name from the context."
+    ],
+    "expected_result": [
+      "The package name should be 'com.example.ecodriving'."
+    ]
+  }
+]
+```

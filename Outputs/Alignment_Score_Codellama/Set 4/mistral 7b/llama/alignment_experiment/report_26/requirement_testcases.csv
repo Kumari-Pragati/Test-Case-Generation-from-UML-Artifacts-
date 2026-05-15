@@ -1,0 +1,290 @@
+"Test Case ID","Title","Module","Source Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-UserRegistration-001","Successful User Registration with Valid Data","User Registration","5, 19, 37","User is not already registered in the system.","Valid email (e.g., user@example.com), strong password (e.g., P@ssw0rd!), full name (e.g., John Doe), address (e.g., Via Roma 1, 30175 Venezia), phone number (e.g., +393123456789)","1. Open the registration form.
+2. Enter valid email address.
+3. Enter strong password.
+4. Confirm password.
+5. Enter full name.
+6. Enter address.
+7. Enter phone number.
+8. Select at least one checkbox for user type (e.g., ""Anziano"").
+9. Click ""Register"" button.","User account is created successfully, and a confirmation message is displayed. User is redirected to the login screen."
+"TC-UserRegistration-002","Registration with Weak Password","User Registration","5, 19, 37","User is not already registered in the system.","Valid email (e.g., user@example.com), weak password (e.g., password), full name (e.g., John Doe), address (e.g., Via Roma 1, 30175 Venezia), phone number (e.g., +393123456789)","1. Open the registration form.
+2. Enter valid email address.
+3. Enter weak password.
+4. Confirm password.
+5. Enter full name.
+6. Enter address.
+7. Enter phone number.
+8. Select at least one checkbox for user type.
+9. Click ""Register"" button.","Registration fails, and an error message is displayed: ""Password must be strong (minimum 8 characters, including uppercase, lowercase, number, and special character)."""
+"TC-UserRegistration-003","Registration with Duplicate Email","User Registration","5, 19, 37","A user with email ""user@example.com"" is already registered.","Duplicate email (e.g., user@example.com), strong password (e.g., P@ssw0rd!), full name (e.g., John Doe), address (e.g., Via Roma 1, 30175 Venezia), phone number (e.g., +393123456789)","1. Open the registration form.
+2. Enter duplicate email address.
+3. Enter strong password.
+4. Confirm password.
+5. Enter full name.
+6. Enter address.
+7. Enter phone number.
+8. Select at least one checkbox for user type.
+9. Click ""Register"" button.","Registration fails, and an error message is displayed: ""Email already registered."""
+"TC-Login-004","Successful Login with Valid Credentials","Login","5, 20, 39","User is registered in the system.","Valid email (e.g., user@example.com), correct password (e.g., P@ssw0rd!)","1. Open the login screen.
+2. Enter valid email address.
+3. Enter correct password.
+4. Click ""Login"" button.","User is logged in successfully, and the personal dashboard is displayed."
+"TC-Login-005","Login with Invalid Password","Login","5, 20, 39","User is registered in the system.","Valid email (e.g., user@example.com), incorrect password (e.g., wrongpass)","1. Open the login screen.
+2. Enter valid email address.
+3. Enter incorrect password.
+4. Click ""Login"" button.","Login fails, and an error message is displayed: ""Invalid email or password."""
+"TC-Login-006","Login with Non-Existent Email","Login","5, 20, 39","None.","Non-existent email (e.g., nonexistent@example.com), any password (e.g., P@ssw0rd!)","1. Open the login screen.
+2. Enter non-existent email address.
+3. Enter any password.
+4. Click ""Login"" button.","Login fails, and an error message is displayed: ""Invalid email or password."""
+"TC-PersonalDashboard-007","Publish a New Offer on Dashboard","Personal Dashboard","5, 21, 41","User is logged in.","Offer title (e.g., ""Libri usati""), description (e.g., ""Offro libri di seconda mano in buono stato""), type (e.g., ""Baratto""), category (e.g., ""Libri""), quantity (e.g., 5), location (e.g., ""Via Roma 1, Venezia"")","1. Log in to the system.
+2. Navigate to the personal dashboard.
+3. Click on ""Pubblica un'offerta"" button.
+4. Enter offer title.
+5. Enter description.
+6. Select offer type (e.g., ""Baratto"").
+7. Select category (e.g., ""Libri"").
+8. Enter quantity.
+9. Enter location.
+10. Click ""Pubblica"" button.","Offer is published successfully, and a confirmation message is displayed. The new offer appears in the ""Offerte Pubblicate"" section of the dashboard."
+"TC-OfferBrowsing-008","Search Offers by Keyword","Offer Browsing","5, 23, 45","At least one offer is published in the system.","Search keyword (e.g., ""cibo"")","1. Log in to the system.
+2. Navigate to the ""Esplora Offerte"" section.
+3. Enter a keyword in the search bar (e.g., ""cibo"").
+4. Click the search button.","A list of offers matching the keyword is displayed."
+"TC-ExchangeProposal-009","Propose an Exchange for an Offer","Exchange Proposal","5, 23, 46","User is logged in, and at least one offer is published by another user.","Offer ID (e.g., 101), exchange description (e.g., ""Offro un libro in cambio di cibo"")","1. Log in to the system.
+2. Navigate to the ""Esplora Offerte"" section.
+3. Select an offer to propose an exchange.
+4. Enter exchange description.
+5. Click ""Proponi Scambio"" button.","Exchange proposal is sent successfully, and a confirmation message is displayed. The proposal appears in the ""Proposte di Scambio"" section of the offer owner’s dashboard."
+"TC-ExchangeProposal-010","Propose Exchange for Own Offer","Exchange Proposal","5, 23, 46","User is logged in and has at least one published offer.","Own offer ID (e.g., 101), exchange description (e.g., ""Offro un libro in cambio di cibo"")","1. Log in to the system.
+2. Navigate to the ""Esplora Offerte"" section.
+3. Select the user’s own published offer.
+4. Attempt to propose an exchange for the own offer.","Exchange proposal fails, and an error message is displayed: ""Non puoi proporre uno scambio per la tua offerta."""
+"TC-Authentication-011","Successful User Registration","Authentication","9,10","User has installed the app and possesses a personal email address.","Valid name, email, password, and confirmation.","1. User opens the application for the first time.
+2. User selects the registration option.
+3. User fills in the form with valid personal data (name, email, password, confirmation).
+4. User submits the form.","System validates the data, adds the user to the database, and enables access to the application."
+"TC-Authentication-012","User Already Registered Attempts Registration","Authentication","10","User has previously registered and installed the app.","Valid credentials (email/password) already registered.","1. User opens the application.
+2. User attempts to register again with existing credentials.","System detects prior registration and redirects the user to the login screen without creating a duplicate account."
+"TC-Authentication-013","Successful Login with Valid Credentials","Authentication","10,11","User has a valid registered account.","Correct username/email and password.","1. User opens the application.
+2. User enters valid credentials (email/password).
+3. User submits the login form.","System validates credentials, logs the user in, and grants access to the application."
+"TC-Authentication-014","Login with Invalid Credentials","Authentication","10,11","User has an account but is not logged in.","Incorrect password or non-existent email.","1. User opens the application.
+2. User enters invalid credentials (wrong password or non-registered email).
+3. User submits the login form.","System rejects the login attempt and displays an error message (e.g., ""Invalid credentials"")."
+"TC-Bacheca-015","Publish New Item to Bacheca","Bacheca","11,12","User is logged in.","Valid item details (name, description, category, etc.).","1. User clicks the ""Add New Item"" button.
+2. User fills in the form with valid item details.
+3. User submits the form.","System validates the data, adds the item to the database, and displays it in the user’s bacheca."
+"TC-OfferExploration-016","Explore Offers from Other Users","Offer Exploration","13","User is registered and logged in.","None","1. User logs in to the application.
+2. User taps the icon to view other users' offers.","The system displays a list of offers from other users. If no offers exist, a blank screen is shown."
+"TC-OfferExploration-017","Apply Filters to Search Offers","Offer Exploration","13,16","User is registered and logged in.","Location = ""City X"", Type = ""Objects"", Purpose = ""Barter""","1. User logs in to the application.
+2. User taps the icon to view other users' offers.
+3. User taps the filter icon to open the filter menu.
+4. User selects filters: Location = ""City X"", Type = ""Objects"", Purpose = ""Barter"".
+5. User applies the filters.","The system displays only offers matching the selected filters (location, type, purpose)."
+"TC-ProposalofExchange-018","Propose Exchange for Free Item","Proposal of Exchange","14","User is registered, logged in, and viewing another user’s offer for a free item.","None","1. User logs in to the application.
+2. User navigates to another user’s offer for a free item.
+3. User taps the ""Propose Exchange"" button.","The system allows the user to propose an exchange without requiring additional items in their bacheca."
+"TC-ProposalofExchange-019","Propose Exchange for Paid Item","Proposal of Exchange","14","User is registered, logged in, viewing another user’s offer for a non-free item, and has at least one item in their bacheca.","User’s bacheca contains 1 item.","1. User logs in to the application.
+2. User navigates to another user’s offer for a non-free item.
+3. User taps the ""Propose Exchange"" button.
+4. User selects an item from their bacheca to exchange.","The system sends a barter request to the other user with the selected item."
+"TC-ProposalVisualizatio-020","View Active Exchange Proposals","Proposal Visualization","15","User has at least one active exchange proposal (sent or received).","User has 2 active proposals (1 sent, 1 received).","1. User navigates to the ""Active Exchange Proposals"" screen.","The system displays a list of active proposals in descending chronological order, including details and status (e.g., accepted, rejected)."
+"TC-ProposalVisualizatio-021","View Empty Proposal List","Proposal Visualization","15","User has no active exchange proposals.","None","1. User navigates to the ""Active Exchange Proposals"" screen.","The system displays an empty screen indicating no active proposals."
+"TC-ProposalAcceptanceRe-022","Accept an Exchange Proposal","Proposal Acceptance/Rejection","15,17","User has items in their bacheca and has received an exchange proposal.","User has 1 item in bacheca, 1 proposal received.","1. User receives a notification about a new proposal.
+2. User opens the proposal.
+3. User taps the ""Accept"" button.","The system updates the proposal status to ""accepted"" and sends a notification to the offerer."
+"TC-ProposalAcceptanceRe-023","Reject an Exchange Proposal","Proposal Acceptance/Rejection","15,17","User has received an exchange proposal.","User has 1 proposal received.","1. User receives a notification about a new proposal.
+2. User opens the proposal.
+3. User taps the ""Reject"" button.","The system updates the proposal status to ""rejected"" and sends a notification to the offerer."
+"TC-PersonalDataManageme-024","Update Personal Data","Personal Data Management","17","User is registered and logged in.","Old email = ""old@example.com"", New email = ""new@example.com""","1. User logs in to the application.
+2. User navigates to the ""Personal Data"" section.
+3. User modifies the email field to ""new@example.com"".
+4. User confirms the changes.","The system validates the new email, updates the database, and reflects the changes in the user profile."
+"TC-Registration-025","Validate email format during user registration","Registration","20","User opens registration form","Invalid email format (e.g., ""user@.com"")","1. User enters invalid email in the registration form.
+2. User submits the form.","System blocks registration and displays an error message about invalid email format."
+"TC-Registration-026","Check username availability during registration","Registration","20","User opens registration form","Username already taken by another user","1. User enters an existing username in the registration form.
+2. User submits the form.","System blocks registration and displays an error message about username unavailability."
+"TC-Registration-027","Prevent duplicate email registration","Registration","21","User opens registration form","Email already registered in the system","1. User enters an email already used by another registered user.
+2. User submits the form.","System blocks registration and displays an error message about duplicate email."
+"TC-Registration-028","Save new user data to database","Registration","21","User provides valid email, unique username, and password","Valid and unique email, username, and password","1. User enters valid and unique email, username, and password.
+2. User submits the form.","System saves user data to the database and confirms successful registration."
+"TC-Login-029","Validate login credentials","Login","22","User opens login form","Incorrect username/email and password combination","1. User enters incorrect username/email and password.
+2. User submits the form.","System rejects login and displays an error message."
+"TC-Login-030","Grant access after successful login","Login","22","User opens login form","Correct username/email and password","1. User enters correct username/email and password.
+2. User submits the form.","System grants access to the application, displays user’s personal information, and enables authorized functionalities."
+"TC-Bacheca-031","Display user’s personal bacheca","Bacheca","23","User is logged in","User has previously published items","1. User navigates to the personal bacheca section.","System displays all items previously published by the user."
+"TC-Bacheca-032","Provide form for new item publication","Bacheca","23","User is logged in","None","1. User clicks on the ""Publish New Item"" button.","System displays a form for inserting a new good/service."
+"TC-Bacheca-033","Validate new item data","Bacheca","23","User is logged in and opens the publication form","Missing required fields (e.g., item name, description)","1. User submits the form without filling all required fields.","System blocks submission and displays an error message about missing required data."
+"TC-Bacheca-034","Save new item to database","Bacheca","23","User is logged in and fills all required fields in the publication form","Valid item details (name, description, etc.)","1. User submits the form with valid data.","System saves the new item to the database and confirms successful publication."
+"TC-Bacheca-035","Confirm item deletion","Bacheca","24","User is logged in and selects an item for deletion","Item not involved in any ongoing exchange","1. User selects an item and clicks ""Delete.""
+2. System displays a confirmation popup.
+3. User confirms deletion.","System shows a confirmation message that the item has been deleted."
+"TC-Bacheca-036","Prevent deletion of item in ongoing exchange","Bacheca","24","User is logged in and selects an item involved in an ongoing exchange","Item currently part of an active exchange","1. User selects an item involved in an ongoing exchange and clicks ""Delete.""","System blocks deletion and displays an error message about the item being part of an active exchange."
+"TC-Bacheca-037","Remove item from database","Bacheca","24","User confirms deletion of an item not involved in any exchange","Item not involved in any ongoing exchange","1. User confirms deletion of an item.","System removes the item from the database and it is no longer visible in the application."
+"TC-OffersExploration-038","Retrieve all published items from database","Offers Exploration","24","Items are published by users","None","1. User navigates to the offers exploration section.","System retrieves and displays all published items from the database."
+"TC-OffersExploration-039","Display list of available items for barter","Offers Exploration","24","Items are published by users","None","1. User navigates to the offers exploration section.","System displays an updated list of all available items for barter published by other users."
+"TC-ExchangeProposal-040","Initiate an Exchange Proposal","Exchange Proposal","25","User is logged in and has at least one item/service listed for barter.","Valid item/service ID available for exchange.","1. User navigates to the ""Exchange Proposal"" section.
+2. User selects an item/service from the available list.
+3. User confirms the proposal submission.","The system allows the user to submit the exchange proposal successfully."
+"TC-ExchangeProposal-041","Verify Item Availability Before Proposal","Exchange Proposal","25","User is logged in and has an item/service listed.","An item/service marked as ""available"" and another marked as ""already bartered.""","1. User attempts to propose an exchange for an item/service marked as ""available.""
+2. User attempts to propose an exchange for an item/service marked as ""already bartered.""","The system allows the proposal for the ""available"" item/service but blocks the proposal for the ""already bartered"" item/service with an error message."
+"TC-ExchangeProposalList-042","Display Complete List of Exchange Proposals","Exchange Proposal List","26","Multiple exchange proposals exist in the system.","Three active exchange proposals (e.g., Proposal A, Proposal B, Proposal C).","1. User navigates to the ""Exchange Proposals"" section.
+2. User views the list of proposals.","The system displays all three active proposals (A, B, C) in the list."
+"TC-ExchangeProposalList-043","Show Proposal Status","Exchange Proposal List","26","Multiple exchange proposals exist with different statuses.","One accepted proposal, one rejected proposal, and one pending proposal.","1. User navigates to the ""Exchange Proposals"" section.
+2. User checks the status of each proposal in the list.","The system displays the status (accepted, rejected, pending) for each proposal."
+"TC-ExchangeProposalList-044","Remove Proposal After Exchange Completion","Exchange Proposal List","26","One active exchange proposal exists.","Proposal D (active) and Proposal E (completed).","1. User navigates to the ""Exchange Proposals"" section before the exchange is completed.
+2. User confirms the exchange for Proposal D.
+3. User refreshes the list of proposals.","The system removes Proposal D from the list after the exchange is completed, and only Proposal E (if still pending) remains visible."
+"TC-ProposalAcceptance-045","Accept an Exchange Offer","Proposal Acceptance","27","User has an active exchange proposal in their bacheca.","Proposal F (offer for an item/service in user’s bacheca).","1. User navigates to their bacheca.
+2. User locates Proposal F and selects the ""Accept"" option.
+3. User confirms the acceptance.","The system accepts Proposal F and updates its status to ""accepted."""
+"TC-ProposalRejection-046","Reject an Exchange Offer","Proposal Rejection","27","User has an active exchange proposal in their bacheca.","Proposal G (offer for an item/service in user’s bacheca).","1. User navigates to their bacheca.
+2. User locates Proposal G and selects the ""Reject"" option.
+3. User confirms the rejection.","The system rejects Proposal G and updates its status to ""rejected."""
+"TC-SearchFilters-047","Filter Searches by Location and Category","Search Filters","28","Multiple items/services are listed across different locations and categories.","Items/services in ""Rome"" (category: goods), ""Milan"" (category: services), ""Florence"" (category: donatable).","1. User applies a filter for location ""Rome"" and category ""goods.""
+2. User applies a filter for location ""Milan"" and category ""services.""","The system displays only items/services matching the selected location and category (e.g., only goods in Rome for the first filter)."
+"TC-UserProfile-048","Modify Personal Data","User Profile","28","User is logged in and has existing personal data.","Current email: old@example.com, new email: new@example.com (valid).","1. User navigates to the ""Personal Data"" section.
+2. User updates the email field from old@example.com to new@example.com.
+3. User submits the changes.","The system allows the update and reflects the new email in the user profile."
+"TC-UserProfile-049","Validate Updated Personal Data","User Profile","28","User is logged in with existing personal data.","Current email: old@example.com, new email: invalid-email (invalid).","1. User navigates to the ""Personal Data"" section.
+2. User attempts to update the email to invalid-email.
+3. User submits the changes.","The system rejects the update and displays an error message indicating the email is invalid. The old email remains unchanged."
+"TC-Compatibility-050","Verify Android Version Compatibility","Compatibility","31","None","None","1. Install the application on a device running Android 8.0 (API 26).
+2. Launch the application.
+3. Navigate through all primary features (e.g., login, image upload, bacheca view).","The application launches and functions without crashes or errors."
+"TC-Compatibility-051","Verify API 27 Compatibility","Compatibility","31,36","None","None","1. Install the application on a device running Android 8.0+ (targeting API 27).
+2. Attempt to use all core functionalities (e.g., image upload, database sync).","The application works as expected without compatibility issues on devices supporting API 27."
+"TC-Usability-052","Verify Temporary Image Cache Clearing","Usability","31,36","The app has cached at least 5 images in the temporary storage.","5 sample images of goods/services.","1. Launch the application and upload 5 images to the bacheca.
+2. Close the application completely (force stop if necessary).
+3. Reopen the application.
+4. Check if the cached images are still present in the app storage.","The cached images are automatically deleted upon app closure."
+"TC-Usability-053","Verify Intuitive UI and Error Tolerance","Usability","31,36","None","None","1. Open the application for the first time.
+2. Attempt to perform a task (e.g., upload an image) with 3 consecutive incorrect inputs (e.g., wrong file format, wrong button clicks).
+3. Complete the task correctly on the 4th attempt.","The application allows the user to complete the task successfully after 3 errors, without locking or crashing."
+"TC-Usability-054","Verify Auto-Cleanup on Uninstall","Usability","36","The application is installed and has cached data or user files.","None","1. Install the application and perform actions that generate cached data (e.g., upload images, create posts).
+2. Uninstall the application via device settings.
+3. Check the device storage for leftover app data.","All cached data and user files are automatically deleted during uninstallation."
+"TC-Security-055","Verify Password Storage Security","Security","36","A user account with a password is created in the app.","Test username: ""user1"", password: ""SecurePass123"".","1. Register a new user with the provided credentials.
+2. Use a database inspection tool (e.g., Firebase console) to check the stored password.","The password is stored as a hashed value with salt, not in plaintext."
+"TC-Security-056","Verify HTTPS Communication","Security","36","The device has an active internet connection.","None","1. Launch the application and attempt to log in or sync data.
+2. Use a packet sniffer (e.g., Wireshark) to monitor network traffic between the app and Firebase.","All communications use HTTPS (port 443) and are encrypted."
+"TC-Reliability-057","Verify Database Response Time","Reliability","36","The device has a stable internet connection.","None","1. Perform an action requiring database sync (e.g., upload an image, fetch posts).
+2. Measure the time taken for the app to receive a response from the database.","The response time does not exceed 3 seconds."
+"TC-Reliability-058","Verify Crash Frequency","Reliability","36","The application is installed and used for 7 consecutive days.","None","1. Use the application daily for core functionalities (e.g., login, upload, view posts).
+2. Monitor crashes using Android’s built-in crash reporting or a logging tool.","The application crashes no more than 3 times in a 7-day period."
+"TC-Robustness-059","Verify Offline Behavior","Robustness","36","The device has no active internet connection.","None","1. Disable internet on the device.
+2. Attempt to perform actions requiring online access (e.g., login, upload image, sync data).
+3. Re-enable internet and retry the actions.","The app either shows an appropriate error message or queues actions for later execution. No data is lost upon reconnection."
+"TC-HardwareDependency-060","Verify Camera Functionality","Hardware Dependency","33","The device has a functional camera.","None","1. Open the image upload feature in the app.
+2. Attempt to take a photo using the app’s camera.
+3. Save the photo to the bacheca.","The camera launches successfully, captures the image, and the image is saved to the bacheca without errors."
+"TC-HardwareDependency-061","Verify Minimum Storage Requirement","Hardware Dependency","33,36","The device has exactly 150 MB of free storage.","None","1. Attempt to install the application on the device.
+2. Launch the application and perform basic actions (e.g., open the main screen).","The application installs successfully and launches without storage-related errors."
+"TC-HardwareDependency-062","Verify Internet Dependency","Hardware Dependency","33,36","The device has no active internet connection.","None","1. Disable internet on the device.
+2. Attempt to launch the application or perform any action.","The application either fails to launch or shows an error message indicating the need for an internet connection. No critical functionality works without internet."
+"TC-Registration-063","Validate uniqueness of username during registration","Registration","39","User is on the registration form","Username ""testuser123"", existing username ""testuser123"", non-existing username ""newuser456""","1. User enters ""testuser123"" as username in the registration form.
+2. User attempts to submit the form.
+3. User enters ""newuser456"" as username in the registration form.
+4. User attempts to submit the form.","Step 1: System rejects submission with error message ""Username already exists.""
+Step 2: System rejects submission with error message ""Username already exists.""
+Step 3: System accepts submission and proceeds to next step."
+"TC-Registration-064","Validate uniqueness of email during registration","Registration","39","User is on the registration form","Email ""test@example.com"" (existing), email ""newuser@example.com"" (non-existing)","1. User enters ""test@example.com"" as email in the registration form.
+2. User attempts to submit the form.
+3. User enters ""newuser@example.com"" as email in the registration form.
+4. User attempts to submit the form.","Step 1: System rejects submission with error message ""Email already registered.""
+Step 2: System accepts submission and proceeds to next step."
+"TC-Registration-065","Complete user registration with valid data","Registration","39, 40","User is on the registration form, all fields are filled with valid data","Valid email ""newuser@example.com"", valid username ""newuser456"", valid name, valid surname, valid date of birth, valid location","1. User fills all fields with valid data.
+2. User submits the registration form.","System validates all data, confirms registration success, and saves user data to the database."
+"TC-Login-066","Validate login with correct credentials","Login","40, 41","User is registered with username ""testuser123"" and password ""password123""","Username ""testuser123"", password ""password123""","1. User enters ""testuser123"" as username and ""password123"" as password.
+2. User submits the login form.","System validates credentials, grants access to the application, and displays user’s personal information."
+"TC-Login-067","Validate login with incorrect credentials","Login","40, 41","User is registered with username ""testuser123"" and password ""password123""","Username ""testuser123"", password ""wrongpassword""","1. User enters ""testuser123"" as username and ""wrongpassword"" as password.
+2. User submits the login form.","System rejects login attempt with error message ""Invalid username or password."""
+"TC-PersonalDashboard-068","Display user’s uploaded items in personal dashboard","Personal Dashboard","41, 42","User is logged in, user has uploaded at least one item to the dashboard","User with uploaded items (e.g., ""Laptop"", ""Book"")","1. User logs in to the application.
+2. User navigates to the personal dashboard.","System displays all items uploaded by the user in a clear and intuitive manner."
+"TC-PersonalDashboard-069","Display form for uploading new item to dashboard","Personal Dashboard","41, 42","User is logged in","None","1. User logs in to the application.
+2. User navigates to the personal dashboard.
+3. User clicks on the option to upload a new item.","System displays a form for inserting a new item into the user’s dashboard."
+"TC-BulletinBoardFormVal-070","Validate mandatory fields in new item form","Bulletin Board Form Validation","43","User has an account and is logged in","Empty form fields (title, description, category), invalid email, missing price","1. User navigates to the ""Inserimento bene/servizio"" form
+2. User clicks ""Invia"" without filling required fields
+3. User enters invalid email format (e.g., ""test@"")
+4. User leaves price field empty
+5. User clicks ""Invia"" again","System displays validation errors for each missing/invalid field; form does not submit"
+"TC-BulletinBoardFormVal-071","Validate data types in new item form","Bulletin Board Form Validation","43","User has an account and is logged in","Non-numeric price (e.g., ""abc""), negative price (-10), special characters in title (e.g., ""Item@"")","1. User enters ""abc"" in the price field
+2. User enters ""-10"" in the price field
+3. User enters ""Item@"" in the title field
+4. User clicks ""Invia""","System rejects submission and highlights invalid fields with appropriate error messages"
+"TC-BulletinBoardPublica-072","Publish valid item to personal bulletin board","Bulletin Board Publication","43,44","User has filled and validated the form","Valid item details (title, description, category, price, images)","1. User fills all form fields with valid data
+2. User clicks ""Invia""
+3. System validates data successfully
+4. User confirms submission","Item is saved to database; user sees confirmation message; item appears in user’s bulletin board"
+"TC-BulletinBoardDeletio-073","Display deletion confirmation popup","Bulletin Board Deletion","44,45","User has at least one item in their bulletin board","None","1. User navigates to their bulletin board
+2. User taps the ""Elimina"" button on an item","System displays popup with:
+Highlighted confirmation text (e.g., ""Confermi l’eliminazione?"")
+""Annulla"" button
+""Conferma"" button"
+"TC-BulletinBoardDeletio-074","Block deletion of item in active exchange","Bulletin Board Deletion Check","45","User has an item involved in an ongoing exchange","Item ID involved in an active exchange proposal","1. User attempts to delete an item currently in an exchange proposal
+2. User taps ""Elimina"" and confirms in popup","System prevents deletion; displays error message: ""Impossibile eliminare: elemento coinvolto in scambio in corso"""
+"TC-BulletinBoardDeletio-075","Permanently delete item from bulletin board","Bulletin Board Deletion","45,46","User has confirmed deletion of an item not in any exchange","Item ID not involved in any exchange","1. User taps ""Elimina"" on an item
+2. User confirms in popup","Item is removed from:
+User’s bulletin board view
+Database records
+System prevents any user from viewing the deleted item"
+"TC-OffersExploration-076","Retrieve offers based on active filters","Offers Exploration","46","Database contains published offers","Active filters (e.g., category=""Electronics"", location=""Rome"")","1. User applies filters (category, location, price range)
+2. User navigates to ""Esplorazione delle offerte"" screen","System retrieves and displays only offers matching all active filters"
+"TC-OffersVisualization-077","Display offers in intuitive format","Offers Visualization","46,47","Database contains at least 3 published offers","3 distinct offers (different categories, prices, images)","1. User navigates to ""Esplorazione delle offerte"" screen","System displays:
+Clear title for the section
+List/grid of offers with:
+Item images
+Titles
+Prices
+Owner usernames
+Intuitive navigation between pages if offers exceed one screen"
+"TC-ExchangeProposal-078","Initiate exchange proposal to another user","Exchange Proposal","47,48","User is logged in and viewing another user’s bulletin board","Valid item from target user’s board, valid item from proposer’s board","1. User selects an item from another user’s bulletin board
+2. User selects their own item to propose in exchange
+3. User clicks ""Proponi scambio""","System:
+Saves proposal to database
+Notifies target user via in-app message
+Prevents selection of items already in other exchanges"
+"TC-ExchangeValidation-079","Prevent proposal for already exchanged items","Exchange Validation","48","User has items in their board (some already exchanged)","Item ID that was previously exchanged","1. User attempts to propose an item already involved in a completed exchange","System:
+Greys out/removes the item from selection options
+Displays tooltip: ""Oggetto già scambiato"" on hover
+Prevents proposal submission for that item"
+"TC-SwapProposalsDisplay-080","View All Swap Proposals for Logged-in User","Swap Proposals Display","49","User is logged in and in the swap proposals section.","User account with at least one incoming and one outgoing swap proposal.","1. User logs in to the application.
+2. User navigates to the swap proposals section.
+3. User views the list of proposals.","The system displays all active incoming and outgoing swap proposals for the user."
+"TC-SwapProposalStatus-081","Display Status of Outgoing Swap Proposals","Swap Proposal Status","49-50","User is logged in and in the swap proposals section.","User account with outgoing proposals marked as accepted, rejected, or canceled.","1. User logs in to the application.
+2. User navigates to the swap proposals section.
+3. User views the status of outgoing proposals.","The system shows the status (accepted, rejected, or canceled) of all outgoing proposals sent by the user."
+"TC-SwapProposalsFilteri-082","Remove Completed Swap Proposals from List","Swap Proposals Filtering","50-51","User is logged in and in the swap proposals section. At least one swap proposal is marked as completed.","User account with one completed swap proposal.","1. User logs in to the application.
+2. User navigates to the swap proposals section.
+3. System automatically removes the completed proposal from the list.","The user sees only active (non-completed) swap proposals in the list."
+"TC-SwapProposalAcceptan-083","Accept an Incoming Swap Proposal","Swap Proposal Acceptance","51","User is logged in and has at least one active incoming swap proposal.","One active incoming swap proposal from another user.","1. User logs in to the application.
+2. User navigates to the swap proposals section.
+3. User selects an active incoming proposal.
+4. User clicks ""Accept"" for the selected proposal.","The proposal is marked as accepted in the database, and both users can proceed with the physical barter."
+"TC-SwapProposalRejectio-084","Reject an Incoming Swap Proposal","Swap Proposal Rejection","51","User is logged in and has at least one active incoming swap proposal.","One active incoming swap proposal from another user.","1. User logs in to the application.
+2. User navigates to the swap proposals section.
+3. User selects an active incoming proposal.
+4. User clicks ""Reject"" for the selected proposal.","The proposal is marked as rejected in the database, and the proposing user can reuse the goods/services for other proposals."
+"TC-OfferFiltering-085","Filter Offers by Category and Location","Offer Filtering","52","User is logged in and in the offers exploration section.","Multiple offers categorized as goods, barterable services, and donatable items, spread across different locations.","1. User logs in to the application.
+2. User navigates to the offers exploration section.
+3. User selects filters: e.g., ""goods"" category and a specific location.
+4. User applies the filters.","The system displays only offers matching the selected category and location."
+"TC-UserProfileManagemen-086","Update User Personal Data","User Profile Management","51-53","User is logged in with a valid account.","Updated personal data (e.g., name, email, or other account details).","1. User logs in to the application.
+2. User navigates to the personal data section.
+3. User modifies one or more personal details.
+4. User submits the changes.","The system updates the user’s data in the database and reflects the changes in the profile display."
+"TC-DeviceCompatibility-087","Verify Android OS Compatibility","Device Compatibility","55","None","None","1. Install the application on a device running Android 7.1 Nougat.
+2. Attempt to launch the application.
+3. Observe the behavior of the application.","The application should fail to install or launch, displaying an error message indicating the minimum required OS version (Android 8.0 Oreo or higher)."
+"TC-DeviceCompatibility-088","Verify Camera Functionality Availability","Device Compatibility","55","None","None","1. Install the application on a device without a camera.
+2. Attempt to access any feature requiring camera functionality.
+3. Observe the behavior of the application.","The application should fail to access camera-related features, displaying an error message indicating the absence of a camera."
+"TC-DatabaseIntegration-089","Verify Firebase Realtime Database Integration","Database Integration","55","Firebase Realtime Database is configured and accessible.","None","1. Launch the application on a device with internet connectivity.
+2. Perform an action that triggers data read/write operations (e.g., login, data submission).
+3. Monitor the Firebase Realtime Database for real-time updates.","The application should successfully interact with Firebase Realtime Database, and data should reflect real-time updates without conflicts in read/write operations."
+"TC-DatabaseIntegration-090","Verify Database Conflict Avoidance","Database Integration","55","Firebase Realtime Database is configured with concurrent access from multiple devices.","None","1. Launch the application on two different devices simultaneously.
+2. Perform conflicting write operations (e.g., editing the same data entry) on both devices.
+3. Observe the behavior of the application and the database.","The application should handle conflicting write operations gracefully, either by merging changes or notifying the user of conflicts, ensuring data consistency in Firebase Realtime Database."

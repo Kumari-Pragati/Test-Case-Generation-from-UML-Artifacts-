@@ -1,0 +1,120 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-REGISTRATION-001,Successful user registration with valid credentials,User Registration,1,"- System is live; PostgreSQL database is accessible.
+- No duplicate email exists in the system.","- First Name: ""John""
+- Last Name: ""Doe""
+- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""
+- Confirm Password: ""SecurePass123!""","1. Navigate to the **Register activity** from the Environment.
+2. Enter First Name, Last Name, Email, Password, and Confirm Password.
+3. Click the **Submit** button.","- User account is created in PostgreSQL.
+- System redirects to **Login activity** with a success message.
+- Notification center receives a confirmation email (if applicable)."
+TC-REGISTRATION-002,Registration failure with invalid email format,User Registration,1,- System is live.,"- First Name: ""Jane""
+- Last Name: ""Smith""
+- Email: ""jane.smith"" (invalid format)
+- Password: ""Pass123""
+- Confirm Password: ""Pass123""","1. Navigate to the **Register activity** from the Environment.
+2. Enter invalid email and other valid fields.
+3. Click the **Submit** button.","- System displays an error: ""Invalid email format.""
+- No new record is created in PostgreSQL.
+- User remains on the registration page."
+TC-REGISTRATION-003,Registration failure with duplicate email,User Registration,1,"- A user with email ""duplicate@example.com"" already exists in PostgreSQL.","- First Name: ""Alice""
+- Last Name: ""Johnson""
+- Email: ""duplicate@example.com"" (duplicate)
+- Password: ""Pass456""
+- Confirm Password: ""Pass456""","1. Navigate to the **Register activity** from the Environment.
+2. Enter duplicate email and other valid fields.
+3. Click the **Submit** button.","- System displays an error: ""Email already registered.""
+- No new record is created in PostgreSQL.
+- User remains on the registration page."
+TC-LOGIN-001,Successful login with valid credentials,User Authentication,1,"- A user with email ""john.doe@example.com"" and password ""SecurePass123!"" exists in PostgreSQL.","- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""","1. Navigate to the **Login activity** from the Environment.
+2. Enter valid email and password.
+3. Click the **Login** button.","- User is authenticated and redirected to the **Profile** activity.
+- Notification center may display a welcome message.
+- Session is created in PostgreSQL (or backend)."
+TC-LOGIN-002,Login failure with incorrect password,User Authentication,1,"- A user with email ""john.doe@example.com"" exists in PostgreSQL.","- Email: ""john.doe@example.com""
+- Password: ""WrongPass123"" (incorrect)","1. Navigate to the **Login activity** from the Environment.
+2. Enter valid email and incorrect password.
+3. Click the **Login** button.","- System displays an error: ""Invalid email or password.""
+- No session is created.
+- User remains on the login page."
+TC-LOGIN-003,Login failure with non-existent email,User Authentication,1,"- No user with email ""nonexistent@example.com"" exists in PostgreSQL.","- Email: ""nonexistent@example.com""
+- Password: ""AnyPass123""","1. Navigate to the **Login activity** from the Environment.
+2. Enter non-existent email and any password.
+3. Click the **Login** button.","- System displays an error: ""Invalid email or password.""
+- No session is created.
+- User remains on the login page."
+TC-NEWSLETTER-001,Successful newsletter subscription,Newsletter Management,1,"- User is logged in (e.g., ""john.doe@example.com"").
+- Newsletter activity is accessible.","- Email: ""john.doe@example.com"" (logged-in user)
+- Subscription: ""Tech Updates"" (valid newsletter)","1. Navigate to the **Newsletter activity** from the Environment.
+2. Select ""Tech Updates"" newsletter.
+3. Click the **Subscribe** button.","- User is subscribed to ""Tech Updates"" in PostgreSQL.
+- Notification center sends a confirmation email.
+- Flash activity displays: ""Subscribed successfully!"""
+TC-NEWSLETTER-002,Newsletter subscription failure with invalid email,Newsletter Management,1,"- User is logged in (e.g., ""john.doe@example.com"").","- Email: ""invalid.email"" (invalid format)
+- Subscription: ""Tech Updates""","1. Navigate to the **Newsletter activity** from the Environment.
+2. Enter invalid email and select a newsletter.
+3. Click the **Subscribe** button.","- System displays an error: ""Invalid email format.""
+- No subscription is recorded in PostgreSQL.
+- User remains on the newsletter page."
+TC-EVENT-CREATION-001,Successful event creation by authenticated user,Event Management,1,"- User ""john.doe@example.com"" is logged in.
+- **Create event** activity is accessible.","- Event Title: ""Tech Conference 2023""
+- Date: ""2023-12-15""
+- Time: ""09:00 AM""
+- Location: ""Online""
+- Description: ""Annual tech conference with keynote speakers.""","1. Navigate to the **Create event** activity from the Environment.
+2. Fill in all event details.
+3. Click the **Create** button.","- Event is created in PostgreSQL with creator ID linked to ""john.doe@example.com"".
+- Notification center sends a confirmation to the creator.
+- Flash activity displays: ""Event created successfully!""
+- Event appears in the **Join/View event** list."
+TC-EVENT-CREATION-002,Event creation failure with missing required field,Event Management,1,"- User ""john.doe@example.com"" is logged in.","- Event Title: """" (empty)
+- Date: ""2023-12-15""
+- Time: ""09:00 AM""
+- Location: ""Online""
+- Description: ""Annual tech conference.""","1. Navigate to the **Create event** activity from the Environment.
+2. Leave **Event Title** empty and fill other fields.
+3. Click the **Create** button.","- System displays an error: ""Event title is required.""
+- No event is created in PostgreSQL.
+- User remains on the event creation page."
+TC-EVENT-JOIN-001,Successful event joining by authenticated user,Event Management,1,"- User ""john.doe@example.com"" is logged in.
+- An event ""Tech Conference 2023"" exists in PostgreSQL.","- Event: ""Tech Conference 2023""
+- Joiner: ""john.doe@example.com""","1. Navigate to the **Join/View event** activity from the Environment.
+2. Search for ""Tech Conference 2023"" and select it.
+3. Click the **Join** button.","- User is added to the event's attendee list in PostgreSQL.
+- Notification center sends a confirmation to the joiner and event creator.
+- Flash activity displays: ""Joined event successfully!""
+- Event appears in the user's **Profile** activity under ""Joined Events."""
+TC-EVENT-JOIN-002,Event joining failure by unauthenticated user,Event Management,1,"- No user is logged in.
+- An event ""Tech Conference 2023"" exists in PostgreSQL.","- Event: ""Tech Conference 2023""","1. Navigate to the **Join/View event** activity from the Environment.
+2. Search for ""Tech Conference 2023"" and attempt to join.","- System redirects to the **Login activity** with a message: ""Login required to join events.""
+- No join record is created in PostgreSQL."
+TC-PROFILE-001,View and update user profile successfully,User Profile,1,"- User ""john.doe@example.com"" is logged in.","- Current First Name: ""John""
+- Current Last Name: ""Doe""
+- Updated First Name: ""Jonathan""
+- Updated Last Name: ""Doe-Smith""","1. Navigate to the **Profile** activity from the Environment.
+2. Click **Edit Profile**.
+3. Update First Name and Last Name.
+4. Click **Save Changes**.","- Profile is updated in PostgreSQL.
+- Flash activity displays: ""Profile updated successfully!""
+- Updated details are reflected in the **Profile** activity."
+TC-PROFILE-002,Profile update failure with empty fields,User Profile,1,"- User ""john.doe@example.com"" is logged in.","- First Name: """" (empty)
+- Last Name: """" (empty)","1. Navigate to the **Profile** activity from the Environment.
+2. Click **Edit Profile**.
+3. Leave all fields empty and click **Save Changes**.","- System displays an error: ""First name and last name are required.""
+- No changes are saved in PostgreSQL.
+- User remains on the profile edit page."
+TC-EXIT-001,Successful system logout,Session Management,1,"- User ""john.doe@example.com"" is logged in.",,"1. Navigate to the **Exit** activity from the Environment (e.g., via a logout button).
+2. Confirm logout if prompted.","- User session is terminated in PostgreSQL/backend.
+- System redirects to the **Login activity** or **Environment** home.
+- Flash activity displays: ""Logged out successfully!"""
+TC-NOTIFICATION-001,Verify notification receipt after event joining,Notification Center,1,"- User ""john.doe@example.com"" is logged in.
+- An event ""Tech Conference 2023"" exists with creator ""alice@example.com"".",,"1. User ""john.doe@example.com"" joins ""Tech Conference 2023"" (via **Join/View event**).
+2. Navigate to the **Notification center** from the Environment.","- Notification center displays:
+  - ""You joined Tech Conference 2023"" (to joiner).
+  - ""New attendee: john.doe@example.com"" (to creator).
+- Notifications are stored in PostgreSQL with read/unread status."
+TC-FLASH-001,Verify flash message display after newsletter subscription,Flash Activity,1,"- User ""john.doe@example.com"" is logged in.",,"1. Subscribe to ""Tech Updates"" via **Newsletter activity**.
+2. Check the flash activity area (e.g., top of the page).","- Flash activity displays: ""Subscribed to Tech Updates successfully!""
+- Message disappears after 5 seconds"

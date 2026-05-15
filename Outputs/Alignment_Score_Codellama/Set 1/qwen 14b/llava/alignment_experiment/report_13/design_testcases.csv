@@ -1,0 +1,88 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login with Correct Credentials,Login,1,User has an existing account with valid credentials.,"- Username: john_doe
+- Password: securepassword123","1. User enters the username ""john_doe"".
+2. User enters the password ""securepassword123"".
+3. User clicks on the login button.",User is successfully authenticated and redirected to the home page.
+TC-Login-002,Failed Login with Incorrect Username,Login,1,User does not have an account with the provided username.,"- Username: non_existent_user
+- Password: securepassword123","1. User enters the username ""non_existent_user"".
+2. User enters the password ""securepassword123"".
+3. User clicks on the login button.",User receives an error message indicating unauthorized access.
+TC-Login-003,Failed Login with Incorrect Password,Login,1,User has an existing account but enters an incorrect password.,"- Username: john_doe
+- Password: wrongpassword","1. User enters the username ""john_doe"".
+2. User enters the password ""wrongpassword"".
+3. User clicks on the login button.",User receives an error message indicating unauthorized access.
+TC-Signup-001,Successful Registration with Valid Email and Password,Signup,1,User does not have an existing account.,"- Email: jane.doe@example.com
+- Password: securepassword123","1. User enters the email ""jane.doe@example.com"".
+2. User enters the password ""securepassword123"".
+3. User clicks on the signup button.",User is successfully registered and redirected to the login page.
+TC-Signup-002,Failed Registration with Invalid Email Format,Signup,1,User does not have an existing account.,"- Email: janedoeexample.com
+- Password: securepassword123","1. User enters the email ""janedoeexample.com"".
+2. User enters the password ""securepassword123"".
+3. User clicks on the signup button.",User receives an error message indicating invalid email format.
+TC-Signup-003,Failed Registration with Weak Password,Signup,1,User does not have an existing account.,"- Email: jane.doe@example.com
+- Password: 123","1. User enters the email ""jane.doe@example.com"".
+2. User enters the password ""123"".
+3. User clicks on the signup button.",User receives an error message indicating weak password.
+TC-Profile-001,Successful Profile Update with Valid Data,Profile,1,User is logged in and has an existing profile.,"- Username: john_doe
+- ProfileData: {""bio"": ""Software Developer"", ""location"": ""New York""}","1. User navigates to the profile page.
+2. User updates the bio to ""Software Developer"".
+3. User updates the location to ""New York"".
+4. User clicks on the save button.",User's profile is successfully updated and the changes are reflected on the profile page.
+TC-Profile-002,Failed Profile Update with Empty Bio Field,Profile,1,User is logged in and has an existing profile.,"- Username: john_doe
+- ProfileData: {""bio"": """", ""location"": ""New York""}","1. User navigates to the profile page.
+2. User leaves the bio field empty.
+3. User updates the location to ""New York"".
+4. User clicks on the save button.",User receives an error message indicating that the bio field cannot be empty.
+TC-Profile-003,Failed Profile Update with Invalid Location Format,Profile,1,User is logged in and has an existing profile.,"- Username: john_doe
+- ProfileData: {""bio"": ""Software Developer"", ""location"": ""12345""}","1. User navigates to the profile page.
+2. User updates the bio to ""Software Developer"".
+3. User updates the location to ""12345"".
+4. User clicks on the save button.",User receives an error message indicating that the location field must be a valid city name.
+TC-Exit-001,Successful Exit with Reason Provided,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""Leaving for the day""","1. User decides to exit the application.
+2. User enters the exit reason ""Leaving for the day"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-002,Failed Exit with Empty Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: """"","1. User decides to exit the application.
+2. User leaves the exit reason field empty.
+3. User clicks on the exit button.",User receives an error message indicating that the exit reason field cannot be empty.
+TC-Exit-003,Successful Exit without Providing Exit Reason,Exit,1,User is logged in and wants to exit the application.,- ExitReason: (not provided),"1. User decides to exit the application.
+2. User clicks on the exit button without entering an exit reason.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-004,Exit with Special Characters in Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""!@#$%^&*()""","1. User decides to exit the application.
+2. User enters the exit reason ""!@#$%^&*()"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-005,Exit with Long Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""This is a very long exit reason that exceeds the maximum allowed length.""","1. User decides to exit the application.
+2. User enters the exit reason ""This is a very long exit reason that exceeds the maximum allowed length."".
+3. User clicks on the exit button.",User receives an error message indicating that the exit reason is too long.
+TC-Exit-006,Exit with Short Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""X""","1. User decides to exit the application.
+2. User enters the exit reason ""X"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-007,Exit with Numeric Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""1234567890""","1. User decides to exit the application.
+2. User enters the exit reason ""1234567890"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-008,Exit with Alphanumeric Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""abc123""","1. User decides to exit the application.
+2. User enters the exit reason ""abc123"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-009,Exit with Special Characters and Spaces in Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""!@#$%^ &*()""","1. User decides to exit the application.
+2. User enters the exit reason ""!@#$%^ &*()"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-010,Exit with Mixed Case Exit Reason,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""Leaving fOr tHe DaY""","1. User decides to exit the application.
+2. User enters the exit reason ""Leaving fOr tHe DaY"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-011,Exit with Empty Exit Reason and No Confirmation Message,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: """"","1. User decides to exit the application.
+2. User clicks on the exit button without entering an exit reason.",User is successfully exited from the application without receiving a confirmation message.
+TC-Exit-012,Exit with Exit Reason Containing HTML Tags,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""<html><body>Leaving for the day</body></html>""","1. User decides to exit the application.
+2. User enters the exit reason ""<html><body>Leaving for the day</body></html>"".
+3. User clicks on the exit button.",User receives an error message indicating that the exit reason contains invalid characters.
+TC-Exit-013,Exit with Exit Reason Containing SQL Injection,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""'; DROP TABLE users;""","1. User decides to exit the application.
+2. User enters the exit reason ""'; DROP TABLE users;"".
+3. User clicks on the exit button.",User receives an error message indicating that the exit reason contains invalid characters.
+TC-Exit-014,Exit with Exit Reason Containing JavaScript Code,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""<script>alert('XSS');</script>""","1. User decides to exit the application.
+2. User enters the exit reason ""<script>alert('XSS');</script>"".
+3. User clicks on the exit button.",User receives an error message indicating that the exit reason contains invalid characters.
+TC-Exit-015,Exit with Exit Reason Containing Unicode Characters,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""こんにちは""","1. User decides to exit the application.
+2. User enters the exit reason ""こんにちは"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+TC-Exit-016,Exit with Exit Reason Containing Emoji,Exit,1,User is logged in and wants to exit the application.,"- ExitReason: ""👋""","1. User decides to exit the application.
+2. User enters the exit reason ""👋"".
+3. User clicks on the exit button.",User is successfully exited from the application and receives a confirmation message.
+"TC-Exit-017
+Title",,,,,,,

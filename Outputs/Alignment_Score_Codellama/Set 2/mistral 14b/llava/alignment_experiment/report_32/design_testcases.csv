@@ -1,0 +1,93 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-ORDER-001,Place a valid order with successful payment,Restaurant Ordering,1,"- User is logged in.
+- Restaurant menu is available.","- User: `user123`, `password123`
+- Menu items: `Pizza Margherita (ID: M001, Price: 10.99)`
+- Order: `1x Pizza Margherita`
+- Payment: `Credit Card (4111111111111111, Exp: 12/25, CVV: 123)`","1. User logs in with `user123`/`password123`.
+2. User views the menu and selects `Pizza Margherita`.
+3. User places an order for `1x Pizza Margherita`.
+4. System validates order and prompts for payment.
+5. User enters valid credit card details.
+6. System processes payment and confirms order.","- Order is created with status `Completed`.
+- Payment is processed successfully.
+- User receives confirmation: `""Order #ORD123 placed successfully. Total: $10.99""`."
+TC-ORDER-002,Place an order with invalid payment,Restaurant Ordering,1,"- User is logged in.
+- Menu is available.","- User: `user123`, `password123`
+- Order: `1x Pizza Margherita`
+- Payment: `Declined Card (4000000000000002)`","1. User logs in.
+2. User selects `Pizza Margherita` and places order.
+3. System prompts for payment.
+4. User enters declined card details.
+5. System attempts payment processing.","- Payment fails with error: `""Payment declined. Please try another method.""`.
+- Order status remains `Pending`.
+- User is prompted to retry payment."
+TC-ORDER-003,View menu as a restaurant admin,Restaurant Ordering,1,- Restaurant admin is logged in.,"- Admin: `admin456`, `adminpass`
+- Menu items: `Pasta Carbonara (ID: M002, Price: 12.50)`","1. Admin logs in with `admin456`/`adminpass`.
+2. Admin navigates to ""View Menu"" section.
+3. System displays all available menu items.","- Menu is displayed with items: `Pizza Margherita`, `Pasta Carbonara`.
+- Admin can edit/delete items (implied by `set`/`delete` operations)."
+TC-ORDER-004,Place order with empty menu (edge case),Restaurant Ordering,1,- Restaurant menu is empty (no items).,"- User: `user123`, `password123`","1. User logs in.
+2. User attempts to view menu.
+3. User attempts to place an order.","- System displays: `""No items available. Please try again later.""`.
+- Order placement fails with: `""Cannot place order: Menu is empty.""`."
+TC-SERVICE-001,Submit a request and receive a valid response,Request-Response Service,2,"- `Servizio` is in state `""attiva""`.","- Request: `id=1, codice=""REQ001"", descrizione=""Order confirmation""`
+- Service: `id=101, nome=""PaymentService"", stato=""attiva""`","1. `Richiesta` creates a new request with `id=1`, `codice=""REQ001""`.
+2. `Richiesta` sends request to `Servizio` (ID: 101).
+3. `Servizio` processes request and generates `Risposta`.
+4. `Risposta` is linked back to `Richiesta`.","- `Risposta` is created with:
+  - `id=1001`, `codice=""RES001""`, `descrizione=""Order confirmed""`, `stato=""completed""`.
+- `Richiesta` updates `stato=""processed""`."
+TC-SERVICE-002,Submit a request to an inactive service,Request-Response Service,2,"- `Servizio` is in state `""inattiva""`.","- Request: `id=2, codice=""REQ002""`
+- Service: `id=102, nome=""InventoryService"", stato=""inattiva""`","1. `Richiesta` sends request to `Servizio` (ID: 102).
+2. `Servizio` checks state and rejects request.","- `Risposta` is created with:
+  - `id=1002`, `codice=""ERR001""`, `descrizione=""Service unavailable""`, `stato=""error""`.
+- `Richiesta` updates `stato=""failed""`."
+TC-SERVICE-003,Delete a service while requests are pending,Request-Response Service,2,"- `Servizio` (ID: 103) has 2 pending `Richiesta` (IDs: 3, 4).","- Service: `id=103, nome=""NotificationService""`","1. Admin calls `delete(id=103)` on `Servizio`.
+2. System attempts to delete service.","- Deletion fails with error: `""Cannot delete service: Active requests exist (IDs: 3, 4).""`.
+- Service state remains `""attiva""`."
+TC-SERVICE-004,Update request status after response,Request-Response Service,2,"- `Richiesta` (ID: 5) has `stato=""pending""`.
+- `Risposta` (ID: 1005) exists but is unlinked.",,"1. System links `Risposta` (ID: 1005) to `Richiesta` (ID: 5).
+2. Admin calls `set(id=5, stato=""completed"")`.","- `Richiesta` updates to `stato=""completed""`.
+- `Risposta` confirms: `""Request #5 processed successfully.""`."
+TC-AUTH-001,Successful user login,User Authentication,"5, 8",- User exists in database.,"- User: `username=""john_doe""`, `password=""secure123""`
+- Server: `port=8080`","1. User enters `john_doe`/`secure123` on login screen.
+2. Server receives `login(""john_doe"", ""secure123"")`.
+3. Server validates credentials with database.
+4. Server returns `true`.","- User session is created.
+- Server logs: `""User john_doe logged in successfully.""`.
+- UI displays: `""Welcome, john_doe!""`."
+TC-AUTH-002,Failed login with incorrect password,User Authentication,"5, 8",- User exists but password is wrong.,"- User: `username=""john_doe""`, `password=""wrongpass""`","1. User enters `john_doe`/`wrongpass`.
+2. Server validates credentials.","- Server returns `false`.
+- UI displays: `""Invalid username or password. Try again.""`.
+- No session is created."
+TC-AUTH-003,Logout after login,User Authentication,"5, 8",- User is logged in (`john_doe`).,,"1. User clicks ""Logout"".
+2. Server receives `logout()`.
+3. Server terminates session.","- Server logs: `""User john_doe logged out.""`.
+- UI redirects to login screen.
+- Session data is cleared."
+TC-AUTH-004,Database query after login (Page 6),User Authentication + Database,6,"- User is logged in (`john_doe`).
+- Database contains user profile: `id=1, username=""john_doe""`.",,"1. User logs in.
+2. User sends query: `""SELECT * FROM users WHERE username='john_doe'""`.
+3. Server forwards query to database.
+4. Database returns result.","- Server receives: `[{id: 1, username: ""john_doe""}]`.
+- UI displays user profile: `""ID: 1, Username: john_doe""`."
+TC-AUTH-005,Logout while database operation is in progress,User Authentication + Database,"6, 8","- User is logged in (`john_doe`).
+- Database query is pending (e.g., `""SELECT * FROM orders""`).",,"1. User initiates query: `""SELECT * FROM orders""`.
+2. Before response, user clicks ""Logout"".
+3. Server handles `logout()` while query is processing.","- Query is **aborted**.
+- Server logs: `""User john_doe logged out. Active query cancelled.""`.
+- UI shows: `""You have been logged out.""`."
+TC-ACCESS-001,Grant access after successful verification,Access Control,3,- Verifier checks user data and approves.,"- Verification: `user_data=""valid_credentials""`","1. `Verifica corretta delle informazioni` receives `user_data=""valid_credentials""`.
+2. Verifier approves access.
+3. `Si accesso` grants access.
+4. `Riprova` offers reward (e.g., points).
+5. User accesses `Mercato di errori`.","- User gains access to marketplace.
+- Reward is logged: `""100 points added for verification.""`."
+TC-ACCESS-002,Deny access for invalid verification,Access Control,3,- Verifier rejects user data.,"- Verification: `user_data=""invalid_credentials""`","1. `Verifica corretta delle informazioni` rejects data.
+2. System skips `Si accesso` and `Riprova`.","- User is denied access.
+- UI displays: `""Access denied. Verification failed.""`.
+- No reward is issued."
+TC-ACCESS-003,Access marketplace after reward (edge case),Access Control,3,- User has no prior verification.,,"1. User bypasses `Verifica corretta delle informazioni` (e.g., direct URL access).
+2. System detects missing verification.","- User is redirected to verification step.
+- Error: `""Access requires verification. Please start over.""`."
+TC-CREATION-001,Create announcement and trigger database/service creation,,,,,,

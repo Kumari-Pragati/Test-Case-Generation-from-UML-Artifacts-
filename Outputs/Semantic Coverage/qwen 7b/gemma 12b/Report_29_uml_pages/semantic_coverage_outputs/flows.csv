@@ -1,0 +1,62 @@
+flow
+"start -> utente registrato con successo — type=transition; label=""""; explanation=""flow from start"""
+"utente registrato con successo -> utente registrato? — type=transition; label=""no""; explanation=""if user is not registered"""
+"utente registrato con successo -> homepage — type=transition; label=""si""; explanation=""if user is registered"""
+"utente registrato? -> creazione di un utente — type=transition; label=""no""; explanation=""if user is not registered"""
+"creazione di un utente -> homepage — type=transition; label=""""; explanation=""flow after user creation"""
+flow 1: start -> utente registrato con successo -> utente registrato? (no) -> creazione di un utente -> homepage
+flow 2: start -> utente registrato con successo -> utente registrato? (si) -> homepage
+the diagram models a user registration and login process.
+"the process starts at the ""start"" node and checks if the user is already registered."
+"if the user is not registered, a new user is created, and then the homepage is displayed."
+"if the user is already registered, the homepage is displayed directly."
+the diagram focuses on the initial flow of the application.
+"home -> click sul menu laterale — type=control flow; label=""""; explanation=""starts the process"""
+"click sul menu laterale -> click ""homepage"" — type=control flow; label=""si""; explanation=""if the user clicks 'homepage'"""
+"click sul menu laterale -> click ""le mie segnalazioni"" — type=control flow; label=""no""; explanation=""if the user does not click 'homepage'"""
+"click ""le mie segnalazioni"" -> chiusura menu e apertura nuova schermata — type=control flow; label=""si""; explanation=""if the user clicks 'le mie segnalazioni'"""
+"click ""le mie segnalazioni"" -> click ""impostazioni"" — type=control flow; label=""no""; explanation=""if the user does not click 'le mie segnalazioni'"""
+"click ""impostazioni"" -> chiusura menu e apertura nuova schermata — type=control flow; label=""si""; explanation=""if the user clicks 'impostazioni'"""
+"click ""impostazioni"" -> click ""le mie segnalazioni"" — type=control flow; label=""no""; explanation=""if the user does not click 'impostazioni'"""
+"flow 1: home -> click sul menu laterale -> (si) click ""homepage"" -> chiusura menu e apertura nuova schermata"
+"flow 2: home -> click sul menu laterale -> (no) click ""le mie segnalazioni"" -> (si) chiusura menu e apertura nuova schermata"
+"flow 3: home -> click sul menu laterale -> (no) click ""le mie segnalazioni"" -> (no) click ""impostazioni"" -> chiusura menu e apertura nuova schermata"
+"flow 4: home -> click sul menu laterale -> (no) click ""impostazioni"" -> (no) click ""le mie segnalazioni"" -> chiusura menu e apertura nuova schermata"
+this diagram models the flow of actions after clicking on a side menu.
+"the main flow involves clicking on either ""homepage"" or ""le mie segnalazioni"" or ""impostazioni"" which leads to closing the menu and opening a new screen."
+the diagram shows a branching flow based on user choices within the side menu.
+the diagram represents a simple user interaction flow within an application.
+"avvio — kind=initial_node; -> add alert — type=control_flow; label=""""; explanation=""start of the process"""
+"add alert -> click 'add category' — type=control_flow; label=""""; explanation=""navigating to category selection"""
+"add alert -> apertura elenco categorie — type=control_flow; label=""""; explanation=""opening the category list"""
+"apertura elenco categorie -> premere il tasto verde per inserire la segnalazione — type=control_flow; label=""""; explanation=""confirming alert insertion"""
+"premere il tasto verde per inserire la segnalazione -> i primi 4 campi compilati correttamente? — type=control_flow; label=""""; explanation=""checking if the first 4 fields are filled correctly"""
+"i primi 4 campi compilati correttamente? -> compilare i primi 4 campi correttamente — type=control_flow; label=""si""; explanation=""if the first 4 fields are filled correctly"""
+"i primi 4 campi compilati correttamente? -> add alert — type=control_flow; label=""no""; explanation=""if the first 4 fields are not filled correctly, return to add alert"""
+flow 1: avvio -> add alert -> click 'add category' -> apertura elenco categorie -> premere il tasto verde per inserire la segnalazione -> i primi 4 campi compilati correttamente? -> compilare i primi 4 campi correttamente
+"the diagram outlines the process of adding an alert, starting from the initial action and proceeding through category selection and confirmation."
+"a decision point checks if the first four fields are correctly filled. if not, the process loops back to the ""add alert"" step."
+the flow appears to be linear with a single conditional branch for error handling related to field completion.
+"click 'view alerts' nel menù laterale -> visualizzazione di tutte le segnalazioni — type=control_flow; label=""""; explanation=""initiates the display of all alerts"""
+"visualizzazione di tutte le segnalazioni -> click su una segnalazione — type=control_flow; label=""""; explanation=""allows selection of a specific alert"""
+"click su una segnalazione -> visualizzazione dettagliata della segnalazione — type=control_flow; label=""""; explanation=""displays detailed information for the selected alert"""
+flow 1: click 'view alerts' nel menù laterale -> visualizzazione di tutte le segnalazioni -> click su una segnalazione -> visualizzazione dettagliata della segnalazione
+the diagram illustrates a workflow for viewing alerts within a system.
+the process begins by clicking 'view alerts' which leads to a display of all alerts.
+"from there, a user can select a specific alert to view its detailed information."
+"the diagram represents a linear, sequential process with no branching or looping."
+"profile -> click ""profile"" nel menu laterale — type=transition; label=""""; explanation=""goes to the profile screen"""
+"click ""profile"" nel menu laterale -> profile — type=transition; label=""""; explanation=""goes to the profile screen"""
+"profile -> click su icona blu della casa — type=transition; label=""""; explanation=""goes to the accommodation screen"""
+"click su icona blu della casa -> passa alla schermata delle abitazioni — type=transition; label=""""; explanation=""goes to the accommodation screen"""
+"passa alla schermata delle abitazioni -> i campi sono correttamente compilati? — type=transition; label=""""; explanation=""check if fields are correctly filled"""
+"i campi sono correttamente compilati? -> corregger i dati — type=transition; label=""no""; explanation=""if fields are not correctly filled"""
+"i campi sono correttamente compilati? -> salva le modifiche oppure scartale — type=transition; label=""si""; explanation=""if fields are correctly filled"""
+"corregger i dati -> i campi sono correttamente compilati? — type=transition; label=""""; explanation=""returns to check if fields are correctly filled"""
+"salva le modifiche oppure scartale -> profile — type=transition; label=""""; explanation=""returns to the profile screen"""
+"flow 1: profile -> click ""profile"" nel menu laterale -> profile -> click su icona blu della casa -> passa alla schermata delle abitazioni -> i campi sono correttamente compilati? -> salva le modifiche oppure scartale -> profile"
+"the diagram illustrates a user flow for managing a profile, specifically related to accommodations."
+"the flow starts at the profile screen, proceeds to the accommodation screen, and then checks if the fields are correctly filled."
+"if the fields are not correctly filled, the user is prompted to correct them, and the process loops back to the validation step."
+"if the fields are correctly filled, the user can save or discard the changes, returning to the profile screen."
+======================================================================

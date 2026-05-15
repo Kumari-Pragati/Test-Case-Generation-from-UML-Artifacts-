@@ -1,0 +1,141 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-UserCreation-001,User Creation Process,UserCreation,1,System is initialized and ready to accept user creation requests.,"- Valid user data (username: ""testuser"", password: ""password123"")
+- Invalid user data (username: """", password: """")","1. Navigate to the start point.
+2. Check if the user is already created.
+3. If not created, initiate the user creation process.
+4. Provide valid user data.
+5. Verify if the user creation is successful.
+6. If successful, navigate to the home page.
+7. If unsuccessful, retry the user creation process.
+8. Provide invalid user data.
+9. Verify if the user creation fails.
+10. Retry the user creation process with valid data again.","- For valid user data, the user should be successfully created and redirected to the home page.
+- For invalid user data, the user creation should fail and the process should retry with valid data."
+TC-HomeNavigation-002,Access Menu Navigation,HomeNavigation,3,User is logged in and on the home page.,"- User input for menu access (yes/no)
+- User input for profile access (yes/no)
+- User input for guide access (yes/no)","1. Start at the home page.
+2. Check if the user wants to access the menu.
+3. If yes, proceed to check for profile access.
+4. If profile access is granted, display profile information.
+5. If profile access is denied, check for guide access.
+6. If guide access is granted, display the guide.
+7. If neither profile nor guide access is granted, end the process.","- If the user accesses the menu and grants profile access, profile information should be displayed.
+- If the user accesses the menu and denies profile access but grants guide access, the guide should be displayed.
+- If the user denies both profile and guide access, the process should end without displaying any content."
+TC-CreationProcess-003,Commission Creation Process,CreationProcess,2,User is logged in and on the home page.,"- Valid commission data (name: ""Commission1"", details: ""Details1"")
+- Invalid commission data (name: """", details: """")","1. Start at the home page.
+2. Check if the user wants to access creation.
+3. If yes, proceed to check for commission creation.
+4. If commission creation is selected, initiate the commission creation process.
+5. Provide valid commission data.
+6. Verify if the commission creation is successful.
+7. If successful, navigate to the correct creation check.
+8. If unsuccessful, retry the commission creation process.
+9. Provide invalid commission data.
+10. Verify if the commission creation fails.
+11. Retry the commission creation process with valid data again.","- For valid commission data, the commission should be successfully created and the process should proceed to the correct creation check.
+- For invalid commission data, the commission creation should fail and the process should retry with valid data."
+TC-CreationProcess-004,Offer Creation Process,CreationProcess,2,User is logged in and on the home page.,"- Valid offer data (name: ""Offer1"", details: ""Details1"")
+- Invalid offer data (name: """", details: """")","1. Start at the home page.
+2. Check if the user wants to access creation.
+3. If yes, proceed to check for offer creation.
+4. If offer creation is selected, initiate the offer creation process.
+5. Provide valid offer data.
+6. Verify if the offer creation is successful.
+7. If successful, navigate to the correct creation check.
+8. If unsuccessful, retry the offer creation process.
+9. Provide invalid offer data.
+10. Verify if the offer creation fails.
+11. Retry the offer creation process with valid data again.","- For valid offer data, the offer should be successfully created and the process should proceed to the correct creation check.
+- For invalid offer data, the offer creation should fail and the process should retry with valid data."
+TC-UserCreation-005,User Already Created,UserCreation,1,User is already created and logged in.,"- Existing user data (username: ""existinguser"", password: ""password123"")","1. Navigate to the start point.
+2. Check if the user is already created.
+3. Since the user is already created, navigate directly to the home page.",- The user should be redirected to the home page without attempting to create a new user.
+TC-CreationProcess-006,Incorrect Creation Retry,CreationProcess,2,User is logged in and on the home page.,"- Valid commission data (name: ""Commission1"", details: ""Details1"")
+- Invalid commission data (name: """", details: """")","1. Start at the home page.
+2. Check if the user wants to access creation.
+3. If yes, proceed to check for commission creation.
+4. If commission creation is selected, initiate the commission creation process.
+5. Provide invalid commission data.
+6. Verify if the commission creation fails.
+7. Retry the commission creation process with valid data.
+8. Verify if the commission creation is successful.","- The commission creation should fail initially due to invalid data.
+- Upon retrying with valid data, the commission should be successfully created and the process should proceed to the correct creation check."
+TC-HomeNavigation-007,Guide Access Only,HomeNavigation,3,User is logged in and on the home page.,"- User input for menu access (yes)
+- User input for profile access (no)
+- User input for guide access (yes)","1. Start at the home page.
+2. Check if the user wants to access the menu.
+3. If yes, proceed to check for profile access.
+4. If profile access is denied, check for guide access.
+5. If guide access is granted, display the guide.",- The guide should be displayed as the user denied profile access but granted guide access.
+TC-CreationProcess-008,Incorrect Offer Creation Retry,CreationProcess,2,User is logged in and on the home page.,"- Valid offer data (name: ""Offer1"", details: ""Details1"")
+- Invalid offer data (name: """", details: """")","1. Start at the home page.
+2. Check if the user wants to access creation.
+3. If yes, proceed to check for offer creation.
+4. If offer creation is selected, initiate the offer creation process.
+5. Provide invalid offer data.
+6. Verify if the offer creation fails.
+7. Retry the offer creation process with valid data.
+8. Verify if the offer creation is successful.","- The offer creation should fail initially due to invalid data.
+- Upon retrying with valid data, the offer should be successfully created and the process should proceed to the correct creation check."
+TC-HomeNavigation-009,No Access to Profile or Guide,HomeNavigation,3,User is logged in and on the home page.,"- User input for menu access (yes)
+- User input for profile access (no)
+- User input for guide access (no)","1. Start at the home page.
+2. Check if the user wants to access the menu.
+3. If yes, proceed to check for profile access.
+4. If profile access is denied, check for guide access.
+5. If guide access is also denied, end the process without displaying any content.",- The process should end without displaying any content as the user denied both profile and guide access.
+TC-UserCreation-010,Edge Case - Multiple User Creation Attempts,UserCreation,1,User is not yet created.,"- Valid user data (username: ""testuser"", password: ""password123"")
+- Invalid user data (username: """", password: """")","1. Navigate to the start point.
+2. Check if the user is already created.
+3. If not created, initiate the user creation process.
+4. Provide valid user data.
+5. Verify if the user creation is successful.
+6. If successful, navigate to the home page.
+7. If unsuccessful, retry the user creation process.
+8. Provide invalid user data.
+9. Verify if the user creation fails.
+10. Retry the user creation process with valid data again.
+11. Repeat steps 4-10 multiple times to simulate multiple attempts.","- For valid user data, the user should eventually be successfully created and redirected to the home page.
+- For invalid user data, the user creation should fail and the process should retry with valid data until successful."
+TC-CreationProcess-011,Edge Case - Multiple Incorrect Commission Creation Attempts,CreationProcess,2,User is logged in and on the home page.,"- Valid commission data (name: ""Commission1"", details: ""Details1"")
+- Invalid commission data (name: """", details: """")","1. Start at the home page.
+2. Check if the user wants to access creation.
+3. If yes, proceed to check for commission creation.
+4. If commission creation is selected, initiate the commission creation process.
+5. Provide invalid commission data.
+6. Verify if the commission creation fails.
+7. Retry the commission creation process with valid data.
+8. Verify if the commission creation is successful.
+9. Repeat steps 5-8 multiple times to simulate multiple attempts.","- The commission creation should fail initially due to invalid data.
+- Upon retrying with valid data, the commission should be successfully created and the process should proceed to the correct creation check."
+TC-CreationProcess-012,Edge Case - Multiple Incorrect Offer Creation Attempts,CreationProcess,2,User is logged in and on the home page.,"- Valid offer data (name: ""Offer1"", details: ""Details1"")
+- Invalid offer data (name: """", details: """")","1. Start at the home page.
+2. Check if the user wants to access creation.
+3. If yes, proceed to check for offer creation.
+4. If offer creation is selected, initiate the offer creation process.
+5. Provide invalid offer data.
+6. Verify if the offer creation fails.
+7. Retry the offer creation process with valid data.
+8. Verify if the offer creation is successful.
+9. Repeat steps 5-8 multiple times to simulate multiple attempts.","- The offer creation should fail initially due to invalid data.
+- Upon retrying with valid data, the offer should be successfully created and the process should proceed to the correct creation check."
+TC-HomeNavigation-013,Edge Case - Multiple Menu Access Attempts,HomeNavigation,3,User is logged in and on the home page.,"- User input for menu access (yes)
+- User input for profile access (yes)
+- User input for guide access (yes)","1. Start at the home page.
+2. Check if the user wants to access the menu.
+3. If yes, proceed to check for profile access.
+4. If profile access is granted, display profile information.
+5. If profile access is denied, check for guide access.
+6. If guide access is granted, display the guide.
+7. Repeat steps 2-6 multiple times to simulate multiple attempts.",- The user should be able to repeatedly access the menu and view profile information or the guide based on their selection.
+TC-UserCreation-014,Edge Case - User Creation with Existing Username,UserCreation,1,User is not yet created.,"- Existing username (username: ""existinguser"", password: ""password123"")
+- Valid user data (username: ""testuser"", password: ""password123"")","1. Navigate to the start point.
+2. Check if the user is already created.
+3. If not created, initiate the user creation process.
+4. Provide existing username data.
+5. Verify if the user creation fails due to existing username.
+6. Retry the user creation process with valid data.
+7. Verify if the user creation is successful.","- The user creation should fail due to an existing username.
+- Upon retrying with valid data, the user should be successfully created and redirected to the home page."
+TC-CreationProcess-015,Edge Case - Commission Creation with Existing Name,CreationProcess,2,User is logged in and on the home page.,- Existing commission name (name,,

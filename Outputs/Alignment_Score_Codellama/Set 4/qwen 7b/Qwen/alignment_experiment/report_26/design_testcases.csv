@@ -1,0 +1,78 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","Successful Login","Login","2","User is not logged in.","Username: testuser, Password: testpassword","1. Enter ""testuser"" in the username field.
+2. Enter ""testpassword"" in the password field.
+3. Click the login button.","User is redirected to the home page."
+"TC-Login-002","Invalid Credentials","Login","2","User is not logged in.","Username: wronguser, Password: wrongpassword","1. Enter ""wronguser"" in the username field.
+2. Enter ""wrongpassword"" in the password field.
+3. Click the login button.","An error message is displayed indicating invalid credentials."
+"TC-Login-003","Empty Fields","Login","2","User is not logged in.","Username: , Password:","1. Leave the username field empty.
+2. Leave the password field empty.
+3. Click the login button.","Error messages are displayed for both fields indicating they are required."
+"TC-Registration-001","Successful Registration","Registration","1","User is not logged in.","Username: newuser, Email: newuser@example.com, Password: newpassword","1. Enter ""newuser"" in the username field.
+2. Enter ""newuser@example.com"" in the email field.
+3. Enter ""newpassword"" in the password field.
+4. Click the register button.","User is redirected to the home page."
+"TC-Registration-002","Duplicate Username","Registration","1","User is not logged in.","Username: existinguser, Email: existinguser@example.com, Password: existingpassword","1. Enter ""existinguser"" in the username field.
+2. Enter ""existinguser@example.com"" in the email field.
+3. Enter ""existingpassword"" in the password field.
+4. Click the register button.","An error message is displayed indicating the username already exists."
+"TC-Registration-003","Empty Fields","Registration","1","User is not logged in.","Username: , Email: , Password:","1. Leave the username field empty.
+2. Leave the email field empty.
+3. Leave the password field empty.
+4. Click the register button.","Error messages are displayed for all fields indicating they are required."
+"TC-Home-001","View Home Page","Home","1, 2, 3, 4, 12","User is logged in.","N/A","1. Navigate to the home page.","User is presented with the home page."
+"TC-Home-002","View Proposal Exchange","Proposal Exchange","2, 14","User is logged in.","N/A","1. Navigate to the proposal exchange page.","User is presented with the proposal exchange page."
+"TC-Home-003","View Personal Inbox","Personal Inbox","3, 13","User is logged in.","N/A","1. Navigate to the personal inbox page.","User is presented with the personal inbox page."
+"TC-Home-004","View Offer List","Offer List","4, 12","User is logged in.","N/A","1. Navigate to the offer list page.","User is presented with the offer list page."
+"TC-Home-005","View Profile","Profile","5, 17","User is logged in.","N/A","1. Navigate to the profile page.","User is presented with the profile page."
+"TC-Home-006","View Saved Items","Saved Items","6, 16","User is logged in.","N/A","1. Navigate to the saved items page.","User is presented with the saved items page."
+"TC-Profile-001","Modify Personal Info","Profile","5, 17","User is logged in.","New Username: updateduser, New Email: updateduser@example.com, New Password: updatedpassword","1. Click on the modify personal info button.
+2. Enter ""updateduser"" in the username field.
+3. Enter ""updateduser@example.com"" in the email field.
+4. Enter ""updatedpassword"" in the password field.
+5. Click the save button.","User is presented with the updated profile information."
+"TC-Profile-002","Empty Fields During Modification","Profile","5, 17","User is logged in.","New Username: , New Email: , New Password:","1. Click on the modify personal info button.
+2. Leave the username field empty.
+3. Leave the email field empty.
+4. Leave the password field empty.
+5. Click the save button.","Error messages are displayed for all fields indicating they are required."
+"TC-Profile-003","Update Username Only","Profile","5, 17","User is logged in.","New Username: updateduser","1. Click on the modify personal info button.
+2. Enter ""updateduser"" in the username field.
+3. Click the save button.","User is presented with the updated username in the profile."
+"TC-Item-Insertion-001","Successful Item Insertion","Item Insertion","10","User is logged in.","Item Name: Test Item, Description: This is a test item, Image: testimage.jpg","1. Click on the insert item button.
+2. Take a picture of the item.
+3. Enter ""Test Item"" in the name field.
+4. Enter ""This is a test item"" in the description field.
+5. Click the save button.","User is presented with the updated items list including the new item."
+"TC-Item-Insertion-002","No Image Taken","Item Insertion","10","User is logged in.","Item Name: Test Item, Description: This is a test item","1. Click on the insert item button.
+2. Do not take a picture.
+3. Enter ""Test Item"" in the name field.
+4. Enter ""This is a test item"" in the description field.
+5. Click the save button.","User is presented with the updated items list including the new item."
+"TC-Item-Deletion-001","Successful Item Deletion","Item Deletion","11","User is logged in.","Item Name: Test Item","1. Click on the delete item button next to ""Test Item"".
+2. Confirm the deletion.","User is presented with the updated items list excluding the deleted item."
+"TC-Item-Deletion-002","Cancel Deletion","Item Deletion","11","User is logged in.","Item Name: Test Item","1. Click on the delete item button next to ""Test Item"".
+2. Cancel the deletion.","User is presented with the original items list."
+"TC-Offer-Exchange-001","Propose New Exchange","Offer Exchange","15, 16","User is logged in.","Item Name: Test Item, Description: This is a test item","1. Click on the propose new exchange button.
+2. Enter ""Test Item"" in the name field.
+3. Enter ""This is a test item"" in the description field.
+4. Click the save button.","User is presented with the updated exchanges list including the new exchange."
+"TC-Offer-Exchange-002","Accept Exchange","Offer Exchange","15, 16","User is logged in.","Exchange ID: 12345","1. Click on the accept button next to the exchange with ID ""12345"".
+2. Confirm the acceptance.","User is presented with the updated exchanges list where the selected exchange is marked as accepted."
+"TC-Offer-Exchange-003","Reject Exchange","Offer Exchange","15, 16","User is logged in.","Exchange ID: 12345","1. Click on the reject button next to the exchange with ID ""12345"".
+2. Confirm the rejection.","User is presented with the updated exchanges list where the selected exchange is marked as rejected."
+"TC-Filters-001","Apply Filters","Filters","16","User is logged in.","Filter Criteria: Category: Electronics, Price Range: $100-$200","1. Click on the apply filters button.
+2. Select ""Electronics"" from the category dropdown.
+3. Set the price range to ""$100-$200"".
+4. Click the apply button.","User is presented with the filtered items list based on the applied criteria."
+"TC-Saved-Items-001","View Saved Items","Saved Items","6, 16","User is logged in.","N/A","1. Navigate to the saved items page.","User is presented with the saved items list."
+"TC-Saved-Items-002","Remove Saved Item","Saved Items","6, 16","User is logged in.","Item Name: Test Item","1. Click on the remove button next to ""Test Item"".
+2. Confirm the removal.","User is presented with the updated saved items list excluding the removed item."
+"TC-Saved-Items-003","Cancel Removal","Saved Items","6, 16","User is logged in.","Item Name: Test Item","1. Click on the remove button next to ""Test Item"".
+2. Cancel the removal.","User is presented with the original saved items list."
+"TC-Proposal-001","View Received Proposals","Proposal Exchange","2, 14","User is logged in.","N/A","1. Navigate to the received proposals page.","User is presented with the received proposals list."
+"TC-Proposal-002","View Sent Proposals","Proposal Exchange","2, 14","User is logged in.","N/A","1. Navigate to the sent proposals page.","User is presented with the sent proposals list."
+"TC-Proposal-003","Accept Proposal","Proposal Exchange","2, 14","User is logged in.","Proposal ID: 12345","1. Click on the accept button next to the proposal with ID ""12345"".
+2. Confirm the acceptance.","User is presented with the updated proposals list where the selected proposal is marked as accepted."
+"TC-Proposal-004","Reject Proposal","Proposal Exchange","2, 14","User is logged in.","Proposal ID: 12345","1. Click on the reject button next to the proposal with ID ""12345"".
+2. Confirm the rejection.","User is presented with the updated proposals list where the selected proposal is marked as rejected."

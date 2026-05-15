@@ -1,0 +1,70 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,Verify user registration process,Registration,1,None,"- Username: testuser
+- Password: Test1234
+- Email: testuser@example.com","1. Start the application
+2. Click on ""Utente registrato?"" decision node
+3. Enter username, password, and email in the registration form
+4. Click ""Submit"" button
+5. Wait for confirmation message",User should be redirected to the homepage with a success message indicating registration was successful.
+TC-Registration-002,Verify user registration with invalid credentials,Registration,1,None,"- Username: testuser
+- Password: short
+- Email: testuser@example.com","1. Start the application
+2. Click on ""Utente registrato?"" decision node
+3. Enter username, password, and email in the registration form
+4. Click ""Submit"" button
+5. Wait for error message",User should not be redirected to the homepage. An error message should indicate that the password is too short.
+TC-Registration-003,Verify user registration with empty fields,Registration,1,None,"- Username: 
+- Password: Test1234
+- Email:","1. Start the application
+2. Click on ""Utente registrato?"" decision node
+3. Leave all fields empty and click ""Submit"" button
+4. Wait for error message",User should not be redirected to the homepage. An error message should indicate that all fields are required.
+TC-Navigation-001,Verify navigation to the menu,Navigation,2,User is logged in,None,"1. Start the application
+2. Click on ""Menu Laterale"" action node
+3. Wait for the menu to open","The menu should open, displaying options such as ""Homepage"" and ""Impostazioni""."
+TC-Navigation-002,Verify navigation back to homepage,Navigation,2,User is logged in and has opened the menu,None,"1. Click on ""Click 'Homepage'"" event
+2. Wait for the menu to close and homepage to load","The menu should close, and the user should be redirected to the homepage."
+TC-AddAlert-001,Verify adding a report with correct data,AddAlert,3,User is logged in,"- Field 1: Value1
+- Field 2: Value2
+- Field 3: Value3
+- Field 4: Value4","1. Click on ""Add Alert"" button in the menu
+2. Fill in the first four fields with correct data
+3. Click ""Add Category"" button
+4. Select a category
+5. Click the green button to submit the report","The report should be added successfully, and the user should be redirected to the homepage."
+TC-AddAlert-002,Verify adding a report with incorrect data,AddAlert,3,User is logged in,"- Field 1: Value1
+- Field 2: Value2
+- Field 3: Value3
+- Field 4:","1. Click on ""Add Alert"" button in the menu
+2. Fill in the first three fields with correct data and leave the fourth field empty
+3. Click ""Add Category"" button
+4. Select a category
+5. Click the green button to submit the report",The report should not be added. An error message should indicate that the fourth field is required.
+TC-ViewAlerts-001,Verify viewing all alerts,ViewAlerts,4,User is logged in and has alerts,None,"1. Click on ""View Alerts"" in the menu
+2. Wait for the list of alerts to load
+3. Click on a specific alert
+4. Wait for the alert details to load","The list of alerts should load, and clicking on a specific alert should display its detailed information."
+TC-Profile-001,Verify updating user profile with correct data,Profile,5,User is logged in,"- Field 1: UpdatedValue1
+- Field 2: UpdatedValue2
+- Field 3: UpdatedValue3
+- Field 4: UpdatedValue4","1. Click on ""Profile"" in the menu
+2. Fill in the profile fields with updated data
+3. Click ""Save"" button
+4. Wait for confirmation message","The profile should be updated successfully, and the user should be redirected to the ""Abitazioni"" screen."
+TC-Profile-002,Verify updating user profile with incorrect data,Profile,5,User is logged in,"- Field 1: UpdatedValue1
+- Field 2: 
+- Field 3: UpdatedValue3
+- Field 4: UpdatedValue4","1. Click on ""Profile"" in the menu
+2. Fill in the profile fields with updated data, leaving the second field empty
+3. Click ""Save"" button
+4. Wait for error message",The profile should not be updated. An error message should indicate that the second field is required. The user should remain on the profile page to correct the data.
+TC-Profile-003,Verify updating user profile with empty fields,Profile,5,User is logged in,"- Field 1: 
+- Field 2: 
+- Field 3: 
+- Field 4:","1. Click on ""Profile"" in the menu
+2. Leave all fields empty
+3. Click ""Save"" button
+4. Wait for error message",The profile should not be updated. An error message should indicate that all fields are required. The user should remain on the profile page to correct the data.
+TC-Profile-004,Verify navigating to apartments screen,Profile,5,User is logged in,None,"1. Click on ""Profile"" in the menu
+2. Click on the blue house icon
+3. Wait for the apartments screen to load",The user should be redirected to the apartments screen. <|end|>

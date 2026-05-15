@@ -1,0 +1,112 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-DataOrganizer-001,Verify Data Organizer's Access to Firebase Services,Data Organizer,1,Data Organizer is initialized and connected to Firebase services.,N/A,"1. Data Organizer attempts to access Firebase.
+2. Data Organizer attempts to access Realtime database.
+3. Data Organizer attempts to access Authentication.
+4. Data Organizer attempts to access Firebase database.",Data Organizer successfully accesses all specified Firebase services without errors.
+TC-DataDisplay-002,Verify Data Display's Access to Data Organizer,Data Display,1,Data Organizer is initialized and connected to Firebase services.,N/A,1. Data Display requests access to Data Organizer.,Data Display successfully accesses Data Organizer without errors.
+TC-LocalUser-003,Verify Local User's Access to Data Organizer,Local User,1,Data Organizer is initialized and connected to Firebase services.,N/A,1. Local User requests access to Data Organizer.,Local User successfully accesses Data Organizer without errors.
+TC-Chat-004,Verify Chat Association with Relation,Chat,2,Chat and Relation objects are created.,"- Chat id: 1
+- Relation id: 1","1. Create a Chat object with id 1.
+2. Create a Relation object with id 1.
+3. Associate Chat with Relation.",Chat is successfully associated with Relation without errors.
+TC-User-005,Verify User Association with Relation,User,2,User and Relation objects are created.,"- User nickname: ""testuser""
+- Relation id: 1","1. Create a User object with nickname ""testuser"".
+2. Create a Relation object with id 1.
+3. Associate User with Relation.",User is successfully associated with Relation without errors.
+TC-Post-006,Verify Post Association with Relation,Post,2,Post and Relation objects are created.,"- Post id: 1
+- Relation id: 1","1. Create a Post object with id 1.
+2. Create a Relation object with id 1.
+3. Associate Post with Relation.",Post is successfully associated with Relation without errors.
+TC-Fridge-007,Verify Fridge Association with Relation,Fridge,2,Fridge and Relation objects are created.,"- Fridge id: 1
+- Relation id: 1","1. Create a Fridge object with id 1.
+2. Create a Relation object with id 1.
+3. Associate Fridge with Relation.",Fridge is successfully associated with Relation without errors.
+TC-RemoveProduct-008,Verify Product Removal Process,Refrigerator Fragment,3,Product exists in the system and is associated with a Fridge.,"- Product id: 1
+- Fridge id: 1","1. Schema Principale initiates ChangeFragment(0) on Rigofrito.
+2. Rigofrito removes the product.
+3. Rigofrito updates Firebase Database with the removal.",Product is successfully removed from the system and Firebase Database is updated accordingly.
+TC-InvalidAccess-009,Verify Error Handling for Invalid Access Requests,Data Organizer,1,Data Organizer is initialized but disconnected from Firebase services.,N/A,"1. Data Organizer attempts to access Firebase.
+2. Data Organizer attempts to access Realtime database.
+3. Data Organizer attempts to access Authentication.
+4. Data Organizer attempts to access Firebase database.",Data Organizer fails to access Firebase services and appropriate error messages are logged.
+TC-EdgeCase-010,Verify Edge Cases for User Associations,User,2,User and Relation objects are created.,"- User nickname: """"
+- Relation id: 1","1. Attempt to create a User object with empty nickname.
+2. Create a Relation object with id 1.
+3. Attempt to associate User with Relation.",User creation fails due to invalid nickname and association is not established.
+TC-EdgeCase-011,Verify Edge Cases for Chat Associations,Chat,2,Chat and Relation objects are created.,"- Chat id: -1
+- Relation id: 1","1. Attempt to create a Chat object with invalid id (-1).
+2. Create a Relation object with id 1.
+3. Attempt to associate Chat with Relation.",Chat creation fails due to invalid id and association is not established.
+TC-EdgeCase-012,Verify Edge Cases for Post Associations,Post,2,Post and Relation objects are created.,"- Post id: 0
+- Relation id: 1","1. Attempt to create a Post object with invalid id (0).
+2. Create a Relation object with id 1.
+3. Attempt to associate Post with Relation.",Post creation fails due to invalid id and association is not established.
+TC-EdgeCase-013,Verify Edge Cases for Fridge Associations,Fridge,2,Fridge and Relation objects are created.,"- Fridge id: -1
+- Relation id: 1","1. Attempt to create a Fridge object with invalid id (-1).
+2. Create a Relation object with id 1.
+3. Attempt to associate Fridge with Relation.",Fridge creation fails due to invalid id and association is not established.
+TC-EdgeCase-014,Verify Edge Cases for Product Removal,Refrigerator Fragment,3,No product exists in the system.,N/A,"1. Schema Principale initiates ChangeFragment(0) on Rigofrito.
+2. Attempt to remove a non-existent product.
+3. Attempt to update Firebase Database with the removal.",Product removal fails due to non-existent product and Firebase Database is not updated.
+TC-PositiveFlow-015,Verify Positive Flow for Product Removal,Refrigerator Fragment,3,Product exists in the system and is associated with a Fridge.,"- Product id: 1
+- Fridge id: 1","1. Schema Principale initiates ChangeFragment(0) on Rigofrito.
+2. Rigofrito removes the product.
+3. Firebase Database is updated with the removal.",Product is successfully removed from the system and Firebase Database is updated accordingly.
+TC-NegativeFlow-016,Verify Negative Flow for Product Removal,Refrigerator Fragment,3,Product exists in the system but is not associated with a Fridge.,"- Product id: 1
+- Fridge id: 1","1. Schema Principale initiates ChangeFragment(0) on Rigofrito.
+2. Attempt to remove a product not associated with a Fridge.
+3. Attempt to update Firebase Database with the removal.",Product removal fails due to lack of association with a Fridge and Firebase Database is not updated.
+TC-PositiveFlow-017,Verify Positive Flow for User Creation,User,2,No User exists in the system.,"- User nickname: ""testuser""
+- User password: ""password123""
+- User score: 100.0
+- User pos_int: 1
+- User tokens: 10
+- User rate: 5.0","1. Create a User object with provided details.
+2. Save User object to Firebase Database.",User is successfully created and saved to Firebase Database without errors.
+TC-NegativeFlow-018,Verify Negative Flow for User Creation,User,2,No User exists in the system.,"- User nickname: ""testuser""
+- User password: ""password123""
+- User score: -100.0
+- User pos_int: -1
+- User tokens: -10
+- User rate: -5.0","1. Attempt to create a User object with invalid details.
+2. Attempt to save User object to Firebase Database.",User creation fails due to invalid details and User is not saved to Firebase Database.
+TC-PositiveFlow-019,Verify Positive Flow for Chat Creation,Chat,2,No Chat exists in the system.,"- Chat id: 1
+- Chat tid: 1
+- Chat usr1: 1
+- Chat usr2: 2","1. Create a Chat object with provided details.
+2. Save Chat object to Firebase Database.",Chat is successfully created and saved to Firebase Database without errors.
+TC-NegativeFlow-020,Verify Negative Flow for Chat Creation,Chat,2,No Chat exists in the system.,"- Chat id: -1
+- Chat tid: -1
+- Chat usr1: -1
+- Chat usr2: -1","1. Attempt to create a Chat object with invalid details.
+2. Attempt to save Chat object to Firebase Database.",Chat creation fails due to invalid details and Chat is not saved to Firebase Database.
+TC-PositiveFlow-021,Verify Positive Flow for Post Creation,Post,2,No Post exists in the system.,"- Post id: 1
+- Post nickname: ""testuser""
+- Post fridge_id: 1
+- Post fridge: 1
+- Post cost: 10","1. Create a Post object with provided details.
+2. Save Post object to Firebase Database.",Post is successfully created and saved to Firebase Database without errors.
+TC-NegativeFlow-022,Verify Negative Flow for Post Creation,Post,2,No Post exists in the system.,"- Post id: -1
+- Post nickname: """"
+- Post fridge_id: -1
+- Post fridge: -1
+- Post cost: -10","1. Attempt to create a Post object with invalid details.
+2. Attempt to save Post object to Firebase Database.",Post creation fails due to invalid details and Post is not saved to Firebase Database.
+TC-PositiveFlow-023,Verify Positive Flow for Fridge Creation,Fridge,2,No Fridge exists in the system.,"- Fridge id: 1
+- Fridge name: ""testfridge""
+- Fridge qty_int: 1
+- Fridge rate: 1
+- Fridge bbe: 1
+- Fridge nickname: ""testuser""","1. Create a Fridge object with provided details.
+2. Save Fridge object to Firebase Database.",Fridge is successfully created and saved to Firebase Database without errors.
+TC-NegativeFlow-024,Verify Negative Flow for Fridge Creation,Fridge,2,No Fridge exists in the system.,"- Fridge id: -1
+- Fridge name: """"
+- Fridge qty_int: -1
+- Fridge rate: -1
+- Fridge bbe: -1
+- Fridge nickname: """"","1. Attempt to create a Fridge object with invalid details.
+2. Attempt to save Fridge object to Firebase Database.",Fridge creation fails due to invalid details and Fridge is not saved to Firebase Database.
+TC-PositiveFlow-025,Verify Positive Flow for Relation Creation,Relation,2,No Relation exists in the system.,"- Relation chat: 1
+- Relation user: 1
+- Relation post: 1
+- Relation fridge: 1",,

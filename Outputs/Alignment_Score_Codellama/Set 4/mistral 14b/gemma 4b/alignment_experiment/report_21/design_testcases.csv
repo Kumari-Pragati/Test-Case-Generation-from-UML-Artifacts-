@@ -1,0 +1,93 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user login with valid credentials,Authentication,2,"- Firebase Auth is active and accessible.
+- User account exists with valid email/password.","- Email: `user@example.com`
+- Password: `SecurePass123!`","1. User enters email and password in the login form.
+2. Application calls `logIn()` via `mAuth`.
+3. `mAuth` invokes `getInstance()` and `getCurrentUser()`.
+4. Firebase Auth validates credentials.
+5. `checkIfLogin()` returns success.","- User is logged in.
+- `getCurrentUser()` returns the user object.
+- Application displays user dashboard."
+TC-AUTHENTICATION-002,Failed login with invalid password,Authentication,2,- User account exists with valid email.,"- Email: `user@example.com`
+- Password: `WrongPass123!`","1. User enters email and incorrect password.
+2. Application calls `signInWithEmailAndPassword()`.
+3. Firebase Auth rejects credentials.","- Login fails.
+- Application displays error: *""Invalid email or password""*."
+TC-AUTHENTICATION-003,Successful user registration,Authentication,2,"- Firebase Auth is active.
+- Email is not already registered.","- Email: `newuser@example.com`
+- Password: `NewPass456!`
+- Name: `John Doe`","1. User enters registration details.
+2. Application calls `createUserWithEmailAndPassword()`.
+3. Firebase Auth creates the account.
+4. `getCurrentUser()` retrieves the new user.","- User account is created.
+- `registerAndLogin()` succeeds.
+- Application redirects to dashboard."
+TC-AUTHENTICATION-004,Registration with existing email,Authentication,2,- Email `user@example.com` is already registered.,"- Email: `user@example.com`
+- Password: `NewPass456!`","1. User attempts to register with existing email.
+2. Application calls `createUserWithEmailAndPassword()`.
+3. Firebase Auth detects duplicate email.","- Registration fails.
+- Application displays error: *""Email already in use""*."
+TC-EVENTMANAGEMENT-001,Add a new event to user calendar,Event Management,"1, 5","- User is logged in.
+- Database connection is active.","- Event: `Titolo: ""Meeting"", dataOraInizio: 2023-12-15T10:00, dataOraFine: 2023-12-15T11:00, luogo: ""Office""`
+- User: `utenteID: ""U123"", stagione: ""Winter""`","1. User calls `aggiungiEvento(evento)`.
+2. `CalendarioUtente` validates event (e.g., `dataOraFine > dataOraInizio`).
+3. Database executes `INSERT INTO Eventi(...)` via `eseguiQuery()`.
+4. `ResultSet` confirms success.","- Event is added to `CalendarioUtente`.
+- `visualizzaCalendario()` includes the new event."
+TC-EVENTMANAGEMENT-002,Add event with invalid date range,Event Management,1,- User is logged in.,"- Event: `dataOraInizio: 2023-12-15T11:00, dataOraFine: 2023-12-15T10:00`","1. User calls `aggiungiEvento(evento)`.
+2. `CalendarioUtente` detects `dataOraFine < dataOraInizio`.","- Event is rejected.
+- Application displays error: *""End time must be after start time""*."
+TC-EVENTMANAGEMENT-003,Retrieve events for a specific date,Event Management,1,- User has 2 events on `2023-12-15`.,"- `data: LocalDate.of(2023, 12, 15)`","1. User calls `getEventiPerData(data)`.
+2. Database queries events for the date.
+3. `ResultSet` returns 2 events.",- List of 2 events is displayed.
+TC-EVENTMANAGEMENT-004,Delete an event from calendar,Event Management,1,"- User has an event with `eventoID: ""E456""`.","- Event: `eventoID: ""E456""`","1. User calls `eliminaEvento(evento)`.
+2. Database executes `DELETE FROM Eventi WHERE eventoID = ""E456""`.
+3. `ResultSet` confirms deletion.","- Event is removed from `CalendarioUtente`.
+- `visualizzaCalendario()` no longer shows the event."
+TC-EVENTMANAGEMENT-005,Modify event details,Event Management,1,"- User has an event with `eventoID: ""E456""` and `titolo: ""Old Title""`.","- Updated Event: `titolo: ""Updated Title"", luogo: ""New Location""`","1. User calls `modificaEvento(evento)`.
+2. Database executes `UPDATE Eventi SET titolo = ""Updated Title"", luogo = ""New Location"" WHERE eventoID = ""E456""`.
+3. `ResultSet` confirms update.","- Event details are updated.
+- `visualizzaCalendario()` reflects changes."
+TC-CALENDAR-001,Set a new calendar for user,Calendar Management,5,"- User is logged in.
+- Database has a `Calendarico` table.","- Calendar: `cal = {name: ""Work Calendar"", type: ""Academic""}`","1. Application calls `setCalendarico(cal)`.
+2. `Sistema gestione calendario` forwards to `Sistema di gestione dei dati`.
+3. Database inserts `new Calendarico(cal)`.
+4. Outcome is forwarded to the application.","- Calendar is saved.
+- `display(outcome)` shows success message."
+TC-CALENDAR-002,Retrieve user calendar data,Calendar Management,6,- User has a saved calendar.,,"1. Application calls `getCalendario()`.
+2. `Sistema gestione calendario` queries `select Calendario(*)`.
+3. Database returns payload.
+4. `display(calendario)` is called.","- User’s calendar is displayed.
+- If no calendar exists, `display(Null)` shows a placeholder."
+TC-TRAINMANAGEMENT-001,Fetch train variations for a calendar,Train Variation Management,"4, 9","- User has a calendar with train preferences.
+- API Trenitalia is accessible.",,"1. Application calls `getVariationen()`.
+2. `Sistema gestione variazioni` requests `getPrefTrend()`.
+3. Database queries `getTrendInfo(train.code)`.
+4. API Trenitalia returns updated train data.
+5. Loop checks for changes in `train.code`.","- Variations are displayed.
+- Notifications trigger if changes are detected."
+TC-TRAINMANAGEMENT-002,Cancel a preferred train,Train Management,"7, 8","- User has a preferred train with `id: ""T789""`.",,"1. Application calls `getTrains(calendario)`.
+2. `Sistema gestione calendario` forwards to `Sistema di gestione dei dati`.
+3. API Trenitalia requests `deleteTrenodi(id)`.
+4. Database executes deletion.
+5. Status code `200` is returned.","- Train is removed from preferences.
+- `display(outcome)` shows *""Train T789 cancelled""*."
+TC-TRAINMANAGEMENT-003,API failure during train deletion,Train Management,7,"- User has a preferred train.
+- API Trenitalia is down.",,"1. Application calls `getTrains(calendario)`.
+2. API Trenitalia returns `500 Internal Server Error`.","- Deletion fails.
+- Application displays error: *""Failed to cancel train. Retry later.""*"
+TC-NOTIFICATION-001,Display train variation notifications,Notification System,9,- Train variations exist (`train_variations = res`).,,"1. Application calls `getVariazioni()`.
+2. `Sistema gestione variazioni` returns `res`.
+3. Application calls `showNotifica(train_variations)`.",- Notification popup appears with variation details.
+TC-DATABASE-001,Successful database connection,Database,1,- Database credentials are valid.,"- `url: ""jdbc:mysql://localhost:3306/calendar_db""`, `username: ""admin""`, `password: ""dbpass123""`","1. `CalendarioUtente` calls `connetti()`.
+2. Database validates credentials.","- Connection succeeds.
+- `eseguiQuery()` works for subsequent operations."
+TC-DATABASE-002,Failed database connection,Database,1,- Invalid database credentials.,"- `password: ""wrongpass""`","1. `CalendarioUtente` calls `connetti()`.
+2. Database rejects credentials.","- Connection fails.
+- Application displays error: *""Database connection failed""*."
+TC-SEASONREGULATION-001,Associate event with a season,Season/Regulation Management,1,"- User has a `CalendarioUtente` with `stagione: ""Winter""`.
+- Event is being added.",- Event: `dataOraInizio: 2023-12-01T00:00` (Winter),"1. User adds an event in December.
+2. System auto-associates `stagione: ""Winter""`.","- Event is linked to the correct season.
+- `visualizzaCalendario()` groups events by season."
+TC-SEASONREGULATION-002,Event outside any season,Season/Regulation Management,1,- No season is defined for `dataOraInizio: 2023-02-01` (edge case).,- Event: `dataOraInizio: 2023-02-01T00:00`,1. User adds an event in February (no predefined season).,"- Event is saved with `stagione: null` or default value (e.g., `""Unassigned""`).
+- No error occurs."

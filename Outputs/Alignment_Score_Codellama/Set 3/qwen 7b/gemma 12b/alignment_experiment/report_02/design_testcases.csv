@@ -1,0 +1,126 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Access-001","Verify First Access Flow","Access","1","User has never accessed the app before.","No specific data required.","1. User attempts to access the app.
+2. System checks if it's the first access.
+3. System starts the application.
+4. System checks if the user is already registered.
+5. System proceeds to the home screen.","User is directed to the home screen after the application starts."
+"TC-Access-002","Verify Non-First Access Flow","Access","1","User has accessed the app before.","No specific data required.","1. User attempts to access the app.
+2. System checks if it's the first access.
+3. System proceeds to the registration process.
+4. System proceeds to the home screen.","User is directed to the registration process and then to the home screen."
+"TC-Route-001","Verify Route Initiation and Emission Calculation","Route Management","2, 4","User is logged in and a route is initiated.","Valid route details.","1. User initiates a route.
+2. Application sends data to the server for calculation.
+3. Server adds the route to the database.
+4. Server retrieves the new route information.
+5. Server returns emissions data to the application.
+6. Application displays CO2 emissions to the user.","User receives CO2 emissions data for the newly initiated route."
+"TC-Route-002","Verify Route Not In Progress","Route Management","2","User is logged in but no route is in progress.","No specific data required.","1. User checks if a route is in progress.
+2. System indicates no route is in progress.
+3. User returns to the home screen.","User is directed to the home screen without initiating a route."
+"TC-Statistics-001","Verify Weekly Report Visualization","Statistics","3","User is logged in.","No specific data required.","1. User views statistics.
+2. System prompts to visualize a weekly report.
+3. User chooses to visualize the report.
+4. System displays the weekly report.
+5. System asks if the user wants to change sections.
+6. User chooses not to change sections.
+7. System returns to the statistics view.","User sees the weekly report and remains in the statistics view."
+"TC-Statistics-002","Verify No Weekly Report Visualization","Statistics","3","User is logged in.","No specific data required.","1. User views statistics.
+2. System prompts to visualize a weekly report.
+3. User chooses not to visualize the report.
+4. System displays the horizontal menu.
+5. System asks if the user wants to change sections.
+6. User chooses not to change sections.
+7. System returns to the statistics view.","User sees the horizontal menu and remains in the statistics view."
+"TC-Profile-001","Verify Profile View and Data Update","Profile Management","4","User is logged in.","Valid personal data.","1. User views their profile.
+2. System displays personal data.
+3. User decides to update their account.
+4. User enters new data.
+5. System updates the data.
+6. System returns to the profile view.","User's profile is updated successfully."
+"TC-Profile-002","Verify Profile Logout","Profile Management","4","User is logged in.","No specific data required.","1. User views their profile.
+2. System asks if the user wants to log out.
+3. User decides to log out.
+4. System logs the user out.
+5. System returns to the profile view.","User is logged out and returned to the profile view."
+"TC-Profile-003","Verify Profile Section Change","Profile Management","4","User is logged in.","No specific data required.","1. User views their profile.
+2. System asks if the user wants to change sections.
+3. User decides to change sections.
+4. System displays the horizontal menu.
+5. User returns to the profile view.","User sees the horizontal menu and returns to the profile view."
+"TC-Login-001","Verify Successful Login","Authentication","1, 6","User has valid credentials.","Valid username and password.","1. User enters valid credentials.
+2. Application requests credentials.
+3. Application sends credentials to the server.
+4. Server verifies credentials with the database.
+5. Server confirms credentials match.
+6. Application informs the user that the login is successful.","User is logged in successfully."
+"TC-Login-002","Verify Failed Login","Authentication","1, 6","User has invalid credentials.","Invalid username and password.","1. User enters invalid credentials.
+2. Application requests credentials.
+3. Application sends credentials to the server.
+4. Server verifies credentials with the database.
+5. Server confirms credentials do not match.
+6. Application informs the user that the login failed.","User is informed that the login failed."
+"TC-Login-003","Verify Empty Credentials","Authentication","1, 6","User leaves credentials fields empty.","Empty username and password fields.","1. User leaves credentials fields empty.
+2. Application requests credentials.
+3. Application sends credentials to the server.
+4. Server verifies credentials with the database.
+5. Server confirms credentials are empty.
+6. Application informs the user that the login failed due to empty fields.","User is informed that the login failed due to empty fields."
+"TC-Route-003","Verify Route Not Found in Database","Route Management","2, 4","User has initiated a route but it is not found in the database.","Invalid route details.","1. User initiates a route.
+2. Application sends data to the server for calculation.
+3. Server checks the database for the route.
+4. Server confirms the route is not found.
+5. Application informs the user that the route could not be calculated.","User is informed that the route could not be calculated."
+"TC-Statistics-003","Verify No Data for Weekly Report","Statistics","3","There is no data available for the weekly report.","No specific data required.","1. User views statistics.
+2. System prompts to visualize a weekly report.
+3. System confirms there is no data available.
+4. System returns to the statistics view.","User is informed that there is no data available for the weekly report."
+"TC-Profile-004","Verify No Data for Profile Update","Profile Management","4","User has no data to update.","No specific data required.","1. User decides to update their account.
+2. System confirms there is no data to update.
+3. System returns to the profile view.","User is informed that there is no data to update."
+"TC-Profile-005","Verify No Data for Section Change","Profile Management","4","User has no sections to change.","No specific data required.","1. User decides to change sections.
+2. System confirms there are no sections to change.
+3. System returns to the profile view.","User is informed that there are no sections to change."
+"TC-Route-004","Verify Route Calculation Error","Route Management","2, 4","Route calculation fails due to an error.","Invalid route details.","1. User initiates a route.
+2. Application sends data to the server for calculation.
+3. Server calculates the route.
+4. Server encounters an error during calculation.
+5. Application informs the user that the route could not be calculated.","User is informed that the route could not be calculated due to an error."
+"TC-Statistics-004","Verify No Data for Horizontal Menu","Statistics","3","There is no data available for the horizontal menu.","No specific data required.","1. User decides to change sections.
+2. System confirms there is no data available for the horizontal menu.
+3. System returns to the statistics view.","User is informed that there is no data available for the horizontal menu."
+"TC-Profile-006","Verify No Data for Profile Logout","Profile Management","4","User has no data to log out.","No specific data required.","1. User decides to log out.
+2. System confirms there is no data to log out.
+3. System returns to the profile view.","User is informed that there is no data to log out."
+"TC-Route-005","Verify Route Calculation Success","Route Management","2, 4","Route calculation succeeds.","Valid route details.","1. User initiates a route.
+2. Application sends data to the server for calculation.
+3. Server calculates the route.
+4. Server returns the route information.
+5. Application displays the route information to the user.","User receives the route information successfully."
+"TC-Statistics-005","Verify Data Available for Weekly Report","Statistics","3","There is data available for the weekly report.","Valid weekly report data.","1. User views statistics.
+2. System prompts to visualize a weekly report.
+3. System confirms there is data available.
+4. System displays the weekly report.
+5. System asks if the user wants to change sections.
+6. User chooses not to change sections.
+7. System returns to the statistics view.","User sees the weekly report and remains in the statistics view."
+"TC-Profile-007","Verify Data Available for Profile Update","Profile Management","4","User has data to update.","Valid personal data.","1. User decides to update their account.
+2. System confirms there is data to update.
+3. System updates the data.
+4. System returns to the profile view.","User's profile is updated successfully."
+"TC-Profile-008","Verify Data Available for Section Change","Profile Management","4","User has sections to change.","Valid section data.","1. User decides to change sections.
+2. System confirms there is data available for the horizontal menu.
+3. System displays the horizontal menu.
+4. User returns to the profile view.","User sees the horizontal menu and returns to the profile view."
+"TC-Route-006","Verify Route Calculation Success with Valid Data","Route Management","2, 4","Route calculation succeeds with valid data.","Valid route details.","1. User initiates a route.
+2. Application sends data to the server for calculation.
+3. Server calculates the route.
+4. Server returns the route information.
+5. Application displays the route information to the user.","User receives the route information successfully."
+"TC-Statistics-006","Verify Data Available for Horizontal Menu","Statistics","3","There is data available for the horizontal menu.","Valid horizontal menu data.","1. User decides to change sections.
+2. System confirms there is data available for the horizontal menu.
+3. System displays the horizontal menu.
+4. User returns to the statistics view.","User sees the horizontal menu and returns to the statistics view."
+"TC-Profile-009","Verify Data Available for Profile Logout","Profile Management","4","User has data to log out.","Valid logout data.","1. User decides to log out.
+2. System confirms there is data to log out.
+3. System logs the user out.
+4. System returns to the profile view.","User is logged out and returned to the profile view."

@@ -1,0 +1,142 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-USER-REGISTRATION-001,Register a new customer account,User Registration,1,"- User is on the registration page.
+- No existing account with the provided email.","- Name: ""John""
+- Cognome: ""Doe""
+- Email: ""john.doe@example.com""
+- Password: ""SecurePass123!""
+- Immagine: (optional, default profile image)
+- isVenditore: false","1. Enter name, surname, email, password, and confirm password.
+2. Leave the image field empty (optional).
+3. Set `isVenditore` to false.
+4. Click ""Register"" button.","- Account is created successfully.
+- User is redirected to the login page with a success message.
+- Email is verified (if applicable) or account is active immediately."
+TC-USER-REGISTRATION-002,Register a new vendor account,User Registration,1,"- User is on the registration page.
+- No existing account with the provided email.","- Name: ""Maria""
+- Cognome: ""Rossi""
+- Email: ""maria.rossi@example.com""
+- Password: ""VendorPass456!""
+- Immagine: (optional, default profile image)
+- isVenditore: true
+- nomeNegozio: ""Rossi Store""
+- indirizzo: ""Via Roma 123, Milano""
+- indirizzoVenditore: ""Via Roma 123, Milano""","1. Enter name, surname, email, password, and confirm password.
+2. Set `isVenditore` to true.
+3. Fill in `nomeNegozio`, `indirizzo`, and `indirizzoVenditore`.
+4. Click ""Register"" button.","- Vendor account is created successfully.
+- User is redirected to the vendor dashboard with a success message.
+- Vendor details (store name, address) are saved."
+TC-USER-REGISTRATION-003,Register with invalid email format,User Registration,1,- User is on the registration page.,"- Name: ""Jane""
+- Cognome: ""Smith""
+- Email: ""invalid.email"" (missing @ and domain)
+- Password: ""Pass123!""","1. Enter name, surname, invalid email, and password.
+2. Click ""Register"" button.","- System displays an error message: ""Invalid email format.""
+- Account is not created."
+TC-USER-REGISTRATION-004,Register with existing email,User Registration,1,"- An account with email ""test.user@example.com"" already exists.","- Name: ""Test""
+- Cognome: ""User""
+- Email: ""test.user@example.com"" (duplicate)
+- Password: ""Pass123!""","1. Enter name, surname, duplicate email, and password.
+2. Click ""Register"" button.","- System displays an error message: ""Email already registered.""
+- Account is not created."
+TC-CLIENT-REVIEW-001,Create a valid product review,Review Management,1,"- User is logged in as a customer.
+- A product exists in the system.","- Titolo: ""Great Product!""
+- Descrizione: ""Works as expected, fast delivery.""
+- Voto: 5","1. Navigate to the product page.
+2. Click ""Leave a Review"" button.
+3. Enter title, description, and select a rating (5 stars).
+4. Click ""Submit"" button.","- Review is created and associated with the product.
+- User sees a confirmation message: ""Review submitted successfully.""
+- Review appears in the product's review section."
+TC-CLIENT-REVIEW-002,Create a review with empty description,Review Management,1,- User is logged in as a customer.,"- Titolo: ""Poor Quality""
+- Descrizione: """" (empty)
+- Voto: 1","1. Navigate to the product page.
+2. Click ""Leave a Review"" button.
+3. Enter title, leave description empty, and select a rating.
+4. Click ""Submit"" button.","- System displays an error message: ""Description is required.""
+- Review is not submitted."
+TC-CLIENT-REVIEW-003,Create a review with invalid rating,Review Management,1,- User is logged in as a customer.,"- Titolo: ""Average""
+- Descrizione: ""Decent product.""
+- Voto: 0 (invalid) or 6 (invalid)","1. Navigate to the product page.
+2. Click ""Leave a Review"" button.
+3. Enter title and description, then select an invalid rating (0 or 6).
+4. Click ""Submit"" button.","- System displays an error message: ""Rating must be between 1 and 5.""
+- Review is not submitted."
+TC-CLIENT-SEGNALATION-001,Create a valid product report,Report Management,1,- User is logged in as a customer.,"- Titolo: ""Incorrect Product Description""
+- Descrizione: ""The product image does not match the description.""","1. Navigate to the product page.
+2. Click ""Report Issue"" button.
+3. Enter title and description.
+4. Click ""Submit"" button.","- Report is created and sent for review.
+- User sees a confirmation message: ""Report submitted successfully.""
+- Report appears in the vendor's pending reports section."
+TC-CLIENT-SEGNALATION-002,Create a report with empty title,Report Management,1,- User is logged in as a customer.,"- Titolo: """" (empty)
+- Descrizione: ""Product is broken.""","1. Navigate to the product page.
+2. Click ""Report Issue"" button.
+3. Leave title empty and enter description.
+4. Click ""Submit"" button.","- System displays an error message: ""Title is required.""
+- Report is not submitted."
+TC-VENDOR-PREFERRED-001,Add a customer as a preferred vendor,Vendor Preferences,1,"- Vendor is logged in.
+- A customer exists in the system.","- Cliente: ""John Doe"" (existing customer)
+- Voto: 5","1. Navigate to the ""Preferred Customers"" section.
+2. Search for and select ""John Doe.""
+3. Assign a rating of 5.
+4. Click ""Save"" button.","- Customer is added to the vendor's preferred list.
+- Vendor sees a confirmation message: ""Customer added to preferred list.""
+- Preferred customer record is created with the assigned rating."
+TC-VENDOR-PREFERRED-002,Add a customer with invalid rating,Vendor Preferences,1,- Vendor is logged in.,"- Cliente: ""Jane Smith"" (existing customer)
+- Voto: 0 (invalid) or 6 (invalid)","1. Navigate to the ""Preferred Customers"" section.
+2. Search for and select ""Jane Smith.""
+3. Assign an invalid rating (0 or 6).
+4. Click ""Save"" button.","- System displays an error message: ""Rating must be between 1 and 5.""
+- Customer is not added to the preferred list."
+TC-PRODUCT-MODIFY-001,Modify a product with valid inputs,Product Management,3,"- Vendor is logged in.
+- A product exists (e.g., ""Laptop X1"").","- nome: ""Laptop X1 Pro""
+- categoria: ""Electronics""
+- prezzo: 999.99
+- descrizione: ""Updated description: High-performance laptop with 16GB RAM.""","1. Click on the product ""Laptop X1.""
+2. Click the ""Modifica"" (Edit) button.
+3. Update all fields with valid data.
+4. Click ""Applica modifiche"" (Apply Changes).","- Product details are updated successfully.
+- Vendor sees a confirmation message: ""Product updated successfully.""
+- Changes are reflected in the product listing."
+TC-PRODUCT-MODIFY-002,Modify a product with empty description,Product Management,3,"- Vendor is logged in.
+- A product exists.","- nome: ""Laptop X1""
+- categoria: ""Electronics""
+- prezzo: 999.99
+- descrizione: """" (empty)","1. Click on the product.
+2. Click the ""Modifica"" button.
+3. Leave the description field empty.
+4. Click ""Applica modifiche.""","- System displays an error message: ""Description is required.""
+- Product is not updated."
+TC-PRODUCT-MODIFY-003,Modify a product with negative price,Product Management,3,"- Vendor is logged in.
+- A product exists.","- nome: ""Laptop X1""
+- categoria: ""Electronics""
+- prezzo: -100.00 (invalid)
+- descrizione: ""High-performance laptop.""","1. Click on the product.
+2. Click the ""Modifica"" button.
+3. Set price to -100.00.
+4. Click ""Applica modifiche.""","- System displays an error message: ""Price must be greater than 0.""
+- Product is not updated."
+TC-PRODUCT-ADD-001,Add a new product with valid inputs,Product Management,4,- Vendor is logged in.,"- nome: ""Wireless Headphones""
+- categoria: ""Electronics""
+- prezzo: 79.99
+- descrizione: ""Noise-cancelling wireless headphones.""","1. Click the ""+"" (Add Product) button.
+2. Fill in all fields with valid data.
+3. Click ""Aggiungi!"" (Add).","- Product is added successfully.
+- Vendor sees a confirmation message: ""Product added successfully.""
+- New product appears in the vendor's product list."
+TC-PRODUCT-ADD-002,Add a product with empty name,Product Management,4,- Vendor is logged in.,"- nome: """" (empty)
+- categoria: ""Electronics""
+- prezzo: 79.99
+- descrizione: ""Noise-cancelling headphones.""","1. Click the ""+"" button.
+2. Leave the name field empty.
+3. Fill in other fields.
+4. Click ""Aggiungi!""","- System displays an error message: ""Product name is required.""
+- Product is not added."
+TC-PRODUCT-ADD-003,Add a product with zero price,Product Management,4,- Vendor is logged in.,"- nome: ""Free Sample""
+- categoria: ""Sample""
+- prezzo: 0.00
+- descrizione: ""Free product sample.""","1. Click the ""+"" button.
+2. Fill in all fields, setting price to 0.00.
+3. Click ""Aggiungi!""","- System displays an error message: ""Price must be greater than 0.""
+- Product is not added."
+TC-LOCATION-MAP-001,,,,,,,

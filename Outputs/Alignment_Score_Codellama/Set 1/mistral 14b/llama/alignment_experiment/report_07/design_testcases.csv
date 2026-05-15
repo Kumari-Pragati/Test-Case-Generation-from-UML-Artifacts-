@@ -1,0 +1,106 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-AUTHENTICATION-001,Successful user authentication,Authentication System,"1, 4, 5","- User account exists in the Database with valid credentials (e.g., `Email: user@example.com`, `Password: SecurePass123`).
+- Network connection is active.","- Valid credentials: `Email: user@example.com`, `Password: SecurePass123`.
+- Invalid credentials: `Email: wrong@example.com`, `Password: WrongPass`.","1. User enters valid `Email` and `Password` in the login interface.
+2. System calls `Authentication System.authenticate()`.
+3. `Authentication System` verifies credentials with `Database.retrieveData()`.
+4. `Database` returns a successful match.
+5. `Authentication System` returns `true` to `User Profile`.
+6. `User Profile` updates its state as authenticated.","- User is logged in successfully.
+- `User Profile` reflects authenticated status.
+- No error messages displayed."
+TC-AUTHENTICATION-002,Failed user authentication (invalid credentials),Authentication System,"1, 4, 5","- User account exists, but credentials are incorrect.","- Invalid credentials: `Email: user@example.com`, `Password: WrongPass`.","1. User enters incorrect `Password`.
+2. System calls `Authentication System.authenticate()`.
+3. `Authentication System` verifies credentials with `Database.retrieveData()`.
+4. `Database` returns no match.
+5. `Authentication System` returns `false` to `User Profile`.
+6. `User Profile` remains unauthenticated.","- Error message: ""Invalid email or password.""
+- User remains logged out.
+- No further system actions (e.g., no data requests)."
+TC-AUTHENTICATION-003,Authentication required before data access,Authentication System + Data Manager,"4, 5",- User is unauthenticated.,- N/A (system-enforced).,"1. User attempts to call `Data Manager.getData()` without authentication.
+2. `Data Manager` checks `Authentication System.authorize()`.
+3. `Authentication System` returns `false`.
+4. `Data Manager` rejects the request.
+5. `Main` receives ""User must authenticate first"" message.","- System redirects user to login screen.
+- No data is fetched or processed.
+- Log entry: ""Unauthorized access attempt from [User IP]."""
+TC-USER-PROFILE-001,Update user profile successfully,User Profile,"1, 2","- User is authenticated.
+- Current profile: `Name: John`, `Email: old@example.com`.","- Updated profile: `Name: John Doe`, `Email: new@example.com`.","1. User calls `User Profile.updateProfile()` with new data.
+2. `User Profile` validates inputs (e.g., `Email` format).
+3. `User Profile` updates `Utenti` attributes in `Database` via `Data Manager`.
+4. `Database.insertData()` commits changes.
+5. `Data Manager` notifies `Notification System` of profile update.
+6. `Notification System` sends confirmation to user.","- Profile reflects updated `Name` and `Email`.
+- `Achievements` re-evaluates based on new profile (e.g., ""Profile Completer"" badge).
+- Success notification: ""Profile updated successfully."""
+TC-USER-PROFILE-002,Invalid profile update (malformed email),User Profile,"1, 2",- User is authenticated.,- Invalid `Email`: `new.email@` (missing domain).,"1. User calls `User Profile.updateProfile()` with malformed `Email`.
+2. `User Profile` validates and rejects input.
+3. `Data Manager` aborts `Database.insertData()`.
+4. `Notification System` sends error.","- Error message: ""Invalid email format. Use format: user@example.com.""
+- Profile remains unchanged.
+- No database updates."
+TC-CONSUMPTION-001,Log daily water consumption,Consumo + Utenti,"2, 6, 7","- User is authenticated.
+- User has no existing consumption records for today.","- Consumption entry: `acqua: ""Water"", guamotar: 2.5` (liters), `data: 2023-11-15`.","1. User calls `Utenti.addConsumo()` with new `Consumo` data.
+2. `Utenti` validates `guamotar` (e.g., > 0).
+3. `Consumo` object is created and linked to `Utenti` via `utenteId`.
+4. `Data Manager` stores `Consumo` in `Database`.
+5. `Report Handler` generates a preliminary report.","- `Utenti.getTotalConsumo()` returns the new entry.
+- `Report Handler` updates with the new data.
+- No achievements triggered yet (thresholds not met)."
+TC-CONSUMPTION-002,Invalid consumption entry (negative value),Consumo + Utenti,"2, 6",- User is authenticated.,- Invalid entry: `guamotar: -1.0` (negative liters).,"1. User attempts to log negative consumption.
+2. `Utenti.addConsumo()` rejects input.
+3. `Data Manager` aborts `Database.insertData()`.
+4. `Notification System` sends error.","- Error message: ""Consumption must be a positive number.""
+- No new `Consumo` record created.
+- Existing data unchanged."
+TC-REPORT-001,Generate daily consumption report,Report Handler + Data Manager,"1, 2, 7",- User has logged 3 consumption entries for today.,"- User ID: `123`, Date: `2023-11-15`.","1. User calls `Report Handler.generateReport()` for today.
+2. `Report Handler` retrieves `Consumo` data for `utenteId: 123` and `data: 2023-11-15`.
+3. `Report Handler` calculates total: `2.5 + 1.0 + 0.5 = 4.0` liters.
+4. `Report Handler` generates `Report.generaCommento()` (e.g., ""Great hydration!"").
+5. `Data Manager` stores the report in `Database`.
+6. `Web Server` publishes report to user dashboard.","- Report displays:
+  - **Total Consumption:** 4.0 liters
+  - **Comment:** ""Great hydration!""
+- `Notification System` triggers if consumption meets achievement thresholds (e.g., ""Daily Goal Unlocked"")."
+TC-REPORT-002,Generate report with no consumption data,Report Handler,"1, 7",- User has no consumption entries for today.,"- User ID: `123`, Date: `2023-11-15` (no records).","1. User calls `Report Handler.generateReport()`.
+2. `Report Handler` queries `Database` for `utenteId: 123` and `data: 2023-11-15`.
+3. `Database` returns empty result.
+4. `Report Handler` generates default message: ""No consumption data for today.""","- Report displays:
+  - **Total Consumption:** 0.0 liters
+  - **Comment:** ""No consumption data for today.""
+- No achievements triggered."
+TC-ACHIEVEMENTS-001,"Earn ""Daily Hydration"" achievement",Achievements + Notification System,"1, 2, 8","- Achievement rule: ""Drink 2.0+ liters/day"" → unlocks ""Daily Hydration"" badge.
+- User logs 2.5 liters today.","- User ID: `123`, Consumption: `2.5` liters.","1. `Report Handler` generates report with total `2.5` liters.
+2. `Data Manager` notifies `Notification System` of new report.
+3. `Notification System` checks `Achievements` for `utenteId: 123`.
+4. `Achievements` compares `2.5 >= 2.0` and unlocks ""Daily Hydration.""
+5. `Achievements.set_achievement(1)` updates `Obbiettivi`.
+6. `Notification System` sends badge notification to user.","- User’s `Achievements.viewAchievements()` shows ""Daily Hydration"" (claimed: `true`).
+- `User Profile` updates `Gamification_points` (e.g., +10).
+- Push notification: ""🎉 Unlocked: Daily Hydration!"""
+TC-ACHIEVEMENTS-002,Achievement threshold not met,Achievements,"1, 2","- Achievement rule: ""Drink 3.0+ liters/day"" → unlocks ""Hydration Master.""
+- User logs 2.0 liters today.","- User ID: `123`, Consumption: `2.0` liters.","1. `Report Handler` generates report with total `2.0` liters.
+2. `Notification System` checks `Achievements`.
+3. `Achievements` compares `2.0 < 3.0` and does not unlock badge.","- No new achievements.
+- `User Profile.Gamification_points` unchanged.
+- No notifications."
+TC-DATA-MANAGER-001,Data Manager retrieves user consumption history,Data Manager + Database,"1, 3, 6",- User has logged 5 consumption entries.,- User ID: `123`.,"1. `Main` calls `Data Manager.getData()` for `utenteId: 123`.
+2. `Data Manager` queries `Database.retrieveData()`.
+3. `Database` returns `List<Consumo>` with 5 entries.
+4. `Data Manager` formats data for `Web Server`.
+5. `Web Server.respond()` sends data to user.","- User dashboard displays:
+  - **Total Consumption (Week):** 15.0 liters
+  - **Daily Averages:** 2.14 liters/day
+- No errors."
+TC-DATA-MANAGER-002,Data Manager handles invalid user ID,Data Manager + Database,"1, 3",- No user exists with ID `999`.,- Invalid User ID: `999`.,"1. `Main` calls `Data Manager.getData()` for `utenteId: 999`.
+2. `Data Manager` queries `Database.retrieveData()`.
+3. `Database` returns empty result.
+4. `Data Manager` returns error to `Main`.","- Error message: ""User not found.""
+- Empty dashboard display.
+- Log entry: ""Invalid user ID: 999."""
+TC-INTEGRATION-001,Full workflow: Log consumption → Generate report → Earn achievement,Utenti → Report Handler → Achievements → Notification System,"1, 2, 7, 8","- User is authenticated.
+- Achievement ""Weekly Goal"" requires 14+ liters/week.","- User ID: `123`.
+- Consumption entries:
+  - Day 1: 2.0 liters
+  - Day 2: 3.0 liters
+  - Day 3: 4",,

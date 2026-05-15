@@ -1,0 +1,85 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-DataDisplay-001","Verify DataDisplay displays correct data to LocalUser","DataDisplay","1","LocalUser is logged in.","No specific data required.","1. LocalUser requests data from DataDisplay.
+2. DataDisplay retrieves data from RealTimeDatabase.
+3. DataDisplay displays the retrieved data to LocalUser.","DataDisplay successfully displays the correct data to LocalUser."
+"TC-LocalUser-001","Verify LocalUser can log in and out","LocalUser","2","User credentials are valid.","username = ""testuser"", password = ""testpass""","1. LocalUser attempts to log in using valid credentials.
+2. Authentication verifies the credentials.
+3. LocalUser is logged in.
+4. LocalUser logs out.","LocalUser successfully logs in and out."
+"TC-LocalUser-002","Verify LocalUser cannot log in with invalid credentials","LocalUser","2","User credentials are invalid.","username = ""invaliduser"", password = ""wrongpass""","1. LocalUser attempts to log in using invalid credentials.
+2. Authentication verifies the credentials.
+3. LocalUser is denied login.","LocalUser is not logged in due to invalid credentials."
+"TC-LocalUser-003","Verify LocalUser can add and remove products from Cart","LocalUser","2","LocalUser is logged in.","Product name = ""ProductA"", price = 10.99","1. LocalUser adds a product to their Cart.
+2. Cart updates to include the new product.
+3. LocalUser removes the product from their Cart.
+4. Cart updates to exclude the product.","Cart correctly reflects the addition and removal of products."
+"TC-LocalUser-004","Verify LocalUser can checkout from the system","LocalUser","2","LocalUser has items in their Cart.","No specific data required.","1. LocalUser initiates the checkout process.
+2. Checkout processes the Cart.
+3. LocalUser is redirected to a confirmation page.","LocalUser successfully completes the checkout process."
+"TC-Admin-001","Verify Admin can log in and out","Admin","2","Admin credentials are valid.","username = ""adminuser"", password = ""adminpass""","1. Admin attempts to log in using valid credentials.
+2. Authentication verifies the credentials.
+3. Admin is logged in.
+4. Admin logs out.","Admin successfully logs in and out."
+"TC-Admin-002","Verify Admin cannot log in with invalid credentials","Admin","2","Admin credentials are invalid.","username = ""invalidadmin"", password = ""wrongpass""","1. Admin attempts to log in using invalid credentials.
+2. Authentication verifies the credentials.
+3. Admin is denied login.","Admin is not logged in due to invalid credentials."
+"TC-Admin-003","Verify Admin can add and remove products from Cart","Admin","2","Admin is logged in.","Product name = ""ProductB"", price = 20.99","1. Admin adds a product to their Cart.
+2. Cart updates to include the new product.
+3. Admin removes the product from their Cart.
+4. Cart updates to exclude the product.","Cart correctly reflects the addition and removal of products."
+"TC-Admin-004","Verify Admin can checkout from the system","Admin","2","Admin has items in their Cart.","No specific data required.","1. Admin initiates the checkout process.
+2. Checkout processes the Cart.
+3. Admin is redirected to a confirmation page.","Admin successfully completes the checkout process."
+"TC-Fragment-001","Verify Fragment can be added to FragmentDatabase","FragmentDatabase","3","Fragment exists.","Fragment name = ""Fragment1""","1. Fragment is added to FragmentDatabase.
+2. FragmentDatabase updates to include the new fragment.","Fragment successfully added to FragmentDatabase."
+"TC-Fragment-002","Verify Fragment can be removed from FragmentDatabase","FragmentDatabase","3","Fragment exists in FragmentDatabase.","Fragment name = ""Fragment1""","1. Fragment is removed from FragmentDatabase.
+2. FragmentDatabase updates to exclude the fragment.","Fragment successfully removed from FragmentDatabase."
+"TC-Fragment-003","Verify Fragment cannot be added to non-existent FragmentDatabase","FragmentDatabase","3","Fragment exists but no FragmentDatabase.","Fragment name = ""Fragment1""","1. Attempt to add Fragment to non-existent FragmentDatabase.
+2. FragmentDatabase update fails.","Fragment addition fails due to non-existent FragmentDatabase."
+"TC-Fragment-004","Verify Fragment cannot be removed from non-existent FragmentDatabase","FragmentDatabase","3","No FragmentDatabase exists.","Fragment name = ""Fragment1""","1. Attempt to remove Fragment from non-existent FragmentDatabase.
+2. FragmentDatabase update fails.","Fragment removal fails due to non-existent FragmentDatabase."
+"TC-RealTimeDatabase-001","Verify RealTimeDatabase can store and retrieve data","RealTimeDatabase","1","Data to be stored exists.","Data = ""Sample Data""","1. RealTimeDatabase stores the data.
+2. RealTimeDatabase retrieves the stored data.","Data is successfully stored and retrieved from RealTimeDatabase."
+"TC-RealTimeDatabase-002","Verify RealTimeDatabase cannot store null data","RealTimeDatabase","1","Data to be stored is null.","Data = null","1. Attempt to store null data in RealTimeDatabase.
+2. RealTimeDatabase update fails.","Null data storage attempt fails."
+"TC-Firebase-001","Verify Firebase can authenticate users","Firebase","2","User credentials are valid.","username = ""testuser"", password = ""testpass""","1. User attempts to authenticate using valid credentials.
+2. Firebase verifies the credentials.
+3. User is authenticated.","User successfully authenticates."
+"TC-Firebase-002","Verify Firebase cannot authenticate users with invalid credentials","Firebase","2","User credentials are invalid.","username = ""invaliduser"", password = ""wrongpass""","1. User attempts to authenticate using invalid credentials.
+2. Firebase verifies the credentials.
+3. User is not authenticated.","User is not authenticated due to invalid credentials."
+"TC-Authentication-001","Verify Authentication can handle successful login","Authentication","2","User credentials are valid.","username = ""testuser"", password = ""testpass""","1. User attempts to log in using valid credentials.
+2. Authentication verifies the credentials.
+3. User is logged in.","User successfully logs in."
+"TC-Authentication-002","Verify Authentication can handle failed login","Authentication","2","User credentials are invalid.","username = ""invaliduser"", password = ""wrongpass""","1. User attempts to log in using invalid credentials.
+2. Authentication verifies the credentials.
+3. User is not logged in.","User is not logged in due to invalid credentials."
+"TC-Cart-001","Verify Cart can add and remove products","Cart","2","Product exists.","Product name = ""ProductC"", price = 15.99","1. Add Product to Cart.
+2. Cart updates to include the new product.
+3. Remove Product from Cart.
+4. Cart updates to exclude the product.","Cart correctly reflects the addition and removal of products."
+"TC-Cart-002","Verify Cart cannot add null product","Cart","2","Product is null.","Product = null","1. Attempt to add null product to Cart.
+2. Cart update fails.","Null product addition attempt fails."
+"TC-Cart-003","Verify Cart cannot remove non-existent product","Cart","2","Product does not exist in Cart.","Product name = ""NonExistentProduct""","1. Attempt to remove non-existent product from Cart.
+2. Cart update fails.","Non-existent product removal attempt fails."
+"TC-Checkout-001","Verify Checkout can process a valid Cart","Checkout","2","Cart contains valid products.","No specific data required.","1. Initiate Checkout process.
+2. Checkout processes the Cart.
+3. User is redirected to a confirmation page.","Checkout process is successful."
+"TC-Checkout-002","Verify Checkout cannot process an empty Cart","Checkout","2","Cart is empty.","No specific data required.","1. Initiate Checkout process.
+2. Checkout processes the empty Cart.
+3. User is informed that the Cart is empty.","Checkout process fails due to an empty Cart."
+"TC-User-001","Verify User can log in and out","User","2","User credentials are valid.","username = ""testuser"", password = ""testpass""","1. User attempts to log in using valid credentials.
+2. Authentication verifies the credentials.
+3. User is logged in.
+4. User logs out.","User successfully logs in and out."
+"TC-User-002","Verify User cannot log in with invalid credentials","User","2","User credentials are invalid.","username = ""invaliduser"", password = ""wrongpass""","1. User attempts to log in using invalid credentials.
+2. Authentication verifies the credentials.
+3. User is not logged in.","User is not logged in due to invalid credentials."
+"TC-Product-001","Verify Product can be added to Cart","Product","2","Product exists.","Product name = ""ProductD"", price = 25.99","1. User adds Product to Cart.
+2. Cart updates to include the new product.","Product successfully added to Cart."
+"TC-Product-002","Verify Product cannot be added to non-existent Cart","Product","2","Cart does not exist.","Product name = ""ProductD"", price = 25.99","1. Attempt to add Product to non-existent Cart.
+2. Cart update fails.","Product addition attempt fails due to non-existent Cart."
+"TC-Product-003","Verify Product cannot be added with null data","Product","2","Product data is null.","Product = null","1. Attempt to add null Product to Cart.
+2. Cart update fails.","Null Product addition attempt fails."
+"TC-Product-004","Verify Product can be removed from Cart","Product","2","Product exists in Cart.","Product name = ""ProductD""","1. User removes Product from Cart.
+2. Cart updates to exclude the product.","Product successfully removed from Cart."

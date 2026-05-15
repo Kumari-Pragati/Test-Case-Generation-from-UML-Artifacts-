@@ -1,0 +1,107 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-PUNTINAMAPPA-001,Validate `PuntinaMappa` class constructor and getter/setter methods for location attributes,Data Model (PuntinaMappa),1,"- A `PuntinaMappa` object is instantiated.
+- Valid and invalid input values are prepared for testing.","| Attribute          | Valid Value               | Invalid Value               |
+|--------------------|---------------------------|-----------------------------|
+| longitudine        | 12.4567                   | -181.0, ""abc"", 181.0        |
+| latitudine         | 41.8901                   | -91.0, ""xyz"", 91.0          |
+| qualitaAria        | 50                        | -1, 1000, ""text""            |
+| temperatura        | 25                        | -300, 600, ""hot""            |
+| umidita            | 65.5                      | -100.0, 101.0, ""high""       |
+| vento              | 12.3                      | -50.0, 200.0, ""strong""      |
+| pressione          | 1013                      | -1000, 3000, ""low""          |
+| categoria          | ""Moderata""                | ""Unknown"", 123, null        |","1. Instantiate `PuntinaMappa` with valid coordinates: `PuntinaMappa(12.4567, 41.8901)`.
+2. Verify `GetLongitudine()` and `GetLatitudine()` return the correct values.
+3. Set and get each attribute (e.g., `SetTemperatura(25)`, then `GetTemperatura()`).
+4. Attempt to set invalid values (e.g., `SetLatitudine(-91.0)`).
+5. Verify the object rejects invalid inputs (e.g., throws exception or ignores change).
+6. Set `categoria` to each enum value (""Buona"", ""Moderata"", etc.) and confirm `GetCategoria()` reflects changes.
+7. Attempt to set `categoria` to an invalid value (e.g., ""Unknown"") and verify rejection.","- Valid inputs are accepted and retrieved correctly.
+- Invalid inputs (out-of-range, wrong type) are rejected with appropriate error handling (e.g., exception, validation message).
+- Enum values for `categoria` are restricted to predefined options."
+TC-PUNTINAMAPPA-002,Validate `PuntinaMappa` association with `Suggerimento` objects,Data Model (PuntinaMappa-Suggerimento),1,"- A `PuntinaMappa` object is created with `categoria = ""Moderata""`.
+- Multiple `Suggerimento` objects are created with matching and non-matching categories.","| Suggerimento Title       | Categoria (Suggerimento) | Expected Association |
+|--------------------------|--------------------------|-----------------------|
+| ""Indossa una mascherina"" | ""Moderata""               | Yes                   |
+| ""Riduci attività all'aperto"" | ""Insalubre""       | No                    |
+| ""Nessun suggerimento""    | ""Buona""                  | No                    |","1. Create a `PuntinaMappa` with `categoria = ""Moderata""`.
+2. Add a `Suggerimento` with `categoria = ""Moderata""` and verify it is associated with `PuntinaMappa`.
+3. Attempt to add a `Suggerimento` with `categoria = ""Insalubre""` and verify it is **not** associated.
+4. Add a `Suggerimento` with `categoria = ""Buona""` and verify no association.
+5. Retrieve all associated `Suggerimento` objects from `PuntinaMappa` and confirm only matching categories are included.","- Only `Suggerimento` objects with matching `categoria` are associated with `PuntinaMappa`.
+- Non-matching categories are ignored or rejected."
+TC-SUGGERIMENTO-001,Validate `Suggerimento` class constructor and getter methods,Data Model (Suggerimento),1,- A `Suggerimento` object is instantiated.,"| Attribute  | Valid Value               | Invalid Value               |
+|------------|---------------------------|-----------------------------|
+| titolo     | ""Consiglio per smog""      | """", null, 123               |
+| testo      | ""Limita l'esposizione..."" | """", null, 10000 chars       |
+| immagine   | ""suggerimento1.jpg""       | """", null, ""invalid.ext""    |
+| categoria  | ""Pericolosa""              | ""Invalid"", 456, null        |","1. Instantiate `Suggerimento` with valid data: `Suggerimento(""Consiglio"", ""Testo lungo..."", ""image.jpg"", ""Moderata"")`.
+2. Verify all getters (`GetTitolo()`, `GetTesto()`, etc.) return the correct values.
+3. Attempt to create a `Suggerimento` with empty `titolo` or `testo`.
+4. Attempt to set `categoria` to an invalid value (e.g., ""Invalid"").
+5. Verify the object enforces constraints (e.g., rejects empty strings, invalid enums).","- Valid data is stored and retrieved correctly.
+- Invalid data (empty strings, wrong enum) is rejected with appropriate feedback."
+TC-LOCATION-SELECTION-001,"Validate location selection flow (state, region, city)",User Interaction (Position Selection),"2, 5, 6, 9","- User is on the initial screen (`Schermata iniziale`).
+- API (`AirVisual API`) is mockable and returns test data.","| Step                          | Valid Input               | Invalid Input               |
+|-------------------------------|---------------------------|-----------------------------|
+| Seleziona stato               | ""Italia""                  | """", null, ""State999""        |
+| Seleziona regione             | ""Lombardia""               | """", null, ""RegionXXX""       |
+| Seleziona città               | ""Milano""                  | """", null, ""City123""         |","1. User selects a valid state (e.g., ""Italia"") from the dropdown.
+2. System loads and displays valid regions (e.g., ""Lombardia"", ""Veneto"").
+3. User selects a valid region (""Lombardia"").
+4. System loads and displays valid cities (e.g., ""Milano"", ""Bergamo"").
+5. User selects a valid city (""Milano"").
+6. System sends request to `AirVisual API` and displays returned data.
+7. Repeat steps 1–6 with invalid inputs (e.g., empty state, non-existent city).
+8. Verify system handles invalid selections gracefully (e.g., error message, no data load).","- Valid selections trigger successful API calls and data display.
+- Invalid selections are rejected with user feedback (e.g., ""Città non trovata"").
+- API errors (e.g., network failure) are handled (e.g., retry or timeout message)."
+TC-LOCATION-SELECTION-002,Validate current position selection and data display,User Interaction (Current Location),"2, 8","- User grants location permissions.
+- GPS/mock location is enabled (e.g., latitude: 41.8901, longitude: 12.4567).
+- `AirVisual API` returns data for the mock location.",,"1. User selects ""Seleziona la tua posizione attuale"" on the initial screen.
+2. System requests location permissions.
+   - **Branch 1:** User grants permission.
+     - System fetches current coordinates.
+     - System sends request to `AirVisual API` with coordinates.
+     - System displays data for the current location.
+   - **Branch 2:** User denies permission.
+     - System shows error message: ""Permesso negato. Seleziona manualmente la posizione.""
+3. User scrolls down to trigger data refresh (`Ricaricare i dati scrolling giu`).
+4. System fetches updated data from `AirVisual API` and updates the map.
+5. Repeat step 3 to verify continuous refresh loop.","- Granted permissions → data loads and displays correctly.
+- Denied permissions → user is prompted to select manually.
+- Scroll refresh → map updates with new data (or shows loading state).
+- API errors during refresh → user sees retry option or error message."
+TC-DATA-DISPLAY-001,Validate map data presentation and updates,UI/UX (Map Activity),"3, 8","- Initial map data is loaded for a location (e.g., Milano).
+- `AirVisual API` simulates delayed or failed responses.",,"1. User views `Mappa iniziale` with loaded data (e.g., air quality: ""Moderata"").
+2. User scrolls down to trigger refresh.
+3. System sends request to `AirVisual API`.
+   - **Branch 1:** API returns updated data (e.g., air quality changes to ""Insalubre"").
+     - Map updates to reflect new data.
+     - `categoria` in `PuntinaMappa` is updated.
+   - **Branch 2:** API returns empty data.
+     - System shows ""Nessun dato disponibile"" and disables refresh.
+   - **Branch 3:** API times out.
+     - System shows ""Ricarica fallita. Riprova tra 5 secondi.""
+4. User presses the ""suggerimenti"" button.
+5. System navigates to `Schermata suggerimenti` with tips matching the current `categoria`.","- Data updates are reflected on the map in real-time.
+- Empty/failed API responses are handled with user-friendly messages.
+- Navigation to suggestions screen shows relevant tips (e.g., ""Moderata"" → general advice; ""Pericolosa"" → urgent actions)."
+TC-SUGGESTIONS-001,Validate suggestions screen and category filtering,UI/UX (Suggestions),"4, 9","- User is on the map with `PuntinaMappa.categoria = ""Insalubre""`.
+- `Suggerimento` objects exist for all categories.","| Categoria (PuntinaMappa) | Expected Suggerimenti Titoli                          |
+|--------------------------|------------------------------------------------------|
+| ""Buona""                  | ""Goditi l'aria pulita!""                              |
+| ""Moderata""               | ""Limita attività intense all'aperto""                 |
+| ""Insalubre""              | ""Riduci uscite, indossa mascherina FFP2""            |
+| ""Pericolosa""             | ""Rimani in casa, chiudi finestre, attiva purificatore"" |","1. User presses ""Premere il pulsante per i suggerimenti"" on the map.
+2. System loads `Schermata suggerimenti` filtered by current `categoria` (e.g., ""Insalubre"").
+3. Verify only suggestions matching the `categoria` are displayed.
+4. User selects a different location with `categoria = ""Buona""`.
+5. System updates suggestions to reflect the new category.
+6. Attempt to manually enter a non-existent category (e.g., via API mock).
+7. Verify system defaults to a safe category (e.g., ""Moderata"") or shows no suggestions.","- Suggestions are dynamically filtered by `PuntinaMappa.categoria`.
+- No suggestions are shown for unsupported categories.
+- UI updates instantly when location/category changes."
+TC-API-INTEGRATION-001,Validate AirVisual API data retrieval and error handling,Backend Integration (API),"5, 6, 7, 8","- `AirVisual API` is mocked to return:
+  - Success responses (countries, states, cities, locations).
+  - Error responses (404, 500, timeout).
+  - Invalid data (malformed JSON, missing fields).",,1. `Air,

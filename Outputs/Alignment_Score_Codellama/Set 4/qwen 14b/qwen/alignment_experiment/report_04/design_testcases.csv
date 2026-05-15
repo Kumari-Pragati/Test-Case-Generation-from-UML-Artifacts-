@@ -1,0 +1,96 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-Login-001","User logs in with valid credentials","Login","1","User account exists in the database","Username: ""testuser"", Password: ""password123""","1. User initiates login process by clicking ""Login"".
+2. Application sends a message to the database to verify if the user is registered.
+3. Database checks if the user is registered and responds to the application.
+4. Application receives confirmation from the database and grants access.
+5. Application redirects the user to the homepage.","User is redirected to the homepage after successful login."
+"TC-Login-002","User logs in with invalid credentials","Login","1","User account exists in the database but with incorrect password","Username: ""testuser"", Password: ""wrongpassword""","1. User initiates login process by clicking ""Login"".
+2. Application sends a message to the database to verify if the user is registered.
+3. Database checks if the user is registered and responds to the application.
+4. Application receives confirmation from the database that the user is registered but the password is incorrect.
+5. Application denies access and redirects the user to the login page.","User is denied access and remains on the login page."
+"TC-Login-003","User logs in with non-existent account","Login","1","User account does not exist in the database","Username: ""nonexistentuser"", Password: ""password123""","1. User initiates login process by clicking ""Login"".
+2. Application sends a message to the database to verify if the user is registered.
+3. Database checks if the user is registered and responds to the application.
+4. Application receives confirmation from the database that the user is not registered.
+5. Application redirects the user to the registration page.","User is redirected to the registration page."
+"TC-DataModification-001","User modifies existing data","DataModification","2,3","User is logged in and has existing data in the database","New Username: ""newusername"", New Password: ""newpassword123""","1. User requests data modification through the application interface.
+2. Application requests current data from the database.
+3. Database provides current data to the application.
+4. Application displays current data to the user.
+5. User sends new data to the application.
+6. Application updates user data in the database.
+7. Database confirms the update to the application.
+8. Application informs the user that the update was successful.","User's data is updated in the database and the user is informed of the success."
+"TC-DataModification-002","User attempts to modify data with invalid input","DataModification","2,3","User is logged in and has existing data in the database","New Username: """", New Password: ""short""","1. User requests data modification through the application interface.
+2. Application requests current data from the database.
+3. Database provides current data to the application.
+4. Application displays current data to the user.
+5. User sends new data with invalid input to the application.
+6. Application validates the input and rejects the update.
+7. Application informs the user of the validation error.","User is informed of the validation error and cannot proceed with the update."
+"TC-DeviceScan-001","Device scan with all components functioning","DeviceScan","4","User is logged in and has a device connected","Device ID: 12345","1. User initiates device scan through the application interface.
+2. Application performs a hardware scan on the device.
+3. Database provides the name and impact of each component.
+4. Application returns the scan results to the user.","Scan results are displayed to the user showing all components functioning normally."
+"TC-DeviceScan-002","Device scan with defective components","DeviceScan","4","User is logged in and has a device with defective components","Device ID: 12345","1. User initiates device scan through the application interface.
+2. Application performs a hardware scan on the device.
+3. Database identifies defective components and calculates the impact of replacement.
+4. Application returns the scan results to the user including component names, impacts, and device diagnostics.","Scan results are displayed to the user showing defective components and their respective impacts."
+"TC-LifeExpectancy-001","Calculate life expectancy of device components","LifeExpectancy","5","User is logged in and has a device connected","Device ID: 12345","1. User initiates a hardware scan through the application interface.
+2. Application performs a speed and health scan of the device components.
+3. Application calculates the life expectancy of each component.
+4. Application returns the results to the user.","User receives the calculated life expectancy of each device component."
+"TC-LifeExpectancy-002","Calculate life expectancy with invalid device ID","LifeExpectancy","5","User is logged in but enters an invalid device ID","Device ID: 99999","1. User initiates a hardware scan through the application interface with an invalid device ID.
+2. Application attempts to perform a speed and health scan of the device components.
+3. Application encounters an error due to the invalid device ID.
+4. Application returns an error message to the user.","User receives an error message indicating an invalid device ID."
+"TC-UserManagement-001","Create a new user account","UserManagement","1","User is not registered in the database","Username: ""newuser"", Password: ""password123"", Email: ""newuser@example.com""","1. User initiates the registration process.
+2. Application sends a request to the database to create a new user account.
+3. Database creates the new user account and confirms the creation to the application.
+4. Application grants access to the user.
+5. Application redirects the user to the homepage.","User account is created and user is redirected to the homepage."
+"TC-UserManagement-002","Update user information","UserManagement","1,2","User is logged in and has an existing account","New Username: ""updateduser"", New Email: ""updateduser@example.com""","1. User initiates the update process through the application interface.
+2. Application requests current user data from the database.
+3. Database provides current user data to the application.
+4. Application displays current user data to the user.
+5. User sends updated information to the application.
+6. Application updates user information in the database.
+7. Database confirms the update to the application.
+8. Application informs the user that the update was successful.","User information is updated in the database and the user is informed of the success."
+"TC-UserManagement-003","Delete user account","UserManagement","1","User is logged in and has an existing account","Username: ""testuser""","1. User initiates the deletion process through the application interface.
+2. Application sends a request to the database to delete the user account.
+3. Database deletes the user account and confirms the deletion to the application.
+4. Application denies access to the user.
+5. Application redirects the user to the login page.","User account is deleted and user is redirected to the login page."
+"TC-DeviceManagement-001","Add a new device to a user account","DeviceManagement","1","User is logged in and has an existing account","Device ID: 12345, Device Name: ""New Device"", Device Model: ""Model A""","1. User initiates the process to add a new device through the application interface.
+2. Application sends a request to the database to associate the new device with the user account.
+3. Database associates the new device with the user account and confirms the association to the application.
+4. Application informs the user that the device has been added successfully.","New device is associated with the user account and user is informed of the success."
+"TC-DeviceManagement-002","Remove a device from a user account","DeviceManagement","1","User is logged in and has an existing account with associated devices","Device ID: 12345","1. User initiates the process to remove a device through the application interface.
+2. Application sends a request to the database to dissociate the device from the user account.
+3. Database dissociates the device from the user account and confirms the dissociation to the application.
+4. Application informs the user that the device has been removed successfully.","Device is dissociated from the user account and user is informed of the success."
+"TC-MaterialManagement-001","Add a new material to a device","MaterialManagement","1","User is logged in and has an existing device","Chemical Formula: ""C6H12O6"", Percentage Presence: 50, Carbon Footprint: ""10 kg CO2""","1. User initiates the process to add a new material to a device through the application interface.
+2. Application sends a request to the database to associate the new material with the device.
+3. Database associates the new material with the device and confirms the association to the application.
+4. Application informs the user that the material has been added successfully.","New material is associated with the device and user is informed of the success."
+"TC-MaterialManagement-002","Remove a material from a device","MaterialManagement","1","User is logged in and has an existing device with associated materials","Chemical Formula: ""C6H12O6""","1. User initiates the process to remove a material from a device through the application interface.
+2. Application sends a request to the database to dissociate the material from the device.
+3. Database dissociates the material from the device and confirms the dissociation to the application.
+4. Application informs the user that the material has been removed successfully.","Material is dissociated from the device and user is informed of the success."
+"TC-EdgeCase-001","User with empty username tries to log in","Login","1","User account exists in the database","Username: """", Password: ""password123""","1. User initiates login process by clicking ""Login"".
+2. Application sends a message to the database to verify if the user is registered.
+3. Database checks if the user is registered and responds to the application.
+4. Application receives confirmation from the database that the username is invalid.
+5. Application denies access and redirects the user to the login page.","User is denied access and remains on the login page."
+"TC-EdgeCase-002","User with empty password tries to log in","Login","1","User account exists in the database","Username: ""testuser"", Password: """"","1. User initiates login process by clicking ""Login"".
+2. Application sends a message to the database to verify if the user is registered.
+3. Database checks if the user is registered and responds to the application.
+4. Application receives confirmation from the database that the password is invalid.
+5. Application denies access and redirects the user to the login page.","User is denied access and remains on the login page."
+"TC-EdgeCase-003","User with both empty username and password tries to log in","Login","1","User account exists in the database","Username: """", Password: """"","1. User initiates login process by clicking ""Login"".
+2. Application sends a message to the database to verify if the user is registered.
+3. Database checks if the user is registered and responds to the application.
+4. Application receives confirmation from the database that both username and password are invalid.
+5. Application denies access and redirects the user to the login page.","User is denied access and remains on the login page."

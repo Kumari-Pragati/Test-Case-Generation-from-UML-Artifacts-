@@ -1,0 +1,124 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-LOGIN-001,Successful login with valid credentials,Authentication,3,"- User account exists in the database with valid credentials (e.g., `idu=1`, `username=""testuser""`, `password=""SecurePass123""`).
+- System is online and accessible.","- Username: `testuser`
+- Password: `SecurePass123`","1. User enters `testuser` in the username field.
+2. User enters `SecurePass123` in the password field.
+3. User clicks the ""Login"" button.","- System validates credentials successfully.
+- User is granted access to the main program (no error message displayed).
+- System redirects to the home/dashboard screen."
+TC-LOGIN-002,Failed login with invalid password,Authentication,3,"- User account exists in the database (`idu=1`, `username=""testuser""`, `password=""SecurePass123""`).
+- System is online.","- Username: `testuser`
+- Password: `WrongPass123`","1. User enters `testuser` in the username field.
+2. User enters `WrongPass123` in the password field.
+3. User clicks the ""Login"" button.","- System detects invalid credentials.
+- Error message is displayed: *""Username or password is incorrect.""*
+- User is prompted to retry login (flow returns to `Login` action)."
+TC-LOGIN-003,Failed login with non-existent username,Authentication,3,"- System is online.
+- No user account exists with the provided username.","- Username: `nonexistentuser`
+- Password: `AnyPassword123`","1. User enters `nonexistentuser` in the username field.
+2. User enters `AnyPassword123` in the password field.
+3. User clicks the ""Login"" button.","- System detects invalid credentials.
+- Error message is displayed: *""Username or password is incorrect.""*
+- User is prompted to retry login (flow returns to `Login` action)."
+TC-LOGIN-004,Multiple failed login attempts (edge case),Authentication,3,"- System is online.
+- User account exists (`idu=1`, `username=""testuser""`, `password=""SecurePass123""`).","- Username: `testuser`
+- Passwords: `WrongPass1`, `WrongPass2`, `WrongPass3` (3 consecutive failures)","1. User enters `testuser` and `WrongPass1` → clicks ""Login"" → error message appears.
+2. User retries with `WrongPass2` → clicks ""Login"" → error message appears.
+3. User retries with `WrongPass3` → clicks ""Login"" → error message appears.
+4. User attempts to enter correct credentials (`SecurePass123`) on the 4th try.","- After 3 failed attempts, system may enforce a temporary lockout (e.g., 5-minute cooldown) or display a warning: *""Too many failed attempts. Try again later.""*
+- On the 4th attempt with correct credentials, access is granted."
+TC-DATABASE-QUERY-001,Successful query execution after input,Query Execution,4,"- User is logged in.
+- Database is accessible and contains test data (e.g., `Oggetti` table with `ido=1`, `nome=""Laptop""`).",- Input query: `SELECT * FROM Oggetti WHERE nome = 'Laptop'`,"1. User enters `SELECT * FROM Oggetti WHERE nome = 'Laptop'` in the query input field.
+2. User submits the query.
+3. System composes and executes the query.","- Query executes successfully.
+- System returns results (e.g., `ido=1`, `nome=""Laptop""`, `idu=1`).
+- No error message is displayed."
+TC-DATABASE-QUERY-002,Failed query execution due to syntax error,Query Execution,4,"- User is logged in.
+- Database is accessible.",- Input query: `SELECT * FROM Oggetti WHERE nome = 'Laptop' MISSING_PARENTHESIS`,"1. User enters the malformed query in the input field.
+2. User submits the query.
+3. System attempts to execute the query.","- Query fails due to syntax error.
+- Error message is displayed: *""Query execution failed. Please correct syntax and retry.""*
+- System loops back to `Inserimento input` for retry."
+TC-DATABASE-QUERY-003,Failed query execution due to database unavailability,Query Execution,4,"- User is logged in.
+- Database server is temporarily down (simulated).",- Input query: `SELECT * FROM Oggetti`,"1. User enters a valid query.
+2. User submits the query.
+3. System attempts to connect to the database but fails.","- Query execution fails.
+- Error message is displayed: *""Database unavailable. Please try again later.""*
+- System loops back to `Inserimento input` for retry."
+TC-OBJECT-CREATION-001,Successful creation and insertion of a rental object,Object Management,5,"- User is logged in (`idu=1`).
+- Database is accessible and empty of rental objects.","- Object details:
+  - `nome=""Drill Machine""`
+  - `descrizione=[""Brand: Bosch"", ""Condition: New""]`
+  - `tipo=1` (e.g., tool)
+  - `inUse=false`","1. User initiates `Creazione dell'oggetto da noleggiare`.
+2. User inputs object details (`nome`, `descrizione`, `tipo`, `inUse`).
+3. System composes and executes the INSERT query.
+4. Query executes successfully.","- Object is inserted into the `Oggetti` table with auto-generated `ido`.
+- System loops back to `Creazione dell'oggetto da noleggiare` (ready for next object).
+- No error message is displayed."
+TC-OBJECT-CREATION-002,Failed insertion of rental object due to duplicate ID,Object Management,5,"- User is logged in (`idu=1`).
+- Database contains an object with `ido=100` (manually inserted).
+- User attempts to insert an object with `ido=100` (duplicate primary key).","- Object details:
+  - `ido=100` (duplicate)
+  - `nome=""Duplicate Drill""`
+  - `descrizione=[""Brand: Makita""]`
+  - `tipo=1`
+  - `inUse=false`","1. User inputs object details including `ido=100`.
+2. System executes the INSERT query.
+3. Query fails due to duplicate key violation.","- Error message is displayed: *""Object with ID 100 already exists. Use a unique ID.""*
+- System prompts user to `Riprova` (retry with a new ID).
+- Object is not inserted into the database."
+TC-OBJECT-CREATION-003,Failed insertion due to database constraint violation,Object Management,5,"- User is logged in (`idu=1`).
+- Database enforces `NOT NULL` on `nome` and `idu` fields.","- Object details:
+  - `nome=""""` (empty string)
+  - `descrizione=[""No description""]`
+  - `tipo=1`
+  - `inUse=false`","1. User inputs object details with empty `nome`.
+2. System executes the INSERT query.
+3. Query fails due to `NOT NULL` constraint violation.","- Error message is displayed: *""Object name cannot be empty.""*
+- System prompts user to `Riprova` (retry with valid data).
+- Object is not inserted."
+TC-SERVICE-CREATION-001,Successful creation and insertion of a service offer,Service Management,6,"- User is logged in (`idu=1`).
+- Database is accessible and empty of service offers.","- Service details:
+  - `nome=""Home Cleaning""`
+  - `descrizione=[""Daily cleaning"", ""2 hours""]`
+  - `tipo=2` (offered service)
+  - `inUse=false`","1. User initiates `Creazione del servizio da offrire`.
+2. User inputs service details.
+3. System executes the INSERT query.
+4. Query executes successfully.","- Service is inserted into the `Richieste/offre` table with `ids` auto-generated.
+- System loops back to `Creazione del servizio da offrire`.
+- No error message is displayed."
+TC-SERVICE-CREATION-002,Failed service insertion after max retries,Service Management,6,"- User is logged in (`idu=1`).
+- Database is temporarily unavailable (simulated).
+- System allows 3 retry attempts.","- Service details:
+  - `nome=""Failed Service""`
+  - `descrizione=[""Will fail""]`
+  - `tipo=2`","1. User inputs service details.
+2. System attempts INSERT query → fails (database down).
+3. User is prompted to `Riprova` (attempt 1).
+4. System attempts INSERT → fails again (attempt 2).
+5. User is prompted to `Riprova` (attempt 3).
+6. System attempts INSERT → fails (attempt 3).","- After 3 failed attempts, error message is displayed: *""Maximum retries exceeded. Contact support.""*
+- Service is not inserted into the database.
+- System does not loop back to `Creazione del servizio da offrire`."
+TC-ANNOUNCEMENT-CREATION-001,Successful creation of an announcement linked to an object,Announcement Management,7,"- User is logged in (`idu=1`).
+- Database contains an object (`ido=1`, `nome=""Laptop""`).
+- Database is accessible.","- Announcement details:
+  - `titolo=""Laptop for Rent""`
+  - `ids=1` (links to existing service/request with `ids=1`)","1. User initiates `Creazione dell'annuncio`.
+2. User inputs `titolo=""Laptop for Rent""` and selects `ids=1`.
+3. System executes the INSERT query for the announcement.
+4. Query executes successfully.","- Announcement is inserted into the `Annunci` table with auto-generated `ida`.
+- System loops back to `Creazione dell'annuncio`.
+- No error message is displayed."
+TC-ANNOUNCEMENT-CREATION-002,Failed announcement creation due to invalid object reference,Announcement Management,7,"- User is logged in (`idu=1`).
+- Database contains no service/request with `ids=999`.","- Announcement details:
+  - `titolo=""Invalid Announcement""`
+  - `ids=999` (non-existent)","1. User inputs announcement details with `ids=999`.
+2. System executes the INSERT query.
+3. Query fails due to foreign key constraint violation.","- Error message is displayed: *""Invalid service/request ID. Please select a valid ID.""*
+- System prompts user to `Riprova`.
+- Announcement is not inserted."
+TC-ANNOUNCEMENT-DELETION-001,Successful deletion of an announcement,Announcement Management,8,"- User is logged in (`idu=1`).
+- Database contains an announcement (`ida",,,

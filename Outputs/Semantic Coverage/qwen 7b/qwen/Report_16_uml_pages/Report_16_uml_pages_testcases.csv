@@ -1,0 +1,122 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,Create a new user account,Utente,1,None,"- Id: 1
+- Password: password123
+- Email: test@example.com
+- Nome: John
+- Cognome: Doe","1. Call the constructor Utente() to create a new user.
+2. Set the Id to 1 using setId(1).
+3. Set the Password to ""password123"" using setPassword(""password123"").
+4. Set the Email to ""test@example.com"" using setEmail(""test@example.com"").
+5. Set the Nome to ""John"" using setNome(""John"").
+6. Set the Cognome to ""Doe"" using setCognome(""Doe"").",A new user object with the specified attributes should be created.
+TC-Utente-002,Get user details,Utente,1,User object created as in TC-Utente-001,None,"1. Call getId() on the user object.
+2. Call getPassword() on the user object.
+3. Call getEmail() on the user object.
+4. Call getNome() on the user object.
+5. Call getCognome() on the user object.",The method calls should return the correct values set in TC-Utente-001.
+TC-Utente-003,Update user details,Utente,1,User object created as in TC-Utente-001,"- New Nome: Jane
+- New Cognome: Smith","1. Call setNome(""Jane"") on the user object.
+2. Call setCognome(""Smith"") on the user object.","The user's Nome and Cognome should be updated to ""Jane"" and ""Smith"" respectively."
+TC-Prodotto-001,Create a new product,Prodotto,1,None,"- Nome: Lampada
+- Luogo: Roma
+- Descrizione: Lampada da tavolo
+- Immagine: lampada.jpg
+- Prezzo: 50.0
+- Proprietario: User object created as in TC-Utente-001","1. Call the constructor Prodotto() to create a new product.
+2. Set the Nome to ""Lampada"" using setNome(""Lampada"").
+3. Set the Luogo to ""Roma"" using setLuogo(""Roma"").
+4. Set the Descrizione to ""Lampada da tavolo"" using setDescrizione(""Lampada da tavolo"").
+5. Set the Immagine to ""lampada.jpg"" using setImmagine(""lampada.jpg"").
+6. Set the Prezzo to 50.0 using setPrezzo(50.0).
+7. Set the Proprietario to the user object using setProprietario(user).",A new product object with the specified attributes should be created.
+TC-Prodotto-002,Get product details,Prodotto,1,Product object created as in TC-Prodotto-001,None,"1. Call getNome() on the product object.
+2. Call getLuogo() on the product object.
+3. Call getDescrizione() on the product object.
+4. Call getImmagine() on the product object.
+5. Call getPrezzo() on the product object.
+6. Call getProprietario() on the product object.",The method calls should return the correct values set in TC-Prodotto-001.
+TC-Prodotto-003,Update product details,Prodotto,1,Product object created as in TC-Prodotto-001,"- New Nome: Lampada da parete
+- New Luogo: Milano
+- New Descrizione: Lampada da parete moderna
+- New Immagine: lampada_parete.jpg
+- New Prezzo: 70.0","1. Call setNome(""Lampada da parete"") on the product object.
+2. Call setLuogo(""Milano"") on the product object.
+3. Call setDescrizione(""Lampada da parete moderna"") on the product object.
+4. Call setImmagine(""lampada_parete.jpg"") on the product object.
+5. Call setPrezzo(70.0) on the product object.","The product's Nome, Luogo, Descrizione, Immagine, and Prezzo should be updated to the new values."
+TC-Segnalazione-001,Create a new report,Segnalazione,1,None,"- Tipo: True
+- Id: 1
+- Titolo: Problema con prodotto
+- Descrizione: Il prodotto non funziona correttamente
+- UtenteSegnalato: User object created as in TC-Utente-001
+- Autore: User object created as in TC-Utente-001","1. Call the constructor Segnalazione() to create a new report.
+2. Set the Tipo to True using setTipo(True).
+3. Set the Id to 1 using setId(1).
+4. Set the Titolo to ""Problema con prodotto"" using setTitolo(""Problema con prodotto"").
+5. Set the Descrizione to ""Il prodotto non funziona correttamente"" using setDescrizione(""Il prodotto non funziona correttamente"").
+6. Set the UtenteSegnalato to the user object using setUtenteSegnalato(user).
+7. Set the Autore to the user object using setAutore(user).",A new report object with the specified attributes should be created.
+TC-Segnalazione-002,Get report details,Segnalazione,1,Report object created as in TC-Segnalazione-001,None,"1. Call getTipo() on the report object.
+2. Call getId() on the report object.
+3. Call getTitolo() on the report object.
+4. Call getDescrizione() on the report object.
+5. Call getUtenteSegnalato() on the report object.
+6. Call getAutore() on the report object.",The method calls should return the correct values set in TC-Segnalazione-001.
+TC-Segnalazione-003,Update report details,Segnalazione,1,Report object created as in TC-Segnalazione-001,"- New Tipo: False
+- New Id: 2
+- New Titolo: Problema con prodotto nuovo
+- New Descrizione: Il prodotto nuovo non funziona correttamente
+- New UtenteSegnalato: User object created as in TC-Utente-001
+- New Autore: User object created as in TC-Utente-001","1. Call setTipo(False) on the report object.
+2. Call setId(2) on the report object.
+3. Call setTitolo(""Problema con prodotto nuovo"") on the report object.
+4. Call setDescrizione(""Il prodotto nuovo non funziona correttamente"") on the report object.
+5. Call setUtenteSegnalato(user) on the report object.
+6. Call setAutore(user) on the report object.","The report's Tipo, Id, Titolo, Descrizione, UtenteSegnalato, and Autore should be updated to the new values."
+TC-Association-001,Associate a user with a product,Utente-Prodotto,1,User and product objects created as in TC-Utente-001 and TC-Prodotto-001,None,1. Call setProprietario(user) on the product object.,The product's Proprietario attribute should be set to the user object.
+TC-Association-002,Associate a user with a report,Utente-Segnalazione,1,User and report objects created as in TC-Utente-001 and TC-Segnalazione-001,None,"1. Call setAutore(user) on the report object.
+2. Call setUtenteSegnalato(user) on the report object.",The report's Autore and UtenteSegnalato attributes should be set to the user object.
+TC-Invalid-001,Invalid user creation,Utente,1,None,"- Id: -1
+- Password: """"
+- Email: invalid_email
+- Nome: John
+- Cognome: Doe",1. Attempt to call the constructor Utente() with the given data.,An exception should be thrown due to invalid input.
+TC-Invalid-002,Invalid product creation,Prodotto,1,None,"- Nome: """"
+- Luogo: """"
+- Descrizione: """"
+- Immagine: """"
+- Prezzo: -10.0
+- Proprietario: User object created as in TC-Utente-001",1. Attempt to call the constructor Prodotto() with the given data.,An exception should be thrown due to invalid input.
+TC-Invalid-003,Invalid report creation,Segnalazione,1,None,"- Tipo: ""true""
+- Id: -1
+- Titolo: """"
+- Descrizione: """"
+- UtenteSegnalato: User object created as in TC-Utente-001
+- Autore: User object created as in TC-Utente-001",1. Attempt to call the constructor Segnalazione() with the given data.,An exception should be thrown due to invalid input.
+TC-Edge-001,Edge case - User with no name,Utente,1,None,"- Id: 1
+- Password: password123
+- Email: test@example.com
+- Nome: 
+- Cognome: Doe","1. Call the constructor Utente() with the given data.
+2. Call getNome() on the user object.",The getNome() method should return an empty string.
+TC-Edge-002,Edge case - Product with no name,Prodotto,1,None,"- Nome: 
+- Luogo: Roma
+- Descrizione: Lampada da tavolo
+- Immagine: lampada.jpg
+- Prezzo: 50.0
+- Proprietario: User object created as in TC-Utente-001","1. Call the constructor Prodotto() with the given data.
+2. Call getNome() on the product object.",The getNome() method should return an empty string.
+TC-Edge-003,Edge case - Report with no title,Segnalazione,1,None,"- Tipo: True
+- Id: 1
+- Titolo: 
+- Descrizione: Il prodotto non funziona correttamente
+- UtenteSegnalato: User object created as in TC-Utente-001
+- Autore: User object created as in TC-Utente-001","1. Call the constructor Segnalazione() with the given data.
+2. Call getTitolo() on the report object.",The getTitolo() method should return an empty string.
+TC-Flow-001,User creates a product and associates it with themselves,Utente-Prodotto,1,User object created as in TC-Utente-001,"- Nome: Lampada
+- Luogo: Roma
+- Descrizione: Lampada da tavolo
+- Immagine: lampada.jpg
+- Prezzo: 50.0
+- Proprietario: User object created as in TC-Utente-001","1. Call the constructor Prodotto() to create a new product.
+2",

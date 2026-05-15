@@ -1,0 +1,152 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Utente-001,User Registration,Utente,1,None,"- Valid email: john@example.com
+- Valid password: Password123!
+- Valid name: John Doe
+- Valid surname: Smith
+- Valid image URL: https://example.com/image.jpg","1. Navigate to the registration page.
+2. Enter the valid email, password, name, surname, and image URL.
+3. Submit the form.","- User is registered successfully.
+- User is redirected to the login page.
+- User details are stored in the database."
+TC-Utente-002,Invalid User Registration,Utente,1,None,"- Invalid email: john@example
+- Valid password: Password123!
+- Valid name: John Doe
+- Valid surname: Smith
+- Valid image URL: https://example.com/image.jpg","1. Navigate to the registration page.
+2. Enter the invalid email, password, name, surname, and image URL.
+3. Submit the form.","- Error message is displayed indicating invalid email format.
+- User is not registered.
+- User remains on the registration page."
+TC-Utente-003,User Login,Utente,1,User is registered,"- Registered email: john@example.com
+- Valid password: Password123!","1. Navigate to the login page.
+2. Enter the registered email and valid password.
+3. Submit the form.","- User is logged in successfully.
+- User is redirected to the dashboard."
+TC-Utente-004,Invalid User Login,Utente,1,User is registered,"- Registered email: john@example.com
+- Invalid password: wrongpassword","1. Navigate to the login page.
+2. Enter the registered email and invalid password.
+3. Submit the form.","- Error message is displayed indicating incorrect password.
+- User remains on the login page."
+TC-Utente-005,Change User Password,Utente,1,User is logged in,"- Current password: Password123!
+- New password: NewPassword123!","1. Navigate to the profile settings page.
+2. Enter the current password and new password.
+3. Submit the form.","- Password is changed successfully.
+- Confirmation message is displayed.
+- User remains on the profile settings page."
+TC-Utente-006,Change User Image,Utente,1,User is logged in,- Valid image URL: https://example.com/newimage.jpg,"1. Navigate to the profile settings page.
+2. Upload a new image URL.
+3. Submit the form.","- User image is updated successfully.
+- Confirmation message is displayed.
+- User remains on the profile settings page."
+TC-Utente-007,User Role Switching,Utente,1,User is logged in,- User is a customer,"1. Navigate to the profile settings page.
+2. Set the user role to seller.
+3. Submit the form.","- User role is switched to seller.
+- Confirmation message is displayed.
+- User remains on the profile settings page."
+TC-Cliente-001,Customer Notification Setup,Cliente,1,User is logged in as a customer,- Notification type: Email,"1. Navigate to the notification settings page.
+2. Set the notification type to email.
+3. Submit the form.","- Notification type is set to email.
+- Confirmation message is displayed.
+- User remains on the notification settings page."
+TC-Venditore-001,Seller Store Information Update,Venditore,1,User is logged in as a seller,"- New store name: My Store
+- New address: 123 Main St","1. Navigate to the store settings page.
+2. Enter the new store name and address.
+3. Submit the form.","- Store information is updated successfully.
+- Confirmation message is displayed.
+- User remains on the store settings page."
+TC-Segnalazione-001,Create a Report,Segnalazione,1,User is logged in as a customer,"- Title: Issue with Product X
+- Description: Product X has quality issues.","1. Navigate to the report creation page.
+2. Enter the title and description.
+3. Submit the form.","- Report is created successfully.
+- Confirmation message is displayed.
+- User is redirected to the report submission success page."
+TC-Segnalazione-002,Invalid Report Creation,Segnalazione,1,User is logged in as a customer,"- Empty title
+- Description: Product X has quality issues.","1. Navigate to the report creation page.
+2. Leave the title field empty and enter the description.
+3. Submit the form.","- Error message is displayed indicating required fields.
+- User remains on the report creation page."
+TC-Recensione-001,Write a Review,Recensione,1,User is logged in as a customer,"- Title: Great Product!
+- Description: Product Y is amazing.
+- Rating: 5","1. Navigate to the review creation page.
+2. Enter the title, description, and rating.
+3. Submit the form.","- Review is created successfully.
+- Confirmation message is displayed.
+- User is redirected to the review submission success page."
+TC-Recensione-002,Invalid Review Creation,Recensione,1,User is logged in as a customer,"- Title: Great Product!
+- Empty description
+- Rating: 5","1. Navigate to the review creation page.
+2. Enter the title and rating, leave the description field empty.
+3. Submit the form.","- Error message is displayed indicating required fields.
+- User remains on the review creation page."
+TC-Prodotto-001,Add a Product,Prodotto,4,User is logged in as a seller,"- Name: Product Z
+- Category: Electronics
+- Price: 99.99
+- Description: High-quality electronics product.
+- Expiry Date: 2024-12-31","1. Navigate to the product addition page.
+2. Click on the ""+"" button.
+3. Fill in the product details.
+4. Click on the ""Add"" button.
+5. Confirm that all fields are correctly filled.
+6. Submit the form.","- Product is added successfully.
+- Confirmation message is displayed.
+- User is redirected to the product listing page."
+TC-Prodotto-002,Invalid Product Addition,Prodotto,4,User is logged in as a seller,"- Name: Product Z
+- Empty category
+- Price: 99.99
+- Description: High-quality electronics product.
+- Expiry Date: 2024-12-31","1. Navigate to the product addition page.
+2. Click on the ""+"" button.
+3. Fill in the product details, leaving the category field empty.
+4. Click on the ""Add"" button.
+5. Confirm that the fields are not correctly filled.
+6. Submit the form.","- Error message is displayed indicating required fields.
+- User remains on the product addition page."
+TC-Prodotto-003,Modify a Product,Prodotto,3,User is logged in as a seller,"- Name: Product Z
+- New price: 89.99","1. Navigate to the product modification page.
+2. Click on the product to modify.
+3. Modify the product details.
+4. Click on the ""Modify"" button.
+5. Confirm that all fields are correctly filled.
+6. Submit the form.","- Product is modified successfully.
+- Confirmation message is displayed.
+- User is redirected to the product listing page."
+TC-Prodotto-004,Invalid Product Modification,Prodotto,3,User is logged in as a seller,"- Name: Product Z
+- New price: -10.00","1. Navigate to the product modification page.
+2. Click on the product to modify.
+3. Modify the product details with an invalid price.
+4. Click on the ""Modify"" button.
+5. Confirm that the fields are not correctly filled.
+6. Submit the form.","- Error message is displayed indicating invalid input.
+- User remains on the product modification page."
+TC-ClienteVenditore-001,Associate Customer with Seller,ClienteVenditore,1,User is logged in as a customer,- Seller name: My Store,"1. Navigate to the customer-seller association page.
+2. Select the seller to associate with.
+3. Submit the form.","- Customer is associated with the seller successfully.
+- Confirmation message is displayed.
+- User remains on the customer-seller association page."
+TC-ClienteVenditore-002,Associate Seller with Customer,ClienteVenditore,1,User is logged in as a seller,- Customer name: John Doe,"1. Navigate to the seller-customer association page.
+2. Select the customer to associate with.
+3. Submit the form.","- Seller is associated with the customer successfully.
+- Confirmation message is displayed.
+- User remains on the seller-customer association page."
+TC-VenditorePreferito-001,Add Favorite Seller,VenditorePreferito,1,User is logged in as a customer,- Seller name: My Store,"1. Navigate to the favorite sellers page.
+2. Add the seller to the favorites list.
+3. Submit the form.","- Seller is added to the favorites list successfully.
+- Confirmation message is displayed.
+- User remains on the favorite sellers page."
+TC-VenditorePreferito-002,Remove Favorite Seller,VenditorePreferito,1,User is logged in as a customer,- Seller name: My Store,"1. Navigate to the favorite sellers page.
+2. Remove the seller from the favorites list.
+3. Submit the form.","- Seller is removed from the favorites list successfully.
+- Confirmation message is displayed.
+- User remains on the favorite sellers page."
+TC-Map-001,Display Map,Map,2,User is logged in,"- User location: 40.7128, -74.0060 (New York City)","1. Navigate to the map display page.
+2. Check if the user's position is accessible.
+3. If accessible, create a list based on the user's position.
+4. If not accessible, report an error.","- Map is displayed successfully.
+- List is created based on the user's position if accessible.
+- Error is reported if the user's position is not accessible."
+TC-Map-002,Inaccessible User Position,Map,2,User is logged in,"- User location: 0.0, 0.0 (Invalid coordinates)","1. Navigate to the map display page.
+2. Check if the user's position is accessible.
+3. If not accessible, report an error.","- Error is reported indicating inaccessible user position.
+- User remains on the map display page."
+TC-Notifiche-001,Send Push Notification,Notifiche,"5, 6","User is logged in
+Test",,,

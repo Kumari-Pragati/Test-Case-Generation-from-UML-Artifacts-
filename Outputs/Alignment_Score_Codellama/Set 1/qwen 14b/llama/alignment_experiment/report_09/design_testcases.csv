@@ -1,0 +1,145 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,Successful Login,Login,"2, 3",User account exists and is active.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd","1. Navigate to the login page.
+2. Enter the valid email and password.
+3. Click the login button.","- User is redirected to the home page.
+- No error messages are displayed."
+TC-Login-002,Failed Login with Invalid Email,Login,"2, 3",User account exists but with a different email.,"- Invalid email: wronguser@example.com
+- Valid password: P@ssw0rd","1. Navigate to the login page.
+2. Enter the invalid email and valid password.
+3. Click the login button.","- User remains on the login page.
+- An error message indicating incorrect email is displayed."
+TC-Login-003,Failed Login with Invalid Password,Login,"2, 3",User account exists but with a different password.,"- Valid email: user@example.com
+- Invalid password: WrongP@ssw0rd","1. Navigate to the login page.
+2. Enter the valid email and invalid password.
+3. Click the login button.","- User remains on the login page.
+- An error message indicating incorrect password is displayed."
+TC-Emergency-001,Inserting a New Emergency,Emergency,4,User is authenticated and has the necessary permissions.,"- Emergency name: Fire at Building A
+- Description: Fire outbreak in Building A
+- Region: Rome
+- Province: Roma
+- Date: 2023-10-15","1. Click the ""Inserisci emergenza"" button.
+2. Authenticate the user.
+3. Insert the emergency details.
+4. Confirm that all required fields are filled.","- Emergency is successfully created.
+- Confirmation message is displayed."
+TC-Emergency-002,Inserting an Emergency with Missing Details,Emergency,4,User is authenticated and has the necessary permissions.,"- Emergency name: Fire at Building A
+- Description: Fire outbreak in Building A
+- Region: Rome
+- Province: Roma
+- Date: (empty)","1. Click the ""Inserisci emergenza"" button.
+2. Authenticate the user.
+3. Insert the emergency details with missing date.
+4. Attempt to confirm the emergency creation.","- Emergency is not created.
+- Error message indicating missing required field is displayed."
+TC-Emergency-003,Viewing Emergencies,Emergency,2,User is authenticated and has the necessary permissions.,- Existing emergency: Fire at Building A,"1. Click the ""Visualizza emergenze"" button.
+2. Check if the emergency list is populated.","- List of emergencies is displayed.
+- Emergency ""Fire at Building A"" is listed."
+TC-Emergency-004,Viewing Emergencies with No Records,Emergency,2,No emergencies exist in the system.,- No existing emergencies.,"1. Click the ""Visualizza emergenze"" button.
+2. Check if the emergency list is empty.","- Message ""Nessuna emergenza"" is displayed.
+- No emergencies are listed."
+TC-TerminateEmergency-001,Terminating an Emergency,TerminateEmergency,8,User is authenticated and has the necessary permissions.,- Existing emergency: Fire at Building A,"1. Send a POST request to /terminaEmergenza.
+2. Verify the token.
+3. Update the database to mark the emergency as terminated.
+4. Retrieve the result.","- Emergency is marked as terminated.
+- Response message indicates one emergency terminated."
+TC-TerminateEmergency-002,Terminating Nonexistent Emergency,TerminateEmergency,8,No emergencies exist in the system.,- Nonexistent emergency: Fire at Building B,"1. Send a POST request to /terminaEmergenza.
+2. Verify the token.
+3. Attempt to update the database to mark the nonexistent emergency as terminated.
+4. Retrieve the result.","- No emergencies are terminated.
+- Response message indicates no emergencies terminated."
+TC-VolunteerAssignment-001,Assigning a Volunteer to a Task,VolunteerAssignment,5,User is authenticated and has the necessary permissions.,"- Existing emergency: Fire at Building A
+- Existing task: Rescue operation
+- Available volunteer: John Doe","1. Click the ""Visualizza emergenza"" button.
+2. Authenticate the user.
+3. Select the emergency.
+4. Select the task.
+5. Assign the volunteer to the task.","- Volunteer is assigned to the task.
+- Confirmation message is displayed."
+TC-VolunteerAssignment-002,Removing a Volunteer from a Task,VolunteerAssignment,5,Volunteer is already assigned to a task.,"- Existing emergency: Fire at Building A
+- Existing task: Rescue operation
+- Assigned volunteer: John Doe","1. Click the ""Visualizza emergenza"" button.
+2. Authenticate the user.
+3. Select the emergency.
+4. Select the task.
+5. Remove the volunteer from the task.","- Volunteer is removed from the task.
+- Confirmation message is displayed."
+TC-VolunteerAssignment-003,Assigning a Volunteer to a Nonexistent Task,VolunteerAssignment,5,User is authenticated and has the necessary permissions.,"- Existing emergency: Fire at Building A
+- Nonexistent task: Search and rescue
+- Available volunteer: John Doe","1. Click the ""Visualizza emergenza"" button.
+2. Authenticate the user.
+3. Select the emergency.
+4. Attempt to select the nonexistent task.
+5. Assign the volunteer to the task.","- Volunteer is not assigned to the task.
+- Error message indicating task does not exist is displayed."
+TC-TokenManagement-001,Token Generation and Verification,TokenManagement,6,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd","1. Send a POST request to /login.
+2. Query the database for user data.
+3. Verify the user length and password.
+4. Generate a token JWT.
+5. Update tokens and revoke the old one.
+6. Send the response or error to the client.","- Token is generated and verified successfully.
+- Response message contains the token."
+TC-TokenManagement-002,Token Revocation,TokenManagement,6,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd","1. Send a POST request to /login.
+2. Query the database for user data.
+3. Verify the user length and password.
+4. Generate a token JWT.
+5. Update tokens and revoke the old one.
+6. Send the response or error to the client.","- Old token is revoked.
+- New token is generated and sent to the client."
+TC-NewTask-001,Creating a New Task,NewTask,7,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd","1. Send a POST request to /nuovoCompito.
+2. Verify the token.
+3. Insert the task into the database.
+4. Log the result.","- Task is successfully created.
+- Confirmation message is displayed."
+TC-NewTask-002,Creating a Task with Invalid Token,NewTask,7,User is authenticated but with an invalid token.,"- Valid email: user@example.com
+- Invalid token: InvalidToken","1. Send a POST request to /nuovoCompito.
+2. Verify the token.
+3. Attempt to insert the task into the database.
+4. Log the error.","- Task is not created.
+- Error message indicating invalid token is logged."
+TC-NewTask-003,Creating a Task with Missing Required Fields,NewTask,7,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd
+- Missing required fields: Description, Region","1. Send a POST request to /nuovoCompito.
+2. Verify the token.
+3. Attempt to insert the task into the database.
+4. Log the error.","- Task is not created.
+- Error message indicating missing required fields is logged."
+TC-UserManagement-001,Deleting a User,UserManagement,1,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd","1. Send a DELETE request to /deleteUtente.
+2. Verify the token.
+3. Delete the user from the database.
+4. Log the result.","- User is successfully deleted.
+- Confirmation message is displayed."
+TC-UserManagement-002,Deleting a Nonexistent User,UserManagement,1,User is authenticated and has the necessary permissions.,"- Nonexistent email: nonexist@example.com
+- Valid password: P@ssw0rd","1. Send a DELETE request to /deleteUtente.
+2. Verify the token.
+3. Attempt to delete the nonexistent user from the database.
+4. Log the error.","- User is not deleted.
+- Error message indicating user does not exist is logged."
+TC-UserManagement-003,Modifying a User's Information,UserManagement,1,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd
+- Updated information: New password: NewP@ssw0rd","1. Send a PUT request to /modifyUserCompito.
+2. Verify the token.
+3. Update the user's information in the database.
+4. Log the result.","- User's information is successfully updated.
+- Confirmation message is displayed."
+TC-UserManagement-004,Modifying a User's Information with Invalid Token,UserManagement,1,User is authenticated but with an invalid token.,"- Valid email: user@example.com
+- Invalid token: InvalidToken
+- Updated information: New password: NewP@ssw0rd","1. Send a PUT request to /modifyUserCompito.
+2. Verify the token.
+3. Attempt to update the user's information in the database.
+4. Log the error.","- User's information is not updated.
+- Error message indicating invalid token is logged."
+TC-UserManagement-005,Terminating a User's Account,UserManagement,1,User is authenticated and has the necessary permissions.,"- Valid email: user@example.com
+- Valid password: P@ssw0rd","1. Send a POST request to /terminateCompito.
+2. Verify the token.
+3. Mark the user's account as inactive in the database.
+4. Log the result.","- User's account is successfully terminated.
+- Confirmation message is displayed."
+TC-UserManagement-006,Terminating a Nonexistent User's Account,UserManagement,1,User is authenticated and has the necessary permissions.,"- Nonexistent email: nonexist@example.com
+- Valid password: P@ssw0rd","1. Send a POST request to /terminateCompito.
+2. Verify the token.
+3. Attempt to mark the nonexistent user's account as inactive in",

@@ -1,0 +1,110 @@
+"Test Case ID","Title","Module","Source UML Pages","Preconditions","Test Data","Test Steps","Expected Result"
+"TC-MainProgram-001","Execute Main Program Workflow","Main Program","1","System is initialized and ready to execute.","N/A","1. Start the Main Program.
+2. Verify that the Main Program initiates Routine 1.
+3. Verify that Routine 1 initiates Routine 1.1.
+4. Verify that the Main Program initiates Routine 2.
+5. Verify that Routine 2 initiates Routine 1.2.
+6. Verify that the Main Program initiates Routine 3.
+7. Verify that Routine 3 initiates Routine 3.1.
+8. Verify that Routine 3 initiates Routine 3.2.","All routines and subroutines are executed in the specified order without errors."
+"TC-Routine1-002","Execute Routine 1 Workflow","Routine 1","1","Main Program has initiated Routine 1.","N/A","1. Start Routine 1.
+2. Verify that Routine 1 initiates Routine 1.1.
+3. Verify that Routine 1 initiates Routine 1.2.","Routine 1.1 and Routine 1.2 are executed in sequence without errors."
+"TC-Routine2-003","Execute Routine 2 Workflow","Routine 2","1","Main Program has initiated Routine 2.","N/A","1. Start Routine 2.
+2. Verify that Routine 2 initiates Routine 1.2.","Routine 1.2 is executed without errors."
+"TC-Routine3-004","Execute Routine 3 Workflow","Routine 3","1","Main Program has initiated Routine 3.","N/A","1. Start Routine 3.
+2. Verify that Routine 3 initiates Routine 3.1.
+3. Verify that Routine 3 initiates Routine 3.2.","Routine 3.1 and Routine 3.2 are executed in sequence without errors."
+"TC-LoginProcess-005","Successful User Login Process","Login Process","3","User credentials are valid.","Valid username: ""testuser"", valid password: ""password123"".","1. Initiate the login process.
+2. Enter valid username and password.
+3. Verify that the system validates the user credentials.
+4. Verify that access is granted after successful validation.","Access is granted successfully."
+"TC-LoginProcess-006","Failed User Login Process","Login Process","3","User credentials are invalid.","Invalid username: ""wronguser"", invalid password: ""wrongpassword"".","1. Initiate the login process.
+2. Enter invalid username and password.
+3. Verify that the system displays an error message.
+4. Verify that the user is prompted to retry the login.","Error message is displayed, and the user is prompted to retry."
+"TC-LoginProcess-007","Multiple Failed Login Attempts","Login Process","3","User credentials are invalid.","Invalid username: ""wronguser"", invalid password: ""wrongpassword"".","1. Initiate the login process.
+2. Enter invalid username and password.
+3. Verify that the system displays an error message.
+4. Retry the login process multiple times with invalid credentials.
+5. Verify that the system continues to display error messages and prompt for retry.","Error messages are displayed each time, and the user is continuously prompted to retry."
+"TC-QueryProcess-008","Successful Query Execution","Query Process","4","Input data is valid.","Valid input data.","1. Insert valid input data.
+2. Compose the query.
+3. Execute the query.
+4. Verify that the query is executed successfully.","Query is executed successfully."
+"TC-QueryProcess-009","Failed Query Execution","Query Process","4","Input data is invalid.","Invalid input data.","1. Insert invalid input data.
+2. Compose the query.
+3. Execute the query.
+4. Verify that the query fails.
+5. Display an error message.
+6. Prompt the user to retry.","Query fails, error message is displayed, and the user is prompted to retry."
+"TC-QueryProcess-010","Multiple Failed Query Executions","Query Process","4","Input data is invalid.","Invalid input data.","1. Insert invalid input data.
+2. Compose the query.
+3. Execute the query.
+4. Verify that the query fails.
+5. Display an error message.
+6. Prompt the user to retry.
+7. Repeat steps 1-6 multiple times.","Query fails each time, error message is displayed, and the user is continuously prompted to retry."
+"TC-ObjectCreation-011","Successful Object Creation and Database Insertion","Object Creation","5","Object data is valid.","Valid object data.","1. Create an object for rental.
+2. Insert the object data into the database.
+3. Verify that the query is executed successfully.
+4. Loop back to object creation if the query is successful.","Object is created and inserted into the database successfully."
+"TC-ObjectCreation-012","Failed Object Creation and Database Insertion","Object Creation","5","Object data is invalid.","Invalid object data.","1. Create an object for rental.
+2. Insert the object data into the database.
+3. Verify that the query fails.
+4. Display an error message.
+5. Prompt the user to retry.","Object creation fails, error message is displayed, and the user is prompted to retry."
+"TC-ServiceCreation-013","Successful Service Creation and Database Insertion","Service Creation","6","Service data is valid.","Valid service data.","1. Create a service to offer.
+2. Insert the service data into the database.
+3. Verify that the query is executed successfully.
+4. Return to service creation if the query is successful.","Service is created and inserted into the database successfully."
+"TC-ServiceCreation-014","Failed Service Creation and Database Insertion","Service Creation","6","Service data is invalid.","Invalid service data.","1. Create a service to offer.
+2. Insert the service data into the database.
+3. Verify that the query fails.
+4. Retry the query.
+5. If the query still fails, display an error message.","Service creation fails, error message is displayed, and the user is prompted to retry."
+"TC-AdvertisementCreation-015","Successful Advertisement Creation and Database Insertion","Advertisement Creation","7","Advertisement data is valid.","Valid advertisement data.","1. Create an advertisement.
+2. Insert the advertisement data into the database.
+3. Verify that the query is executed successfully.
+4. Loop back to advertisement creation if the query is successful.","Advertisement is created and inserted into the database successfully."
+"TC-AdvertisementCreation-016","Failed Advertisement Creation and Database Insertion","Advertisement Creation","7","Advertisement data is invalid.","Invalid advertisement data.","1. Create an advertisement.
+2. Insert the advertisement data into the database.
+3. Verify that the query fails.
+4. Display an error message.
+5. Prompt the user to retry.","Advertisement creation fails, error message is displayed, and the user is prompted to retry."
+"TC-AdvertisementDeletion-017","Successful Advertisement Deletion","Advertisement Deletion","8","Advertisement exists in the database.","Valid advertisement ID.","1. Select the advertisement to remove.
+2. Execute the query to delete the advertisement data from the database.
+3. Verify that the query is executed successfully.","Advertisement is deleted successfully from the database."
+"TC-AdvertisementDeletion-018","Failed Advertisement Deletion","Advertisement Deletion","8","Advertisement does not exist in the database.","Invalid advertisement ID.","1. Select the advertisement to remove.
+2. Execute the query to delete the advertisement data from the database.
+3. Verify that the query fails.
+4. Display an error message.","Advertisement deletion fails, error message is displayed."
+"TC-ObjectServiceDeletion-019","Successful Object/Service Deletion","Object/Service Deletion","9","Object/Service exists in the database.","Valid object/service ID.","1. Select the object/service to remove.
+2. Execute the query to delete the object/service data from the database.
+3. Verify that the query is executed successfully.","Object/Service is deleted successfully from the database."
+"TC-ObjectServiceDeletion-020","Failed Object/Service Deletion","Object/Service Deletion","9","Object/Service does not exist in the database.","Invalid object/service ID.","1. Select the object/service to remove.
+2. Execute the query to delete the object/service data from the database.
+3. Verify that the query fails.
+4. Display an error message.
+5. Prompt the user to retry.","Object/Service deletion fails, error message is displayed, and the user is prompted to retry."
+"TC-UserManagement-021","User Registration and Modification","User Management","2","User registration form is available.","Valid user details: idu=1, username=""testuser"", mail=""test@example.com"", password=""password123"", nome=""John"", cognome=""Doe"".","1. Fill out the user registration form with valid details.
+2. Submit the form.
+3. Verify that the user is registered successfully.
+4. Modify the user's details.
+5. Verify that the modifications are saved successfully.","User is registered and modified successfully."
+"TC-UserManagement-022","User Registration with Invalid Details","User Management","2","User registration form is available.","Invalid user details: idu=1, username="""", mail=""invalidmail"", password="""", nome="""", cognome=""Doe"".","1. Fill out the user registration form with invalid details.
+2. Submit the form.
+3. Verify that the user registration fails.
+4. Display an appropriate error message.","User registration fails, and an error message is displayed."
+"TC-UserManagement-023","User Modification with Invalid Details","User Management","2","User is registered and logged in.","Invalid user details: idu=1, username="""", mail=""invalidmail"", password="""", nome="""", cognome=""Doe"".","1. Log in as a registered user.
+2. Attempt to modify the user's details with invalid data.
+3. Verify that the modification fails.
+4. Display an appropriate error message.","User modification fails, and an error message is displayed."
+"TC-ObjectManagement-024","Object Creation and Retrieval","Object Management","2","User is logged in.","Valid object details: ido=1, nome=""Laptop"", idu=1, descrizione=[""New"", ""Used""], tipo=1, inUse=True.","1. Log in as a registered user.
+2. Create a new object with valid details.
+3. Retrieve the newly created object using its ID.
+4. Verify that the retrieved object matches the created object.","Object is created and retrieved successfully."
+"TC-ObjectManagement-025","Object Creation with Invalid Details","Object Management","2","User is logged in.","Invalid object details: ido=1, nome="""", idu=1, descrizione=[], tipo=0, inUse=False.","1. Log in as a registered user.
+2. Attempt to create a new object with invalid details.
+3. Verify that the object creation fails.
+4. Display an appropriate error message.","Object creation"

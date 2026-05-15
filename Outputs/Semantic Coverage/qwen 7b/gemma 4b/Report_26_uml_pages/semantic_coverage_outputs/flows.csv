@@ -1,0 +1,202 @@
+flow
+"start -> utente loggato? — type=transition; label=""no""; explanation=""if the user is not logged in"""
+"start -> utente loggato? — type=transition; label=""si""; explanation=""if the user is logged in"""
+"utente loggato? (no) -> fragment richiesta login / registrazione — type=transition; label=""login / registrazione"""
+"utente loggato? (si) -> utente loggato con successo? — type=transition; label=""success"""
+"utente loggato con successo? (si) -> home — type=transition; label=""home"""
+"utente loggato con successo? (no) -> fragment registrazione — type=transition; label=""registrazione"""
+"utente creato con successo? (si) -> home — type=transition; label=""home"""
+utente creato con successo? (no) -> - none
+the diagram models the application login and registration flow.
+"the flow starts with checking if the user is logged in. if not, a login/registration request is initiated."
+"if the user is logged in, the system checks if the user was created successfully."
+"if the user is not logged in, the user is prompted to login or register."
+"if the user is created successfully, the user is directed to the home page."
+"home -> activity proposta di scambio — transition=""start"";"
+"activity proposta di scambio -> ho reperito i dati delle proposte? — transition=""check data"";"
+"ho reperito i dati delle proposte? — transition=""si"" -> fragment elenco proposte ricevute;"
+"ho reperito i dati delle proposte? — transition=""no"" -> home;"
+"fragment elenco proposte ricevute -> fragment elenco proposte inoltrate — transition=""process"";"
+"fragment elenco proposte inoltrate -> proposta accettata? — transition=""evaluate"";"
+"proposta accettata? — transition=""si"" -> activity dettaglio proposta;"
+"proposta accettata? — transition=""no"" -> fragment elenco proposte inoltrate;"
+"the diagram models a workflow for handling proposals. it starts with a home state, checks for available data, processes proposals, and then evaluates whether a proposal is accepted. if accepted, it proceeds to detail the proposal; otherwise, it returns to the proposal list. the diagram represents a simple decision-making process based on data availability and proposal evaluation."
+"home -> activity bacheca personale — transition=""start"";"
+"activity bacheca personale -> ho rapito i dati dalle offerte? — transition=""check data"";"
+"ho rapito i dati dalle offerte? — transition=""no"" -> home;"
+"ho rapito i dati dalle offerte? — transition=""si"" -> fragment elenco offerte;"
+"fragment elenco offerte -> fragment dettaglio offerta — transition=""select offer"";"
+"fragment dettaglio offerta -> inserimento andato a buon fine? — transition=""check insertion"";"
+"inserimento andato a buon fine? — transition=""no"" -> fragment eliminazione;"
+"inserimento andato a buon fine? — transition=""si"" -> home;"
+"fragment eliminazione -> eliminazione andata a buon fine? — transition=""check deletion"";"
+"eliminazione andata a buon fine? — transition=""no"" -> fragment elenco offerte;"
+"eliminazione andata a buon fine? — transition=""si"" -> home;"
+the diagram models a process for managing personal activity related to offers.
+the process starts at the home state.
+the user checks if they have retrieved data from offers.
+"if data is retrieved, the user selects an offer and attempts to insert it."
+"if the insertion is successful, the process returns to the home state."
+"if the insertion fails, the user attempts to delete an offer."
+"if the deletion is successful, the process returns to the home state."
+"if the deletion fails, the user returns to the fragment of listing offers."
+"home -> no — type=initial; label=""home""; explanation=""start state"""
+"no -> si — type=transition; label=""ho reperito i dati delle offerte?""; explanation=""decision: has data found?"""
+"no -> fragment elenco offerte — type=transition; label=""fragment elenco offerte""; explanation=""branch if data not found"""
+"si -> activity dettaglio offerta — type=transition; label=""activity dettaglio offerta""; explanation=""branch if data found"""
+"si -> fragment filtri di ricerca — type=transition; label=""fragment filtri di ricerca""; explanation=""branch to filter search"""
+"this diagram models a state machine that determines whether the user has found the list of offers and, if not, branches to either display the list or filter the search. the diagram represents a decision point based on whether the data is available."
+"home -> activity visualizzazione profilo — type=transition; label=""si""; explanation=""transition to the profile visualization activity if 'si' is selected."";"
+"home -> fragment modifica dati personali — type=transition; label=""no""; explanation=""transition to the data modification fragment if 'no' is selected."";"
+"activity visualizzazione profilo -> la modifica è andata a buon fine? — type=transition; label=""si""; explanation=""transition to the decision node after profile visualization."";"
+"activity visualizzazione profilo -> fragment modifica dati personali — type=transition; label=""no""; explanation=""transition to the data modification fragment if the profile visualization fails."";"
+"fragment modifica dati personali -> la modifica è andata a buon fine? — type=transition; label=""si""; explanation=""transition to the decision node after data modification."";"
+"fragment modifica dati personali -> home — type=transition; label=""no""; explanation=""transition back to the home state if the data modification fails."";"
+this diagram models a simple workflow for modifying user profile data.
+the system starts at the home screen.
+the user can either visualize their profile or attempt to modify their data.
+"after either action, the system checks if the operation was successful."
+"if successful, the user is returned to the home screen."
+"if unsuccessful, the user is returned to the home screen."
+"home -> activity elementi salvati — type=initial; label=""home""; explanation=""start state"";"
+"activity elementi salvati -> no aperto gli elementi salvati dell'utente? — type=transition; label=""si""; explanation=""yes"";"
+"activity elementi salvati -> fragment elementi offerti — type=transition; label=""no""; explanation=""no"";"
+"no aperto gli elementi salvati dell'utente? -> fragment elementi offerti — type=transition; label=""si""; explanation=""yes"";"
+"fragment elementi offerti -> activity dettaglio offerta — type=transition; label=""si""; explanation=""yes"";"
+"fragment elementi offerti -> rimozione avvenuta? — type=transition; label=""no""; explanation=""no"";"
+"activity dettaglio offerta -> rimozione avvenuta? — type=transition; label=""si""; explanation=""yes"";"
+"activity dettaglio offerta -> fragment rimozione — type=transition; label=""no""; explanation=""no"";"
+"rimozione avvenuta? -> - none — type=final; label=""fine""; explanation=""end state"";"
+the diagram models a state machine representing the flow of actions related to saved elements and offering details.
+"the system starts at the ""home"" state."
+"if the user opens saved elements, it transitions to a fragment offering elements."
+"if the user does not open saved elements, it transitions to an activity detailing the offered item."
+"the process continues with a decision about whether to remove the item, leading to a final state."
+utente -> user : insert data and accept privacy document;
+user -> database : insertuserindatabase();
+database -> user : response;
+the diagram models the user registration process.
+the user first inserts data and accepts a privacy document.
+the user then attempts to insert themselves into the database.
+the database responds with either success or failure.
+utente -> user : insert username and password;
+user -> database : signinwithemailandpassword();
+user -> main : if success go to main page;
+the diagram models the login process of a user.
+the user attempts to log in by providing their username and password.
+the user interface sends a request to the database to verify the credentials.
+the database returns a response indicating success or failure.
+"if the login is successful, the user is redirected to the main page."
+"utente -> myboard: move to myboardactivity; label=""move to myboardactivity""; explanation=""user initiates action to go to myboard activity."""
+"myboard -> database: retrieve user items; label=""retrieve user items""; explanation=""myboard requests user items from the database."""
+"database -> myboard: items; label=""items""; explanation=""database sends user items to myboard."""
+"myboard -> utente: show items list; label=""show items list""; explanation=""myboard displays the list of items to the user."""
+flow 1: utente -> myboard: move to myboardactivity
+flow 2: myboard -> database: retrieve user items
+flow 3: database -> myboard: items
+flow 4: myboard -> utente: show items list
+"the diagram models the interaction between a user, a myboard component, and a database to display a list of user items."
+the user initiates the process by moving to the myboard activity.
+the myboard then retrieves the items from the database and displays them to the user.
+utente -> insertnewitem: click on insert item button;
+insertnewitem -> database: request an image;
+insertnewitem -> database: request item info;
+database -> insertnewitem: insert item in database;
+database -> utente: response;
+utente -> database: show items list with the new one
+the diagram models the process of adding a new item to a database.
+the user clicks a button to initiate the process.
+the insertnewitem component requests an image and item information from the database.
+"the database inserts the item and sends a response back to the user, who then displays the updated list."
+"utente -> insertnewitem — message=""click on delete item button"";"
+"insertnewitem -> database — message=""delete item from database"";"
+"database -> insertnewitem — message=""response"";"
+"insertnewitem -> utente — message=""show items list without the deleted one"";"
+"utente -> insertnewitem — message=""requires confirmation"";"
+"insertnewitem -> utente — message=""requires confirmation"";"
+"utente -> insertnewitem — message=""confirm"";"
+utente clicks on delete item button.
+"insertnewitem sends ""requires confirmation"" message to utente."
+utente confirms.
+"insertnewitem sends ""confirm"" message to utente."
+"insertnewitem sends ""delete item from database"" message to database."
+"database sends ""response"" message to insertnewitem."
+"insertnewitem sends ""show items list without the deleted one"" message to utente."
+* the diagram models the process of deleting an item from a list displayed to the user.
+* the process involves a confirmation step to prevent accidental deletion.
+* the database is responsible for removing the item from its storage.
+"utente -> main: send message ""get items from database"";"
+"main -> database: send message ""get items from database"";"
+"database -> main: send message ""response"";"
+"main -> utente: send message ""show items list"";"
+"utente sends ""get items from database"" message to main."
+"main sends ""get items from database"" message to database."
+"database sends ""response"" message to main."
+"main sends ""show items list"" message to utente."
+"the diagram models the interaction between a user, a main component, and a database to display a list of items."
+the user initiates the process by requesting a list of items.
+the main component retrieves the items from the database and then displays them to the user.
+utente -> exchange: propose new exchange;
+exchange -> database: save exchange info in database;
+database -> exchange: response;
+exchange -> database: show exchange list
+the diagram models the process of an user proposing an exchange and the system saving the proposal in a database and then displaying a list of existing exchanges.
+the user initiates the process by proposing a new exchange.
+the system saves the exchange information and then provides a response.
+the exchange list is displayed to the user.
+"utente -> exchange : move to exchange page; explanation=""user navigates to the exchange page"";"
+"exchange -> database : get exchanges info from database; explanation=""request exchange data from the database"";"
+"database -> exchange : response; explanation=""database sends response with exchange information"";"
+"exchange -> utente : show exchanges list; explanation=""display the list of exchanges to the user"""
+utente -> exchange : move to exchange page
+exchange -> database : get exchanges info from database
+database -> exchange : response
+exchange -> utente : show exchanges list
+the diagram models the interaction between a user and a database to display a list of exchanges.
+the user initiates the process by navigating to the exchange page.
+the system retrieves exchange information from the database and then presents it to the user.
+utente -> exchange: move to exchange page
+exchange -> database: get exchanges info from database
+database -> exchange: response
+exchange -> database: response
+exchange -> utente: show exchanges list
+utente -> exchange: click on accept/reject button
+exchange -> utente: require confirmation
+utente -> exchange: confirm
+exchange -> database: update exchange status
+utente moves to exchange page.
+exchange gets exchanges info from database via database -> exchange: response.
+exchange shows exchanges list to utente via exchange -> utente: show exchanges list.
+utente clicks on accept/reject button.
+exchange requires confirmation from utente via exchange -> utente: require confirmation.
+exchange updates exchange status in database via exchange -> database: update exchange status.
+the diagram models the interaction between a user and an exchange system to accept or reject an exchange proposal.
+the user initiates the process by viewing the exchange list.
+the system retrieves exchange information from the database.
+"the user then confirms or rejects the exchange, triggering an update in the database."
+utente -> main: show items list;
+utente -> main: insert new filter;
+main -> database: get items from database;
+main -> database: get items from database according with the filter;
+database -> main: response;
+"utente sends ""show items list"" message to main."
+"utente sends ""insert new filter"" message to main."
+"main sends ""get items from database according with the filter"" message to database."
+"main sends ""show filtered items list"" message to utente."
+"utente receives ""show filtered items list"" message."
+the diagram models a user interface where a user can view a list of items and filter them.
+"the main flow involves retrieving items from the database, displaying them to the user, and then allowing the user to filter the items."
+"the system uses a sequence of messages to communicate between the user, the main control component, and the database."
+utente -> profile: move to personal info
+profile -> database: get info from database
+profile -> database: save new info in database
+profile -> utente: show info
+profile -> utente: show updated info
+profile -> utente: request new info
+utente -> profile: click on modify info
+utente -> profile: insert new info
+the diagram models the process of a user modifying their personal information.
+the user initiates the process by moving to their personal information section.
+"the profile component retrieves information from the database, displays it to the user, and then allows the user to modify it."
+"after the user makes changes, the profile component saves the updated information back to the database and displays the updated information to the user."
+======================================================================

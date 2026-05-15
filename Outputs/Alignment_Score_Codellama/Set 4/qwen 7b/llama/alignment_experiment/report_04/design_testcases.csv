@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Registration-001,User Registration with Valid Credentials,Registration,"1,2",User is not logged in.,"- Username: testuser
+- Password: TestPass123
+- Email: testuser@example.com
+- Admin: false","1. User enters valid credentials (testuser, TestPass123, testuser@example.com, false) into the registration form.
+2. User clicks on the ""Register"" button.
+3. Application verifies the user's credentials.
+4. Application adds the user to the database.",User is successfully registered and redirected to the dashboard.
+TC-Registration-002,User Registration with Invalid Password,Registration,"1,2",User is not logged in.,"- Username: testuser
+- Password: invalidpassword
+- Email: testuser@example.com
+- Admin: false","1. User enters invalid password (invalidpassword) into the registration form.
+2. User clicks on the ""Register"" button.
+3. Application verifies the user's credentials.",Registration fails due to invalid password.
+TC-Registration-003,User Registration with Missing Fields,Registration,"1,2",User is not logged in.,"- Username: testuser
+- Password: TestPass123
+- Email: 
+- Admin: false","1. User leaves one or more fields empty in the registration form.
+2. User clicks on the ""Register"" button.
+3. Application verifies the user's credentials.",Registration fails due to missing fields.
+TC-Login-001,User Login with Valid Credentials,Login,"1,2",User is not logged in.,"- Username: testuser
+- Password: TestPass123","1. User enters valid credentials (testuser, TestPass123) into the login form.
+2. User clicks on the ""Login"" button.
+3. Application verifies the user's credentials.",User is successfully logged in and redirected to the dashboard.
+TC-Login-002,User Login with Invalid Password,Login,"1,2",User is not logged in.,"- Username: testuser
+- Password: invalidpassword","1. User enters invalid password (invalidpassword) into the login form.
+2. User clicks on the ""Login"" button.
+3. Application verifies the user's credentials.",Login fails due to invalid password.
+TC-Login-003,User Login with Missing Fields,Login,"1,2",User is not logged in.,"- Username: 
+- Password: TestPass123","1. User leaves one or more fields empty in the login form.
+2. User clicks on the ""Login"" button.
+3. Application verifies the user's credentials.",Login fails due to missing fields.
+TC-AdminAccess-001,Admin Access to All Materials,AdminAccess,"1,2",User is logged in as an admin.,"- Username: adminuser
+- Password: AdminPass123
+- Admin: true","1. User logs in with admin credentials (adminuser, AdminPass123, true).
+2. User navigates to the materials section.",User can view all materials.
+TC-AdminAccess-002,Non-Admin Access to Own Materials Only,AdminAccess,"1,2",User is logged in as a non-admin.,"- Username: testuser
+- Password: TestPass123
+- Admin: false","1. User logs in with non-admin credentials (testuser, TestPass123, false).
+2. User navigates to the materials section.",User can only view their own materials.
+TC-HardwareScan-001,Successful Hardware Scan,HardwareScan,"4,5",User is logged in.,- Device: Laptop,"1. User initiates a hardware scan.
+2. Application sends a message to the hardware to execute a scan.
+3. Hardware responds with component speed and health.
+4. Application calculates the expected life of the components.",Hardware scan completes successfully and expected life is calculated.
+TC-HardwareScan-002,Failed Hardware Scan,HardwareScan,"4,5",User is logged in.,- Device: Laptop,"1. User initiates a hardware scan.
+2. Application sends a message to the hardware to execute a scan.
+3. Hardware reports an error.",Hardware scan fails and an error message is displayed.
+TC-HardwareScan-003,Missing Device for Hardware Scan,HardwareScan,"4,5",User is logged in.,- Device:,"1. User initiates a hardware scan without selecting a device.
+2. Application sends a message to the hardware to execute a scan.",Hardware scan fails due to missing device selection.
+TC-Dashboard-001,Displaying User Data on Dashboard,Dashboard,3,User is logged in.,"- User data: Name, Email, Registered Materials","1. User navigates to the dashboard.
+2. Application retrieves user data from the database.
+3. Application displays user data on the dashboard.",User data is correctly displayed on the dashboard.
+TC-Dashboard-002,Updating User Data on Dashboard,Dashboard,3,User is logged in.,"- Updated user data: New Name, New Email","1. User navigates to the dashboard.
+2. User updates their name and email.
+3. Application sends updated data to the database.
+4. Application confirms the update.",User data is updated and confirmed on the dashboard.
+TC-UpdateMaterial-001,Update Material with Valid Data,MaterialUpdate,"1,3",User is logged in and has access to the material.,"- Material name: OldName
+- New name: NewName
+- Description: NewDescription
+- Price: NewPrice
+- Quantity: NewQuantity
+- Carbon Footprint: NewCarbonFootprint","1. User navigates to the material update page.
+2. User enters valid update data.
+3. User submits the update.
+4. Application updates the material in the database.",Material is updated successfully.
+TC-UpdateMaterial-002,Update Material with Invalid Data,MaterialUpdate,"1,3",User is logged in and has access to the material.,"- Material name: OldName
+- New name: """"
+- Description: NewDescription
+- Price: NewPrice
+- Quantity: NewQuantity
+- Carbon Footprint: NewCarbonFootprint","1. User navigates to the material update page.
+2. User enters invalid update data (empty name).
+3. User submits the update.",Material update fails due to invalid data.
+TC-DeleteMaterial-001,Delete Material with Valid Data,MaterialDelete,"1,3",User is logged in and has access to the material.,- Material name: OldName,"1. User navigates to the material deletion page.
+2. User selects the material to delete.
+3. User confirms the deletion.
+4. Application deletes the material from the database.",Material is deleted successfully.
+TC-DeleteMaterial-002,Delete Material with Invalid Data,MaterialDelete,"1,3",User is logged in and has access to the material.,- Material name:,"1. User navigates to the material deletion page.
+2. User attempts to delete a material without selecting one.",Material deletion fails due to invalid data.
+TC-DeleteUser-001,Delete User with Valid Data,UserDelete,"1,3",User is logged in.,- Username: testuser,"1. User navigates to the user deletion page.
+2. User selects the user to delete.
+3. User confirms the deletion.
+4. Application deletes the user from the database.",User is deleted successfully.
+TC-DeleteUser-002,Delete User with Invalid Data,UserDelete,"1,3",User is logged in.,- Username:,"1. User navigates to the user deletion page.
+2. User attempts to delete a user without selecting one.",User deletion fails due to invalid data.
+TC-DatabaseOperations-001,Insert Material into Database,DatabaseOperations,1,User is logged in and has admin privileges.,"- Material name: NewMaterial
+- Description: NewDescription
+- Price: NewPrice
+- Quantity: NewQuantity
+- Carbon Footprint: NewCarbonFootprint","1. User navigates to the material insertion page.
+2. User enters valid material data.
+3. User submits the insertion.
+4. Application inserts the material into the database.",Material is inserted successfully.
+TC-DatabaseOperations-002,Insert Material with Invalid Data,DatabaseOperations,1,User is logged in and has admin privileges.,"- Material name: NewMaterial
+- Description: 
+- Price: NewPrice
+- Quantity: NewQuantity
+- Carbon Footprint: NewCarbonFootprint","1. User navigates to the material insertion page.
+2. User enters invalid material data (missing description).
+3. User submits the insertion.",Material insertion fails due to invalid data.
+TC-DatabaseOperations-003,Delete Material from Database,DatabaseOperations,1,User is logged in and has admin privileges.,- Material name: OldMaterial,"1. User navigates to the material deletion page.
+2. User selects the material to delete.
+3. User confirms the deletion.
+4. Application deletes the material from the database.",Material is deleted successfully.
+TC-DatabaseOperations-004,Delete Material with Invalid Data,DatabaseOperations,1,User is logged in and has admin privileges.,- Material name:,"1. User navigates to the material deletion page.
+2. User attempts to delete a material without selecting one.",Material deletion fails due to invalid data.
+TC-DatabaseOperations-005,Update Material in Database,DatabaseOperations,1,User is logged in and has admin privileges.,"- Material name: OldMaterial
+- New name: NewMaterial
+- Description: NewDescription
+- Price: NewPrice
+- Quantity: NewQuantity
+- Carbon Footprint: NewCarbonFootprint","1. User navigates to the material update page.
+2. User enters valid update data.
+3. User submits the update.
+4. Application updates the material in the database.",Material is updated successfully.
+TC-DatabaseOperations-006,Update Material with Invalid Data,DatabaseOperations,1,User is logged in and has admin privileges.,"- Material name: OldMaterial
+- New name: """"
+- Description: NewDescription
+- Price: NewPrice
+- Quantity: NewQuantity
+- Carbon Footprint: NewCarbonFootprint","1. User navigates to the material update page.
+2. User enters invalid update data (empty name).
+3. User submits the update.",Material update fails due to invalid data.
+TC-DatabaseOperations-007,Verify User in Database,DatabaseOperations,2,User is logged in and has admin privileges.,- Username: testuser,"1. User navigates to the user verification page.
+2. User enters",

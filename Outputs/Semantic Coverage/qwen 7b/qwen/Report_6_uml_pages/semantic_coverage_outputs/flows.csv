@@ -1,0 +1,64 @@
+flow
+"users -> areas — type=association; label=""""; explanation=""users have areas"""
+"users -> categories — type=association; label=""""; explanation=""users belong to categories"""
+"users -> notifications — type=association; label=""""; explanation=""users receive notifications"""
+"users -> reports — type=association; label=""""; explanation=""users create reports"""
+"areas -> categories — type=association; label=""""; explanation=""areas belong to categories"""
+"categories -> reports — type=association; label=""""; explanation=""categories have reports"""
+"flow 1: user creates a report, which is associated with a category and an area, and is sent to the user for review."
+"the diagram models a system with multiple interconnected classes representing users, areas, categories, notifications, and reports."
+"users can create reports, which are categorized and associated with specific areas."
+each entity has attributes and operations defined for managing their data and interactions.
+"the system uses a call-return model for interaction, making it easier to debug and adapt to applications with well-defined workflows."
+"utente -> ui — type=message; label=""inserisci credenziali (email, password)""; explanation=""user inputs credentials"""
+"ui -> firebaseauthentication — type=message; label=""signin(email, password)""; explanation=""ui sends credentials to authentication service"""
+"firebaseauthentication -> ui — type=message; label=""credenziali valide""; explanation=""authentication service returns valid credentials"""
+"firebaseauthentication -> ui — type=message; label=""restituisce token""; explanation=""authentication service returns token"""
+"firebaseauthentication -> ui — type=message; label=""recupera dati utente (uid dal token)""; explanation=""authentication service retrieves user data"""
+"firebaseauthentication -> ui — type=message; label=""restituisce dati utente""; explanation=""authentication service returns user data"""
+"firebaseauthentication -> ui — type=message; label=""credenziali errate""; explanation=""authentication service returns invalid credentials"""
+"firebaseauthentication -> ui — type=message; label=""errore login (es. password errata)""; explanation=""authentication service returns login error"""
+flow 1: utente -> ui -> firebaseauthentication -> ui (valid credentials)
+utente inputs credentials
+ui sends credentials to firebaseauthentication
+firebaseauthentication returns valid credentials
+ui receives valid credentials
+flow 2: utente -> ui -> firebaseauthentication -> ui (invalid credentials)
+firebaseauthentication returns invalid credentials
+ui receives invalid credentials
+this diagram models the login process for a system using firebase authentication.
+"the main flow involves the user entering their credentials, which are validated and sent to the firebase authentication service."
+"if the credentials are valid, the service returns a token and user data, allowing access to the system."
+"if the credentials are invalid, an error message is returned to the ui."
+the diagram includes a loop for validating input and correcting credentials if necessary.
+key edge cases include successful login and login failure due to incorrect credentials.
+"utente -> ui — type=message; label=""inserisci dati registrazione""; explanation=""utente invia dati di registrazione"""
+"ui -> firebaseauthentication — type=message; label=""creaaccount(email, password)""; explanation=""ui richiede creazione account"""
+"firebaseauthentication -> ui — type=message; label=""validazione dati""; explanation=""ui riceve dati validati"""
+"ui -> firebaseauthentication — type=message; label=""[dati validi] token di autenticazione""; explanation=""ui riceve token di autenticazione"""
+"firebaseauthentication -> ui — type=message; label=""salva utente nel sistema""; explanation=""ui riceve conferma salvataggio"""
+"ui -> firebaseauthentication — type=message; label=""salvautente(nome, email, token)""; explanation=""ui invia dati per salvataggio"""
+"firebaseauthentication -> ui — type=message; label=""conferma salvataggio""; explanation=""ui riceve conferma salvataggio"""
+"ui -> firebaseauthentication — type=message; label=""[dati non validi] errore registrazione""; explanation=""ui riceve errore di registrazione"""
+"firebaseauthentication -> ui — type=message; label=""conferma registrazione avvenuta o errore""; explanation=""ui riceve conferma di registrazione o errore"""
+flow 1: utente -> ui -> firebaseauthentication -> ui -> firebaseauthentication -> ui -> firebaseauthentication -> ui -> firebaseauthentication -> ui
+this sequence diagram models the registration process for a new user in a system.
+the main flow starts with the user entering registration data through the ui.
+the ui then sends the registration data to firebase authentication for account creation.
+"if the data is valid, firebase authentication returns a token and confirms the user's save."
+"if the data is invalid, firebase authentication returns an error message."
+the ui receives confirmation of successful registration or an error message.
+the diagram captures both successful and unsuccessful registration scenarios.
+"ui -> firebasefirestore — type=message; label=""carica immagine(immagine)""; explanation=""upload image"""
+"ui -> firebasestorage — type=message; label=""url immagine salvata""; explanation=""save image url"""
+"ui -> firebasefirestore — type=message; label=""cerca ente competente più vicino(coordinate, urgenza)""; explanation=""search nearest competent entity"""
+"ui -> firebasefirestore — type=message; label=""ente più vicino trovato (dati ente)""; explanation=""found nearest entity (entity data)"""
+"ui -> firebasefirestore — type=message; label=""salvasegnalazione(datisegnalazione + url immagine + dati ente)""; explanation=""save report with image url and entity data"""
+"ui -> firebasefirestore — type=message; label=""conferma salvataggio segnalazione""; explanation=""confirm report saving"""
+"flow 1: utente -> ui — ""inserisci segnalazione (descrizione, immagine, coordinate, urgenza)"" -> ui -> firebasefirestore — ""carica immagine(immagine)"" -> ui -> firebasestorage — ""url immagine salvata"" -> ui -> firebasefirestore — ""cerca ente competente più vicino(coordinate, urgenza)"" -> ui -> firebasefirestore — ""ente più vicino trovato (dati ente)"" -> ui -> firebasefirestore — ""salvasegnalazione(datisegnalazione + url immagine + dati ente)"" -> ui -> firebasefirestore — ""conferma salvataggio segnalazione"" -> ui -> utente — ""conferma invio segnalazione con ente assegnato"""
+this sequence diagram models the process of creating a report with assignment to a competent entity.
+"the user inputs a report with details such as description, image, coordinates, and urgency."
+the ui interacts with firebase firestore and firebase storage to upload the image and save the report with the assigned entity data.
+"the process includes validation of input data, searching for the nearest competent entity, and confirming the report saving."
+"the diagram highlights the interaction between the user, ui, firebase firestore, and firebase storage, ensuring the report is correctly processed and saved."
+======================================================================

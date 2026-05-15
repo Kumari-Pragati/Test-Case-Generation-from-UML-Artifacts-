@@ -1,0 +1,125 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-User-001,User registration with valid data,User,1,None,"- username: testuser
+- password: testpassword
+- email: testuser@example.com
+- admin: false","1. Navigate to the registration page
+2. Enter the test user data
+3. Click the ""Register"" button","- The user is registered successfully
+- The user is redirected to the login page
+- The user's data is stored in the database"
+TC-User-002,User registration with invalid email format,User,1,User is not registered,"- username: testuser
+- password: testpassword
+- email: testuser
+- admin: false","1. Navigate to the registration page
+2. Enter the invalid email format
+3. Click the ""Register"" button","- An error message is displayed
+- The user is not registered
+- The user's data is not stored in the database"
+TC-User-003,User login with valid data,User,1,User is registered,"- username: testuser
+- password: testpassword","1. Navigate to the login page
+2. Enter the valid user data
+3. Click the ""Login"" button","- The user is logged in successfully
+- The user is redirected to the dashboard"
+TC-User-004,User login with invalid data,User,1,User is registered,"- username: testuser
+- password: wrongpassword","1. Navigate to the login page
+2. Enter the invalid user data
+3. Click the ""Login"" button","- An error message is displayed
+- The user is not logged in"
+TC-User-005,User deletion with valid data,User,1,User is registered,- username: testuser,"1. Navigate to the user profile page
+2. Click the ""Delete Account"" button
+3. Confirm the deletion","- The user's account is deleted successfully
+- The user is logged out
+- The user's data is removed from the database"
+TC-User-006,User deletion with invalid data,User,1,User is not registered,- username: non-existent-user,"1. Navigate to the user profile page
+2. Enter the non-existent user's username
+3. Click the ""Delete Account"" button","- An error message is displayed
+- The user's account is not deleted"
+TC-Material-001,Adding a material with valid data,Material,1,None,"- name: Test Material
+- description: This is a test material
+- price: 10.00
+- quantity: 10
+- carbon footprint: 10.00","1. Navigate to the material management page
+2. Enter the valid material data
+3. Click the ""Add Material"" button","- The material is added successfully
+- The material is displayed in the material list"
+TC-Material-002,Adding a material with invalid data,Material,1,None,"- name:
+- description: This is a test material
+- price: invalid-price
+- quantity: invalid-quantity
+- carbon footprint: invalid-carbon-footprint","1. Navigate to the material management page
+2. Enter the invalid material data
+3. Click the ""Add Material"" button","- An error message is displayed
+- The material is not added"
+TC-Material-003,Updating a material with valid data,Material,1,Material exists,"- name: Updated Test Material
+- description: This is an updated test material
+- price: 20.00
+- quantity: 20
+- carbon footprint: 20.00","1. Navigate to the material management page
+2. Select the existing material
+3. Enter the valid updated material data
+4. Click the ""Update Material"" button","- The material is updated successfully
+- The updated material is displayed in the material list"
+TC-Material-004,Updating a material with invalid data,Material,1,Material exists,"- name:
+- description: This is an updated test material
+- price: invalid-price
+- quantity: invalid-quantity
+- carbon footprint: invalid-carbon-footprint","1. Navigate to the material management page
+2. Select the existing material
+3. Enter the invalid updated material data
+4. Click the ""Update Material"" button","- An error message is displayed
+- The material is not updated"
+TC-Material-005,Deleting a material with valid data,Material,1,Material exists,- name: Test Material,"1. Navigate to the material management page
+2. Select the existing material
+3. Click the ""Delete Material"" button
+4. Confirm the deletion","- The material is deleted successfully
+- The material is removed from the material list"
+TC-Material-006,Deleting a non-existent material,Material,1,Non-existent material,- name: Non-existent Material,"1. Navigate to the material management page
+2. Enter the non-existent material's name
+3. Click the ""Delete Material"" button","- An error message is displayed
+- The material is not deleted"
+TC-User-007,User accessing own materials,User,"1, 2",User is registered and has materials,"- User's materials: Test Material 1, Test Material 2","1. Navigate to the user profile page
+2. Click the ""My Materials"" tab",- The user's materials are displayed
+TC-User-008,User accessing other users' materials (as admin),User,"1, 2",User is an admin and another user has materials,"- Admin user: testadmin
+- Other user: testuser
+- Other user's materials: Test Material 1, Test Material 2","1. Navigate to the user management page
+2. Select the other user
+3. Click the ""View Materials"" button",- The other user's materials are displayed
+TC-User-009,User accessing other users' materials (not as admin),User,"1, 2",User is not an admin and another user has materials,"- User: testuser
+- Other user: testadmin
+- Other user's materials: Test Material 1, Test Material 2","1. Navigate to the user management page
+2. Select the other user
+3. Click the ""View Materials"" button","- An error message is displayed
+- The other user's materials are not displayed"
+TC-Device-001,Device scan with functioning components,Device,4,Device is connected,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button","- The device scan is executed
+- The impact of component replacement is calculated
+- The name, impact component, and diagnostic device are returned"
+TC-Device-002,Device scan with defective components,Device,4,Device is connected and has defective components,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button","- The device scan is executed
+- The impact of component replacement is calculated
+- The name, impact component, and diagnostic device are returned"
+TC-Device-003,Device scan with no components,Device,4,Device is connected but has no components,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button","- An error message is displayed
+- The impact of component replacement is not calculated
+- No name, impact component, and diagnostic device are returned"
+TC-Device-004,Device hardware scan with invalid data,Device,4,Device is connected,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button
+3. Modify the hardware scan data","- An error message is displayed
+- The impact of component replacement is not calculated
+- No name, impact component, and diagnostic device are returned"
+TC-Application-001,Application scans device hardware,Application,3,Device is connected,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button","- The device hardware scan is executed
+- The impact of component replacement is calculated
+- The name, impact component, and diagnostic device are returned"
+TC-Application-002,Application calculates component life expectancy,Application,3,Device hardware scan data is available,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button","- The component life expectancy is calculated
+- The result is returned"
+TC-Application-003,Application returns device diagnostic information,Application,3,Device hardware scan data is available,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button",- The diagnostic information for the device is returned
+TC-Application-004,Application returns component replacement impact,Application,3,Device hardware scan data is available,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button",- The impact of component replacement is returned
+TC-Application-005,Application returns component name,Application,3,Device hardware scan data is available,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button",- The name of the component is returned
+TC-Application-006,Application returns multiple components' information,Application,3,Device hardware scan data for multiple components is available,- None,"1. Navigate to the device scan page
+2. Click the ""Scan Device"" button",- The information for all components is returned
+TC-Application-007,Application returns error message for invalid data,Application,,,,,

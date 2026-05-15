@@ -1,0 +1,95 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-Login-001,User successfully logs in,Login,1,User has a valid username and password.,"- Username: testuser
+- Password: testpassword","1. Enter the username ""testuser"" in the login form.
+2. Enter the password ""testpassword"" in the password field.
+3. Click the ""Login"" button.",The user is redirected to the dashboard page.
+TC-Login-002,User fails to log in due to invalid credentials,Login,1,User enters incorrect username or password.,"- Username: wronguser
+- Password: wrongpassword","1. Enter the username ""wronguser"" in the login form.
+2. Enter the password ""wrongpassword"" in the password field.
+3. Click the ""Login"" button.",An error message is displayed indicating incorrect username or password.
+TC-Login-003,User logs out successfully,Login,1,User is logged in.,"- Username: testuser
+- Password: testpassword","1. Click the ""Logout"" button.",The user is redirected to the login page.
+TC-ProductView-001,User views product details,Product,1,User is logged in.,- Product Name: Example Product,"1. Enter the product name ""Example Product"" in the search bar.
+2. Click the ""View"" button.",The user is redirected to the product details page.
+TC-ProductView-002,User fails to view product details due to invalid product name,Product,1,User is logged in.,- Product Name: InvalidProduct,"1. Enter the product name ""InvalidProduct"" in the search bar.
+2. Click the ""View"" button.",An error message is displayed indicating the product does not exist.
+TC-AddToCart-001,User adds product to cart,Cart,1,User is logged in and product exists.,"- Product Name: Example Product
+- Quantity: 1","1. Enter the product name ""Example Product"" in the search bar.
+2. Click the ""Add"" button.",The product is added to the user's cart.
+TC-AddToCart-002,User fails to add product to cart due to invalid product name,Cart,1,User is logged in.,"- Product Name: InvalidProduct
+- Quantity: 1","1. Enter the product name ""InvalidProduct"" in the search bar.
+2. Click the ""Add"" button.",An error message is displayed indicating the product does not exist.
+TC-EditProduct-001,Admin edits product details,Product,1,Admin is logged in.,"- Product Name: Example Product
+- New Description: Updated Description","1. Enter the product name ""Example Product"" in the search bar.
+2. Click the ""Edit"" button.
+3. Update the product description to ""Updated Description"".
+4. Click the ""Save"" button.",The product details are updated in the system.
+TC-EditProduct-002,Admin fails to edit product details due to invalid product name,Product,1,Admin is logged in.,"- Product Name: InvalidProduct
+- New Description: Updated Description","1. Enter the product name ""InvalidProduct"" in the search bar.
+2. Click the ""Edit"" button.",An error message is displayed indicating the product does not exist.
+TC-RemoveFromCart-001,Admin removes product from cart,Cart,1,Admin is logged in and product exists in the cart.,- Product Name: Example Product,"1. Enter the product name ""Example Product"" in the search bar.
+2. Click the ""Remove"" button.",The product is removed from the admin's cart.
+TC-RemoveFromCart-002,Admin fails to remove product from cart due to invalid product name,Cart,1,Admin is logged in.,- Product Name: InvalidProduct,"1. Enter the product name ""InvalidProduct"" in the search bar.
+2. Click the ""Remove"" button.",An error message is displayed indicating the product does not exist.
+TC-Registration-001,User successfully registers,Registration,4,User is logged in.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: newpassword","1. Click the ""Register"" button.",The user is redirected to the dashboard page.
+TC-Registration-002,User fails to register due to invalid password,Registration,4,User is logged in.,"- Username: newuser
+- Password: short
+- Confirm Password: short","1. Click the ""Register"" button.",An error message is displayed indicating the password is too short.
+TC-Cancellation-001,User cancels registration,Cancellation,4,User has initiated registration.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: newpassword","1. Click the ""Cancel"" button.",The user is redirected to the login page.
+TC-LoginFlow-001,"User logs in, views product, adds to cart, logs out",LoginFlow,"1, 3",User is not logged in.,"- Username: testuser
+- Password: testpassword","1. Enter the username ""testuser"" in the login form.
+2. Enter the password ""testpassword"" in the password field.
+3. Click the ""Login"" button.
+4. Enter the product name ""Example Product"" in the search bar.
+5. Click the ""View"" button.
+6. Click the ""Add"" button.
+7. Click the ""Logout"" button.",The user is redirected to the login page.
+TC-AdminLoginFlow-001,"Admin logs in, edits product, removes product from cart, logs out",AdminLoginFlow,"1, 3",Admin is not logged in.,"- Username: adminuser
+- Password: adminpassword","1. Enter the username ""adminuser"" in the login form.
+2. Enter the password ""adminpassword"" in the password field.
+3. Click the ""Login"" button.
+4. Enter the product name ""Example Product"" in the search bar.
+5. Click the ""Edit"" button.
+6. Update the product description to ""Updated Description"".
+7. Click the ""Save"" button.
+8. Enter the product name ""Example Product"" in the search bar.
+9. Click the ""Remove"" button.
+10. Click the ""Logout"" button.",The admin is redirected to the login page.
+TC-Feedback-001,User submits feedback,Feedback,3,User is logged in.,"- Feedback: ""This is a sample feedback.""","1. Click the ""Submit Feedback"" button.",The feedback is submitted successfully.
+TC-Feedback-002,User fails to submit feedback due to empty feedback,Feedback,3,User is logged in.,"- Feedback: """"","1. Click the ""Submit Feedback"" button.",An error message is displayed indicating the feedback cannot be empty.
+TC-FeedbackResolution-001,User resolves feedback,FeedbackResolution,3,User has submitted feedback.,"- Resolution: ""The issue has been resolved.""","1. Click the ""Resolve Feedback"" button.",The feedback resolution is submitted successfully.
+TC-FeedbackResolution-002,User fails to resolve feedback due to empty resolution,FeedbackResolution,3,User has submitted feedback.,"- Resolution: """"","1. Click the ""Resolve Feedback"" button.",An error message is displayed indicating the resolution cannot be empty.
+TC-Login-Registration-001,"User logs in, initiates registration, and cancels",Login-Registration-Cancellation,4,User is logged in.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: newpassword","1. Click the ""Register"" button.
+2. Click the ""Cancel"" button.",The user is redirected to the login page.
+TC-Login-Registration-002,"User logs in, initiates registration, and completes registration",Login-Registration-Cancellation,4,User is logged in.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: newpassword","1. Click the ""Register"" button.
+2. Click the ""Submit"" button.",The user is redirected to the dashboard page.
+TC-Login-Registration-003,"User logs in, initiates registration, and fails to complete registration due to invalid password",Login-Registration-Cancellation,4,User is logged in.,"- Username: newuser
+- Password: short
+- Confirm Password: short","1. Click the ""Register"" button.
+2. Click the ""Submit"" button.",An error message is displayed indicating the password is too short.
+TC-Login-Registration-004,"User logs in, initiates registration, and fails to complete registration due to mismatched passwords",Login-Registration-Cancellation,4,User is logged in.,"- Username: newuser
+- Password: newpassword
+- Confirm Password: differentpassword","1. Click the ""Register"" button.
+2. Click the ""Submit"" button.",An error message is displayed indicating the passwords do not match.
+TC-Login-Registration-005,"User logs in, initiates registration, and fails to complete registration due to existing username",Login-Registration-Cancellation,4,User is logged in.,"- Username: testuser
+- Password: newpassword
+- Confirm Password: newpassword","1. Click the ""Register"" button.
+2. Click the ""Submit"" button.",An error message is displayed indicating the username already exists.
+TC-Login-Registration-006,"User logs in, initiates registration, and fails to complete registration due to invalid email format",Login-Registration-Cancellation,4,User is logged in.,"- Username: testuser
+- Password: newpassword
+- Confirm Password: newpassword
+- Email: invalidemail","1. Click the ""Register"" button.
+2. Click the ""Submit"" button.",An error message is displayed indicating the email format is invalid.
+TC-Login-Registration-007,"User logs in, initiates registration, and fails to complete registration due to missing required fields",Login-Registration-Cancellation,4,User is logged in.,"- Username: 
+- Password: newpassword
+- Confirm Password: newpassword","1. Click the ""Register"" button.
+2. Click the ""Submit"" button.",An error message is displayed indicating one or more required fields are missing.
+TC-Login-Registration-008,"User logs in, initiates registration, and fails to complete registration due to invalid phone number format",Login-Registration,,,,,

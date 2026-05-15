@@ -1,0 +1,44 @@
+﻿Test Case ID,Title,Module,Source UML Pages,Preconditions,Test Data,Test Steps,Expected Result
+TC-REGISTRATION-001,User Registration with Valid Inputs,Registration,1,User navigates to the registration page.,"- Valid username: testuser
+- Valid email: testuser@example.com
+- Valid password: Test1234","1. User navigates to the registration page.
+2. User enters the valid username, email, and password.
+3. User clicks the ""Register"" button.","The user is successfully registered, and the system sends a confirmation email."
+TC-REGISTRATION-002,User Registration with Invalid Inputs,Registration,1,User navigates to the registration page.,"- Invalid username: less than 3 characters
+- Invalid email: invalid format
+- Invalid password: less than 4 characters","1. User navigates to the registration page.
+2. User enters the invalid username, email, and password.
+3. User clicks the ""Register"" button.",The system displays an error message for each invalid input and prevents the registration.
+TC-LOGIN-001,User Login with Valid Inputs,Login,2,User is registered and has a valid account.,"- Valid email: testuser@example.com
+- Valid password: Test1234","1. User navigates to the login page.
+2. User enters the valid email and password.
+3. User clicks the ""Login"" button.","The user is successfully logged in, and the system redirects to the homepage."
+TC-LOGIN-002,User Login with Invalid Inputs,Login,2,User is registered and has a valid account.,"- Invalid email: invalid format
+- Invalid password: incorrect","1. User navigates to the login page.
+2. User enters the invalid email and password.
+3. User clicks the ""Login"" button.",The system displays an error message for each invalid input and prevents the login.
+TC-PASSWORD-RESET-001,Password Reset with Valid Inputs,Password Reset,5,User has forgotten their password.,- Valid email: testuser@example.com,"1. User navigates to the password reset page.
+2. User enters the valid email.
+3. User clicks the ""Reset Password"" button.",The system sends a password reset email to the user.
+TC-PASSWORD-RESET-002,Password Reset with Invalid Inputs,Password Reset,5,User has forgotten their password.,- Invalid email: invalid format,"1. User navigates to the password reset page.
+2. User enters the invalid email.
+3. User clicks the ""Reset Password"" button.",The system displays an error message for the invalid input and prevents the password reset.
+TC-CARD-LOADING-001,Card Loading with Valid Inputs,Card Loading,6,User is logged in.,- Preload count: 10,"1. User navigates to the homepage.
+2. The application loads 10 cards.",The application displays 10 cards on the homepage.
+TC-CARD-LOADING-002,Card Loading with Invalid Inputs,Card Loading,6,User is logged in.,- Preload count: negative number,"1. User navigates to the homepage.
+2. The application loads the specified number of cards.",The application displays an error message for the invalid input and loads a default number of cards.
+TC-MATCH-FINDING-001,Match Finding with Valid Inputs,Match Finding,"7, 8",Two users have swiped each other's cards.,"- User 1 swipes right on User 2
+- User 2 swipes right on User 1","1. User 1 swipes right on User 2.
+2. User 2 swipes right on User 1.",The system determines that there is a match between User 1 and User 2.
+TC-MATCH-FINDING-002,Match Finding with Invalid Inputs,Match Finding,"7, 8",Two users have swiped each other's cards.,"- User 1 swipes left on User 2
+- User 2 swipes left on User 1","1. User 1 swipes left on User 2.
+2. User 2 swipes left on User 1.",The system determines that there is no match between User 1 and User 2.
+TC-MESSAGING-001,Sending and Receiving Messages,Messaging,8,Two users are logged in and have each other's contact information.,"- Sender: User 1
+- Receiver: User 2
+- Message: Hello!","1. User 1 navigates to the chat page with User 2.
+2. User 1 sends the message to User 2.
+3. User 2 receives the message.",User 2 receives the message from User 1 and can respond.
+TC-MESSAGING-002,Sending and Receiving Invalid Messages,Messaging,8,Two users are logged in and have each other's contact information.,"- Sender: User 1
+- Receiver: User 2
+- Invalid message: empty string","1. User 1 navigates to the chat page with User 2.
+2. User 1 sends an empty message to User 2.",The system displays an error message and prevents the sending of the empty message.

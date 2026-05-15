@@ -1,0 +1,217 @@
+REPORT: Report_15_uml_pages.pdf
+======================================================================
+
+===== Report_15_uml_pages.pdf | Page 1 =====
+UML Type: other
+- Use Case Diagram
+
+Components:
+- DataManager — kind=component; attributes=[]; operations=[Inserimento/Modifica Piante, Lettura Piante, Inserimento/Modifica Diario, Lettura Diario]; role=Data Management
+- Informazioni Utente — kind=component; attributes=[]; operations=[]; role=User Information
+- Operazioni di Accesso — kind=component; attributes=[]; operations=[]; role=Access Operations
+- Lettura Piante — kind=component; attributes=[]; operations=[]; role=Plant Reading
+- Inserimento/Modifica Piante — kind=component; attributes=[]; operations=[]; role=Plant Insertion/Modification
+- Inserimento/Modifica Diario — kind=component; attributes=[]; operations=[]; role=Diary Insertion/Modification
+- Lettura Diario — kind=component; attributes=[]; operations=[]; role=Diary Reading
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Informazioni Utente -> DataManager -> Operazioni di Accesso
+- DataManager -> Lettura Piante
+- DataManager -> Inserimento/Modifica Piante
+- DataManager -> Inserimento/Modifica Diario
+- DataManager -> Lettura Diario
+
+Main Flows (step by step):
+- Flow 1: Informazioni Utente -> DataManager -> Operazioni di Accesso
+
+Conditions / Branches:
+- - None
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system where user information is accessed through a DataManager component.
+- The DataManager provides access to plant data (reading, inserting, modifying) and diary data (reading, inserting, modifying).
+- The diagram does not show any specific user interactions or error handling.
+
+===== Report_15_uml_pages.pdf | Page 2 =====
+UML Type: Sequence
+
+Components:
+- FirebaseAuthentication — kind=class; attributes=[]; operations=[]; role=Authentication
+- gems — kind=class; attributes=[]; operations=[]; role=Gemini AI
+- askText — kind=class; attributes=[]; operations=[]; role=Text Input
+- FireBaseStorageManager — kind=class; attributes=[]; operations=[]; role=Storage
+- personalStorage — kind=class; attributes=[]; operations=[]; role=Personal Storage
+- uploadImage — kind=operation; args=; Ret=
+- getPersonalFolders — kind=operation; args=; Ret=
+- getImagesOnFolder — kind=operation; args=; Ret=
+- downloadImageFromPath — kind=operation; args=; Ret=
+
+Actors / Lifelines:
+- User
+- FirebaseAuthentication
+- gems
+- askText
+- FireBaseStorageManager
+- personalStorage
+- uploadImage
+- getPersonalFolders
+- getImagesOnFolder
+- downloadImageFromPath
+
+Relationships / Links:
+- User -> FirebaseAuthentication : authenticate
+- FirebaseAuthentication -> FireBaseStorageManager : storeImage
+- FirebaseAuthentication -> personalStorage : retrieveImage
+- gems -> askText : requestText
+- askText -> gems : sendText
+
+Main Flows (step by step):
+- User -> FirebaseAuthentication : authenticate
+- FirebaseAuthentication -> FireBaseStorageManager : storeImage
+- FirebaseAuthentication -> personalStorage : retrieveImage
+- gems -> askText : requestText
+- askText -> gems : sendText
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the user authentication process and interaction with a Gemini AI service.
+- The user authenticates with Firebase Authentication.
+- Firebase Authentication stores an image in personal storage and retrieves an image.
+- The Gemini AI service receives text input from the user via the askText component.
+
+===== Report_15_uml_pages.pdf | Page 3 =====
+UML Type: Sequence
+
+Components:
+- Main — kind=sequence;
+- LocalUser — kind=sequence;
+- Authentication — kind=sequence;
+
+Actors / Lifelines:
+- Main — role=User Interface
+- LocalUser — role=Local User Service
+- Authentication — role=Authentication Service
+
+Relationships / Links:
+- Main -> LocalUser — message="token = getToken()";
+- Main -> Authentication — message="[token = null] : request(token)";
+- LocalUser -> Authentication — message="request dati utente";
+- Authentication -> LocalUser — message="new LocalUser";
+- Main -> Main — message="done";
+
+Main Flows (step by step):
+- Main -> LocalUser: token = getToken()
+- Main -> Authentication: [token = null] : request(token)
+- LocalUser -> Authentication: request dati utente
+- Authentication -> LocalUser: new LocalUser
+- Main -> Main: done
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the login process.
+- The user interface initiates the process by requesting a token.
+- The token is sent to the Local User Service, which then requests user data from the Authentication Service.
+- The Authentication Service creates a new LocalUser object and returns it to the Local User Service.
+- The main interface receives confirmation ("done").
+
+===== Report_15_uml_pages.pdf | Page 4 =====
+UML Type: Activity
+
+Components:
+- Main — kind=activity;
+- Gemini AI API — kind=api;
+- Firebase Storage — kind=storage;
+
+Actors / Lifelines:
+- Main
+- Gemini AI API
+- Firebase Storage
+
+Relationships / Links:
+- Main -> Gemini AI API — type=synchronization; label="newFoto -> richiesta specie pianta nella foto risposta con la specie"; explanation="Initiates the process by sending a new photo and requesting the plant species."
+- Gemini AI API -> Firebase Storage — type=synchronization; label="Inserimento della specie nello storage"; explanation="Sends the identified species to Firebase Storage."
+- Firebase Storage -> Main — type=synchronization; label="Caricamento nuova foto nella cartella corretta Download URL della foto caricata"; explanation="Returns a URL of the uploaded photo."
+
+Main Flows (step by step):
+- Main -> Gemini AI API — label="newFoto -> richiesta specie pianta nella foto risposta con la specie"
+- Gemini AI API -> Firebase Storage — label="Inserimento della specie nello storage"
+- Firebase Storage -> Main — label="Caricamento nuova foto nella cartella corretta Download URL della foto caricata"
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of adding a plant photo to a system.
+- The process involves sending the photo to a Gemini AI API for species identification, storing the identified species in Firebase Storage, and then downloading the original photo with its URL.
+- The diagram does not show error handling or alternative flows (e.g., if the AI API fails or the storage operation fails).
+
+===== Report_15_uml_pages.pdf | Page 5 =====
+UML Type: Activity
+
+Components:
+- Main — kind=activity;
+- Firebase Storage — kind=activity;
+
+Actors / Lifelines:
+- Main
+- Firebase Storage
+
+Relationships / Links:
+- Main -> Firebase Storage — type=message; label="request personal storage"; explanation="Main requests access to personal storage"
+- Firebase Storage -> Main — type=message; label="personal storage path"; explanation="Firebase Storage provides the path to the personal storage"
+- Main -> Firebase Storage — type=message; label="request foto per ogni specie presente"; explanation="Main requests photos for each species present"
+- Firebase Storage -> Main — type=message; label="download Uri di ogni foto richiesta"; explanation="Firebase Storage downloads the URIs of requested photos"
+
+Main Flows (step by step):
+- Main -> Firebase Storage — request personal storage
+- Firebase Storage -> Main — personal storage path
+- Main -> Firebase Storage — request foto per ogni specie presente
+- Firebase Storage -> Main — download Uri di ogni foto richiesta
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a process where the Main component requests access to personal storage from Firebase Storage.
+- It then requests photos for each species present, and Firebase Storage downloads the URIs of those photos.
+- This appears to be a simple retrieval process, likely for displaying images associated with different species.
+
+
+======================================================================

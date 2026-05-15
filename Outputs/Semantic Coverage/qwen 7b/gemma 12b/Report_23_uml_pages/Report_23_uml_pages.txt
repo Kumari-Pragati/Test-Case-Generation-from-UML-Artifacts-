@@ -1,0 +1,256 @@
+REPORT: Report_23_uml_pages.pdf
+======================================================================
+
+===== Report_23_uml_pages.pdf | Page 1 =====
+UML Type:
+- class
+
+Components:
+- Utente — kind=class; attributes=[string nome, string cognome, string email, bool isVenditore, string immagine]; operations=[getNome():void, getCognome():string, getEmail():string, getPassword():string, setPassword(password):void, setVenditore(isVenditore):void, setImmagine(immagine):void]; role=User
+- Cliente — kind=class; attributes=[NotificationType notifica]; operations=[setNotifica(notifica):void, getNotifica():NotificationType]; role=Customer
+- Venditore — kind=class; attributes=[string nomeNegozio, indirizzo]; operations=[setNomeNegozio(nomeNegozio):void, setIndirizzo(indirizzo):void, getNomeNegozio():string, getIndirizzo():string, setNotifica(notifica):void, getNotifica():NotificationType]; role=Seller
+- Segnalazione — kind=class; attributes=[string titolo, string descrizione]; operations=[setTitolo(titolo):void, setDescrizione(descrizione):void, getTitolo():string, getDescrizione():string]; role=Report
+- Recensione — kind=class; attributes=[string titolo, string descrizione, int voto]; operations=[setTitolo(titolo):void, setDescrizione(descrizione):void, setVoto(voto):void, getTitolo():string, getDescrizione():string, getVoto():int]; role=Review
+- Prodotto — kind=class; attributes=[string nome, string categoria, double prezzo, string descrizione, datetime scadenza]; operations=[setNome(nome):void, setCategoria(categoria):void, setPrezzo(prezzo):void, setDescrizione(descrizione):void, setScadenza(scadenza):void, getNome():string, getCategoria():string, getPrezzo():double, getDescrizione():string, getScadenza():datetime]; role=Product
+- ClienteVenditore — kind=class; role=CustomerSeller
+- VenditorePreferito — kind=class; role=FavoriteSeller
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Utente -> Cliente — type=inheritance; label=""; explanation="Cliente inherits from Utente"
+- Utente -> Venditore — type=inheritance; label=""; explanation="Venditore inherits from Utente"
+- Cliente -> ClienteVenditore — type=association; label=""; explanation="Cliente is associated with ClienteVenditore"
+- Venditore -> ClienteVenditore — type=association; label=""; explanation="Venditore is associated with ClienteVenditore"
+- Cliente -> VenditorePreferito — type=association; label=""; explanation="Cliente is associated with VenditorePreferito"
+- Venditore -> VenditorePreferito — type=association; label=""; explanation="Venditore is associated with VenditorePreferito"
+- Segnalazione -> Cliente — type=association; label=""; explanation="Segnalazione is associated with Cliente"
+- Segnalazione -> Venditore — type=association; label=""; explanation="Segnalazione is associated with Venditore"
+- Recensione -> Cliente — type=association; label=""; explanation="Recensione is associated with Cliente"
+- Recensione -> Prodotto — type=association; label=""; explanation="Recensione is associated with Prodotto"
+
+Main Flows:
+- Flow 1: Utente -> Cliente -> ClienteVenditore -> Venditore
+- Flow 2: Utente -> Venditore -> ClienteVenditore -> Cliente
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models a system with users who can be either customers or sellers.
+- Customers can create reports and write reviews for products.
+- Sellers can manage their store and be added to a customer's list of favorite sellers.
+- The inheritance relationship shows that both Cliente and Venditore extend from Utente, indicating shared attributes and operations.
+- The relationships between Cliente, Venditore, and ClienteVenditore suggest a connection between customers and sellers within the system.
+
+===== Report_23_uml_pages.pdf | Page 2 =====
+UML Type:
+- activity
+
+Components:
+- Map — kind=action; attributes=[]; operations=[]; role=Display map
+- Posizione dell'utente è accessibile? — kind=decision; attributes=[]; operations=[]; role=Check user position accessibility
+- Segnalazione errore — kind=action; attributes=[]; operations=[]; role=Report error
+- Crea la lista in base alla posizione dell'utente — kind=action; attributes=[]; operations=[]; role=Create list based on user position
+
+Actors / Lifelines:
+- - None
+
+Relationships / Links:
+- Map -> Posizione dell'utente è accessibile? — type=control_flow; label=""; explanation="Flow of control"
+- Posizione dell'utente è accessibile? -> Segnalazione errore — type=control_flow; label="No"; explanation="If position is not accessible"
+- Posizione dell'utente è accessibile? -> Crea la lista in base alla posizione dell'utente — type=control_flow; label="Si"; explanation="If position is accessible"
+
+Main Flows:
+- Flow 1: Map -> Posizione dell'utente è accessibile? (Si) -> Crea la lista in base alla posizione dell'utente
+- Flow 2: Map -> Posizione dell'utente è accessibile? (No) -> Segnalazione errore
+
+Conditions / Branches:
+- Posizione dell'utente è accessibile?:
+  - Si: Proceeds to Crea la lista in base alla posizione dell'utente
+  - No: Proceeds to Segnalazione errore
+
+Loops / Repetitions:
+- - None
+
+Notes / Annotations:
+- - None
+
+Observations:
+- The diagram models a process that starts with displaying a map.
+- The process checks if the user's position is accessible.
+- If the position is accessible, a list is created based on the user's position.
+- If the position is not accessible, an error is reported.
+- The diagram represents a simple decision flow with two possible outcomes.
+
+===== Report_23_uml_pages.pdf | Page 3 =====
+UML Type:
+- activity
+
+Components:
+- Click su un prodotto — kind=action; attributes=[]; operations=[]; role=Start action
+- Modifica prodotto — kind=action; attributes=[]; operations=[]; role=Action
+- Premuto tasto "Modifica" — kind=decision; attributes=[]; operations=[]; role=Decision node
+- I campi sono compilati correttamente? — kind=decision; attributes=[]; operations=[]; role=Decision node
+- Segnala errore — kind=action; attributes=[]; operations=[]; role=Error handling
+- Applica modifiche prodotto — kind=action; attributes=[]; operations=[]; role=Final action
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Click su un prodotto -> Modifica prodotto — type=transition; label=""; explanation="Flow of execution"
+- Modifica prodotto -> Premuto tasto "Modifica" — type=transition; label=""; explanation="Flow of execution"
+- Premuto tasto "Modifica" -> I campi sono compilati correttamente? — type=transition; label=""; explanation="Flow of execution"
+- I campi sono compilati correttamente? -> Segnala errore — type=transition; label="No"; explanation="Error path"
+- I campi sono compilati correttamente? -> Applica modifiche prodotto — type=transition; label="Si"; explanation="Successful path"
+
+Main Flows:
+- Flow 1: Click su un prodotto -> Modifica prodotto -> Premuto tasto "Modifica" -> I campi sono compilati correttamente? -> Applica modifiche prodotto
+
+Conditions / Branches:
+- I campi sono compilati correttamente?:
+    - No -> Segnala errore
+    - Si -> Applica modifiche prodotto
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of modifying a product.
+- The process starts with clicking on a product and proceeds to modify it.
+- A decision point checks if the fields are filled correctly.
+- If the fields are not filled correctly, an error is signaled.
+- If the fields are filled correctly, the product modifications are applied.
+
+===== Report_23_uml_pages.pdf | Page 4 =====
+UML Type:
+- activity
+
+Components:
+- Click su pulsante "+" — kind=action; attributes=[]; operations=[]; role=Initiates product addition
+- Aggiungi prodotto — kind=action; attributes=[]; operations=[]; role=Intermediate step
+- Premuto tasto "Aggiungi" — kind=action; attributes=[]; operations=[]; role=Confirms product addition
+- I campi sono compilati correttamente? — kind=decision; attributes=[]; operations=[]; role=Validation check
+- Segnala errore — kind=action; attributes=[]; operations=[]; role=Error handling
+- Aggiungi prodotto — kind=action; attributes=[]; operations=[]; role=Final product addition
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Click su pulsante "+" -> Aggiungi prodotto — type=control_flow; label=""; explanation="Initiates the process"
+- Aggiungi prodotto -> Premuto tasto "Aggiungi" — type=control_flow; label=""; explanation="Proceeds to confirmation"
+- Premuto tasto "Aggiungi" -> I campi sono compilati correttamente? — type=control_flow; label=""; explanation="Validation check"
+- I campi sono compilati correttamente? -> Segnala errore — type=control_flow; label="No"; explanation="If fields are not correctly filled"
+- I campi sono compilati correttamente? -> Aggiungi prodotto — type=control_flow; label="Si"; explanation="If fields are correctly filled"
+
+Main Flows:
+- Flow 1: Click su pulsante "+" -> Aggiungi prodotto -> Premuto tasto "Aggiungi" -> I campi sono compilati correttamente? -> Aggiungi prodotto
+
+Conditions / Branches:
+- I campi sono compilati correttamente?:
+    - Si -> Aggiungi prodotto
+    - No -> Segnala errore
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram models the process of adding a product.
+- The process starts with clicking a "+" button and proceeds through confirmation and validation.
+- A decision point checks if the fields are correctly filled.
+- If the fields are not correctly filled, an error is signaled. Otherwise, the product is added.
+
+===== Report_23_uml_pages.pdf | Page 5 =====
+UML Type:
+- activity
+
+Components:
+- Click su — kind=initial node; attributes=[]; operations=[]; role=start point
+- Gestione notifiche — kind=action; attributes=[]; operations=[]; role=notification management
+- Premuto "push notification" — kind=action; attributes=[]; operations=[]; role=push notification button press
+- Invia notifiche push — kind=action; attributes=[]; operations=[]; role=send push notifications
+- Premuto "In App Notification" — kind=action; attributes=[]; operations=[]; role=in-app notification button press
+- Invia notifiche in app — kind=action; attributes=[]; operations=[]; role=send in-app notifications
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Click su -> Gestione notifiche — type=transition; label=""; explanation="Starts the notification management process"
+- Gestione notifiche -> Premuto "push notification" — type=transition; label=""; explanation="Navigates to push notification option"
+- Gestione notifiche -> Premuto "In App Notification" — type=transition; label=""; explanation="Navigates to in-app notification option"
+- Premuto "push notification" -> Invia notifiche push — type=transition; label=""; explanation="Triggers sending push notifications"
+- Premuto "In App Notification" -> Invia notifiche in app — type=transition; label=""; explanation="Triggers sending in-app notifications"
+
+Main Flows:
+- Flow 1: Click su -> Gestione notifiche -> Premuto "push notification" -> Invia notifiche push
+- Flow 2: Click su -> Gestione notifiche -> Premuto "In App Notification" -> Invia notifiche in app
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- None
+
+Observations:
+- The diagram illustrates a workflow for managing and sending notifications.
+- It presents two distinct paths: one for sending push notifications and another for sending in-app notifications.
+- The process begins with a "Click su" action, leading to a "Gestione notifiche" action, which then branches into two separate flows.
+- Each flow culminates in sending either push or in-app notifications.
+
+===== Report_23_uml_pages.pdf | Page 6 =====
+UML Type:
+- other
+
+Components:
+- Notifiche — kind=screen; attributes=[]; operations=[Manage Notifications()]; role=Notification Management Screen
+- New Product — kind=element; attributes=[]; operations=[]; role=Notification Item
+- Push Notification — kind=toggle; attributes=[]; operations=[]; role=Push Notification Toggle
+- In App Notification — kind=toggle; attributes=[]; operations=[]; role=In App Notification Toggle
+
+Actors / Lifelines:
+- None
+
+Relationships / Links:
+- Notifiche -> New Product — type=contains; label=""; explanation="New Product is displayed within the Notifiche screen"
+- Notifiche -> Push Notification — type=contains; label=""; explanation="Push Notification toggle is displayed within the Notifiche screen"
+- Notifiche -> In App Notification — type=contains; label=""; explanation="In App Notification toggle is displayed within the Notifiche screen"
+
+Main Flows:
+- Flow 1: Notifiche displays New Product, Push Notification, and In App Notification.
+
+Conditions / Branches:
+- None
+
+Loops / Repetitions:
+- None
+
+Notes / Annotations:
+- "Schermata per la gestione dell'arrivo di notifiche da parte dei negozi vicini in caso di promozioni, nuovi prodotti, ecc..."
+
+Observations:
+- The diagram represents a screen for managing notifications related to nearby stores, specifically for promotions and new products.
+- The screen displays a list of notification items (New Product) and allows users to toggle Push Notifications and In App Notifications.
+- The diagram does not show any user interaction or specific actions beyond displaying the elements.
+- The toggles suggest that users can enable or disable different notification types.
+
+
+======================================================================
