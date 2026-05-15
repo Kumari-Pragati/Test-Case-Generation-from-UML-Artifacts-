@@ -1,211 +1,335 @@
 # Test Case Generation from UML Artifacts and Environmental Impact Analysis
 
-This repository contains the implementation, input files, generated outputs, prompts, and final results for a pipeline that generates unit test cases from UML-based design artifacts, requirement reports, and source code. The repository also includes alignment score, semantic coverage, and sustainability analysis for evaluating the generated test cases and their environmental impact.
+This repository contains the implementation, generated outputs, prompts, and final evaluation results for a pipeline that generates unit test cases from UML-based design artifacts, requirement reports, and source code. The repository also includes alignment score, semantic coverage, and sustainability analysis for evaluating the generated test cases and their environmental impact.
 
-## Repository Overview
+The repository demonstrates the complete workflow using one representative example (Report 2). Input project reports and source code files are not publicly included because of confidentiality restrictions.
 
-The repository is organized into input files, fine-tuning files, phase-wise implementation notebooks, generated outputs, prompts, and final result files.
+---
 
-## Input Reports
+# Repository Overview
 
-The `Input Reports` folder contains one representative example used to demonstrate the complete pipeline.
+The repository contains:
 
-- `Design_Report_2.pdf`  
-  Contains UML-based design artifacts used for UML diagram extraction and UML-derived description generation.
+- Fine-tuning notebooks and classifier checkpoints
+- Phase-wise implementation notebooks
+- Generated UML descriptions and test cases
+- Alignment score and semantic coverage outputs
+- Sustainability evaluation results
+- Prompt files
+- Final aggregated result files
 
-- `Requirement_Report_2.pdf`  
-  Contains requirement-level information used for requirement-based test case generation.
+---
 
-- `Code_File2.zip`  
-  Contains the source code files used for code-based test case generation.
-
-Although the complete study uses 33 project reports, this repository demonstrates the workflow using Report 2 as an example.
-
-## Fine-tuning Files
+# Fine-tuning Files
 
 Two files are included for UML/non-UML classification model preparation.
 
-- `Fine_tuning_UML_12Layers.ipynb`  
-  Contains the fine-tuning code for the UML classifier using CLIP with LoRA applied across 12 layers.
+## `Fine_tuning_UML_12Layers.ipynb`
 
-- `uml_clip_lora_classifier_N12.pt`  
-  Contains the fine-tuned UML classifier checkpoint. This checkpoint is loaded in `Phase_1_Part_1.ipynb` for UML diagram identification and extraction.
+Contains the fine-tuning implementation for the UML classifier using CLIP with LoRA applied across 12 transformer layers.
 
-## Phase-wise Notebooks
+The notebook performs UML vs non-UML classification training using mixed-content report pages.
+
+## `uml_clip_lora_classifier_N12.pt`
+
+Contains the fine-tuned UML classifier checkpoint.
+
+This checkpoint is loaded in:
+
+- `Phase_1_Part_1.ipynb`
+
+for UML diagram identification and extraction.
+
+---
+
+# Phase-wise Notebooks
 
 The repository contains separate notebooks for each phase of the pipeline.
 
-### Phase 1 Part 1: UML Diagram Extraction
+---
 
-File: `Phase_1_Part_1.ipynb`
+# Phase 1 Part 1: UML Diagram Extraction
 
-This notebook extracts UML diagram pages from the design report. The input is `Design_Report_2.pdf`. The notebook loads the fine-tuned classifier checkpoint `uml_clip_lora_classifier_N12.pt` to identify UML pages from mixed-content report pages.
+**File:**
 
-Main output:
+- `Phase_1_Part_1.ipynb`
+
+This notebook extracts UML diagram pages from mixed-content software design reports.
+
+The notebook loads the fine-tuned classifier checkpoint:
+
+- `uml_clip_lora_classifier_N12.pt`
+
+to identify UML pages from heterogeneous report pages containing text, screenshots, tables, layouts, and UML diagrams.
+
+## Main Output
 
 - `Report_2_uml_pages (uml diagrams).pdf`
 
-### Phase 1 Part 2: UML Description Generation
+This file contains only the extracted UML pages identified from the design report.
 
-File: `Phase_1_Part_2.ipynb`
+---
+
+# Phase 1 Part 2: UML Description Generation
+
+**File:**
+
+- `Phase_1_Part_2.ipynb`
 
 This notebook generates structured UML descriptions from extracted UML diagram pages using different VLMs.
 
-The model name should be updated in the notebook before execution. The Hugging Face token should also be added where required.
+The model name should be updated before execution. The Hugging Face token should also be added where required.
 
-Main output:
+## Main Output
 
 - `Report_2_uml_pages (uml description).txt`
 
-### Phase 1 Part 3: Design-based Test Case Generation
+This file contains UML-derived textual descriptions generated from the extracted UML diagrams.
 
-File: `Phase_1_Part_3.ipynb`
+---
 
-This notebook generates design-based test cases from UML-derived descriptions using LLMs.
+# Phase 1 Part 3: Design-based Test Case Generation
 
-Main output:
+**File:**
+
+- `Phase_1_Part_3.ipynb`
+
+This notebook generates design-based test cases from UML-derived descriptions using different LLMs.
+
+## Main Output
 
 - `Report_2_uml_pages_design_testcases.csv`
 
-### Phase 2: Requirement-based Test Case Generation
+This CSV file contains generated design-based test cases derived from UML descriptions.
 
-File: `Phase_2.ipynb`
+---
 
-This notebook generates requirement-based test cases from the requirement report.
+# Phase 2: Requirement-based Test Case Generation
 
-Main output:
+**File:**
+
+- `Phase_2.ipynb`
+
+This notebook generates requirement-based test cases from requirement reports using LLMs.
+
+## Main Output
 
 - `Report_2_Req_testcases.csv`
 
-### Phase 3: Code-based Test Case Generation
+This CSV file contains generated requirement-based test cases.
 
-File: `Phase_3.ipynb`
+---
 
-This notebook generates code-based test cases from source code files. The code-oriented LLM analyzes each source file or component and generates corresponding test cases.
+# Phase 3: Code-based Test Case Generation
 
-Main output folder:
+**File:**
 
-- `Code_File2_testcases`
+- `Phase_3.ipynb`
 
-This folder contains component-wise generated test cases. The model processes different source code files and produces test cases for each relevant code component.
+This notebook generates code-based test cases from source code files using code-oriented LLMs.
 
-## Alignment Score and Semantic Coverage
+The model analyzes source code structure, methods, execution logic, and components to generate corresponding test cases.
 
-File: `AlignmentScore&SemanticCoverage.ipynb`
+## Main Output
+
+- `Code File 2 testcases using qwen coder.csv`
+
+This CSV file contains generated code-based test cases used for alignment score analysis and downstream evaluation.
+
+Detailed source code files are not included in this repository because of confidentiality restrictions.
+
+---
+
+# Alignment Score and Semantic Coverage
+
+**File:**
+
+- `AlignmentScore&SemanticCoverage.ipynb`
 
 This notebook computes:
 
-- Alignment score between design-based and code-based test cases
-- Alignment score between requirement-based and code-based test cases
+- Design-to-code alignment score
+- Requirement-to-code alignment score
 - Semantic coverage between UML-derived descriptions and design-based test cases
 
 This notebook should be executed using a T4 GPU in Google Colab.
 
-## Outputs Folder
+---
 
-The `Outputs` folder contains all generated files for the Report 2 example.
+# Outputs Folder
 
-### Alignment Score Output
+The `Outputs` folder contains generated outputs for the representative Report 2 example.
 
-Folder:
+---
+
+# Alignment Score Output
+
+**Folder:**
 
 - `Alignment_Score_Codellama`
 
-This folder contains four sets:
+This folder contains four different sets:
 
 - `Set 1`
 - `Set 2`
 - `Set 3`
 - `Set 4`
 
-Each set represents a different requirement-based test case generation LLM configuration. Inside each set, alignment score files are organized based on the UML-derived descriptions generated by different VLMs.
+Each set corresponds to a different requirement-based test case generation LLM configuration.
 
-### Code-based Test Case Output
+Inside each set, alignment score outputs are organized according to UML-derived descriptions generated by different VLMs.
 
-Folder:
+---
 
-- `Code_File2_testcases`
+# Semantic Coverage Output
 
-This folder contains test cases generated from source code files. Each subfolder corresponds to a code component or source file analyzed by the code-oriented LLM.
-
-### Semantic Coverage Output
-
-Folder:
+**Folder:**
 
 - `Semantic Coverage`
 
-This folder contains semantic coverage results. The `qwen 7b` folder includes results computed using UML-derived descriptions generated by different VLMs such as:
+This folder contains semantic coverage outputs.
 
-- gemma 4b
-- gemma 12b
-- llama
-- llava
-- qwen
+The `qwen 7b` folder includes semantic coverage evaluation results computed using UML-derived descriptions generated by different VLMs such as:
 
-## Final Results File
+- Gemma-3-4B
+- Gemma-3-12B
+- Llama
+- LLaVA
+- Qwen
 
-File:
+---
+
+# UML Outputs
+
+The Outputs folder also contains the following generated files:
+
+## `Report_2_uml_pages (uml diagrams).pdf`
+
+Contains extracted UML diagram pages identified during UML classification.
+
+## `Report_2_uml_pages (uml description).txt`
+
+Contains UML-derived descriptions generated from extracted UML diagrams.
+
+## `Report_2_uml_pages_design_testcases.csv`
+
+Contains generated design-based test cases.
+
+## `Report_2_Req_testcases.csv`
+
+Contains generated requirement-based test cases.
+
+---
+
+# Final Results File
+
+**File:**
 
 - `UMLFinalResults.xlsx`
 
-This Excel file contains the final results across three sheets:
+This Excel file contains the final experimental results across three sheets.
 
-1. `Alignment Score`  
-   Contains alignment scores between design-based, requirement-based, and code-based test cases.
+## Sheets Included
 
-2. `Semantic Coverage`  
-   Contains semantic coverage values across different LLM and VLM configurations.
+### 1. Alignment Score
 
-3. `Sustainability`  
-   Contains sustainability metrics such as energy consumption, carbon emissions, and SCI values.
+Contains alignment scores between:
 
-## Prompts
+- design-based test cases
+- requirement-based test cases
+- code-based test cases
 
-File:
+### 2. Semantic Coverage
+
+Contains semantic coverage results across different VLM and LLM configurations.
+
+### 3. Sustainability
+
+Contains sustainability metrics including:
+
+- energy consumption
+- carbon emissions
+- SCI values
+
+---
+
+# Prompts
+
+**File:**
 
 - `Prompts.pdf`
 
-This file contains the prompts used across different phases of the pipeline, including UML description generation, design-based test case generation, requirement-based test case generation, and code-based test case generation.
+This file contains prompts used across different phases of the pipeline, including:
 
-## Execution Environment
+- UML description generation
+- design-based test case generation
+- requirement-based test case generation
+- code-based test case generation
+
+---
+
+# Execution Environment
 
 The notebooks are designed to run in Google Colab.
 
-Recommended GPU settings:
+## Recommended GPU Settings
 
-- Use A100 GPU for:
-  - `Fine_tuning_UML_12Layers.ipynb`
-  - `Phase_1_Part_1.ipynb`
-  - `Phase_1_Part_2.ipynb`
-  - `Phase_1_Part_3.ipynb`
-  - `Phase_2.ipynb`
-  - `Phase_3.ipynb`
+### Use A100 GPU for:
 
-- Use T4 GPU for:
-  - `AlignmentScore&SemanticCoverage.ipynb`
+- `Fine_tuning_UML_12Layers.ipynb`
+- `Phase_1_Part_1.ipynb`
+- `Phase_1_Part_2.ipynb`
+- `Phase_1_Part_3.ipynb`
+- `Phase_2.ipynb`
+- `Phase_3.ipynb`
 
-## How to Run
+### Use T4 GPU for:
 
-1. Open the required notebook in Google Colab.
+- `AlignmentScore&SemanticCoverage.ipynb`
 
-2. Select the appropriate GPU runtime:
-   - A100 for fine-tuning and phase-wise generation notebooks
-   - T4 for alignment score and semantic coverage analysis
+---
 
-3. Add or update the following fields in the notebook:
-   - Hugging Face token
-   - Model name
-   - Input and output paths, if needed
+# How to Run
 
-4. For Phase 1 Part 1, make sure the fine-tuned classifier checkpoint is available:
-   - `uml_clip_lora_classifier_N12.pt`
+## Step 1
 
-5. Run all cells sequentially.
+Open the required notebook in Google Colab.
 
-6. Check the generated outputs in the corresponding output folders.
+## Step 2
 
-## Notes
+Select the appropriate GPU runtime.
 
-Only the model name usually needs to be changed before running the generation notebooks. The Hugging Face token should be added where required. The remaining code structure can remain unchanged unless the input file path, output directory, or checkpoint path is modified.
+- A100 GPU for phase-wise generation notebooks
+- T4 GPU for alignment score and semantic coverage evaluation
 
-This repository demonstrates the full pipeline using Report 2 as an example. The complete experimental study follows the same workflow across all project reports.
+## Step 3
+
+Update the following fields where required:
+
+- Hugging Face token
+- Model name
+- Input/output paths
+
+## Step 4
+
+For Phase 1 Part 1, make sure the checkpoint file is available:
+
+- `uml_clip_lora_classifier_N12.pt`
+
+## Step 5
+
+Run all notebook cells sequentially.
+
+## Step 6
+
+Generated outputs will be saved in the corresponding output folders.
+
+---
+
+# Notes
+
+Only the model name generally needs to be updated before running generation notebooks. The Hugging Face token should also be added where required.
+
+The remaining implementation structure can remain unchanged unless paths or checkpoints are modified.
+
+The repository demonstrates the complete workflow using one representative example while preserving confidentiality of the original project reports and source code artifacts.
