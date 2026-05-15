@@ -4,7 +4,7 @@ This repository contains the implementation, input files, generated outputs, pro
 
 ## Repository Overview
 
-The repository is organized into input files, phase-wise implementation notebooks, generated outputs, prompts, and final result files.
+The repository is organized into input files, fine-tuning files, phase-wise implementation notebooks, generated outputs, prompts, and final result files.
 
 ## Input Reports
 
@@ -21,6 +21,16 @@ The `Input Reports` folder contains one representative example used to demonstra
 
 Although the complete study uses 33 project reports, this repository demonstrates the workflow using Report 2 as an example.
 
+## Fine-tuning Files
+
+Two files are included for UML/non-UML classification model preparation.
+
+- `Fine_tuning_UML_12Layers.ipynb`  
+  Contains the fine-tuning code for the UML classifier using CLIP with LoRA applied across 12 layers.
+
+- `uml_clip_lora_classifier_N12.pt`  
+  Contains the fine-tuned UML classifier checkpoint. This checkpoint is loaded in `Phase_1_Part_1.ipynb` for UML diagram identification and extraction.
+
 ## Phase-wise Notebooks
 
 The repository contains separate notebooks for each phase of the pipeline.
@@ -29,7 +39,7 @@ The repository contains separate notebooks for each phase of the pipeline.
 
 File: `Phase_1_Part_1.ipynb`
 
-This notebook extracts UML diagram pages from the design report. The input is `Design_Report_2.pdf`, and the output is a PDF containing only UML diagram pages.
+This notebook extracts UML diagram pages from the design report. The input is `Design_Report_2.pdf`. The notebook loads the fine-tuned classifier checkpoint `uml_clip_lora_classifier_N12.pt` to identify UML pages from mixed-content report pages.
 
 Main output:
 
@@ -164,6 +174,7 @@ The notebooks are designed to run in Google Colab.
 Recommended GPU settings:
 
 - Use A100 GPU for:
+  - `Fine_tuning_UML_12Layers.ipynb`
   - `Phase_1_Part_1.ipynb`
   - `Phase_1_Part_2.ipynb`
   - `Phase_1_Part_3.ipynb`
@@ -178,20 +189,23 @@ Recommended GPU settings:
 1. Open the required notebook in Google Colab.
 
 2. Select the appropriate GPU runtime:
-   - A100 for phase-wise generation notebooks
+   - A100 for fine-tuning and phase-wise generation notebooks
    - T4 for alignment score and semantic coverage analysis
 
-3. Update the following fields in the notebook:
+3. Add or update the following fields in the notebook:
    - Hugging Face token
    - Model name
    - Input and output paths, if needed
 
-4. Run all cells sequentially.
+4. For Phase 1 Part 1, make sure the fine-tuned classifier checkpoint is available:
+   - `uml_clip_lora_classifier_N12.pt`
 
-5. Check the generated outputs in the corresponding output folders.
+5. Run all cells sequentially.
+
+6. Check the generated outputs in the corresponding output folders.
 
 ## Notes
 
-Only the model name usually need to be changed before running the notebooks. The remaining code structure can remain unchanged unless the input file path or output directory is modified.
+Only the model name usually needs to be changed before running the generation notebooks. The Hugging Face token should be added where required. The remaining code structure can remain unchanged unless the input file path, output directory, or checkpoint path is modified.
 
 This repository demonstrates the full pipeline using Report 2 as an example. The complete experimental study follows the same workflow across all project reports.
