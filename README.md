@@ -4,7 +4,7 @@ This repository contains the implementation, generated outputs, prompt templates
 
 The repository also contains the evaluation used in the study, including alignment analysis, element-level semantic coverage, additional objective-level coverage metrics, redundancy analysis, direct UML and requirement-based baseline evaluations, and sustainability analysis under Google Colab and fixed-region local-GPU execution settings.
 
-The repository demonstrates the phase-wise workflow using one representative example, **Report 2**. The complete original software project reports and source-code artifacts are not publicly included because of confidentiality restrictions. Representative artifacts, derived outputs, evaluation results, baseline results, and aggregated experimental results are provided to support inspection and reproducibility of the reported findings.
+The repository demonstrates the phase-wise workflow using one representative example, **Report 2**. The complete original software project reports and source-code artifacts are not publicly included because of confidentiality restrictions. Representative artifacts, derived outputs, baseline inputs and results, evaluation outputs, raw sustainability examples, and aggregated experimental results are provided to support inspection and reproducibility of the reported findings.
 
 ---
 
@@ -22,7 +22,8 @@ The repository contains:
 - Redundancy analysis for Phase 1, Phase 2, and Phase 3
 - Direct UML-to-test-case baseline generation
 - Direct UML baseline comparison with the main Phase 1 pipeline
-- External requirement-based baseline evaluation
+- External requirement-based baseline implementation, benchmark inputs, and results
+- Representative raw CodeCarbon outputs from Google Colab and local-GPU settings
 - Original Google Colab sustainability results
 - Fixed-region local-GPU sustainability results
 - Prompt templates
@@ -225,7 +226,7 @@ The aggregated alignment results across the evaluated model combinations are ret
 
 under the **Alignment Score** sheet.
 
-This allows the implementation, representative detailed outputs, and final aggregated results to be inspected together.
+This allows the evaluation implementation, representative detailed outputs, and aggregated model-wise results to be inspected together.
 
 ---
 
@@ -383,7 +384,7 @@ The direct baseline therefore provides a comparison under the same general visua
 
 This archive contains the test-case specifications generated directly from UML diagram images using the evaluated VLM configurations.
 
-These files represent the raw generated outputs from the direct UML-to-test-case baseline.
+These files represent the generated outputs from the direct UML-to-test-case baseline.
 
 ---
 
@@ -419,17 +420,57 @@ It is not intended to establish superiority over traditional model-based UML tes
 
 # Requirement-Based External Baseline
 
-The repository also contains the implementation and generated result archive for the external requirement-to-test-case baseline evaluation.
+The repository contains an external requirement-to-test-case baseline used to provide an additional evaluation of the Phase 2 requirement-based generation pipeline.
 
-This baseline evaluates the Phase 2 requirement-based generation approach using external requirement-test relationships.
+## Baseline Implementation
 
-The same requirement-based generation models used in Phase 2 are evaluated under the baseline setting.
+**File:**
 
-The corresponding baseline notebook contains the implementation, while its ZIP result archive contains the generated outputs and associated evaluation results.
+`Extenal_Requirement_Baseline.ipynb`
 
-This external evaluation provides an additional reference for requirement-based test-case generation.
+The notebook prepares independent requirement inputs, generates test-case specifications using the same family of LLM configurations evaluated in Phase 2, and compares the generated outputs with held-out reference test information.
 
-The baseline evaluates correspondence with available requirement-test relationships and should not be interpreted as executable correctness, runtime test effectiveness, code coverage, or fault-detection performance.
+Reference test cases are excluded from the generation input and are used only during the subsequent matching/evaluation stage.
+
+---
+
+## External Baseline Results
+
+**Result archive:**
+
+`external_baseline_modelwise_results 2.zip`
+
+The archive contains the benchmark artifacts, model-wise generation/evaluation outputs, and combined analysis used for the external requirement baseline.
+
+The archive contains three main components:
+
+### `benchmark-inputs`
+
+This directory contains the requirement artifacts used as input to the external requirement-based generation experiment.
+
+For the paired requirement-test benchmark, two separated 30-item subsets were used, covering the first/top 30 and the last/bottom 30 requirement instances from the available benchmark data.
+
+The corresponding reference test information was kept separate from the requirement input during generation.
+
+The directory also contains the requirement PDF prepared for the **EBT** traceability benchmark.
+
+For EBT, the requirement artifact provided to the LLM contains only the linked requirement information. The associated reference test cases were retained separately and were not provided during generation.
+
+This organization ensures that the generation models receive requirement information only, while the reference test data remain held out for evaluation.
+
+### `matching-results`
+
+This directory contains the matching/evaluation outputs obtained by comparing the generated requirement-based test cases with the corresponding held-out benchmark references.
+
+The matching results provide the model-wise evidence used to assess whether the generated specifications correspond to the available reference test intentions or traceability links.
+
+### `combined-analysis`
+
+This directory contains the combined model-wise analysis derived from the matching results.
+
+The combined files summarize the external baseline results across the evaluated requirement-based generation models and provide the values used for the baseline comparison reported in the revised manuscript.
+
+The external baseline assesses correspondence with available benchmark requirement-test relationships. It should not be interpreted as executable correctness, runtime effectiveness, code coverage, mutation performance, or fault-detection capability.
 
 ---
 
@@ -590,19 +631,27 @@ Phase 1 Part 1 is not included because UML extraction is implemented programmati
 
 # Sustainability Evaluation
 
-The repository contains sustainability results from two execution settings.
+The repository contains sustainability evidence from two execution settings.
 
 ## Original Google Colab Evaluation
 
 The original phase-wise experiments were executed using Google Colab GPU environments.
 
-The corresponding results include operational estimates of:
+The corresponding aggregated results include operational estimates of:
 
 - Energy consumption
 - Carbon emissions
 - SCI
 
 recorded during the evaluated inference workloads.
+
+The aggregated results are available in the:
+
+`Sustainability`
+
+sheet of:
+
+`UMLFinalResults.xlsx`
 
 ---
 
@@ -624,13 +673,54 @@ Because the two settings differ in hardware, runtime environment, and other exec
 
 ---
 
+# Representative Raw CodeCarbon Outputs
+
+Two original CodeCarbon-generated CSV files are included to provide examples of the execution-level sustainability records produced under the two experimental environments.
+
+## Google Colab Example
+
+**File:**
+
+`phase1_part3_run_1_inference_emissions_Colab.csv`
+
+This file contains the CodeCarbon output from a representative **Phase 1 Part 3, Run 1** inference execution conducted in the Google Colab environment.
+
+---
+
+## Local-GPU Example
+
+**File:**
+
+`phase1_part3_run_1_inference_emissions_local_gpu.csv`
+
+This file contains the corresponding CodeCarbon output from a representative **Phase 1 Part 3, Run 1** inference execution conducted in the local-GPU environment.
+
+These CSV files are provided as representative raw measurement outputs to illustrate the form of the execution-level CodeCarbon records from each experimental setting.
+
+They are **not intended to represent the complete set of raw CodeCarbon files for all phases, models, and runs**.
+
+The complete aggregated sustainability values used in the manuscript are reported in:
+
+`UMLFinalResults.xlsx`
+
+through the:
+
+- `Sustainability` sheet for the original Google Colab experiments
+- `Local GPU` sheet for the complementary local-GPU experiments
+
+The representative raw CSV files therefore provide additional traceability between the CodeCarbon measurement process and the aggregated sustainability results reported in the study.
+
+---
+
 # Evidence and Traceability for Reported Findings
 
 The repository is organized so that the empirical findings reported in the manuscript can be traced to the corresponding implementation and result artifacts.
 
-The manuscript remains the primary source for interpretation of the findings, while this repository provides the supporting implementation and experimental evidence.
+The manuscript remains the primary source for interpretation of the findings, while this repository provides supporting implementation, representative artifacts, baseline evidence, and experimental results.
 
-## UML Extraction
+---
+
+## UML Extraction Evidence
 
 Evidence for UML identification and extraction is provided through:
 
@@ -643,7 +733,7 @@ These artifacts show the classification and extraction workflow used before VLM-
 
 ---
 
-## UML Description and Test-Case Generation
+## UML Description and Test-Case Generation Evidence
 
 The generation workflow can be traced through:
 
@@ -658,29 +748,37 @@ Together, these files provide the implementation and representative intermediate
 
 ---
 
-## Alignment Findings
+## Alignment Evidence
 
 The alignment methodology is implemented in:
 
 `AlignmentScore&SemanticCoverage.ipynb`
 
-The `Outputs/Alignment_Score_Codellama` directory provides a representative detailed example of the resulting alignment calculations.
+The:
 
-The same alignment procedure was applied to the outputs associated with the other evaluated code-oriented models, including DeepSeek-Coder and Qwen-Coder.
+`Outputs/Alignment_Score_Codellama`
 
-The corresponding aggregated alignment results are reported in:
+directory provides a representative detailed example of the alignment calculations and result organization.
+
+The same alignment procedure was applied to the corresponding outputs associated with the other evaluated code-oriented models, including DeepSeek-Coder and Qwen-Coder.
+
+The aggregated model-wise alignment results are reported in:
 
 `UMLFinalResults.xlsx`
 
-under the **Alignment Score** sheet.
+under the:
 
-Therefore, the representative CodeLlama folder illustrates the detailed result structure, while the workbook records the broader model-wise results used for the manuscript analysis.
+`Alignment Score`
+
+sheet.
+
+The representative CodeLlama folder therefore illustrates the detailed result structure, while the workbook provides the broader model-wise results used for the manuscript analysis.
 
 ---
 
-## Semantic Coverage Findings
+## Semantic Coverage Evidence
 
-The primary semantic coverage implementation is available in:
+The primary element-level semantic coverage implementation is available in:
 
 `AlignmentScore&SemanticCoverage.ipynb`
 
@@ -694,17 +792,17 @@ The additional objective-level evaluation is provided through:
 - `Additional Semantic Coverage.zip`
 - the `Additional Coverage` sheet of `UMLFinalResults.xlsx`
 
-These artifacts provide the supporting calculations and results for the semantic and objective-level coverage findings reported in the manuscript.
+These artifacts provide the supporting calculations and results for the semantic and objective-level coverage observations reported in the manuscript.
 
 ---
 
-## Redundancy Findings
+## Redundancy Evidence
 
 The redundancy methodology is implemented in:
 
 `Redundancy Analysis.ipynb`
 
-The corresponding generated evidence is provided independently for all three phases through:
+The corresponding generated results are provided independently for all three phases through:
 
 - `PHASE1_DESIGN_REDUNDANCY_RESULT.zip`
 - `PHASE2_REQUIREMENT_REDUNDANCY_RESULT.zip`
@@ -714,7 +812,7 @@ These archives contain the result artifacts used to characterize duplicate patte
 
 ---
 
-## Direct UML Baseline Findings
+## Direct UML Baseline Evidence
 
 The direct UML baseline can be reproduced and inspected through:
 
@@ -726,55 +824,93 @@ The comparison with the main Phase 1 pipeline is provided through:
 - `Direct_UML_to_Testcase_Baseline_Comparison_Code.ipynb`
 - `Direct_UML_to_Testcase_Baseline_Comparison_Result.zip`
 
-Together, these files provide both the generated baseline test cases and the corresponding comparison evidence used in the manuscript.
+Together, these files provide both the generated direct-UML baseline outputs and the corresponding comparison evidence used in the revised manuscript.
 
 ---
 
-## Requirement Baseline Findings
+## External Requirement Baseline Evidence
 
-The requirement-based external baseline is supported by its corresponding baseline notebook and result ZIP archive.
+The external requirement-based baseline is supported by:
 
-These artifacts provide the generated baseline outputs and evaluation results used to support the external requirement-based comparison reported in the revised study.
+- `Extenal_Requirement_Baseline.ipynb`
+- `external_baseline_modelwise_results 2.zip`
+
+Within the result archive:
+
+- `benchmark-inputs` contains the requirement artifacts used as model inputs and the separated benchmark reference material
+- `matching-results` contains the model-wise matching/evaluation outputs
+- `combined-analysis` contains the combined result analysis across the evaluated models
+
+The benchmark construction keeps requirement input and held-out reference test information separated during generation.
+
+For the paired requirement-test benchmark, the evaluation includes the first/top 30 and last/bottom 30 requirement instances used in the external validation.
+
+The EBT requirement PDF is also included in the benchmark inputs, while the associated reference test information remains held out from the LLM during generation.
+
+These files provide the trace from external benchmark input preparation through generated test cases, matching, and final model-wise analysis.
 
 ---
 
-## Sustainability Findings
+## Sustainability Evidence
 
-The sustainability results used in the manuscript are aggregated in:
+The sustainability observations can be traced through three levels of repository evidence.
 
-`UMLFinalResults.xlsx`
+### Representative Raw Measurement Outputs
+
+- `phase1_part3_run_1_inference_emissions_Colab.csv`
+- `phase1_part3_run_1_inference_emissions_local_gpu.csv`
+
+These files provide representative CodeCarbon-generated execution records from the Google Colab and local-GPU environments.
+
+### Aggregated Google Colab Results
 
 The:
 
 `Sustainability`
 
-sheet contains the original Google Colab results.
+sheet of:
+
+`UMLFinalResults.xlsx`
+
+contains the aggregated sustainability values from the original Google Colab experiments.
+
+### Aggregated Local-GPU Results
 
 The:
 
 `Local GPU`
 
-sheet contains the complementary fixed-region local-GPU results.
+sheet of:
 
-These results provide the numerical evidence underlying the sustainability observations discussed in the manuscript.
+`UMLFinalResults.xlsx`
+
+contains the aggregated values from the complementary fixed-region local-GPU evaluation.
+
+The representative CSV files illustrate the underlying CodeCarbon output structure, while the workbook contains the broader values used for the manuscript analysis.
 
 ---
 
 ## Interpretation of Repository Evidence
 
-The repository provides evidence for the empirical observations reported in the manuscript by making the following available where possible:
+The repository provides supporting evidence for the empirical observations reported in the manuscript by making the following available where possible:
 
 - implementation notebooks
 - generation prompts
 - representative intermediate outputs
-- detailed evaluation outputs
-- baseline outputs
+- detailed alignment outputs
+- semantic coverage outputs
+- additional coverage results
 - redundancy result archives
-- additional coverage outputs
-- sustainability results
-- aggregated experimental results
+- direct UML baseline outputs
+- direct UML baseline comparison results
+- external requirement benchmark inputs and evaluation results
+- representative raw CodeCarbon outputs
+- aggregated sustainability results
+- final experimental result workbook
 
-Some original software project reports and source-code artifacts cannot be publicly released because of confidentiality restrictions. For these artifacts, representative examples and derived experimental results are provided instead.
+Some original software project reports and source-code artifacts cannot be publicly released because of confidentiality restrictions.
+
+For these artifacts, representative examples, benchmark inputs where publicly distributable, and derived experimental results are provided instead.
 
 The repository therefore supports traceability between the reported empirical observations and the corresponding experimental artifacts without making claims beyond the scope of the available evaluation.
 
@@ -853,7 +989,7 @@ Run the required notebook cells sequentially.
 
 Generated outputs are saved to the configured output directories.
 
-The ZIP archives included in the repository provide the corresponding results for the additional evaluations and baseline experiments described above.
+The ZIP archives included in the repository provide corresponding detailed results for the additional evaluations and baseline experiments described above.
 
 ---
 
@@ -869,14 +1005,17 @@ This repository provides:
 - redundancy implementation and result archives
 - direct UML baseline implementation and outputs
 - direct UML baseline comparison implementation and outputs
-- requirement-based baseline evidence
-- Google Colab sustainability results
-- fixed-region local-GPU sustainability results
-- aggregated experimental results
+- external requirement baseline implementation
+- external requirement benchmark inputs and evaluation results
+- representative raw Google Colab CodeCarbon output
+- representative raw local-GPU CodeCarbon output
+- aggregated Google Colab sustainability results
+- aggregated fixed-region local-GPU sustainability results
+- final experimental result workbook
 
 The complete original software project reports and source-code repositories are not publicly released because of confidentiality restrictions.
 
-Representative artifacts are provided to illustrate the processing workflow, while derived and aggregated results are included to support inspection of the reported empirical findings.
+Representative artifacts are provided to illustrate the processing workflow, while derived, baseline, and aggregated results are included to support inspection of the reported empirical findings.
 
 ---
 
@@ -897,7 +1036,11 @@ They do not establish:
 
 Expected-Result Presence Coverage evaluates whether meaningful expected-result information is present and should not be interpreted as validation of the correctness of that expected result.
 
+The external requirement baseline evaluates correspondence with held-out benchmark requirement-test relationships rather than executable test effectiveness.
+
 Similarly, the sustainability results represent operational estimates recorded for the evaluated inference workloads and execution environments.
+
+The two uploaded CodeCarbon CSV files are representative execution-level examples and should not be interpreted as the complete raw measurement collection for all experimental phases.
 
 The conclusions in the manuscript are therefore interpreted within the scope of these empirical measures and the evaluated experimental settings.
 
