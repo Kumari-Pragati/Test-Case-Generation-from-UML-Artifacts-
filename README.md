@@ -49,7 +49,7 @@ The fine-tuned classifier checkpoint is not stored directly in this GitHub repos
 
 **Google Drive:**
 
-[Download the fine-tuned UML classifier checkpoint](PASTE_GOOGLE_DRIVE_LINK_HERE)
+https://drive.google.com/file/d/164RBV0_-bfEueQgSElIWAprOEI4FvzY0/view?usp=sharing
 
 The checkpoint is used by:
 
