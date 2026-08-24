@@ -243,7 +243,7 @@ This notebook extends the primary element-level semantic coverage analysis with 
 
 The additional evaluation includes the following metrics.
 
-## Co-occurrence-Aware UML Test Objective Coverage
+## Co-occurrence-Aware Test Objective Coverage
 
 This metric evaluates whether semantically related UML information forming a test objective is jointly represented in generated design-based test cases.
 
