@@ -175,6 +175,22 @@ The complete original source-code repositories are not publicly provided because
 
 ---
 
+# Metric Terminology Note
+
+The terminology used in some repository notebooks and result files reflects the experimental implementation and may differ from the notation adopted in the revised manuscript. The following mapping should be used when interpreting the repository results:
+
+- **Semantic Coverage / ELSC** → **Element-Level Semantic Coverage (α)**
+- **Alignment Score** → **Alignment Score (β)**
+- **COC** → **Co-occurrence-Aware Test Objective Coverage (γ)**
+- **CBTC** → **Condition-Bound Transition Coverage (δ)**
+- **ERPC / Oracle-Level Coverage** → **Expected-Result Presence Coverage (ε)**
+
+In the original study, the primary measures were referred to as **Semantic Coverage** and **Alignment Score**. During manuscript revision, Semantic Coverage was refined as Element-Level Semantic Coverage and represented by **α**, while Alignment Score is represented by **β**. The complementary objective-level measures represented by **γ**, **δ**, and **ε** were introduced during the revised evaluation.
+
+Some repository notebooks, spreadsheets, and generated result files retain abbreviations or original column names to preserve the experimental artifacts in their generated form. The notation **α, β, γ, δ, and ε** used in the revised manuscript should therefore be considered the corresponding manuscript terminology when interpreting these repository results.
+
+---
+
 # Alignment Score and Element-Level Semantic Coverage
 
 **File:**
